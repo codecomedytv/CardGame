@@ -34,12 +34,12 @@ namespace CardGame.Client {
 		
 		public void OnConnected() {
 			GD.Print(String.Format("{0} has connected from {1} and {2}", this, GetCustomMultiplayer(), client));
-			//RpcId(1, "RegisterPlayer", CustomMultiplayer.GetNetworkUniqueId(), Decklist);
+			RpcId(1, "RegisterPlayer", CustomMultiplayer.GetNetworkUniqueId(), Decklist);
 		}
 		
 		public void OnFailed() { GD.Print("Connection Failed"); }
 		
-		//[Puppet]
+		[Puppet]
 		public void CreateRoom(string GameID){
 			GD.Print("Creating Room");
 		}

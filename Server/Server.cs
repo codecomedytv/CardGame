@@ -34,7 +34,7 @@ namespace CardGame.Server {
 			}
 		}
 		
-//		[Master]
+		[Master]
 		public void RegisterPlayer(int ID, List<System.Object> Decklist) 
 		{
 			Queue.Add(new Player(ID, Decklist));
