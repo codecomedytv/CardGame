@@ -39,7 +39,6 @@ public class Connection : Control
 			{  
 				return; 
 			}
-		GD.Print(RelativePath);
 		N.CustomMultiplayer = CustomMultiplayer;
 	}
 	
