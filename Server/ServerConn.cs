@@ -38,7 +38,6 @@ namespace CardGame.Server {
 		public void RegisterPlayer(int ID, List<System.Object> Decklist) 
 		{
 			Queue.Add(new Player(ID, Decklist));
-			GD.Print("Added Player");
 		}
 		
 		private void Host() 

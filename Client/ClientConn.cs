@@ -11,12 +11,8 @@ namespace CardGame.Client {
 		private List<System.Object> Decklist; // How do we send this info online?
 		private NetworkedMultiplayerENet client;
 	
-		// public Client() {}
-		
 		public override void _Ready() 
 		{	
-//			CustomMultiplayer = new MultiplayerAPI();
-//			CustomMultiplayer.SetRootNode(this); 
 			GetNode("Join").Connect("pressed", this, "Join");
 		}
 		
@@ -33,7 +29,6 @@ namespace CardGame.Client {
 		}
 		
 		public void OnConnected() {
-			GD.Print(String.Format("{0} has connected from {1} and {2}", this, GetCustomMultiplayer(), client));
 			RpcId(1, "RegisterPlayer", CustomMultiplayer.GetNetworkUniqueId(), Decklist);
 		}
 		
@@ -42,6 +37,9 @@ namespace CardGame.Client {
 		[Puppet]
 		public void CreateRoom(string GameID){
 			GD.Print("Creating Room");
+			Game Room = new Game();
+			Room.Name = GameID;
+			AddChild(Room);
 		}
 
 	}
