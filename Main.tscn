@@ -36,12 +36,3 @@ anchor_bottom = 0.0
 margin_top = 8.0
 margin_right = 125.0
 margin_bottom = 8.0
-focus_mode = 1
-
-[node name="Join" parent="VBoxContainer/Client2" index="0"]
-margin_left = 96.8071
-margin_top = -3.49905
-margin_right = 179.807
-margin_bottom = 16.5009
-
-[editable path="VBoxContainer/Client2"]

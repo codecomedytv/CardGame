@@ -29,9 +29,17 @@ public class Connection : Control
 	{
 		string TreePath = (string)N.GetPath();
 		string OurPath = (string)GetPath();
-		if(TreePath.Substr(0, OurPath.Length()) != OurPath) { return; }
+		string substr = TreePath.Substr(0, OurPath.Length());
+		if(substr != OurPath) 
+			{
+				return; 
+			}
 		string RelativePath = (string)TreePath.Substr(OurPath.Length(), TreePath.Length());
-		if(RelativePath.Length() > 0 && RelativePath.BeginsWith("/")) { return; }
+		if(RelativePath.Length() > 0 && !RelativePath.BeginsWith("/")) 
+			{  
+				return; 
+			}
+		GD.Print(RelativePath);
 		N.CustomMultiplayer = CustomMultiplayer;
 	}
 	

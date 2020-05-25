@@ -11,11 +11,12 @@ namespace CardGame.Client {
 		private List<System.Object> Decklist; // How do we send this info online?
 		private NetworkedMultiplayerENet client;
 	
-		public Client() {}
+		// public Client() {}
 		
 		public override void _Ready() 
 		{	
-			GD.Print("Client Ready");
+//			CustomMultiplayer = new MultiplayerAPI();
+//			CustomMultiplayer.SetRootNode(this); 
 			GetNode("Join").Connect("pressed", this, "Join");
 		}
 		
@@ -25,17 +26,15 @@ namespace CardGame.Client {
 			client = new NetworkedMultiplayerENet();
 			Godot.Error err = client.CreateClient(Ip, Port);
 			if(err != Error.Ok) { GD.PushWarning(err.ToString()); }
-			err = Multiplayer.Connect("connected_to_server", this, "OnConnected");
+			err = CustomMultiplayer.Connect("connected_to_server", this, "OnConnected");
 			if(err != Error.Ok) { GD.PushWarning(err.ToString()); }
-			Multiplayer.Connect("connection_failed", this, "OnFailed");
-			Multiplayer.NetworkPeer = client;
-			GD.Print("Join End");
-			GD.Print(client.GetConnectionStatus());
+			CustomMultiplayer.Connect("connection_failed", this, "OnFailed");
+			CustomMultiplayer.NetworkPeer = client;
 		}
 		
 		public void OnConnected() {
-			GD.Print("Attempting To Register");
-			//RpcId(1, "RegisterPlayer", Multiplayer.GetNetworkUniqueId(), Decklist);
+			GD.Print(String.Format("{0} has connected from {1} and {2}", this, GetCustomMultiplayer(), client));
+			//RpcId(1, "RegisterPlayer", CustomMultiplayer.GetNetworkUniqueId(), Decklist);
 		}
 		
 		public void OnFailed() { GD.Print("Connection Failed"); }

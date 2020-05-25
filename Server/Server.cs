@@ -14,9 +14,7 @@ namespace CardGame.Server {
 		
 		public override void _Ready() 
 		{
-			GD.Print("Server Ready");
 			Host();
-			GD.Print(server.GetConnectionStatus());
 		}
 	
 		public override void _Process(float delta) 
