@@ -8,6 +8,7 @@ namespace CardGame.Server {
 	{
 		private List<System.Object> Decklist;
 		public readonly int ID;
+		public Player Opponent;
 		
 		public Player() {}
 		

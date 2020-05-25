@@ -8,6 +8,12 @@ namespace CardGame.Server {
 	{
 		private List<Player> Players;
 		
+		[Signal]
+		delegate void GamestateUpdated();
+		
+		[Signal]
+		delegate void Disqualified();
+		
 		public Game() {}
 		
 		public Game(List<Player> players)
