@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace CardGame.Client {
 	
-	public class Client : Connection
+	public class ClientConn : Connection
 	{
 		const string Ip = "127.0.0.1";
 		const int Port = 5000;

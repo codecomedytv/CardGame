@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace CardGame.Server {
 	
-	public class Server : Connection
+	public class ServerConn : Connection
 	{
 		
 		const int Port = 5000;
