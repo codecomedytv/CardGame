@@ -33,7 +33,7 @@ namespace CardGame.Server
         {
             // TODO: Add Tag Check
             CanBeDeployed = true;
-            Controller.DeclarePlay("BlankEvent");
+            Controller.DeclarePlay(new SetAsDeployable(this));
         }
 
         public void SetAsAttacker()
@@ -54,7 +54,7 @@ namespace CardGame.Server
                 ValidAttackTargets.Add(unit);
             }
             
-            Controller.DeclarePlay("BlankEvent");
+            Controller.DeclarePlay(new SetTargets(this, ValidAttackTargets.ToList()));
         }
 
     }

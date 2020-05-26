@@ -1,4 +1,6 @@
-﻿namespace CardGame.Server
+﻿using System.Collections.Generic;
+
+namespace CardGame.Server
 {
     public class Support: Card
     {
@@ -26,14 +28,14 @@
         protected override void _SetAsPlayable()
         {
             CanBeSet = true;
-            Controller.DeclarePlay("BlankEvent");
+            Controller.DeclarePlay(new SetAsSettable(this));
         }
 
         public void SetAsSettable()
         {
             // Check for Anti-Set Tags
             CanBeSet = true;
-            Controller.DeclarePlay("BlankEvent");
+            Controller.DeclarePlay(new SetAsSettable(this));
         }
 
         public void SetAsActivatable(string gameEvent)
@@ -41,11 +43,12 @@
             foreach (var skill in Skills)
             {
                 skill.SetUp(gameEvent);
-                if (skill.CanBeUsed)
+                if (!skill.CanBeUsed)
                 {
-                    CanBeActivated = true;
-                    Controller.DeclarePlay("BlankEvent");
+                    continue;
                 }
+                CanBeActivated = true;
+                Controller.DeclarePlay(new Activate(this, new List<Card>()));
             }
         }
         

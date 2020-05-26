@@ -35,7 +35,7 @@ namespace CardGame.Server {
 		}
 		
 		[Master]
-		public void RegisterPlayer(int player, List<Godot.Object> deckList) 
+		public void RegisterPlayer(int player, List<int> deckList) 
 		{
 			Queue.Add(new Player(player, deckList));
 		}

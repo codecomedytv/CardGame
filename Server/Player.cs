@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CardGame.Server {
 
@@ -9,7 +10,7 @@ namespace CardGame.Server {
 		public enum States { Idle, Active, Passive, Acting, Passing }
 
 		public States State = States.Passive;
-		private List<Godot.Object> DeckList;
+		private List<int> DeckList;
 		public readonly int Id;
 		public Player Opponent;
 		public int Health = 8000;
@@ -43,7 +44,7 @@ namespace CardGame.Server {
 		
 		public Player() {}
 		
-		public Player(int id, List<Godot.Object> deckList)
+		public Player(int id, List<int> deckList)
 		{
 			DeckList = deckList;
 			Id = id;
@@ -52,7 +53,7 @@ namespace CardGame.Server {
 
 		public void LoadDeck(Gamestate game)
 		{
-			foreach (var setCode in DeckList)
+			foreach (int setCode in DeckList)
 			{
 				var card = Library.Create(setCode);
 				foreach (var skill in card.Skills)
@@ -67,10 +68,10 @@ namespace CardGame.Server {
 				Deck.Add(card);
 			}
 
-			DeclarePlay(new Event.LoadDeck.Record(Deck));
+			DeclarePlay(new LoadDeck(Deck.ToList()));
 		}
 
-		public void DeclarePlay(System.Object gameEvent)
+		public void DeclarePlay(GameEvent gameEvent)
 		{
 			throw new NotImplementedException();
 		}

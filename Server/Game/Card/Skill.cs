@@ -10,6 +10,7 @@ namespace CardGame.Server {
 		public Player Opponent;
 		public Card Card;
 		public bool CanBeUsed = false;
+		public Gamestate GameState;
 
 		public void SetUp(string gameEvent)
 		{
