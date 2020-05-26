@@ -22,6 +22,71 @@ namespace CardGame.Server {
 		public Card Attacking;
 		public Player TurnPlayer;
 		public Player ActivePlayer;
+
+		public void Setup(List<Player> players)
+		{
+			PlayerMap[players[0].ID] = players[0];
+			PlayerMap[players[1].ID] = players[1];
+			Players = players;
+		}
+
+		public void RegisterCard(Card card)
+		{
+			
+		}
+
+		public void Begin(Player first)
+		{
+			
+		}
+
+		public void OnTurnEnd(Player opponent)
+		{
+			
+		}
+
+		public void OnPriorityPassed(Player Opponent)
+		{
+			
+		}
+
+		public Card GetCard(int id)
+		{
+			return CardCatalog[id];
+		}
+
+		public void Pause()
+		{
+			Paused = true;
+		}
+
+		public Player GetTurnPlayer()
+		{
+			return TurnPlayer;
+		}
+
+		public Player GetActivePlayer()
+		{
+			return ActivePlayer;
+		}
+
+		public void TargetsRequested(int who, List<System.Object> what = default(List<System.Object>))
+		{
+			
+		}
+
+		public void OnTargetsSelected(int what)
+		{
+			Target = CardCatalog[what];
+			Unpause();
+		}
+
+		public void Unpause()
+		{
+			Paused = false;
+			EmitSignal("Unpaused");
+		}
+
 	}
 
 }
