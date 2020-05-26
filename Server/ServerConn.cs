@@ -7,9 +7,9 @@ namespace CardGame.Server {
 	public class ServerConn : Connection
 	{
 		
-		const int Port = 5000;
+		private const int Port = 5000;
 		private int RoomCount = 0;
-		private NetworkedMultiplayerENet server;
+		private NetworkedMultiplayerENet Server;
 		private List<Player> Queue = new List<Player>();
 		
 		public override void _Ready() 
@@ -26,48 +26,48 @@ namespace CardGame.Server {
 			Multiplayer.Poll();
 		}
 		
-		public override void _Notification(int Notification)
+		public override void _Notification(int notification)
 		{
-			if(Notification == NotificationExitTree) 
+			if(notification == NotificationExitTree) 
 			{ 
-			  server.CloseConnection(); 
+			  Server.CloseConnection(); 
 			}
 		}
 		
 		[Master]
-		public void RegisterPlayer(int ID, List<System.Object> Decklist) 
+		public void RegisterPlayer(int player, List<Godot.Object> deckList) 
 		{
-			Queue.Add(new Player(ID, Decklist));
+			Queue.Add(new Player(player, deckList));
 		}
 		
 		private void Host() 
 		{
-			server = new NetworkedMultiplayerENet();
-			Godot.Error err = server.CreateServer(Port);
+			Server = new NetworkedMultiplayerENet();
+			var err = Server.CreateServer(Port);
 			if(err != Error.Ok ) { GD.PushWarning(err.ToString()); }
-			Multiplayer.NetworkPeer = server;
+			Multiplayer.NetworkPeer = Server;
 		}
 		
 		private void CreateRoom() 
 		{
-			List<Player> Players = GetPlayers();
-			Game Room = new Game(Players);
+			var players = GetPlayers();
+			var room = new Game(players);
 			RoomCount++;
-			Room.Name = RoomCount.ToString();
-			AddChild(Room);
-			// Add Disqualifcation Method Here
-			RpcId(Players[0].ID, "CreateRoom", Room.Name);
-			RpcId(Players[1].ID, "CreateRoom", Room.Name);
+			room.Name = RoomCount.ToString();
+			AddChild(room);
+			// Add disqualification Method Here
+			RpcId(players[0].Id, "CreateRoom", room.Name);
+			RpcId(players[1].Id, "CreateRoom", room.Name);
 		}
 		
 		private List<Player> GetPlayers(int count = 2)
 		{
-			List<Player> Players = new List<Player>();
-			for(int i = 0; i < count; i++){
-				Players.Add(Queue[0]);
+			var players = new List<Player>();
+			for(var i = 0; i < count; i++){
+				players.Add(Queue[0]);
 				Queue.RemoveAt(0);
 			}
-			return Players;
+			return players;
 		}
 			
 		

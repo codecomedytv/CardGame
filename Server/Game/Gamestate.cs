@@ -25,8 +25,8 @@ namespace CardGame.Server {
 
 		public void Setup(List<Player> players)
 		{
-			PlayerMap[players[0].ID] = players[0];
-			PlayerMap[players[1].ID] = players[1];
+			PlayerMap[players[0].Id] = players[0];
+			PlayerMap[players[1].Id] = players[1];
 			Players = players;
 		}
 

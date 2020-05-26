@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using Godot.Collections;
 
 namespace CardGame.Server {
 
@@ -20,9 +21,7 @@ namespace CardGame.Server {
 		[Signal]
 		delegate void Disqualified();
 
-		public Game()
-		{
-		}
+		public Game() { }
 
 		public Game(List<Player> players)
 		{
@@ -41,7 +40,20 @@ namespace CardGame.Server {
 			connect(Messenger, nameof(Messenger.Attacked), this, nameof(OnAttack));
 			connect(Messenger, nameof(Messenger.FaceDownSet),this, nameof(OnSetFaceDown));
 			connect(Messenger, nameof(Messenger.Activated), this, nameof(OnActivation));
-			connect(Messenger, nameof(Messenger.PassedPriority), this, nameof(OnPriorityPassed));
+			connect(Messenger, nameof(Messenger.PassedPriority), Link, nameof(Link.OnPriorityPassed));
+			connect(Judge, nameof(Judge.Disqualified), this, nameof(OnPlayerDisqualified));
+			connect(Link, nameof(Link.Updated), this, nameof(Update));
+			foreach (var player in Players)
+			{
+				connect(player, nameof(Player.PlayExecuted), Messenger, nameof(Messenger.OnPlayExecuted));
+				connect(player, nameof(Player.TurnEnded), Gamestate, nameof(Gamestate.OnTurnEnd));
+				var bounds = new Godot.Collections.Array { player.Opponent };
+				connect(player, nameof(Player.PriorityPassed), Gamestate, nameof(Gamestate.OnPriorityPassed), bounds);
+				connect(player, nameof(Player.Register), Link, nameof(Link.Register));
+				connect(player, nameof(Player.Deployed), Link, nameof(Link.Broadcast));
+				connect(player, nameof(Player.Paused), Gamestate, nameof(Gamestate.Pause));
+				
+			}
 
 		}
 
@@ -74,17 +86,22 @@ namespace CardGame.Server {
 		{
 			
 		}
-
-		public void OnPriorityPassed(int player)
-		{
-			
-		}
-
+		
 		public void OnEndTurn(int playerID)
 		{
 			
 		}
-		
+
+		public void OnPlayerDisqualified(int player, int reason)
+		{
+			
+		}
+
+		public void Update()
+		{
+			
+		}
+
 		private void connect(Godot.Object emitter, string signal, Godot.Object receiver, string method, Godot.Collections.Array binds = default(Godot.Collections.Array))
 		{
 			Godot.Error Error = emitter.Connect(signal, receiver, method, binds);

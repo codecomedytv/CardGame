@@ -6,7 +6,7 @@ namespace CardGame.Server {
 	public class Judge : Reference
 	{
 		[Signal]
-		delegate void disqualified();
+		public delegate void Disqualified();
 		
 		const bool ILLEGAL = true;
 		const bool LEGAL = false;

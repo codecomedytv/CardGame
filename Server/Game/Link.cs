@@ -13,34 +13,34 @@ namespace CardGame.Server {
 		private List<Skill> Auto = new List<Skill>();
 		
 		[Signal]
-		delegate void Update();
+		public delegate void Updated();
 		
 		public void SetUp(Gamestate game)
 		{
 			if(Game == null) { Game = game; }
 		}
 		
-		public void AddResolvable(Godot.Object Action)
+		public void AddResolvable(Godot.Object action)
 		{
 			
 		}
 		
-		public void ApplyConstants(String Event)
+		public void ApplyConstants(string gameEvent)
 		{
 			
 		}
 		
-		public void ApplyTriggered(String Event)
+		public void ApplyTriggered(string gameEvent)
 		{
 			
 		}
 		
-		public void  SetupManual(String Event)
+		public void  SetupManual(string gameEvent)
 		{
 			
 		}
 		
-		public void Broadcast(String Event, List<System.Object> Arguments = default(List<System.Object>))
+		public void Broadcast(string gameEvent, List<System.Object> arguments)
 		{
 			
 		}
@@ -55,12 +55,12 @@ namespace CardGame.Server {
 			
 		}
 		
-		public void OnPriorityPassed(int PlayerID)
+		public void OnPriorityPassed(int player)
 		{
 			
 		}
 		
-		public void Activate(Player player, Card card, int SkillIndex= 0, List<System.Object> Arguments = default(List<System.Object>))
+		public void Activate(Player player, Card card, int skillIndex = 0, List<Godot.Object> args = null)
 		{
 			
 		}
@@ -70,10 +70,11 @@ namespace CardGame.Server {
 			
 		}
 		
-		public void update()
+		public void Update()
 		{
 			
 		}
+		
 	}
 
 }
