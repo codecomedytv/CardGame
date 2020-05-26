@@ -16,6 +16,9 @@ namespace CardGame.Server {
 		public delegate void Activated();
 
 		[Signal]
+		public delegate void FaceDownSet();
+
+		[Signal]
 		public delegate void Targeted();
 
 		[Signal]
@@ -44,39 +47,52 @@ namespace CardGame.Server {
 
 		public void DisqualifyPlayer(int player, int reason)
 		{
-			GD.Print(String.Format("Player {0} disqualified because: {1}"), player, reason);
+			GD.Print(String.Format("Player {0} disqualified because: {1}", player, reason));
 		}
 
+		[Master]
 		public void Deploy(int player, int card)
 		{
 			EmitSignal(nameof(Deployed), player, card);
 		}
 
+		[Master]
 		public void Attack(int player, int attacker, int defender)
 		{
 			EmitSignal(nameof(Attacked), player, attacker, defender);
 		}
 
+		[Master]
 		public void Activate(int player, int card, int skillIndex, List<int> targets)
 		{
 			EmitSignal(nameof(Activated), player, card, skillIndex, targets);
 		}
 
+		[Master]
+		public void SetFaceDown(int player, int faceDown)
+		{
+			EmitSignal(nameof(FaceDownSet), player, faceDown);
+		}
+
+		[Master]
 		public void Target(int player, int target)
 		{
 			EmitSignal(nameof(Targeted), target);
 		}
 
+		[Master]
 		public void PassPlay(int player)
 		{
 			EmitSignal(nameof(PassedPriority), player);
 		}
 
+		[Master]
 		public void EndTurn(int player)
 		{
 			EmitSignal(nameof(EndedTurn), player);
 		}
 
+		[Master]
 		public void SetReady(int player)
 		{
 			EmitSignal(nameof(PlayerSeated), player);

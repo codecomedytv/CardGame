@@ -8,12 +8,12 @@ namespace CardGame.Server {
 	{
 		
 		private List<Player> Players;
-		private Node Messenger = new Messenger();
-		private Reference Gamestate = new Gamestate();
-		private Reference Battle = new Battle();
-		private Reference Link = new Link();
-		private Reference Judge = new Judge();
-		
+		private Messenger Messenger = new Messenger();
+		private Gamestate Gamestate = new Gamestate();
+		private Battle Battle = new Battle();
+		private Link Link = new Link();
+		private Judge Judge = new Judge();
+
 		[Signal]
 		delegate void GamestateUpdated();
 		
@@ -34,11 +34,18 @@ namespace CardGame.Server {
 		public override void _Ready()
 		{
 			AddChild(Messenger);
-			connect(Messenger, "Targeted", Gamestate, "OnTargetsSelected");
-			
+			connect(Messenger, nameof(Messenger.Targeted), Gamestate, nameof(Gamestate.OnTargetsSelected));
+			connect(Messenger, nameof(Messenger.PlayerSeated), this, nameof(OnPlayerSeated));
+			connect(Messenger, nameof(Messenger.EndedTurn), this, nameof(OnEndTurn));
+			connect(Messenger, nameof(Messenger.Deployed), this, nameof(OnDeploy));
+			connect(Messenger, nameof(Messenger.Attacked), this, nameof(OnAttack));
+			connect(Messenger, nameof(Messenger.FaceDownSet),this, nameof(OnSetFacedown));
+			connect(Messenger, nameof(Messenger.Activated), this, nameof(OnActivation));
+			connect(Messenger, nameof(Messenger.PassedPriority), this, nameof(OnPriorityPassed));
+
 		}
 
-		public void OnPlayerSeated(int ID)
+		public void OnPlayerSeated(int player)
 		{
 			
 		}
@@ -48,27 +55,32 @@ namespace CardGame.Server {
 			
 		}
 		
-		public void OnDeployDeclared(int PlayerID, int CardID)
+		public void OnDeploy(int player, int card)
 		{
 			
 		}
 		
-		public void OnAttackDeclared(int PlayerID, int AttackerID, int DefenderID)
+		public void OnAttack(int player, int attacker, int defender)
 		{
 			
 		}
 		
-		public void OnSetFacedownDeclared(int PlayerID, int FacedownID)
+		public void OnSetFacedown(int player, int faceDown)
 		{
 			
 		}
 		
-		public void OnActivationDeclared(int PlayerID, int CardID, int SkillIndex, List<int> Targets)
+		public void OnActivation(int player, int card, int skillIndex, List<int> targets)
 		{
 			
 		}
-		
-		public void OnEndTurnDeclared(int PlayerID)
+
+		public void OnPriorityPassed(int player)
+		{
+			
+		}
+
+		public void OnEndTurn(int PlayerID)
 		{
 			
 		}

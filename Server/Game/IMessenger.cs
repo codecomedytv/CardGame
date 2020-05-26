@@ -7,16 +7,17 @@ namespace CardGame.Server {
 	public interface IMessenger 
 	{
 		
-		void OnPlayExecuted(Player player, System.Object Event);
-		void Update(List<Player> Players);
-		void DisqualifyPlayer(int ID, int Reason);
-		void Deploy(int PlayerID, int CardID);
-		void Attack(int PlayerID, int AttackerID, int DefenderID);
-		void Activate(int PlayerID, int CardID, int SkillIndex, List<int> Targets);
-		void Target(int PlayerID, int TargetID);
-		void PassPlay(int PlayerID);
-		void EndTurn(int PlayerID);
-		void SetReady(int PlayerID);
+		void OnPlayExecuted(Player player, System.Object gameEvent);
+		void Update(List<Player> players);
+		void DisqualifyPlayer(int player, int reason);
+		void Deploy(int player, int card);
+		void Attack(int player, int attacker, int defender);
+		void Activate(int player, int card, int skillIndex, List<int> targets);
+		void SetFaceDown(int player, int card);
+		void Target(int player, int target);
+		void PassPlay(int player);
+		void EndTurn(int player);
+		void SetReady(int player);
 		
 		
 	}
