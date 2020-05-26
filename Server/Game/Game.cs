@@ -39,7 +39,7 @@ namespace CardGame.Server {
 			connect(Messenger, nameof(Messenger.EndedTurn), this, nameof(OnEndTurn));
 			connect(Messenger, nameof(Messenger.Deployed), this, nameof(OnDeploy));
 			connect(Messenger, nameof(Messenger.Attacked), this, nameof(OnAttack));
-			connect(Messenger, nameof(Messenger.FaceDownSet),this, nameof(OnSetFacedown));
+			connect(Messenger, nameof(Messenger.FaceDownSet),this, nameof(OnSetFaceDown));
 			connect(Messenger, nameof(Messenger.Activated), this, nameof(OnActivation));
 			connect(Messenger, nameof(Messenger.PassedPriority), this, nameof(OnPriorityPassed));
 
@@ -65,7 +65,7 @@ namespace CardGame.Server {
 			
 		}
 		
-		public void OnSetFacedown(int player, int faceDown)
+		public void OnSetFaceDown(int player, int faceDown)
 		{
 			
 		}
@@ -80,14 +80,14 @@ namespace CardGame.Server {
 			
 		}
 
-		public void OnEndTurn(int PlayerID)
+		public void OnEndTurn(int playerID)
 		{
 			
 		}
 		
-		private void connect(Godot.Object Emitter, string Signal, Godot.Object Receiver, String Method, Godot.Collections.Array Binds = default(Godot.Collections.Array))
+		private void connect(Godot.Object emitter, string signal, Godot.Object receiver, string method, Godot.Collections.Array binds = default(Godot.Collections.Array))
 		{
-			Godot.Error Error = Emitter.Connect(Signal, Receiver, Method, Binds);
+			Godot.Error Error = emitter.Connect(signal, receiver, method, binds);
 			if(Error != Error.Ok) { GD.PushWarning(Error.ToString()); }
 		}
 	}
