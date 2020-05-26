@@ -7,8 +7,8 @@ namespace CardGame.Server {
 	public abstract class Card : Reference
 	{
 		public String Title = "Card";
-		public int Setcode = 0;
-		public readonly int ID;
+		public readonly int Setcode = 0;
+		public readonly int Id;
 		public Player Owner;
 		public Player Controller;
 		public Player Opponent;
@@ -43,7 +43,7 @@ namespace CardGame.Server {
 		public Godot.Collections.Dictionary Serialize()
 		{
 			Godot.Collections.Dictionary data = new Godot.Collections.Dictionary();
-			data["id"] = ID;
+			data["id"] = Id;
 			data["setcode"] = Setcode;
 			return data;
 		}

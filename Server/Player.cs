@@ -13,6 +13,7 @@ namespace CardGame.Server {
 		public readonly int Id;
 		public Player Opponent;
 		public bool Ready = false;
+		public bool Disqualified;
 
 		[Signal]
 		public delegate void PlayExecuted();
@@ -66,6 +67,41 @@ namespace CardGame.Server {
 		}
 
 		public void DeclareState()
+		{
+			throw new NotImplementedException();
+		}
+
+		public void SetAttackers()
+		{
+			throw new NotImplementedException();
+		}
+
+		public void SetActivatables(string gameEvent = "")
+		{
+			throw new NotImplementedException();
+		}
+
+		public void ReadyCards()
+		{
+			throw new NotImplementedException();
+		}
+
+		public void SetFaceDown(Card card)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void ShowAttack(int playerId, int attackerId, int defenderId)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Deploy(Card card)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void EndTurn()
 		{
 			throw new NotImplementedException();
 		}

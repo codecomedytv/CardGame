@@ -25,7 +25,7 @@ namespace CardGame.Server {
 			
 		}
 		
-		public void ApplyConstants(string gameEvent)
+		public void ApplyConstants(string gameEvent = "")
 		{
 			
 		}
@@ -40,7 +40,7 @@ namespace CardGame.Server {
 			
 		}
 		
-		public void Broadcast(string gameEvent, List<System.Object> arguments)
+		public void Broadcast(string gameEvent, List<Godot.Object> arguments)
 		{
 			
 		}
@@ -60,7 +60,7 @@ namespace CardGame.Server {
 			
 		}
 		
-		public void Activate(Player player, Card card, int skillIndex = 0, List<Godot.Object> args = null)
+		public void Activate(Player player, Card card, int skillIndex = 0, List<int> args = null)
 		{
 			
 		}

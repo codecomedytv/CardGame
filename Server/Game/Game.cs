@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using Godot.Collections;
+using Object = Godot.Object;
 
 namespace CardGame.Server {
 
@@ -9,17 +10,17 @@ namespace CardGame.Server {
 	{
 		
 		private List<Player> Players;
-		private Messenger Messenger = new Messenger();
-		private Gamestate Gamestate = new Gamestate();
-		private Battle Battle = new Battle();
-		private Link Link = new Link();
-		private Judge Judge = new Judge();
+		private readonly Messenger Messenger = new Messenger();
+		private readonly Gamestate GameState = new Gamestate();
+		private readonly Battle Battle = new Battle();
+		private readonly Link Link = new Link();
+		private readonly Judge Judge = new Judge();
 
 		[Signal]
-		delegate void GamestateUpdated();
+		public delegate void GameStateUpdated();
 		
 		[Signal]
-		delegate void Disqualified();
+		public delegate void Disqualified();
 
 		public Game() { }
 
@@ -33,7 +34,7 @@ namespace CardGame.Server {
 		public override void _Ready()
 		{
 			AddChild(Messenger);
-			connect(Messenger, nameof(Messenger.Targeted), Gamestate, nameof(Gamestate.OnTargetsSelected));
+			connect(Messenger, nameof(Messenger.Targeted), GameState, nameof(Gamestate.OnTargetsSelected));
 			connect(Messenger, nameof(Messenger.PlayerSeated), this, nameof(OnPlayerSeated));
 			connect(Messenger, nameof(Messenger.EndedTurn), this, nameof(OnEndTurn));
 			connect(Messenger, nameof(Messenger.Deployed), this, nameof(OnDeploy));
@@ -46,12 +47,12 @@ namespace CardGame.Server {
 			foreach (var player in Players)
 			{
 				connect(player, nameof(Player.PlayExecuted), Messenger, nameof(Messenger.OnPlayExecuted));
-				connect(player, nameof(Player.TurnEnded), Gamestate, nameof(Gamestate.OnTurnEnd));
+				connect(player, nameof(Player.TurnEnded), GameState, nameof(GameState.OnTurnEnd));
 				var bounds = new Godot.Collections.Array { player.Opponent };
-				connect(player, nameof(Player.PriorityPassed), Gamestate, nameof(Gamestate.OnPriorityPassed), bounds);
+				connect(player, nameof(Player.PriorityPassed), GameState, nameof(GameState.OnPriorityPassed), bounds);
 				connect(player, nameof(Player.Register), Link, nameof(Link.Register));
 				connect(player, nameof(Player.Deployed), Link, nameof(Link.Broadcast));
-				connect(player, nameof(Player.Paused), Gamestate, nameof(Gamestate.Pause));
+				connect(player, nameof(Player.Paused), GameState, nameof(GameState.Pause));
 				
 			}
 
@@ -59,7 +60,7 @@ namespace CardGame.Server {
 
 		public void OnPlayerSeated(int id)
 		{
-			Gamestate.Player(id).Ready = true;
+			GameState.Player(id).Ready = true;
 			foreach (var player in Players)
 			{
 				if (!player.Ready)
@@ -71,7 +72,7 @@ namespace CardGame.Server {
 
 			foreach (var player in Players)
 			{
-				player.LoadDeck(Gamestate);
+				player.LoadDeck(GameState);
 				player.Shuffle();
 			}
 
@@ -81,7 +82,7 @@ namespace CardGame.Server {
 			}
 
 			var startingPlayer = Players[Players.Count - 1];
-			Gamestate.Begin(startingPlayer);
+			GameState.Begin(startingPlayer);
 			startingPlayer.State = Player.States.Idle;
 			startingPlayer.Opponent.State = Player.States.Passive;
 			startingPlayer.SetPlayableCards();
@@ -92,48 +93,133 @@ namespace CardGame.Server {
 		
 		public void BeginTurn()
 		{
+			var player = GameState.GetTurnPlayer();
+			player.Draw(1);
+			Link.ApplyConstants();
+			player.State = Player.States.Idle;
+			player.Opponent.State = Player.States.Passive;
+			player.SetPlayableCards();
+			player.SetAttackers();
+			player.SetActivatables();
+			player.Legalize();
+			player.DeclareState();
+			player.Opponent.DeclareState();
+			player.ReadyCards();
+			Update();
+		}
+		
+		public void OnDeploy(int playerId, int cardId)
+		{
+			var player = GameState.Player(playerId);
+			var card = GameState.GetCard(cardId);
+			if (Judge.DeployIsIllegalPlay(GameState, player, card))
+			{
+				return;
+			}
+
+			player.Deploy(card);
+			Link.Register(card);
+			Link.ApplyConstants("deploy");
+			Link.ApplyTriggered("deploy");
+			player.State = Player.States.Acting;
+			player.Opponent.State = Player.States.Active;
+			player.Opponent.SetActivatables("deploy");
+			player.DeclareState();
+			player.Opponent.DeclareState();
+			Link.Broadcast("deploy", new List<Godot.Object>{card});
+			Update();
 			
 		}
 		
-		public void OnDeploy(int player, int card)
+		public void OnAttack(int playerId, int attackerId, int defenderId)
 		{
+			var player = GameState.Player(playerId);
+			var attacker = GameState.GetCard(attackerId);
+			// We cannot use a mixed type (-1 for direct attacks, so we should keep that in mind)
+			var defender = GameState.GetCard(defenderId);
+			if (Judge.AttackDeclarationIsIllegal(GameState, player, attacker, defender))
+			{
+				return;
+			}
+
+			GameState.Attacking = attacker;
+			player.Opponent.ShowAttack(player.Id, attacker.Id, defender.Id);
+			Battle.Begin(player, attacker, defender);
+			Link.AddResolvable(Battle);
+			Link.ApplyConstants("attack");
+			Link.ApplyTriggered("attack");
+			player.State = Player.States.Acting;
+			player.Opponent.State = Player.States.Active;
+			player.DeclareState();
+			player.Opponent.DeclareState();
+			// Link.Broadcast("attack", [attacker, defender])
+			Update();
+		}
+		
+		public void OnSetFaceDown(int playerId, int faceDownId)
+		{
+			var player = GameState.Player(playerId);
+			var card = GameState.GetCard(faceDownId);
+			if (Judge.SettingFacedownIsIllegal(GameState, player, card))
+			{
+				return;
+			}
+			Link.ApplyConstants();
+			player.SetFaceDown(card);
+			Link.Register(card);
+			Update();
+		}
+		
+		public void OnActivation(int playerId, int cardId, int skillIndex, List<int> targets)
+		{
+			var player = GameState.Player(playerId);
+			var card = GameState.GetCard(cardId);
+			if (Judge.SupportActivationIsIllegal(GameState, player, card))
+			{
+				return;
+			}
+			Link.ApplyConstants();
+			player.State = Player.States.Acting;
+			player.Opponent.State = Player.States.Active;
+			player.DeclareState();
+			player.Opponent.DeclareState();
+			Link.Activate(player, card, skillIndex, targets);
+			Update();
 			
 		}
 		
-		public void OnAttack(int player, int attacker, int defender)
+		public void OnEndTurn(int playerId)
 		{
+			var player = GameState.Player(playerId);
+			if (Judge.EndingTurnIsIllegal(GameState, player))
+			{
+				return;
+			}
 			
-		}
-		
-		public void OnSetFaceDown(int player, int faceDown)
-		{
-			
-		}
-		
-		public void OnActivation(int player, int card, int skillIndex, List<int> targets)
-		{
-			
-		}
-		
-		public void OnEndTurn(int playerID)
-		{
-			
+			// This apparently made no real sense in the GDScript Version?
+			player.EmitSignal(nameof(Player.TurnEnded));
+			player.EndTurn();
+			Link.ApplyConstants();
+			BeginTurn();
 		}
 
-		public void OnPlayerDisqualified(int player, int reason)
+		public void OnPlayerDisqualified(int playerId, int reason)
 		{
-			
+			// We require this call to be deferred so we can keep the RPC Path Connected until Disconnected
+			GameState.Player(playerId).Disqualified = true;
+			Messenger.DisqualifyPlayer(playerId, reason);
+			EmitSignal(nameof(Disqualified), playerId);
 		}
 
 		public void Update()
 		{
-			
+			Messenger.Update(Players);
 		}
 
 		private void connect(Godot.Object emitter, string signal, Godot.Object receiver, string method, Godot.Collections.Array binds = default(Godot.Collections.Array))
 		{
-			Godot.Error Error = emitter.Connect(signal, receiver, method, binds);
-			if(Error != Error.Ok) { GD.PushWarning(Error.ToString()); }
+			var error = emitter.Connect(signal, receiver, method, binds);
+			if(error != Error.Ok) { GD.PushWarning(error.ToString()); }
 		}
 	}
 }
