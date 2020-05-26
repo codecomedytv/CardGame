@@ -8,25 +8,35 @@ namespace CardGame.Server {
 	{
 		
 		private List<Player> Players;
-		private Node Messenger;
-		private Reference Gamestate;
-		private Reference Battle;
-		private Reference Link;
-		private Reference Judge;
+		private Node Messenger = new Messenger();
+		private Reference Gamestate = new Gamestate();
+		private Reference Battle = new Battle();
+		private Reference Link = new Link();
+		private Reference Judge = new Judge();
 		
 		[Signal]
 		delegate void GamestateUpdated();
 		
 		[Signal]
 		delegate void Disqualified();
-		
-		public Game() {}
-		
+
+		public Game()
+		{
+		}
+
 		public Game(List<Player> players)
 		{
 			Players = players;
+			Players[0].Opponent = Players[1];
+			Players[1].Opponent = Players[0];
 		}
-		
+
+		public override void _Ready()
+		{
+			AddChild(Messenger);
+			connect(Messenger, "TargetDeclared", Gamestate, "OnTargetSelected");
+		}
+
 		public void OnPlayerSeated(int ID)
 		{
 			
@@ -62,7 +72,7 @@ namespace CardGame.Server {
 			
 		}
 		
-		private void connect(Godot.Object Emitter, string Signal, Godot.Object Receiver, String Method, Godot.Collections.Array Binds)
+		private void connect(Godot.Object Emitter, string Signal, Godot.Object Receiver, String Method, Godot.Collections.Array Binds = default(Godot.Collections.Array))
 		{
 			Godot.Error Error = Emitter.Connect(Signal, Receiver, Method, Binds);
 			if(Error != Error.Ok) { GD.PushWarning(Error.ToString()); }

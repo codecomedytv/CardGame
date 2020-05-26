@@ -6,7 +6,8 @@ namespace CardGame.Server {
 
 	public class Messenger : Node, IMessenger
 	{
-			
+		[Signal]
+		delegate void TargetsSelected();
 		public void OnPlayExecuted(Player player, System.Object Event) {}
 		public void Update(List<Player> Players) {}
 		public void DisqualifyPlayer(int ID, int Reason) {}
