@@ -1,6 +1,9 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+using System.Reflection;
 
 namespace CardGame.Server {
 
@@ -17,7 +20,14 @@ namespace CardGame.Server {
 		public List<Decorator> Tags;
 		public bool Legal = false;
 		public bool Activated = false;
-		
+		public bool Ready = false;
+
+
+		[AttributeUsage(AttributeTargets.Class)]
+		protected class SkillAttribute : System.Attribute
+		{
+		}
+
 		[Signal]
 		public delegate void Exit();
 		
@@ -40,20 +50,19 @@ namespace CardGame.Server {
 			}
 		}
 		
-		public Godot.Collections.Dictionary Serialize()
+		public Dictionary<string, int> Serialize()
 		{
-			return new Godot.Collections.Dictionary{{"Id", Id}, {"setCode", SetCode}};
+			return new Dictionary<string, int>{{"Id", Id}, {"setCode", SetCode}};
 		}
 		
 		public void SetZone(List<Card> newZone)
 		{
 			Zone = newZone;
-			EmitSignal("Exit");
+			EmitSignal(nameof(Exit));
 		}
 		
-		public bool HasTag(int tag)
+		public bool HasTag(Tag tag)
 		{
-			// Enums may work differently in C# as actual objects
 			foreach(var decorator in Tags){
 				if(decorator.Tag == tag){
 					return true;
@@ -62,13 +71,49 @@ namespace CardGame.Server {
 			return false;
 		}
 		
-		public void CreateSkills()
+		protected void CreateSkills()
 		{
-			// We can't use the GDScript Version
-			// but
-			// We can use lambdas and things for this
-			// We could use skill attributes
+
+			//foreach (var skill in GetType().GetNestedTypes().Where(s => s.IsDefined(typeof(SkillAttribute))))
+			//{
+			//	Skill instance = new skill();
+			//	Skills.Add(new skill());
+			//}
+			throw new NotImplementedException();
 		}
-		
+
+		protected abstract void SetAttributes();
+
+		protected void SetSkillCards()
+		{
+			foreach (var skill in Skills)
+			{
+				skill.Card = this;
+			}
+		}
+
+		public void SetAsPlayable()
+		{
+			_SetAsPlayable();
+		}
+
+		protected abstract void _SetAsPlayable();
+
+		public void SetLegal()
+		{
+			Legal = true;
+			Controller.SetLegal(this);
+		}
+
+		public void SetIllegal()
+		{
+			Legal = false;
+			Controller.Forbid(this);
+		}
+
+		public override string ToString()
+		{
+			return String.Format("{0}: {1}", Id.ToString(), Title);
+		}
 	}
 }

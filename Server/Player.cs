@@ -12,7 +12,15 @@ namespace CardGame.Server {
 		private List<Godot.Object> DeckList;
 		public readonly int Id;
 		public Player Opponent;
+		public int Health = 8000;
 		public bool Ready = false;
+		public bool Passing = false;
+		public List<Card> Deck = new List<Card>();
+		public List<Card> Discard = new List<Card>();
+		public List<Card> Hand = new List<Card>();
+		public List<Card> Field = new List<Card>();
+		public List<Card> Support = new List<Card>();
+		public List<Decorator> Tags = new List<Decorator>();
 		public bool Disqualified;
 
 		[Signal]
@@ -39,9 +47,30 @@ namespace CardGame.Server {
 		{
 			DeckList = deckList;
 			Id = id;
+			// Shuffle == shuffle;
 		}
 
 		public void LoadDeck(Gamestate game)
+		{
+			foreach (var setCode in DeckList)
+			{
+				var card = Library.Create(setCode);
+				foreach (var skill in card.Skills)
+				{
+					skill.GameState = game;
+				}
+
+				card.Owner = this;
+				card.Controller = this;
+				card.Zone = Deck;
+				game.RegisterCard(card);
+				Deck.Add(card);
+			}
+
+			DeclarePlay(new Event.LoadDeck.Record(Deck));
+		}
+
+		public void DeclarePlay(System.Object gameEvent)
 		{
 			throw new NotImplementedException();
 		}
@@ -105,5 +134,16 @@ namespace CardGame.Server {
 		{
 			throw new NotImplementedException();
 		}
+
+		public void SetLegal(Card card)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Forbid(Card card)
+		{
+			throw new NotImplementedException();
+		}
 	}
+	
 }

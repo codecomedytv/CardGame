@@ -6,7 +6,7 @@ namespace CardGame.Server {
 	
 	public class Decorator : Node
 	{
-		public int Tag;
+		public Tag Tag;
 		public List<Card> Decorated = new List<Card>();
 	}
 }

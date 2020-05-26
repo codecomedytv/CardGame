@@ -58,6 +58,8 @@
     <Compile Include="Connection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\Game\Battle.cs" />
+    <Compile Include="Server\Game\Card\Support.cs" />
+    <Compile Include="Server\Game\Card\Unit.cs" />
     <Compile Include="Server\Game\Gamestate.cs" />
     <Compile Include="Server\Game\Game.cs" />
     <Compile Include="Server\Game\Card\Card.cs" />
@@ -65,8 +67,10 @@
     <Compile Include="Server\Game\Decorator.cs" />
     <Compile Include="Server\Game\IMessenger.cs" />
     <Compile Include="Server\Game\Judge.cs" />
+    <Compile Include="Server\Game\Library\Library.cs" />
     <Compile Include="Server\Game\Link.cs" />
     <Compile Include="Server\Game\Messenger.cs" />
+    <Compile Include="Server\Game\Tag.cs" />
     <Compile Include="Server\Player.cs" />
     <Compile Include="Server\ServerConn.cs" />
   </ItemGroup>
