@@ -1,5 +1,5 @@
-using Godot;
 using System;
+using Godot;
 using System.Collections.Generic;
 
 namespace CardGame.Server {
@@ -7,17 +7,79 @@ namespace CardGame.Server {
 	public class Messenger : Node, IMessenger
 	{
 		[Signal]
-		delegate void TargetsSelected();
-		public void OnPlayExecuted(Player player, System.Object Event) {}
-		public void Update(List<Player> Players) {}
-		public void DisqualifyPlayer(int ID, int Reason) {}
-		public void Deploy(int PlayerID, int CardID) {}
-		public void Attack(int PlayerID, int AttackerID, int DefenderID) {}
-		public void Activate(int PlayerID, int CardID, int SkillIndex, List<Card> Targets) {}
-		public void Target(int PlayerID, int TargetID) {}
-		public void PassPlay(int PlayerID) {}
-		public void EndTurn(int PlayerID) {}
-		public void SetReady(int PlayerID) {}
-		public void PlayerSeated(int PlayerID) {}
+		public delegate void Deployed();
+
+		[Signal]
+		public delegate void Attacked();
+
+		[Signal]
+		public delegate void Activated();
+
+		[Signal]
+		public delegate void Targeted();
+
+		[Signal]
+		public delegate void EndedTurn();
+
+		[Signal]
+		public delegate void PassedPriority();
+
+		[Signal]
+		public delegate void PlayerSeated();
+
+		public Messenger()
+		{
+			Name = "Messenger";
+		}
+
+		public void OnPlayExecuted(Player player, System.Object Event)
+		{
+			
+		}
+
+		public void Update(List<Player> players)
+		{
+			
+		}
+
+		public void DisqualifyPlayer(int player, int reason)
+		{
+			GD.Print(String.Format("Player {0} disqualified because: {1}"), player, reason);
+		}
+
+		public void Deploy(int player, int card)
+		{
+			EmitSignal(nameof(Deployed), player, card);
+		}
+
+		public void Attack(int player, int attacker, int defender)
+		{
+			EmitSignal(nameof(Attacked), player, attacker, defender);
+		}
+
+		public void Activate(int player, int card, int skillIndex, List<int> targets)
+		{
+			EmitSignal(nameof(Activated), player, card, skillIndex, targets);
+		}
+
+		public void Target(int player, int target)
+		{
+			EmitSignal(nameof(Targeted), target);
+		}
+
+		public void PassPlay(int player)
+		{
+			EmitSignal(nameof(PassedPriority), player);
+		}
+
+		public void EndTurn(int player)
+		{
+			EmitSignal(nameof(EndedTurn), player);
+		}
+
+		public void SetReady(int player)
+		{
+			EmitSignal(nameof(PlayerSeated), player);
+		}
 	}
 }

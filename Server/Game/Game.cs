@@ -34,7 +34,8 @@ namespace CardGame.Server {
 		public override void _Ready()
 		{
 			AddChild(Messenger);
-			connect(Messenger, "TargetDeclared", Gamestate, "OnTargetSelected");
+			connect(Messenger, "Targeted", Gamestate, "OnTargetsSelected");
+			
 		}
 
 		public void OnPlayerSeated(int ID)
