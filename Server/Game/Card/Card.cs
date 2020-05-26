@@ -6,8 +6,8 @@ namespace CardGame.Server {
 
 	public abstract class Card : Reference
 	{
-		public String Title = "Card";
-		public readonly int Setcode = 0;
+		public string Title = "Card";
+		public readonly int SetCode = 0;
 		public readonly int Id;
 		public Player Owner;
 		public Player Controller;
@@ -19,7 +19,7 @@ namespace CardGame.Server {
 		public bool Activated = false;
 		
 		[Signal]
-		public delegate void exit();
+		public delegate void Exit();
 		
 		public abstract void OnControllerStateChanged(int state, string signal);
 		
@@ -42,23 +42,20 @@ namespace CardGame.Server {
 		
 		public Godot.Collections.Dictionary Serialize()
 		{
-			Godot.Collections.Dictionary data = new Godot.Collections.Dictionary();
-			data["id"] = Id;
-			data["setcode"] = Setcode;
-			return data;
+			return new Godot.Collections.Dictionary{{"Id", Id}, {"setCode", SetCode}};
 		}
 		
-		public void SetZone(List<Card> NewZone)
+		public void SetZone(List<Card> newZone)
 		{
-			Zone = NewZone;
+			Zone = newZone;
 			EmitSignal("Exit");
 		}
 		
-		public bool HasTag(int Tag)
+		public bool HasTag(int tag)
 		{
 			// Enums may work differently in C# as actual objects
 			foreach(var decorator in Tags){
-				if(decorator.Tag == Tag){
+				if(decorator.Tag == tag){
 					return true;
 				}
 			}
@@ -70,6 +67,7 @@ namespace CardGame.Server {
 			// We can't use the GDScript Version
 			// but
 			// We can use lambdas and things for this
+			// We could use skill attributes
 		}
 		
 	}
