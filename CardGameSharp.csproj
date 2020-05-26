@@ -60,6 +60,7 @@
     <Compile Include="Server\Game\Battle.cs" />
     <Compile Include="Server\Game\Card\Support.cs" />
     <Compile Include="Server\Game\Card\Unit.cs" />
+    <Compile Include="Server\Game\Events\GameEvent.cs" />
     <Compile Include="Server\Game\Gamestate.cs" />
     <Compile Include="Server\Game\Game.cs" />
     <Compile Include="Server\Game\Card\Card.cs" />
