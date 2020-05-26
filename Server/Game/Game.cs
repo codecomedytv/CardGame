@@ -57,9 +57,37 @@ namespace CardGame.Server {
 
 		}
 
-		public void OnPlayerSeated(int player)
+		public void OnPlayerSeated(int id)
 		{
-			
+			Gamestate.Player(id).Ready = true;
+			foreach (var player in Players)
+			{
+				if (!player.Ready)
+				{
+					return;
+				}
+				
+			}
+
+			foreach (var player in Players)
+			{
+				player.LoadDeck(Gamestate);
+				player.Shuffle();
+			}
+
+			foreach (var player in Players)
+			{
+				player.Draw(7);
+			}
+
+			var startingPlayer = Players[Players.Count - 1];
+			Gamestate.Begin(startingPlayer);
+			startingPlayer.State = Player.States.Idle;
+			startingPlayer.Opponent.State = Player.States.Passive;
+			startingPlayer.SetPlayableCards();
+			startingPlayer.Legalize();
+			startingPlayer.DeclareState();
+			Update();
 		}
 		
 		public void BeginTurn()

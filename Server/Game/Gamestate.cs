@@ -87,6 +87,10 @@ namespace CardGame.Server {
 			EmitSignal("Unpaused");
 		}
 
+		public Player Player(int player)
+		{
+			return PlayerMap[player];
+		}
 	}
 
 }
