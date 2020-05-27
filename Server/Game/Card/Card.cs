@@ -40,6 +40,7 @@ namespace CardGame.Server {
 		
 		public void SetOwner(Player owner) 
 		{
+			// This is a setget method on original source code;
 			Owner = owner;
 			foreach(var skill in Skills){
 				skill.Owner = Owner;
@@ -48,6 +49,7 @@ namespace CardGame.Server {
 			
 		public void SetControllerAndOpponent(Player controller)
 		{
+			// This is a setget method on Controller .property from original source code
 			Controller = controller;
 			foreach(var skill in Skills) {
 				skill.Controller = controller;

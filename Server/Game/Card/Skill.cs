@@ -44,7 +44,7 @@ namespace CardGame.Server {
 			_SetUp();
 		}
 
-		public void _SetUp()
+		public virtual void _SetUp()
 		{
 			// This is accessed with self but there is no clear setget in the source?
 			CanBeUsed = true;

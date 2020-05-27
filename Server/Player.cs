@@ -65,8 +65,8 @@ namespace CardGame.Server {
 					skill.GameState = game;
 				}
 
-				card.Owner = this;
-				card.Controller = this;
+				card.SetOwner(this);
+				card.SetControllerAndOpponent(this);
 				card.Zone = Deck;
 				game.RegisterCard(card);
 				Deck.Add(card);
