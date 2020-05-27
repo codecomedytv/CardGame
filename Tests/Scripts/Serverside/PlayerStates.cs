@@ -1,9 +1,9 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using CardGame.Server;
 
 namespace CardGame.Tests.Scripts.Serverside
 {
-    public class PlayerState_Test: GameTestFixture
+    public class PlayerStates: GameFixture
     {
         List<SetCodes> Decklist = new List<SetCodes>();
 

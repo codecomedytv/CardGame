@@ -98,11 +98,9 @@
     <Compile Include="Server\Player.cs" />
     <Compile Include="Server\ServerConn.cs" />
     <Compile Include="SetCodes.cs" />
-    <Compile Include="Tests\Game.TestFixture.cs" />
     <Compile Include="Tests\MockMessenger.cs" />
-    <Compile Include="Tests\Scripts\Serverside\new_scripdt.cs" />
-    <Compile Include="Tests\Scripts\Serverside\new_script.cs" />
-    <Compile Include="Tests\Scripts\Serverside\PlayerState.Test.cs" />
+    <Compile Include="Tests\Scripts\GameFixture.cs" />
+    <Compile Include="Tests\Scripts\Serverside\PlayerStates.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="addons\WAT\assets\crash_warning.png" />
