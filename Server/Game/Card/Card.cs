@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.CodeDom;
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
@@ -11,7 +12,7 @@ namespace CardGame.Server {
 	public abstract class Card : Reference
 	{
 		public string Title = "Card";
-		public readonly int SetCode = 0;
+		public SetCodes SetCode = 0;
 		public readonly int Id;
 		public Player Owner;
 		public Player Controller;
@@ -56,7 +57,7 @@ namespace CardGame.Server {
 		
 		public Dictionary<string, int> Serialize()
 		{
-			return new Dictionary<string, int>{{"Id", Id}, {"setCode", SetCode}};
+			return new Dictionary<string, int>{{"Id", Id}, {"setCode", (int)SetCode}};
 		}
 		
 		public void SetZone(List<Card> newZone)
@@ -78,12 +79,12 @@ namespace CardGame.Server {
 		protected void CreateSkills()
 		{
 
-			//foreach (var skill in GetType().GetNestedTypes().Where(s => s.IsDefined(typeof(SkillAttribute))))
+			GD.PushWarning("Add Skills Manually");
+			//foreach (var skill in GetType().GetNestedTypes().Where(s => s == Skill))
 			//{
-			//	Skill instance = new skill();
-			//	Skills.Add(new skill());
+			//	var  instance = new skill;
+			//	Skills.Add(instance);
 			//}
-			throw new NotImplementedException();
 		}
 
 		protected virtual void SetAttributes()

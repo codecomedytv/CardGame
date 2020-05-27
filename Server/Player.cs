@@ -26,6 +26,9 @@ namespace CardGame.Server {
 		public bool Disqualified;
 
 		[Signal]
+		public delegate void Pause();
+
+		[Signal]
 		public delegate void PlayExecuted();
 		
 		[Signal]

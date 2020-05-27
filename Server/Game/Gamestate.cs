@@ -12,7 +12,7 @@ namespace CardGame.Server {
 		[Signal]
 		delegate void UnPaused();
 		
-		public System.Object Target;
+		public Card Target;
 		public bool Paused = false;
 		public Reference History;
 		public int NextCardID = 0;
