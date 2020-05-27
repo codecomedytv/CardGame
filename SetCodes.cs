@@ -14,6 +14,13 @@
         MillOneFromDeck,
         DebugPlayerCannotTakeDamage,
         DebugReturnToDeck,
-        DebugUntargetableUnit
+        DebugUntargetableUnit,
+        Alpha_CounterAttack,
+        Alpha_DungeonGuide,
+        Alpha_GuardPuppy,
+        Alpha_NoviceArcher,
+        Alpha_QuestReward,
+        Alpha_TrainingTrainer,
+        Alpha_WrongWay
     }
 }

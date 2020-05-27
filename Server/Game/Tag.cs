@@ -5,6 +5,7 @@
         CannotBeAttacked,
         CannotTakeDamage,
         CannotBeDestroyedByEffect,
-        CannotBeTargeted
+        CannotBeTargeted,
+        CannotBeDestroyedByBattle
     }
 }

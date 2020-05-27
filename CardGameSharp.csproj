@@ -71,6 +71,13 @@
     <Compile Include="Server\Game\Link.cs" />
     <Compile Include="Server\Game\Messenger.cs" />
     <Compile Include="Server\Game\Tag.cs" />
+    <Compile Include="Server\Library\Alpha\CounterAttack.cs" />
+    <Compile Include="Server\Library\Alpha\DungeonGuide.cs" />
+    <Compile Include="Server\Library\Alpha\GuardPuppy.cs" />
+    <Compile Include="Server\Library\Alpha\NoviceArcher.cs" />
+    <Compile Include="Server\Library\Alpha\QuestReward.cs" />
+    <Compile Include="Server\Library\Alpha\TrainingTrainer.cs" />
+    <Compile Include="Server\Library\Alpha\WrongWay.cs" />
     <Compile Include="Server\Library\Debug\Atk15KDef1k.cs" />
     <Compile Include="Server\Library\Debug\Atk1Kdef1K.cs" />
     <Compile Include="Server\Library\Debug\Atk500Def500.cs" />
@@ -88,9 +95,6 @@
     <Compile Include="Server\Player.cs" />
     <Compile Include="Server\ServerConn.cs" />
     <Compile Include="SetCodes.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Server\Library\Alpha" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
