@@ -111,7 +111,7 @@ namespace CardGame.Server {
 		public void OnDeploy(int playerId, int cardId)
 		{
 			var player = GameState.Player(playerId);
-			var card = GameState.GetCard(cardId);
+			var card = (Unit)GameState.GetCard(cardId);
 			if (Judge.DeployIsIllegalPlay(GameState, player, card))
 			{
 				return;

@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,7 +21,7 @@ namespace CardGame.Server {
 		public List<Card> Graveyard = new List<Card>();
 		public List<Card> Hand = new List<Card>();
 		public List<Card> Field = new List<Card>();
-		public List<Support> Support = new List<Support>();
+		public List<Card> Support = new List<Card>();
 		public List<Decorator> Tags = new List<Decorator>();
 		public bool Disqualified;
 
@@ -108,11 +109,11 @@ namespace CardGame.Server {
 
 		public void Discard(Card discarding)
 		{
-			move(Hand, discarding, Graveyard);
+			Move(Hand, discarding, Graveyard);
 			DeclarePlay(new Discard(discarding));
 		}
 
-		private void move(List<Card> from, Card card, List<Card> to)
+		private void Move(List<Card> from, Card card, List<Card> to)
 		{
 			from.Remove(card);
 			to.Add(card);
@@ -137,7 +138,7 @@ namespace CardGame.Server {
 
 		public void SetValidAttackTargets()
 		{
-			foreach (var unit in Field)
+			foreach (var unit in (IEnumerable<Unit>)Field)
 			{
 				unit.SetValidAttackTargets();
 				DeclarePlay(new SetTargets(unit, unit.ValidAttackTargets.ToList()));
@@ -162,12 +163,12 @@ namespace CardGame.Server {
 		public void SetAttackers()
 		{
 			// TODO: Research IEnumerable & Collections
-			foreach(var unit in Field) { unit.SetAsAttacker() as Unit; }
+			foreach(var unit in (IEnumerable<Unit>)Field) { unit.SetAsAttacker(); }
 		}
 
 		public void SetActivatables(string gameEvent = "")
 		{
-			foreach (var support in Support) { support.SetAsActivatable(gameEvent);}
+			foreach (var support in (IEnumerable<Support>)Support) { support.SetAsActivatable(gameEvent);}
 		}
 
 		public bool Active() { return State == States.Idle || State == States.Active; }
@@ -203,7 +204,7 @@ namespace CardGame.Server {
 		public void Deploy(Unit card)
 		{
 			GD.PushWarning("Deploy Complains Due To Type Mismatch");
-			move(Hand, card, Field);
+			Move(Hand, card, Field);
 			
 		}
 
