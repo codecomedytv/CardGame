@@ -8,6 +8,7 @@ namespace CardGame.Server
         {
             Title = "Debug.BounceFromField";
             SetCode = SetCodes.DebugBounceFromField;
+            AddSkill(new BounceSkill());
         }
 
         [Skill]

@@ -93,6 +93,12 @@ namespace CardGame.Server {
 		{
 		}
 
+		protected void AddSkill(Skill skill)
+		{
+			skill.Card = this;
+			Skills.Add(skill);
+		}
+
 		protected void SetSkillCards()
 		{
 			foreach (var skill in Skills)

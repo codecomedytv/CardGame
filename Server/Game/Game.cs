@@ -134,9 +134,9 @@ namespace CardGame.Server {
 		public void OnAttack(int playerId, int attackerId, int defenderId)
 		{
 			var player = GameState.Player(playerId);
-			var attacker = GameState.GetCard(attackerId);
+			var attacker = (Unit)GameState.GetCard(attackerId);
 			// We cannot use a mixed type (-1 for direct attacks, so we should keep that in mind)
-			var defender = GameState.GetCard(defenderId);
+			var defender = (Unit)GameState.GetCard(defenderId);
 			if (Judge.AttackDeclarationIsIllegal(GameState, player, attacker, defender))
 			{
 				return;

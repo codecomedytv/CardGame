@@ -75,6 +75,15 @@
     <Compile Include="Server\Library\Debug\Atk1Kdef1K.cs" />
     <Compile Include="Server\Library\Debug\Atk500Def500.cs" />
     <Compile Include="Server\Library\Debug\BounceFromField.cs" />
+    <Compile Include="Server\Library\Debug\CannotBeDestroyedByEffect.cs" />
+    <Compile Include="Server\Library\Debug\DestroyAttackingUnit.cs" />
+    <Compile Include="Server\Library\Debug\DestroyOpponentUnit.cs" />
+    <Compile Include="Server\Library\Debug\DiscardYourCard.cs" />
+    <Compile Include="Server\Library\Debug\Draw2Cards.cs" />
+    <Compile Include="Server\Library\Debug\MillOneFromDeck.cs" />
+    <Compile Include="Server\Library\Debug\PlayerCannotTakeDamage.cs" />
+    <Compile Include="Server\Library\Debug\ReturnToDeck.cs" />
+    <Compile Include="Server\Library\Debug\Untargetable.cs" />
     <Compile Include="Server\Library\Library.cs" />
     <Compile Include="Server\Player.cs" />
     <Compile Include="Server\ServerConn.cs" />

@@ -19,7 +19,7 @@ namespace CardGame.Server {
 		public Godot.Collections.Dictionary<int, Player>  PlayerMap = new Godot.Collections.Dictionary<int, Player>();
 		public List<Player> Players = new List<Player>();
 		public Godot.Collections.Dictionary<int, Card> CardCatalog = new Godot.Collections.Dictionary<int, Card>();
-		public Card Attacking;
+		public Unit Attacking;
 		public Player TurnPlayer;
 		public Player ActivePlayer;
 

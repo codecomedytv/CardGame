@@ -3,6 +3,8 @@
     public enum Tag
     {
         CannotBeAttacked,
-        CannotTakeDamage
+        CannotTakeDamage,
+        CannotBeDestroyedByEffect,
+        CannotBeTargeted
     }
 }
