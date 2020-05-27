@@ -14,21 +14,13 @@ namespace CardGame.Server
         public Unit()
         {
             // We could possibly move these up to the base card
-            SetAttributes();
-            SetSkillCards();
-            CreateSkills();
         }
         
         public override void OnControllerStateChanged(int state, string signal)
         {
             throw new System.NotImplementedException();
         }
-
-        protected override void SetAttributes()
-        {
-            throw new System.NotImplementedException();
-        }
-
+        
         protected override void _SetAsPlayable()
         {
             // TODO: Add Tag Check

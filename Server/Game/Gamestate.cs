@@ -16,14 +16,14 @@ namespace CardGame.Server {
 		public bool Paused = false;
 		public Reference History;
 		public int NextCardID = 0;
-		public Godot.Collections.Dictionary<int, Player>  PlayerMap = new Godot.Collections.Dictionary<int, Player>();
+		public Godot.Collections.Dictionary<int, Player> PlayerMap = new Godot.Collections.Dictionary<int, Player>();
 		public List<Player> Players = new List<Player>();
 		public Godot.Collections.Dictionary<int, Card> CardCatalog = new Godot.Collections.Dictionary<int, Card>();
 		public Unit Attacking;
 		public Player TurnPlayer;
 		public Player ActivePlayer;
 
-		public void Setup(List<Player> players)
+		public Gamestate(List<Player> players)
 		{
 			PlayerMap[players[0].Id] = players[0];
 			PlayerMap[players[1].Id] = players[1];
@@ -37,12 +37,15 @@ namespace CardGame.Server {
 
 		public void Begin(Player first)
 		{
-			
+			TurnPlayer = first;
+			ActivePlayer = first;
 		}
 
 		public void OnTurnEnd(Player opponent)
 		{
-			
+			var player = TurnPlayer;
+			TurnPlayer = player.Opponent;
+			ActivePlayer = player;
 		}
 
 		public void OnPriorityPassed(Player Opponent)
@@ -90,6 +93,11 @@ namespace CardGame.Server {
 		public Player Player(int player)
 		{
 			return PlayerMap[player];
+		}
+
+		public void OnEndTurn()
+		{
+			
 		}
 	}
 

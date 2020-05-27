@@ -10,17 +10,10 @@ namespace CardGame.Server
 
         public Support()
         {
-            SetAttributes();
-            SetSkillCards();
-            CreateSkills();
+
         }
         
         public override void OnControllerStateChanged(int state, string signal)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        protected override void SetAttributes()
         {
             throw new System.NotImplementedException();
         }

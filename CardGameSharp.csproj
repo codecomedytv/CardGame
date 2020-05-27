@@ -69,7 +69,7 @@
     <Compile Include="Server\Game\Card\Card.cs" />
     <Compile Include="Server\Game\Card\Skill.cs" />
     <Compile Include="Server\Game\Decorator.cs" />
-    <Compile Include="Server\Game\IMessenger.cs" />
+    <Compile Include="Server\Game\BaseMessenger.cs" />
     <Compile Include="Server\Game\Judge.cs" />
     <Compile Include="Server\Game\Link.cs" />
     <Compile Include="Server\Game\Messenger.cs" />

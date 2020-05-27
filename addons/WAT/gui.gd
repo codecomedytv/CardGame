@@ -144,6 +144,9 @@ func _run() -> void:
 	Results.clear()
 	execute.run(TestRunner)
 	EditorPlugin.new().make_bottom_panel_item_visible(self)
+
+
+	    
 	
 const WATResults = preload("res://addons/WAT/resources/results.tres")
 func _process(delta):

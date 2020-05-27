@@ -57,10 +57,10 @@ namespace CardGame.Server {
 
 		public void LoadDeck(Gamestate game)
 		{
-			foreach (int setCode in DeckList)
+			foreach (SetCodes setCode in DeckList)
 			{
 				var card = Library.Create(setCode);
-				foreach (var skill in card.Skills)
+				foreach (var skill in (IEnumerable<Skill>)card.Skills)
 				{
 					skill.GameState = game;
 				}
@@ -77,12 +77,12 @@ namespace CardGame.Server {
 
 		public void DeclarePlay(GameEvent gameEvent)
 		{
-			throw new NotImplementedException();
+			EmitSignal(nameof(PlayExecuted), gameEvent);
 		}
 
 		public void Shuffle()
 		{
-			GD.PushWarning("Shuffling Not Implemented");
+			// TODO: Implement Shuffle
 		}
 
 		public void Draw(int drawCount)
@@ -145,7 +145,7 @@ namespace CardGame.Server {
 
 		public void SetValidAttackTargets()
 		{
-			foreach (var unit in (IEnumerable<Unit>)Field)
+			foreach (var unit in Field.Select(u =>(Unit)u))
 			{
 				unit.SetValidAttackTargets();
 				DeclarePlay(new SetTargets(unit, unit.ValidAttackTargets.ToList()));
@@ -170,12 +170,12 @@ namespace CardGame.Server {
 		public void SetAttackers()
 		{
 			// TODO: Research IEnumerable & Collections
-			foreach(var unit in (IEnumerable<Unit>)Field) { unit.SetAsAttacker(); }
+			foreach(var unit in Field.Select(u => (Unit)u)) { unit.SetAsAttacker(); }
 		}
 
 		public void SetActivatables(string gameEvent = "")
 		{
-			foreach (var support in (IEnumerable<Support>)Support) { support.SetAsActivatable(gameEvent);}
+			foreach (var support in Support.Select(s => (Support)s )) { support.SetAsActivatable(gameEvent);}
 		}
 
 		public bool Active() { return State == States.Idle || State == States.Active; }

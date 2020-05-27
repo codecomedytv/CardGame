@@ -17,7 +17,7 @@ namespace CardGame.Server {
 		public Player Owner;
 		public Player Controller;
 		public Player Opponent;
-		public List<Skill> Skills;
+		public List<Skill> Skills = new List<Skill>();
 		public List<Card> Zone; //= new List<Card> // Might be worth updating
 		public List<Decorator> Tags;
 		public bool Legal = false;
@@ -87,10 +87,6 @@ namespace CardGame.Server {
 			//	var  instance = new skill;
 			//	Skills.Add(instance);
 			//}
-		}
-
-		protected virtual void SetAttributes()
-		{
 		}
 
 		protected void AddSkill(Skill skill)

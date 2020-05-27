@@ -7,7 +7,7 @@ namespace CardGame.Server
         public class Library
         {
 
-            public static Card Create(int setCode)
+            public static Card Create(SetCodes setCode)
          {
              switch ((SetCodes)setCode)
              {

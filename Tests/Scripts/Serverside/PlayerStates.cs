@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CardGame.Server;
+using Godot;
 
 namespace CardGame.Tests.Scripts.Serverside
 {
@@ -27,9 +28,13 @@ namespace CardGame.Tests.Scripts.Serverside
             var oldState = Players[1].State;
             Play.EndTurn(Players[1].Id);
             var newState = Players[1].State;
-            
+
+            Assert.IsTrue(true);
+            Watch(Play, nameof(BaseMessenger.PlayerSeated));
+            Assert.SignalWasEmitted(Play, nameof(BaseMessenger.PlayerSeated));
             Assert.IsEqual(oldState, Player.States.Idle);
             Assert.IsEqual(newState, Player.States.Passive);
+            
         }
     }
 }
