@@ -96,5 +96,8 @@
     <Compile Include="Server\ServerConn.cs" />
     <Compile Include="SetCodes.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Tests" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
