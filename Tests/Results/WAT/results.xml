@@ -1,9 +1,8 @@
 <?xml version="1.0" ?>
-<testsuites failures="1" name="TestXML" tests="1" time="0.982">
-<testsuite failures="1" name="PlayerStates" tests="1" time="0.009">
-<testcase name="IdlePlayerBecomesPassiveWhenEndingTheirTurn" time="0.036">
+<testsuites failures="1" name="TestXML" tests="1" time="1.033">
+<testsuite failures="1" name="PlayerStates" tests="1" time="0.008">
+<testcase name="IdlePlayerBecomesPassiveWhenEndingTheirTurn" time="0.03">
 <failure message="EXPECTED: signal: PlayerSeated was emitted from [Node:1195] but GOT signal: PlayerSeated was not emitted from [Node:1195]"></failure>
-<failure message="EXPECTED: |int| 0 is equal to |int| 2 but GOT |int| 0 is not equal to |int| 2"></failure>
 </testcase>
 </testsuite>
 </testsuites>

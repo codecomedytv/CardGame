@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using Godot.Collections;
 using Object = Godot.Object;
 
@@ -49,7 +50,7 @@ namespace CardGame.Server {
 			foreach (var player in Players)
 			{
 				connect(player, nameof(Player.PlayExecuted), Messenger, nameof(Messenger.OnPlayExecuted));
-				connect(player, nameof(Player.TurnEnded), GameState, nameof(OnEndTurn));
+				connect(player, nameof(Player.TurnEnded), GameState, nameof(GameState.OnTurnEnd));
 				var bounds = new Godot.Collections.Array { player.Opponent };
 				connect(player, nameof(Player.PriorityPassed), GameState, nameof(GameState.OnPriorityPassed), bounds);
 				connect(player, nameof(Player.Register), Link, nameof(Link.Register));
@@ -98,6 +99,7 @@ namespace CardGame.Server {
 		public void BeginTurn()
 		{
 			var player = GameState.GetTurnPlayer();
+			GD.Print(player.State);
 			player.Draw(1);
 			Link.ApplyConstants();
 			player.State = Player.States.Idle;
@@ -194,6 +196,7 @@ namespace CardGame.Server {
 		
 		public void OnEndTurn(int playerId)
 		{
+			GD.Print("Ending Turn");
 			var player = GameState.Player(playerId);
 			if (Judge.EndingTurnIsIllegal(GameState, player))
 			{
@@ -201,7 +204,7 @@ namespace CardGame.Server {
 			}
 			
 			// This apparently made no real sense in the GDScript Version?
-			player.EmitSignal(nameof(Player.TurnEnded));
+			player.EmitSignal(nameof(Player.TurnEnded), player.Opponent);
 			player.EndTurn();
 			Link.ApplyConstants();
 			BeginTurn();

@@ -313,6 +313,7 @@ namespace CardGame.Server {
 
 		public void EndTurn()
 		{
+			EmitSignal(nameof(TurnEnded), Opponent);
 			ReadyCards();
 			Illegalize();
 			DeclarePlay(new EndTurn());

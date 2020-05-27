@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace CardGame.Server {
 		
@@ -43,9 +44,9 @@ namespace CardGame.Server {
 
 		public void OnTurnEnd(Player opponent)
 		{
-			var player = TurnPlayer;
-			TurnPlayer = player.Opponent;
-			ActivePlayer = player;
+			GD.Print(TurnPlayer == opponent);
+			TurnPlayer = opponent;
+			ActivePlayer = TurnPlayer;
 		}
 
 		public void OnPriorityPassed(Player Opponent)
@@ -94,11 +95,7 @@ namespace CardGame.Server {
 		{
 			return PlayerMap[player];
 		}
-
-		public void OnEndTurn()
-		{
-			
-		}
+		
 	}
 
 }

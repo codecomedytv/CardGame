@@ -34,7 +34,7 @@ namespace CardGame.Tests.Scripts.Serverside
             Assert.SignalWasEmitted(Play, nameof(BaseMessenger.PlayerSeated));
             Assert.IsEqual(oldState, Player.States.Idle);
             Assert.IsEqual(newState, Player.States.Passive);
-            
         }
+        
     }
 }
