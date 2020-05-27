@@ -17,7 +17,7 @@ namespace CardGame.Server {
 		public Player Controller;
 		public Player Opponent;
 		public List<Skill> Skills;
-		public IEnumerable<Card> Zone; //= new List<Card> // Might be worth updating
+		public List<Card> Zone; //= new List<Card> // Might be worth updating
 		public List<Decorator> Tags;
 		public bool Legal = false;
 		public bool Activated = false;

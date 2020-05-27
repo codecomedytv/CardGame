@@ -5,7 +5,7 @@ using Godot.Collections;
 public class Connection : Control
 {
 	
-	public Connection() 
+	protected Connection() 
 	{ 
 		CustomMultiplayer = new MultiplayerAPI();
 		CustomMultiplayer.SetRootNode(this); 
@@ -16,9 +16,9 @@ public class Connection : Control
 		if(CustomMultiplayer.HasNetworkPeer()) { CustomMultiplayer.Poll(); }
 	}
 	
-	public override void _Notification(int Notification)
+	public override void _Notification(int notification)
 	{
-		if(Notification == NotificationEnterTree)
+		if(notification == NotificationEnterTree)
 		{
 			GetTree().Connect("node_added", this, "OnNodeAdded");
 			CustomizeChildren();
@@ -27,34 +27,34 @@ public class Connection : Control
 	
 	public void OnNodeAdded(Godot.Node N) 
 	{
-		string TreePath = (string)N.GetPath();
-		string OurPath = (string)GetPath();
-		string substr = TreePath.Substr(0, OurPath.Length());
-		if(substr != OurPath) 
-			{
+		var treePath = (string)N.GetPath();
+		var ourPath = (string)GetPath();
+		var substr = treePath.Substr(0, ourPath.Length());
+		if(substr != ourPath) 
+		{
 				return; 
-			}
-		string RelativePath = (string)TreePath.Substr(OurPath.Length(), TreePath.Length());
-		if(RelativePath.Length() > 0 && !RelativePath.BeginsWith("/")) 
-			{  
+		}
+		var relativePath = (string)treePath.Substr(ourPath.Length(), treePath.Length());
+		if(relativePath.Length() > 0 && !relativePath.BeginsWith("/")) 
+		{  
 				return; 
-			}
+		}
 		N.CustomMultiplayer = CustomMultiplayer;
 	}
 	
 	public void CustomizeChildren()
 	{
-		Array<Node> Frontier = new Array<Node>();
-		foreach(Node Child in GetChildren()){
-			Frontier.Add(Child);
+		var frontier = new Array<Node>();
+		foreach(Node child in GetChildren()){
+			frontier.Add(child);
 		}
 
-		while(Frontier.Count != 0) {
-			Node Child = Frontier[0];
-			Frontier.RemoveAt(0);
-			Child.CustomMultiplayer = CustomMultiplayer;
-			foreach(Node Grandchild in Child.GetChildren()){
-				Frontier.Add(Grandchild);
+		while(frontier.Count != 0) {
+			var child = frontier[0];
+			frontier.RemoveAt(0);
+			child.CustomMultiplayer = CustomMultiplayer;
+			foreach(Node grandchild in child.GetChildren()){
+				frontier.Add(grandchild);
 			}
 		}
 	}

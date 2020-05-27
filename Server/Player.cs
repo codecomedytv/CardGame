@@ -128,7 +128,11 @@ namespace CardGame.Server {
 
 		public void Legalize()
 		{
-			throw new NotImplementedException();
+			foreach (var card in Hand)
+			{
+				card.Legal = true;
+				DeclarePlay(new Legalize(card));
+			}
 		}
 
 		public void SetTargets(Card selector, List<Card> targets)
@@ -188,12 +192,40 @@ namespace CardGame.Server {
 		
 		public void ReadyCards()
 		{
-			throw new NotImplementedException();
+			foreach (var card in Field)
+			{
+				card.Ready = true;
+				DeclarePlay(new ReadyCard(card));
+			}
+
+			foreach (var card in Support)
+			{
+				card.Ready = true;
+				DeclarePlay(new ReadyCard(card));
+			}
+		}
+
+		public void UnreadyCard(Card card)
+		{
+			card.Ready = false;
+			DeclarePlay(new UnreadyCard(card));
 		}
 
 		public void SetFaceDown(Card card)
 		{
-			throw new NotImplementedException();
+			Move(Hand, card, Support);
+			card.Legal = false;
+			DeclarePlay(new SetSupport(card));
+		}
+
+		public void AttackUnit(Unit attacker, Unit defender)
+		{
+			DeclarePlay(new AttackUnit(attacker, defender));
+		}
+
+		public void AttackDirectly(Unit attacker)
+		{
+			DeclarePlay(new AttackDirectly(attacker));
 		}
 
 		public void ShowAttack(int playerId, int attackerId, int defenderId)
@@ -208,6 +240,74 @@ namespace CardGame.Server {
 			
 		}
 
+		public void Activate(Card card, int skillIndex, List<Card> targets)
+		{
+			DeclarePlay(new Activate(card, targets));
+		}
+
+		public void DestroyUnit(Unit unit)
+		{
+			if(unit.HasTag(Tag.CannotTakeDamage))
+			{
+				return;
+			}
+
+			if (!unit.Controller.Field.Contains(unit))
+			{
+				return;
+			}
+			Move(unit.Zone, unit, unit.Owner.Graveyard);
+			DeclarePlay(new DestroyUnits(new List<Unit> { unit }));
+		}
+
+		public void ReturnToDeck(Card card)
+		{
+			Move(card.Zone, card, card.Owner.Deck);
+			Shuffle();
+			DeclarePlay(new ReturnedToDeck(card));
+		}
+
+		public void LoseLife(int lifeLost)
+		{
+			if(HasTag(Tag.CannotTakeDamage))
+			{
+				return;
+			}
+
+			Health -= lifeLost;
+			
+			DeclarePlay(new LoseLife(lifeLost));
+			if (Health <= 0)
+			{
+				Opponent.Win();
+			}
+		}
+
+		public void Bounce(Card card)
+		{
+			if(!card.Controller.Field.Contains(card))
+			{
+				return;
+			}
+			
+			Move(card.Zone, card, card.Owner.Hand);
+			DeclarePlay(new Bounce(card));
+		}
+
+		public void MillFromDeck()
+		{
+			if (Deck.Count == 0)
+			{
+				return;
+			}
+
+			var card = Deck[Deck.Count - 1];
+			Deck.RemoveAt(Deck.Count - 1);
+			Graveyard.Add(card);
+			card.Zone = Graveyard;
+			DeclarePlay(new Mill(card));
+		}
+
 		public void EndTurn()
 		{
 			ReadyCards();
@@ -216,20 +316,24 @@ namespace CardGame.Server {
 		}
 		
 		public void Win() { DeclarePlay(new GameOver(this, Opponent)); }
-
+		
 		public void Illegalize()
 		{
-			throw new NotImplementedException();
+			foreach (var card in Hand)
+			{
+				card.Legal = false;
+				Forbid(card);
+			}
 		}
 
 		public void SetLegal(Card card)
 		{
-			throw new NotImplementedException();
+			DeclarePlay(new Legalize(card));
 		}
 
 		public void Forbid(Card card)
 		{
-			throw new NotImplementedException();
+			DeclarePlay(new Forbid(card));
 		}
 	}
 	

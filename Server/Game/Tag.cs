@@ -2,6 +2,7 @@
 {
     public enum Tag
     {
-        CannotBeAttacked
+        CannotBeAttacked,
+        CannotTakeDamage
     }
 }
