@@ -26,7 +26,7 @@ _global_script_class_icons={
 
 [WAT]
 
-Test_Directory="res://Tests"
+Test_Directory="res://Tests/Scripts"
 Results_Directory="res://Tests/Results/WAT"
 Minimize_Window_When_Running_Tests=false
 TestStrategy={

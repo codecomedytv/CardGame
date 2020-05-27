@@ -10,7 +10,7 @@ namespace CardGame.Server {
 	{
 		
 		private List<Player> Players;
-		private readonly Messenger Messenger = new Messenger();
+		private readonly IMessenger Messenger;
 		private readonly Gamestate GameState = new Gamestate();
 		private readonly Battle Battle = new Battle();
 		private readonly Link Link = new Link();
@@ -24,8 +24,9 @@ namespace CardGame.Server {
 
 		public Game() { }
 
-		public Game(List<Player> players)
+		public Game(List<Player> players, IMessenger messenger = null)
 		{
+			Messenger = messenger ?? new Messenger(); 
 			Players = players;
 			Players[0].Opponent = Players[1];
 			Players[1].Opponent = Players[0];
@@ -33,20 +34,20 @@ namespace CardGame.Server {
 
 		public override void _Ready()
 		{
-			AddChild(Messenger);
-			connect(Messenger, nameof(Messenger.Targeted), GameState, nameof(Gamestate.OnTargetsSelected));
-			connect(Messenger, nameof(Messenger.PlayerSeated), this, nameof(OnPlayerSeated));
-			connect(Messenger, nameof(Messenger.EndedTurn), this, nameof(OnEndTurn));
-			connect(Messenger, nameof(Messenger.Deployed), this, nameof(OnDeploy));
-			connect(Messenger, nameof(Messenger.Attacked), this, nameof(OnAttack));
-			connect(Messenger, nameof(Messenger.FaceDownSet),this, nameof(OnSetFaceDown));
-			connect(Messenger, nameof(Messenger.Activated), this, nameof(OnActivation));
-			connect(Messenger, nameof(Messenger.PassedPriority), Link, nameof(Link.OnPriorityPassed));
+			AddChild((Node)Messenger);
+			connect((Node)Messenger, "Targeted", GameState, nameof(Gamestate.OnTargetsSelected));
+			connect((Node)Messenger, "PlayerSeated", this, nameof(OnPlayerSeated));
+			connect((Node)Messenger, "EndedTurn", this, nameof(OnEndTurn));
+			connect((Node)Messenger, "Deployed", this, nameof(OnDeploy));
+			connect((Node)Messenger, "Attacked", this, nameof(OnAttack));
+			connect((Node)Messenger, "FaceDownSet",this, nameof(OnSetFaceDown));
+			connect((Node)Messenger, "Activated", this, nameof(OnActivation));
+			connect((Node)Messenger, "PassedPriority", Link, nameof(Link.OnPriorityPassed));
 			connect(Judge, nameof(Judge.Disqualified), this, nameof(OnPlayerDisqualified));
 			connect(Link, nameof(Link.Updated), this, nameof(Update));
 			foreach (var player in Players)
 			{
-				connect(player, nameof(Player.PlayExecuted), Messenger, nameof(Messenger.OnPlayExecuted));
+				connect(player, nameof(Player.PlayExecuted), (Node)Messenger, nameof(Messenger.OnPlayExecuted));
 				connect(player, nameof(Player.TurnEnded), GameState, nameof(GameState.OnTurnEnd));
 				var bounds = new Godot.Collections.Array { player.Opponent };
 				connect(player, nameof(Player.PriorityPassed), GameState, nameof(GameState.OnPriorityPassed), bounds);

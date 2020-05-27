@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace CardGame.Server {
 	
-	public interface IMessenger 
+	public interface IMessenger
 	{
 		
 		void OnPlayExecuted(Player player, System.Object gameEvent);

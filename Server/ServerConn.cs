@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CardGame.Server {
 	
@@ -35,9 +36,10 @@ namespace CardGame.Server {
 		}
 		
 		[Master]
-		public void RegisterPlayer(int player, List<int> deckList) 
+		public void RegisterPlayer(int player, List<int> deckList)
 		{
-			Queue.Add(new Player(player, deckList));
+			//List<SetCodes> deckCodes = deckList.ConvertAll(SetCodes).ToList();
+			Queue.Add(new Player(player, deckList.Select(c => (SetCodes) c).ToList()));
 		}
 		
 		private void Host() 
