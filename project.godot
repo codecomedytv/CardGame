@@ -30,7 +30,8 @@ Test_Directory="res://Tests/Scripts"
 Results_Directory="res://Tests/Results/WAT"
 Minimize_Window_When_Running_Tests=false
 TestStrategy={
-
+"repeat": 1,
+"strategy": "RunAll"
 }
 Tags=PoolStringArray(  )
 Display=8
@@ -44,10 +45,6 @@ config/icon="res://icon.png"
 [editor_plugins]
 
 enabled=PoolStringArray( "WAT" )
-
-[mono]
-
-debugger_agent/wait_for_debugger=true
 
 [rendering]
 

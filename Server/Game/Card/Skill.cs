@@ -120,7 +120,7 @@ namespace CardGame.Server {
 
 		public void AutoTarget()
 		{
-			Controller.EmitSignal(nameof(Controller.Pause));
+			Controller.EmitSignal(nameof(Player.Pause));
 			Controller.DeclarePlay(new AutoTarget(Card));
 		}
 	}

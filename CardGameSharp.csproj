@@ -100,6 +100,9 @@
     <Compile Include="SetCodes.cs" />
     <Compile Include="Tests\Game.TestFixture.cs" />
     <Compile Include="Tests\MockMessenger.cs" />
+    <Compile Include="Tests\Scripts\Serverside\new_scripdt.cs" />
+    <Compile Include="Tests\Scripts\Serverside\new_script.cs" />
+    <Compile Include="Tests\Scripts\Serverside\PlayerState.Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="addons\WAT\assets\crash_warning.png" />
@@ -282,9 +285,6 @@
     <Content Include="addons\WAT\ui\results\ResultTree.tscn" />
     <Content Include="addons\WAT\ui\results\result_forest.gd" />
     <Content Include="addons\WAT\ui\results\result_tree.gd" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Tests\Scripts" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
