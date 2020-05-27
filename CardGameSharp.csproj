@@ -68,12 +68,16 @@
     <Compile Include="Server\Game\Decorator.cs" />
     <Compile Include="Server\Game\IMessenger.cs" />
     <Compile Include="Server\Game\Judge.cs" />
-    <Compile Include="Server\Game\Library\Library.cs" />
     <Compile Include="Server\Game\Link.cs" />
     <Compile Include="Server\Game\Messenger.cs" />
     <Compile Include="Server\Game\Tag.cs" />
+    <Compile Include="Server\Library\Debug\ATK1KDEF1K.cs" />
+    <Compile Include="Server\Library\Library.cs" />
     <Compile Include="Server\Player.cs" />
     <Compile Include="Server\ServerConn.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Server\Library\Alpha" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

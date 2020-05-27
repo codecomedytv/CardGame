@@ -31,8 +31,11 @@ namespace CardGame.Server {
 
 		[Signal]
 		public delegate void Exit();
-		
-		public abstract void OnControllerStateChanged(int state, string signal);
+
+		public virtual void OnControllerStateChanged(int state, string signal)
+		{
+			
+		}
 		
 		public void SetOwner(Player owner) 
 		{
@@ -83,7 +86,9 @@ namespace CardGame.Server {
 			throw new NotImplementedException();
 		}
 
-		protected abstract void SetAttributes();
+		protected virtual void SetAttributes()
+		{
+		}
 
 		protected void SetSkillCards()
 		{
@@ -98,7 +103,9 @@ namespace CardGame.Server {
 			_SetAsPlayable();
 		}
 
-		protected abstract void _SetAsPlayable();
+		protected virtual void _SetAsPlayable()
+		{
+		}
 
 		public void SetLegal()
 		{
