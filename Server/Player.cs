@@ -17,10 +17,10 @@ namespace CardGame.Server {
 		public bool Ready = false;
 		public bool Passing = false;
 		public List<Card> Deck = new List<Card>();
-		public List<Card> Discard = new List<Card>();
+		public List<Card> Graveyard = new List<Card>();
 		public List<Card> Hand = new List<Card>();
 		public List<Card> Field = new List<Card>();
-		public List<Card> Support = new List<Card>();
+		public List<Support> Support = new List<Support>();
 		public List<Decorator> Tags = new List<Decorator>();
 		public bool Disqualified;
 
@@ -78,17 +78,51 @@ namespace CardGame.Server {
 
 		public void Shuffle()
 		{
-			throw new NotImplementedException();
+			GD.PushWarning("Shuffling Not Implemented");
 		}
 
 		public void Draw(int drawCount)
 		{
-			throw new NotImplementedException();
+			var lost = false;
+			var cards = new List<Card>();
+			for (var i = 0; i < drawCount; i++)
+			{
+				var card = Deck[Deck.Count-1];
+				Deck.RemoveAt(Deck.Count-1);
+				Hand.Add(card);
+				card.Zone = Hand;
+				cards.Add(card);
+				if(Deck.Count == 0)
+				{
+					lost = true;
+					break;
+				}
+			}
+			DeclarePlay(new Draw(cards));
+			if (lost)
+			{
+				Opponent.Win();
+			}
+
 		}
+
+		public void Discard(Card discarding)
+		{
+			move(Hand, discarding, Graveyard);
+			DeclarePlay(new Discard(discarding));
+		}
+
+		private void move(List<Card> from, Card card, List<Card> to)
+		{
+			from.Remove(card);
+			to.Add(card);
+			card.Zone = to;
+		}
+
 
 		public void SetPlayableCards()
 		{
-			throw new NotImplementedException();
+			foreach(var card in Hand) { card.SetAsPlayable(); }
 		}
 
 		public void Legalize()
@@ -96,21 +130,61 @@ namespace CardGame.Server {
 			throw new NotImplementedException();
 		}
 
+		public void SetTargets(Card selector, List<Card> targets)
+		{
+			DeclarePlay(new SetTargets(selector, targets));
+		}
+
+		public void SetValidAttackTargets()
+		{
+			foreach (var unit in Field)
+			{
+				unit.SetValidAttackTargets();
+				DeclarePlay(new SetTargets(unit, unit.ValidAttackTargets.ToList()));
+			}
+		}
+
+		public void ShowAttack(Player player, Unit attacker, Unit defender)
+		{
+			DeclarePlay(new ShowAttack(attacker, defender));
+		}
+
+		public void BeginTurn(int drawCount)
+		{
+			DeclarePlay(new BeginTurn());
+		}
+		
 		public void DeclareState()
 		{
-			throw new NotImplementedException();
+			DeclarePlay(new SetState(this, State));
 		}
 
 		public void SetAttackers()
 		{
-			throw new NotImplementedException();
+			// TODO: Research IEnumerable & Collections
+			foreach(var unit in Field) { unit.SetAsAttacker() as Unit; }
 		}
 
 		public void SetActivatables(string gameEvent = "")
 		{
-			throw new NotImplementedException();
+			foreach (var support in Support) { support.SetAsActivatable(gameEvent);}
 		}
 
+		public bool Active() { return State == States.Idle || State == States.Active; }
+
+		public bool HasTag(Tag tag)
+		{
+			foreach (var decorator in Tags)
+			{
+				if (decorator.Tag == tag)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+		
 		public void ReadyCards()
 		{
 			throw new NotImplementedException();
@@ -126,12 +200,23 @@ namespace CardGame.Server {
 			throw new NotImplementedException();
 		}
 
-		public void Deploy(Card card)
+		public void Deploy(Unit card)
 		{
-			throw new NotImplementedException();
+			GD.PushWarning("Deploy Complains Due To Type Mismatch");
+			move(Hand, card, Field);
+			
 		}
 
 		public void EndTurn()
+		{
+			ReadyCards();
+			Illegalize();
+			DeclarePlay(new EndTurn());
+		}
+		
+		public void Win() { DeclarePlay(new GameOver(this, Opponent)); }
+
+		public void Illegalize()
 		{
 			throw new NotImplementedException();
 		}

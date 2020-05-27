@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace CardGame.Server {
 		public Player Controller;
 		public Player Opponent;
 		public List<Skill> Skills;
-		public List<Card> Zone; // Might be worth updating
+		public IList<Card> Zone; //= new List<Card> // Might be worth updating
 		public List<Decorator> Tags;
 		public bool Legal = false;
 		public bool Activated = false;
