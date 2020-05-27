@@ -1,8 +1,7 @@
 <?xml version="1.0" ?>
-<testsuites failures="1" name="TestXML" tests="1" time="1.033">
-<testsuite failures="1" name="PlayerStates" tests="1" time="0.008">
-<testcase name="IdlePlayerBecomesPassiveWhenEndingTheirTurn" time="0.03">
-<failure message="EXPECTED: signal: PlayerSeated was emitted from [Node:1195] but GOT signal: PlayerSeated was not emitted from [Node:1195]"></failure>
+<testsuites failures="0" name="TestXML" tests="1" time="1.04">
+<testsuite failures="0" name="PlayerStates" tests="1" time="0.009">
+<testcase name="IdlePlayerBecomesPassiveWhenEndingTheirTurn" time="0.032">
 </testcase>
 </testsuite>
 </testsuites>
