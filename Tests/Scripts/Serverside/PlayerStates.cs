@@ -46,8 +46,20 @@ namespace CardGame.Tests.Scripts.Serverside
             Assert.IsEqual(oldState, Player.States.Idle, "Player Was Idle");
             Assert.IsEqual(newState, Player.States.Acting, "Player is Acting");
         }
-        
 
+        [Test]
+        public void Active_Player_Becomes_Passing_When_Passing()
+        {
+            StartGame(Decklist);
+            var unit = Players[1].Hand[0].Id;
+            Play.Deploy(Players[1].Id, unit);
+            var oldState = Players[0].State;
+            Play.PassPlay(Players[0].Id);
+            var newState = Players[0].State;
+            
+            Assert.IsEqual(oldState, Player.States.Active, "Player was Active");
+            Assert.IsEqual(newState, Player.States.Passing, "Player is Passing");
+        }
         
     }
 }

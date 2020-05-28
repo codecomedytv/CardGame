@@ -6,7 +6,7 @@ namespace CardGame.Server {
 
 	public class Link : Reference
 	{
-		private Gamestate Game;
+		public Gamestate Game;
 		private List<Skill> Chain = new List<Skill>();
 		private List<Skill> Constants = new List<Skill>();
 		private List<Skill> Manual = new List<Skill>();
@@ -55,9 +55,22 @@ namespace CardGame.Server {
 			
 		}
 		
-		public void OnPriorityPassed(int player)
+		public void OnPriorityPassed(int playerId)
 		{
+			GD.Print("Passing Priority");
+			var player = Game.Player(playerId);
+			player.State = Player.States.Passing;
+			if(player.Opponent.State == Player.States.Passing)
+			{
+				Resolve();
+			}
+			else
+			{
+				player.Opponent.State = Player.States.Active;
+			}
+			Update();
 			
+
 		}
 		
 		public void Activate(Player player, Card card, int skillIndex = 0, List<int> args = null)

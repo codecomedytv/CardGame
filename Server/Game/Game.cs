@@ -32,6 +32,7 @@ namespace CardGame.Server {
 			Players[0].Opponent = Players[1];
 			Players[1].Opponent = Players[0];
 			GameState = new Gamestate(Players);
+			Link.SetUp(GameState);
 		}
 
 		public override void _Ready()
