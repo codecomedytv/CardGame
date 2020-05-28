@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
+using Godot;
 
 namespace CardGame.Server
 {
@@ -29,7 +31,7 @@ namespace CardGame.Server
                 foreach (var unit in Opponent.Field)
                 {
                     Unit u = (Unit) unit;
-                    if (u.Attack > 1000)
+                    if (u.Attack < 1000)
                     {
                         units.Add(u);
                     }
@@ -44,7 +46,7 @@ namespace CardGame.Server
                 foreach (var unit in Opponent.Field)
                 {
                     Unit u = (Unit) unit;
-                    if (u.Attack > 1000)
+                    if (u.Attack < 1000)
                     {
                         units.Add(u);
                     }
@@ -55,7 +57,10 @@ namespace CardGame.Server
 
             public override void _Resolve()
             {
-                Controller.DestroyUnit((Unit)GameState.Target);
+               // var target = (Unit) GameState.Target;
+                //GD.Print("target on card: ", target);
+                GD.Print("_Resolve");
+                Controller.DestroyUnit(GameState.Target);
             }
         }
     }

@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
-<testsuites failures="0" name="TestXML" tests="1" time="1.036">
-<testsuite failures="0" name="Triggered Event Cards" tests="1" time="0.01">
-<testcase name="OnAttack" time="0.037">
+<testsuites failures="0" name="TestXML" tests="1" time="1.015">
+<testsuite failures="0" name="Given Novice Archer" tests="1" time="0.009">
+<testcase name="When Played" time="0.077">
 </testcase>
 </testsuite>
 </testsuites>

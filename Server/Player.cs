@@ -245,17 +245,24 @@ namespace CardGame.Server {
 
 		public void DestroyUnit(Unit unit)
 		{
-			if(unit.HasTag(Tag.CannotTakeDamage))
-			
+			GD.Print(50);
+			//GD.Print(unit);
+			if (unit.HasTag(Tag.CannotTakeDamage))
+			{
+				GD.Print(0);
 				return;
+			}
 			if (unit.HasTag(Tag.CannotBeDestroyedByEffect))
 			{
+				GD.Print(1);
 				return;
 			}
 			if (!unit.Controller.Field.Contains(unit))
 			{
+				GD.Print(2);
 				return;
 			}
+			GD.Print(3);
 			Move(unit.Zone, unit, unit.Owner.Graveyard);
 			DeclarePlay(new DestroyUnits(new List<Unit> { unit }));
 		}

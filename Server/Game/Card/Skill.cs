@@ -69,9 +69,10 @@ namespace CardGame.Server {
 			{
 				return;
 			}
-
+			
+			
 			_Resolve();
-
+			Card.Activated = false;
 			if (Card is Support)
 			{
 				Controller.Support.Remove(Card);
@@ -125,6 +126,7 @@ namespace CardGame.Server {
 
 		public void AutoTarget()
 		{
+			GameState.Paused = true;
 			Controller.EmitSignal(nameof(Player.Pause));
 			Controller.DeclarePlay(new AutoTarget(Card));
 		}

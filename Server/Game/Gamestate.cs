@@ -13,7 +13,7 @@ namespace CardGame.Server {
 		[Signal]
 		public delegate void UnPaused();
 
-		public Unit Target = null;
+		public Unit Target;
 		public bool Paused = false;
 		public Reference History;
 		public int NextCardID = 0;
@@ -82,14 +82,17 @@ namespace CardGame.Server {
 
 		public void OnTargetsSelected(int what)
 		{
+			GD.Print("Selecting Target");
 			Target = (Unit)CardCatalog[what];
+			GD.Print("Target is: ", Target);
 			Unpause();
 		}
 
 		public void Unpause()
 		{
+			GD.Print("Paused? ", Paused);
 			Paused = false;
-			EmitSignal("Unpaused");
+			EmitSignal(nameof(UnPaused));
 		}
 
 		public Player Player(int player)

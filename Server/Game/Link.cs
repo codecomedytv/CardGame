@@ -164,9 +164,11 @@ namespace CardGame.Server {
 			autoSkill.Activate();
 			if(Game.Paused)
 			{
+				GD.Print("Game Paused");
 				Update();
 				await ToSignal(Game, nameof(Gamestate.UnPaused));
 			}
+			// GD.Print(Game.Target);
 			autoSkill.Resolve();
 			Game.GetTurnPlayer().DeclarePlay(new Resolve());
 			Game.GetTurnPlayer().SetValidAttackTargets();
