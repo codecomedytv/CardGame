@@ -45,10 +45,7 @@ namespace CardGame.Tests.Scripts.Serverside
             Play.PassPlay(Players[1].Id);
             Play.PassPlay(Players[0].Id);
             Play.EndTurn(Players[0].Id);
-            var targets = new Array<int>();
-            targets.Add(unitA.Id);
-            Assert.IsEqual(targets.Count, 1, "Target Count is 1");
-            Play.Activate(Players[1].Id, support, 0, targets);
+            Play.Activate(Players[1].Id, support, 0, new Array<int>{unitA.Id});
             Play.PassPlay(Players[0].Id);
             Play.PassPlay(Players[1].Id);
             

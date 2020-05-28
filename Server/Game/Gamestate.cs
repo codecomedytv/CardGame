@@ -46,7 +46,6 @@ namespace CardGame.Server {
 
 		public void OnTurnEnd(Player opponent)
 		{
-			GD.Print(TurnPlayer == opponent);
 			TurnPlayer = opponent;
 			ActivePlayer = TurnPlayer;
 		}

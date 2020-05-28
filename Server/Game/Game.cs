@@ -100,7 +100,6 @@ namespace CardGame.Server {
 		public void BeginTurn()
 		{
 			var player = GameState.GetTurnPlayer();
-			GD.Print(player.State);
 			player.Draw(1);
 			Link.ApplyConstants();
 			player.State = Player.States.Idle;
@@ -142,8 +141,6 @@ namespace CardGame.Server {
 		{
 			var player = GameState.Player(playerId);
 			var attacker = (Unit)GameState.GetCard(attackerId);
-			// We cannot use a mixed type (-1 for direct attacks, so we should keep that in mind)
-			// var defender = new { };
 			object defender;
 			if (defenderId != -1)
 			{

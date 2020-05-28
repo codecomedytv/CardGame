@@ -65,7 +65,6 @@ namespace CardGame.Tests
 
         public override void SetReady(int player)
         {
-            GD.Print("Hello?");
             EmitSignal("PlayerSeated", player);
         }
     }
