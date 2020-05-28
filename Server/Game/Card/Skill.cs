@@ -85,7 +85,7 @@ namespace CardGame.Server {
 		public void AddTagToController(Tag tag)
 		{
 			var decorator = new Decorator(tag);
-			decorator.AddTagTo(Controller);
+			decorator.AddTagToPlayer(Controller);
 		}
 
 		public void AddTagToGroup(List<Card> cards, Tag tag, string destroyCondition, string taggedExit, bool includeCard = true)

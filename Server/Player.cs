@@ -253,7 +253,10 @@ namespace CardGame.Server {
 			if(unit.HasTag(Tag.CannotTakeDamage))
 			
 				return;
-			
+			if (unit.HasTag(Tag.CannotBeDestroyedByEffect))
+			{
+				return;
+			}
 			if (!unit.Controller.Field.Contains(unit))
 			{
 				return;
