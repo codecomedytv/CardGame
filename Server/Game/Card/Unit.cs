@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Godot;
 
 namespace CardGame.Server
 {
@@ -13,7 +14,7 @@ namespace CardGame.Server
 
         public Unit()
         {
-            
+            Tags = new List<Decorator>();
         }
         
         public override void OnControllerStateChanged(int state, string signal)

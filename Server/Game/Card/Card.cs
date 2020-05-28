@@ -51,6 +51,7 @@ namespace CardGame.Server {
 		{
 			// This is a setget method on Controller .property from original source code
 			Controller = controller;
+			Opponent = controller.Opponent;
 			foreach(var skill in Skills) {
 				skill.Controller = controller;
 				skill.Opponent = controller.Opponent;
