@@ -1,7 +1,9 @@
 <?xml version="1.0" ?>
-<testsuites failures="0" name="TestXML" tests="1" time="1">
-<testsuite failures="0" name="When using a Skill" tests="1" time="0.009">
-<testcase name="That Destroys Target Opponent Unit" time="0.032">
+<testsuites failures="0" name="TestXML" tests="1" time="1.038">
+<testsuite failures="0" name="When using a Skill" tests="2" time="0.01">
+<testcase name="That Discards Your Target Card" time="0.031">
+</testcase>
+<testcase name="That Destroys Target Opponent Unit" time="0.008">
 </testcase>
 </testsuite>
 </testsuites>
