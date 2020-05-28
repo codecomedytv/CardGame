@@ -98,8 +98,8 @@
     <Compile Include="Server\Player.cs" />
     <Compile Include="Server\ServerConn.cs" />
     <Compile Include="SetCodes.cs" />
+    <Compile Include="Tests\GameFixture.cs" />
     <Compile Include="Tests\MockMessenger.cs" />
-    <Compile Include="Tests\Scripts\GameFixture.cs" />
     <Compile Include="Tests\Scripts\Serverside\PlayerStates.cs" />
   </ItemGroup>
   <ItemGroup>

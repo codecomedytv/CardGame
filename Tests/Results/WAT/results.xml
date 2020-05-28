@@ -1,21 +1,21 @@
 <?xml version="1.0" ?>
-<testsuites failures="0" name="TestXML" tests="1" time="1.036">
-<testsuite failures="0" name="PlayerStates" tests="8" time="0.009">
-<testcase name="ActivePlayer Becomes Active When They Take An Action" time="0.034">
+<testsuites failures="0" name="TestXML" tests="1" time="0.935">
+<testsuite failures="0" name="PlayerStates" tests="8" time="0.011">
+<testcase name="ActivePlayer Becomes Active When They Take An Action" time="0.037">
 </testcase>
 <testcase name="Passive Opponent Becomes Active When IdlePlayer Takes Action" time="0.008">
 </testcase>
-<testcase name="NonTurn Player Becomes Idle When TurnPlayer Ends Their Turn" time="0.015">
+<testcase name="NonTurn Player Becomes Idle When TurnPlayer Ends Their Turn" time="0.013">
 </testcase>
-<testcase name="NonTurn Player Becomes Passive When Both Players Pass" time="0.014">
+<testcase name="NonTurn Player Becomes Passive When Both Players Pass" time="0.015">
 </testcase>
 <testcase name="Turn Player Becomes Idle When Both Players Pass" time="0.015">
 </testcase>
-<testcase name="Active Player Becomes Passing When Passing" time="0.017">
+<testcase name="Active Player Becomes Passing When Passing" time="0.022">
 </testcase>
 <testcase name="Idle Player Becomes Acting When Taking Action" time="0.016">
 </testcase>
-<testcase name="Idle Player Becomes Passive When Ending Their Turn" time="0.02">
+<testcase name="Idle Player Becomes Passive When Ending Their Turn" time="0.022">
 </testcase>
 </testsuite>
 </testsuites>
