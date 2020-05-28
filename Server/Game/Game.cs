@@ -157,7 +157,11 @@ namespace CardGame.Server {
 			}
 
 			GameState.Attacking = attacker;
-			player.Opponent.ShowAttack(player.Id, attacker.Id, defenderId);
+			if (defenderId != -1)
+			{
+				player.Opponent.ShowAttack(player, attacker, (Unit)defender);
+			}
+
 			Battle.Begin(player, attacker, defender);
 			Link.AddResolvable(Battle);
 			Link.ApplyConstants("attack");

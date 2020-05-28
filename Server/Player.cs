@@ -231,11 +231,6 @@ namespace CardGame.Server {
 			DeclarePlay(new AttackDirectly(attacker));
 		}
 
-		public void ShowAttack(int playerId, int attackerId, int defenderId)
-		{
-			throw new NotImplementedException();
-		}
-
 		public void Deploy(Unit card)
 		{
 			// GD.PushWarning("Deploy Complains Due To Type Mismatch");

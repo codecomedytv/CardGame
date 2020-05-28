@@ -62,18 +62,18 @@ namespace CardGame.Server {
 				return Invalid;
 			}
 			
-			else if (!attacker.Ready)
+			if (!attacker.Ready)
 			{
 				Disqualify(player, Reasons.InvalidAttack);
 				return Invalid;
 			}
 			
-			else if ((Unit)defender != null && !player.Opponent.Field.Contains((Unit)defender))
+			if ((Unit)defender != null && !player.Opponent.Field.Contains((Unit)defender))
 			{
 				Disqualify(player, Reasons.InvalidAttack);
 				return Invalid;
 			}
-			else if ((Unit) defender != null && attacker.ValidAttackTargets.Contains((Unit)defender))
+			if ((Unit) defender != null && !attacker.ValidAttackTargets.Contains(((Card) defender)))
 			{
 				Disqualify(player, Reasons.InvalidAttack);
 				return Invalid;

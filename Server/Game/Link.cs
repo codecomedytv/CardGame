@@ -185,6 +185,8 @@ namespace CardGame.Server {
 			ApplyConstants();
 			Game.TurnPlayer.State = Player.States.Idle;
 			Game.TurnPlayer.Opponent.State = Player.States.Passive;
+			Game.GetTurnPlayer().DeclarePlay(new Resolve());
+			Game.GetTurnPlayer().SetValidAttackTargets();
 		}
 		
 		public void Update()
