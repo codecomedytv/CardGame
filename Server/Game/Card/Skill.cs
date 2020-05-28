@@ -58,7 +58,7 @@ namespace CardGame.Server {
 			_Activate();
 		}
 
-		public void Resolve(string gameEvent)
+		public void Resolve(string gameEvent = "")
 		{
 			if (!GameEvent.Empty() && GameEvent != gameEvent && Type == Types.Constant)
 			{

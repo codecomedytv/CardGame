@@ -80,12 +80,21 @@ namespace CardGame.Server {
 		
 		public void Resolve()
 		{
+			while (Chain.Count != 0)
+			{
+				var skill = Chain[Chain.Count - 1];
+				Chain.RemoveAt(Chain.Count - 1);
+				skill.Resolve();
+			}
 			
+			ApplyConstants();
+			Game.TurnPlayer.State = Player.States.Idle;
+			Game.TurnPlayer.Opponent.State = Player.States.Passive;
 		}
 		
 		public void Update()
 		{
-			
+			EmitSignal(nameof(Updated));
 		}
 		
 	}
