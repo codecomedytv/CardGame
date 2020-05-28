@@ -9,7 +9,7 @@ namespace CardGame.Tests.Scripts.Serverside
     {
         List<SetCodes> Decklist = new List<SetCodes>();
 
-        public override void Pre()
+        public override void Start()
         {
             Decklist.Add(SetCodes.Debug1000_1000);
             Decklist.Add(SetCodes.Debug1000_1000);
