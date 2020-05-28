@@ -15,74 +15,70 @@ namespace CardGame.Tests.Scripts.Serverside
 			DeckList.Add(SetCodes.Debug1000_1000);
 			DeckList.Add(SetCodes.Debug1000_1000);
 			DeckList.Add(SetCodes.Debug1000_1000);
+			DeckList.Add(SetCodes.Debug1000_1000);
+			DeckList.Add(SetCodes.Debug1000_1000);
+			DeckList.Add(SetCodes.Debug1000_1000);
 
         }
-        
+
+        public override string Title()
+        {
+	        return "A Player is Disqualified";
+        }
+
+        [Test]
+        public void When_They_Deploy_A_Unit_During_Their_Opponents_Turn()
+        {
+	
+	        StartGame(DeckList);
+	        var unit = Players[0].Hand[0].Id;
+	        Play.Deploy(Players[0].Id, unit);
+
+	        Assert.IsTrue(Players[0].Disqualified);
+        }
+
+        [Test]
+        public void When_They_Set_Support_During_Their_Opponents_Turn()
+        {
+	        DeckList.Add(SetCodes.DebugDraw2Cards);
+	        StartGame(DeckList);
+	        var support = Players[0].Hand[0].Id;
+	        Play.SetFaceDown(Players[0].Id, support);
+
+	        Assert.IsTrue(Players[0].Disqualified);
+        }
+
+	    [Test]
+        public void When_They_End_Their_Turn_During_Their_Opponents_Turn()
+        {
+	        StartGame(DeckList);
+	        Play.EndTurn(Players[0].Id);
+
+	        Assert.IsTrue(Players[0].Disqualified);
+        }
+
+        [Test]
+        public void When_A_Player_Declares_An_Attack_During_Their_Opponents_Turn()
+        {
+	        StartGame(DeckList);
+	        var unit = Players[1].Hand[0].Id;
+	        Play.Deploy(Players[1].Id, unit);
+	        // Ending twice so the unit is ready
+	        Play.EndTurn(Players[1].Id);
+	        Play.EndTurn(Players[0].Id);
+	        Play.EndTurn(Players[1].Id);
+	        var directAttack = -1;
+	        Play.Attack(Players[1].Id, unit, directAttack);
+
+	        Assert.IsTrue(Players[1].Disqualified);
+
+        }
         
     }
 }
 
 /*
-extends GameTest
 
-var decklist: Array = []
-
-func title():
-	return "Given a Judge"
-	
-func pre() -> void:
-	decklist = []
-	decklist += cards(code.Debug500_500, 3)
-	decklist += cards(code.Debug1500_1000, 3)
-	
-func test_When_a_player_deploys_a_unit_during_their_opponents_turn():
-	describe("When a player deploys a unit during their opponent's turn")
-	
-	decklist += cards(code.Debug1000_1000, 3)
-	start_game(decklist)
-	var Debug1000_1000: Unit = player[0].hand.get_card_at_index(0)
-	play.deploy(player[0].id, Debug1000_1000.id)
-	
-	asserts.is_true(player[0].disqualified, "Then they are disqualified")
-
-func test_When_a_player_sets_a_support_during_their_opponents_turn():
-	describe("When a player sets a support during their opponent's turn")
-	
-	decklist += cards(code.DebugDraw2Cards, 3)
-	start_game(decklist)
-	var Draw2Cards: Support = player[0].hand.get_card_at_index(0)
-	play.set_facedown(player[0].id, Draw2Cards.id)
-	
-	asserts.is_true(player[0].disqualified, "Then they are disqualified")
-	
-func test_When_a_player_deploys_a_support_as_if_it_were_a_unit():
-	describe("When a player deploys a support as if it were a unit")
-	
-	decklist += cards(code.DebugDraw2Cards, 3)
-	start_game(decklist)
-	var Draw2Cards: Support = player[1].hand.get_card_at_index(0)
-	play.deploy(player[1].id, Draw2Cards.id)
-	
-	asserts.is_true(player[1].disqualified, "Then they are disqualified")
-	
-func test_When_a_player_sets_a_unit_as_if_it_were_a_support():
-	describe("When a player sets a unit as if it were a support")
-	
-	decklist += cards(code.Debug1000_1000, 3)
-	start_game(decklist)
-	var Debug1000_1000: Unit = player[1].hand.get_card_at_index(0)
-	play.set_facedown(player[1].id, Debug1000_1000.id)
-	
-	asserts.is_true(player[1].disqualified, "Then they are disqualified")
-	
-func test_When_a_player_ends_their_during_their_opponents_turn():
-	describe("When a player ends their turn during their opponent's turn")
-	
-	decklist += cards(code.Debug1000_1000, 3)
-	start_game(decklist)
-	play.end_turn(player[0].id)
-	
-	asserts.is_true(player[0].disqualified, "Then they are disqualified")
 	
 func test_When_a_player_declares_an_attack_during_their_opponents_turn():
 	describe("When a player declares an attack during their opponent's turn")

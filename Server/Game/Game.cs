@@ -143,14 +143,24 @@ namespace CardGame.Server {
 			var player = GameState.Player(playerId);
 			var attacker = (Unit)GameState.GetCard(attackerId);
 			// We cannot use a mixed type (-1 for direct attacks, so we should keep that in mind)
-			var defender = (Unit)GameState.GetCard(defenderId);
+			// var defender = new { };
+			object defender;
+			if (defenderId != -1)
+			{
+				defender = (Unit)GameState.GetCard(defenderId);
+			}
+			else
+			{
+				defender = defenderId;
+			}
+
 			if (Judge.AttackDeclarationIsIllegal(GameState, player, attacker, defender))
 			{
 				return;
 			}
 
 			GameState.Attacking = attacker;
-			player.Opponent.ShowAttack(player.Id, attacker.Id, defender.Id);
+			player.Opponent.ShowAttack(player.Id, attacker.Id, defenderId);
 			Battle.Begin(player, attacker, defender);
 			Link.AddResolvable(Battle);
 			Link.ApplyConstants("attack");

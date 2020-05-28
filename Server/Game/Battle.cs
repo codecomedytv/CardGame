@@ -9,9 +9,9 @@ namespace CardGame.Server {
 		private Player Attacking;
 		private Player Defending;
 		private Card Attacker;
-		private Godot.Object Defender;
+		private object Defender;
 		
-		public void Begin(Player attacking, Card attacker, Godot.Object defender)
+		public void Begin(Player attacking, Card attacker, object defender)
 		{
 			Attacking = attacking;
 			Defending = attacking.Opponent;
