@@ -1,13 +1,19 @@
 <?xml version="1.0" ?>
-<testsuites failures="0" name="TestXML" tests="1" time="0.996">
-<testsuite failures="0" name="A Player is Disqualified" tests="4" time="0.01">
-<testcase name="When A Player Declares An Attack During Their Opponents Turn" time="0.026">
+<testsuites failures="0" name="TestXML" tests="1" time="1">
+<testsuite failures="0" name="A Player is Disqualified" tests="7" time="0.009">
+<testcase name="When They Activate A Support While InActive" time="0.035">
 </testcase>
-<testcase name="When They End Their Turn During Their Opponents Turn" time="0.006">
+<testcase name="When They Activate An Unready Support" time="0.007">
 </testcase>
-<testcase name="When They Set Support During Their Opponents Turn" time="0.01">
+<testcase name="When They Declare An Attack With An Unready Unit" time="0.008">
 </testcase>
-<testcase name="When They Deploy A Unit During Their Opponents Turn" time="0.009">
+<testcase name="When A Player Declares An Attack During Their Opponents Turn" time="0.011">
+</testcase>
+<testcase name="When They End Their Turn During Their Opponents Turn" time="0.008">
+</testcase>
+<testcase name="When They Set Support During Their Opponents Turn" time="0.009">
+</testcase>
+<testcase name="When They Deploy A Unit During Their Opponents Turn" time="0.008">
 </testcase>
 </testsuite>
 </testsuites>
