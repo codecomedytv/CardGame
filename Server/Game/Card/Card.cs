@@ -23,7 +23,7 @@ namespace CardGame.Server {
 		public bool Legal = false;
 		public bool Activated = false;
 		public bool Ready = false;
-		public bool Attacked = false;
+		// public bool Attacked = false;
 
 
 		[AttributeUsage(AttributeTargets.Class)]

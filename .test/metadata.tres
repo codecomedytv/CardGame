@@ -1,10 +1,11 @@
-[gd_resource type="Resource" load_steps=4 format=2]
+[gd_resource type="Resource" load_steps=5 format=2]
 
 [ext_resource path="res://addons/WAT/ui/metadata/index.gd" type="Script" id=1]
 [ext_resource path="res://Tests/Scripts/Serverside/JudgeTest.cs" type="Script" id=2]
 [ext_resource path="res://Tests/Scripts/Serverside/SkillTest.cs" type="Script" id=3]
+[ext_resource path="res://Tests/Scripts/Serverside/BattleTest.cs" type="Script" id=4]
 
 [resource]
 script = ExtResource( 1 )
-scripts = [ null, null, null, ExtResource( 2 ), ExtResource( 3 ) ]
-tags = [ [  ], [  ], [  ], [  ], [  ] ]
+scripts = [ null, null, null, ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), null, null ]
+tags = [ [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ] ]

@@ -10,13 +10,15 @@ namespace CardGame.Server {
 		private Player Defending;
 		private Unit Attacker;
 		private object Defender;
+		private bool IsDirectAttack;
 		
-		public void Begin(Player attacking, Unit attacker, object defender)
+		public void Begin(Player attacking, Unit attacker, object defender, bool isDirectAttack)
 		{
 			Attacking = attacking;
 			Defending = attacking.Opponent;
 			Attacker = attacker;
 			Defender = defender;
+			IsDirectAttack = isDirectAttack;
 		}
 		
 		public void Resolve(string ignore = "")
@@ -28,12 +30,12 @@ namespace CardGame.Server {
 				return;
 			}
 
-			if ((Card)Defender != null && !Defending.Field.Contains((Card)Defender))
+			if (!IsDirectAttack && !Defending.Field.Contains((Card)Defender))
 			{
 				return;
 			}
 
-			if ((Card)Defender == null)
+			if (IsDirectAttack)
 			{
 				// Defender is not a Card, so it must be int and the only int is directAttack
 				Attacking.AttackDirectly(Attacker);

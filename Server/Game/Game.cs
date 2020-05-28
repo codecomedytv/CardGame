@@ -151,7 +151,7 @@ namespace CardGame.Server {
 				defender = defenderId;
 			}
 
-			if (Judge.AttackDeclarationIsIllegal(GameState, player, attacker, defender))
+			if (Judge.AttackDeclarationIsIllegal(GameState, player, attacker, defenderId))
 			{
 				return;
 			}
@@ -162,7 +162,7 @@ namespace CardGame.Server {
 				player.Opponent.ShowAttack(player, attacker, (Unit)defender);
 			}
 
-			Battle.Begin(player, attacker, defender);
+			Battle.Begin(player, attacker, defender, defenderId == -1);
 			Link.AddResolvable(Battle);
 			Link.ApplyConstants("attack");
 			Link.ApplyTriggered("attack");

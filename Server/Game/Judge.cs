@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 
 namespace CardGame.Server {
 
@@ -54,7 +55,7 @@ namespace CardGame.Server {
 			return Valid;
 		}
 		
-		public bool AttackDeclarationIsIllegal(Gamestate state, Player player, Unit attacker, System.Object defender)
+		public bool AttackDeclarationIsIllegal(Gamestate state, Player player, Unit attacker, int defenderId)
 		{
 			if (player.State != Player.States.Idle)
 			{
@@ -67,13 +68,19 @@ namespace CardGame.Server {
 				Disqualify(player, Reasons.InvalidAttack);
 				return Invalid;
 			}
-			
-			if ((Unit)defender != null && !player.Opponent.Field.Contains((Unit)defender))
+
+			if (defenderId == -1 && player.Opponent.Field.Count != 0)
 			{
 				Disqualify(player, Reasons.InvalidAttack);
 				return Invalid;
 			}
-			if ((Unit) defender != null && !attacker.ValidAttackTargets.Contains(((Card) defender)))
+			
+			if (defenderId > 0 && !player.Opponent.Field.Contains(state.GetCard(defenderId)))
+			{
+				Disqualify(player, Reasons.InvalidAttack);
+				return Invalid;
+			}
+			if (defenderId > 0 && !attacker.ValidAttackTargets.Contains(state.GetCard(defenderId)))
 			{
 				Disqualify(player, Reasons.InvalidAttack);
 				return Invalid;
