@@ -31,7 +31,8 @@ Results_Directory="res://Tests/Results/WAT"
 Minimize_Window_When_Running_Tests=false
 TestStrategy={
 "repeat": 1,
-"strategy": "RunAll"
+"script": "res://Tests/Scripts/Serverside/PlayerStates.cs",
+"strategy": "RunScript"
 }
 Tags=PoolStringArray(  )
 Display=8

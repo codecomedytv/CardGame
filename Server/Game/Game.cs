@@ -166,8 +166,8 @@ namespace CardGame.Server {
 		public void OnSetFaceDown(int playerId, int faceDownId)
 		{
 			var player = GameState.Player(playerId);
-			var card = GameState.GetCard(faceDownId);
-			if (Judge.SettingFacedownIsIllegal(GameState, player, card))
+			var card = (Support)GameState.GetCard(faceDownId);
+			if (Judge.SettingFacedownIsIllegal(GameState, player,card))
 			{
 				return;
 			}
@@ -180,7 +180,7 @@ namespace CardGame.Server {
 		public void OnActivation(int playerId, int cardId, int skillIndex, List<int> targets)
 		{
 			var player = GameState.Player(playerId);
-			var card = GameState.GetCard(cardId);
+			var card = (Support)GameState.GetCard(cardId);
 			if (Judge.SupportActivationIsIllegal(GameState, player, card))
 			{
 				return;
