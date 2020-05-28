@@ -12,7 +12,7 @@ namespace CardGame.Server {
 		
 		private List<Player> Players;
 		private readonly BaseMessenger Messenger;
-		private readonly Gamestate GameState;
+		public readonly Gamestate GameState;
 		private readonly Battle Battle = new Battle();
 		private readonly Link Link = new Link();
 		private readonly Judge Judge = new Judge();

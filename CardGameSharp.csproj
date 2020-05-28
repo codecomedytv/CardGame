@@ -102,6 +102,7 @@
     <Compile Include="Tests\MockMessenger.cs" />
     <Compile Include="Tests\Scripts\Serverside\JudgeTest.cs" />
     <Compile Include="Tests\Scripts\Serverside\PlayerStates.cs" />
+    <Compile Include="Tests\Scripts\Serverside\PlayTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="addons\WAT\assets\crash_warning.png" />
