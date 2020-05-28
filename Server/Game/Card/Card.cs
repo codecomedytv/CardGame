@@ -13,7 +13,7 @@ namespace CardGame.Server {
 	{
 		public string Title = "Card";
 		public SetCodes SetCode = 0;
-		public readonly int Id;
+		public int Id;
 		public Player Owner;
 		public Player Controller;
 		public Player Opponent;

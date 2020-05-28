@@ -33,7 +33,9 @@ namespace CardGame.Server {
 
 		public void RegisterCard(Card card)
 		{
-			
+			card.Id = NextCardID;
+			CardCatalog[card.Id] = card;
+			NextCardID++;
 		}
 
 		public void Begin(Player first)

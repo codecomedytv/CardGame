@@ -238,7 +238,7 @@ namespace CardGame.Server {
 
 		public void Deploy(Unit card)
 		{
-			GD.PushWarning("Deploy Complains Due To Type Mismatch");
+			// GD.PushWarning("Deploy Complains Due To Type Mismatch");
 			Move(Hand, card, Field);
 			
 		}
