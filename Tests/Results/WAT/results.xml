@@ -1,11 +1,7 @@
 <?xml version="1.0" ?>
-<testsuites failures="0" name="TestXML" tests="1" time="1.096">
-<testsuite failures="0" name="Given The Idle Turn Player" tests="3" time="0.009">
-<testcase name="When They End Their Turn" time="0.029">
-</testcase>
-<testcase name="When They Set A Support" time="0.009">
-</testcase>
-<testcase name="When They Deploy A Unit" time="0.01">
+<testsuites failures="0" name="TestXML" tests="1" time="1.038">
+<testsuite failures="0" name="When using a Skill" tests="1" time="0.01">
+<testcase name="That Destroys Target Opponent Unit" time="0.046">
 </testcase>
 </testsuite>
 </testsuites>

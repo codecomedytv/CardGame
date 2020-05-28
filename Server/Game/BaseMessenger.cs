@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using Godot.Collections;
 
 namespace CardGame.Server {
 	
@@ -55,7 +56,7 @@ namespace CardGame.Server {
 			throw new NotImplementedException();
 		}
 
-		public virtual void Activate(int player, int card, int skillIndex, List<int> targets)
+		public virtual void Activate(int player, int card, int skillIndex, Array<int> array)
 		{
 			throw new NotImplementedException();
 		}

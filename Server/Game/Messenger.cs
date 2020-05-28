@@ -1,6 +1,7 @@
 using System;
 using Godot;
 using System.Collections.Generic;
+using Godot.Collections;
 
 namespace CardGame.Server {
 
@@ -41,7 +42,7 @@ namespace CardGame.Server {
 		}
 
 		[Master]
-		public override void Activate(int player, int card, int skillIndex, List<int> targets)
+		public override void Activate(int player, int card, int skillIndex, Array<int> targets)
 		{
 			EmitSignal(nameof(Activated), player, card, skillIndex, targets);
 		}

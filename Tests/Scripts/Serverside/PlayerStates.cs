@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using CardGame.Server;
 using Godot;
+using Godot.Collections;
 using static CardGame.Tests.MockMessenger;
 
 namespace CardGame.Tests.Scripts.Serverside
@@ -126,7 +127,7 @@ namespace CardGame.Tests.Scripts.Serverside
             var unit = Players[0].Hand[0].Id;
             Play.Deploy(Players[0].Id, unit);
             var oldState = Players[1].State;
-            Play.Activate(Players[1].Id, support, 0, new List<int>());
+            Play.Activate(Players[1].Id, support, 0, new Array<int>());
             var newState = Players[1].State;
             
             Assert.IsEqual(oldState, Player.States.Active, "Player was Active");

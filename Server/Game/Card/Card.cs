@@ -19,7 +19,7 @@ namespace CardGame.Server {
 		public Player Opponent;
 		public List<Skill> Skills = new List<Skill>();
 		public List<Card> Zone; //= new List<Card> // Might be worth updating
-		public List<Decorator> Tags;
+		public List<Decorator> Tags = new List<Decorator>();
 		public bool Legal = false;
 		public bool Activated = false;
 		public bool Ready = false;
@@ -93,6 +93,7 @@ namespace CardGame.Server {
 		{
 			skill.Card = this;
 			Skills.Add(skill);
+			skill.Controller = Controller;
 		}
 
 		protected void SetSkillCards()

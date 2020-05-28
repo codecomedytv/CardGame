@@ -12,8 +12,8 @@ namespace CardGame.Server {
 		
 		[Signal]
 		public delegate void UnPaused();
-		
-		public Card Target;
+
+		public Unit Target = null;
 		public bool Paused = false;
 		public Reference History;
 		public int NextCardID = 0;
@@ -83,7 +83,7 @@ namespace CardGame.Server {
 
 		public void OnTargetsSelected(int what)
 		{
-			Target = CardCatalog[what];
+			Target = (Unit)CardCatalog[what];
 			Unpause();
 		}
 

@@ -13,7 +13,7 @@ namespace CardGame.Server
 
         public Unit()
         {
-            // We could possibly move these up to the base card
+            
         }
         
         public override void OnControllerStateChanged(int state, string signal)

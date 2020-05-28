@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using CardGame.Server;
 using Godot;
+using static Godot.Collections.Array;
 
 namespace CardGame.Tests
 {
@@ -37,7 +38,7 @@ namespace CardGame.Tests
             EmitSignal(nameof(Attacked), player, attacker, defender);
         }
 
-        public override void Activate(int player, int card, int skillIndex, List<int> targets)
+        public override void Activate(int player, int card, int skillIndex, Godot.Collections.Array<int> targets)
         {
             EmitSignal(nameof(Activated), player, card, skillIndex, targets);
         }

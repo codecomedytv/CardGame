@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.Tracing;
 using System.Linq;
+using Godot;
 
 namespace CardGame.Server
 {

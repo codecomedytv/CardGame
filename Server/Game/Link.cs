@@ -1,6 +1,8 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using Godot.Collections;
 using Object = Godot.Object;
 
 namespace CardGame.Server {
@@ -38,7 +40,14 @@ namespace CardGame.Server {
 		
 		public void ApplyTriggered(string gameEvent)
 		{
-			throw new NotImplementedException();
+			foreach (var skill in Auto)
+			{
+				skill.SetUp(gameEvent);
+				if (skill.CanBeUsed)
+				{
+					Automatic(skill.Controller, skill.Card);
+				}
+			}
 		}
 		
 		public void  SetupManual(string gameEvent)
@@ -115,17 +124,16 @@ namespace CardGame.Server {
 
 		}
 		
-		public async void Activate(Player player, Card card, int skillIndex = 0, List<int> targets = null)
+		public async void Activate(Player player, Card card, int skillIndex, Array<int> targets)
 		{
 			var activatedSkill = card.Skills[skillIndex];
 			if (!activatedSkill.CanBeUsed)
 			{
 				return;
 			}
-
-			if (targets != null)
+			if (targets.Count > 0)
 			{
-				Game.Target = Game.GetCard(targets[0]);
+				Game.Target = (Unit)Game.GetCard(targets[0]);
 			}
 			activatedSkill.Activate();
 			if (Game.Paused)
@@ -133,7 +141,7 @@ namespace CardGame.Server {
 				await ToSignal(Game, nameof(Gamestate.UnPaused));
 			}
 
-			List<Card> cards = new List<Card>();
+			var cards = new List<Card>();
 			foreach (var skill in Manual)
 			{
 				if (skill == activatedSkill)

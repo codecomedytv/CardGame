@@ -251,10 +251,9 @@ namespace CardGame.Server {
 		public void DestroyUnit(Unit unit)
 		{
 			if(unit.HasTag(Tag.CannotTakeDamage))
-			{
+			
 				return;
-			}
-
+			
 			if (!unit.Controller.Field.Contains(unit))
 			{
 				return;

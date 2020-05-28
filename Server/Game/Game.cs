@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Godot.Collections;
+using Array = Godot.Collections.Array;
 using Object = Godot.Object;
 
 namespace CardGame.Server {
@@ -65,9 +66,7 @@ namespace CardGame.Server {
 
 		public void OnPlayerSeated(int id)
 		{
-			GD.Print("Player Readyied");
 			GameState.Player(id).Ready = true;
-			GD.Print("Hey");
 			foreach (var player in Players)
 			{
 				if (!player.Ready)
@@ -188,7 +187,7 @@ namespace CardGame.Server {
 			Update();
 		}
 		
-		public void OnActivation(int playerId, int cardId, int skillIndex, List<int> targets)
+		public void OnActivation(int playerId, int cardId, int skillIndex, Array<int> targets)
 		{
 			var player = GameState.Player(playerId);
 			var card = (Support)GameState.GetCard(cardId);
@@ -208,7 +207,6 @@ namespace CardGame.Server {
 		
 		public void OnEndTurn(int playerId)
 		{
-			GD.Print("Ending Turn");
 			var player = GameState.Player(playerId);
 			if (Judge.EndingTurnIsIllegal(GameState, player))
 			{

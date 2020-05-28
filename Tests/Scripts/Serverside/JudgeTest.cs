@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CardGame.Server;
+using Godot.Collections;
 
 namespace CardGame.Tests.Scripts.Serverside
 {
@@ -117,7 +118,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        StartGame(DeckList);
 	        var support = Players[1].Hand[0].Id;
 	        Play.SetFaceDown(Players[1].Id, support);
-	        Play.Activate(Players[1].Id, support, 0, new List<int>());
+	        Play.Activate(Players[1].Id, support, 0, new Array<int>());
 
 	        Assert.IsTrue(Players[1].Disqualified);
         }
@@ -130,7 +131,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        var support = Players[1].Hand[0].Id;
 	        Play.SetFaceDown(Players[1].Id, support);
 	        Play.EndTurn(Players[1].Id);
-	        Play.Activate(Players[1].Id, support, 0, new List<int>());
+	        Play.Activate(Players[1].Id, support, 0, new Array<int>());
 
 	        Assert.IsTrue(Players[1].Disqualified);
         }
