@@ -11,7 +11,7 @@ namespace CardGame.Server {
 		delegate void RequestTargets();
 		
 		[Signal]
-		delegate void UnPaused();
+		public delegate void UnPaused();
 		
 		public Card Target;
 		public bool Paused = false;

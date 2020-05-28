@@ -3,7 +3,7 @@ using System;
 
 namespace CardGame.Server {
 
-	public class Battle : Reference
+	public class Battle : Reference, IResolvable
 	{
 		private const int DirectAttack = -1;
 		private Player Attacking;
@@ -19,7 +19,7 @@ namespace CardGame.Server {
 			Defender = defender;
 		}
 		
-		public void Resolve()
+		public void Resolve(string ignore = "")
 		{
 			
 		}

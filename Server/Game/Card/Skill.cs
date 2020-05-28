@@ -7,7 +7,7 @@ using Object = Godot.Object;
 
 namespace CardGame.Server {
 	
-	public class Skill : Godot.Object
+	public class Skill : Godot.Object, IResolvable
 	{
 		public enum Types { Manual, Auto, Constant }
 		public Player Owner;
