@@ -1,4 +1,6 @@
-﻿namespace CardGame.Server
+﻿using Godot;
+
+namespace CardGame.Server
 {
     public class DestroyAttackingUnit : Support
     {
@@ -18,6 +20,7 @@
 
             public override void _Resolve()
             {
+                GD.Print("Destroying: ", GameState.Attacking);
                 Controller.DestroyUnit(GameState.Attacking);
             }
         }

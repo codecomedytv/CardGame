@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using CardGame.Server;
 
-namespace CardGame.Tests.Scripts.ServersIde
+namespace CardGame.Tests.Scripts.Serverside
 {
     public class BattleTest: GameFixture
     {

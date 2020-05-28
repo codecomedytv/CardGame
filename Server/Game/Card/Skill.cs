@@ -41,7 +41,12 @@ namespace CardGame.Server {
 				return;
 			}
 
+
 			_SetUp();
+			if(CanBeUsed && Card is Support support)
+			{
+				support.CanBeActivated = true;
+			}
 		}
 
 		public virtual void _SetUp()

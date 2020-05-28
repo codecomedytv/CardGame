@@ -115,7 +115,7 @@ namespace CardGame.Server {
 			}
 			
 			else if (support.Activated)
-			{
+			{	
 				Disqualify(player, Reasons.InvalidActivation);
 				return Invalid;
 			}

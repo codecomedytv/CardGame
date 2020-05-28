@@ -170,6 +170,7 @@ namespace CardGame.Server {
 			player.Opponent.State = Player.States.Active;
 			player.DeclareState();
 			player.Opponent.DeclareState();
+			Link.SetupManual("attack");
 			// Link.Broadcast("attack", [attacker, defender])
 			Update();
 		}

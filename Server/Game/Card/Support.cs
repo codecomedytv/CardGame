@@ -44,7 +44,7 @@ namespace CardGame.Server
                 Controller.DeclarePlay(new Activate(this, new List<Card>()));
             }
         }
-        
-        
+
+
     }
 }

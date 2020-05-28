@@ -33,7 +33,7 @@ namespace CardGame.Server {
 
 		[Signal]
 		public delegate void Exit();
-
+		
 		public virtual void OnControllerStateChanged(int state, string signal)
 		{
 			
