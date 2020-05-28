@@ -75,8 +75,21 @@ namespace CardGame.Tests.Scripts.Serverside
             Assert.IsEqual(oldState, Player.States.Acting, "Player was Acting");
             Assert.IsEqual(newState, Player.States.Idle, "Player is Idle");
         }
-        
-        
+
+        [Test]
+        public void NonTurn_Player_Becomes_Passive_When_Both_Players_Pass()
+        {
+            StartGame(Decklist);
+            var unit = Players[1].Hand[0].Id;
+            Play.Deploy(Players[1].Id, unit);
+            var oldState = Players[0].State;
+            Play.PassPlay(Players[0].Id);
+            Play.PassPlay(Players[1].Id);
+            var newState = Players[0].State;
+            
+            Assert.IsEqual(oldState, Player.States.Active, "Player was Active");
+            Assert.IsEqual(newState, Player.States.Passive, "Player is Passive");
+        }
         
     }
 }
