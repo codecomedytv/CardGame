@@ -1,20 +1,20 @@
 <?xml version="1.0" ?>
-<testsuites failures="1" name="TestXML" tests="1" time="1.039">
+<testsuites failures="1" name="TestXML" tests="1" time="1.015">
 <testsuite failures="1" name="When using a Skill" tests="8" time="0.01">
 <testcase name="That Targets A Unit When Only One Nontargetable Target Exists" time="0.029">
 </testcase>
 <testcase name="That Adds A Tag To Players When Unit Card Is Played" time="0.007">
 <failure message="EXPECTED: [] has 5: Debug.500ATK.500DEF but GOT [] has 5: Debug.500ATK.500DEF"></failure>
 </testcase>
-<testcase name="That Tries To Destroy An Indestructible Card" time="0.008">
+<testcase name="That Tries To Destroy An Indestructible Card" time="0.007">
 </testcase>
-<testcase name="That Returns A Card To The Players Deck" time="0.006">
+<testcase name="That Returns A Card To The Players Deck" time="0.005">
 </testcase>
-<testcase name="That Mills A Card" time="0.006">
+<testcase name="That Mills A Card" time="0.004">
 </testcase>
-<testcase name="That Returns A Unit To Opponents Hand" time="0.006">
+<testcase name="That Returns A Unit To Opponents Hand" time="0.005">
 </testcase>
-<testcase name="That Discards Your Target Card" time="0.005">
+<testcase name="That Discards Your Target Card" time="0.004">
 </testcase>
 <testcase name="That Destroys Target Opponent Unit" time="0.005">
 </testcase>
