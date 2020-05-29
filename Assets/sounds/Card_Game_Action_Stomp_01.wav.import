@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Card_Game_Action_Stomp_01.wav-45f7eda83a9e3ed979afe19387361313.sample"
+
+[deps]
+
+source_file="res://Assets/sounds/Card_Game_Action_Stomp_01.wav"
+dest_files=[ "res://.import/Card_Game_Action_Stomp_01.wav-45f7eda83a9e3ed979afe19387361313.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

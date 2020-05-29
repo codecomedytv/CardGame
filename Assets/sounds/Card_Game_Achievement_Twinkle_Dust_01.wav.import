@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Card_Game_Achievement_Twinkle_Dust_01.wav-e5c67d649c36c867ca36a79ef594a426.sample"
+
+[deps]
+
+source_file="res://Assets/sounds/Card_Game_Achievement_Twinkle_Dust_01.wav"
+dest_files=[ "res://.import/Card_Game_Achievement_Twinkle_Dust_01.wav-e5c67d649c36c867ca36a79ef594a426.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

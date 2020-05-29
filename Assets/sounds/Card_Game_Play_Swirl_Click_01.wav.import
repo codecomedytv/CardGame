@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Card_Game_Play_Swirl_Click_01.wav-4efc88802383862e1b76ff9729bc5cbd.sample"
+
+[deps]
+
+source_file="res://Assets/sounds/Card_Game_Play_Swirl_Click_01.wav"
+dest_files=[ "res://.import/Card_Game_Play_Swirl_Click_01.wav-4efc88802383862e1b76ff9729bc5cbd.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
