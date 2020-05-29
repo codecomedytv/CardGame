@@ -16,7 +16,7 @@
 [ext_resource path="res://Client/Game/Sfx.cs" type="Script" id=14]
 [ext_resource path="res://client/game/game.gd" type="Script" id=15]
 [ext_resource path="res://assets/spritesheets/ovalorange/030026.png" type="Texture" id=16]
-[ext_resource path="res://client/game/history.gd" type="Script" id=17]
+[ext_resource path="res://Client/Game/History.cs" type="Script" id=17]
 [ext_resource path="res://assets/UI/test.png" type="Texture" id=18]
 [ext_resource path="res://assets/fonts/history.tres" type="DynamicFontData" id=19]
 [ext_resource path="res://Client/Game/Interact.cs" type="Script" id=20]
@@ -619,7 +619,7 @@ position = Vector2( 906.037, 644.347 )
 scale = Vector2( 0.348772, 0.389158 )
 frames = SubResource( 48 )
 animation = "New Anim"
-frame = 8
+frame = 16
 playing = true
 script = ExtResource( 20 )
 
