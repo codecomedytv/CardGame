@@ -25,7 +25,7 @@ namespace CardGame.Client.Library.Card
 		public int Attack = 0;
 		public int Defense = 0;
 		public string Effect;
-		public int CardType;
+		public CardTypes CardType;
 		public bool IsReady = false;
 		public bool Blank = false;
 		public bool Legal = false;
@@ -184,19 +184,22 @@ namespace CardGame.Client.Library.Card
 			Back.Visible = true;
 		}
 
-		public void SetData(object source)
+		public void SetData(BaseCard card)
 		{
-			/*
-			func set_data(data: Object) -> void:
-			title = data.title
-			effect = data.text
-			card_type = data.CARD_TYPE
-			illustration = data.illustration
-			if card_type == CARD_TYPE.UNIT:
-			attack = data.attack
-			defense = data.defense
-			Title = source.Title;
-			*/
+			Title = card.Title;
+			Effect = card.Text;
+			Illustration = card.Illustration;
+			if (card is Unit unit)
+			{
+				CardType = unit.CardType;
+				Attack = unit.Attack;
+				Defense = unit.Defense;
+			}
+			else if(card is Support support)
+			{
+				CardType = support.CardType;
+				
+			}
 		}
 
 		public void Visualize()

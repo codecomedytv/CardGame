@@ -59,7 +59,16 @@
     <Compile Include="Client\ClientConn.cs" />
     <Compile Include="Client\Game.cs" />
     <Compile Include="Client\Game\Interact.cs" />
+    <Compile Include="Client\Library\Alpha\CounterAttack.cs" />
+    <Compile Include="Client\Library\Alpha\DungeonGuide.cs" />
+    <Compile Include="Client\Library\Alpha\GuardPuppy.cs" />
+    <Compile Include="Client\Library\Alpha\NoviceArcher.cs" />
+    <Compile Include="Client\Library\Alpha\QuestReward.cs" />
+    <Compile Include="Client\Library\Alpha\TrainingTrainer.cs" />
+    <Compile Include="Client\Library\Alpha\WrongWay.cs" />
+    <Compile Include="Client\Library\Card\BaseCard.cs" />
     <Compile Include="Client\Library\Card\Card.cs" />
+    <Compile Include="Client\Library\Library.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\Game\Battle.cs" />
@@ -316,17 +325,8 @@
     <Content Include="Client\Game\units.gd" />
     <Content Include="Client\Game\visual.gd" />
     <Content Include="Client\Game\Zone0.gd" />
-    <Content Include="Client\Library\Alpha\CounterAttack.gd" />
-    <Content Include="Client\Library\Alpha\DungeonGuide.gd" />
-    <Content Include="Client\Library\Alpha\GuardPuppy.gd" />
-    <Content Include="Client\Library\Alpha\NoviceArcher.gd" />
-    <Content Include="Client\Library\Alpha\QuestReward.gd" />
-    <Content Include="Client\Library\Alpha\TrainingTrainer.gd" />
-    <Content Include="Client\Library\Alpha\WrongWay.gd" />
-    <Content Include="Client\Library\Card\base.gd" />
     <Content Include="Client\Library\Card\object.tscn" />
     <Content Include="Client\Library\Card\Selected.gd" />
-    <Content Include="Client\Library\library.gd" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
