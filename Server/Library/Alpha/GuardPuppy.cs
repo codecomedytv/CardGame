@@ -23,7 +23,7 @@
 
             public override void _Resolve()
             {
-                AddTagToGroup(Controller.Field, Tag.CannotBeAttacked, "exit", "exit", false);
+                AddTagToGroup(Controller.Field, Tag.CannotBeAttacked, nameof(Card.Exit), nameof(Card.Exit), false);
             }
         }
     }

@@ -50,9 +50,41 @@ namespace CardGame.Server {
 			tagged.Tags.Add(this);
 		}
 
-		public void OnZoneExit(List<Card> zone, Card card, string todo)
+		private void Destroy()
 		{
-			
+			while (Decorated.Count != 0)
+			{
+				if (Decorated[0] is Card card)
+				{
+					UnTag(card);
+				}
+				else
+				{
+					GD.PushWarning("Untagging Players Not Implemented!");
+				}
+			}
+		}
+
+		public void OnZoneExit(List<Card> zone, Card card, string command)
+		{
+			GD.Print("command");
+			if(zone == card.Zone)
+			{
+				// Not a New Zone
+				return;
+			}
+
+			switch (command)
+			{
+				case "destroy":
+					Destroy();
+					break;
+				case "untag":
+					UnTag(card);
+					break;
+				default:
+					throw new Exception("Unreachable Reached");
+			}
 		}
 	}
 }

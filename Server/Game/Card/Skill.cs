@@ -100,7 +100,7 @@ namespace CardGame.Server {
 			if (destroyCondition != "")
 			{
 				Card.Connect(destroyCondition, decorator, nameof(decorator.OnZoneExit),
-					new Array {Card.Zone, Card, "Destroy"});
+					new Array {Card.Zone, Card, "destroy"});
 			}
 
 			foreach (var card in cards)
@@ -108,13 +108,14 @@ namespace CardGame.Server {
 				if (Card == card && !includeCard)
 				{
 					// I have no idea what this is doing?
+					// Excluding card from its own tags
 					continue;
 				}
 				decorator.AddTagTo(card);
 				if (taggedExit != "")
 				{
-					Card.Connect(taggedExit, decorator,
-						nameof(decorator.OnZoneExit), new Array {Card.Zone, Card, "unTag"});
+					card.Connect(taggedExit, decorator,
+						nameof(decorator.OnZoneExit), new Array {card.Zone, card, "untag"});
 				}
 			}
 		}

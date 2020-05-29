@@ -121,6 +121,7 @@ namespace CardGame.Server {
 			from.Remove(card);
 			to.Add(card);
 			card.Zone = to;
+			card.EmitSignal(nameof(Card.Exit));
 		}
 
 

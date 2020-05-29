@@ -107,6 +107,7 @@
     <Compile Include="Tests\Scripts\Serverside\NoviceArcherTest.cs" />
     <Compile Include="Tests\Scripts\Serverside\PlayerStates.cs" />
     <Compile Include="Tests\Scripts\Serverside\PlayTest.cs" />
+    <Compile Include="Tests\Scripts\Serverside\PuppyTest.cs" />
     <Compile Include="Tests\Scripts\Serverside\SkillTest.cs" />
   </ItemGroup>
   <ItemGroup>
