@@ -105,6 +105,7 @@
     <Compile Include="Tests\Scripts\Serverside\JudgeTest.cs" />
     <Compile Include="Tests\Scripts\Serverside\LinkTest.cs" />
     <Compile Include="Tests\Scripts\Serverside\NoviceArcherTest.cs" />
+    <Compile Include="Tests\Scripts\Serverside\PlayerStateRedux.cs" />
     <Compile Include="Tests\Scripts\Serverside\PlayerStates.cs" />
     <Compile Include="Tests\Scripts\Serverside\PlayTest.cs" />
     <Compile Include="Tests\Scripts\Serverside\PuppyTest.cs" />

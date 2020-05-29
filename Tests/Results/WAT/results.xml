@@ -1,11 +1,7 @@
 <?xml version="1.0" ?>
-<testsuites failures="0" name="TestXML" tests="1" time="1.01">
-<testsuite failures="0" name="Given Guard Puppy" tests="3" time="0.008">
-<testcase name=" tag unit removed from field" time="0.04">
-</testcase>
-<testcase name=" guard puppy removed from the field" time="0.007">
-</testcase>
-<testcase name="guard puppy" time="0.004">
+<testsuites failures="0" name="TestXML" tests="1" time="1.152">
+<testsuite failures="0" name="Triggered Event Cards Redux" tests="1" time="0.01">
+<testcase name="OnAttack" time="0.042">
 </testcase>
 </testsuite>
 </testsuites>
