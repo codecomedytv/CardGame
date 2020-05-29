@@ -10,7 +10,7 @@ namespace CardGame.Client.Match
 	{
 		public Control Life;
 		public Control Hand;
-		public Control Units;
+		public HBoxContainer Units;
 		public Control Support;
 		public Control Discard;
 		public Control Deck;
@@ -25,7 +25,7 @@ namespace CardGame.Client.Match
 		{
 			Life = GetNode("View/Life") as Control;
 			Hand = GetNode("Hand") as Control;
-			Units = GetNode("Units") as Control;
+			Units = GetNode("Units") as HBoxContainer;
 			Support = GetNode("Support") as Control;
 			Discard = GetNode("Discard") as Control;
 			Deck = GetNode("Deck") as Control;

@@ -28,14 +28,13 @@ namespace CardGame.Client.Match
         public List<Card> Support = new List<Card>();
         public bool Won = false;
         public bool Lost = false;
+        public Visual Visual;
 
         [Signal]
         public delegate void PlayerWon();
 
         [Signal]
         public delegate void PlayerLost();
-
-        public Control Visual;
         
         // This is more of a singleton of cards the player knows about
         // We got to make sure this is passed-by-ref only (before fixing it entirely)

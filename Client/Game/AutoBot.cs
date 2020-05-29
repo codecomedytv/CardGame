@@ -10,7 +10,7 @@ namespace CardGameSharp.Client.Game
 	    public bool Attacked = false;
 	    public bool Deployed = false;
 
-	    public void Command()
+	    public void _Command()
 	    {
 		    if (GameOver() || !IsOurTurn())
 		    {
