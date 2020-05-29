@@ -61,6 +61,7 @@
     <Compile Include="Client\Game\Game.cs" />
     <Compile Include="Client\Game\GameInput.cs" />
     <Compile Include="Client\Game\Gfx.cs" />
+    <Compile Include="Client\Game\History.cs" />
     <Compile Include="Client\Game\Interact.cs" />
     <Compile Include="Client\Game\Messenger.cs" />
     <Compile Include="Client\Game\Player.cs" />
@@ -319,7 +320,6 @@
     <Content Include="Client\Game\event_manager.gd" />
     <Content Include="Client\Game\game.gd" />
     <Content Include="Client\Game\Game.tscn" />
-    <Content Include="Client\Game\history.gd" />
     <Content Include="Client\Game\manual.gd" />
     <Content Include="Client\Game\opponent.gd" />
     <Content Include="Client\Game\player.gd" />

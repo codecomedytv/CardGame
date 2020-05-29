@@ -19,7 +19,7 @@ namespace CardGameSharp.Client.Game
         public delegate void ExecutedEvents();
 
         [Signal]
-        public delegate void Disconnect();
+        public delegate void DisconnectPlayer();
 
         private const int ServerId = 1;
         public int Id = 0;
@@ -44,7 +44,7 @@ namespace CardGameSharp.Client.Game
         [Puppet]
         public void ForceDisconnected(int reason)
         {
-            EmitSignal(nameof(Disconnect), reason);
+            EmitSignal(nameof(DisconnectPlayer), reason);
         }
         public void Deploy(int cardId)
         {
