@@ -1,6 +1,6 @@
 [gd_scene load_steps=113 format=2]
 
-[ext_resource path="res://client/library/card/object.gd" type="Script" id=1]
+[ext_resource path="res://Client/Library/Card/Card.cs" type="Script" id=1]
 [ext_resource path="res://assets/CardArt/cultist.png" type="Texture" id=2]
 [ext_resource path="res://assets/UI/CardFrame_Lava.png" type="Texture" id=3]
 [ext_resource path="res://assets/fonts/LemonMilkbolditalic.otf" type="DynamicFontData" id=4]
@@ -182,6 +182,9 @@ margin_right = 100.0
 margin_bottom = 150.0
 rect_min_size = Vector2( 100, 150 )
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Title" type="Label" parent="."]
 margin_top = 91.0
@@ -303,7 +306,7 @@ position = Vector2( 1174.45, 1291.75 )
 scale = Vector2( 19.0056, 18.9296 )
 frames = SubResource( 7 )
 animation = "Blue"
-frame = 24
+frame = 19
 playing = true
 
 [node name="ValidTarget" type="AnimatedSprite" parent="Frame"]
@@ -314,7 +317,7 @@ position = Vector2( -1120.24, -784.34 )
 scale = Vector2( 18.2857, 19.2292 )
 frames = SubResource( 8 )
 animation = "Valid"
-frame = 27
+frame = 22
 playing = true
 centered = false
 
@@ -326,7 +329,7 @@ position = Vector2( -1120.24, -784.34 )
 scale = Vector2( 18.2857, 19.2292 )
 frames = SubResource( 8 )
 animation = "Selected"
-frame = 8
+frame = 3
 playing = true
 centered = false
 
@@ -338,3 +341,4 @@ texture = ExtResource( 2 )
 centered = false
 [connection signal="mouse_entered" from="." to="." method="_on_Card_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_Card_mouse_exited"]
+[connection signal="pressed" from="." to="." method="_on_Card_pressed"]

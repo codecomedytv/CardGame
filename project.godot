@@ -17,12 +17,12 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "ClientLibrary",
 "language": "GDScript",
-"path": "res://Client/library/library.gd"
+"path": "res://Client/Library/library.gd"
 }, {
 "base": "Control",
 "class": "GameInput",
 "language": "GDScript",
-"path": "res://Client/game/input.gd"
+"path": "res://Client/Game/input.gd"
 }, {
 "base": "Reference",
 "class": "WAT",
@@ -37,7 +37,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "cCard",
 "language": "GDScript",
-"path": "res://Client/library/card/base.gd"
+"path": "res://Client/Library/Card/base.gd"
 } ]
 _global_script_class_icons={
 "Client": "",
@@ -66,10 +66,6 @@ Display=8
 config/name="CardGameSharp"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
-
-[editor_plugins]
-
-enabled=PoolStringArray( "WAT" )
 
 [rendering]
 

@@ -6,7 +6,7 @@ enum Zone {
 	HAND
 	UNIT
 	SUPPORT
-}
+	}
 # Data
 var id: int = 0
 var title: String
@@ -148,6 +148,8 @@ func select() -> void:
 
 func _ready() -> void:
 	visualize()
+	
+
 	
 func _on_Card_mouse_entered():
 	glow()
