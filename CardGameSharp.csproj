@@ -58,6 +58,7 @@
     <Compile Include="addons\WAT\core\test\Test.cs" />
     <Compile Include="Client\ClientConn.cs" />
     <Compile Include="Client\Game.cs" />
+    <Compile Include="Client\Game\Interact.cs" />
     <Compile Include="Client\Library\Card\Card.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -323,7 +324,6 @@
     <Content Include="Client\Library\Alpha\TrainingTrainer.gd" />
     <Content Include="Client\Library\Alpha\WrongWay.gd" />
     <Content Include="Client\Library\Card\base.gd" />
-    <Content Include="Client\Library\Card\object.gd" />
     <Content Include="Client\Library\Card\object.tscn" />
     <Content Include="Client\Library\Card\Selected.gd" />
     <Content Include="Client\Library\library.gd" />

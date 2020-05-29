@@ -1,4 +1,5 @@
 using System;
+using CardGame.Client.Match;
 using CardGame.Server;
 using Godot;
 using Array = Godot.Collections.Array;
@@ -41,7 +42,7 @@ namespace CardGame.Client.Library.Card
 		public Object Player; // Client Player doesn't exist yet
 
 		// Set by Game
-		public AnimatedSprite Interact;
+		public Interact Interact;
 
 		// Visual Onready Vars
 		public AnimatedSprite LegalPlay;
@@ -244,7 +245,7 @@ namespace CardGame.Client.Library.Card
 			{
 				return;
 			}
-			/*
+			
 			if (Interact.Card != null)
 			{
 				return;
@@ -272,7 +273,7 @@ namespace CardGame.Client.Library.Card
 					break;
 				default:
 					return;
-			}*/
+			}
 		}
 		
 		
