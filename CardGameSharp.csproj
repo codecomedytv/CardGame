@@ -57,6 +57,7 @@
     <Compile Include="addons\WAT\core\test\Recorder.cs" />
     <Compile Include="addons\WAT\core\test\Test.cs" />
     <Compile Include="Client\ClientConn.cs" />
+    <Compile Include="Client\Game\AutoBot.cs" />
     <Compile Include="Client\Game\CardViewer.cs" />
     <Compile Include="Client\Game\Game.cs" />
     <Compile Include="Client\Game\GameInput.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Client\Game\History.cs" />
     <Compile Include="Client\Game\Interact.cs" />
     <Compile Include="Client\Game\Messenger.cs" />
+    <Compile Include="Client\Game\Opponent.cs" />
     <Compile Include="Client\Game\Player.cs" />
     <Compile Include="Client\Game\Sfx.cs" />
     <Compile Include="Client\Game\Visual.cs" />
@@ -315,7 +317,6 @@
     <Content Include="Client\client.gd" />
     <Content Include="Client\Client.tscn" />
     <Content Include="Client\Error.gd" />
-    <Content Include="Client\Game\autobot.gd" />
     <Content Include="Client\Game\CardViewer.tscn" />
     <Content Include="Client\Game\event_manager.gd" />
     <Content Include="Client\Game\game.gd" />

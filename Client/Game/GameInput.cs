@@ -12,11 +12,11 @@ namespace CardGameSharp.Client.Game
 
 		public int NetworkId = 0;
 		public Player Player;
-		public Object Opponent;
+		public Opponent Opponent;
 		public Messenger Messenger;
 		public Dictionary Cards;
 
-		public void SetUp(Player player, Object opponent, int networkId, Messenger messenger, Dictionary cards)
+		public void SetUp(Player player, Opponent opponent, int networkId, Messenger messenger, Dictionary cards)
 		{
 			Player = player;
 			Opponent = opponent;
