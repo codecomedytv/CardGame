@@ -68,6 +68,7 @@
     <Compile Include="Client\Library\Alpha\WrongWay.cs" />
     <Compile Include="Client\Library\Card\BaseCard.cs" />
     <Compile Include="Client\Library\Card\Card.cs" />
+    <Compile Include="Client\Library\Card\Selected.cs" />
     <Compile Include="Client\Library\Library.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -326,7 +327,6 @@
     <Content Include="Client\Game\visual.gd" />
     <Content Include="Client\Game\Zone0.gd" />
     <Content Include="Client\Library\Card\object.tscn" />
-    <Content Include="Client\Library\Card\Selected.gd" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
