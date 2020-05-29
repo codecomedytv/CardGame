@@ -5,6 +5,7 @@ using Godot;
 using Array = Godot.Collections.Array;
 using Environment = Godot.Environment;
 using Object = Godot.Object;
+using Player = CardGame.Client.Match.Player;
 
 namespace CardGame.Client.Library.Card
 {
@@ -39,7 +40,7 @@ namespace CardGame.Client.Library.Card
 		public bool CanBeSet = false;
 		public bool CanBeActivated = false;
 		public bool CanAttack = false;
-		public Object Player; // Client Player doesn't exist yet
+		public Player Player; // Client Player doesn't exist yet
 
 		// Set by Game
 		public Interact Interact;
