@@ -1,34 +1,3 @@
-[remap]
-
-importer="texture"
-type="StreamTexture"
-path="res://.import/button_01_03.png-f885993fc9ab4163214e9f1bf20f0df2.stex"
-metadata={
-"vram_texture": false
-}
-
-[deps]
-
-source_file="res://Assets/UI/button_01_03.png"
-dest_files=[ "res://.import/button_01_03.png-f885993fc9ab4163214e9f1bf20f0df2.stex" ]
-
-[params]
-
-compress/mode=0
-compress/lossy_quality=0.7
-compress/hdr_mode=0
-compress/bptc_ldr=0
-compress/normal_map=0
-flags/repeat=0
-flags/filter=true
-flags/mipmaps=false
-flags/anisotropic=false
-flags/srgb=2
-process/fix_alpha_border=true
-process/premult_alpha=false
-process/HDR_as_SRGB=false
-process/invert_color=false
-stream=false
-size_limit=0
-detect_3d=true
-svg/scale=1.0
+version https://git-lfs.github.com/spec/v1
+oid sha256:ed408cd74ec3a08162300698f709155a207c453d08535305fd6087aa8d28d7f2
+size 674

@@ -1,34 +1,3 @@
-[remap]
-
-importer="texture"
-type="StreamTexture"
-path="res://.import/140019.png-112572cdc716e18c3789f0c37337d0fc.stex"
-metadata={
-"vram_texture": false
-}
-
-[deps]
-
-source_file="res://Assets/spritesheets/red/140019.png"
-dest_files=[ "res://.import/140019.png-112572cdc716e18c3789f0c37337d0fc.stex" ]
-
-[params]
-
-compress/mode=0
-compress/lossy_quality=0.7
-compress/hdr_mode=0
-compress/bptc_ldr=0
-compress/normal_map=0
-flags/repeat=0
-flags/filter=true
-flags/mipmaps=false
-flags/anisotropic=false
-flags/srgb=2
-process/fix_alpha_border=true
-process/premult_alpha=false
-process/HDR_as_SRGB=false
-process/invert_color=false
-stream=false
-size_limit=0
-detect_3d=true
-svg/scale=1.0
+version https://git-lfs.github.com/spec/v1
+oid sha256:209f4acfb64fc3bf70a5796efcb7d66a8d79d5c7d7dccdbe51288e0fd6e4b621
+size 670

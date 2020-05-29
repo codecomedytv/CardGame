@@ -1,21 +1,3 @@
-[remap]
-
-importer="wav"
-type="AudioStreamSample"
-path="res://.import/Card_Game_Play_Punch_Fire_03.wav-b2e5b85e257e33703e98e16ea964fedb.sample"
-
-[deps]
-
-source_file="res://assets/sounds/Card_Game_Play_Punch_Fire_03.wav"
-dest_files=[ "res://.import/Card_Game_Play_Punch_Fire_03.wav-b2e5b85e257e33703e98e16ea964fedb.sample" ]
-
-[params]
-
-force/8_bit=false
-force/mono=false
-force/max_rate=false
-force/max_rate_hz=44100
-edit/trim=true
-edit/normalize=true
-edit/loop=false
-compress/mode=0
+version https://git-lfs.github.com/spec/v1
+oid sha256:a1541898224272bb91751ab12e3863c736de88a3ea75b6050ea6d1a80a4524bd
+size 502

@@ -1,34 +1,3 @@
-[remap]
-
-importer="texture"
-type="StreamTexture"
-path="res://.import/goblin_female.png-8a0487ce8d1fe4dfe1a442c9a02f576e.stex"
-metadata={
-"vram_texture": false
-}
-
-[deps]
-
-source_file="res://Assets/Avatars512x512/goblin_female.png"
-dest_files=[ "res://.import/goblin_female.png-8a0487ce8d1fe4dfe1a442c9a02f576e.stex" ]
-
-[params]
-
-compress/mode=0
-compress/lossy_quality=0.7
-compress/hdr_mode=0
-compress/bptc_ldr=0
-compress/normal_map=0
-flags/repeat=0
-flags/filter=true
-flags/mipmaps=false
-flags/anisotropic=false
-flags/srgb=2
-process/fix_alpha_border=true
-process/premult_alpha=false
-process/HDR_as_SRGB=false
-process/invert_color=false
-stream=false
-size_limit=0
-detect_3d=true
-svg/scale=1.0
+version https://git-lfs.github.com/spec/v1
+oid sha256:09e41e97898ab67933fb8c032d60fcbc2fdccf388be200787d2493c1bb38efa3
+size 689

@@ -1,34 +1,3 @@
-[remap]
-
-importer="texture"
-type="StreamTexture"
-path="res://.import/down.png-26c0271889a75bba3617a8a20841e34c.stex"
-metadata={
-"vram_texture": false
-}
-
-[deps]
-
-source_file="res://addons/WAT/assets/down.png"
-dest_files=[ "res://.import/down.png-26c0271889a75bba3617a8a20841e34c.stex" ]
-
-[params]
-
-compress/mode=0
-compress/lossy_quality=0.7
-compress/hdr_mode=0
-compress/bptc_ldr=0
-compress/normal_map=0
-flags/repeat=0
-flags/filter=true
-flags/mipmaps=false
-flags/anisotropic=false
-flags/srgb=2
-process/fix_alpha_border=true
-process/premult_alpha=false
-process/HDR_as_SRGB=false
-process/invert_color=false
-stream=false
-size_limit=0
-detect_3d=true
-svg/scale=1.0
+version https://git-lfs.github.com/spec/v1
+oid sha256:eb9e7b80ce5cbf0cd5ad397da666430cf2f6b3fcad8ee03f16d5f186a930790c
+size 658

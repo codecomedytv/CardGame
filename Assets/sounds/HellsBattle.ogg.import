@@ -1,15 +1,3 @@
-[remap]
-
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/HellsBattle.ogg-105331814d41fb689320864a17509af3.oggstr"
-
-[deps]
-
-source_file="res://Assets/sounds/HellsBattle.ogg"
-dest_files=[ "res://.import/HellsBattle.ogg-105331814d41fb689320864a17509af3.oggstr" ]
-
-[params]
-
-loop=true
-loop_offset=0
+version https://git-lfs.github.com/spec/v1
+oid sha256:db5313c2dbece3071783c1b9843c600ab633a7ddd1f9908dac61a5b806f979aa
+size 317

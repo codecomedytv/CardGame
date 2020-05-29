@@ -1,21 +1,3 @@
-[remap]
-
-importer="wav"
-type="AudioStreamSample"
-path="res://.import/Card_Game_Alert_Entrance_.01.wav-15925c1df70291749c8be8b56504c15e.sample"
-
-[deps]
-
-source_file="res://Assets/sounds/Card_Game_Alert_Entrance_.01.wav"
-dest_files=[ "res://.import/Card_Game_Alert_Entrance_.01.wav-15925c1df70291749c8be8b56504c15e.sample" ]
-
-[params]
-
-force/8_bit=false
-force/mono=false
-force/max_rate=false
-force/max_rate_hz=44100
-edit/trim=true
-edit/normalize=true
-edit/loop=false
-compress/mode=0
+version https://git-lfs.github.com/spec/v1
+oid sha256:a3ef6ee76911c0a63bbed28e07b37408d46242f13e140778f414b28bba5f04ae
+size 481

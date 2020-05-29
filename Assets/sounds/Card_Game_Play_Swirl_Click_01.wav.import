@@ -1,21 +1,3 @@
-[remap]
-
-importer="wav"
-type="AudioStreamSample"
-path="res://.import/Card_Game_Play_Swirl_Click_01.wav-4efc88802383862e1b76ff9729bc5cbd.sample"
-
-[deps]
-
-source_file="res://Assets/sounds/Card_Game_Play_Swirl_Click_01.wav"
-dest_files=[ "res://.import/Card_Game_Play_Swirl_Click_01.wav-4efc88802383862e1b76ff9729bc5cbd.sample" ]
-
-[params]
-
-force/8_bit=false
-force/mono=false
-force/max_rate=false
-force/max_rate_hz=44100
-edit/trim=false
-edit/normalize=false
-edit/loop=false
-compress/mode=0
+version https://git-lfs.github.com/spec/v1
+oid sha256:0e7a57c806d103b8047482c804edf0e02ecb331ba939bb543c00701ad348ebe3
+size 486

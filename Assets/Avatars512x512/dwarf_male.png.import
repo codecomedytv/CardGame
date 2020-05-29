@@ -1,34 +1,3 @@
-[remap]
-
-importer="texture"
-type="StreamTexture"
-path="res://.import/dwarf_male.png-ecf57836ad68b0ffda0071a1ed4eea0a.stex"
-metadata={
-"vram_texture": false
-}
-
-[deps]
-
-source_file="res://Assets/Avatars512x512/dwarf_male.png"
-dest_files=[ "res://.import/dwarf_male.png-ecf57836ad68b0ffda0071a1ed4eea0a.stex" ]
-
-[params]
-
-compress/mode=0
-compress/lossy_quality=0.7
-compress/hdr_mode=0
-compress/bptc_ldr=0
-compress/normal_map=0
-flags/repeat=0
-flags/filter=true
-flags/mipmaps=false
-flags/anisotropic=false
-flags/srgb=2
-process/fix_alpha_border=true
-process/premult_alpha=false
-process/HDR_as_SRGB=false
-process/invert_color=false
-stream=false
-size_limit=0
-detect_3d=true
-svg/scale=1.0
+version https://git-lfs.github.com/spec/v1
+oid sha256:26b170ccfb81ab6bb070b09f4786b2e8d6b897903b60d3aa575938ea68ebdb93
+size 680

@@ -1,21 +1,3 @@
-[remap]
-
-importer="wav"
-type="AudioStreamSample"
-path="res://.import/BRPG_Victory_Stinger.wav-e44d3807c4ab216e5cee66441788109f.sample"
-
-[deps]
-
-source_file="res://Assets/sounds/BRPG_Victory_Stinger.wav"
-dest_files=[ "res://.import/BRPG_Victory_Stinger.wav-e44d3807c4ab216e5cee66441788109f.sample" ]
-
-[params]
-
-force/8_bit=false
-force/mono=false
-force/max_rate=false
-force/max_rate_hz=44100
-edit/trim=true
-edit/normalize=true
-edit/loop=false
-compress/mode=0
+version https://git-lfs.github.com/spec/v1
+oid sha256:70dec9fab528ce61129b3a2939f48a42648b1acfb145e564c1df8e77172d14e3
+size 457

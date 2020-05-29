@@ -1,21 +1,3 @@
-[remap]
-
-importer="wav"
-type="AudioStreamSample"
-path="res://.import/Card_Game_Movement_Deal_Single_01.wav-63a23ad93be336dbc71a47330541af6b.sample"
-
-[deps]
-
-source_file="res://Assets/sounds/Card_Game_Movement_Deal_Single_01.wav"
-dest_files=[ "res://.import/Card_Game_Movement_Deal_Single_01.wav-63a23ad93be336dbc71a47330541af6b.sample" ]
-
-[params]
-
-force/8_bit=false
-force/mono=false
-force/max_rate=false
-force/max_rate_hz=44100
-edit/trim=true
-edit/normalize=true
-edit/loop=false
-compress/mode=0
+version https://git-lfs.github.com/spec/v1
+oid sha256:98c9d264e8f618e09ec1fcf784dd52af74b4bcdec31fb964d2c2f8c95eb160a3
+size 496

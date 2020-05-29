@@ -1,21 +1,3 @@
-[remap]
-
-importer="wav"
-type="AudioStreamSample"
-path="res://.import/Mana-Potion-1.wav-e62e4d5a896a0a1e5e6d32cd7344b43f.sample"
-
-[deps]
-
-source_file="res://Assets/sounds/Mana-Potion-1.wav"
-dest_files=[ "res://.import/Mana-Potion-1.wav-e62e4d5a896a0a1e5e6d32cd7344b43f.sample" ]
-
-[params]
-
-force/8_bit=false
-force/mono=false
-force/max_rate=false
-force/max_rate_hz=44100
-edit/trim=false
-edit/normalize=false
-edit/loop=false
-compress/mode=0
+version https://git-lfs.github.com/spec/v1
+oid sha256:e23f31fdf6c439ac4132cd62513cddeb602748bea5332f0952dcd696dd06e953
+size 438
