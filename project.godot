@@ -9,6 +9,21 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Connection",
+"class": "Client",
+"language": "GDScript",
+"path": "res://Client/client.gd"
+}, {
+"base": "Reference",
+"class": "ClientLibrary",
+"language": "GDScript",
+"path": "res://Client/library/library.gd"
+}, {
+"base": "Control",
+"class": "GameInput",
+"language": "GDScript",
+"path": "res://Client/game/input.gd"
+}, {
 "base": "Reference",
 "class": "WAT",
 "language": "GDScript",
@@ -18,10 +33,19 @@ _global_script_classes=[ {
 "class": "WATTest",
 "language": "GDScript",
 "path": "res://addons/WAT/core/test/test.gd"
+}, {
+"base": "Reference",
+"class": "cCard",
+"language": "GDScript",
+"path": "res://Client/library/card/base.gd"
 } ]
 _global_script_class_icons={
+"Client": "",
+"ClientLibrary": "",
+"GameInput": "",
 "WAT": "",
-"WATTest": ""
+"WATTest": "",
+"cCard": ""
 }
 
 [WAT]

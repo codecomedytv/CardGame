@@ -1,0 +1,340 @@
+[gd_scene load_steps=113 format=2]
+
+[ext_resource path="res://client/library/card/object.gd" type="Script" id=1]
+[ext_resource path="res://assets/CardArt/cultist.png" type="Texture" id=2]
+[ext_resource path="res://assets/UI/CardFrame_Lava.png" type="Texture" id=3]
+[ext_resource path="res://assets/fonts/LemonMilkbolditalic.otf" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/fonts/LemonMilkitalic.otf" type="DynamicFontData" id=5]
+[ext_resource path="res://assets/UI/CardBack_Wooden.png" type="Texture" id=6]
+[ext_resource path="res://assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://assets/spritesheets/red/140000.png" type="Texture" id=8]
+[ext_resource path="res://assets/spritesheets/red/140003.png" type="Texture" id=10]
+[ext_resource path="res://assets/spritesheets/red/140001.png" type="Texture" id=11]
+[ext_resource path="res://assets/UI/sword_02.png" type="Texture" id=12]
+[ext_resource path="res://assets/spritesheets/blue/120005.png" type="Texture" id=13]
+[ext_resource path="res://assets/spritesheets/blue/120009.png" type="Texture" id=14]
+[ext_resource path="res://assets/spritesheets/blue/120026.png" type="Texture" id=15]
+[ext_resource path="res://assets/spritesheets/blue/120003.png" type="Texture" id=16]
+[ext_resource path="res://assets/spritesheets/blue/120021.png" type="Texture" id=17]
+[ext_resource path="res://assets/spritesheets/blue/120027.png" type="Texture" id=18]
+[ext_resource path="res://assets/spritesheets/blue/120023.png" type="Texture" id=19]
+[ext_resource path="res://assets/spritesheets/blue/120007.png" type="Texture" id=20]
+[ext_resource path="res://assets/spritesheets/blue/120004.png" type="Texture" id=21]
+[ext_resource path="res://assets/spritesheets/blue/120008.png" type="Texture" id=22]
+[ext_resource path="res://assets/spritesheets/blue/120028.png" type="Texture" id=23]
+[ext_resource path="res://assets/spritesheets/blue/120014.png" type="Texture" id=24]
+[ext_resource path="res://assets/spritesheets/blue/120010.png" type="Texture" id=25]
+[ext_resource path="res://assets/spritesheets/blue/120017.png" type="Texture" id=26]
+[ext_resource path="res://assets/spritesheets/blue/120019.png" type="Texture" id=27]
+[ext_resource path="res://assets/spritesheets/blue/120016.png" type="Texture" id=28]
+[ext_resource path="res://assets/spritesheets/blue/120011.png" type="Texture" id=29]
+[ext_resource path="res://assets/spritesheets/blue/120012.png" type="Texture" id=30]
+[ext_resource path="res://assets/spritesheets/blue/120022.png" type="Texture" id=31]
+[ext_resource path="res://assets/spritesheets/blue/120002.png" type="Texture" id=32]
+[ext_resource path="res://assets/spritesheets/blue/120015.png" type="Texture" id=33]
+[ext_resource path="res://assets/spritesheets/blue/120020.png" type="Texture" id=34]
+[ext_resource path="res://assets/spritesheets/blue/120024.png" type="Texture" id=35]
+[ext_resource path="res://assets/spritesheets/blue/120001.png" type="Texture" id=36]
+[ext_resource path="res://assets/spritesheets/blue/120025.png" type="Texture" id=37]
+[ext_resource path="res://assets/spritesheets/blue/120000.png" type="Texture" id=38]
+[ext_resource path="res://assets/spritesheets/blue/120006.png" type="Texture" id=39]
+[ext_resource path="res://assets/spritesheets/blue/120013.png" type="Texture" id=40]
+[ext_resource path="res://assets/spritesheets/blue/120029.png" type="Texture" id=41]
+[ext_resource path="res://assets/spritesheets/blue/120018.png" type="Texture" id=42]
+[ext_resource path="res://assets/spritesheets/blue/120031.png" type="Texture" id=43]
+[ext_resource path="res://assets/spritesheets/blue/120030.png" type="Texture" id=44]
+[ext_resource path="res://assets/spritesheets/red/140002.png" type="Texture" id=45]
+[ext_resource path="res://assets/spritesheets/red/140018.png" type="Texture" id=46]
+[ext_resource path="res://assets/spritesheets/red/140031.png" type="Texture" id=47]
+[ext_resource path="res://assets/spritesheets/red/140007.png" type="Texture" id=48]
+[ext_resource path="res://assets/spritesheets/red/140020.png" type="Texture" id=49]
+[ext_resource path="res://assets/spritesheets/red/140028.png" type="Texture" id=50]
+[ext_resource path="res://assets/spritesheets/red/140019.png" type="Texture" id=51]
+[ext_resource path="res://assets/spritesheets/red/140015.png" type="Texture" id=52]
+[ext_resource path="res://assets/spritesheets/red/140017.png" type="Texture" id=53]
+[ext_resource path="res://assets/spritesheets/red/140027.png" type="Texture" id=54]
+[ext_resource path="res://assets/spritesheets/red/140023.png" type="Texture" id=55]
+[ext_resource path="res://assets/spritesheets/red/140004.png" type="Texture" id=56]
+[ext_resource path="res://assets/spritesheets/red/140030.png" type="Texture" id=57]
+[ext_resource path="res://assets/spritesheets/red/140021.png" type="Texture" id=58]
+[ext_resource path="res://assets/spritesheets/red/140024.png" type="Texture" id=59]
+[ext_resource path="res://assets/spritesheets/red/140009.png" type="Texture" id=60]
+[ext_resource path="res://assets/spritesheets/red/140022.png" type="Texture" id=61]
+[ext_resource path="res://assets/spritesheets/red/140026.png" type="Texture" id=62]
+[ext_resource path="res://assets/spritesheets/red/140013.png" type="Texture" id=63]
+[ext_resource path="res://assets/spritesheets/red/140005.png" type="Texture" id=64]
+[ext_resource path="res://assets/spritesheets/red/140011.png" type="Texture" id=65]
+[ext_resource path="res://assets/spritesheets/red/140010.png" type="Texture" id=66]
+[ext_resource path="res://assets/spritesheets/red/140025.png" type="Texture" id=67]
+[ext_resource path="res://assets/spritesheets/red/140016.png" type="Texture" id=68]
+[ext_resource path="res://assets/spritesheets/red/140029.png" type="Texture" id=69]
+[ext_resource path="res://assets/spritesheets/red/140012.png" type="Texture" id=70]
+[ext_resource path="res://assets/spritesheets/red/140014.png" type="Texture" id=71]
+[ext_resource path="res://assets/spritesheets/red/140006.png" type="Texture" id=72]
+[ext_resource path="res://assets/spritesheets/red/140008.png" type="Texture" id=73]
+[ext_resource path="res://assets/spritesheets/green/110002.png" type="Texture" id=74]
+[ext_resource path="res://assets/spritesheets/green/110006.png" type="Texture" id=75]
+[ext_resource path="res://assets/spritesheets/green/110007.png" type="Texture" id=76]
+[ext_resource path="res://assets/spritesheets/green/110000.png" type="Texture" id=77]
+[ext_resource path="res://assets/spritesheets/green/110003.png" type="Texture" id=78]
+[ext_resource path="res://assets/spritesheets/green/110004.png" type="Texture" id=79]
+[ext_resource path="res://assets/spritesheets/green/110005.png" type="Texture" id=80]
+[ext_resource path="res://assets/spritesheets/green/110001.png" type="Texture" id=81]
+[ext_resource path="res://assets/spritesheets/green/110020.png" type="Texture" id=82]
+[ext_resource path="res://assets/spritesheets/green/110014.png" type="Texture" id=83]
+[ext_resource path="res://assets/spritesheets/green/110015.png" type="Texture" id=84]
+[ext_resource path="res://assets/spritesheets/green/110022.png" type="Texture" id=85]
+[ext_resource path="res://assets/spritesheets/green/110023.png" type="Texture" id=86]
+[ext_resource path="res://assets/spritesheets/green/110012.png" type="Texture" id=87]
+[ext_resource path="res://assets/spritesheets/green/110026.png" type="Texture" id=88]
+[ext_resource path="res://assets/spritesheets/green/110013.png" type="Texture" id=89]
+[ext_resource path="res://assets/spritesheets/green/110028.png" type="Texture" id=90]
+[ext_resource path="res://assets/spritesheets/green/110025.png" type="Texture" id=91]
+[ext_resource path="res://assets/spritesheets/green/110011.png" type="Texture" id=92]
+[ext_resource path="res://assets/spritesheets/green/110008.png" type="Texture" id=93]
+[ext_resource path="res://assets/spritesheets/green/110029.png" type="Texture" id=94]
+[ext_resource path="res://assets/spritesheets/green/110017.png" type="Texture" id=95]
+[ext_resource path="res://assets/spritesheets/green/110016.png" type="Texture" id=96]
+[ext_resource path="res://assets/spritesheets/green/110010.png" type="Texture" id=97]
+[ext_resource path="res://assets/spritesheets/green/110024.png" type="Texture" id=98]
+[ext_resource path="res://assets/spritesheets/green/110027.png" type="Texture" id=99]
+[ext_resource path="res://assets/spritesheets/green/110030.png" type="Texture" id=100]
+[ext_resource path="res://assets/spritesheets/green/110018.png" type="Texture" id=101]
+[ext_resource path="res://assets/spritesheets/green/110009.png" type="Texture" id=102]
+[ext_resource path="res://assets/spritesheets/green/110031.png" type="Texture" id=103]
+[ext_resource path="res://assets/spritesheets/green/110021.png" type="Texture" id=104]
+[ext_resource path="res://assets/spritesheets/green/110019.png" type="Texture" id=105]
+
+[sub_resource type="DynamicFont" id=1]
+size = 7
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
+extra_spacing_char = 1
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 11
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+extra_spacing_char = 3
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 15
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=4]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+extra_spacing_char = 2
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=5]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 48
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 7 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ ExtResource( 38 ), ExtResource( 36 ), ExtResource( 32 ), ExtResource( 16 ), ExtResource( 21 ), ExtResource( 13 ), ExtResource( 39 ), ExtResource( 20 ), ExtResource( 22 ), ExtResource( 14 ), ExtResource( 25 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 40 ), ExtResource( 24 ), ExtResource( 33 ), ExtResource( 28 ), ExtResource( 26 ), ExtResource( 42 ), ExtResource( 27 ), ExtResource( 34 ), ExtResource( 17 ), ExtResource( 31 ), ExtResource( 19 ), ExtResource( 35 ), ExtResource( 37 ), ExtResource( 15 ), ExtResource( 18 ), ExtResource( 23 ), ExtResource( 41 ), ExtResource( 44 ), ExtResource( 43 ) ],
+"loop": true,
+"name": "Blue",
+"speed": 31.0
+} ]
+
+[sub_resource type="SpriteFrames" id=8]
+animations = [ {
+"frames": [ ExtResource( 77 ), ExtResource( 81 ), ExtResource( 74 ), ExtResource( 78 ), ExtResource( 79 ), ExtResource( 80 ), ExtResource( 75 ), ExtResource( 76 ), ExtResource( 93 ), ExtResource( 102 ), ExtResource( 97 ), ExtResource( 92 ), ExtResource( 87 ), ExtResource( 89 ), ExtResource( 83 ), ExtResource( 84 ), ExtResource( 96 ), ExtResource( 95 ), ExtResource( 101 ), ExtResource( 105 ), ExtResource( 82 ), ExtResource( 104 ), ExtResource( 85 ), ExtResource( 86 ), ExtResource( 98 ), ExtResource( 91 ), ExtResource( 88 ), ExtResource( 99 ), ExtResource( 90 ), ExtResource( 94 ), ExtResource( 100 ), ExtResource( 103 ) ],
+"loop": true,
+"name": "Selected",
+"speed": 31.0
+}, {
+"frames": [ ExtResource( 8 ), ExtResource( 11 ), ExtResource( 45 ), ExtResource( 10 ), ExtResource( 56 ), ExtResource( 64 ), ExtResource( 72 ), ExtResource( 48 ), ExtResource( 73 ), ExtResource( 60 ), ExtResource( 66 ), ExtResource( 65 ), ExtResource( 70 ), ExtResource( 63 ), ExtResource( 71 ), ExtResource( 52 ), ExtResource( 68 ), ExtResource( 53 ), ExtResource( 46 ), ExtResource( 51 ), ExtResource( 49 ), ExtResource( 58 ), ExtResource( 61 ), ExtResource( 55 ), ExtResource( 59 ), ExtResource( 67 ), ExtResource( 62 ), ExtResource( 54 ), ExtResource( 50 ), ExtResource( 69 ), ExtResource( 57 ), ExtResource( 47 ) ],
+"loop": true,
+"name": "Valid",
+"speed": 31.0
+} ]
+
+[node name="Card" type="Button" groups=[
+"cards",
+]]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_right = 100.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 100, 150 )
+script = ExtResource( 1 )
+
+[node name="Title" type="Label" parent="."]
+margin_top = 91.0
+margin_right = 100.0
+margin_bottom = 102.0
+rect_min_size = Vector2( 80, 0 )
+custom_fonts/font = SubResource( 1 )
+text = "Cultist"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Battle" type="HBoxContainer" parent="."]
+margin_top = 115.0
+margin_right = 100.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 100, 25 )
+alignment = 1
+
+[node name="Attack" type="Label" parent="Battle"]
+margin_left = 6.0
+margin_top = 9.0
+margin_right = 42.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 0, 12 )
+custom_fonts/font = SubResource( 2 )
+text = "2000"
+
+[node name="Label" type="Label" parent="Battle"]
+margin_left = 46.0
+margin_top = 6.0
+margin_right = 53.0
+margin_bottom = 28.0
+custom_fonts/font = SubResource( 3 )
+text = "/"
+
+[node name="Defense" type="Label" parent="Battle"]
+margin_left = 57.0
+margin_top = 9.0
+margin_right = 93.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 0, 12 )
+custom_fonts/font = SubResource( 2 )
+text = "2000"
+
+[node name="Back" type="TextureRect" parent="."]
+visible = false
+margin_right = 100.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 100, 150 )
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 1
+
+[node name="Rest" type="Label" parent="."]
+visible = false
+margin_top = 102.0
+margin_right = 100.0
+margin_bottom = 125.0
+rect_min_size = Vector2( 100, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "zzz"
+align = 1
+valign = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="Link" type="Label" parent="."]
+visible = false
+margin_left = 29.1987
+margin_top = 105.363
+margin_right = 69.1987
+margin_bottom = 125.363
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color = Color( 0.0627451, 0.498039, 0.87451, 1 )
+text = "2"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ID" type="Label" parent="."]
+margin_right = 100.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
+custom_fonts/font = SubResource( 6 )
+text = "ID"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Combat" type="TextureRect" parent="."]
+visible = false
+margin_left = 15.0
+margin_top = 22.0
+margin_right = 85.0
+margin_bottom = 122.0
+texture = ExtResource( 12 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Frame" type="Sprite" parent="."]
+show_behind_parent = true
+scale = Vector2( 0.0438507, 0.0471875 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="LegalPlay" type="AnimatedSprite" parent="Frame"]
+visible = false
+show_behind_parent = true
+position = Vector2( 1174.45, 1291.75 )
+scale = Vector2( 19.0056, 18.9296 )
+frames = SubResource( 7 )
+animation = "Blue"
+frame = 24
+playing = true
+
+[node name="ValidTarget" type="AnimatedSprite" parent="Frame"]
+visible = false
+self_modulate = Color( 1, 1, 1, 0.847059 )
+show_behind_parent = true
+position = Vector2( -1120.24, -784.34 )
+scale = Vector2( 18.2857, 19.2292 )
+frames = SubResource( 8 )
+animation = "Valid"
+frame = 27
+playing = true
+centered = false
+
+[node name="Selected" type="AnimatedSprite" parent="Frame"]
+visible = false
+self_modulate = Color( 1, 1, 1, 0.847059 )
+show_behind_parent = true
+position = Vector2( -1120.24, -784.34 )
+scale = Vector2( 18.2857, 19.2292 )
+frames = SubResource( 8 )
+animation = "Selected"
+frame = 8
+playing = true
+centered = false
+
+[node name="Illustration" type="Sprite" parent="Frame"]
+show_behind_parent = true
+position = Vector2( 49.064, 39.0809 )
+scale = Vector2( 0.958936, 0.967719 )
+texture = ExtResource( 2 )
+centered = false
+[connection signal="mouse_entered" from="." to="." method="_on_Card_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_Card_mouse_exited"]
