@@ -325,7 +325,6 @@
     <Content Include="Client\Game\opponent.gd" />
     <Content Include="Client\Game\player.gd" />
     <Content Include="Client\Game\PlayerViewer.tscn" />
-    <Content Include="Client\Game\visual.gd" />
     <Content Include="Client\Library\Card\object.tscn" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

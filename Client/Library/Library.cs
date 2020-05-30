@@ -41,7 +41,14 @@ namespace CardGame.Client.Library
             }
 
             return card;
+        }
 
+        public static Card.Card Placeholder()
+        {
+            var cardScene = ResourceLoader.Load("Card/object.tscn") as PackedScene;
+            var card = (Card.Card) cardScene.Instance();
+            card.Blank = true;
+            return card;
         }
     }
 }

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using CardGame.Client.Library.Card;
 using Godot;
-using Array = Godot.Collections.Array;
+//using Godot.Collections;
+// using Array = Godot.Collections.Array;
+
 
 namespace CardGame.Client.Match
 {
@@ -46,8 +48,9 @@ namespace CardGame.Client.Match
         // This has a setget attached to it in GDScript
         public bool Active = false;
 
-        public Array Link = new Godot.Collections.Array();
+        public List<Card> Link = new List<Card>();
         public object Input;
+        
 
     }
 }
