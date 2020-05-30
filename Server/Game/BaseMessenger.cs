@@ -31,6 +31,11 @@ namespace CardGame.Server {
 		[Signal]
 		public delegate void PlayerSeated(int player);
 
+		public BaseMessenger()
+		{
+			Name = "Messenger";
+		}
+
 		public virtual void OnPlayExecuted(Player player, System.Object gameEvent)
 		{
 			throw new NotImplementedException();

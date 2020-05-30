@@ -33,6 +33,14 @@ namespace CardGame.Server {
 			{ 
 			  Server.CloseConnection(); 
 			}
+			
+			// Have to add this here because Mono doesn't seem to process through all versions
+			if(notification == NotificationEnterTree)
+			{
+				GetTree().Connect("node_added", this, "OnNodeAdded");
+				CustomizeChildren();
+			}
+			
 		}
 		
 		[Master]
@@ -47,7 +55,7 @@ namespace CardGame.Server {
 			Server = new NetworkedMultiplayerENet();
 			var err = Server.CreateServer(Port);
 			if(err != Error.Ok ) { GD.PushWarning(err.ToString()); }
-			Multiplayer.NetworkPeer = Server;
+			CustomMultiplayer.NetworkPeer = Server;
 		}
 		
 		private void CreateRoom() 

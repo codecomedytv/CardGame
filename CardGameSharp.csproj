@@ -321,7 +321,6 @@
     <Content Include="Client\Client.tscn" />
     <Content Include="Client\Error.gd" />
     <Content Include="Client\Game\CardViewer.tscn" />
-    <Content Include="Client\Game\game.gd" />
     <Content Include="Client\Game\Game.tscn" />
     <Content Include="Client\Game\PlayerViewer.tscn" />
     <Content Include="Client\Library\Card\object.tscn" />

@@ -11,7 +11,7 @@ namespace CardGame.Server {
 		public enum States { Idle, Active, Passive, Acting, Passing }
 
 		public States State = States.Passive;
-		private List<SetCodes> DeckList;
+		public List<SetCodes> DeckList;
 		public readonly int Id;
 		public Player Opponent;
 		public int Health = 8000;

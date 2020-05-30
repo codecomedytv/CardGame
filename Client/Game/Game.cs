@@ -23,16 +23,11 @@ namespace CardGame.Client {
 		public EventManager EventManager = new EventManager();
 		public GameInput GameInput;
 		public bool Muted = false;
-		public Dictionary Cards;
+		public Dictionary Cards = new Dictionary();
 		public List<Card> Link = new List<Card>();
 
 		public override void _Ready()
 		{
-			// Temporary Code
-			string id = CustomMultiplayer.GetNetworkUniqueId().ToString();
-			GD.Print(id + ": Created Room " + Name);
-			// End Temporary Code
-
 			WinLoseNote = GetNode<Label>("WIN_LOSE");
 			Gfx = GetNode<Gfx>("Effects/GFX_Visual");
 			Sfx = GetNode<Sfx>("Effects/SFX_Audio");
@@ -42,14 +37,16 @@ namespace CardGame.Client {
 
 		public void SetUp(bool muteMusic, GameInput gameInput)
 		{
+			
 			Muted = muteMusic;
 			GameInput = gameInput;
 			AddChild(Messenger, true);
+			Messenger.CustomMultiplayer = GetParent().Multiplayer;
 			Player.Visual = GetNode<Visual>("Player");
 			Opponent.Visual = GetNode<Visual>("Opponent");
 			Player.Visual.Setup(Gfx, Sfx, History, (int) Gfx.Who.Player);
 			Opponent.Visual.Setup(Gfx, Sfx, History, (int) Gfx.Who.Opponent);
-			var networkId = Multiplayer.GetNetworkUniqueId();
+			var networkId = CustomMultiplayer.GetNetworkUniqueId();
 			Messenger.Id = networkId;
 			Sfx.StreamPaused = Muted;
 			BackgroundMusic.StreamPaused = Muted;
@@ -73,17 +70,17 @@ namespace CardGame.Client {
 					if (Cards[(int) card] is Card c) c.Interact = GetNode<Interact>("Interact");
 				}
 			}
-			AddChild(GameInput);
+			AddChild(GameInput, true);
 			GetNode<Button>("Background/EndTurn").Connect("pressed", GameInput, "OnEndTurn");
 			GetNode<Button>("Background/Pass").Connect("pressed", GameInput, "PassPriority");
-			Player.Visual.Connect("button_action", GetNode<Button>("Background/Pass"), "SetText");
+			Player.Visual.Connect("ButtonAction", GetNode<Button>("Background/Pass"), "SetText");
 			_Connect(EventManager, "CommandRequested", GameInput, "_command");
 			_Connect(EventManager, "Animated", Gfx, "Start");
 			_Connect(Player, "PlayerWon", this, "Win");
 			_Connect(Player, "PlayerLost", this, "Lose");
-			_Connect(Messenger, "QueuedEvent", EventManager, "QueueEvent");
-			_Connect(Messenger, "ExecuteEvents", EventManager, "ExecuteEvents");
-			_Connect(Messenger, "Disconnected", GetParent(), "ForceDisconnected");
+			_Connect(Messenger, "QueuedEvent", EventManager, "Queue");
+			_Connect(Messenger, "ExecutedEvents", EventManager, "Execute");
+			_Connect(Messenger, "DisconnectPlayer", GetParent(), "ForceDisconnected");
 			_Connect(Gfx, "tween_all_completed", EventManager, "OnAnimationFinished");
 
 			Messenger.CallDeferred("SetReady");

@@ -1,6 +1,8 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using CardGameSharp.Client.Game;
+using Array = Godot.Collections.Array;
 
 namespace CardGame.Client {
 	
@@ -8,8 +10,27 @@ namespace CardGame.Client {
 	{
 		const string Ip = "127.0.0.1";
 		const int Port = 5000;
-		private List<SetCodes> Decklist = new List<SetCodes>(); // How do we send this info online?
+		//private List<SetCodes> Decklist = new List<SetCodes>(); // How do we send this info online?
 		private NetworkedMultiplayerENet client;
+		
+		// Debug
+		public Array DefaultDeck()
+		{
+			var deckList = new Godot.Collections.Array();
+			for (var i = 0; i < 34; i++)
+			{
+				deckList.Add(SetCodes.Alpha_DungeonGuide);
+			}
+
+			deckList.Add(SetCodes.Alpha_GuardPuppy);
+			deckList.Add(SetCodes.Alpha_WrongWay);
+			deckList.Add(SetCodes.Alpha_CounterAttack);
+			deckList.Add(SetCodes.Alpha_QuestReward);
+			deckList.Add(SetCodes.Alpha_NoviceArcher);
+			deckList.Add(SetCodes.Alpha_TrainingTrainer);
+			return deckList;
+		}
+		// Debug
 	
 		public override void _Ready() 
 		{	
@@ -29,19 +50,18 @@ namespace CardGame.Client {
 		}
 		
 		public void OnConnected() {
-			RpcId(1, "RegisterPlayer", CustomMultiplayer.GetNetworkUniqueId(), Decklist);
+			RpcId(1, "RegisterPlayer", CustomMultiplayer.GetNetworkUniqueId(), DefaultDeck());
 		}
 		
 		public void OnFailed() { GD.Print("Connection Failed"); }
-		
+
 		[Puppet]
 		public void CreateRoom(string GameID){
-			GD.Print("Creating Room");
 			var gameScene = ResourceLoader.Load("res://Client/Game/Game.tscn") as PackedScene;
 			var Room = gameScene.Instance() as Game;
 			Room.Name = GameID;
 			AddChild(Room);
-			GD.Print("New Creation");
+			Room.SetUp(true, new Manual());
 		}
 
 	}

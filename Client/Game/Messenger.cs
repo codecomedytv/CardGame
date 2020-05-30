@@ -29,6 +29,11 @@ namespace CardGameSharp.Client.Game
             Name = "Messenger";
         }
 
+        public void SetReady()
+        {
+            RpcId(ServerId, "SetReady", Id); // Complains about no network peer being assigned?
+        }
+
         [Puppet]
         public void QueueEvent(int command, Array arguments)
         {

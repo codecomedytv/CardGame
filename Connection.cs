@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using CardGameSharp.Client.Game;
 using Godot.Collections;
 
 public class Connection : Control
@@ -39,6 +40,7 @@ public class Connection : Control
 		{  
 				return; 
 		}
+		
 		N.CustomMultiplayer = CustomMultiplayer;
 	}
 	
