@@ -53,7 +53,6 @@
 [ext_resource path="res://assets/spritesheets/ovalorange/030011.png" type="Texture" id=51]
 [ext_resource path="res://assets/spritesheets/ovalorange/030017.png" type="Texture" id=52]
 
-
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 9 )
 region_rect = Rect2( 0, 0, 1396, 156 )
@@ -620,7 +619,7 @@ position = Vector2( 906.037, 644.347 )
 scale = Vector2( 0.348772, 0.389158 )
 frames = SubResource( 48 )
 animation = "New Anim"
-frame = 3
+frame = 18
 playing = true
 script = ExtResource( 20 )
 

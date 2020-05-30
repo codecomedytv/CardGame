@@ -322,7 +322,6 @@
     <Content Include="Client\Game\event_manager.gd" />
     <Content Include="Client\Game\game.gd" />
     <Content Include="Client\Game\Game.tscn" />
-    <Content Include="Client\Game\opponent.gd" />
     <Content Include="Client\Game\PlayerViewer.tscn" />
     <Content Include="Client\Library\Card\object.tscn" />
   </ItemGroup>
