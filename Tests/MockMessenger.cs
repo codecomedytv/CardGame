@@ -13,7 +13,7 @@ namespace CardGame.Tests
             Name = "Messenger";
         }
         
-        public override void OnPlayExecuted(Player player, object gameEvent)
+        public override void OnPlayExecuted(Player player, GameEvent @event)
         {
             // Warning: Dummy Method
         }

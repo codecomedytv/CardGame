@@ -36,7 +36,7 @@ namespace CardGame.Server {
 			Name = "Messenger";
 		}
 
-		public virtual void OnPlayExecuted(Player player, System.Object gameEvent)
+		public virtual void OnPlayExecuted(Player player, GameEvent @event)
 		{
 			throw new NotImplementedException();
 		}

@@ -77,6 +77,7 @@ namespace CardGame.Server {
 
 		public void DeclarePlay(GameEvent gameEvent)
 		{
+			GD.Print("Play Declared");
 			EmitSignal(nameof(PlayExecuted), gameEvent);
 		}
 
@@ -87,6 +88,7 @@ namespace CardGame.Server {
 
 		public void Draw(int drawCount)
 		{
+			GD.Print("Drawing");
 			var lost = false;
 			var cards = new List<Card>();
 			for (var i = 0; i < drawCount; i++)
@@ -105,6 +107,7 @@ namespace CardGame.Server {
 			DeclarePlay(new Draw(cards));
 			if (lost)
 			{
+				GD.Print("Player Lost?");
 				Opponent.Win();
 			}
 

@@ -14,14 +14,25 @@ namespace CardGame.Server {
 			Name = "Messenger";
 		}
 
-		public override void OnPlayExecuted(Player player, System.Object Event)
+		public override void OnPlayExecuted(Player player, GameEvent gameEvent)
 		{
+			GD.Print("Executing Play");
+			if (gameEvent is CardGame.Server.Draw draw)
+			{
+				var inst = draw.GetInstruction();
+				RpcId(player.Id, "QueueEvent", inst.GameEvent, inst.args);
+			}
 			
+			RpcId(player.Id, "QueueEvent");
 		}
 
 		public override void Update(List<Player> players)
 		{
-			
+			GD.Print("Updating");
+			foreach (var player in players)
+			{
+				RpcId(player.Id, "ExecuteEvents");
+			}
 		}
 
 		public override void DisqualifyPlayer(int player, int reason)

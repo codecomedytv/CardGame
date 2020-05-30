@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
 using Godot;
-using Serialized = System.Collections.Generic.Dictionary<string, System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<int>>>;
+using Array = Godot.Collections.Array;
+using Serialized = System.Collections.Generic.Dictionary<object, object>;
 
 namespace CardGame.Server
 {
@@ -171,12 +175,36 @@ namespace CardGame.Server
             DrawnCards = drawnCards;
         }
 
+        public Instruction GetInstruction()
+        {
+            var inst = new Instruction();
+            inst.args = SetArgs();
+            return inst;
+        }
+
+        public Array SetArgs()
+        {
+            var ids = new Godot.Collections.Array();
+            foreach (var card in DrawnCards)
+            {
+                ids.Add(card.Id);
+            }
+
+            return ids;
+        }
+
+        public class Instruction
+        {
+            public GameEvents GameEvent = GameEvents.Draw;
+            public Array args;
+        }
+
         public override Serialized Serialize()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
-    
+
     public class  Discard : GameEvent
     {
         private Card Discarded;
