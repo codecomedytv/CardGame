@@ -37,9 +37,11 @@ namespace CardGame.Client {
 		[Puppet]
 		public void CreateRoom(string GameID){
 			GD.Print("Creating Room");
-			Game Room = new Game();
+			var gameScene = ResourceLoader.Load("res://Client/Game/Game.tscn") as PackedScene;
+			var Room = gameScene.Instance() as Game;
 			Room.Name = GameID;
 			AddChild(Room);
+			GD.Print("New Creation");
 		}
 
 	}

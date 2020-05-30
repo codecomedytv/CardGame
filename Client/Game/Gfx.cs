@@ -18,7 +18,7 @@ namespace CardGameSharp.Client.Game
         public override void _Ready()
         {
             // Not 100% sure this is the correct signal
-            Connect("TweenAllCompleted", this, nameof(Reset));
+            Connect("tween_all_completed", this, nameof(Reset));
         }
 
         public float AddDelay(float delay, int who)
