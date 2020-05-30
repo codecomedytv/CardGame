@@ -82,6 +82,7 @@
     <Compile Include="Client\Library\Card\Selected.cs" />
     <Compile Include="Client\Library\Library.cs" />
     <Compile Include="Connection.cs" />
+    <Compile Include="GameEvents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\Game\Battle.cs" />
     <Compile Include="Server\Game\Card\IResolvable.cs" />
@@ -324,6 +325,7 @@
     <Content Include="Client\Game\Game.tscn" />
     <Content Include="Client\Game\PlayerViewer.tscn" />
     <Content Include="Client\Library\Card\object.tscn" />
+    <Content Include="Tests\events.gd" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
