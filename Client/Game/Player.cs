@@ -59,7 +59,7 @@ namespace CardGame.Client.Match
 			return State == States.Idle || State == States.Active;
 		}
 
-		public void set_State(Array args) 
+		public void SetState(Array args) 
 		{
 			State = (States) args[0];
 			Visual.SetState(State);
@@ -264,13 +264,13 @@ namespace CardGame.Client.Match
 			Visual.BeginTurn();
 		}
 
-		public void end_turn() 
+		public void EndTurn() 
 		{
 			IsTurnPlayer = false;
 			Visual.EndTurn();
 		}
 
-		public void win() 
+		public void Win() 
 		{
 			Won = true;
 			EmitSignal(nameof(PlayerWon));
