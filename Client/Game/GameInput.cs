@@ -14,9 +14,9 @@ namespace CardGameSharp.Client.Game
 		public Player Player;
 		public Opponent Opponent;
 		public Messenger Messenger;
-		public Dictionary<int, Card> Cards;
+		public Dictionary Cards;
 
-		public void SetUp(Player player, Opponent opponent, int networkId, Messenger messenger, Dictionary<int, Card> cards)
+		public void SetUp(Player player, Opponent opponent, int networkId, Messenger messenger, Dictionary cards)
 		{
 			Player = player;
 			Opponent = opponent;

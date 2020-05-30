@@ -63,20 +63,17 @@ func setup(mute: bool, _input: Object) -> void:
 	
 	messenger.call_deferred("set_ready")
 
-func _connect(emitter: Object, event: String, receiver: Object, method: String, binds: Array = []) -> void:
-	var err = emitter.connect(event, receiver, method, binds)
-	if err != OK:
-		push_warning(err as String)
+
 
 func _win() -> void:
-	GFX.interpolate_callback(BGM, GFX.total_delay(GFX.PLAYER), "stop")
-	GFX.interpolate_callback(SFX, GFX.add_delay(0.2, GFX.PLAYER), "_victory")
-	GFX.interpolate_callback(WinLoseNotification, GFX.total_delay(GFX.PLAYER), "set_text", "YOU WIN!")
-	GFX.interpolate_callback(WinLoseNotification, GFX.total_delay(GFX.PLAYER), "set_visible", true)
+	GFX.InterpolateCallback(BGM, GFX.TotalDelay(GFX.PLAYER), "stop")
+	GFX.InterpolateCallback(SFX, GFX.add_delay(0.2, GFX.PLAYER), "_victory")
+	GFX.InterpolateCallback(WinLoseNotification, GFX.TotalDelay(GFX.PLAYER), "set_text", "YOU WIN!")
+	GFX.InterpolateCallback(WinLoseNotification, GFX.TotalDelay(GFX.PLAYER), "set_visible", true)
 
 func _lose() -> void:
-	GFX.interpolate_callback(BGM, GFX.total_delay(GFX.PLAYER), "stop")
-	GFX.interpolate_callback(SFX, GFX.add_delay(0.2, GFX.PLAYER), "_defeat")
-	GFX.interpolate_callback(WinLoseNotification, GFX.total_delay(GFX.PLAYER), "set_text", "YOU LOSE!")
-	GFX.interpolate_callback(WinLoseNotification, GFX.total_delay(GFX.PLAYER), "set_visible", true)
+	GFX.InterpolateCallback(BGM, GFX.TotalDelay(GFX.PLAYER), "stop")
+	GFX.InterpolateCallback(SFX, GFX.add_delay(0.2, GFX.PLAYER), "_defeat")
+	GFX.InterpolateCallback(WinLoseNotification, GFX.TotalDelay(GFX.PLAYER), "set_text", "YOU LOSE!")
+	GFX.InterpolateCallback(WinLoseNotification, GFX.TotalDelay(GFX.PLAYER), "set_visible", true)
 

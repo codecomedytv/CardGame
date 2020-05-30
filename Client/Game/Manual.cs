@@ -85,7 +85,7 @@ namespace CardGameSharp.Client.Game
 			SelectingTarget = true; // State Here (Apparently?)
 			foreach (var validTarget in card.ValidTargets)
 			{
-				Cards[(int)validTarget].ShowAsValid(true);
+				if (Cards[(int) validTarget] is Card c) c.ShowAsValid(true);
 			}
 		}
 
@@ -93,7 +93,7 @@ namespace CardGameSharp.Client.Game
 		{
 			foreach (var validTarget in card.ValidTargets)
 			{
-				Cards[(int)validTarget].ShowAsValid(false);
+				if (Cards[(int) validTarget] is Card c) c.ShowAsValid(false);
 				card.SelectedTargets.Clear();
 				card.ValidTargets.Clear();
 				SelectingTarget = false;
@@ -128,7 +128,7 @@ namespace CardGameSharp.Client.Game
 			var attacker = Interact.Card;
 			Card defender = null;
 
-			foreach (var card in Cards.Values)
+			foreach (Card card in Cards.Values)
 			{
 				if (card.GetGlobalRect().HasPoint(mouse))
 				{

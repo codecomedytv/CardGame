@@ -20,11 +20,11 @@ namespace CardGameSharp.Client.Game
 		public Array<Card> Support = new Array<Card>();
 		public Array<Card> Graveyard = new Array<Card>();
 		public Visual Visual;
-		public Godot.Collections.Dictionary<int, Card> Cards;
+		public Dictionary Cards;
 		public Player Enemy;
 		public List<Card> Link;
 
-		public void SetUp(Godot.Collections.Dictionary<int, Card> cards)
+		public void SetUp(Dictionary cards)
 		{
 			Cards = cards;
 		}
@@ -42,20 +42,20 @@ namespace CardGameSharp.Client.Game
 				defender = -1;
 			}
 
-			Visual.ShowAttack(attacker, defender);
+			Visual.ShowAttack((Card) attacker, defender);
 		}
 
 		public void AttackUnit(Array args)
 		{
 			var attacker = Cards[(int) args[0]];
 			var defender = Cards[(int) args[1]];
-			Visual.AttackUnit(attacker, defender);
+			Visual.AttackUnit((Card) attacker, (Card) defender);
 		}
 
 		public void AttackDirectly(Array args)
 		{
 			var attacker = Cards[(int) args[0]];
-			Visual.AttackDirectly(attacker);
+			Visual.AttackDirectly((Card) attacker);
 		}
 
 		public void Deploy(Array args)
@@ -78,10 +78,11 @@ namespace CardGameSharp.Client.Game
 		public void Bounce(Array args)
 		{
 			var card = Cards[(int) args[0]];
-			Field.Remove(card);
+			var c = card as Card;
+			Field.Remove((Card) card);
 			HandSize += 1;
-			Cards.Remove(card.Id);
-			Visual.Bounce(card);
+			Cards.Remove(c.Id);
+			Visual.Bounce((Card) card);
 		}
 
 		public void Resolve()
@@ -117,7 +118,7 @@ namespace CardGameSharp.Client.Game
 			{
 				foreach (var cardId in (Array<int>) args[1])
 				{
-					targets.Add(Cards[cardId]);
+					targets.Add((Card) Cards[cardId]);
 				}
 			}
 
@@ -144,8 +145,8 @@ namespace CardGameSharp.Client.Game
 		{
 			var id = (int) args[0];
 			var card = Cards[id];
-			Field.Remove(card);
-			Graveyard.Add(card);
+			Field.Remove((Card) card);
+			Graveyard.Add((Card) card);
 			Visual.DestroyUnit(args);
 		}
 
