@@ -6,7 +6,7 @@
 [ext_resource path="res://assets/spritesheets/17.png" type="Texture" id=4]
 [ext_resource path="res://client/game/PlayerViewer.tscn" type="PackedScene" id=5]
 [ext_resource path="res://client/game/CardViewer.tscn" type="PackedScene" id=6]
-[ext_resource path="res://client/game/visual.gd" type="Script" id=7]
+[ext_resource path="res://Client/Game/Visual.cs" type="Script" id=7]
 [ext_resource path="res://assets/UI/Background_Field.png" type="Texture" id=8]
 [ext_resource path="res://assets/UI/Seperator.png" type="Texture" id=9]
 [ext_resource path="res://assets/UI/Table.png" type="Texture" id=10]
@@ -52,6 +52,7 @@
 [ext_resource path="res://assets/spritesheets/ovalorange/030014.png" type="Texture" id=50]
 [ext_resource path="res://assets/spritesheets/ovalorange/030011.png" type="Texture" id=51]
 [ext_resource path="res://assets/spritesheets/ovalorange/030017.png" type="Texture" id=52]
+
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 9 )

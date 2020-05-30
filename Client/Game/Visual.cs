@@ -136,7 +136,7 @@ namespace CardGame.Client.Match
 			QueueCallback(card, Delay(), "QueueFree");
 		}
 
-		public void Resolve(IEnumerable<Card> linked)
+		public void Resolve(Array<Card> linked)
 		{
 			foreach (var card in linked)
 			{
@@ -147,7 +147,7 @@ namespace CardGame.Client.Match
 			}
 		}
 
-		public void Activate(Card card, Array<Card> link, Array<Card> targets)
+		public void Activate(Card card, List<Card> link, Array<Card> targets)
 		{
 			if (Who == (int) Gfx.Who.Opponent)
 			{
@@ -276,7 +276,7 @@ namespace CardGame.Client.Match
 			QueueCallback(Sfx, Delay(), "SetFaceDown");
 		}
 		
-		public void LoseLife(Array args)
+		public void LoseLife(Array<int> args)
 		{
 			var damageTaken = args[0];
 			Damage.Text = "-" + args[0].ToString();
@@ -387,7 +387,7 @@ namespace CardGame.Client.Match
 			QueueCallback(History, Delay(), "BeginTurn");
 		}
 
-		public void EndTunr()
+		public void EndTurn()
 		{
 			QueueCallback(History, Delay() ,"EndTurn");
 		}

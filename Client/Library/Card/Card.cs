@@ -31,7 +31,7 @@ namespace CardGame.Client.Library.Card
 		public bool Blank = false;
 		public bool Legal = false;
 		public Zones Zone = Zones.Deck;
-		public bool UnderPlaysControl = false;
+		public bool UnderPlayersControl = false;
 		public string Type = "None";
 		public Array ValidTargets = new Array();
 		public Array SelectedTargets = new Array();
