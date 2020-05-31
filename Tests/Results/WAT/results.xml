@@ -1,7 +1,11 @@
 <?xml version="1.0" ?>
-<testsuites failures="0" name="TestXML" tests="1" time="1.01">
-<testsuite failures="0" name="Given A Server and Two Clients" tests="1" time="0.01">
-<testcase name="xxx" time="3.1">
+<testsuites failures="0" name="TestXML" tests="1" time="1.02">
+<testsuite failures="0" name="Given A Server and Two Clients" tests="3" time="0.01">
+<testcase name="RoomSharesNameAcrossNetwork" time="3.338">
+</testcase>
+<testcase name="GameRoomIsSetup" time="1.487">
+</testcase>
+<testcase name="AllAreConnected" time="1.519">
 </testcase>
 </testsuite>
 </testsuites>

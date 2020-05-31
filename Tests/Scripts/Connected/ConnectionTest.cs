@@ -1,3 +1,5 @@
+using Godot;
+
 namespace CardGameSharp.Tests.Scripts.Connected
 {
     public class ConnectionTest: ConnectedFixture
@@ -11,13 +13,40 @@ namespace CardGameSharp.Tests.Scripts.Connected
 	    {
 		    AddGame();
 	    }
-
-	    [Test]
-	    public void xxx()
-	    {
-		    Assert.IsTrue(true);
-	    }
-
+		
+		[Test]
+		public void AllAreConnected()
+		{
+			Assert.IsEqual(Server.Server.GetConnectionStatus(),
+				NetworkedMultiplayerPeer.ConnectionStatus.Connected);
+				
+			Assert.IsEqual(Clients[0].client.GetConnectionStatus(),
+				NetworkedMultiplayerPeer.ConnectionStatus.Connected);
+				
+			Assert.IsEqual(Clients[1].client.GetConnectionStatus(),
+				NetworkedMultiplayerPeer.ConnectionStatus.Connected);
+		}
+		
+		[Test]
+		public async void GameRoomIsSetup()
+		{
+			await ToSignal(UntilTimeout(0.2), YIELD);
+			Assert.IsEqual(Server.GetChildCount(), 1);
+			Assert.IsEqual(Clients[0].GetChildCount(), 1);
+			Assert.IsEqual(Clients[1].GetChildCount(), 1);
+		}
+		
+		[Test]
+		public async void RoomSharesNameAcrossNetwork()
+		{
+			await ToSignal(UntilTimeout(0.2), YIELD);
+			Assert.IsEqual(Server.GetChild(0).Name, "1");
+			Assert.IsEqual(Clients[0].GetChild(0).Name, "1");
+			Assert.IsEqual(Clients[1].GetChild(0).Name, "1");
+		}
+		
+	
+		
 	    public override void Post()
 	    {
 		    RemoveGame();
