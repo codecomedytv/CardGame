@@ -323,7 +323,7 @@
     <Content Include="Client\Game\CardViewer.tscn" />
     <Content Include="Client\Game\Game.tscn" />
     <Content Include="Client\Game\PlayerViewer.tscn" />
-    <Content Include="Client\Library\Card\object.tscn" />
+    <Content Include="Client\Library\Card\Card.tscn" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

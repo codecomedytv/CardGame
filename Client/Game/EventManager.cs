@@ -48,10 +48,11 @@ namespace CardGameSharp.Client.Game
         
         public void Execute()
 		{
+			GD.Print("Executing Events");
 			foreach(var command in Events)
 			{
 				var args = command["args"] as Godot.Collections.Array;
-				switch(command["command"])
+				switch((GameEvents)command["command"])
 				{
 					case GameEvents.Draw:
 						Player.Draw(args);

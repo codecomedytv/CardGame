@@ -9,7 +9,7 @@ namespace CardGame.Client.Library
     {
         static public Object Fetch(int id, SetCodes setCode)
         {
-            var cardScene = ResourceLoader.Load("Card/object.tscn") as PackedScene;
+            var cardScene = ResourceLoader.Load("res://Client/Library/Card/Card.tscn") as PackedScene;
             var card = (Card.Card) cardScene.Instance();
             card.Id = id;
             switch (setCode)
@@ -45,7 +45,7 @@ namespace CardGame.Client.Library
 
         public static Card.Card Placeholder()
         {
-            var cardScene = ResourceLoader.Load("Card/object.tscn") as PackedScene;
+            var cardScene = ResourceLoader.Load("res://Client/Library/Card/Card.tscn") as PackedScene;
             var card = (Card.Card) cardScene.Instance();
             card.Blank = true;
             return card;

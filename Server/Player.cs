@@ -78,7 +78,7 @@ namespace CardGame.Server {
 		public void DeclarePlay(GameEvent gameEvent)
 		{
 			GD.Print("Play Declared");
-			EmitSignal(nameof(PlayExecuted), gameEvent);
+			EmitSignal(nameof(PlayExecuted), this, gameEvent);
 		}
 
 		public void Shuffle()
