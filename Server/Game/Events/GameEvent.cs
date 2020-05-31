@@ -17,7 +17,10 @@ namespace CardGame.Server
     
     public abstract class GameEvent: Reference
     {
-        public abstract Serialized Serialize();
+        public virtual Serialized Serialize()
+        {
+            return new Serialized();
+        }
 
         public virtual Message GetMessage()
         {
@@ -267,9 +270,14 @@ namespace CardGame.Server
             CardsLoaded = cardsLoaded;
         }
 
-        public override Serialized Serialize()
+        public override Message GetMessage()
         {
-            throw new System.NotImplementedException();
+            var message = new Message();
+            message.Player["command"] = GameEvents.LoadDeck;
+            message.Player["args"] = new Array {CardsLoaded.Count};
+            message.Opponent["command"] = GameEvents.OpponentLoadDeck;
+            message.Opponent["command"] = new Array {CardsLoaded.Count};
+            return message;
         }
     }
 

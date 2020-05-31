@@ -34,6 +34,7 @@ namespace CardGameSharp.Client.Game
         //emit_signal("COMMAND_REQUESTED")
         public void OnAnimationFinished()
         {
+	        GD.Print("Animation Finished");
             EmitSignal(nameof(CommandRequested));
         }
 
@@ -168,5 +169,8 @@ namespace CardGameSharp.Client.Game
 			EmitSignal(nameof(Animated));
 			Events.Clear();
 		}
+        
     }
 }
+
+

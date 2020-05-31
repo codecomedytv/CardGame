@@ -254,6 +254,7 @@ namespace CardGame.Client.Match
 		public void LoadDeck(Array args)
 		{
 			var deckSize = (int) args[0];
+			GD.Print(deckSize, " is decksize");
 			DeckSize = deckSize;
 			Visual.LoadDeck(args);
 		}

@@ -21,6 +21,12 @@ namespace CardGameSharp.Client.Game
             Connect("tween_all_completed", this, nameof(Reset));
         }
 
+        public void StartAnimation()
+        {
+            this.Start();
+        }
+        
+
         public float AddDelay(float delay, int who)
         {
             switch (who)

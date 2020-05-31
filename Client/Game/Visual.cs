@@ -16,7 +16,7 @@ namespace CardGame.Client.Match
 		public HBoxContainer Units;
 		public HBoxContainer Support;
 		public Control Discard;
-		public Control Deck;
+		public Label Deck;
 		public Label Damage;
 		public Gfx Animate;
 		public int Who;
@@ -31,7 +31,7 @@ namespace CardGame.Client.Match
 			Units = GetNode("Units") as HBoxContainer;
 			Support = GetNode("Support") as HBoxContainer;
 			Discard = GetNode("Discard") as Control;
-			Deck = GetNode("Deck") as Control;
+			Deck = (Label) GetNode("Deck");
 			Damage = GetNode("Damage") as Label;
 		}
 		
@@ -62,9 +62,9 @@ namespace CardGame.Client.Match
 				Tween.EaseType.In, Delay);
 		}
 
-		public void QueueCallback(Object obj, float Delay, string callback, params object[] args)
+		public void QueueCallback(Object obj, float delay, string callback, object args1 = null, object args2 = null, object args3 = null, object args4 = null, object args5 = null)
 		{
-			Animate.InterpolateCallback(obj, Delay, callback, args);
+			Animate.InterpolateCallback(obj, delay, callback, args1, args2, args3, args4, args5);
 		}
 
 		[Signal]
@@ -301,9 +301,9 @@ namespace CardGame.Client.Match
 		public void LoadDeck(Array args)
 		{
 			var deckSize = args[0].ToString();
-			QueueCallback(Deck, Delay(0.3), "SetText", deckSize);
+			QueueCallback(Deck, Delay(0.3F), "set_text", deckSize);
 		}
-		
+
 		public void Draw(Array args, Player playerData)
 		{
 			var count = 0;

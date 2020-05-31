@@ -75,7 +75,7 @@ namespace CardGame.Client {
 			GetNode<Button>("Background/Pass").Connect("pressed", GameInput, "PassPriority");
 			Player.Visual.Connect("ButtonAction", GetNode<Button>("Background/Pass"), "SetText");
 			_Connect(EventManager, "CommandRequested", GameInput, "Command");
-			_Connect(EventManager, "Animated", Gfx, "start");
+			_Connect(EventManager, "Animated", Gfx, nameof(CardGameSharp.Client.Game.Gfx.StartAnimation));
 			_Connect(Player, "PlayerWon", this, "Win");
 			_Connect(Player, "PlayerLost", this, "Lose");
 			_Connect(Messenger, "QueuedEvent", EventManager, "Queue");
