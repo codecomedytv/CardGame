@@ -3,14 +3,27 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using Godot;
+using Godot.Collections;
 using Array = Godot.Collections.Array;
 using Serialized = System.Collections.Generic.Dictionary<object, object>;
 
 namespace CardGame.Server
 {
+    public class Message
+    {
+        public Dictionary Player = new Dictionary {{"command", null}, {"args", null}};
+        public Dictionary Opponent = new Dictionary {{"command", null}, {"args", null}};
+    }
+    
     public abstract class GameEvent: Reference
     {
         public abstract Serialized Serialize();
+
+        public virtual Message GetMessage()
+        {
+            var message = new Message();
+            return message;
+        }
     }
 
     public class ShowAttack : GameEvent
