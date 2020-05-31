@@ -18,7 +18,7 @@ namespace CardGameSharp.Client.Game
 
 	    public void PlayerDraw(Array drawn)
 	    {
-		    BbcodeText += String.Format("{0} : Your dres {1}\n", Line, drawn.ToString());
+		    BbcodeText += String.Format("{0} : Your drew {1}\n", Line, drawn.ToString());
 		    Line++;
 	    }
 

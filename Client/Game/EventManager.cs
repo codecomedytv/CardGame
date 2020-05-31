@@ -30,11 +30,8 @@ namespace CardGameSharp.Client.Game
             GameInput = gameInput;
         }
         
-        //func _on_animation_finished() -> void:
-        //emit_signal("COMMAND_REQUESTED")
         public void OnAnimationFinished()
         {
-	        GD.Print("Animation Finished");
             EmitSignal(nameof(CommandRequested));
         }
 
@@ -49,7 +46,6 @@ namespace CardGameSharp.Client.Game
         
         public void Execute()
 		{
-			GD.Print("Executing Events");
 			foreach(var command in Events)
 			{
 				var args = command["args"] as Godot.Collections.Array;

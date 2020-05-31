@@ -191,7 +191,6 @@ namespace CardGame.Client.Match
 			DeckSize -= args.Count;
 			foreach (var c in args)
 			{
-				GD.Print("drawing: ", c.ToString());
 				if (c is Dictionary codes)
 				{
 					var id = codes["Id"];
@@ -255,7 +254,6 @@ namespace CardGame.Client.Match
 		public void LoadDeck(Array args)
 		{
 			var deckSize = (int) args[0];
-			GD.Print(deckSize, " is decksize");
 			DeckSize = deckSize;
 			Visual.LoadDeck(args);
 		}

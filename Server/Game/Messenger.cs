@@ -16,13 +16,6 @@ namespace CardGame.Server {
 
 		public override void OnPlayExecuted(Player player, GameEvent gameEvent)
 		{
-			GD.Print("Executing Play");
-			//if (gameEvent is CardGame.Server.Draw draw)
-			//{
-			//	var inst = draw.GetInstruction();
-			//	RpcId(player.Id, "QueueEvent", inst.GameEvent, inst.args);
-			//}
-
 			var message = gameEvent.GetMessage();
 			RpcId(player.Id, "QueueEvent", message.Player["command"], message.Player["args"]);
 			RpcId(player.Opponent.Id, "QueueEvent", message.Opponent["command"], message.Opponent["args"]);
@@ -30,7 +23,6 @@ namespace CardGame.Server {
 
 		public override void Update(List<Player> players)
 		{
-			GD.Print("Updating");
 			foreach (var player in players)
 			{
 				RpcId(player.Id, "ExecuteEvents");
