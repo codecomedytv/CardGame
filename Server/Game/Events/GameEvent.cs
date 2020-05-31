@@ -201,8 +201,8 @@ namespace CardGame.Server
                 data.Add(card.Serialize());
             }
             message.Player["args"] = data;
-            //.Opponent["command"] = GameEvents.OpponentDraw;
-            //message.Opponent["args"] = new Array {DrawnCards.Count};
+            message.Opponent["command"] = GameEvents.OpponentDraw;
+            message.Opponent["args"] = new Array {DrawnCards.Count};
             return message;
         }
 

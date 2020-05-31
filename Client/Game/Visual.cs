@@ -401,18 +401,16 @@ namespace CardGame.Client.Match
 			var positions = NextHandPositions(count);
 			for(var i = 0; i < count; i++)
 			{
-				if (args[i] is Dictionary arg)
-				{
-					var card = (Card) (Who == (int)Gfx.Who.Player ? Cards[arg["Id"]] : Library.Library.Placeholder());
-					drawn.Add(card);
-					Hand.AddChild((Card)card);
-					card.RectGlobalPosition = Deck.RectGlobalPosition;
-					card.TurnInvisible();
-					var pos = positions[0];
-					positions.RemoveAt(0);
-					QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, pos, 0.2F, Delay(0.2F));
-					QueueCallback(card, Delay(0.0), "TurnVisible");
-				}
+				var card = Library.Library.Placeholder();
+				drawn.Add(card);
+				Hand.AddChild((Card)card);
+				card.RectGlobalPosition = Deck.RectGlobalPosition;
+				card.TurnInvisible();
+				var pos = positions[0];
+				positions.RemoveAt(0);
+				QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, pos, 0.2F, Delay(0.2F));
+				QueueCallback(card, Delay(0.0), "TurnVisible");
+			
 
 				var deckSize = (playerData.DeckSize + count - i - 1).ToString();
 				QueueCallback(Deck, Delay(), "set_text", deckSize);
