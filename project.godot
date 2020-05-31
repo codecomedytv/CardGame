@@ -37,7 +37,8 @@ Results_Directory="res://Tests/Results/WAT"
 Minimize_Window_When_Running_Tests=false
 TestStrategy={
 "repeat": 1,
-"strategy": "RunAll"
+"script": "res://Tests/Scripts/Connected/ConnectionTest.cs",
+"strategy": "RunScript"
 }
 Tags=PoolStringArray(  )
 Display=8
@@ -56,10 +57,6 @@ window/size/height=1080
 [editor_plugins]
 
 enabled=PoolStringArray( "WAT" )
-
-[mono]
-
-debugger_agent/wait_for_debugger=true
 
 [rendering]
 

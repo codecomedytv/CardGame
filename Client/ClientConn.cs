@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using CardGameSharp.Client.Game;
+using Godot.Collections;
 using Array = Godot.Collections.Array;
 
 namespace CardGame.Client {
@@ -12,11 +13,13 @@ namespace CardGame.Client {
 		const int Port = 5000;
 		//private List<SetCodes> Decklist = new List<SetCodes>(); // How do we send this info online?
 		private NetworkedMultiplayerENet client;
-		
+		public Array<SetCodes> DeckList;
+
+
 		// Debug
-		public Array DefaultDeck()
+		public Array<SetCodes> DefaultDeck()
 		{
-			var deckList = new Godot.Collections.Array();
+			var deckList = new Array<SetCodes>();
 			for (var i = 0; i < 34; i++)
 			{
 				deckList.Add(SetCodes.Alpha_DungeonGuide);
@@ -34,6 +37,7 @@ namespace CardGame.Client {
 	
 		public override void _Ready() 
 		{	
+			DeckList = DefaultDeck();
 			GetNode("Join").Connect("pressed", this, "Join");
 		}
 		
@@ -50,7 +54,7 @@ namespace CardGame.Client {
 		}
 		
 		public void OnConnected() {
-			RpcId(1, "RegisterPlayer", CustomMultiplayer.GetNetworkUniqueId(), DefaultDeck());
+			RpcId(1, "RegisterPlayer", CustomMultiplayer.GetNetworkUniqueId(), DeckList);
 		}
 		
 		public void OnFailed() { GD.Print("Connection Failed"); }

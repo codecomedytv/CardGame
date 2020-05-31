@@ -126,6 +126,8 @@
     <Compile Include="SetCodes.cs" />
     <Compile Include="Tests\GameFixture.cs" />
     <Compile Include="Tests\MockMessenger.cs" />
+    <Compile Include="Tests\Scripts\ConnectedFixture.cs" />
+    <Compile Include="Tests\Scripts\Connected\ConnectionTest.cs" />
     <Compile Include="Tests\Scripts\Serverside\BattleTest.cs" />
     <Compile Include="Tests\Scripts\Serverside\JudgeTest.cs" />
     <Compile Include="Tests\Scripts\Serverside\LinkTest.cs" />
