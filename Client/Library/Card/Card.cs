@@ -167,12 +167,12 @@ namespace CardGame.Client.Library.Card
 
 		public void TurnInvisible()
 		{
-			Modulate = new Color(Modulate.a, Modulate.g, Modulate.b, 0);
+			Modulate = new Color(Modulate.r, Modulate.g, Modulate.b, 0);
 		}
 
 		public void TurnVisible()
 		{
-			Modulate = new Color(Modulate.a, Modulate.g, Modulate.b, 1);
+			Modulate = new Color(Modulate.r, Modulate.g, Modulate.b, 1);
 		}
 
 		public void FlipFaceUp()

@@ -619,7 +619,7 @@ position = Vector2( 906.037, 644.347 )
 scale = Vector2( 0.348772, 0.389158 )
 frames = SubResource( 48 )
 animation = "New Anim"
-frame = 24
+frame = 18
 playing = true
 script = ExtResource( 20 )
 

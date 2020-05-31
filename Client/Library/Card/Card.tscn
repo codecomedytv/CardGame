@@ -296,6 +296,7 @@ __meta__ = {
 [node name="Frame" type="Sprite" parent="."]
 show_behind_parent = true
 scale = Vector2( 0.0438507, 0.0471875 )
+z_as_relative = false
 texture = ExtResource( 3 )
 centered = false
 
@@ -306,7 +307,7 @@ position = Vector2( 1174.45, 1291.75 )
 scale = Vector2( 19.0056, 18.9296 )
 frames = SubResource( 7 )
 animation = "Blue"
-frame = 19
+frame = 16
 playing = true
 
 [node name="ValidTarget" type="AnimatedSprite" parent="Frame"]
@@ -317,7 +318,7 @@ position = Vector2( -1120.24, -784.34 )
 scale = Vector2( 18.2857, 19.2292 )
 frames = SubResource( 8 )
 animation = "Valid"
-frame = 22
+frame = 19
 playing = true
 centered = false
 
@@ -329,7 +330,6 @@ position = Vector2( -1120.24, -784.34 )
 scale = Vector2( 18.2857, 19.2292 )
 frames = SubResource( 8 )
 animation = "Selected"
-frame = 3
 playing = true
 centered = false
 
