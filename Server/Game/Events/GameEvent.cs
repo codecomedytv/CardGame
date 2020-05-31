@@ -40,11 +40,14 @@ namespace CardGame.Server
             Defender = defender;
         }
 
-        public override Serialized Serialize()
+        public override Message GetMessage()
         {
-            throw new System.NotImplementedException();
+            var message = new Message();
+            message.Player["command"] = GameEvents.AttackDeclared;
+            message.Player["args"] = new Array{Attacker.Id, Defender.Id};
+            message.Opponent["command"] = GameEvents.NoOp;
+            return message;
         }
-        
     }
 
     public class SetState : GameEvent
@@ -58,9 +61,14 @@ namespace CardGame.Server
             State = state;
         }
 
-        public override Serialized Serialize()
+        public override Message GetMessage()
         {
-            throw new System.NotImplementedException();
+            var message = new Message();
+            message.Player["command"] = GameEvents.SetState;
+            message.Player["args"] = new Array{(int)State};
+            message.Opponent["command"] = GameEvents.NoOp;
+            message.Opponent["args"] = new Array();
+            return message;
         }
     }
 
@@ -75,9 +83,14 @@ namespace CardGame.Server
             Targets = targets;
         }
 
-        public override Serialized Serialize()
+        public override Message GetMessage()
         {
-            throw new System.NotImplementedException();
+            var message = new Message();
+            message.Player["command"] = GameEvents.NoOp;
+            message.Player["args"] = new Array{Activated.Id};
+            message.Opponent["command"] = GameEvents.OpponentActivate;
+            message.Opponent["args"] = new Array{Activated.Serialize(), Targets};
+            return message;
         }
     }
 
@@ -92,9 +105,14 @@ namespace CardGame.Server
             Defender = defender;
         }
 
-        public override Serialized Serialize()
+        public override Message GetMessage()
         {
-            throw new System.NotImplementedException();
+            var message = new Message();
+            message.Player["command"] = GameEvents.AttackedUnit;
+            message.Player["args"] = new Array {Attacker.Id, Defender.Id};
+            message.Opponent["command"] = GameEvents.OpponentAttackedUnit;
+            message.Opponent["args"] = new Array{Attacker.Id, Defender.Id};
+            return message;
         }
     }
 
@@ -107,9 +125,14 @@ namespace CardGame.Server
             Attacker = attacker;
         }
 
-        public override Serialized Serialize()
+        public override Message GetMessage()
         {
-            throw new System.NotImplementedException();
+            var message = new Message();
+            message.Player["command"] = GameEvents.AttackedDirectly;
+            message.Player["args"] = new Array {Attacker.Id};
+            message.Opponent["command"] = GameEvents.OpponentAttackedDirectly;
+            message.Opponent["args"] = new Array{Attacker.Id};
+            return message;
         }
     }
 
@@ -122,17 +145,27 @@ namespace CardGame.Server
             Bounced = bounced;
         }
 
-        public override Serialized Serialize()
+        public override Message GetMessage()
         {
-            throw new System.NotImplementedException();
+            var message = new Message();
+            message.Player["command"] = GameEvents.Bounce;
+            message.Player["args"] = new Array {Bounced.Id};
+            message.Opponent["command"] = GameEvents.OpponentBounce;
+            message.Opponent["args"] = new Array {Bounced.Id};
+            return message;
         }
     }
 
     public class BeginTurn : GameEvent
     {
-        public override Serialized Serialize()
+        public override Message GetMessage()
         {
-            throw new System.NotImplementedException();
+            var message = new Message();
+            message.Player["command"] = GameEvents.BeginTurn;
+            message.Player["args"] = new Array();
+            message.Opponent["command"] = GameEvents.NoOp;
+            message.Opponent["args"] = new Array();
+            return message;
         }
     }
     
@@ -146,9 +179,14 @@ namespace CardGame.Server
         }
 
 
-        public override Serialized Serialize()
+        public override Message GetMessage()
         {
-            throw new System.NotImplementedException();
+            var message = new Message();
+            message.Player["command"] = GameEvents.Mill;
+            message.Player["args"] = new Array{Milled.Id}; // Might need to be serialized
+            message.Opponent["command"] = GameEvents.OpponentMill;
+            message.Opponent["args"] = new Array{Milled.Serialize()};
+            return message;
         }
     }
 
@@ -161,9 +199,14 @@ namespace CardGame.Server
             Deployed = deployed;
         }
 
-        public override Serialized Serialize()
+        public override Message GetMessage()
         {
-            throw new System.NotImplementedException();
+            var message = new Message();
+            message.Player["command"] = GameEvents.Deploy;
+            message.Player["args"] = new Array {Deployed.Id};
+            message.Opponent["command"] = GameEvents.OpponentDeploy;
+            message.Opponent["args"] = new Array{Deployed.Serialize()};
+            return message;
         }
     }
 
@@ -176,9 +219,19 @@ namespace CardGame.Server
             DestroyedUnits = destroyedUnits;
         }
 
-        public override Serialized Serialize()
+        public override Message GetMessage()
         {
-            throw new System.NotImplementedException();
+            var destroyed = new Array();
+            foreach (var unit in DestroyedUnits)
+            {
+                destroyed.Add(unit.Id);
+            }
+            var message = new Message();
+            message.Player["command"] = GameEvents.CardDestroyed;
+            message.Player["args"] = destroyed;
+            message.Opponent["command"] = GameEvents.OpponentCardDestroyed;
+            message.Opponent["args"] = destroyed;
+            return message;
         }
     }
 
@@ -205,17 +258,7 @@ namespace CardGame.Server
             message.Opponent["args"] = new Array {DrawnCards.Count};
             return message;
         }
-
-       public class Instruction
-        {
-            public GameEvents GameEvent = GameEvents.Draw;
-            public Array args;
-        }
-
-        public override Serialized Serialize()
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 
     public class  Discard : GameEvent
@@ -227,17 +270,27 @@ namespace CardGame.Server
             Discarded = discarded;
         }
 
-        public override Serialized Serialize()
+        public override Message GetMessage()
         {
-            throw new System.NotImplementedException();
+            var message = new Message();
+            message.Player["command"] = GameEvents.Discard;
+            message.Player["args"] = new Array{Discarded.Id};
+            message.Opponent["command"] = GameEvents.OpponentDiscard;
+            message.Opponent["args"] = new Array{Discarded.Serialize()};
+            return message;
         }
     }
 
     public class EndTurn : GameEvent
     {
-        public override Serialized Serialize()
+        public override Message GetMessage()
         {
-            throw new System.NotImplementedException();
+            var message = new Message();
+            message.Player["command"] = GameEvents.EndTurn;
+            message.Player["args"] = new Array();
+            message.Opponent["command"] = GameEvents.NoOp;
+            message.Opponent["args"] = new Array();
+            return message;
         }
     }
 
@@ -252,9 +305,14 @@ namespace CardGame.Server
             Loser = loser;
         }
 
-        public override Serialized Serialize()
+        public override Message GetMessage()
         {
-            throw new System.NotImplementedException();
+            var message = new Message();
+            message.Player["command"] = GameEvents.Win;
+            message.Player["args"] = new Array();
+            message.Opponent["command"] = GameEvents.Lose;
+            message.Opponent["args"] = new Array();
+            return message;
         }
     }
 
@@ -287,9 +345,14 @@ namespace CardGame.Server
             LifeLost = lifeLost;
         }
 
-        public override Serialized Serialize()
+        public override Message GetMessage()
         {
-            throw new System.NotImplementedException();
+            var message = new Message();
+            message.Player["command"] = GameEvents.LoseLife;
+            message.Player["args"] = new Array{LifeLost};
+            message.Opponent["command"] = GameEvents.NoOp;
+            message.Opponent["args"] = new Array();
+            return message;
         }
     }
 
@@ -302,9 +365,14 @@ namespace CardGame.Server
             ReadiedCard = readiedCard;
         }
 
-        public override Serialized Serialize()
+        public override Message GetMessage()
         {
-            throw new System.NotImplementedException();
+            var message = new Message();
+            message.Player["command"] = GameEvents.ReadyCard;
+            message.Player["args"] = new Array {ReadiedCard.Id};
+            message.Opponent["command"] = GameEvents.NoOp;
+            message.Opponent["args"] = new Array();
+            return message;
         }
     }
 
@@ -317,9 +385,14 @@ namespace CardGame.Server
             Facedown = faceDown;
         }
 
-        public override Serialized Serialize()
+        public override Message GetMessage()
         {
-            throw new System.NotImplementedException();
+            var message = new Message();
+            message.Player["command"] = GameEvents.SetFaceDown;
+            message.Player["args"] = new Array{Facedown.Id};
+            message.Opponent["command"] = GameEvents.OpponentSetFaceDown;
+            message.Opponent["args"] = new Array();
+            return message;
         }
     }
 
@@ -332,9 +405,14 @@ namespace CardGame.Server
             UnreadiedCard = unreadiedCard;
         }
 
-        public override Serialized Serialize()
+        public override Message GetMessage()
         {
-            throw new System.NotImplementedException();
+            var message = new Message();
+            message.Player["command"] = GameEvents.UnreadyCard;
+            message.Player["args"] = new Array{UnreadiedCard.Id};
+            message.Opponent["command"] = GameEvents.NoOp;
+            message.Opponent["args"] = new Array();
+            return message;
         }
     }
 
@@ -347,9 +425,14 @@ namespace CardGame.Server
             Returned = returned;
         }
 
-        public override Serialized Serialize()
+        public override Message GetMessage()
         {
-            throw new System.NotImplementedException();
+            var message = new Message();
+            message.Player["command"] = GameEvents.ReturnToDeck;
+            message.Player["args"] = new Array{Returned.Id};
+            message.Opponent["command"] = GameEvents.OpponentReturnedToDeck;
+            message.Opponent["args"] = new Array(Returned.Serialize());
+            return message;
         }
     }
 
@@ -362,9 +445,14 @@ namespace CardGame.Server
             Legalized = legalized;
         }
 
-        public override Serialized Serialize()
+        public override Message GetMessage()
         {
-            throw new System.NotImplementedException();
+            var message = new Message();
+            message.Player["command"] = GameEvents.Legalize;
+            message.Player["args"] = new Array{Legalized.Id};
+            message.Opponent["command"] = GameEvents.NoOp;
+            message.Opponent["args"] = new Array();
+            return message;
         }
     }
 
@@ -377,9 +465,14 @@ namespace CardGame.Server
             Forbidden = forbidden;
         }
 
-        public override Serialized Serialize()
+        public override Message GetMessage()
         {
-            throw new System.NotImplementedException();
+            var message = new Message();
+            message.Player["command"] = GameEvents.Forbid;
+            message.Player["args"] = new Array {Forbidden.Id};
+            message.Opponent["command"] = GameEvents.NoOp;
+            message.Opponent["args"] = new Array();
+            return message;
         }
     }
 
@@ -392,9 +485,14 @@ namespace CardGame.Server
             Deployable = deployable;
         }
 
-        public override Serialized Serialize()
+        public override Message GetMessage()
         {
-            throw new System.NotImplementedException();
+            var message = new Message();
+            message.Player["command"] = GameEvents.SetDeployable;
+            message.Player["args"] = new Array {Deployable.Id};
+            message.Opponent["command"] = GameEvents.NoOp;
+            message.Opponent["args"] = new Array();
+            return message;
         }
     }
 
@@ -407,9 +505,14 @@ namespace CardGame.Server
             Support = support;
         }
 
-        public override Serialized Serialize()
+        public override Message GetMessage()
         {
-            throw new System.NotImplementedException();
+            var message = new Message();
+            message.Player["command"] = GameEvents.SetSettable;
+            message.Player["args"] = new Array{Support.Id};
+            message.Opponent["command"] = GameEvents.NoOp;
+            message.Opponent["args"] = new Array();
+            return message;
         }
     }
 
@@ -422,17 +525,27 @@ namespace CardGame.Server
             Support = support;
         }
 
-        public override Serialized Serialize()
+        public override Message GetMessage()
         {
-            throw new System.NotImplementedException();
+            var message = new Message();
+            message.Player["command"] = GameEvents.SetActivatable;
+            message.Player["args"] = new Array {Support.Id};
+            message.Opponent["command"] = GameEvents.NoOp;
+            message.Opponent["args"] = new Array();
+            return message;
         }
     }
 
     public class Resolve : GameEvent
     {
-        public override Serialized Serialize()
+        public override Message GetMessage()
         {
-            throw new System.NotImplementedException();
+            var message = new Message();
+            message.Player["command"] = GameEvents.Resolve;
+            message.Player["args"] = new Array();
+            message.Opponent["command"] = GameEvents.Resolve;
+            message.Opponent["args"] = new Array();
+            return message;
         }
     }
 
@@ -447,9 +560,19 @@ namespace CardGame.Server
             Targets = targets;
         }
 
-        public override Serialized Serialize()
+        public override Message GetMessage()
         {
-            throw new System.NotImplementedException();
+            var message = new Message();
+            var targets = new Array();
+            foreach (var u in Targets)
+            {
+                targets.Add(u.Id);
+            }
+            message.Player["command"] = GameEvents.SetTargets;
+            message.Player["args"] = new Array{Selector.Id, targets};
+            message.Opponent["command"] = GameEvents.NoOp;
+            message.Opponent["args"] = new Array();
+            return message;
         }
     }
 
@@ -462,9 +585,14 @@ namespace CardGame.Server
             Selector = selector;
         }
 
-        public override Serialized Serialize()
+        public override Message GetMessage()
         {
-            throw new System.NotImplementedException();
+            var message = new Message();
+            message.Player["command"] = GameEvents.AutoTarget;
+            message.Player["args"] = new Array{Selector.Id};
+            message.Opponent["command"] = GameEvents.NoOp;
+            message.Opponent["args"] = new Array();
+            return message;
         }
     }
 

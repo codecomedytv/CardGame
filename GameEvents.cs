@@ -46,6 +46,8 @@
         SetState,
         SetDeployable,
         SetSettable,
-        SetActivatable
+        SetActivatable,
+        ReturnToDeck,
+        OpponentReturnedToDeck
     }
 }
