@@ -158,7 +158,7 @@ namespace CardGameSharp.Client.Game
 
 		public void LoadDeck(Array args)
 		{
-			var deckSize = (int) args[0];
+			var deckSize = (int)args[0];
 			DeckSize = deckSize;
 			Visual.LoadDeck(args);
 		}

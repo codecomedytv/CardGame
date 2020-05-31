@@ -191,13 +191,14 @@ namespace CardGame.Client.Match
 			DeckSize -= args.Count;
 			foreach (var c in args)
 			{
+				GD.Print("drawing: ", c.ToString());
 				if (c is Dictionary codes)
 				{
 					var id = codes["Id"];
-					var setCode = codes["SetCode"];
+					var setCode = codes["setCode"];
 					var card = Library.Library.Fetch((int) id, (SetCodes) setCode) as Card;
 					if (card == null) continue;
-					card.Connect("Activated", Input, "Activate");
+					card.Connect("CardActivated", Input, "Activate");
 					card.Player = this;
 					card.Interact = Interact;
 					card.UnderPlayersControl = true;

@@ -191,25 +191,22 @@ namespace CardGame.Server
             DrawnCards = drawnCards;
         }
 
-        public Instruction GetInstruction()
+       public override Message GetMessage()
         {
-            var inst = new Instruction();
-            inst.args = SetArgs();
-            return inst;
-        }
-
-        public Array SetArgs()
-        {
-            var ids = new Godot.Collections.Array();
+            var message = new Message();
+            message.Player["command"] = GameEvents.Draw;
+            var data = new Array();
             foreach (var card in DrawnCards)
             {
-                ids.Add(card.Id);
+                data.Add(card.Serialize());
             }
-
-            return ids;
+            message.Player["args"] = data;
+            //.Opponent["command"] = GameEvents.OpponentDraw;
+            //message.Opponent["args"] = new Array {DrawnCards.Count};
+            return message;
         }
 
-        public class Instruction
+       public class Instruction
         {
             public GameEvents GameEvent = GameEvents.Draw;
             public Array args;
@@ -276,7 +273,7 @@ namespace CardGame.Server
             message.Player["command"] = GameEvents.LoadDeck;
             message.Player["args"] = new Array {CardsLoaded.Count};
             message.Opponent["command"] = GameEvents.OpponentLoadDeck;
-            message.Opponent["command"] = new Array {CardsLoaded.Count};
+            message.Opponent["args"] = new Array {CardsLoaded.Count};
             return message;
         }
     }

@@ -157,7 +157,7 @@ namespace CardGame.Client.Match
 			}
 
 			link.Add(card);
-			QueueCallback(card.Link, Delay(), "SetText", link.Count.ToString());
+			QueueCallback(card.Link, Delay(), "set_text", link.Count.ToString());
 			QueueCallback(card.Link, Delay(0.1F), "SetVisible", true);
 			QueueCallback(card, Delay(), "FlipFaceUp");
 			QueueCallback(Sfx, Delay(), "Deploy");
@@ -326,7 +326,7 @@ namespace CardGame.Client.Match
 				}
 
 				var deckSize = (playerData.DeckSize + count - i - 1).ToString();
-				QueueCallback(Deck, Delay(), "SetText", deckSize);
+				QueueCallback(Deck, Delay(), "set_text", deckSize);
 				QueueCallback(Sfx, Delay(), "DrawCard");
 			}
 
@@ -415,7 +415,7 @@ namespace CardGame.Client.Match
 				}
 
 				var deckSize = (playerData.DeckSize + count - i - 1).ToString();
-				QueueCallback(Deck, Delay(), "SetText", deckSize);
+				QueueCallback(Deck, Delay(), "set_text", deckSize);
 				QueueCallback(Sfx, Delay(), "DrawCard");
 			}
 
