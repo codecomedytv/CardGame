@@ -107,23 +107,6 @@ namespace CardGame.Server {
 			}
 		}
 		
-		public void OnPriorityPassed(int playerId)
-		{
-
-			var player = Game.Player(playerId);
-			player.State = new Passing();
-			if(player.Opponent.State.GetType() == typeof(Passing))
-			{
-				Resolve();
-			}
-			else
-			{
-				player.Opponent.State = new Active();
-			}
-			Update();
-			
-
-		}
 		
 		public async void Activate(Player player, Card card, int skillIndex, Array<int> targets)
 		{
@@ -167,14 +150,15 @@ namespace CardGame.Server {
 			if(Game.Paused)
 			{
 				GD.Print("Game Paused");
-				Update();
+				EmitSignal(nameof(Updated));
 				await ToSignal(Game, nameof(Gamestate.UnPaused));
 			}
 			// GD.Print(Game.Target);
 			autoSkill.Resolve();
 			Game.GetTurnPlayer().DeclarePlay(new Resolve());
 			Game.GetTurnPlayer().SetValidAttackTargets();
-			Update();
+			EmitSignal(nameof(Updated));
+
 		}
 		
 		public void Resolve()
@@ -187,16 +171,8 @@ namespace CardGame.Server {
 			}
 			
 			ApplyConstants();
-			Game.TurnPlayer.State = new Idle();
-			Game.TurnPlayer.Opponent.State = new Passive();
-			Game.GetTurnPlayer().DeclarePlay(new Resolve());
-			Game.GetTurnPlayer().SetValidAttackTargets();
 		}
 		
-		public void Update()
-		{
-			EmitSignal(nameof(Updated));
-		}
 		
 	}
 

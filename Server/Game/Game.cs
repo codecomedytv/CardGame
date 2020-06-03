@@ -48,7 +48,7 @@ namespace CardGame.Server {
 			connect(Messenger, nameof(BaseMessenger.Attacked), this, nameof(OnAttack));
 			connect(Messenger, nameof(BaseMessenger.FaceDownSet),this, nameof(OnSetFaceDown));
 			connect(Messenger, nameof(BaseMessenger.Activated), this, nameof(OnActivation));
-			connect(Messenger, nameof(BaseMessenger.PassedPriority), Link, nameof(Link.OnPriorityPassed));
+			connect(Messenger, nameof(BaseMessenger.PassedPriority), this, nameof(OnPriorityPassed));
 			connect(Judge, nameof(Judge.Disqualified), this, nameof(OnPlayerDisqualified));
 			connect(Link, nameof(Link.Updated), this, nameof(Update));
 			foreach (var player in Players)
@@ -56,7 +56,7 @@ namespace CardGame.Server {
 				connect(player, nameof(Player.PlayExecuted), this.Messenger, nameof(Messenger.OnPlayExecuted));
 				connect(player, nameof(Player.TurnEnded), GameState, nameof(GameState.OnTurnEnd));
 				var bounds = new Godot.Collections.Array { player.Opponent };
-				connect(player, nameof(Player.PriorityPassed), GameState, nameof(GameState.OnPriorityPassed), bounds);
+				//connect(player, nameof(Player.PriorityPassed), GameState, nameof(GameState.OnPriorityPassed), bounds);
 				connect(player, nameof(Player.Register), Link, nameof(Link.Register));
 				connect(player, nameof(Player.Deployed), Link, nameof(Link.Broadcast));
 				connect(player, nameof(Player.Paused), GameState, nameof(GameState.Pause));
@@ -208,6 +208,41 @@ namespace CardGame.Server {
 			Update();
 			
 		}
+
+		public void OnPriorityPassed(int playerId)
+		{
+			var player = GameState.Player(playerId);
+			player.State = new Passing();
+			if(player.Opponent.State.GetType() == typeof(Passing))
+			{
+				Link.Resolve();
+				GameState.TurnPlayer.State = new Idle();
+				GameState.TurnPlayer.Opponent.State = new Passive();
+				GameState.GetTurnPlayer().DeclarePlay(new Resolve());
+				GameState.GetTurnPlayer().SetValidAttackTargets();
+			}
+			else
+			{
+				player.Opponent.State = new Active();
+			}
+			Update();
+			
+		}
+		
+		/*public void OnPriorityPassed(int playerId)
+		{
+
+			var player = Game.Player(playerId);
+			player.State = new Passing();
+			if(player.Opponent.State.GetType() == typeof(Passing))
+			{
+				Resolve();
+			}
+			else
+			{
+				player.Opponent.State = new Active();
+			}
+			Update();*/
 		
 		public void OnEndTurn(int playerId)
 		{
