@@ -113,21 +113,15 @@ namespace CardGame.Server {
 
 		}
 
-		public void Discard(Card discarding)
+		public void Discard(Card card)
 		{
-			Move(Hand, discarding, Graveyard);
-			DeclarePlay(new Discard(discarding));
-		}
-
-		private void Move(List<Card> from, Card card, List<Card> to)
-		{
-			from.Remove(card);
-			to.Add(card);
-			card.Zone = to;
+			Hand.Remove(card);
+			Graveyard.Add(card);
+			card.Zone = Graveyard;
 			card.EmitSignal(nameof(Card.Exit));
+			DeclarePlay(new Discard(card));
 		}
-
-
+		
 		public void SetPlayableCards()
 		{
 			foreach(var card in Hand) { card.SetAsPlayable(); }
@@ -220,7 +214,11 @@ namespace CardGame.Server {
 
 		public void SetFaceDown(Card card)
 		{
-			Move(Hand, card, Support);
+			Hand.Remove(card);
+			Support.Add(card);
+			card.Zone = Support;
+			card.EmitSignal(nameof(Card.Exit));
+			DeclarePlay(new Discard(card));
 			card.Legal = false;
 			DeclarePlay(new SetSupport(card));
 		}
@@ -238,7 +236,12 @@ namespace CardGame.Server {
 		public void Deploy(Unit card)
 		{
 			// GD.PushWarning("Deploy Complains Due To Type Mismatch");
-			Move(Hand, card, Field);
+			// Move(Hand, card, Field);
+			Hand.Remove(card);
+			Field.Add(card);
+			card.Zone = Field;
+			card.EmitSignal(nameof(Card.Exit));
+			DeclarePlay(new Deploy(card));
 			
 		}
 
@@ -247,33 +250,35 @@ namespace CardGame.Server {
 			DeclarePlay(new Activate(card, targets));
 		}
 
-		public void DestroyUnit(Unit unit)
+		public void DestroyUnit(Unit card)
 		{
-			GD.Print(50);
-			//GD.Print(unit);
-			if (unit.HasTag(Tag.CannotTakeDamage))
+			if (card.HasTag(Tag.CannotTakeDamage))
 			{
-				GD.Print(0);
+				// Should Be In Battle.
 				return;
 			}
-			if (unit.HasTag(Tag.CannotBeDestroyedByEffect))
+			if (card.HasTag(Tag.CannotBeDestroyedByEffect))
 			{
-				GD.Print(1);
 				return;
 			}
-			if (!unit.Controller.Field.Contains(unit))
+			if (!card.Controller.Field.Contains(card))
 			{
-				GD.Print(2);
 				return;
 			}
-			GD.Print(3);
-			Move(unit.Zone, unit, unit.Owner.Graveyard);
-			DeclarePlay(new DestroyUnits(new List<Unit> { unit }));
+			Field.Remove(card);
+			card.Owner.Graveyard.Add(card);
+			card.Zone = card.Owner.Graveyard;
+			card.EmitSignal(nameof(Card.Exit));
+			DeclarePlay(new DestroyUnits(new List<Unit> { card }));
 		}
 
 		public void ReturnToDeck(Card card)
 		{
-			Move(card.Zone, card, card.Owner.Deck);
+			Hand.Remove(card);
+			card.Owner.Deck.Add(card);
+			card.Zone = card.Owner.Deck;
+			card.EmitSignal(nameof(Card.Exit));
+			DeclarePlay(new Discard(card));
 			Shuffle();
 			DeclarePlay(new ReturnedToDeck(card));
 		}
@@ -301,7 +306,10 @@ namespace CardGame.Server {
 				return;
 			}
 			
-			Move(card.Zone, card, card.Owner.Hand);
+			card.Zone.Remove(card);
+			card.Owner.Hand.Add(card);
+			card.Zone = card.Owner.Hand;
+			card.EmitSignal(nameof(Card.Exit));
 			DeclarePlay(new Bounce(card));
 		}
 
