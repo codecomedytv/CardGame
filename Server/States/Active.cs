@@ -12,5 +12,10 @@
         {
             return new Passing();
         }
+        
+        public override string ToString()
+        {
+            return "Active";
+        }
     }
 }

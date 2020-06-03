@@ -27,7 +27,7 @@ namespace CardGameSharp.Client.Game
 
 		public void OnDeploy(Card card)
 		{
-			if (Player.State != Player.States.Idle || card.CardType != CardTypes.Unit || !Player.Hand.Contains(card))
+			if (Player.State != "Idle" || card.CardType != CardTypes.Unit || !Player.Hand.Contains(card))
 			{
 				return;
 			}
@@ -37,7 +37,7 @@ namespace CardGameSharp.Client.Game
 
 		public void OnSetFaceDown(Card card)
 		{
-			if (Player.State != Player.States.Idle || card.CardType != CardTypes.Support || !Player.Hand.Contains(card))
+			if (Player.State != "Idle" || card.CardType != CardTypes.Support || !Player.Hand.Contains(card))
 			{
 				return;
 			}
@@ -59,7 +59,7 @@ namespace CardGameSharp.Client.Game
 
 		public void OnAttack(Card attacker, object defender)
 		{
-			if (Player.State != Player.States.Idle)
+			if (Player.State != "Idle")
 			{
 				return;
 			}

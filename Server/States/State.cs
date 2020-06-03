@@ -28,5 +28,10 @@
         {
             return new Disqualified();
         }
+
+        public override string ToString()
+        {
+            return "State";
+        }
     }
 }

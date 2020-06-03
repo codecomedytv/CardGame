@@ -2,6 +2,9 @@
 {
     public class Disqualified: State
     {
-        
+        public override string ToString()
+        {
+            return "Disqualified";
+        }
     }
 }

@@ -24,7 +24,7 @@ namespace CardGame.Client.Match
             Targeting
         }
 
-        public States State = States.Passive;
+        public string State;
         public bool IsTurnPlayer = false;
         public int Health = 8000;
         public int DeckSize = 0;
@@ -56,12 +56,12 @@ namespace CardGame.Client.Match
 
         public bool _get_active()
 		{
-			return State == States.Idle || State == States.Active;
+			return State == "Idle" || State == "Active";
 		}
 
 		public void SetState(Array args) 
 		{
-			State = (States) args[0];
+			State = (string)args[0];
 			Visual.SetState(State);
 	    }
 			
@@ -96,7 +96,7 @@ namespace CardGame.Client.Match
 			var targeter = Cards[args[0]];
 			// change States
 		    //	State = "Targeting"
-			State = States.Targeting;
+		    State = "Targeting";
 			Visual.AutoTarget(targeter as Card);
 		    //	_show_valid_targets(targeter);
 		}

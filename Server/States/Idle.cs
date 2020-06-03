@@ -27,5 +27,10 @@
         {
             return new Idle();
         }
+        
+        public override string ToString()
+        {
+            return "Idle";
+        }
     }
 }

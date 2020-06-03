@@ -70,23 +70,23 @@ namespace CardGame.Client.Match
 		[Signal]
 		public delegate void ButtonAction();
 
-		public void SetState(Player.States state)
+		public void SetState(string state)
 		{
 			switch (state)
 			{
-				case Player.States.Idle:
+				case "Idle":
 					EmitSignal(nameof(ButtonAction), "");
 					break;
-				case Player.States.Active:
+				case "Active":
 					EmitSignal(nameof(ButtonAction), "Pass");
 					break;
-				case Player.States.Passive:
+				case "Passive":
 					break;
-				case Player.States.Acting:
+				case "Acting":
 					break;
-				case Player.States.Passing:
+				case "Passing":
 					break;
-				case Player.States.Targeting:
+				case "Targeting":
 					break;
 				default:
 					EmitSignal(nameof(ButtonAction), "Wait");
