@@ -96,7 +96,8 @@ namespace CardGame.Server {
 		
 		public bool SupportActivationIsIllegal(Player player, Support support)
 		{
-			if (!player.Active())
+			//if (!player.Active())
+			if (!(player.State.GetType() == typeof(Idle) || player.State.GetType() == typeof(Active)))
 			{
 				Disqualify(player, Reasons.InvalidActivation);
 				return Invalid;

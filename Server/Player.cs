@@ -54,7 +54,7 @@ namespace CardGame.Server {
 		{
 			DeckList = deckList;
 			Id = id;
-			// Shuffle == shuffle;
+			// Shuffle = shuffle;
 		}
 
 		public void LoadDeck(Gamestate game)
@@ -175,8 +175,6 @@ namespace CardGame.Server {
 		{
 			foreach (var support in Support.Select(s => (Support)s )) { support.SetAsActivatable(gameEvent);}
 		}
-
-		public bool Active() { return State.GetType() == typeof(Idle) || State.GetType() == typeof(Active); }
 
 		public bool HasTag(Tag tag)
 		{
