@@ -223,11 +223,7 @@ namespace CardGame.Server {
 
 		public void DestroyUnit(Unit card)
 		{
-			if (card.HasTag(Tag.CannotTakeDamage))
-			{
-				// Should Be In Battle.
-				return;
-			}
+			// This might be causing problems elsewhere?
 			if (card.HasTag(Tag.CannotBeDestroyedByEffect))
 			{
 				return;
