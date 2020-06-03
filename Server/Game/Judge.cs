@@ -79,13 +79,13 @@ namespace CardGame.Server {
 				return Invalid;
 			}
 			
-			if (defenderId is Unit defender && !player.Opponent.Field.Contains(defender))
+			if (defenderId is Card defender && !player.Opponent.Field.Contains(defender))
 			{
 				GD.Print(3);
 				Disqualify(player, Reasons.InvalidAttack);
 				return Invalid;
 			}
-			if (defenderId is Unit validTarget && !attacker.ValidAttackTargets.Contains(validTarget))
+			if (defenderId is Card validTarget && !attacker.ValidAttackTargets.Contains(validTarget))
 			{
 				GD.Print(4);
 				Disqualify(player, Reasons.InvalidAttack);

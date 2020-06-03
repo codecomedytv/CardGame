@@ -15,6 +15,7 @@ namespace CardGame.Server {
 		
 		//private List<Player> Players;
 		private System.Collections.Generic.Dictionary<int, Player> Players;
+		private System.Collections.Generic.Dictionary<int, Card> Cards;
 		private readonly BaseMessenger Messenger;
 		public readonly Gamestate GameState;
 		private readonly Battle Battle = new Battle();
@@ -34,11 +35,12 @@ namespace CardGame.Server {
 		{
 			Messenger = messenger ?? new RealMessenger();
 			Players = new System.Collections.Generic.Dictionary<int, Player>();
+			Cards = new System.Collections.Generic.Dictionary<int, Card>();
 			Players[players[0].Id] = players[0];
 			Players[players[1].Id] = players[1];
 			players[0].Opponent = players[1];
 			players[1].Opponent = players[0];
-			GameState = new Gamestate(players);
+			GameState = new Gamestate();
 			Link.SetUp(GameState);
 		}
 
@@ -68,7 +70,7 @@ namespace CardGame.Server {
 
 		public void OnPlayerSeated(int id)
 		{
-			GameState.Player(id).Ready = true;
+			Players[id].Ready = true;
 			foreach (var player in Players.Values)
 			{
 				if (!player.Ready)
@@ -89,7 +91,8 @@ namespace CardGame.Server {
 				player.Draw(7);
 			}
 
-			TurnPlayer = Players[Players.Count - 1];
+			TurnPlayer = Players.Values.ToList()[Players.Count - 1];
+			TurnPlayer.IsTurnPlayer = true;
 			TurnPlayer.State = new Idle();
 			TurnPlayer.Opponent.State = new Passive();
 			TurnPlayer.SetPlayableCards();
@@ -100,7 +103,7 @@ namespace CardGame.Server {
 		
 		public void BeginTurn()
 		{
-			var player = GameState.GetTurnPlayer();
+			var player = TurnPlayer;
 			player.Draw(1);
 			Link.ApplyConstants();
 			player.State = new Idle();
@@ -240,6 +243,8 @@ namespace CardGame.Server {
 			player.EndTurn();
 			TurnPlayer = player.Opponent;
 			GameState.TurnPlayer = TurnPlayer;
+			player.IsTurnPlayer = false;
+			TurnPlayer.IsTurnPlayer = true;
 			Link.ApplyConstants();
 			BeginTurn();
 		}
@@ -247,7 +252,7 @@ namespace CardGame.Server {
 		public void OnPlayerDisqualified(int playerId, int reason)
 		{
 			// We require this call to be deferred so we can keep the RPC Path Connected until Disconnected
-			GameState.Player(playerId).Disqualified = true;
+			Players[playerId].Disqualified = true;
 			Messenger.DisqualifyPlayer(playerId, reason);
 			EmitSignal(nameof(Disqualified), playerId);
 		}

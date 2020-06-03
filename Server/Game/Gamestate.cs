@@ -15,21 +15,10 @@ namespace CardGame.Server {
 
 		public Unit Target;
 		public bool Paused = false;
-		public Reference History;
 		public int NextCardID = 0;
-		public Godot.Collections.Dictionary<int, Player> PlayerMap = new Godot.Collections.Dictionary<int, Player>();
-		public List<Player> Players = new List<Player>();
 		public Godot.Collections.Dictionary<int, Card> CardCatalog = new Godot.Collections.Dictionary<int, Card>();
 		public Unit Attacking;
 		public Player TurnPlayer;
-		//public Player ActivePlayer;
-
-		public Gamestate(List<Player> players)
-		{
-			PlayerMap[players[0].Id] = players[0];
-			PlayerMap[players[1].Id] = players[1];
-			Players = players;
-		}
 
 		public void RegisterCard(Card card)
 		{
@@ -73,11 +62,6 @@ namespace CardGame.Server {
 			EmitSignal(nameof(UnPaused));
 		}
 
-		public Player Player(int player)
-		{
-			return PlayerMap[player];
-		}
-		
 	}
 
 }

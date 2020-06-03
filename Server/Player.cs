@@ -25,6 +25,7 @@ namespace CardGame.Server {
 		public List<Card> Support = new List<Card>();
 		public List<Decorator> Tags = new List<Decorator>();
 		public bool Disqualified;
+		public bool IsTurnPlayer = false;
 
 		[Signal]
 		public delegate void Pause();
