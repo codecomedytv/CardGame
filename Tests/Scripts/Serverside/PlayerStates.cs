@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CardGame.Server;
+using CardGame.Server.States;
 using Godot;
 using Godot.Collections;
 using static CardGame.Tests.MockMessenger;
@@ -31,8 +32,8 @@ namespace CardGame.Tests.Scripts.Serverside
             Play.EndTurn(Players[1].Id);
             var newState = Players[1].State;
             
-            Assert.IsEqual(oldState, Player.States.Idle, "Player Was Idle");
-            Assert.IsEqual(newState, Player.States.Passive, "Player Is Passive");
+            Assert.IsTrue(oldState.GetType() == typeof(Idle), "Player Was Idle");
+            Assert.IsTrue(newState.GetType() == typeof(Passive), "Player Is Passive");
         }
 
         [Test]
@@ -44,8 +45,8 @@ namespace CardGame.Tests.Scripts.Serverside
             Play.Deploy(Players[1].Id, unit);
             var newState = Players[1].State;
             
-            Assert.IsEqual(oldState, Player.States.Idle, "Player Was Idle");
-            Assert.IsEqual(newState, Player.States.Acting, "Player is Acting");
+            Assert.IsTrue(oldState.GetType() == typeof(Idle), "Player Was Idle");
+            Assert.IsTrue(newState.GetType() == typeof(Acting), "Player is Acting");
         }
 
         [Test]
@@ -58,8 +59,8 @@ namespace CardGame.Tests.Scripts.Serverside
             Play.PassPlay(Players[0].Id);
             var newState = Players[0].State;
             
-            Assert.IsEqual(oldState, Player.States.Active, "Player was Active");
-            Assert.IsEqual(newState, Player.States.Passing, "Player is Passing");
+            Assert.IsTrue(oldState.GetType() == typeof(Active), "Player was Active");
+            Assert.IsTrue(newState.GetType() == typeof(Passing), "Player is Passing");
         }
 
         [Test]
@@ -73,8 +74,8 @@ namespace CardGame.Tests.Scripts.Serverside
             Play.PassPlay(Players[1].Id);
             var newState = Players[1].State;
             
-            Assert.IsEqual(oldState, Player.States.Acting, "Player was Acting");
-            Assert.IsEqual(newState, Player.States.Idle, "Player is Idle");
+            Assert.IsTrue(oldState.GetType() == typeof(Acting), "Player was Acting");
+            Assert.IsTrue(newState.GetType() == typeof(Idle), "Player is Idle");
         }
 
         [Test]
@@ -88,8 +89,8 @@ namespace CardGame.Tests.Scripts.Serverside
             Play.PassPlay(Players[1].Id);
             var newState = Players[0].State;
             
-            Assert.IsEqual(oldState, Player.States.Active, "Player was Active");
-            Assert.IsEqual(newState, Player.States.Passive, "Player is Passive");
+            Assert.IsTrue(oldState.GetType() == typeof(Active), "Player was Active");
+            Assert.IsTrue(newState.GetType() == typeof(Passive), "Player is Passive");
         }
 
         [Test]
@@ -100,8 +101,8 @@ namespace CardGame.Tests.Scripts.Serverside
             Play.EndTurn(Players[1].Id);
             var newState = Players[0].State;
             
-            Assert.IsEqual(oldState, Player.States.Passive, "Player was Passive");
-            Assert.IsEqual(newState, Player.States.Idle, "Player is Idle");
+            Assert.IsTrue(oldState.GetType() == typeof(Passive), "Player was Passive");
+            Assert.IsTrue(newState.GetType() == typeof(Idle), "Player is Idle");
         }
 
         [Test]
@@ -113,8 +114,8 @@ namespace CardGame.Tests.Scripts.Serverside
             Play.Deploy(Players[1].Id, unit);
             var newState = Players[0].State;
             
-            Assert.IsEqual(oldState, Player.States.Passive, "Player was Passive");
-            Assert.IsEqual(newState, Player.States.Active, "Player is Active");
+            Assert.IsTrue(oldState.GetType() == typeof(Passive), "Player was Passive");
+            Assert.IsTrue(newState.GetType() == typeof(Active), "Player is Active");
         }
 
         [Test]
@@ -130,8 +131,8 @@ namespace CardGame.Tests.Scripts.Serverside
             Play.Activate(Players[1].Id, support, 0, new Array<int>());
             var newState = Players[1].State;
             
-            Assert.IsEqual(oldState, Player.States.Active, "Player was Active");
-            Assert.IsEqual(newState, Player.States.Acting, "Player is Acting");
+            Assert.IsTrue(oldState.GetType() == typeof(Active), "Player was Active");
+            Assert.IsTrue(newState.GetType() == typeof(Acting), "Player is Acting");
 
         }
         

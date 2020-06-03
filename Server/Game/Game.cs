@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using CardGame.Server.States;
 using Godot.Collections;
 using Array = Godot.Collections.Array;
 using Object = Godot.Object;
@@ -89,8 +90,8 @@ namespace CardGame.Server {
 
 			var startingPlayer = Players[Players.Count - 1];
 			GameState.Begin(startingPlayer);
-			startingPlayer.State = Player.States.Idle;
-			startingPlayer.Opponent.State = Player.States.Passive;
+			startingPlayer.State = new Idle();
+			startingPlayer.Opponent.State = new Passive();
 			startingPlayer.SetPlayableCards();
 			startingPlayer.Legalize();
 			startingPlayer.DeclareState();
@@ -102,8 +103,8 @@ namespace CardGame.Server {
 			var player = GameState.GetTurnPlayer();
 			player.Draw(1);
 			Link.ApplyConstants();
-			player.State = Player.States.Idle;
-			player.Opponent.State = Player.States.Passive;
+			player.State = new Idle();
+			player.Opponent.State = new Passive();
 			player.SetPlayableCards();
 			player.SetAttackers();
 			player.SetActivatables();
@@ -127,8 +128,8 @@ namespace CardGame.Server {
 			Link.Register(card);
 			Link.ApplyConstants("deploy");
 			Link.ApplyTriggered("deploy");
-			player.State = Player.States.Acting;
-			player.Opponent.State = Player.States.Active;
+			player.State = new Acting();
+			player.Opponent.State = new Active();
 			player.Opponent.SetActivatables("deploy");
 			player.DeclareState();
 			player.Opponent.DeclareState();
@@ -153,6 +154,7 @@ namespace CardGame.Server {
 
 			if (Judge.AttackDeclarationIsIllegal(GameState, player, attacker, defenderId))
 			{
+				GD.Print("Illegal");
 				return;
 			}
 
@@ -166,8 +168,8 @@ namespace CardGame.Server {
 			Link.AddResolvable(Battle);
 			Link.ApplyConstants("attack");
 			Link.ApplyTriggered("attack");
-			player.State = Player.States.Acting;
-			player.Opponent.State = Player.States.Active;
+			player.State = new Acting();
+			player.Opponent.State = new Active();
 			player.DeclareState();
 			player.Opponent.DeclareState();
 			Link.SetupManual("attack");
@@ -198,8 +200,8 @@ namespace CardGame.Server {
 				return;
 			}
 			Link.ApplyConstants();
-			player.State = Player.States.Acting;
-			player.Opponent.State = Player.States.Active;
+			player.State = new Acting();
+			player.Opponent.State = new Active();
 			player.DeclareState();
 			player.Opponent.DeclareState();
 			Link.Activate(player, card, skillIndex, targets);

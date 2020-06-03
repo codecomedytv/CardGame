@@ -3,14 +3,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using CardGame.Server.States;
 
 namespace CardGame.Server {
 
 	public class Player : Node
 	{
-		public enum States { Idle, Active, Passive, Acting, Passing }
+		//public enum States { Idle, Active, Passive, Acting, Passing }
 
-		public States State = States.Passive;
+		public State State;
 		public List<SetCodes> DeckList;
 		public readonly int Id;
 		public Player Opponent;
@@ -180,7 +181,7 @@ namespace CardGame.Server {
 			foreach (var support in Support.Select(s => (Support)s )) { support.SetAsActivatable(gameEvent);}
 		}
 
-		public bool Active() { return State == States.Idle || State == States.Active; }
+		public bool Active() { return State.GetType() == typeof(Idle) || State.GetType() == typeof(Active); }
 
 		public bool HasTag(Tag tag)
 		{
@@ -344,6 +345,11 @@ namespace CardGame.Server {
 		public void Forbid(Card card)
 		{
 			DeclarePlay(new Forbid(card));
+		}
+
+		public void Disqualify()
+		{
+			throw new NotImplementedException();
 		}
 	}
 	

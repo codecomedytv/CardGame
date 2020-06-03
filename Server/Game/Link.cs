@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using CardGame.Server.States;
 using Godot.Collections;
 using Object = Godot.Object;
 
@@ -110,14 +111,14 @@ namespace CardGame.Server {
 		{
 
 			var player = Game.Player(playerId);
-			player.State = Player.States.Passing;
-			if(player.Opponent.State == Player.States.Passing)
+			player.State = new Passing();
+			if(player.Opponent.State.GetType() == typeof(Passing))
 			{
 				Resolve();
 			}
 			else
 			{
-				player.Opponent.State = Player.States.Active;
+				player.Opponent.State = new Active();
 			}
 			Update();
 			
@@ -159,7 +160,8 @@ namespace CardGame.Server {
 
 		public async void Automatic(Player player, Card card, int skillIndex = 0)
 		{
-			player.State = Player.States.Passing;
+			GD.Print("Hello?");
+			player.State = new Passing();
 			var autoSkill = card.Skills[skillIndex];
 			autoSkill.Activate();
 			if(Game.Paused)
@@ -185,8 +187,8 @@ namespace CardGame.Server {
 			}
 			
 			ApplyConstants();
-			Game.TurnPlayer.State = Player.States.Idle;
-			Game.TurnPlayer.Opponent.State = Player.States.Passive;
+			Game.TurnPlayer.State = new Idle();
+			Game.TurnPlayer.Opponent.State = new Passive();
 			Game.GetTurnPlayer().DeclarePlay(new Resolve());
 			Game.GetTurnPlayer().SetValidAttackTargets();
 		}

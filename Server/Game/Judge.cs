@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Linq;
+using CardGame.Server.States;
 
 namespace CardGame.Server {
 
@@ -29,7 +30,7 @@ namespace CardGame.Server {
 		
 		public bool DeployIsIllegalPlay(Gamestate state, Player player, Unit unit)
 		{
-			if(player.State != Player.States.Idle)
+			if(player.State.GetType() != typeof(Idle))
 			{
 				Disqualify(player, Reasons.InvalidDeploy);
 				return Invalid;
@@ -57,31 +58,36 @@ namespace CardGame.Server {
 		
 		public bool AttackDeclarationIsIllegal(Gamestate state, Player player, Unit attacker, int defenderId)
 		{
-			if (player.State != Player.States.Idle)
+			if (player.State.GetType() != typeof(Idle))
 			{
+				GD.Print(0);
 				Disqualify(player, Reasons.InvalidAttack);
 				return Invalid;
 			}
 			
 			if (!attacker.Ready)
 			{
+				GD.Print(1);
 				Disqualify(player, Reasons.InvalidAttack);
 				return Invalid;
 			}
 
 			if (defenderId == -1 && player.Opponent.Field.Count != 0)
 			{
+				GD.Print(2);
 				Disqualify(player, Reasons.InvalidAttack);
 				return Invalid;
 			}
 			
 			if (defenderId > 0 && !player.Opponent.Field.Contains(state.GetCard(defenderId)))
 			{
+				GD.Print(3);
 				Disqualify(player, Reasons.InvalidAttack);
 				return Invalid;
 			}
 			if (defenderId > 0 && !attacker.ValidAttackTargets.Contains(state.GetCard(defenderId)))
 			{
+				GD.Print(4);
 				Disqualify(player, Reasons.InvalidAttack);
 				return Invalid;
 			}
@@ -124,7 +130,7 @@ namespace CardGame.Server {
 		
 		public bool SettingFacedownIsIllegal(Gamestate state, Player player, Support support)
 		{
-			if (player.State != Player.States.Idle)
+			if (player.State.GetType() != typeof(Idle))
 			{
 				Disqualify(player, Reasons.InvalidSet);
 				return Invalid;
@@ -146,7 +152,7 @@ namespace CardGame.Server {
 		
 		public bool EndingTurnIsIllegal(Gamestate state, Player player)
 		{
-			if (player.State != Player.States.Idle)
+			if (player.State.GetType() != typeof(Idle))
 			{
 				Disqualify(player, Reasons.InvalidEndTurn);
 				return Invalid;

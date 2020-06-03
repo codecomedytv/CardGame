@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using CardGame.Server.States;
 using Godot;
 using Godot.Collections;
 using Array = Godot.Collections.Array;
@@ -53,9 +54,9 @@ namespace CardGame.Server
     public class SetState : GameEvent
     {
         private Player Player;
-        private Player.States State;
+        private State State;
 
-        public SetState(Player player, Player.States state)
+        public SetState(Player player, State state)
         {
             Player = player;
             State = state;
@@ -65,7 +66,8 @@ namespace CardGame.Server
         {
             var message = new Message();
             message.Player["command"] = GameEvents.SetState;
-            message.Player["args"] = new Array{(int)State};
+            GD.Print(State.ToString());
+            message.Player["args"] = new Array{State.ToString()};
             message.Opponent["command"] = GameEvents.NoOp;
             message.Opponent["args"] = new Array();
             return message;

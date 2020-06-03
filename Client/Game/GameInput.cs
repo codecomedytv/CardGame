@@ -49,7 +49,6 @@ namespace CardGameSharp.Client.Game
 		{
 			//	if not player.active or card.card_type != CARD_TYPE.SUPPORT  or not card.ready or not card.legal or not card in player.support:
 			//		return
-
 			Messenger.Activate(card, skillIndex, targets);
 		}
 

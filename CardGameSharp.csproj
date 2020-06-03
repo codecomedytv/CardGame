@@ -124,6 +124,13 @@
     <Compile Include="Server\Library\Library.cs" />
     <Compile Include="Server\Player.cs" />
     <Compile Include="Server\ServerConn.cs" />
+    <Compile Include="Server\States\Acting.cs" />
+    <Compile Include="Server\States\Active.cs" />
+    <Compile Include="Server\States\Disqualified.cs" />
+    <Compile Include="Server\States\Idle.cs" />
+    <Compile Include="Server\States\Passing.cs" />
+    <Compile Include="Server\States\Passive.cs" />
+    <Compile Include="Server\States\State.cs" />
     <Compile Include="SetCodes.cs" />
     <Compile Include="Tests\ConnectedFixture.cs" />
     <Compile Include="Tests\GameFixture.cs" />

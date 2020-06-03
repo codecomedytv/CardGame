@@ -1,6 +1,8 @@
-﻿using CardGame.Client.Match;
+﻿using System.Collections.Generic;
+using CardGame.Client.Match;
 using CardGame.Server;
 using Godot;
+using Godot.Collections;
 using Card = CardGame.Client.Library.Card.Card;
 
 namespace CardGameSharp.Client.Game
@@ -26,6 +28,11 @@ namespace CardGameSharp.Client.Game
 		public void Deploy(Card card)
 		{
 			CallDeferred(nameof(OnDeploy), card);
+		}
+
+		public void Activate(Card card, int index, Array targets)
+		{
+			OnActivation(card, index, targets);
 		}
 
 		public void SetFaceDown(Card card)
