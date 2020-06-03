@@ -126,16 +126,7 @@ namespace CardGame.Server {
 		{
 			foreach(var card in Hand) { card.SetAsPlayable(); }
 		}
-
-		public void Legalize()
-		{
-			foreach (var card in Hand)
-			{
-				card.Legal = true;
-				DeclarePlay(new Legalize(card));
-			}
-		}
-
+		
 		public void SetTargets(Card selector, List<Card> targets)
 		{
 			DeclarePlay(new SetTargets(selector, targets));
@@ -154,16 +145,7 @@ namespace CardGame.Server {
 		{
 			DeclarePlay(new ShowAttack(attacker, defender));
 		}
-
-		public void BeginTurn(int drawCount)
-		{
-			DeclarePlay(new BeginTurn());
-		}
 		
-		public void DeclareState()
-		{
-			DeclarePlay(new SetState(this, State));
-		}
 
 		public void SetAttackers()
 		{
@@ -188,20 +170,11 @@ namespace CardGame.Server {
 
 			return false;
 		}
-		
-		public void ReadyCards()
-		{
-			foreach (var card in Field)
-			{
-				card.Ready = true;
-				DeclarePlay(new ReadyCard(card));
-			}
 
-			foreach (var card in Support)
-			{
-				card.Ready = true;
-				DeclarePlay(new ReadyCard(card));
-			}
+		public void ReadyCard(Card card)
+		{
+			card.Ready = true;
+			DeclarePlay(new ReadyCard(card));
 		}
 
 		public void UnreadyCard(Card card)
@@ -327,30 +300,25 @@ namespace CardGame.Server {
 
 		public void EndTurn()
 		{
-			//EmitSignal(nameof(TurnEnded), Opponent);
-			ReadyCards();
-			Illegalize();
+
+			foreach (var card in Hand)
+			{
+				Forbid(card);
+			}
 			DeclarePlay(new EndTurn());
 		}
 		
 		public void Win() { DeclarePlay(new GameOver(this, Opponent)); }
 		
-		public void Illegalize()
-		{
-			foreach (var card in Hand)
-			{
-				card.Legal = false;
-				Forbid(card);
-			}
-		}
-
 		public void SetLegal(Card card)
 		{
+			card.Legal = true;
 			DeclarePlay(new Legalize(card));
 		}
 
 		public void Forbid(Card card)
 		{
+			card.Legal = false;
 			DeclarePlay(new Forbid(card));
 		}
 

@@ -96,8 +96,13 @@ namespace CardGame.Server {
 			TurnPlayer.State = new Idle();
 			TurnPlayer.Opponent.State = new Passive();
 			TurnPlayer.SetPlayableCards();
-			TurnPlayer.Legalize();
-			TurnPlayer.DeclareState();
+			//TurnPlayer.Legalize();
+			foreach (var card in TurnPlayer.Hand)
+			{
+				TurnPlayer.SetLegal(card);
+			}
+
+			TurnPlayer.DeclarePlay(new SetState(TurnPlayer, TurnPlayer.State));
 			Update();
 		}
 		
@@ -111,10 +116,12 @@ namespace CardGame.Server {
 			player.SetPlayableCards();
 			player.SetAttackers();
 			player.SetActivatables();
-			player.Legalize();
-			player.DeclareState();
-			player.Opponent.DeclareState();
-			player.ReadyCards();
+			foreach (var card in TurnPlayer.Hand)
+			{
+				TurnPlayer.SetLegal(card);
+			}
+			player.DeclarePlay(new SetState(player, player.State));
+			player.Opponent.DeclarePlay(new SetState(player.Opponent, player.Opponent.State));
 			Update();
 		}
 		
@@ -134,8 +141,8 @@ namespace CardGame.Server {
 			player.State = new Acting();
 			player.Opponent.State = new Active();
 			player.Opponent.SetActivatables("deploy");
-			player.DeclareState();
-			player.Opponent.DeclareState();
+			player.DeclarePlay(new SetState(player, player.State));
+			player.Opponent.DeclarePlay(new SetState(player.Opponent, player.Opponent.State));
 			Link.Broadcast("deploy", new List<Godot.Object>{card});
 			Update();
 			
@@ -173,8 +180,8 @@ namespace CardGame.Server {
 			Link.ApplyTriggered("attack");
 			player.State = new Acting();
 			player.Opponent.State = new Active();
-			player.DeclareState();
-			player.Opponent.DeclareState();
+			player.DeclarePlay(new SetState(player, player.State));
+			player.Opponent.DeclarePlay(new SetState(player.Opponent, player.Opponent.State));
 			Link.SetupManual("attack");
 			// Link.Broadcast("attack", [attacker, defender])
 			Update();
@@ -205,8 +212,8 @@ namespace CardGame.Server {
 			Link.ApplyConstants();
 			player.State = new Acting();
 			player.Opponent.State = new Active();
-			player.DeclareState();
-			player.Opponent.DeclareState();
+			player.DeclarePlay(new SetState(player, player.State));
+			player.Opponent.DeclarePlay(new SetState(player.Opponent, player.Opponent.State));
 			Link.Activate(player, card, skillIndex, targets);
 			Update();
 			
@@ -240,11 +247,21 @@ namespace CardGame.Server {
 				return;
 			}
 			
+			
 			player.EndTurn();
 			TurnPlayer = player.Opponent;
 			GameState.TurnPlayer = TurnPlayer;
 			player.IsTurnPlayer = false;
 			TurnPlayer.IsTurnPlayer = true;
+			foreach (var card in TurnPlayer.Field)
+			{
+				TurnPlayer.ReadyCard(card);
+			}
+
+			foreach (var card in TurnPlayer.Opponent.Support)
+			{
+				TurnPlayer.Opponent.ReadyCard(card);
+			}
 			Link.ApplyConstants();
 			BeginTurn();
 		}
