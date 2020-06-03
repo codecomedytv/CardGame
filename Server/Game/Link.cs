@@ -140,6 +140,7 @@ namespace CardGame.Server {
 
 		public async void Automatic(Player player, Card card, int skillIndex = 0)
 		{
+			// Needs serious rewriting
 			GD.Print("Hello?");
 			player.State = new Passing();
 			var autoSkill = card.Skills[skillIndex];
@@ -150,8 +151,7 @@ namespace CardGame.Server {
 				await ToSignal(Game, nameof(Gamestate.UnPaused));
 			}
 			autoSkill.Resolve();
-			Game.GetTurnPlayer().DeclarePlay(new Resolve());
-			Game.GetTurnPlayer().SetValidAttackTargets();
+			player.DeclarePlay(new Resolve());
 
 		}
 		

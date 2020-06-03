@@ -41,7 +41,7 @@ namespace CardGame.Server {
 			throw new NotImplementedException();
 		}
 
-		public virtual void Update(List<Player> players)
+		public virtual void Update(System.Collections.Generic.Dictionary<int, Player>.ValueCollection players)
 		{
 			throw new NotImplementedException();
 		}

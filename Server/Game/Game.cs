@@ -13,7 +13,8 @@ namespace CardGame.Server {
 	public class Game : Node
 	{
 		
-		private List<Player> Players;
+		//private List<Player> Players;
+		private System.Collections.Generic.Dictionary<int, Player> Players;
 		private readonly BaseMessenger Messenger;
 		public readonly Gamestate GameState;
 		private readonly Battle Battle = new Battle();
@@ -31,11 +32,13 @@ namespace CardGame.Server {
 
 		public Game(List<Player> players, BaseMessenger messenger = null)
 		{
-			Messenger = messenger ?? new RealMessenger(); 
-			Players = players;
-			Players[0].Opponent = Players[1];
-			Players[1].Opponent = Players[0];
-			GameState = new Gamestate(Players);
+			Messenger = messenger ?? new RealMessenger();
+			Players = new System.Collections.Generic.Dictionary<int, Player>();
+			Players[players[0].Id] = players[0];
+			Players[players[1].Id] = players[1];
+			players[0].Opponent = players[1];
+			players[1].Opponent = players[0];
+			GameState = new Gamestate(players);
 			Link.SetUp(GameState);
 		}
 
@@ -51,7 +54,7 @@ namespace CardGame.Server {
 			connect(Messenger, nameof(BaseMessenger.Activated), this, nameof(OnActivation));
 			connect(Messenger, nameof(BaseMessenger.PassedPriority), this, nameof(OnPriorityPassed));
 			connect(Judge, nameof(Judge.Disqualified), this, nameof(OnPlayerDisqualified));
-			foreach (var player in Players)
+			foreach (var player in Players.Values)
 			{
 				connect(player, nameof(Player.PlayExecuted), this.Messenger, nameof(Messenger.OnPlayExecuted));
 				var bounds = new Godot.Collections.Array { player.Opponent };
@@ -66,7 +69,7 @@ namespace CardGame.Server {
 		public void OnPlayerSeated(int id)
 		{
 			GameState.Player(id).Ready = true;
-			foreach (var player in Players)
+			foreach (var player in Players.Values)
 			{
 				if (!player.Ready)
 				{
@@ -75,13 +78,13 @@ namespace CardGame.Server {
 				
 			}
 
-			foreach (var player in Players)
+			foreach (var player in Players.Values)
 			{
 				player.LoadDeck(GameState);
 				player.Shuffle();
 			}
 
-			foreach (var player in Players)
+			foreach (var player in Players.Values)
 			{
 				player.Draw(7);
 			}
@@ -114,7 +117,7 @@ namespace CardGame.Server {
 		
 		public void OnDeploy(int playerId, int cardId)
 		{
-			var player = GameState.Player(playerId);
+			var player = Players[playerId];
 			var card = (Unit)GameState.GetCard(cardId);
 			if (Judge.DeployIsIllegalPlay(player, card))
 			{
@@ -137,7 +140,7 @@ namespace CardGame.Server {
 		
 		public void OnAttack(int playerId, int attackerId, int defenderId)
 		{
-			var player = GameState.Player(playerId);
+			var player = Players[playerId];
 			var attacker = (Unit)GameState.GetCard(attackerId);
 			object defender;
 			if (defenderId != -1)
@@ -176,7 +179,7 @@ namespace CardGame.Server {
 		
 		public void OnSetFaceDown(int playerId, int faceDownId)
 		{
-			var player = GameState.Player(playerId);
+			var player = Players[playerId];
 			var card = (Support)GameState.GetCard(faceDownId);
 			if (Judge.SettingFacedownIsIllegal(player,card))
 			{
@@ -190,7 +193,7 @@ namespace CardGame.Server {
 		
 		public void OnActivation(int playerId, int cardId, int skillIndex, Array<int> targets)
 		{
-			var player = GameState.Player(playerId);
+			var player = Players[playerId];
 			var card = (Support)GameState.GetCard(cardId);
 			if (Judge.SupportActivationIsIllegal(player, card))
 			{
@@ -208,7 +211,7 @@ namespace CardGame.Server {
 
 		public void OnPriorityPassed(int playerId)
 		{
-			var player = GameState.Player(playerId);
+			var player = Players[playerId];
 			player.State = new Passing();
 			if(player.Opponent.State.GetType() == typeof(Passing))
 			{
@@ -228,7 +231,7 @@ namespace CardGame.Server {
 
 		public void OnEndTurn(int playerId)
 		{
-			var player = GameState.Player(playerId);
+			var player = Players[playerId];
 			if (Judge.EndingTurnIsIllegal(player))
 			{
 				return;
@@ -251,9 +254,9 @@ namespace CardGame.Server {
 
 		public void Update()
 		{
-			Messenger.Update(Players);
+			Messenger.Update(Players.Values);
 		}
-
+		
 		private void connect(Godot.Object emitter, string signal, Godot.Object receiver, string method, Godot.Collections.Array binds = default(Godot.Collections.Array))
 		{
 			var error = emitter.Connect(signal, receiver, method, binds);

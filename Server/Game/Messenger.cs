@@ -21,7 +21,7 @@ namespace CardGame.Server {
 			RpcId(player.Opponent.Id, "QueueEvent", message.Opponent["command"], message.Opponent["args"]);
 		}
 
-		public override void Update(List<Player> players)
+		public override void Update(System.Collections.Generic.Dictionary<int, Player>.ValueCollection players)
 		{
 			foreach (var player in players)
 			{

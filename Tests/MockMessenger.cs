@@ -18,7 +18,7 @@ namespace CardGame.Tests
             // Warning: Dummy Method
         }
 
-        public override void Update(List<Player> players)
+        public override void Update(Dictionary<int, Player>.ValueCollection players)
         {
             // Warning: Dummy Method 
         }

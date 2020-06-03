@@ -1,23 +1,23 @@
 <?xml version="1.0" ?>
-<testsuites failures="0" name="TestXML" tests="9" time="0.937">
-<testsuite failures="0" name="Given An Attacking Unit" tests="3" time="0.01">
-<testcase name="When It Is CounterAttack By A Unit With Attack Greater Than Its Defense" time="0.034">
+<testsuites failures="0" name="TestXML" tests="9" time="1.616">
+<testsuite failures="0" name="Given An Attacking Unit" tests="3" time="0.009">
+<testcase name="When It Is CounterAttack By A Unit With Attack Greater Than Its Defense" time="0.032">
 </testcase>
-<testcase name="When It Attacks Directly" time="0.006">
+<testcase name="When It Attacks Directly" time="0.005">
 </testcase>
 <testcase name="When Its Attack Is Greater Than The Defending Units Defense" time="0.006">
 </testcase>
 </testsuite>
-<testsuite failures="0" name="A Player is Disqualified" tests="7" time="0.001">
+<testsuite failures="0" name="A Player is Disqualified" tests="7" time="0">
 <testcase name="When They Activate A Support While InActive" time="0.007">
 </testcase>
 <testcase name="When They Activate An Unready Support" time="0.003">
 </testcase>
-<testcase name="When They Declare An Attack With An Unready Unit" time="0.005">
+<testcase name="When They Declare An Attack With An Unready Unit" time="0.004">
 </testcase>
-<testcase name="When A Player Declares An Attack During Their Opponents Turn" time="0.005">
+<testcase name="When A Player Declares An Attack During Their Opponents Turn" time="0.004">
 </testcase>
-<testcase name="When They End Their Turn During Their Opponents Turn" time="0.004">
+<testcase name="When They End Their Turn During Their Opponents Turn" time="0.002">
 </testcase>
 <testcase name="When They Set Support During Their Opponents Turn" time="0.003">
 </testcase>
@@ -25,25 +25,25 @@
 </testcase>
 </testsuite>
 <testsuite failures="0" name="Triggered Event Cards" tests="1" time="0.001">
-<testcase name="OnAttack" time="0.014">
+<testcase name="OnAttack" time="0.012">
 </testcase>
 </testsuite>
 <testsuite failures="0" name="Given Novice Archer" tests="1" time="0.001">
-<testcase name="When Played" time="0.029">
+<testcase name="When Played" time="0.03">
 </testcase>
 </testsuite>
-<testsuite failures="0" name="Triggered Event Cards Redux" tests="1" time="0">
-<testcase name="OnAttack" time="0.064">
+<testsuite failures="0" name="Triggered Event Cards Redux" tests="1" time="0.001">
+<testcase name="OnAttack" time="0.065">
 </testcase>
 </testsuite>
-<testsuite failures="0" name="PlayerStates" tests="8" time="0.001">
+<testsuite failures="0" name="PlayerStates" tests="8" time="0">
 <testcase name="ActivePlayer Becomes Active When They Take An Action" time="0.005">
 </testcase>
 <testcase name="Passive Opponent Becomes Active When IdlePlayer Takes Action" time="0.003">
 </testcase>
-<testcase name="NonTurn Player Becomes Idle When TurnPlayer Ends Their Turn" time="0.004">
+<testcase name="NonTurn Player Becomes Idle When TurnPlayer Ends Their Turn" time="0.003">
 </testcase>
-<testcase name="NonTurn Player Becomes Passive When Both Players Pass" time="0.002">
+<testcase name="NonTurn Player Becomes Passive When Both Players Pass" time="0.003">
 </testcase>
 <testcase name="Turn Player Becomes Idle When Both Players Pass" time="0.003">
 </testcase>
@@ -51,11 +51,11 @@
 </testcase>
 <testcase name="Idle Player Becomes Acting When Taking Action" time="0.002">
 </testcase>
-<testcase name="Idle Player Becomes Passive When Ending Their Turn" time="0.005">
+<testcase name="Idle Player Becomes Passive When Ending Their Turn" time="0.003">
 </testcase>
 </testsuite>
 <testsuite failures="0" name="Given The Idle Turn Player" tests="3" time="0.001">
-<testcase name="When They End Their Turn" time="0.003">
+<testcase name="When They End Their Turn" time="0.004">
 </testcase>
 <testcase name="When They Set A Support" time="0.003">
 </testcase>
@@ -65,27 +65,27 @@
 <testsuite failures="0" name="Given Guard Puppy" tests="3" time="0.001">
 <testcase name=" tag unit removed from field" time="0.014">
 </testcase>
-<testcase name=" guard puppy removed from the field" time="0.01">
+<testcase name=" guard puppy removed from the field" time="0.009">
 </testcase>
-<testcase name="guard puppy" time="0.006">
+<testcase name="guard puppy" time="0.007">
 </testcase>
 </testsuite>
-<testsuite failures="0" name="When using a Skill" tests="8" time="0">
-<testcase name="That Targets A Unit When Only One Nontargetable Target Exists" time="0.006">
+<testsuite failures="0" name="When using a Skill" tests="8" time="0.001">
+<testcase name="That Targets A Unit When Only One Nontargetable Target Exists" time="0.005">
 </testcase>
 <testcase name="That Adds A Tag To Players When Unit Card Is Played" time="0.008">
 </testcase>
-<testcase name="That Tries To Destroy An Indestructible Card" time="0.006">
+<testcase name="That Tries To Destroy An Indestructible Card" time="0.007">
 </testcase>
-<testcase name="That Returns A Card To The Players Deck" time="0.005">
+<testcase name="That Returns A Card To The Players Deck" time="0.004">
 </testcase>
-<testcase name="That Mills A Card" time="0.005">
+<testcase name="That Mills A Card" time="0.004">
 </testcase>
-<testcase name="That Returns A Unit To Opponents Hand" time="0.005">
+<testcase name="That Returns A Unit To Opponents Hand" time="0.006">
 </testcase>
-<testcase name="That Discards Your Target Card" time="0.005">
+<testcase name="That Discards Your Target Card" time="0.004">
 </testcase>
-<testcase name="That Destroys Target Opponent Unit" time="0.008">
+<testcase name="That Destroys Target Opponent Unit" time="0.007">
 </testcase>
 </testsuite>
 </testsuites>
