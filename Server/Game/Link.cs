@@ -15,10 +15,7 @@ namespace CardGame.Server {
 		private List<Skill> Constants = new List<Skill>();
 		private List<Skill> Manual = new List<Skill>();
 		private List<Skill> Auto = new List<Skill>();
-		
-		[Signal]
-		public delegate void Updated();
-		
+
 		public void SetUp(Gamestate game)
 		{
 			if(Game == null) { Game = game; }
@@ -150,14 +147,11 @@ namespace CardGame.Server {
 			if(Game.Paused)
 			{
 				GD.Print("Game Paused");
-				EmitSignal(nameof(Updated));
 				await ToSignal(Game, nameof(Gamestate.UnPaused));
 			}
-			// GD.Print(Game.Target);
 			autoSkill.Resolve();
 			Game.GetTurnPlayer().DeclarePlay(new Resolve());
 			Game.GetTurnPlayer().SetValidAttackTargets();
-			EmitSignal(nameof(Updated));
 
 		}
 		

@@ -50,13 +50,11 @@ namespace CardGame.Server {
 			connect(Messenger, nameof(BaseMessenger.Activated), this, nameof(OnActivation));
 			connect(Messenger, nameof(BaseMessenger.PassedPriority), this, nameof(OnPriorityPassed));
 			connect(Judge, nameof(Judge.Disqualified), this, nameof(OnPlayerDisqualified));
-			connect(Link, nameof(Link.Updated), this, nameof(Update));
 			foreach (var player in Players)
 			{
 				connect(player, nameof(Player.PlayExecuted), this.Messenger, nameof(Messenger.OnPlayExecuted));
 				connect(player, nameof(Player.TurnEnded), GameState, nameof(GameState.OnTurnEnd));
 				var bounds = new Godot.Collections.Array { player.Opponent };
-				//connect(player, nameof(Player.PriorityPassed), GameState, nameof(GameState.OnPriorityPassed), bounds);
 				connect(player, nameof(Player.Register), Link, nameof(Link.Register));
 				connect(player, nameof(Player.Deployed), Link, nameof(Link.Broadcast));
 				connect(player, nameof(Player.Paused), GameState, nameof(GameState.Pause));
