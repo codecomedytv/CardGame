@@ -28,7 +28,7 @@ namespace CardGame.Server {
 			EmitSignal(nameof(Disqualified), player.Opponent.Id, (int)Reasons.OpponentDisqualified);
 		}
 		
-		public bool DeployIsIllegalPlay(Gamestate state, Player player, Unit unit)
+		public bool DeployIsIllegalPlay(Player player, Unit unit)
 		{
 			if(player.State.GetType() != typeof(Idle))
 			{
@@ -56,7 +56,7 @@ namespace CardGame.Server {
 			return Valid;
 		}
 		
-		public bool AttackDeclarationIsIllegal(Gamestate state, Player player, Unit attacker, int defenderId)
+		public bool AttackDeclarationIsIllegal(Player player, Unit attacker, object defenderId)
 		{
 			if (player.State.GetType() != typeof(Idle))
 			{
@@ -72,20 +72,20 @@ namespace CardGame.Server {
 				return Invalid;
 			}
 
-			if (defenderId == -1 && player.Opponent.Field.Count != 0)
+			if (defenderId is int directAttack && directAttack == -1 && player.Opponent.Field.Count != 0)
 			{
 				GD.Print(2);
 				Disqualify(player, Reasons.InvalidAttack);
 				return Invalid;
 			}
 			
-			if (defenderId > 0 && !player.Opponent.Field.Contains(state.GetCard(defenderId)))
+			if (defenderId is Unit defender && !player.Opponent.Field.Contains(defender))
 			{
 				GD.Print(3);
 				Disqualify(player, Reasons.InvalidAttack);
 				return Invalid;
 			}
-			if (defenderId > 0 && !attacker.ValidAttackTargets.Contains(state.GetCard(defenderId)))
+			if (defenderId is Unit validTarget && !attacker.ValidAttackTargets.Contains(validTarget))
 			{
 				GD.Print(4);
 				Disqualify(player, Reasons.InvalidAttack);
@@ -94,7 +94,7 @@ namespace CardGame.Server {
 			return Valid;
 		}
 		
-		public bool SupportActivationIsIllegal(Gamestate state, Player player, Support support)
+		public bool SupportActivationIsIllegal(Player player, Support support)
 		{
 			if (!player.Active())
 			{
@@ -128,7 +128,7 @@ namespace CardGame.Server {
 			return Valid;
 		}
 		
-		public bool SettingFacedownIsIllegal(Gamestate state, Player player, Support support)
+		public bool SettingFacedownIsIllegal(Player player, Support support)
 		{
 			if (player.State.GetType() != typeof(Idle))
 			{
@@ -150,7 +150,7 @@ namespace CardGame.Server {
 			return Valid;
 		}
 		
-		public bool EndingTurnIsIllegal(Gamestate state, Player player)
+		public bool EndingTurnIsIllegal(Player player)
 		{
 			if (player.State.GetType() != typeof(Idle))
 			{

@@ -22,7 +22,7 @@ namespace CardGame.Server {
 		public Godot.Collections.Dictionary<int, Card> CardCatalog = new Godot.Collections.Dictionary<int, Card>();
 		public Unit Attacking;
 		public Player TurnPlayer;
-		public Player ActivePlayer;
+		//public Player ActivePlayer;
 
 		public Gamestate(List<Player> players)
 		{
@@ -37,24 +37,7 @@ namespace CardGame.Server {
 			CardCatalog[card.Id] = card;
 			NextCardID++;
 		}
-
-		public void Begin(Player first)
-		{
-			TurnPlayer = first;
-			ActivePlayer = first;
-		}
-
-		public void OnTurnEnd(Player opponent)
-		{
-			TurnPlayer = opponent;
-			ActivePlayer = TurnPlayer;
-		}
-
-		public void OnPriorityPassed(Player Opponent)
-		{
-			
-		}
-
+		
 		public Card GetCard(int id)
 		{
 			return CardCatalog[id];
@@ -68,11 +51,6 @@ namespace CardGame.Server {
 		public Player GetTurnPlayer()
 		{
 			return TurnPlayer;
-		}
-
-		public Player GetActivePlayer()
-		{
-			return ActivePlayer;
 		}
 
 		public void TargetsRequested(int who, List<System.Object> what = default(List<System.Object>))

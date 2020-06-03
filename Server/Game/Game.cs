@@ -19,6 +19,7 @@ namespace CardGame.Server {
 		private readonly Battle Battle = new Battle();
 		private readonly Link Link = new Link();
 		private readonly Judge Judge = new Judge();
+		private Player TurnPlayer;
 
 		[Signal]
 		public delegate void GameStateUpdated();
@@ -53,7 +54,6 @@ namespace CardGame.Server {
 			foreach (var player in Players)
 			{
 				connect(player, nameof(Player.PlayExecuted), this.Messenger, nameof(Messenger.OnPlayExecuted));
-				connect(player, nameof(Player.TurnEnded), GameState, nameof(GameState.OnTurnEnd));
 				var bounds = new Godot.Collections.Array { player.Opponent };
 				connect(player, nameof(Player.Register), Link, nameof(Link.Register));
 				connect(player, nameof(Player.Deployed), Link, nameof(Link.Broadcast));
@@ -86,13 +86,12 @@ namespace CardGame.Server {
 				player.Draw(7);
 			}
 
-			var startingPlayer = Players[Players.Count - 1];
-			GameState.Begin(startingPlayer);
-			startingPlayer.State = new Idle();
-			startingPlayer.Opponent.State = new Passive();
-			startingPlayer.SetPlayableCards();
-			startingPlayer.Legalize();
-			startingPlayer.DeclareState();
+			TurnPlayer = Players[Players.Count - 1];
+			TurnPlayer.State = new Idle();
+			TurnPlayer.Opponent.State = new Passive();
+			TurnPlayer.SetPlayableCards();
+			TurnPlayer.Legalize();
+			TurnPlayer.DeclareState();
 			Update();
 		}
 		
@@ -117,7 +116,7 @@ namespace CardGame.Server {
 		{
 			var player = GameState.Player(playerId);
 			var card = (Unit)GameState.GetCard(cardId);
-			if (Judge.DeployIsIllegalPlay(GameState, player, card))
+			if (Judge.DeployIsIllegalPlay(player, card))
 			{
 				return;
 			}
@@ -150,7 +149,7 @@ namespace CardGame.Server {
 				defender = defenderId;
 			}
 
-			if (Judge.AttackDeclarationIsIllegal(GameState, player, attacker, defenderId))
+			if (Judge.AttackDeclarationIsIllegal(player, attacker, defender))
 			{
 				GD.Print("Illegal");
 				return;
@@ -179,7 +178,7 @@ namespace CardGame.Server {
 		{
 			var player = GameState.Player(playerId);
 			var card = (Support)GameState.GetCard(faceDownId);
-			if (Judge.SettingFacedownIsIllegal(GameState, player,card))
+			if (Judge.SettingFacedownIsIllegal(player,card))
 			{
 				return;
 			}
@@ -193,7 +192,7 @@ namespace CardGame.Server {
 		{
 			var player = GameState.Player(playerId);
 			var card = (Support)GameState.GetCard(cardId);
-			if (Judge.SupportActivationIsIllegal(GameState, player, card))
+			if (Judge.SupportActivationIsIllegal(player, card))
 			{
 				return;
 			}
@@ -214,10 +213,10 @@ namespace CardGame.Server {
 			if(player.Opponent.State.GetType() == typeof(Passing))
 			{
 				Link.Resolve();
-				GameState.TurnPlayer.State = new Idle();
-				GameState.TurnPlayer.Opponent.State = new Passive();
-				GameState.GetTurnPlayer().DeclarePlay(new Resolve());
-				GameState.GetTurnPlayer().SetValidAttackTargets();
+				TurnPlayer.State = new Idle();
+				TurnPlayer.Opponent.State = new Passive();
+				TurnPlayer.DeclarePlay(new Resolve());
+				TurnPlayer.SetValidAttackTargets();
 			}
 			else
 			{
@@ -226,33 +225,18 @@ namespace CardGame.Server {
 			Update();
 			
 		}
-		
-		/*public void OnPriorityPassed(int playerId)
-		{
 
-			var player = Game.Player(playerId);
-			player.State = new Passing();
-			if(player.Opponent.State.GetType() == typeof(Passing))
-			{
-				Resolve();
-			}
-			else
-			{
-				player.Opponent.State = new Active();
-			}
-			Update();*/
-		
 		public void OnEndTurn(int playerId)
 		{
 			var player = GameState.Player(playerId);
-			if (Judge.EndingTurnIsIllegal(GameState, player))
+			if (Judge.EndingTurnIsIllegal(player))
 			{
 				return;
 			}
 			
-			// This apparently made no real sense in the GDScript Version?
-			player.EmitSignal(nameof(Player.TurnEnded), player.Opponent);
 			player.EndTurn();
+			TurnPlayer = player.Opponent;
+			GameState.TurnPlayer = TurnPlayer;
 			Link.ApplyConstants();
 			BeginTurn();
 		}
