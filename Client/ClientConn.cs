@@ -15,6 +15,10 @@ namespace CardGame.Client {
 		public NetworkedMultiplayerENet client;
 		public Array<SetCodes> DeckList;
 
+		public override void _Ready()
+		{
+			DeckList = DefaultDeck();
+		}
 
 		// Debug
 		public Array<SetCodes> DefaultDeck()
@@ -33,17 +37,9 @@ namespace CardGame.Client {
 			deckList.Add(SetCodes.Alpha_TrainingTrainer);
 			return deckList;
 		}
-		// Debug
-	
-		public override void _Ready() 
-		{	
-			DeckList = DefaultDeck();
-			GetNode("Join").Connect("pressed", this, "Join");
-		}
-		
+
 		public void Join() {
 			
-			RemoveChild(GetNode("Join"));
 			client = new NetworkedMultiplayerENet();
 			Godot.Error err = client.CreateClient(Ip, Port);
 			if(err != Error.Ok) { GD.PushWarning(err.ToString()); }
@@ -61,6 +57,7 @@ namespace CardGame.Client {
 
 		[Puppet]
 		public void CreateRoom(string GameID){
+			GD.Print("Creating Rooms");
 			var gameScene = ResourceLoader.Load("res://Client/Game/Game.tscn") as PackedScene;
 			var Room = gameScene.Instance() as Game;
 			Room.Name = GameID;

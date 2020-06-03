@@ -84,6 +84,7 @@
     <Compile Include="Client\Library\Library.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="GameEvents.cs" />
+    <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\Game\Battle.cs" />
     <Compile Include="Server\Game\Card\IResolvable.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="Tests\ConnectedFixture.cs" />
     <Compile Include="Tests\GameFixture.cs" />
     <Compile Include="Tests\MockMessenger.cs" />
+    <Compile Include="Tests\Scripts\Connected\ActionResponseTest.cs" />
     <Compile Include="Tests\Scripts\Connected\ConnectionTest.cs" />
     <Compile Include="Tests\Scripts\Serverside\BattleTest.cs" />
     <Compile Include="Tests\Scripts\Serverside\JudgeTest.cs" />

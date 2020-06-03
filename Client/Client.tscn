@@ -9,11 +9,3 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Join" type="Button" parent="."]
-margin_right = 83.0
-margin_bottom = 20.0
-text = "Join"
-__meta__ = {
-"_edit_use_anchors_": false
-}

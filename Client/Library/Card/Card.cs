@@ -55,7 +55,7 @@ namespace CardGame.Client.Library.Card
 		public Sprite Frame;
 		public Sprite Art;
 		public TextureRect Back;
-		public Panel Rest;
+		public Label Rest;
 		public AudioStreamPlayer Sound;
 		public AnimatedSprite ValidTarget;
 		public AnimatedSprite SelectedTarget;
@@ -72,7 +72,7 @@ namespace CardGame.Client.Library.Card
 			Frame = GetNode("Frame") as Sprite;
 			Art = GetNode("Frame/Illustration") as Sprite;
 			Back = GetNode("Back") as TextureRect;
-			Rest = GetNode("Rest") as Panel;
+			Rest = GetNode("Rest") as Label;
 			Sound = GetNode("AudioStreamPlayer") as AudioStreamPlayer;
 			ValidTarget = GetNode("Frame/ValidTarget") as AnimatedSprite;
 			SelectedTarget = GetNode("Frame/Selected") as AnimatedSprite;
@@ -240,7 +240,7 @@ namespace CardGame.Client.Library.Card
 			//Player.Activate([Id])
 			//Player.Visual.Animate.Start();
 			Legal = false;
-			CallDeferred("emit_signal", "activated", this, skill, targets);
+			CallDeferred("emit_signal", nameof(CardActivated), this, skill, targets);
 		}
 		
 		private void _on_Card_pressed()

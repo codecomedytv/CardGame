@@ -95,5 +95,7 @@ namespace CardGameSharp.Client.Game
 		{
 			EmitSignal(nameof(CommandRequested));
 		}
+
+
 	}
 }
