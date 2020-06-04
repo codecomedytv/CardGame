@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CardGame.Server;
+using Godot;
 using Godot.Collections;
 
 namespace CardGame.Tests.Scripts.Serverside
@@ -54,6 +55,7 @@ namespace CardGame.Tests.Scripts.Serverside
         public void When_They_End_Their_Turn_During_Their_Opponents_Turn()
         {
 	        StartGame(DeckList);
+	        GD.Print(Players[0].IsTurnPlayer);
 	        Play.EndTurn(Players[0].Id);
 
 	        Assert.IsTrue(Players[0].IsDisqualified);

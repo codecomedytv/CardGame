@@ -35,7 +35,7 @@ namespace CardGame.Server {
 		public delegate void Register();
 
 		[Signal]
-		public delegate void Disqualifed();
+		public delegate void Disqualified();
 
 		public Player() {}
 
@@ -357,8 +357,8 @@ namespace CardGame.Server {
 
 		public void Disqualify()
 		{
-			EmitSignal(nameof(Disqualified), Id, 0);
-			EmitSignal(nameof(Disqualified), Opponent.Id, 0);
+			EmitSignal(nameof(States.Disqualified), Id, 0);
+			EmitSignal(nameof(States.Disqualified), Opponent.Id, 0);
 		}
 		
 	}
