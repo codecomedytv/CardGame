@@ -282,7 +282,13 @@ namespace CardGame.Client.Match
 			EmitSignal(nameof(PlayerLost));
 		}
 
-        
 
+		public void SetAttacker(Array args)
+		{
+			if (Cards[args[0]] is Card card)
+			{
+				card.CanAttack = true;
+			}
+		}
     }
 }

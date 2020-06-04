@@ -152,6 +152,9 @@ namespace CardGameSharp.Client.Game
 					case GameEvents.SetDeployable:
 						Player.SetDeployable(args);
 						break;
+					case GameEvents.SetAsAttacker:
+						Player.SetAttacker(args);
+						break;
 					case GameEvents.NoOp:
 						break;
 					case GameEvents.SetSettable:

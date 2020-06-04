@@ -156,27 +156,11 @@ namespace CardGame.Server {
 			DeclarePlay(new SetTargets(selector, targets));
 		}
 
-		public void SetValidAttackTargets()
-		{
-			foreach (var unit in Field.Select(u =>(Unit)u))
-			{
-				unit.SetValidAttackTargets();
-				DeclarePlay(new SetTargets(unit, unit.ValidAttackTargets.ToList()));
-			}
-		}
-
 		public void ShowAttack(Player player, Unit attacker, Unit defender)
 		{
 			DeclarePlay(new ShowAttack(attacker, defender));
 		}
 		
-
-		public void SetAttackers()
-		{
-			// TODO: Research IEnumerable & Collections
-			foreach(var unit in Field.Select(u => (Unit)u)) { unit.SetAsAttacker(); }
-		}
-
 		public void SetActivatables(string gameEvent = "")
 		{
 			foreach (var support in Support.Select(s => (Support)s )) { support.SetAsActivatable(gameEvent);}

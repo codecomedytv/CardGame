@@ -23,26 +23,17 @@ namespace CardGame.Server
             if (CanBeDeployed) { Controller.DeclarePlay(new SetAsDeployable(this)); }
         }
 
-        public void SetAsAttacker()
+        public override void SetCanAttack()
         {
-            SetValidAttackTargets();
-        }
-
-        public void SetValidAttackTargets()
-        {
-            if (!Ready)
+            CanAttack = Zone == Controller.Field && Ready && !Attacked;
+            if (CanAttack)
             {
-                return;
+                ValidAttackTargets = Opponent.Field.Where(u => !u.HasTag(Tag.CannotBeAttacked)).ToList();
+                Controller.DeclarePlay(new SetAsAttacker(this));
+                Controller.DeclarePlay(new SetTargets(this, ValidAttackTargets));
             }
-            
-            ValidAttackTargets.Clear();
-            foreach (var unit in Opponent.Field.Where(u => !u.HasTag(Tag.CannotBeAttacked)))
-            {
-                ValidAttackTargets.Add(unit);
-            }
-            
-            Controller.DeclarePlay(new SetTargets(this, ValidAttackTargets.ToList()));
         }
+        
 
     }
     

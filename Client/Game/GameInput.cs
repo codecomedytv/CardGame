@@ -60,12 +60,8 @@ namespace CardGameSharp.Client.Game
 
 		public void OnAttack(Card attacker, object defender)
 		{
-			if (Player.State != "Idle")
-			{
-				return;
-			}
 
-			if (!Player.Field.Contains(attacker) || !attacker.IsReady)
+			if (!attacker.CanAttack)
 			{
 				return;
 			}

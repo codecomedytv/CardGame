@@ -538,6 +538,26 @@ namespace CardGame.Server
         }
     }
 
+    public class SetAsAttacker : GameEvent
+    {
+        private Card Unit;
+
+        public SetAsAttacker(Card unit)
+        {
+            Unit = unit;
+        }
+        
+        public override Message GetMessage()
+        {
+            var message = new Message();
+            message.Player["command"] = GameEvents.SetAsAttacker;
+            message.Player["args"] = new Array {Unit.Id};
+            message.Opponent["command"] = GameEvents.NoOp;
+            message.Opponent["args"] = new Array();
+            return message;
+        }
+    }
+
     public class Resolve : GameEvent
     {
         public override Message GetMessage()

@@ -12,6 +12,7 @@ namespace CardGame.Server.States
             // Otherwise users may be able to deploy cards illegal from graveyard or deck etc
             Player.Hand.ForEach(card => card.SetCanBeDeployed());
             Player.Hand.ForEach(card => card.SetCanBeSet());
+            Player.Field.ForEach(card => card.SetCanAttack());
         }
 
         public override State OnDeploy(Unit unit)

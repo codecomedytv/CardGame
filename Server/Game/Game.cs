@@ -105,7 +105,7 @@ namespace CardGame.Server {
 			var player = TurnPlayer;
 			player.Draw(1);
 			Link.ApplyConstants();
-			player.SetAttackers();
+			//player.SetAttackers();
 			player.SetActivatables();
 			foreach (var card in TurnPlayer.Hand)
 			{
@@ -200,7 +200,7 @@ namespace CardGame.Server {
 				TurnPlayer.SetState(new Idle());
 				TurnPlayer.Opponent.SetState(new Passive());
 				TurnPlayer.DeclarePlay(new Resolve());
-				TurnPlayer.SetValidAttackTargets();
+				//TurnPlayer.SetValidAttackTargets();
 			}
 			else
 			{

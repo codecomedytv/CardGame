@@ -43,6 +43,12 @@ namespace CardGame.Server {
 			CanBeSet = false;
 		}
 
+		public virtual void SetCanAttack()
+		{
+			CanAttack = false;
+		}
+
+
 
 		[AttributeUsage(AttributeTargets.Class)]
 		protected class SkillAttribute : System.Attribute
@@ -134,5 +140,6 @@ namespace CardGame.Server {
 		{
 			return String.Format("{0}: {1}", Id.ToString(), Title);
 		}
+
 	}
 }

@@ -48,6 +48,7 @@
         SetSettable,
         SetActivatable,
         ReturnToDeck,
-        OpponentReturnedToDeck
+        OpponentReturnedToDeck,
+        SetAsAttacker
     }
 }
