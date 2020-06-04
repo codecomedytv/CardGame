@@ -58,6 +58,7 @@ namespace CardGame.Server {
 			connect(Judge, nameof(Judge.Disqualified), this, nameof(OnPlayerDisqualified));
 			foreach (var player in Players.Values)
 			{
+				connect(player, nameof(Player.Disqualifed), this, nameof(OnPlayerDisqualified));
 				connect(player, nameof(Player.PlayExecuted), this.Messenger, nameof(Messenger.OnPlayExecuted));
 				var bounds = new Godot.Collections.Array { player.Opponent };
 				connect(player, nameof(Player.Register), Link, nameof(Link.Register));
@@ -98,7 +99,6 @@ namespace CardGame.Server {
 			}
 			TurnPlayer.SetState(new Idle());
 			TurnPlayer.Opponent.SetState(new Passive());
-			//TurnPlayer.DeclarePlay(new SetState(TurnPlayer, TurnPlayer.State));
 			Update();
 		}
 		
@@ -116,8 +116,6 @@ namespace CardGame.Server {
 			}
 			player.SetState(new Idle());
 			player.Opponent.SetState(new Passive());
-			//p1layer.DeclarePlay(new SetState(player, player.State));
-			//player.Opponent.DeclarePlay(new SetState(player.Opponent, player.Opponent.State));
 			Update();
 		}
 		
@@ -129,17 +127,9 @@ namespace CardGame.Server {
 			{
 				return;
 			}
-
-			player.Deploy(card);
-			Link.Register(card);
-			Link.ApplyConstants("deploy");
-			Link.ApplyTriggered("deploy");
-			player.Opponent.SetActivatables("deploy");
-			Link.Broadcast("deploy", new List<Godot.Object>{card});
+			player.OnDeploy(card);
 			player.SetState(new Acting());
 			player.Opponent.SetState(new Active());
-			//player.DeclarePlay(new SetState(player, player.State));
-			//player.Opponent.DeclarePlay(new SetState(player.Opponent, player.Opponent.State));
 			Update();
 			
 		}
@@ -177,8 +167,6 @@ namespace CardGame.Server {
 			Link.SetupManual("attack");
 			player.SetState(new Acting());
 			player.Opponent.SetState(new Active());
-			//player.DeclarePlay(new SetState(player, player.State));
-			//player.Opponent.DeclarePlay(new SetState(player.Opponent, player.Opponent.State));
 			Update();
 		}
 		
@@ -200,18 +188,15 @@ namespace CardGame.Server {
 		{
 			var player = Players[playerId];
 			var card = (Support)GameState.GetCard(cardId);
-			GD.Print("Activating ", card.ToString());
 			if (Judge.SupportActivationIsIllegal(player, card))
 			{
 				GD.Print("Support Activation Is Illegal");
 				return;
 			}
-			Link.ApplyConstants();
+
+			player.OnActivation(card, skillIndex, targets);
 			player.SetState(new Acting());
 			player.Opponent.SetState(new Active());
-			//player.DeclarePlay(new SetState(player, player.State));
-			//player.Opponent.DeclarePlay(new SetState(player.Opponent, player.Opponent.State));
-			Link.Activate(player, card, skillIndex, targets);
 			Update();
 			
 		}
@@ -244,29 +229,16 @@ namespace CardGame.Server {
 				return;
 			}
 			
-			
-			player.EndTurn();
+			player.OnEndTurn();
 			TurnPlayer = player.Opponent;
 			GameState.TurnPlayer = TurnPlayer;
-			player.IsTurnPlayer = false;
-			TurnPlayer.IsTurnPlayer = true;
-			foreach (var card in TurnPlayer.Field)
-			{
-				TurnPlayer.ReadyCard(card);
-			}
-
-			foreach (var card in TurnPlayer.Opponent.Support)
-			{
-				TurnPlayer.Opponent.ReadyCard(card);
-			}
-			Link.ApplyConstants();
 			BeginTurn();
 		}
 
 		public void OnPlayerDisqualified(int playerId, int reason)
 		{
 			// We require this call to be deferred so we can keep the RPC Path Connected until Disconnected
-			Players[playerId].Disqualified = true;
+			Players[playerId].IsDisqualified = true;
 			Messenger.DisqualifyPlayer(playerId, reason);
 			EmitSignal(nameof(Disqualified), playerId);
 		}

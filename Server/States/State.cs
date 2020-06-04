@@ -1,31 +1,43 @@
-﻿namespace CardGame.Server.States
+﻿using Godot.Collections;
+
+namespace CardGame.Server.States
 {
     public class State: Godot.Object
     {
-        protected Player player;
+        protected Player Player;
 
-        public virtual State OnDeploy()
+        public virtual void OnEnter(Player player)
         {
+            Player = player;
+        }
+
+        public virtual State OnDeploy(Unit unit)
+        {
+            Player.Disqualify();
             return new Disqualified();
         }
 
         public virtual State OnAttack()
         {
+            Player.Disqualify();
             return new Disqualified();
         }
 
-        public virtual State OnActivation()
+        public virtual State OnActivation(Support card, int skillIndex, Array<int> targets)
         {
+            Player.Disqualify();
             return new Disqualified();
         }
 
         public virtual State OnPassPlay()
         {
+            Player.Disqualify();
             return new Disqualified();
         }
 
         public virtual State OnEndTurn()
         {
+            Player.Disqualify();
             return new Disqualified();
         }
 

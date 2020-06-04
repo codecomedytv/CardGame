@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using CardGame.Server.States;
+using Godot.Collections;
 
 namespace CardGame.Server {
 
@@ -23,7 +24,7 @@ namespace CardGame.Server {
 		public List<Card> Field = new List<Card>();
 		public List<Card> Support = new List<Card>();
 		public List<Decorator> Tags = new List<Decorator>();
-		public bool Disqualified;
+		public bool IsDisqualified;
 		public bool IsTurnPlayer = false;
 		public Link Link;
 
@@ -33,11 +34,44 @@ namespace CardGame.Server {
 		[Signal]
 		public delegate void Register();
 
+		[Signal]
+		public delegate void Disqualifed();
+
 		public Player() {}
+
+		#region StateCommandsTemp
+
+		public void OnDeploy(Unit unit)
+		{
+			State.OnDeploy(unit);
+		}
+
+		public void OnAttack()
+		{
+			State.OnAttack();
+		}
+
+		public void OnActivation(Support card, int skillIndex, Array<int> targets)
+		{
+			State.OnActivation(card, skillIndex, targets);
+		}
+
+		public void OnPriorityPassed()
+		{
+			State.OnPassPlay();
+		}
+
+		public void OnEndTurn()
+		{
+			State.OnEndTurn();
+		}
+
+		#endregion
 
 		public void SetState(State newState)
 		{
 			State = newState;
+			State.OnEnter(this);
 			DeclarePlay(new SetState(this, State));
 		}
 		
@@ -47,6 +81,8 @@ namespace CardGame.Server {
 			Id = id;
 			// Shuffle = shuffle;
 		}
+
+		#region Commands
 
 		public void LoadDeck(Gamestate game)
 		{
@@ -317,10 +353,14 @@ namespace CardGame.Server {
 			DeclarePlay(new Forbid(card));
 		}
 
+		#endregion
+
 		public void Disqualify()
 		{
-			throw new NotImplementedException();
+			EmitSignal(nameof(Disqualified), Id, 0);
+			EmitSignal(nameof(Disqualified), Opponent.Id, 0);
 		}
+		
 	}
 	
 }

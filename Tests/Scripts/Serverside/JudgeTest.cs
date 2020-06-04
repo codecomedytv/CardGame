@@ -36,7 +36,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        var unit = Players[0].Hand[0].Id;
 	        Play.Deploy(Players[0].Id, unit);
 
-	        Assert.IsTrue(Players[0].Disqualified);
+	        Assert.IsTrue(Players[0].IsDisqualified);
         }
 
         [Test]
@@ -47,7 +47,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        var support = Players[0].Hand[0].Id;
 	        Play.SetFaceDown(Players[0].Id, support);
 
-	        Assert.IsTrue(Players[0].Disqualified);
+	        Assert.IsTrue(Players[0].IsDisqualified);
         }
 
 	    [Test]
@@ -56,7 +56,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        StartGame(DeckList);
 	        Play.EndTurn(Players[0].Id);
 
-	        Assert.IsTrue(Players[0].Disqualified);
+	        Assert.IsTrue(Players[0].IsDisqualified);
         }
 
         [Test]
@@ -72,7 +72,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        const int directAttack = -1;
 	        Play.Attack(Players[1].Id, unit, directAttack);
 
-	        Assert.IsTrue(Players[1].Disqualified);
+	        Assert.IsTrue(Players[1].IsDisqualified);
 
         }
 
@@ -85,7 +85,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        const int directAttack = -1;
 	        Play.Attack(Players[1].Id, unit, directAttack);
 
-	        Assert.IsTrue(Players[1].Disqualified);
+	        Assert.IsTrue(Players[1].IsDisqualified);
         }
 
         public void When_They_Declare_An_Attack_With_A_Unit_Not_On_Their_Field()
@@ -95,7 +95,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        const int directAttack = -1;
 	        Play.Attack(Players[1].Id, unit, directAttack);
 
-	        Assert.IsTrue(Players[1].Disqualified);
+	        Assert.IsTrue(Players[1].IsDisqualified);
         }
 
         public void When_They_Declare_An_Attack_Against_A_Unit_Not_On_Their_Opponents_Field()
@@ -108,7 +108,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        var attackTarget = Players[0].Hand[0].Id;
 	        Play.Attack(Players[1].Id, unit, attackTarget);
 
-	        Assert.IsTrue(Players[1].Disqualified);
+	        Assert.IsTrue(Players[1].IsDisqualified);
         }
 
         [Test]
@@ -120,7 +120,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        Play.SetFaceDown(Players[1].Id, support);
 	        Play.Activate(Players[1].Id, support, 0, new Array<int>());
 
-	        Assert.IsTrue(Players[1].Disqualified);
+	        Assert.IsTrue(Players[1].IsDisqualified);
         }
 
         [Test]
@@ -133,7 +133,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        Play.EndTurn(Players[1].Id);
 	        Play.Activate(Players[1].Id, support, 0, new Array<int>());
 
-	        Assert.IsTrue(Players[1].Disqualified);
+	        Assert.IsTrue(Players[1].IsDisqualified);
         }
     }
 }
