@@ -58,7 +58,7 @@ namespace CardGame.Server {
 		
 		public void Broadcast(string gameEvent, List<Godot.Object> arguments)
 		{
-			ApplyConstants();
+			ApplyConstants(gameEvent);
 			ApplyTriggered(gameEvent);
 			SetupManual(gameEvent);
 		}

@@ -11,20 +11,12 @@ namespace CardGame.Server
             CanBeSet = Zone == Controller.Hand && Controller.Support.Count < 7;
             if (CanBeSet) { Controller.DeclarePlay(new SetAsSettable(this)); }
         }
-        
 
-        public void SetAsActivatable(string gameEvent)
+        public override void SetCanBeActivated()
         {
-            Skill.SetUp(gameEvent);
-            if (!Skill.CanBeUsed)
-            {
-                return;
-            }
-            CanBeActivated = true;
-            Controller.DeclarePlay(new Activate(this, new List<Card>()));
-            
+            CanBeActivated = Skill.CanBeUsed;
+            if (CanBeActivated) {Controller.DeclarePlay(new Activate(this, new List<Card>()));}
         }
-
 
     }
 }

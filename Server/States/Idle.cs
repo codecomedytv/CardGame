@@ -13,6 +13,7 @@ namespace CardGame.Server.States
             Player.Hand.ForEach(card => card.SetCanBeDeployed());
             Player.Hand.ForEach(card => card.SetCanBeSet());
             Player.Field.ForEach(card => card.SetCanAttack());
+            Player.Support.ForEach(card => card.SetCanBeActivated());
         }
 
         public override State OnDeploy(Unit unit)
@@ -24,9 +25,9 @@ namespace CardGame.Server.States
             }
             Player.Deploy(unit);
             Player.Link.Register(unit);
-            Player.Link.ApplyConstants("deploy");
-            Player.Link.ApplyTriggered("deploy");
-            Player.Opponent.SetActivatables("deploy");
+            //Player.Link.ApplyConstants("deploy");
+            //Player.Link.ApplyTriggered("deploy");
+            //Player.Opponent.SetActivatables("deploy");
             Player.Link.Broadcast("deploy", new List<Godot.Object>{unit});
             return new Acting();
         }

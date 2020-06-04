@@ -160,11 +160,6 @@ namespace CardGame.Server {
 		{
 			DeclarePlay(new ShowAttack(attacker, defender));
 		}
-		
-		public void SetActivatables(string gameEvent = "")
-		{
-			foreach (var support in Support.Select(s => (Support)s )) { support.SetAsActivatable(gameEvent);}
-		}
 
 		public bool HasTag(Tag tag)
 		{

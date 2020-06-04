@@ -52,6 +52,7 @@ namespace CardGame.Server {
 			
 			else if (!support.CanBeActivated)
 			{
+				GD.Print("Support Cannot Be Activated");
 				player.Disqualify();
 				return Invalid;
 			}

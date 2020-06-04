@@ -105,7 +105,7 @@ namespace CardGame.Server {
 			var player = TurnPlayer;
 			player.Draw(1);
 			Link.ApplyConstants();
-			player.SetActivatables();
+			Link.SetupManual("");
 			player.SetState(new Idle());
 			player.Opponent.SetState(new Passive());
 			Update();

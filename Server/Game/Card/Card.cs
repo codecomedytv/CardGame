@@ -50,6 +50,11 @@ namespace CardGame.Server {
 		{
 			CanAttack = false;
 		}
+
+		public virtual void SetCanBeActivated()
+		{
+			CanBeActivated = false;
+		}
 		
 
 		[Signal]
