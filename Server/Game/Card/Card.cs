@@ -25,6 +25,14 @@ namespace CardGame.Server {
 		public bool Ready = false;
 		// public bool Attacked = false;
 
+		// The intention is for these to be set throughout the turn but never declared
+		// When a player enters an active state (idle or active) then it iterates on all
+		// owned cards to see if these can be used or not.
+		public bool CanBeDeployed = false;
+		public bool CanBeSet = false;
+		public bool CanBeActivated = false;
+		public bool CanAttack = false;
+
 
 		[AttributeUsage(AttributeTargets.Class)]
 		protected class SkillAttribute : System.Attribute
