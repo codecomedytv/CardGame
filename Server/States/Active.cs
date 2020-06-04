@@ -1,3 +1,4 @@
+using CardGameSharp.Client.Game;
 using Godot.Collections;
 
 namespace CardGame.Server.States
@@ -23,9 +24,21 @@ namespace CardGame.Server.States
 
         public override State OnPassPlay()
         {
+            if (Player.Opponent.State.GetType() == typeof(Passing))
+            {
+                Player.Link.Resolve();
+                var turnPlayer = Player.IsTurnPlayer ? Player : Player.Opponent;
+                turnPlayer.SetState(new Idle());
+                turnPlayer.Opponent.SetState(new Passive());
+            }
+            else
+            {
+                Player.Opponent.SetState(new Active());
+                Player.SetState(new Passing());
+            }
             return new Passing();
         }
-        
+
         public override string ToString()
         {
             return "Active";

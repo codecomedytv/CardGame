@@ -207,12 +207,6 @@ namespace CardGame.Server {
 			card.Zone = Field;
 			card.EmitSignal(nameof(Card.Exit));
 			DeclarePlay(new Deploy(card));
-			
-		}
-
-		public void Activate(Card card, List<Card> targets)
-		{
-			DeclarePlay(new Activate(card, targets));
 		}
 
 		public void DestroyUnit(Unit card)
@@ -226,7 +220,6 @@ namespace CardGame.Server {
 			{
 				return;
 			}
-			GD.Print("Destroying Unit: ", card.ToString());
 			card.Controller.Field.Remove(card);
 			card.Owner.Graveyard.Add(card);
 			card.Zone = card.Owner.Graveyard;

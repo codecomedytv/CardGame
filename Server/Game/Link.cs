@@ -107,11 +107,6 @@ namespace CardGame.Server {
 		public async void Activate(Player player, Card card, Array<int> targets)
 		{
 			var activatedSkill = card.Skill;
-			if (!activatedSkill.CanBeUsed)
-			{
-				GD.Print("Cannot Be Used");
-				return;
-			}
 			if (targets.Count > 0)
 			{
 				Game.Target = (Unit)Game.GetCard(targets[0]);
@@ -123,20 +118,11 @@ namespace CardGame.Server {
 			}
 
 			var cards = new List<Card>();
-			foreach (var skill in Manual)
+			if (Game.Target != null)
 			{
-				if (skill == activatedSkill)
-				{
-					if (Game.Target != null)
-					{
-						cards.Add(Game.Target);
-					}
-					GD.Print("Moving Activation To Player??");
-					player.Activate(skill.Card, cards);
-					Chain.Add(skill);
-					return;
-				}
+				cards.Add(Game.Target);
 			}
+			Chain.Add(activatedSkill);
 		}
 
 		public async void Automatic(Player player, Card card)

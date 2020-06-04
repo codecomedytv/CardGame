@@ -111,12 +111,6 @@ namespace CardGameSharp.Client.Game
 					case GameEvents.UnreadyCard:
 						Player.UnreadyCards(new Array<int>(args));
 						break;
-					// case GameEvents.Legalize:
-					// 	Player.Legalize(args);
-					// 	break;
-					// case GameEvents.Forbid:
-					// 	Player.Forbid(args);
-					// 	break;
 					case GameEvents.AttackedDirectly:
 						Player.attack_directly(args);
 						break;

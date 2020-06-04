@@ -26,9 +26,6 @@ namespace CardGame.Server.States
             }
             Player.Deploy(unit);
             Player.Link.Register(unit);
-            //Player.Link.ApplyConstants("deploy");
-            //Player.Link.ApplyTriggered("deploy");
-            //Player.Opponent.SetActivatables("deploy");
             Player.Link.Broadcast("deploy", new List<Godot.Object>{unit});
             return new Acting();
         }

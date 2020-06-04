@@ -44,11 +44,10 @@ namespace CardGameSharp.Tests.Scripts.Connected
 
 			// Player 1 sets counter_attack
 		    var CounterAttack = player.Hand[0];
-		    GD.Print(CounterAttack.Title);
-		    GD.Print("state:", player.State);
-		    GD.Print("state:", player2.State);
 		    input.OnSetFaceDown(CounterAttack);
 		    await ToSignal(UntilTimeout(.5F), YIELD);
+		    GD.Print(player.Support.Count, " is player s count");
+		    GD.Print(player2.Opponent.Support.Count, " is opponent support count (should be equal)");
 		    input.EndTurn();
 		    await ToSignal(UntilTimeout(.5F), YIELD);
 		    var DungeonGuide = player2.Hand[2];

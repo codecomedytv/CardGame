@@ -107,7 +107,6 @@ namespace CardGame.Client.Match
 			}
 			else
 			{
-				GD.Print("Visual.CS: Todo Add History");
 				History.DirectAttack(Who, attacker);
 			}
 		}
@@ -267,6 +266,7 @@ namespace CardGame.Client.Match
 			QueueCallback(History, Delay() + 0.3F, "SetFaceDown", Who, card);
 			QueueCallback(card.GetParent(), Delay(0.3), "remove_child", card);
 			QueueCallback(Support, Delay(), "add_child", card);
+			GD.Print("setting ", card.ToString());
 			QueueCallback(card, Delay(), "FlipFaceDown");
 			QueueCallback(Sfx, Delay(), "SetFaceDown");
 		}

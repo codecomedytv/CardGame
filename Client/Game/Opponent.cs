@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CardGame;
 using CardGame.Client.Match;
 using CardGame.Server;
@@ -7,6 +8,7 @@ using Godot.Collections;
 using Card = CardGame.Client.Library.Card.Card;
 using Player = CardGame.Client.Match.Player;
 using CardGame.Client.Library;
+using Array = Godot.Collections.Array;
 using Library = CardGame.Client.Library.Library;
 
 namespace CardGameSharp.Client.Game
@@ -60,7 +62,6 @@ namespace CardGameSharp.Client.Game
 
 		public void Deploy(Array args)
 		{
-			GD.Print(args);
 			if (!(args[0] is Dictionary data)) return;
 			var id = (int) data["Id"];
 			var setCode = (SetCodes) data["setCode"];
@@ -109,8 +110,11 @@ namespace CardGameSharp.Client.Game
 			var setCode = (SetCodes) arg["setCode"];
 			if (!(Library.Fetch(id, setCode) is Card card)) return;
 			card.Zone = Card.Zones.Support;
-			var old = Support[Support.Count - 1];
-			Support.RemoveAt(Support.Count - 1);
+			GD.Print(Support.Count, " is support Count");
+			var index = Support.Count - 1 >= 0 ? Support.Count - 1 : 0;
+			GD.Print(index, " is index");
+			var old = Support[index];
+			Support.RemoveAt(index);
 			// Should probably remove this discard thing and set it on resolve instead
 			Graveyard.Add(card);
 			card.Zone = Card.Zones.Discard;

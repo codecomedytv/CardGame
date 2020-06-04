@@ -92,7 +92,6 @@ namespace CardGame.Client.Match
 
 		public void autotarget(Array args) 
 		{
-			GD.Print(args);
 			var targeter = Cards[args[0]];
 			// change States
 		    //	State = "Targeting"

@@ -164,18 +164,7 @@ namespace CardGame.Server {
 		public void OnPriorityPassed(int playerId)
 		{
 			var player = Players[playerId];
-			player.SetState(new Passing());
-			if(player.Opponent.State.GetType() == typeof(Passing))
-			{
-				Link.Resolve();
-				TurnPlayer.SetState(new Idle());
-				TurnPlayer.Opponent.SetState(new Passive());
-				TurnPlayer.DeclarePlay(new Resolve());
-			}
-			else
-			{
-				player.Opponent.SetState(new Active());
-			}
+			player.OnPriorityPassed();
 			Update();
 			
 		}
