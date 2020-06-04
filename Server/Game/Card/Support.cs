@@ -9,11 +9,6 @@ namespace CardGame.Server
 
         }
         
-        public override void OnControllerStateChanged(int state, string signal)
-        { 
-            throw new System.NotImplementedException();
-        }
-
         protected override void _SetAsPlayable()
         {
             CanBeSet = true;

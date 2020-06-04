@@ -16,12 +16,7 @@ namespace CardGame.Server
         {
             Tags = new List<Decorator>();
         }
-        
-        public override void OnControllerStateChanged(int state, string signal)
-        {
-            throw new System.NotImplementedException();
-        }
-        
+
         protected override void _SetAsPlayable()
         {
             // TODO: Add Tag Check

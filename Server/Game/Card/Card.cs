@@ -42,11 +42,6 @@ namespace CardGame.Server {
 		[Signal]
 		public delegate void Exit();
 		
-		public virtual void OnControllerStateChanged(int state, string signal)
-		{
-			
-		}
-		
 		public void SetOwner(Player owner) 
 		{
 			// This is a setget method on original source code;
@@ -92,11 +87,6 @@ namespace CardGame.Server {
 		{
 
 			GD.PushWarning("Add Skills Manually");
-			//foreach (var skill in GetType().GetNestedTypes().Where(s => s == Skill))
-			//{
-			//	var  instance = new skill;
-			//	Skills.Add(instance);
-			//}
 		}
 
 		protected void AddSkill(Skill skill)
