@@ -88,6 +88,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\Game\Battle.cs" />
     <Compile Include="Server\Game\Card\IResolvable.cs" />
+    <Compile Include="Server\Game\Card\NullSkill.cs" />
     <Compile Include="Server\Game\Card\Support.cs" />
     <Compile Include="Server\Game\Card\Unit.cs" />
     <Compile Include="Server\Game\Events\GameEvent.cs" />

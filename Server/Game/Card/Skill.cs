@@ -10,9 +10,10 @@ namespace CardGame.Server {
 	public class Skill : Godot.Object, IResolvable
 	{
 		public enum Types { Manual, Auto, Constant }
-		public Player Owner;
-		public Player Controller;
-		public Player Opponent;
+
+		public Player Owner => Card.Owner;
+		public Player Controller => Card.Controller;
+		public Player Opponent => Card.Opponent;
 		public Card Card;
 		public bool CanBeUsed = false;
 		public string AreaOfActivation;

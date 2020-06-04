@@ -16,22 +16,25 @@ namespace CardGame.Server {
 		public int Id;
 		public Player Owner;
 		public Player Controller;
-		public Player Opponent;
-		public List<Skill> Skills = new List<Skill>();
+		public Player Opponent => Controller.Opponent;
+		public Skill Skill;
 		public List<Card> Zone; //= new List<Card> // Might be worth updating
 		public List<Decorator> Tags = new List<Decorator>();
-		public bool Legal = false;
 		public bool Activated = false;
 		public bool Ready = false;
 		// public bool Attacked = false;
 
-		// The intention is for these to be set throughout the turn but never declared
 		// When a player enters an active state (idle or active) then it iterates on all
 		// owned cards to see if these can be used or not.
 		public bool CanBeDeployed = false;
 		public bool CanBeSet = false;
 		public bool CanBeActivated = false;
 		public bool CanAttack = false;
+
+		public Card()
+		{
+			AddSkill(new NullSkill());
+		}
 
 		public virtual void SetCanBeDeployed()
 		{
@@ -47,36 +50,10 @@ namespace CardGame.Server {
 		{
 			CanAttack = false;
 		}
-
-
-
-		[AttributeUsage(AttributeTargets.Class)]
-		protected class SkillAttribute : System.Attribute
-		{
-		}
+		
 
 		[Signal]
 		public delegate void Exit();
-		
-		public void SetOwner(Player owner) 
-		{
-			// This is a setget method on original source code;
-			Owner = owner;
-			foreach(var skill in Skills){
-				skill.Owner = Owner;
-			}
-		}
-			
-		public void SetControllerAndOpponent(Player controller)
-		{
-			// This is a setget method on Controller .property from original source code
-			Controller = controller;
-			Opponent = controller.Opponent;
-			foreach(var skill in Skills) {
-				skill.Controller = controller;
-				skill.Opponent = controller.Opponent;
-			}
-		}
 		
 		public Dictionary<string, int> Serialize()
 		{
@@ -98,43 +75,17 @@ namespace CardGame.Server {
 			}
 			return false;
 		}
-		
-		protected void CreateSkills()
-		{
-
-			GD.PushWarning("Add Skills Manually");
-		}
 
 		protected void AddSkill(Skill skill)
 		{
+			Skill = skill;
 			skill.Card = this;
-			Skills.Add(skill);
-			skill.Controller = Controller;
 		}
 
 		protected void SetSkillCards()
 		{
-			foreach (var skill in Skills)
-			{
-				skill.Card = this;
-			}
+			Skill.Card = this;
 		}
-
-		public void SetAsPlayable()
-		{
-		}
-
-		// public void SetLegal()
-		// {
-		// 	Legal = true;
-		// 	Controller.SetLegal(this);
-		// }
-		//
-		// public void SetIllegal()
-		// {
-		// 	Legal = false;
-		// 	Controller.Forbid(this);
-		// }
 
 		public override string ToString()
 		{

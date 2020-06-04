@@ -94,9 +94,9 @@ namespace CardGame.Server {
 			foreach (SetCodes setCode in DeckList)
 			{
 				var card = Library.Create(setCode);
-				card.Skills.ForEach(skill => skill.GameState = game);
-				card.SetOwner(this);
-				card.SetControllerAndOpponent(this);
+				card.Skill.GameState = game;
+				card.Owner = this;
+				card.Controller = this;
 				card.Zone = Deck;
 				game.RegisterCard(card);
 				Deck.Add(card);

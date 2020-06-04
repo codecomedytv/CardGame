@@ -15,16 +15,14 @@ namespace CardGame.Server
 
         public void SetAsActivatable(string gameEvent)
         {
-            foreach (var skill in Skills)
+            Skill.SetUp(gameEvent);
+            if (!Skill.CanBeUsed)
             {
-                skill.SetUp(gameEvent);
-                if (!skill.CanBeUsed)
-                {
-                    continue;
-                }
-                CanBeActivated = true;
-                Controller.DeclarePlay(new Activate(this, new List<Card>()));
+                return;
             }
+            CanBeActivated = true;
+            Controller.DeclarePlay(new Activate(this, new List<Card>()));
+            
         }
 
 

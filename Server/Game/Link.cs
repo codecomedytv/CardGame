@@ -65,25 +65,24 @@ namespace CardGame.Server {
 		
 		public void Register(Card card)
 		{
-			foreach (var skill in card.Skills)
+			
+			switch (card.Skill.Type)
 			{
-				switch (skill.Type)
-				{
-					case Skill.Types.Constant:
-						Constants.Add(skill);
-						break;
-					
-					case Skill.Types.Auto:
-						Auto.Add(skill);
-						break;
-					
-					case Skill.Types.Manual:
-						Manual.Add(skill);
-						break;
-					default:
-						return;
-				}
+				case Skill.Types.Constant:
+					Constants.Add(card.Skill);
+					break;
+				
+				case Skill.Types.Auto:
+					Auto.Add(card.Skill);
+					break;
+				
+				case Skill.Types.Manual:
+					Manual.Add(card.Skill);
+					break;
+				default:
+					return;
 			}
+			
 		}
 		
 		public void Unregister(Skill skill)
@@ -107,7 +106,7 @@ namespace CardGame.Server {
 		
 		public async void Activate(Player player, Card card, Array<int> targets)
 		{
-			var activatedSkill = card.Skills[0];
+			var activatedSkill = card.Skill;
 			if (!activatedSkill.CanBeUsed)
 			{
 				GD.Print("Cannot Be Used");
@@ -145,7 +144,7 @@ namespace CardGame.Server {
 			// Needs serious rewriting
 			GD.Print("Hello?");
 			player.State = new Passing();
-			var autoSkill = card.Skills[0];
+			var autoSkill = card.Skill;
 			autoSkill.Activate();
 			if(Game.Paused)
 			{

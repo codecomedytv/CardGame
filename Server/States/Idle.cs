@@ -48,7 +48,6 @@ namespace CardGame.Server.States
             Player.Support.Add(support);
             support.Zone = Player.Support;
             support.EmitSignal(nameof(Card.Exit));
-            support.Legal = false; // Need To Update This
             Player.Link.ApplyConstants();
             Player.Link.Register(support);
             Player.DeclarePlay(new SetSupport(support));
