@@ -67,7 +67,6 @@ namespace CardGame.Server {
 
 		public void OnZoneExit(List<Card> zone, Card card, string command)
 		{
-			GD.Print("command");
 			if(zone == card.Zone)
 			{
 				// Not a New Zone

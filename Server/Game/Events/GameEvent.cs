@@ -66,7 +66,6 @@ namespace CardGame.Server
         {
             var message = new Message();
             message.Player["command"] = GameEvents.SetState;
-            GD.Print(State.ToString());
             message.Player["args"] = new Array{State.ToString()};
             message.Opponent["command"] = GameEvents.NoOp;
             message.Opponent["args"] = new Array();

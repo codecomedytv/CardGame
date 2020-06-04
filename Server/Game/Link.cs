@@ -128,13 +128,11 @@ namespace CardGame.Server {
 		public async void Automatic(Player player, Card card)
 		{
 			// Needs serious rewriting
-			GD.Print("Hello?");
 			player.State = new Passing();
 			var autoSkill = card.Skill;
 			autoSkill.Activate();
 			if(Game.Paused)
 			{
-				GD.Print("Game Paused");
 				await ToSignal(Game, nameof(Gamestate.UnPaused));
 			}
 			autoSkill.Resolve();
@@ -148,7 +146,6 @@ namespace CardGame.Server {
 			{
 				var skill = Chain[Chain.Count - 1];
 				Chain.RemoveAt(Chain.Count - 1);
-				GD.Print("Resolving Skill?", skill.ToString());
 				skill.Resolve();
 			}
 			

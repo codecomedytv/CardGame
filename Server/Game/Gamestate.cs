@@ -49,15 +49,12 @@ namespace CardGame.Server {
 
 		public void OnTargetsSelected(int what)
 		{
-			GD.Print("Selecting Target");
 			Target = (Unit)CardCatalog[what];
-			GD.Print("Target is: ", Target);
 			Unpause();
 		}
 
 		public void Unpause()
 		{
-			GD.Print("Paused? ", Paused);
 			Paused = false;
 			EmitSignal(nameof(UnPaused));
 		}

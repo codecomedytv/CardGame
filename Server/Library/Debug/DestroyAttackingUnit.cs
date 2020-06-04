@@ -20,7 +20,6 @@ namespace CardGame.Server
 
             public override void _Resolve()
             {
-                GD.Print("Destroying: ", GameState.Attacking);
                 Controller.DestroyUnit(GameState.Attacking);
             }
         }

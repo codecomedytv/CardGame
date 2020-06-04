@@ -136,7 +136,6 @@ namespace CardGame.Server {
 			DeclarePlay(new Draw(cards));
 			if (lost)
 			{
-				GD.Print("Player Lost?");
 				Opponent.Win();
 			}
 

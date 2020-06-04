@@ -59,7 +59,6 @@ namespace CardGame.Server
             {
                // var target = (Unit) GameState.Target;
                 //GD.Print("target on card: ", target);
-                GD.Print("_Resolve");
                 Controller.DestroyUnit(GameState.Target);
             }
         }
