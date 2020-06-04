@@ -232,11 +232,19 @@ namespace CardGame.Server {
 			{
 				return;
 			}
-			Field.Remove(card);
+			GD.Print("Destroying Unit: ", card.ToString());
+			card.Controller.Field.Remove(card);
 			card.Owner.Graveyard.Add(card);
 			card.Zone = card.Owner.Graveyard;
 			card.EmitSignal(nameof(Card.Exit));
-			DeclarePlay(new DestroyUnits(new List<Unit> { card }));
+			
+			// This is (currently) required to make sure the animations sync
+			if(card.Zone == Graveyard)
+				DeclarePlay(new DestroyUnits(new List<Unit> { card }));
+			else
+			{
+				Opponent.DeclarePlay(new DestroyUnits(new List<Unit> { card }));
+			}
 		}
 
 		public void ReturnToDeck(Card card)

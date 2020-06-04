@@ -1,9 +1,7 @@
 <?xml version="1.0" ?>
-<testsuites failures="1" name="TestXML" tests="1" time="1.009">
-<testsuite failures="1" name="Given A Client Action" tests="1" time="0.009">
-<testcase name="WhenTurnPlayerDeclaresAttack" time="13.591">
-<failure message="EXPECTED: [] has [ 37 : Dungeon Guide  but GOT [] has [ 37 : Dungeon Guide "></failure>
-<failure message="EXPECTED: |int| 8000 is equal to |int| 7000 but GOT |int| 8000 is not equal to |int| 7000"></failure>
+<testsuites failures="0" name="TestXML" tests="1" time="1.035">
+<testsuite failures="0" name="Given A Client Action" tests="1" time="0.01">
+<testcase name="WhenTurnPlayerDeclaresAttack" time="8.129">
 </testcase>
 </testsuite>
 </testsuites>

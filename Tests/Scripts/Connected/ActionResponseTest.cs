@@ -48,28 +48,28 @@ namespace CardGameSharp.Tests.Scripts.Connected
 		    GD.Print("state:", player.State);
 		    GD.Print("state:", player2.State);
 		    input.OnSetFaceDown(CounterAttack);
-		    await ToSignal(UntilTimeout(1), YIELD);
+		    await ToSignal(UntilTimeout(.5F), YIELD);
 		    input.EndTurn();
-		    await ToSignal(UntilTimeout(1), YIELD);
+		    await ToSignal(UntilTimeout(.5F), YIELD);
 		    var DungeonGuide = player2.Hand[2];
 		    input2.OnDeploy(DungeonGuide); // Future responses tests might break this
-		    await ToSignal(UntilTimeout(1), YIELD);
+		    await ToSignal(UntilTimeout(.5F), YIELD);
 		    input.OnPassPriority();
-		    await ToSignal(UntilTimeout(1), YIELD);
+		    await ToSignal(UntilTimeout(.5F), YIELD);
 		    input2.OnPassPriority();
-		    await ToSignal(UntilTimeout(1), YIELD);
+		    await ToSignal(UntilTimeout(.5F), YIELD);
 		    input2.EndTurn();
-		    await ToSignal(UntilTimeout(1), YIELD);
+		    await ToSignal(UntilTimeout(.5F), YIELD);
 		    input.EndTurn();
-		    await ToSignal(UntilTimeout(1), YIELD);
+		    await ToSignal(UntilTimeout(.5F), YIELD);
 		    input2.OnAttack(DungeonGuide, -1);
-		    await ToSignal(UntilTimeout(1), YIELD);
+		    await ToSignal(UntilTimeout(.5F), YIELD);
 		    CounterAttack.ActivateCard(0, new Array());
-		    await ToSignal(UntilTimeout(1), YIELD);
+		    await ToSignal(UntilTimeout(.5F), YIELD);
 		    input2.OnPassPriority();
-		    await ToSignal(UntilTimeout(1), YIELD);
+		    await ToSignal(UntilTimeout(.5F), YIELD);
 		    input.OnPassPriority();
-		    await ToSignal(UntilTimeout(1), YIELD);
+		    await ToSignal(UntilTimeout(.5F), YIELD);
 
 		    Assert.Has(DungeonGuide, player2.Graveyard,
 			    "Then their opponent can respond with a support card (that destroys the attacker)");
@@ -83,28 +83,28 @@ namespace CardGameSharp.Tests.Scripts.Connected
 	# Player 1 sets counter_attack
 	var CounterAttack = player.Hand[0];
 	input.set_facedown(CounterAttack);
-	await ToSignal(UntilTimeout(1), YIELD);
+	await ToSignal(UntilTimeout(.5F), YIELD);
 	input.EndTurn();
-	await ToSignal(UntilTimeout(1), YIELD);
+	await ToSignal(UntilTimeout(.5F), YIELD);
 	var DungeonGuide = player2.Hand[2];
 	input2.deploy(DungeonGuide) # Future responses tests might break this
-	await ToSignal(UntilTimeout(1), YIELD);
+	await ToSignal(UntilTimeout(.5F), YIELD);
 	input.PassPriority();
-	await ToSignal(UntilTimeout(1), YIELD);
+	await ToSignal(UntilTimeout(.5F), YIELD);
 	input2.PassPriority();
-	await ToSignal(UntilTimeout(1), YIELD);
+	await ToSignal(UntilTimeout(.5F), YIELD);
 	input2.EndTurn();
-	await ToSignal(UntilTimeout(1), YIELD);
+	await ToSignal(UntilTimeout(.5F), YIELD);
 	input.EndTurn();
-	await ToSignal(UntilTimeout(1), YIELD);
+	await ToSignal(UntilTimeout(.5F), YIELD);
 	input2.DirectAttack(DungeonGuide);
-	await ToSignal(UntilTimeout(1), YIELD);
+	await ToSignal(UntilTimeout(.5F), YIELD);
 	CounterAttack.Activate();
-	await ToSignal(UntilTimeout(1), YIELD);
+	await ToSignal(UntilTimeout(.5F), YIELD);
 	input2.PassPriority();
-	await ToSignal(UntilTimeout(1), YIELD);
+	await ToSignal(UntilTimeout(.5F), YIELD);
 	input.PassPriority();
-	await ToSignal(UntilTimeout(1), YIELD);
+	await ToSignal(UntilTimeout(.5F), YIELD);
 	
 	Assert.Has(DungeonGuide, player2.Graveyard, \
 				"Then their opponent can respond with a support card (that destroys the attacker)")

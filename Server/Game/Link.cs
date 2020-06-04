@@ -110,6 +110,7 @@ namespace CardGame.Server {
 			var activatedSkill = card.Skills[skillIndex];
 			if (!activatedSkill.CanBeUsed)
 			{
+				GD.Print("Cannot Be Used");
 				return;
 			}
 			if (targets.Count > 0)
@@ -131,6 +132,7 @@ namespace CardGame.Server {
 					{
 						cards.Add(Game.Target);
 					}
+					GD.Print("Moving Activation To Player??");
 					player.Activate(skill.Card, skillIndex, cards);
 					Chain.Add(skill);
 					return;
@@ -161,6 +163,7 @@ namespace CardGame.Server {
 			{
 				var skill = Chain[Chain.Count - 1];
 				Chain.RemoveAt(Chain.Count - 1);
+				GD.Print("Resolving Skill?", skill.ToString());
 				skill.Resolve();
 			}
 			
