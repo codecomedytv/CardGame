@@ -61,6 +61,7 @@ namespace CardGame.Server {
 				connect(player, nameof(Player.PlayExecuted), this.Messenger, nameof(Messenger.OnPlayExecuted));
 				var bounds = new Godot.Collections.Array { player.Opponent };
 				connect(player, nameof(Player.Register), Link, nameof(Link.Register));
+				player.Link = Link;
 			}
 
 		}
@@ -95,9 +96,9 @@ namespace CardGame.Server {
 			{
 				TurnPlayer.SetLegal(card);
 			}
-			TurnPlayer.State = new Idle();
-			TurnPlayer.Opponent.State = new Passive();
-			TurnPlayer.DeclarePlay(new SetState(TurnPlayer, TurnPlayer.State));
+			TurnPlayer.SetState(new Idle());
+			TurnPlayer.Opponent.SetState(new Passive());
+			//TurnPlayer.DeclarePlay(new SetState(TurnPlayer, TurnPlayer.State));
 			Update();
 		}
 		
@@ -113,10 +114,10 @@ namespace CardGame.Server {
 			{
 				TurnPlayer.SetLegal(card);
 			}
-			player.State = new Idle();
-			player.Opponent.State = new Passive();
-			player.DeclarePlay(new SetState(player, player.State));
-			player.Opponent.DeclarePlay(new SetState(player.Opponent, player.Opponent.State));
+			player.SetState(new Idle());
+			player.Opponent.SetState(new Passive());
+			//p1layer.DeclarePlay(new SetState(player, player.State));
+			//player.Opponent.DeclarePlay(new SetState(player.Opponent, player.Opponent.State));
 			Update();
 		}
 		
@@ -135,10 +136,10 @@ namespace CardGame.Server {
 			Link.ApplyTriggered("deploy");
 			player.Opponent.SetActivatables("deploy");
 			Link.Broadcast("deploy", new List<Godot.Object>{card});
-			player.State = new Acting();
-			player.Opponent.State = new Active();
-			player.DeclarePlay(new SetState(player, player.State));
-			player.Opponent.DeclarePlay(new SetState(player.Opponent, player.Opponent.State));
+			player.SetState(new Acting());
+			player.Opponent.SetState(new Active());
+			//player.DeclarePlay(new SetState(player, player.State));
+			//player.Opponent.DeclarePlay(new SetState(player.Opponent, player.Opponent.State));
 			Update();
 			
 		}
@@ -174,10 +175,10 @@ namespace CardGame.Server {
 			Link.ApplyConstants("attack");
 			Link.ApplyTriggered("attack");
 			Link.SetupManual("attack");
-			player.State = new Acting();
-			player.Opponent.State = new Active();
-			player.DeclarePlay(new SetState(player, player.State));
-			player.Opponent.DeclarePlay(new SetState(player.Opponent, player.Opponent.State));
+			player.SetState(new Acting());
+			player.Opponent.SetState(new Active());
+			//player.DeclarePlay(new SetState(player, player.State));
+			//player.Opponent.DeclarePlay(new SetState(player.Opponent, player.Opponent.State));
 			Update();
 		}
 		
@@ -206,10 +207,10 @@ namespace CardGame.Server {
 				return;
 			}
 			Link.ApplyConstants();
-			player.State = new Acting();
-			player.Opponent.State = new Active();
-			player.DeclarePlay(new SetState(player, player.State));
-			player.Opponent.DeclarePlay(new SetState(player.Opponent, player.Opponent.State));
+			player.SetState(new Acting());
+			player.Opponent.SetState(new Active());
+			//player.DeclarePlay(new SetState(player, player.State));
+			//player.Opponent.DeclarePlay(new SetState(player.Opponent, player.Opponent.State));
 			Link.Activate(player, card, skillIndex, targets);
 			Update();
 			
@@ -218,18 +219,18 @@ namespace CardGame.Server {
 		public void OnPriorityPassed(int playerId)
 		{
 			var player = Players[playerId];
-			player.State = new Passing();
+			player.SetState(new Passing());
 			if(player.Opponent.State.GetType() == typeof(Passing))
 			{
 				Link.Resolve();
-				TurnPlayer.State = new Idle();
-				TurnPlayer.Opponent.State = new Passive();
+				TurnPlayer.SetState(new Idle());
+				TurnPlayer.Opponent.SetState(new Passive());
 				TurnPlayer.DeclarePlay(new Resolve());
 				TurnPlayer.SetValidAttackTargets();
 			}
 			else
 			{
-				player.Opponent.State = new Active();
+				player.Opponent.SetState(new Active());
 			}
 			Update();
 			

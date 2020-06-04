@@ -25,7 +25,8 @@ namespace CardGame.Server {
 		public List<Decorator> Tags = new List<Decorator>();
 		public bool Disqualified;
 		public bool IsTurnPlayer = false;
-		
+		public Link Link;
+
 		[Signal]
 		public delegate void PlayExecuted();
 		
@@ -33,6 +34,12 @@ namespace CardGame.Server {
 		public delegate void Register();
 
 		public Player() {}
+
+		public void SetState(State newState)
+		{
+			State = newState;
+			DeclarePlay(new SetState(this, State));
+		}
 		
 		public Player(int id, List<SetCodes> deckList)
 		{
