@@ -42,35 +42,34 @@ namespace CardGame.Server {
 
 		#region StateCommandsTemp
 
-		public void OnDeploy(Unit unit)
+		public bool OnDeploy(Unit unit)
 		{
-			State.OnDeploy(unit);
+			return State.OnDeploy(unit);
 		}
 
-		public void OnAttack(Unit unit, object defender, bool isDirectAttack)
+		public bool OnAttack(Unit unit, object defender, bool isDirectAttack)
 		{
-			// 			player.OnAttack(player, attacker, defender);
-			State.OnAttack(unit, defender, isDirectAttack);
+			return State.OnAttack(unit, defender, isDirectAttack);
 		}
 
-		public void OnActivation(Support card, Array<int> targets)
+		public bool OnActivation(Support card, Array<int> targets)
 		{
-			State.OnActivation(card, targets);
+			return State.OnActivation(card, targets);
 		}
 
-		public void OnSetFaceDown(Support support)
+		public bool OnSetFaceDown(Support support)
 		{
-			State.OnSetFaceDown(support);
+			return State.OnSetFaceDown(support);
 		}
 
-		public void OnPriorityPassed()
+		public bool OnPriorityPassed()
 		{
-			State.OnPassPlay();
+			return State.OnPassPlay();
 		}
 
-		public void OnEndTurn()
+		public bool OnEndTurn()
 		{
-			State.OnEndTurn();
+			return State.OnEndTurn();
 		}
 
 		#endregion
@@ -297,8 +296,8 @@ namespace CardGame.Server {
 
 		public void Disqualify()
 		{
-			EmitSignal(nameof(States.Disqualified), Id, 0);
-			EmitSignal(nameof(States.Disqualified), Opponent.Id, 0);
+			EmitSignal(nameof(Disqualified), Id, 0);
+			EmitSignal(nameof(Disqualified), Opponent.Id, 0);
 		}
 		
 	}

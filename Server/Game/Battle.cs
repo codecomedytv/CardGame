@@ -24,7 +24,6 @@ namespace CardGame.Server {
 		public void Resolve(string ignore = "")
 		{
 			Attacker.Attacked = true;
-			GD.Print(!Attacking.Field.Contains(Attacker), "?????");
 			if (!Attacking.Field.Contains(Attacker))
 			{
 				return;

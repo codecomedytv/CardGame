@@ -91,11 +91,13 @@ namespace CardGame.Tests.Scripts.Serverside
             Play.Deploy(Players[1].Id, debug10001000.Id);
             Play.PassPlay(Players[0].Id);
             Play.PassPlay(Players[1].Id);
+            Assert.IsTrue(Players[1].Field.Contains(debug10001000), "Weaking Deployed");
             Play.EndTurn(Players[1].Id);
 			var debug15001000 = (Unit)Players[0].Hand[Players[0].Hand.Count - 1];
 			Play.Deploy(Players[0].Id, debug15001000.Id);
 			Play.PassPlay(Players[1].Id);
 			Play.PassPlay(Players[0].Id);
+			Assert.IsTrue(Players[0].Field.Contains(debug15001000), "Defender Deployed");
 			Play.EndTurn(Players[0].Id);
 			var difference = debug15001000.Attack - debug10001000.Defense;
 			var expectedLife = Players[1].Health - difference;

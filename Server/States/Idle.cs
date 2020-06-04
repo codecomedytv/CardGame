@@ -17,59 +17,56 @@ namespace CardGame.Server.States
             Player.Support.ForEach(card => card.SetCanBeActivated());
         }
 
-        public override State OnDeploy(Unit unit)
+        public override bool OnDeploy(Unit unit)
         {
             if (!unit.CanBeDeployed)
             {
-                Player.Disqualify();
-                return new Disqualified();
+                return DisqualifyPlayer;
             }
             Player.Deploy(unit);
             Player.Link.Register(unit);
             Player.Link.Broadcast("deploy", new List<Godot.Object>{unit});
-            return new Acting();
+            Player.SetState(new Acting());
+            Player.Opponent.SetState(new Active());
+            return Ok;
         }
 
-        public override State OnAttack(Unit attacker, object defender, bool isDirectAttack)
+        public override bool OnAttack(Unit attacker, object defender, bool isDirectAttack)
         {
             if (!attacker.CanAttack)
             {
-                GD.Print(1);
-                Player.Disqualify();
-                return new Disqualified();
+                return DisqualifyPlayer;
             }
 
             if (isDirectAttack && Player.Opponent.Field.Count != 0)
             {
-                Player.Disqualify();
-                return new Disqualified();
+                return DisqualifyPlayer;
             }
 
-            else if (!isDirectAttack && !Player.Opponent.Field.Contains((Card)defender))
+            if (!isDirectAttack && !Player.Opponent.Field.Contains((Unit)defender))
             {
-                Player.Disqualify();
-                return new Disqualified();
+                return DisqualifyPlayer;
             }
             
-            else if (defender is Card defendingUnit && !attacker.ValidAttackTargets.Contains(defendingUnit))
+            if (defender is Card defendingUnit && !attacker.ValidAttackTargets.Contains(defendingUnit))
             {
-                Player.Disqualify();
-                return new Disqualified();
+                return DisqualifyPlayer;
             }
 
             if(!isDirectAttack){ Player.Opponent.ShowAttack(Player, attacker, (Unit)defender); }
             Player.Battle.Begin(Player, attacker, defender, isDirectAttack);
             Player.Link.AddResolvable(Player.Battle);
             Player.Link.Broadcast("attack", new List<Object>());
-            return new Acting();
+            Player.SetState(new Acting());
+            Player.Opponent.SetState(new Active());
+            return Ok;
         }
 
-        public override State OnSetFaceDown(Support support)
+        public override bool OnSetFaceDown(Support support)
         {
             if (!support.CanBeSet)
             {
-                Player.Disqualify();
-                return new Disqualified();
+                return DisqualifyPlayer;
             }
             
             Player.Hand.Remove(support);
@@ -81,26 +78,26 @@ namespace CardGame.Server.States
             Player.DeclarePlay(new SetSupport(support));
 
             // Returning a new Idle State Retriggers the OnEnter System
-            return new Idle();
+            Player.SetState(new Idle());
+
+            return Ok;
         }
 
-        public override State OnActivation(Support card, Array<int> targets)
+        public override bool OnActivation(Support card, Array<int> targets)
         {
             if (!card.CanBeActivated)
             {
-                Player.Disqualify();
-                return new Disqualified();
+                return DisqualifyPlayer;
             }
             Player.Link.Activate(Player, card, targets);
-            return new Acting();
-        }
+            Player.SetState(new Acting());
+            Player.Opponent.SetState(new Active());
 
-        public override State OnPassPlay()
-        {
-            return new Disqualified();
+            return Ok;
         }
+        
 
-        public override State OnEndTurn()
+        public override bool OnEndTurn()
         {
             Player.EndTurn();
             Player.IsTurnPlayer = false;
@@ -108,7 +105,9 @@ namespace CardGame.Server.States
             Player.Opponent.Field.ForEach(unit => Player.Opponent.ReadyCard(unit));
             Player.Support.ForEach(support => Player.ReadyCard(support));
             Player.Link.ApplyConstants();
-            return new Passive();
+            Player.SetState(new Passive());
+            Player.Opponent.SetState(new Idle());
+            return Ok;
         }
         
         public override string ToString()

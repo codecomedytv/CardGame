@@ -99,11 +99,12 @@ namespace CardGame.Server {
 		public void BeginTurn()
 		{
 			var player = TurnPlayer;
+			// Need to figure a way for this to trigger on state entry?
+			// Might be better as command instead
 			player.Draw(1);
+			player.SetState(new Idle());
 			Link.ApplyConstants();
 			Link.SetupManual("");
-			player.SetState(new Idle());
-			player.Opponent.SetState(new Passive());
 			Update();
 		}
 		
@@ -111,9 +112,11 @@ namespace CardGame.Server {
 		{
 			var player = Players[playerId];
 			var card = (Unit)GameState.GetCard(cardId);
-			player.OnDeploy(card);
-			player.SetState(new Acting());
-			player.Opponent.SetState(new Active());
+			var disqualifyPlayer = player.OnDeploy(card);
+			if (disqualifyPlayer)
+			{
+				player.Disqualify();
+			}
 			Update();
 			
 		}
@@ -133,9 +136,11 @@ namespace CardGame.Server {
 			}
 			
 			GameState.Attacking = attacker;
-			player.OnAttack(attacker, defender, defenderId == -1);
-			player.SetState(new Acting());
-			player.Opponent.SetState(new Active());
+			var disqualifyPlayer = player.OnAttack(attacker, defender, defenderId == -1);
+			if (disqualifyPlayer)
+			{
+				player.Disqualify();
+			}
 			Update();
 		}
 		
@@ -144,9 +149,11 @@ namespace CardGame.Server {
 		{
 			var player = Players[playerId];
 			var card = (Support)GameState.GetCard(faceDownId);
-			player.OnSetFaceDown(card);
-			// A New Idle State retriggers the entry state (which gives other cards valid information)
-			player.SetState(new Idle());
+			var disqualifyPlayer = player.OnSetFaceDown(card);
+			if (disqualifyPlayer)
+			{
+				player.Disqualify();
+			}
 			Update();
 		}
 		
@@ -154,9 +161,13 @@ namespace CardGame.Server {
 		{
 			var player = Players[playerId];
 			var card = (Support)GameState.GetCard(cardId);
-			player.OnActivation(card, targets);
-			player.SetState(new Acting());
-			player.Opponent.SetState(new Active());
+			var disqualifyPlayer = player.OnActivation(card, targets);
+			if (disqualifyPlayer)
+			{
+				player.Disqualify();
+			}
+			// player.SetState(new Acting());
+			// player.Opponent.SetState(new Active());
 			Update();
 			
 		}
@@ -164,7 +175,11 @@ namespace CardGame.Server {
 		public void OnPriorityPassed(int playerId)
 		{
 			var player = Players[playerId];
-			player.OnPriorityPassed();
+			var disqualifyPlayer = player.OnPriorityPassed();
+			if (disqualifyPlayer)
+			{
+				player.Disqualify();
+			}
 			Update();
 			
 		}
@@ -172,7 +187,11 @@ namespace CardGame.Server {
 		public void OnEndTurn(int playerId)
 		{
 			var player = Players[playerId];
-			player.OnEndTurn();
+			var disqualifyPlayer = player.OnEndTurn();
+			if (disqualifyPlayer)
+			{
+				player.Disqualify();
+			}
 			TurnPlayer = player.Opponent;
 			GameState.TurnPlayer = TurnPlayer;
 			BeginTurn();

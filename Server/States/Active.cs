@@ -11,18 +11,20 @@ namespace CardGame.Server.States
             Player.Support.ForEach(card => card.SetCanBeActivated());
         }
 
-        public override State OnActivation(Support card, Array<int> targets)
+        public override bool OnActivation(Support card, Array<int> targets)
         {
             if (!card.CanBeActivated)
             {
-                Player.Disqualify();
-                return new Disqualified();
+                return DisqualifyPlayer;
             }
             Player.Link.Activate(Player, card, targets);
-            return new Acting();
+            Player.SetState(new Acting());
+            Player.Opponent.SetState(new Active());
+
+            return Ok;
         }
 
-        public override State OnPassPlay()
+        public override bool OnPassPlay()
         {
             if (Player.Opponent.State.GetType() == typeof(Passing))
             {
@@ -36,7 +38,8 @@ namespace CardGame.Server.States
                 Player.Opponent.SetState(new Active());
                 Player.SetState(new Passing());
             }
-            return new Passing();
+
+            return Ok;
         }
 
         public override string ToString()

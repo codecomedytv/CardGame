@@ -1,9 +1,12 @@
-﻿using Godot.Collections;
+﻿using System.Security.Policy;
+using Godot.Collections;
 
 namespace CardGame.Server.States
 {
     public class State: Godot.Object
     {
+        protected const bool Ok = false;
+        protected const bool DisqualifyPlayer = true; 
         protected Player Player;
 
         public virtual void OnEnter(Player player)
@@ -11,40 +14,34 @@ namespace CardGame.Server.States
             Player = player;
         }
 
-        public virtual State OnDeploy(Unit unit)
+        public virtual bool OnDeploy(Unit unit)
         {
-            Player.Disqualify();
-            return new Disqualified();
+            return DisqualifyPlayer;
         }
 
-        public virtual State OnAttack(Unit unit, object defender, bool isDirectAttack)
+        public virtual bool OnAttack(Unit unit, object defender, bool isDirectAttack)
         {
-            Player.Disqualify();
-            return new Disqualified();
+            return DisqualifyPlayer;
         }
 
-        public virtual State OnActivation(Support card, Array<int> targets)
+        public virtual bool OnActivation(Support card, Array<int> targets)
         {
-            Player.Disqualify();
-            return new Disqualified();
+            return DisqualifyPlayer;
         }
 
-        public virtual State OnSetFaceDown(Support card)
+        public virtual bool OnSetFaceDown(Support card)
         {
-            Player.Disqualify();
-            return new Disqualified();
+            return DisqualifyPlayer;
         }
 
-        public virtual State OnPassPlay()
+        public virtual bool OnPassPlay()
         {
-            Player.Disqualify();
-            return new Disqualified();
+            return DisqualifyPlayer;
         }
 
-        public virtual State OnEndTurn()
+        public virtual bool OnEndTurn()
         {
-            Player.Disqualify();
-            return new Disqualified();
+            return DisqualifyPlayer;
         }
 
         public override string ToString()
