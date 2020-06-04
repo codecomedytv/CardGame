@@ -437,47 +437,7 @@ namespace CardGame.Server
             return message;
         }
     }
-
-    public class Legalize : GameEvent
-    {
-        private Card Legalized;
-
-        public Legalize(Card legalized)
-        {
-            Legalized = legalized;
-        }
-
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.Legalize;
-            message.Player["args"] = new Array{Legalized.Id};
-            message.Opponent["command"] = GameEvents.NoOp;
-            message.Opponent["args"] = new Array();
-            return message;
-        }
-    }
-
-    public class Forbid : GameEvent
-    {
-        private Card Forbidden;
-
-        public Forbid(Card forbidden)
-        {
-            Forbidden = forbidden;
-        }
-
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.Forbid;
-            message.Player["args"] = new Array {Forbidden.Id};
-            message.Opponent["command"] = GameEvents.NoOp;
-            message.Opponent["args"] = new Array();
-            return message;
-        }
-    }
-
+    
     public class SetAsDeployable : GameEvent
     {
         private Card Deployable;

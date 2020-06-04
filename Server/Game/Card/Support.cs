@@ -4,10 +4,7 @@ namespace CardGame.Server
 {
     public class Support: Card
     {
-        public Support()
-        {
-
-        }
+        public Support() { }
 
         public override void SetCanBeSet()
         {

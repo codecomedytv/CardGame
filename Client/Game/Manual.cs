@@ -37,7 +37,6 @@ namespace CardGameSharp.Client.Game
 
 		public void SetFaceDown(Card card)
 		{
-			card.Legal = false;
 			CallDeferred(nameof(OnSetFaceDown), card);
 		}
 

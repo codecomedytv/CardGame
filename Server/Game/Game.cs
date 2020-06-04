@@ -91,10 +91,10 @@ namespace CardGame.Server {
 
 			TurnPlayer = Players.Values.ToList()[Players.Count - 1];
 			TurnPlayer.IsTurnPlayer = true;
-			foreach (var card in TurnPlayer.Hand)
-			{
-				TurnPlayer.SetLegal(card);
-			}
+			// foreach (var card in TurnPlayer.Hand)
+			// {
+			// 	TurnPlayer.SetLegal(card);
+			// }
 			TurnPlayer.SetState(new Idle());
 			TurnPlayer.Opponent.SetState(new Passive());
 			Update();
@@ -105,12 +105,7 @@ namespace CardGame.Server {
 			var player = TurnPlayer;
 			player.Draw(1);
 			Link.ApplyConstants();
-			//player.SetAttackers();
 			player.SetActivatables();
-			foreach (var card in TurnPlayer.Hand)
-			{
-				TurnPlayer.SetLegal(card);
-			}
 			player.SetState(new Idle());
 			player.Opponent.SetState(new Passive());
 			Update();
@@ -200,7 +195,6 @@ namespace CardGame.Server {
 				TurnPlayer.SetState(new Idle());
 				TurnPlayer.Opponent.SetState(new Passive());
 				TurnPlayer.DeclarePlay(new Resolve());
-				//TurnPlayer.SetValidAttackTargets();
 			}
 			else
 			{

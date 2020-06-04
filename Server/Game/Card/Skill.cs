@@ -21,19 +21,6 @@ namespace CardGame.Server {
 		public Types Type = Types.Manual;
 		public string GameEvent;
 
-		public void _SetLegal(bool value)
-		{
-			CanBeUsed = value;
-			if (value)
-			{
-				Card.SetLegal();
-			}
-			else
-			{
-				Card.SetIllegal();
-			}
-		}
-
 		public void SetUp(string gameEvent)
 		{
 			if (!GameEvent.Empty() && GameEvent != gameEvent)

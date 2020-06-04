@@ -19,7 +19,7 @@ namespace CardGame.Server
             {
                 var units = Opponent.Field.Where(u => !u.HasTag(Tag.CannotBeTargeted)).ToList();
                 SetTargets(units);
-                _SetLegal(units.Count > 0);
+                CanBeUsed = units.Count > 0;
             }
 
             public override void _Resolve()

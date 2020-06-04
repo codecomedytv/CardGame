@@ -205,8 +205,6 @@ namespace CardGame.Server {
 
 		public void Deploy(Unit card)
 		{
-			// GD.PushWarning("Deploy Complains Due To Type Mismatch");
-			// Move(Hand, card, Field);
 			Hand.Remove(card);
 			Field.Add(card);
 			card.Zone = Field;
@@ -301,29 +299,9 @@ namespace CardGame.Server {
 			DeclarePlay(new Mill(card));
 		}
 
-		public void EndTurn()
-		{
-
-			foreach (var card in Hand)
-			{
-				Forbid(card);
-			}
-			DeclarePlay(new EndTurn());
-		}
+		public void EndTurn() { DeclarePlay(new EndTurn()); }
 		
 		public void Win() { DeclarePlay(new GameOver(this, Opponent)); }
-		
-		public void SetLegal(Card card)
-		{
-			card.Legal = true;
-			DeclarePlay(new Legalize(card));
-		}
-
-		public void Forbid(Card card)
-		{
-			card.Legal = false;
-			DeclarePlay(new Forbid(card));
-		}
 
 		#endregion
 

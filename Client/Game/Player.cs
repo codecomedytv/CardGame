@@ -178,13 +178,7 @@ namespace CardGame.Client.Match
 			if (card != null) card.Zone = Card.Zones.Support;
 			Visual.SetFaceDown(card);
 			}
-			
-		public void Forbid(Array args) {
-			foreach (var id in args)
-			{
-				if (Cards[id] is Card card) card.Legal = false;
-			}
-		}
+		
 
 		public void Draw(Array args)
 		{
@@ -222,15 +216,7 @@ namespace CardGame.Client.Match
 			Health -= args[0];
 			Visual.LoseLife(args);
 			}
-			
-		public void Legalize(Array cardIds) 
-		{
-			foreach (var id in cardIds)
-			{
-				if (Cards[id] is Card card) card.Legal = true;
-			}
-		}
-			
+		
 		public void ReadyCards(Array<int> cardIds)
 		{
 			foreach (var id in cardIds)

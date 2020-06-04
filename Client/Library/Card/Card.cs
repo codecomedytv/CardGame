@@ -27,9 +27,7 @@ namespace CardGame.Client.Library.Card
 		public int Defense = 0;
 		public string Effect;
 		public CardTypes CardType;
-		public bool IsReady = false;
 		public bool Blank = false;
-		public bool Legal = false;
 		public Zones Zone = Zones.Deck;
 		public bool UnderPlayersControl = false;
 		public string Type = "None";
@@ -40,6 +38,7 @@ namespace CardGame.Client.Library.Card
 		public bool CanBeSet = false;
 		public bool CanBeActivated = false;
 		public bool CanAttack = false;
+		public bool IsReady = false; // Do we care clientSide? Only for visual purposes?
 		public Player Player; // Client Player doesn't exist yet
 
 		// Set by Game
@@ -127,26 +126,18 @@ namespace CardGame.Client.Library.Card
 		{
 			return ValidTargets.Count == 0;
 		}
-
-		public void Legalize()
+		
+		private bool Legal
 		{
-			Legal = true;
-			Glow();
+			get => CanBeSet || CanBeDeployed || CanAttack || CanBeActivated;
 		}
 
 		public int C;
 
 		public void SetZ(int value)
 		{
-			if (C + value < -1)
-			{
-				return;
-			}
-			else if (C + value > 1)
-			{
-				return;
-			}
-
+			if (C + value < -1) { return; }
+			else if (C + value > 1) { return; }
 			C += value;
 			Frame.ZIndex += value;
 		}
@@ -239,7 +230,7 @@ namespace CardGame.Client.Library.Card
 		{
 			//Player.Activate([Id])
 			//Player.Visual.Animate.Start();
-			Legal = false;
+			Activated = true;
 			CallDeferred("emit_signal", nameof(CardActivated), this, skill, targets);
 		}
 		

@@ -123,18 +123,18 @@ namespace CardGame.Server {
 		public void SetAsPlayable()
 		{
 		}
-		
-		public void SetLegal()
-		{
-			Legal = true;
-			Controller.SetLegal(this);
-		}
 
-		public void SetIllegal()
-		{
-			Legal = false;
-			Controller.Forbid(this);
-		}
+		// public void SetLegal()
+		// {
+		// 	Legal = true;
+		// 	Controller.SetLegal(this);
+		// }
+		//
+		// public void SetIllegal()
+		// {
+		// 	Legal = false;
+		// 	Controller.Forbid(this);
+		// }
 
 		public override string ToString()
 		{
