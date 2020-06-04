@@ -57,9 +57,9 @@ namespace CardGame.Server.States
             return new Idle();
         }
 
-        public override State OnActivation(Support card, int skillIndex, Array<int> targets)
+        public override State OnActivation(Support card, Array<int> targets)
         {
-            Player.Link.Activate(Player, card, skillIndex, targets);
+            Player.Link.Activate(Player, card, targets);
             return new Acting();
         }
 

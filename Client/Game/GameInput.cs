@@ -45,12 +45,12 @@ namespace CardGameSharp.Client.Game
 			Messenger.SetFaceDown(card.Id);
 		}
 
-		public void OnActivation(Card card, int skillIndex, Array targets)
+		public void OnActivation(Card card, Array targets)
 		{
 			//	if not player.active or card.card_type != CARD_TYPE.SUPPORT  or not card.ready or not card.legal or not card in player.support:
 			//		return
 			GD.Print("Declaring Activation");
-			Messenger.Activate(card, skillIndex, targets);
+			Messenger.Activate(card, targets);
 		}
 
 		public void OnTarget(Card card)

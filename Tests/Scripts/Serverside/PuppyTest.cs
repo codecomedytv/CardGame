@@ -70,7 +70,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        Play.PassPlay(Players[1].Id);
 	        Play.PassPlay(Players[0].Id);
 	        Play.EndTurn(Players[0].Id);
-	        Play.Activate(Players[1].Id, DestroyUnit.Id, 0, new Array<int> {GuardPuppy.Id});
+	        Play.Activate(Players[1].Id, DestroyUnit.Id, new Array<int> {GuardPuppy.Id});
 	        Play.PassPlay(Players[0].Id);
 	        Play.PassPlay(Players[1].Id);
 	
@@ -97,7 +97,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        Play.PassPlay(Players[1].Id);
 	        Play.PassPlay(Players[0].Id);
 	        Play.EndTurn(Players[0].Id);
-	        Play.Activate(Players[1].Id, destroyUnit.Id, 0, new Array<int> { dungeonGuide.Id });
+	        Play.Activate(Players[1].Id, destroyUnit.Id, new Array<int> { dungeonGuide.Id });
 	        Play.PassPlay(Players[0].Id);
 	        Play.PassPlay(Players[1].Id);
 	

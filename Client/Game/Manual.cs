@@ -30,9 +30,9 @@ namespace CardGameSharp.Client.Game
 			CallDeferred(nameof(OnDeploy), card);
 		}
 
-		public void Activate(Card card, int index, Array targets)
+		public void Activate(Card card, Array targets)
 		{
-			OnActivation(card, index, targets);
+			OnActivation(card, targets);
 		}
 
 		public void SetFaceDown(Card card)

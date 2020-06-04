@@ -51,9 +51,9 @@ namespace CardGame.Server {
 			State.OnAttack();
 		}
 
-		public void OnActivation(Support card, int skillIndex, Array<int> targets)
+		public void OnActivation(Support card, Array<int> targets)
 		{
-			State.OnActivation(card, skillIndex, targets);
+			State.OnActivation(card, targets);
 		}
 
 		public void OnSetFaceDown(Support support)
@@ -213,7 +213,7 @@ namespace CardGame.Server {
 			
 		}
 
-		public void Activate(Card card, int skillIndex, List<Card> targets)
+		public void Activate(Card card, List<Card> targets)
 		{
 			DeclarePlay(new Activate(card, targets));
 		}

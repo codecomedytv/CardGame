@@ -105,9 +105,9 @@ namespace CardGame.Server {
 		}
 		
 		
-		public async void Activate(Player player, Card card, int skillIndex, Array<int> targets)
+		public async void Activate(Player player, Card card, Array<int> targets)
 		{
-			var activatedSkill = card.Skills[skillIndex];
+			var activatedSkill = card.Skills[0];
 			if (!activatedSkill.CanBeUsed)
 			{
 				GD.Print("Cannot Be Used");
@@ -133,19 +133,19 @@ namespace CardGame.Server {
 						cards.Add(Game.Target);
 					}
 					GD.Print("Moving Activation To Player??");
-					player.Activate(skill.Card, skillIndex, cards);
+					player.Activate(skill.Card, cards);
 					Chain.Add(skill);
 					return;
 				}
 			}
 		}
 
-		public async void Automatic(Player player, Card card, int skillIndex = 0)
+		public async void Automatic(Player player, Card card)
 		{
 			// Needs serious rewriting
 			GD.Print("Hello?");
 			player.State = new Passing();
-			var autoSkill = card.Skills[skillIndex];
+			var autoSkill = card.Skills[0];
 			autoSkill.Activate();
 			if(Game.Paused)
 			{

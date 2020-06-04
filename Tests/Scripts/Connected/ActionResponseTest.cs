@@ -64,7 +64,7 @@ namespace CardGameSharp.Tests.Scripts.Connected
 		    await ToSignal(UntilTimeout(.5F), YIELD);
 		    input2.OnAttack(DungeonGuide, -1);
 		    await ToSignal(UntilTimeout(.5F), YIELD);
-		    CounterAttack.ActivateCard(0, new Array());
+		    CounterAttack.ActivateCard(new Array());
 		    await ToSignal(UntilTimeout(.5F), YIELD);
 		    input2.OnPassPriority();
 		    await ToSignal(UntilTimeout(.5F), YIELD);

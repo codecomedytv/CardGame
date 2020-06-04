@@ -128,7 +128,7 @@ namespace CardGame.Tests.Scripts.Serverside
             var unit = Players[0].Hand[0].Id;
             Play.Deploy(Players[0].Id, unit);
             var oldState = Players[1].State;
-            Play.Activate(Players[1].Id, support, 0, new Array<int>());
+            Play.Activate(Players[1].Id, support, new Array<int>());
             var newState = Players[1].State;
             
             Assert.IsTrue(oldState.GetType() == typeof(Active), "Player was Active");

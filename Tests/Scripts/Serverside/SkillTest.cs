@@ -48,7 +48,7 @@ namespace CardGame.Tests.Scripts.Serverside
             Play.PassPlay(Players[1].Id);
             Play.PassPlay(Players[0].Id);
             Play.EndTurn(Players[0].Id);
-            Play.Activate(Players[1].Id, support, 0, new Array<int>{unitA.Id});
+            Play.Activate(Players[1].Id, support, new Array<int>{unitA.Id});
             Play.PassPlay(Players[0].Id);
             Play.PassPlay(Players[1].Id);
             
@@ -66,7 +66,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        Play.SetFaceDown(Players[1].Id, discarder);
 	        Play.EndTurn(Players[1].Id);
 	        Play.EndTurn(Players[0].Id);
-	        Play.Activate(Players[1].Id, discarder, 0, new Array<int> {discarding.Id} );
+	        Play.Activate(Players[1].Id, discarder, new Array<int> {discarding.Id} );
 	        Play.PassPlay(Players[0].Id);
 	        Play.PassPlay(Players[1].Id);
 	        
@@ -87,7 +87,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        Play.PassPlay(Players[0].Id);
 	        Play.EndTurn(Players[0].Id);
 	        var bounceIsOnField = Players[0].Field.Contains(bounce);
-	        Play.Activate(Players[1].Id, bouncer, 0, new Array<int>{ bounce.Id });
+	        Play.Activate(Players[1].Id, bouncer, new Array<int>{ bounce.Id });
 	        Play.PassPlay(Players[0].Id);
 	        Play.PassPlay(Players[1].Id);
 
@@ -108,7 +108,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        Play.EndTurn(Players[1].Id);
 	        Play.EndTurn(Players[0].Id);
 	        var cardToMill = Players[1].Deck[Players[1].Deck.Count - 1];
-	        Play.Activate(Players[1].Id, millCard, 0, new Array<int>());
+	        Play.Activate(Players[1].Id, millCard, new Array<int>());
 	        Play.PassPlay(Players[0].Id);
 	        Play.PassPlay(Players[1].Id);
 
@@ -128,7 +128,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        Play.EndTurn(Players[0].Id);
 
 	        var cardToReturn = Players[1].Hand[0];
-	        Play.Activate(Players[1].Id, returnToDeckCard, 0, new Array<int> {cardToReturn.Id});
+	        Play.Activate(Players[1].Id, returnToDeckCard, new Array<int> {cardToReturn.Id});
 	        Play.PassPlay(Players[0].Id);
 	        Play.PassPlay(Players[1].Id);
 
@@ -150,7 +150,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        Play.PassPlay(Players[1].Id);
 	        Play.PassPlay(Players[0].Id);
 	        Play.EndTurn(Players[0].Id);
-	        Play.Activate(Players[1].Id, destroyUnitCard.Id, 0, new Array<int>{invincibleCard.Id});
+	        Play.Activate(Players[1].Id, destroyUnitCard.Id, new Array<int>{invincibleCard.Id});
 	        Play.PassPlay(Players[0].Id);
 	        Play.PassPlay(Players[1].Id);
 
@@ -212,7 +212,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        Play.PassPlay(Players[0].Id);
 	        Play.EndTurn(Players[0].Id);
 
-	        Play.Activate(Players[1].Id, destroyUnit.Id, 0, new Array<int>{cannotBeTargeted.Id});
+	        Play.Activate(Players[1].Id, destroyUnit.Id, new Array<int>{cannotBeTargeted.Id});
 	        Play.PassPlay(Players[0].Id);
 	        Play.PassPlay(Players[1].Id);
 

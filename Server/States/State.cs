@@ -23,7 +23,7 @@ namespace CardGame.Server.States
             return new Disqualified();
         }
 
-        public virtual State OnActivation(Support card, int skillIndex, Array<int> targets)
+        public virtual State OnActivation(Support card, Array<int> targets)
         {
             Player.Disqualify();
             return new Disqualified();

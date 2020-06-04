@@ -168,7 +168,7 @@ namespace CardGame.Server {
 			Update();
 		}
 		
-		public void OnActivation(int playerId, int cardId, int skillIndex, Array<int> targets)
+		public void OnActivation(int playerId, int cardId, Array<int> targets)
 		{
 			var player = Players[playerId];
 			var card = (Support)GameState.GetCard(cardId);
@@ -178,7 +178,7 @@ namespace CardGame.Server {
 				return;
 			}
 
-			player.OnActivation(card, skillIndex, targets);
+			player.OnActivation(card, targets);
 			player.SetState(new Acting());
 			player.Opponent.SetState(new Active());
 			Update();

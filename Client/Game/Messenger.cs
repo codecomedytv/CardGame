@@ -67,9 +67,9 @@ namespace CardGameSharp.Client.Game
             RpcId(ServerId, "SetFaceDown", Id, cardId);
         }
 
-        public void Activate(Card card, int skillIndex, Array targets)
+        public void Activate(Card card, Array targets)
         {
-            RpcId(ServerId, "Activate", Id, card.Id, skillIndex, targets);
+            RpcId(ServerId, "Activate", Id, card.Id, targets);
         }
 
         public void Target(int cardId)

@@ -93,7 +93,7 @@ namespace CardGame.Tests.Scripts.Serverside
 			
 			Assert.IsTrue(chainMines.Ready, "ChainMines Is Ready");
 			Assert.IsTrue(chainMines.CanBeActivated, "ChainMine can be activated");
-			Play.Activate(Players[0].Id, chainMines.Id, 0, new Array<int>());
+			Play.Activate(Players[0].Id, chainMines.Id, new Array<int>());
 
 			Assert.IsTrue(Players[0].State.GetType() == typeof(Acting), "Player 0 is ACTING");
 			Assert.IsTrue(Players[1].State.GetType() == typeof(Active), "Player 1 is ACTIVE");

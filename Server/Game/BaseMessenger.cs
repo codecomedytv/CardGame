@@ -61,7 +61,7 @@ namespace CardGame.Server {
 			throw new NotImplementedException();
 		}
 
-		public virtual void Activate(int player, int card, int skillIndex, Array<int> array)
+		public virtual void Activate(int player, int card, Array<int> array)
 		{
 			throw new NotImplementedException();
 		}

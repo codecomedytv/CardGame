@@ -47,9 +47,9 @@ namespace CardGame.Server {
 		}
 
 		[Master]
-		public override void Activate(int player, int card, int skillIndex, Array<int> targets)
+		public override void Activate(int player, int card, Array<int> targets)
 		{
-			EmitSignal(nameof(Activated), player, card, skillIndex, targets);
+			EmitSignal(nameof(Activated), player, card, targets);
 		}
 
 		[Master]

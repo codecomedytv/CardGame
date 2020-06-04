@@ -226,12 +226,12 @@ namespace CardGame.Client.Library.Card
 		[Signal]
 		public delegate void CardActivated();
 
-		public void ActivateCard(int skill, Array targets) 
+		public void ActivateCard(Array targets) 
 		{
 			//Player.Activate([Id])
 			//Player.Visual.Animate.Start();
 			Activated = true;
-			CallDeferred("emit_signal", nameof(CardActivated), this, skill, targets);
+			CallDeferred("emit_signal", nameof(CardActivated), this, targets);
 		}
 		
 		private void _on_Card_pressed()
@@ -263,7 +263,7 @@ namespace CardGame.Client.Library.Card
 				case Zones.Support:
 					if (CanBeActivated)
 					{
-						ActivateCard(0, new Array());
+						ActivateCard(new Array());
 					}
 					break;
 				default:
