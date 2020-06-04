@@ -11,7 +11,6 @@ namespace CardGame.Server
         public int Defense = 0;
         public bool Attacked = false;
         public List<Card> ValidAttackTargets = new List<Card>();
-        public bool CanBeDeployed = false;
 
         public Unit()
         {

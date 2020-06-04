@@ -4,10 +4,6 @@ namespace CardGame.Server
 {
     public class Support: Card
     {
-
-        public bool CanBeSet = false;
-        public bool CanBeActivated = false;
-
         public Support()
         {
 

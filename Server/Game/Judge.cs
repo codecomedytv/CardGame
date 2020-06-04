@@ -133,14 +133,5 @@ namespace CardGame.Server {
 			return Valid;
 		}
 		
-		public bool EndingTurnIsIllegal(Player player)
-		{
-			if (player.State.GetType() != typeof(Idle))
-			{
-				player.Disqualify();
-				return Invalid;
-			}
-			return Valid;
-		}
 	}
 }
