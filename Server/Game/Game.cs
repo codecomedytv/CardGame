@@ -150,9 +150,7 @@ namespace CardGame.Server {
 
 			Battle.Begin(player, attacker, defender, defenderId == -1);
 			Link.AddResolvable(Battle);
-			Link.ApplyConstants("attack");
-			Link.ApplyTriggered("attack");
-			Link.SetupManual("attack");
+			Link.Broadcast("attack", new List<Object>());
 			player.SetState(new Acting());
 			player.Opponent.SetState(new Active());
 			Update();
