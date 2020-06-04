@@ -60,9 +60,10 @@ namespace CardGameSharp.Client.Game
 
 		public void Deploy(Array args)
 		{
+			GD.Print(args);
 			if (!(args[0] is Dictionary data)) return;
 			var id = (int) data["Id"];
-			var setCode = (SetCodes) data["SetCode"];
+			var setCode = (SetCodes) data["setCode"];
 			if (Library.Fetch(id, setCode) is Card card)
 			{
 				card.Id = id;
@@ -105,7 +106,7 @@ namespace CardGameSharp.Client.Game
 			// check first, then default to creating a new instance
 			if (!(args[0] is Dictionary arg)) return;
 			var id = (int) arg["Id"];
-			var setCode = (SetCodes) arg["SetCode"];
+			var setCode = (SetCodes) arg["setCode"];
 			if (!(Library.Fetch(id, setCode) is Card card)) return;
 			card.Zone = Card.Zones.Support;
 			var old = Support[Support.Count - 1];
@@ -114,8 +115,10 @@ namespace CardGameSharp.Client.Game
 			Graveyard.Add(card);
 			card.Zone = Card.Zones.Discard;
 			var targets = new Array<Card>();
-			if (args.Count == 2)
+			var targs = args[1] as Array;
+			if (args.Count == 2 && targs.Count > 0)
 			{
+				
 				foreach (var cardId in (Array<int>) args[1])
 				{
 					targets.Add((Card) Cards[cardId]);
@@ -125,13 +128,21 @@ namespace CardGameSharp.Client.Game
 			Visual.Activate(card, Link, targets);
 		}
 
-		public void SetFaceDown(object _stuff)
+		public void SetFaceDown(Array args)
 		{
+			//var card = Cards[(int) args[0]];
 			HandSize -= 1;
 			var blank = Library.Placeholder();
 			Support.Add(blank);
-			Visual.SetFaceDown(null);
+			Visual.SetFaceDown(blank);
 		}
+		
+		// var card = Cards[(int) args[0]];
+		// var c = card as Card;
+		// Field.Remove((Card) card);
+		// HandSize += 1;
+		// Cards.Remove(c.Id);
+		// Visual.Bounce((Card) card);
 
 		public void Draw(Array args)
 		{

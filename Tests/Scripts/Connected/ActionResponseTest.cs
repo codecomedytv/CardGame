@@ -1,6 +1,7 @@
 using System;
 using CardGame;
 using CardGame.Client;
+using Godot;
 using Godot.Collections;
 using Array = Godot.Collections.Array;
 
@@ -35,14 +36,17 @@ namespace CardGameSharp.Tests.Scripts.Connected
 	    [Test]
 	    public async void WhenTurnPlayerDeclaresAttack()
 	    {
-		    var input = Clients[0].GetNode<Game>("1").GameInput;
-		    var player = Clients[0].GetNode<Game>("1").Player;
-		    var input2 = Clients[1].GetNode<Game>("1").GameInput;
-		    var player2 = Clients[1].GetNode<Game>("1").Player;
+		    var input = Clients[1].GetNode<Game>("1").GameInput;
+		    var player = Clients[1].GetNode<Game>("1").Player;
+		    var input2 = Clients[0].GetNode<Game>("1").GameInput;
+		    var player2 = Clients[0].GetNode<Game>("1").Player;
 		    var oldHealth = player.Health;
 
 			// Player 1 sets counter_attack
 		    var CounterAttack = player.Hand[0];
+		    GD.Print(CounterAttack.Title);
+		    GD.Print("state:", player.State);
+		    GD.Print("state:", player2.State);
 		    input.OnSetFaceDown(CounterAttack);
 		    await ToSignal(UntilTimeout(1), YIELD);
 		    input.EndTurn();

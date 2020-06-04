@@ -24,7 +24,7 @@ namespace CardGame.Client.Match
             Targeting
         }
 
-        public string State;
+        public string State = "NotSet";
         public bool IsTurnPlayer = false;
         public int Health = 8000;
         public int DeckSize = 0;
@@ -176,7 +176,7 @@ namespace CardGame.Client.Match
 			Hand.Remove(card);
 			Support.Add(card);
 			if (card != null) card.Zone = Card.Zones.Support;
-			Visual.SetFaceDown(args);
+			Visual.SetFaceDown(card);
 			}
 			
 		public void Forbid(Array args) {

@@ -27,7 +27,7 @@ namespace CardGameSharp.Client.Game
 			Play();
 		}
 
-		public void SetSupport()
+		public void SetFaceDown()
 		{
 			Stream = SetFaceDownSfx;
 			Play();

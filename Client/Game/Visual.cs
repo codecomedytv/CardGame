@@ -124,15 +124,15 @@ namespace CardGame.Client.Match
 		{
 			QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Hand), 0.3F, Delay());
 			QueueCallback(History, Delay() + 0.3F, "Bounce", Who, card);
-			QueueCallback(card.GetParent(), Delay(0.3), "RemoveChild", card);
-			QueueCallback(Hand, Delay(), "AddChild", card);
-			QueueCallback(Sfx, Delay(), "AddChild", card);
+			QueueCallback(card.GetParent(), Delay(0.3), "remove_child", card);
+			QueueCallback(Hand, Delay(), "add_child", card);
+			QueueCallback(Sfx, Delay(), "add_child", card);
 			QueueCallback(Sfx, Delay(), "Deploy"); // Guess we didn't have a dedicated bounce sfx
 			if (Who != (int) Gfx.Who.Opponent) return;
 			QueueCallback(card, Delay(), "FlipFaceDown");
 			var fake = Library.Library.Placeholder();
-			QueueCallback(Hand, Delay(), "RemoveChild", card);
-			QueueCallback(Hand, Delay(), "AddChild", fake);
+			QueueCallback(Hand, Delay(), "remove_child", card);
+			QueueCallback(Hand, Delay(), "add_child", fake);
 			QueueCallback(card, Delay(), "QueueFree");
 		}
 
@@ -140,8 +140,8 @@ namespace CardGame.Client.Match
 		{
 			foreach (var card in linked)
 			{
-				QueueCallback(card.GetParent(), Delay(0.3), "RemoveChild", card);
-				QueueCallback(Discard, Delay(), "AddChild", card);
+				QueueCallback(card.GetParent(), Delay(0.3), "remove_child", card);
+				QueueCallback(Discard, Delay(), "add_child", card);
 				// Should add a check for unit based effects (for some reason?)
 				QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, Discard.RectGlobalPosition, 0.3F, Delay());
 			}
@@ -158,10 +158,10 @@ namespace CardGame.Client.Match
 
 			link.Add(card);
 			QueueCallback(card.Link, Delay(), "set_text", link.Count.ToString());
-			QueueCallback(card.Link, Delay(0.1F), "SetVisible", true);
+			QueueCallback(card.Link, Delay(0.1F), "set_visible", true);
 			QueueCallback(card, Delay(), "FlipFaceUp");
 			QueueCallback(Sfx, Delay(), "Deploy");
-			QueueCallback(card.Back, Delay(0.1F), "Hide");
+			QueueCallback(card.Back, Delay(0.1F), "hide");
 			QueueCallback(History, Delay(0.1F), "Activate", Who, card);
 			if (targets.Count != 0)
 			{
@@ -174,8 +174,8 @@ namespace CardGame.Client.Match
 			var targetPoisition = AttackTargetPosition(defender, Who);
 			QueueProperty(attacker, "RectGlobalPosition", attacker.RectGlobalPosition, targetPoisition, 0.1F, Delay());
 			QueueProperty(attacker, "RectGlobalPosition", targetPoisition, attacker.RectGlobalPosition, .1F, Delay(0.1));
-			QueueCallback(attacker.Combat, Delay(), "Hide");
-			QueueCallback(attacker.Combat, Delay(), "Hide");
+			QueueCallback(attacker.Combat, Delay(), "hide");
+			QueueCallback(attacker.Combat, Delay(), "hide");
 			QueueCallback(defender, Delay(), "RemoveAura");
 			if (Who == (int)Gfx.Who.Player)
 			{
@@ -201,7 +201,7 @@ namespace CardGame.Client.Match
 			{
 				Animate.AddDelay(0.3F, (int)Gfx.Who.Opponent);
 			}
-			QueueCallback(attacker.Combat, Delay(), "Hide");
+			QueueCallback(attacker.Combat, Delay(), "hide");
 			QueueCallback(History, Delay(0.1), "DirectAttack", Who, attacker);
 			QueueCallback(Sfx, Delay(0.3F), "BattleUnit");
 		}
@@ -245,8 +245,8 @@ namespace CardGame.Client.Match
 			
 				QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Units), 0.3F, Delay());
 				QueueCallback(History, Delay() + 0.3F, "Deploy", Who, card);
-				QueueCallback(card.GetParent(), Delay(0.3F), "RemoveChild", card);
-				QueueCallback(Units, Delay(), "AddChild", card);
+				QueueCallback(card.GetParent(), Delay(0.3F), "remove_child", card);
+				QueueCallback(Units, Delay(), "add_child", card);
 				QueueCallback(card, Delay(), "FlipFaceUp");
 			}
 
@@ -254,25 +254,20 @@ namespace CardGame.Client.Match
 			
 		}
 
-		public void SetFaceDown(Array args)
+		public void SetFaceDown(Card card)
 		{
-			if (args[0] is Dictionary arg)
+			if (Who == (int) Gfx.Who.Opponent)
 			{
-				var card = Who == (int) Gfx.Who.Player ? (Card)Cards[args[0]] : (Card)Cards[arg["Id"]];
-				if (Who == (int) Gfx.Who.Opponent)
-				{
-					Hand.RemoveChild(Hand.GetChild(0));
-					Hand.AddChild(card);
-					Sort(Hand);
-				}
-
-				QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Support), 0.3F, Delay());
-				QueueCallback(History, Delay() + 0.3F, "SetFaceDown", Who, card);
-				QueueCallback(card.GetParent(), Delay(0.3), "RemoveChild", card);
-				QueueCallback(Support, Delay(), "AddChild", card);
-				QueueCallback(card, Delay(), "FlipFaceDown");
+				Hand.RemoveChild(Hand.GetChild(0));
+				Hand.AddChild(card);
+				Sort(Hand);
 			}
 
+			QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Support), 0.3F, Delay());
+			QueueCallback(History, Delay() + 0.3F, "SetFaceDown", Who, card);
+			QueueCallback(card.GetParent(), Delay(0.3), "remove_child", card);
+			QueueCallback(Support, Delay(), "add_child", card);
+			QueueCallback(card, Delay(), "FlipFaceDown");
 			QueueCallback(Sfx, Delay(), "SetFaceDown");
 		}
 		
@@ -283,19 +278,19 @@ namespace CardGame.Client.Match
 			Life.Text = (Life.Text.ToInt() - (int) damageTaken).ToString();
 			var visible = Damage.Modulate + new Color(0, 0, 0, 255);
 			var invisible = Damage.Modulate - new Color(0, 0, 0, 255);
-			QueueCallback(Damage, Delay(), "SetSelfModulate", visible);
+			QueueCallback(Damage, Delay(), "set_self_modulate", visible);
 			QueueCallback(History, Delay(0.1), "LoseLife", Who, damageTaken);
-			QueueCallback(Damage, Delay(0.5), "SetSelfModulate", invisible);
+			QueueCallback(Damage, Delay(0.5), "set_self_modulate", invisible);
 		}
 		
 		public void DestroyUnit(Array args)
 		{
 			var card = (Card) Cards[args[0]];
-			QueueCallback(card.GetParent(), Delay(0.3), "RemoveChild", card);
-			QueueCallback(Discard, Delay(), "AddChild", card);
+			QueueCallback(card.GetParent(), Delay(0.3), "remove_child", card);
+			QueueCallback(Discard, Delay(), "add_child", card);
 			QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, Discard.RectGlobalPosition, 0.3F,
 				Delay());
-			QueueCallback(History, Delay() + 0.1F, "Destroyunit", Who, card);
+			QueueCallback(History, Delay() + 0.1F, "DestroyUnit", Who, card);
 		}
 		
 		public void LoadDeck(Array args)
