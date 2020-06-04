@@ -93,15 +93,16 @@ namespace CardGame.Server {
 
 			TurnPlayer = Players.Values.ToList()[Players.Count - 1];
 			TurnPlayer.IsTurnPlayer = true;
-			TurnPlayer.State = new Idle();
-			TurnPlayer.Opponent.State = new Passive();
+			// TurnPlayer.State = new Idle();
+			// TurnPlayer.Opponent.State = new Passive();
 			TurnPlayer.SetPlayableCards();
 			//TurnPlayer.Legalize();
 			foreach (var card in TurnPlayer.Hand)
 			{
 				TurnPlayer.SetLegal(card);
 			}
-
+			TurnPlayer.State = new Idle();
+			TurnPlayer.Opponent.State = new Passive();
 			TurnPlayer.DeclarePlay(new SetState(TurnPlayer, TurnPlayer.State));
 			Update();
 		}
@@ -111,8 +112,8 @@ namespace CardGame.Server {
 			var player = TurnPlayer;
 			player.Draw(1);
 			Link.ApplyConstants();
-			player.State = new Idle();
-			player.Opponent.State = new Passive();
+			// player.State = new Idle();
+			// player.Opponent.State = new Passive();
 			player.SetPlayableCards();
 			player.SetAttackers();
 			player.SetActivatables();
@@ -120,6 +121,8 @@ namespace CardGame.Server {
 			{
 				TurnPlayer.SetLegal(card);
 			}
+			player.State = new Idle();
+			player.Opponent.State = new Passive();
 			player.DeclarePlay(new SetState(player, player.State));
 			player.Opponent.DeclarePlay(new SetState(player.Opponent, player.Opponent.State));
 			Update();
@@ -138,12 +141,16 @@ namespace CardGame.Server {
 			Link.Register(card);
 			Link.ApplyConstants("deploy");
 			Link.ApplyTriggered("deploy");
+			// player.State = new Acting();
+			// player.Opponent.State = new Active();
+			player.Opponent.SetActivatables("deploy");
+			// player.DeclarePlay(new SetState(player, player.State));
+			// player.Opponent.DeclarePlay(new SetState(player.Opponent, player.Opponent.State));
+			Link.Broadcast("deploy", new List<Godot.Object>{card});
 			player.State = new Acting();
 			player.Opponent.State = new Active();
-			player.Opponent.SetActivatables("deploy");
 			player.DeclarePlay(new SetState(player, player.State));
 			player.Opponent.DeclarePlay(new SetState(player.Opponent, player.Opponent.State));
-			Link.Broadcast("deploy", new List<Godot.Object>{card});
 			Update();
 			
 		}
@@ -178,12 +185,16 @@ namespace CardGame.Server {
 			Link.AddResolvable(Battle);
 			Link.ApplyConstants("attack");
 			Link.ApplyTriggered("attack");
+			// player.State = new Acting();
+			// player.Opponent.State = new Active();
+			// player.DeclarePlay(new SetState(player, player.State));
+			// player.Opponent.DeclarePlay(new SetState(player.Opponent, player.Opponent.State));
+			Link.SetupManual("attack");
+			// Link.Broadcast("attack", [attacker, defender])
 			player.State = new Acting();
 			player.Opponent.State = new Active();
 			player.DeclarePlay(new SetState(player, player.State));
 			player.Opponent.DeclarePlay(new SetState(player.Opponent, player.Opponent.State));
-			Link.SetupManual("attack");
-			// Link.Broadcast("attack", [attacker, defender])
 			Update();
 		}
 		
