@@ -12,13 +12,13 @@ namespace CardGame.Server {
 
 		public bool DeployIsIllegalPlay(Player player, Unit unit)
 		{
-			if(player.State.GetType() != typeof(Idle))
-			{
-				player.Disqualify();
-				return Invalid;
-			}
+			// if(player.State.GetType() != typeof(Idle))
+			// {
+			// 	player.Disqualify();
+			// 	return Invalid;
+			// }
 			
-			else if (player.Field.Count == 7)
+			if (player.Field.Count == 7)
 			{
 				player.Disqualify();
 				return Invalid;
@@ -40,12 +40,12 @@ namespace CardGame.Server {
 		
 		public bool AttackDeclarationIsIllegal(Player player, Unit attacker, object defenderId)
 		{
-			if (player.State.GetType() != typeof(Idle))
-			{
-				GD.Print(0);
-				player.Disqualify();
-				return Invalid;
-			}
+			// if (player.State.GetType() != typeof(Idle))
+			// {
+			// 	GD.Print(0);
+			// 	player.Disqualify();
+			// 	return Invalid;
+			// }
 			
 			if (!attacker.Ready)
 			{
@@ -79,13 +79,13 @@ namespace CardGame.Server {
 		public bool SupportActivationIsIllegal(Player player, Support support)
 		{
 			//if (!player.Active())
-			if (!(player.State.GetType() == typeof(Idle) || player.State.GetType() == typeof(Active)))
-			{
-				player.Disqualify();
-				return Invalid;
-			}
+			// if (!(player.State.GetType() == typeof(Idle) || player.State.GetType() == typeof(Active)))
+			// {
+			// 	player.Disqualify();
+			// 	return Invalid;
+			// }
 
-			else if (!support.Ready)
+			if (!support.Ready)
 			{
 				player.Disqualify();
 				return Invalid;
@@ -113,13 +113,13 @@ namespace CardGame.Server {
 		
 		public bool SettingFacedownIsIllegal(Player player, Support support)
 		{
-			if (player.State.GetType() != typeof(Idle))
-			{
-				player.Disqualify();
-				return Invalid;
-			}
+			// if (player.State.GetType() != typeof(Idle))
+			// {
+			// 	player.Disqualify();
+			// 	return Invalid;
+			// }
 			
-			else if (!player.Hand.Contains(support))
+			if (!player.Hand.Contains(support))
 			{
 				player.Disqualify();
 				return Invalid;

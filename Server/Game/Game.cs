@@ -223,11 +223,6 @@ namespace CardGame.Server {
 		public void OnEndTurn(int playerId)
 		{
 			var player = Players[playerId];
-			if (Judge.EndingTurnIsIllegal(player))
-			{
-				return;
-			}
-			
 			player.OnEndTurn();
 			TurnPlayer = player.Opponent;
 			GameState.TurnPlayer = TurnPlayer;
