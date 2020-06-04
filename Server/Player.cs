@@ -89,11 +89,7 @@ namespace CardGame.Server {
 			foreach (SetCodes setCode in DeckList)
 			{
 				var card = Library.Create(setCode);
-				foreach (var skill in (IEnumerable<Skill>)card.Skills)
-				{
-					skill.GameState = game;
-				}
-
+				card.Skills.ForEach(skill => skill.GameState = game);
 				card.SetOwner(this);
 				card.SetControllerAndOpponent(this);
 				card.Zone = Deck;
@@ -151,7 +147,7 @@ namespace CardGame.Server {
 		
 		public void SetPlayableCards()
 		{
-			foreach(var card in Hand) { card.SetAsPlayable(); }
+			Hand.ForEach(card => card.SetAsPlayable());
 		}
 		
 		public void SetTargets(Card selector, List<Card> targets)

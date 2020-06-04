@@ -38,17 +38,8 @@ namespace CardGame.Server.States
             Player.EndTurn();
             Player.IsTurnPlayer = false;
             Player.Opponent.IsTurnPlayer = true;
-            foreach (var card in Player.Opponent.Field)
-            {
-                // This should be an entry action of the Idle State.
-                Player.Opponent.ReadyCard(card);
-            }
-
-            foreach (var card in Player.Support)
-            {
-                // This should be an entry action of the Idle State(???)
-                Player.ReadyCard(card);
-            }
+            Player.Opponent.Field.ForEach(unit => Player.Opponent.ReadyCard(unit));
+            Player.Support.ForEach(support => Player.ReadyCard(support));
             Player.Link.ApplyConstants();
             return new Passive();
         }
