@@ -29,6 +29,12 @@ namespace CardGame.Server.States
             return new Disqualified();
         }
 
+        public virtual State OnSetFaceDown(Support card)
+        {
+            Player.Disqualify();
+            return new Disqualified();
+        }
+
         public virtual State OnPassPlay()
         {
             Player.Disqualify();

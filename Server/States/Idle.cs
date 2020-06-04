@@ -5,9 +5,22 @@ namespace CardGame.Server.States
 {
     public class Idle: State
     {
-        
+        public override void OnEnter(Player player)
+        {
+            Player = player;
+            // We're only doing this for cards in hand but it might worth iterating through all cards?
+            // Otherwise users may be able to deploy cards illegal from graveyard or deck etc
+            Player.Hand.ForEach(card => card.SetCanBeDeployed());
+            Player.Hand.ForEach(card => card.SetCanBeSet());
+        }
+
         public override State OnDeploy(Unit unit)
         {
+            if (!unit.CanBeDeployed)
+            {
+                Player.Disqualify();
+                return new Disqualified();
+            }
             Player.Deploy(unit);
             Player.Link.Register(unit);
             Player.Link.ApplyConstants("deploy");
@@ -20,6 +33,27 @@ namespace CardGame.Server.States
         public override State OnAttack()
         {
             return new Acting();
+        }
+
+        public override State OnSetFaceDown(Support support)
+        {
+            if (!support.CanBeSet)
+            {
+                Player.Disqualify();
+                return new Disqualified();
+            }
+            
+            Player.Hand.Remove(support);
+            Player.Support.Add(support);
+            support.Zone = Player.Support;
+            support.EmitSignal(nameof(Card.Exit));
+            support.Legal = false; // Need To Update This
+            Player.Link.ApplyConstants();
+            Player.Link.Register(support);
+            Player.DeclarePlay(new SetSupport(support));
+
+            // Returning a new Idle State Retriggers the OnEnter System
+            return new Idle();
         }
 
         public override State OnActivation(Support card, int skillIndex, Array<int> targets)

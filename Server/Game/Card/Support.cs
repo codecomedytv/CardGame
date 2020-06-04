@@ -8,19 +8,13 @@ namespace CardGame.Server
         {
 
         }
-        
-        protected override void _SetAsPlayable()
-        {
-            CanBeSet = true;
-            Controller.DeclarePlay(new SetAsSettable(this));
-        }
 
-        public void SetAsSettable()
+        public override void SetCanBeSet()
         {
-            // Check for Anti-Set Tags
-            CanBeSet = true;
-            Controller.DeclarePlay(new SetAsSettable(this));
+            CanBeSet = Zone == Controller.Hand && Controller.Support.Count < 7;
+            if (CanBeSet) { Controller.DeclarePlay(new SetAsSettable(this)); }
         }
+        
 
         public void SetAsActivatable(string gameEvent)
         {

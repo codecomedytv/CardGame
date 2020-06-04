@@ -91,7 +91,6 @@ namespace CardGame.Server {
 
 			TurnPlayer = Players.Values.ToList()[Players.Count - 1];
 			TurnPlayer.IsTurnPlayer = true;
-			TurnPlayer.SetPlayableCards();
 			foreach (var card in TurnPlayer.Hand)
 			{
 				TurnPlayer.SetLegal(card);
@@ -106,7 +105,6 @@ namespace CardGame.Server {
 			var player = TurnPlayer;
 			player.Draw(1);
 			Link.ApplyConstants();
-			player.SetPlayableCards();
 			player.SetAttackers();
 			player.SetActivatables();
 			foreach (var card in TurnPlayer.Hand)
@@ -122,10 +120,6 @@ namespace CardGame.Server {
 		{
 			var player = Players[playerId];
 			var card = (Unit)GameState.GetCard(cardId);
-			if (Judge.DeployIsIllegalPlay(player, card))
-			{
-				return;
-			}
 			player.OnDeploy(card);
 			player.SetState(new Acting());
 			player.Opponent.SetState(new Active());
@@ -173,13 +167,9 @@ namespace CardGame.Server {
 		{
 			var player = Players[playerId];
 			var card = (Support)GameState.GetCard(faceDownId);
-			if (Judge.SettingFacedownIsIllegal(player,card))
-			{
-				return;
-			}
-			Link.ApplyConstants();
-			player.SetFaceDown(card);
-			Link.Register(card);
+			player.OnSetFaceDown(card);
+			// A New Idle State retriggers the entry state (which gives other cards valid information)
+			player.SetState(new Idle());
 			Update();
 		}
 		

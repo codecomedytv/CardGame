@@ -17,11 +17,10 @@ namespace CardGame.Server
             Tags = new List<Decorator>();
         }
 
-        protected override void _SetAsPlayable()
+        public override void SetCanBeDeployed()
         {
-            // TODO: Add Tag Check
-            CanBeDeployed = true;
-            Controller.DeclarePlay(new SetAsDeployable(this));
+            CanBeDeployed = Zone == Controller.Hand && Controller.Field.Count < 7;
+            if (CanBeDeployed) { Controller.DeclarePlay(new SetAsDeployable(this)); }
         }
 
         public void SetAsAttacker()

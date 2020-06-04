@@ -33,6 +33,16 @@ namespace CardGame.Server {
 		public bool CanBeActivated = false;
 		public bool CanAttack = false;
 
+		public virtual void SetCanBeDeployed()
+		{
+			CanBeDeployed = false;
+		}
+
+		public virtual void SetCanBeSet()
+		{
+			CanBeSet = false;
+		}
+
 
 		[AttributeUsage(AttributeTargets.Class)]
 		protected class SkillAttribute : System.Attribute
@@ -106,13 +116,8 @@ namespace CardGame.Server {
 
 		public void SetAsPlayable()
 		{
-			_SetAsPlayable();
 		}
-
-		protected virtual void _SetAsPlayable()
-		{
-		}
-
+		
 		public void SetLegal()
 		{
 			Legal = true;

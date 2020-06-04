@@ -56,6 +56,11 @@ namespace CardGame.Server {
 			State.OnActivation(card, skillIndex, targets);
 		}
 
+		public void OnSetFaceDown(Support support)
+		{
+			State.OnSetFaceDown(support);
+		}
+
 		public void OnPriorityPassed()
 		{
 			State.OnPassPlay();
@@ -145,10 +150,6 @@ namespace CardGame.Server {
 			DeclarePlay(new Discard(card));
 		}
 		
-		public void SetPlayableCards()
-		{
-			Hand.ForEach(card => card.SetAsPlayable());
-		}
 		
 		public void SetTargets(Card selector, List<Card> targets)
 		{
@@ -206,16 +207,7 @@ namespace CardGame.Server {
 			DeclarePlay(new UnreadyCard(card));
 		}
 
-		public void SetFaceDown(Card card)
-		{
-			Hand.Remove(card);
-			Support.Add(card);
-			card.Zone = Support;
-			card.EmitSignal(nameof(Card.Exit));
-			DeclarePlay(new Discard(card));
-			card.Legal = false;
-			DeclarePlay(new SetSupport(card));
-		}
+
 
 		public void AttackUnit(Unit attacker, Unit defender)
 		{

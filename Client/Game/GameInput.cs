@@ -27,7 +27,7 @@ namespace CardGameSharp.Client.Game
 
 		public void OnDeploy(Card card)
 		{
-			if (Player.State != "Idle" || card.CardType != CardTypes.Unit || !Player.Hand.Contains(card))
+			if (!card.CanBeDeployed)
 			{
 				return;
 			}
@@ -37,7 +37,7 @@ namespace CardGameSharp.Client.Game
 
 		public void OnSetFaceDown(Card card)
 		{
-			if (Player.State != "Idle" || card.CardType != CardTypes.Support || !Player.Hand.Contains(card))
+			if (!card.CanBeSet)
 			{
 				return;
 			}

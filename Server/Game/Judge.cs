@@ -9,44 +9,9 @@ namespace CardGame.Server {
 	{
 		private const bool Invalid = true;
 		private const bool Valid = false;
-
-		public bool DeployIsIllegalPlay(Player player, Unit unit)
-		{
-			// if(player.State.GetType() != typeof(Idle))
-			// {
-			// 	player.Disqualify();
-			// 	return Invalid;
-			// }
-			
-			if (player.Field.Count == 7)
-			{
-				player.Disqualify();
-				return Invalid;
-			}
-			
-			else if (!player.Hand.Contains(unit))
-			{
-				player.Disqualify();
-				return Invalid;
-			}
-			
-			else if (!unit.CanBeDeployed)
-			{
-				player.Disqualify();
-				return Invalid;
-			}
-			return Valid;
-		}
 		
 		public bool AttackDeclarationIsIllegal(Player player, Unit attacker, object defenderId)
 		{
-			// if (player.State.GetType() != typeof(Idle))
-			// {
-			// 	GD.Print(0);
-			// 	player.Disqualify();
-			// 	return Invalid;
-			// }
-			
 			if (!attacker.Ready)
 			{
 				GD.Print(1);
@@ -78,12 +43,6 @@ namespace CardGame.Server {
 		
 		public bool SupportActivationIsIllegal(Player player, Support support)
 		{
-			//if (!player.Active())
-			// if (!(player.State.GetType() == typeof(Idle) || player.State.GetType() == typeof(Active)))
-			// {
-			// 	player.Disqualify();
-			// 	return Invalid;
-			// }
 
 			if (!support.Ready)
 			{
@@ -111,27 +70,7 @@ namespace CardGame.Server {
 			return Valid;
 		}
 		
-		public bool SettingFacedownIsIllegal(Player player, Support support)
-		{
-			// if (player.State.GetType() != typeof(Idle))
-			// {
-			// 	player.Disqualify();
-			// 	return Invalid;
-			// }
-			
-			if (!player.Hand.Contains(support))
-			{
-				player.Disqualify();
-				return Invalid;
-			}
-			
-			else if (!support.CanBeSet)
-			{
-				player.Disqualify();
-				return Invalid;
-			}
-			return Valid;
 		}
 		
 	}
-}
+
