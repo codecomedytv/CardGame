@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Godot;
 using Godot.Collections;
 
 namespace CardGame.Server.States
@@ -32,8 +33,37 @@ namespace CardGame.Server.States
             return new Acting();
         }
 
-        public override State OnAttack()
+        public override State OnAttack(Unit attacker, object defender, bool isDirectAttack)
         {
+            if (!attacker.CanAttack)
+            {
+                GD.Print(1);
+                Player.Disqualify();
+                return new Disqualified();
+            }
+
+            if (isDirectAttack && Player.Opponent.Field.Count != 0)
+            {
+                Player.Disqualify();
+                return new Disqualified();
+            }
+
+            else if (!isDirectAttack && !Player.Opponent.Field.Contains((Card)defender))
+            {
+                Player.Disqualify();
+                return new Disqualified();
+            }
+            
+            else if (defender is Card defendingUnit && !attacker.ValidAttackTargets.Contains(defendingUnit))
+            {
+                Player.Disqualify();
+                return new Disqualified();
+            }
+
+            if(!isDirectAttack){ Player.Opponent.ShowAttack(Player, attacker, (Unit)defender); }
+            Player.Battle.Begin(Player, attacker, defender, isDirectAttack);
+            Player.Link.AddResolvable(Player.Battle);
+            Player.Link.Broadcast("attack", new List<Object>());
             return new Acting();
         }
 

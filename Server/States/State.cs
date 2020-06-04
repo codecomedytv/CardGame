@@ -17,7 +17,7 @@ namespace CardGame.Server.States
             return new Disqualified();
         }
 
-        public virtual State OnAttack()
+        public virtual State OnAttack(Unit unit, object defender, bool isDirectAttack)
         {
             Player.Disqualify();
             return new Disqualified();

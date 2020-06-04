@@ -20,7 +20,6 @@ namespace CardGame.Server {
 		public readonly Gamestate GameState;
 		private readonly Battle Battle = new Battle();
 		private readonly Link Link = new Link();
-		private readonly Judge Judge = new Judge();
 		private Player TurnPlayer;
 
 		[Signal]
@@ -62,6 +61,7 @@ namespace CardGame.Server {
 				var bounds = new Godot.Collections.Array { player.Opponent };
 				connect(player, nameof(Player.Register), Link, nameof(Link.Register));
 				player.Link = Link;
+				player.Battle = Battle;
 			}
 
 		}
@@ -91,10 +91,6 @@ namespace CardGame.Server {
 
 			TurnPlayer = Players.Values.ToList()[Players.Count - 1];
 			TurnPlayer.IsTurnPlayer = true;
-			// foreach (var card in TurnPlayer.Hand)
-			// {
-			// 	TurnPlayer.SetLegal(card);
-			// }
 			TurnPlayer.SetState(new Idle());
 			TurnPlayer.Opponent.SetState(new Passive());
 			Update();
@@ -135,26 +131,14 @@ namespace CardGame.Server {
 			{
 				defender = defenderId;
 			}
-
-			if (Judge.AttackDeclarationIsIllegal(player, attacker, defender))
-			{
-				GD.Print("Illegal");
-				return;
-			}
-
+			
 			GameState.Attacking = attacker;
-			if (defenderId != -1)
-			{
-				player.Opponent.ShowAttack(player, attacker, (Unit)defender);
-			}
-
-			Battle.Begin(player, attacker, defender, defenderId == -1);
-			Link.AddResolvable(Battle);
-			Link.Broadcast("attack", new List<Object>());
+			player.OnAttack(attacker, defender, defenderId == -1);
 			player.SetState(new Acting());
 			player.Opponent.SetState(new Active());
 			Update();
 		}
+		
 		
 		public void OnSetFaceDown(int playerId, int faceDownId)
 		{

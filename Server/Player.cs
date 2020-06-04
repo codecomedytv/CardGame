@@ -27,6 +27,7 @@ namespace CardGame.Server {
 		public bool IsDisqualified;
 		public bool IsTurnPlayer = false;
 		public Link Link;
+		public Battle Battle;
 
 		[Signal]
 		public delegate void PlayExecuted();
@@ -46,9 +47,10 @@ namespace CardGame.Server {
 			State.OnDeploy(unit);
 		}
 
-		public void OnAttack()
+		public void OnAttack(Unit unit, object defender, bool isDirectAttack)
 		{
-			State.OnAttack();
+			// 			player.OnAttack(player, attacker, defender);
+			State.OnAttack(unit, defender, isDirectAttack);
 		}
 
 		public void OnActivation(Support card, Array<int> targets)
