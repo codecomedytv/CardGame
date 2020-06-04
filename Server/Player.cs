@@ -17,7 +17,6 @@ namespace CardGame.Server {
 		public Player Opponent;
 		public int Health = 8000;
 		public bool Ready = false;
-		public bool Passing = false;
 		public List<Card> Deck = new List<Card>();
 		public List<Card> Graveyard = new List<Card>();
 		public List<Card> Hand = new List<Card>();
@@ -26,28 +25,13 @@ namespace CardGame.Server {
 		public List<Decorator> Tags = new List<Decorator>();
 		public bool Disqualified;
 		public bool IsTurnPlayer = false;
-
-		[Signal]
-		public delegate void Pause();
-
+		
 		[Signal]
 		public delegate void PlayExecuted();
 		
 		[Signal]
-		public delegate void PriorityPassed();
-
-		[Signal]
-		public delegate void TurnEnded();
-
-		[Signal]
 		public delegate void Register();
 
-		[Signal]
-		public delegate void Deployed();
-
-		[Signal]
-		public delegate void Paused();
-		
 		public Player() {}
 		
 		public Player(int id, List<SetCodes> deckList)

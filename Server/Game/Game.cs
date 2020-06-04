@@ -61,9 +61,6 @@ namespace CardGame.Server {
 				connect(player, nameof(Player.PlayExecuted), this.Messenger, nameof(Messenger.OnPlayExecuted));
 				var bounds = new Godot.Collections.Array { player.Opponent };
 				connect(player, nameof(Player.Register), Link, nameof(Link.Register));
-				connect(player, nameof(Player.Deployed), Link, nameof(Link.Broadcast));
-				connect(player, nameof(Player.Paused), GameState, nameof(GameState.Pause));
-				
 			}
 
 		}
@@ -93,10 +90,7 @@ namespace CardGame.Server {
 
 			TurnPlayer = Players.Values.ToList()[Players.Count - 1];
 			TurnPlayer.IsTurnPlayer = true;
-			// TurnPlayer.State = new Idle();
-			// TurnPlayer.Opponent.State = new Passive();
 			TurnPlayer.SetPlayableCards();
-			//TurnPlayer.Legalize();
 			foreach (var card in TurnPlayer.Hand)
 			{
 				TurnPlayer.SetLegal(card);
@@ -112,8 +106,6 @@ namespace CardGame.Server {
 			var player = TurnPlayer;
 			player.Draw(1);
 			Link.ApplyConstants();
-			// player.State = new Idle();
-			// player.Opponent.State = new Passive();
 			player.SetPlayableCards();
 			player.SetAttackers();
 			player.SetActivatables();
@@ -141,11 +133,7 @@ namespace CardGame.Server {
 			Link.Register(card);
 			Link.ApplyConstants("deploy");
 			Link.ApplyTriggered("deploy");
-			// player.State = new Acting();
-			// player.Opponent.State = new Active();
 			player.Opponent.SetActivatables("deploy");
-			// player.DeclarePlay(new SetState(player, player.State));
-			// player.Opponent.DeclarePlay(new SetState(player.Opponent, player.Opponent.State));
 			Link.Broadcast("deploy", new List<Godot.Object>{card});
 			player.State = new Acting();
 			player.Opponent.State = new Active();
@@ -185,12 +173,7 @@ namespace CardGame.Server {
 			Link.AddResolvable(Battle);
 			Link.ApplyConstants("attack");
 			Link.ApplyTriggered("attack");
-			// player.State = new Acting();
-			// player.Opponent.State = new Active();
-			// player.DeclarePlay(new SetState(player, player.State));
-			// player.Opponent.DeclarePlay(new SetState(player.Opponent, player.Opponent.State));
 			Link.SetupManual("attack");
-			// Link.Broadcast("attack", [attacker, defender])
 			player.State = new Acting();
 			player.Opponent.State = new Active();
 			player.DeclarePlay(new SetState(player, player.State));
