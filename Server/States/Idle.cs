@@ -59,6 +59,11 @@ namespace CardGame.Server.States
 
         public override State OnActivation(Support card, Array<int> targets)
         {
+            if (!card.CanBeActivated)
+            {
+                Player.Disqualify();
+                return new Disqualified();
+            }
             Player.Link.Activate(Player, card, targets);
             return new Acting();
         }

@@ -172,12 +172,6 @@ namespace CardGame.Server {
 		{
 			var player = Players[playerId];
 			var card = (Support)GameState.GetCard(cardId);
-			if (Judge.SupportActivationIsIllegal(player, card))
-			{
-				GD.Print("Support Activation Is Illegal");
-				return;
-			}
-
 			player.OnActivation(card, targets);
 			player.SetState(new Acting());
 			player.Opponent.SetState(new Active());
