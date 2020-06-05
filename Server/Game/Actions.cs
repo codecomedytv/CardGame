@@ -6,7 +6,7 @@
 
         public Actions(Player player)
         {
-            Player = Player;
+            Player = player;
         }
     }
 }

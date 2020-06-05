@@ -73,12 +73,7 @@ namespace CardGame.Server {
 		
 		public bool HasTag(Tag tag)
 		{
-			foreach(var decorator in Tags){
-				if(decorator.Tag == tag){
-					return true;
-				}
-			}
-			return false;
+			return Tags.Exists(decorator => decorator.Tag == tag);
 		}
 
 		protected void AddSkill(Skill skill)
