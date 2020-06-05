@@ -31,7 +31,7 @@ namespace CardGame.Server {
 		public bool CanBeActivated = false;
 		public bool CanAttack = false;
 
-		public Card()
+		protected Card()
 		{
 			AddSkill(new NullSkill());
 		}
@@ -67,8 +67,8 @@ namespace CardGame.Server {
 		
 		public void SetZone(List<Card> newZone)
 		{
-			Zone = newZone;
-			EmitSignal(nameof(Exit));
+			// Zone = newZone;
+			// EmitSignal(nameof(Exit));
 		}
 		
 		public bool HasTag(Tag tag)
@@ -81,12 +81,7 @@ namespace CardGame.Server {
 			Skill = skill;
 			skill.Card = this;
 		}
-
-		protected void SetSkillCards()
-		{
-			Skill.Card = this;
-		}
-
+		
 		public override string ToString()
 		{
 			return String.Format("{0}: {1}", Id.ToString(), Title);

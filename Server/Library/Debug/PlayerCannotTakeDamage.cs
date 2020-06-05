@@ -19,7 +19,7 @@
                 Type = Types.Constant;
             }
 
-            public override void _Resolve()
+            protected override void _Resolve()
             {
                 AddTagToController(Tag.CannotTakeDamage);
             }

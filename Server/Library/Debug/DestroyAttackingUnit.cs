@@ -18,7 +18,7 @@ namespace CardGame.Server
                 GameEvent = "attack";
             }
 
-            public override void _Resolve()
+            protected override void _Resolve()
             {
                 Controller.DestroyUnit(GameState.Attacking);
             }

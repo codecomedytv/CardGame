@@ -13,13 +13,14 @@ namespace CardGame.Server
 
         public class BounceSkill : Skill
         {
+
             public override void _SetUp()
             {
                 SetTargets(Opponent.Field.ToList());
                 CanBeUsed = Opponent.Field.Count > 0;
             }
 
-            public override void _Resolve()
+            protected override void _Resolve()
             {
                 Controller.Bounce(GameState.Target);
             }

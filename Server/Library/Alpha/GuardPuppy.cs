@@ -21,7 +21,7 @@
                 Type = Types.Constant;
             }
 
-            public override void _Resolve()
+            protected override void _Resolve()
             {
                 AddTagToGroup(Controller.Field, Tag.CannotBeAttacked, nameof(Card.Exit), nameof(Card.Exit), false);
             }

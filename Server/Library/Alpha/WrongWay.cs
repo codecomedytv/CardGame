@@ -30,7 +30,7 @@ namespace CardGame.Server
                 SetTargets(targets);
             }
 
-            public override void _Resolve()
+            protected override void _Resolve()
             {
                 Controller.Bounce(GameState.Target);
             }

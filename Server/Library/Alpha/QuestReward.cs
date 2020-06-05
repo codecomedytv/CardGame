@@ -11,7 +11,7 @@
 
         public class DrawXCards : Skill
         {
-            public override void _Resolve()
+            protected override void _Resolve()
             {
                 Controller.Draw(2);
             }

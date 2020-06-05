@@ -11,7 +11,7 @@
         
         public class  MillCard: Skill
         {
-            public override void _Resolve()
+            protected override void _Resolve()
             {
                 Controller.MillFromDeck();
             }

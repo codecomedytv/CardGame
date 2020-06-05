@@ -22,7 +22,7 @@ namespace CardGame.Server
                 CanBeUsed = units.Count > 0;
             }
 
-            public override void _Resolve()
+            protected override void _Resolve()
             {
                 Controller.DestroyUnit((Unit)GameState.Target);
             }

@@ -39,7 +39,7 @@ namespace CardGame.Server
                 CanBeUsed = units.Count > 0;
             }
 
-            public override void _Activate()
+            protected override void _Activate()
             {
                 // SetTargets(Opponent.Field.Where(u => u.Attack > 1000));
                 var units = new List<Card>();
@@ -55,7 +55,7 @@ namespace CardGame.Server
                 AutoTarget();
             }
 
-            public override void _Resolve()
+            protected override void _Resolve()
             {
                // var target = (Unit) GameState.Target;
                 //GD.Print("target on card: ", target);

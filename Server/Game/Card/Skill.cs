@@ -68,21 +68,22 @@ namespace CardGame.Server {
 			}
 		}
 
-		public virtual void _Activate()
+		protected virtual void _Activate()
 		{
 		}
 
-		public virtual void _Resolve()
+		protected virtual void _Resolve()
 		{
 		}
 
-		public void AddTagToController(Tag tag)
+
+		protected void AddTagToController(Tag tag)
 		{
 			var decorator = new Decorator(tag);
 			decorator.AddTagToPlayer(Controller);
 		}
 
-		public void AddTagToGroup(List<Card> cards, Tag tag, string destroyCondition, string taggedExit, bool includeCard = true)
+		protected void AddTagToGroup(List<Card> cards, Tag tag, string destroyCondition, string taggedExit, bool includeCard = true)
 		{
 			var decorator = new Decorator(tag);
 			if (destroyCondition != "")
@@ -108,12 +109,12 @@ namespace CardGame.Server {
 			}
 		}
 
-		public void SetTargets(List<Card> cards)
+		protected void SetTargets(List<Card> cards)
 		{
 			Controller.DeclarePlay(new SetTargets(Card, cards));
 		}
 
-		public void AutoTarget()
+		protected void AutoTarget()
 		{
 			GameState.Paused = true;
 			Controller.DeclarePlay(new AutoTarget(Card));

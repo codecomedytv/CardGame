@@ -17,7 +17,7 @@
                 CanBeUsed = Controller.Hand.Count > 0;
             }
 
-            public override void _Resolve()
+            protected override void _Resolve()
             {
                 Controller.ReturnToDeck(GameState.Target);
             }
