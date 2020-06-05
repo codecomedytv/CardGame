@@ -1,12 +1,9 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using CardGame.Server.States;
 using Godot.Collections;
-using Array = Godot.Collections.Array;
-using Object = Godot.Object;
+
 
 namespace CardGame.Server {
 
@@ -85,7 +82,7 @@ namespace CardGame.Server {
 
 			foreach (var player in Players.Values)
 			{
-				player.Draw(7);
+				player.DrawCards(7);
 			}
 
 			TurnPlayer = Players.Values.ToList()[Players.Count - 1];

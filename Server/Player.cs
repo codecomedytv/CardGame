@@ -112,29 +112,33 @@ namespace CardGame.Server {
 			// TODO: Implement Shuffle
 		}
 
-		public void Draw(int drawCount)
+		public void DrawCards(int drawCount)
 		{
 			var lost = false;
-			var cards = new List<Card>();
 			for (var i = 0; i < drawCount; i++)
 			{
-				var card = Deck[Deck.Count-1];
-				Deck.RemoveAt(Deck.Count-1);
-				Hand.Add(card);
-				card.Zone = Hand;
-				cards.Add(card);
-				if(Deck.Count == 0)
+				if (Deck.Count == 0)
 				{
 					lost = true;
 					break;
 				}
+				Draw(1);
 			}
-			DeclarePlay(new Draw(cards));
 			if (lost)
 			{
 				Opponent.Win();
 			}
+		}
 
+		public void Draw(int drawCount)
+		{
+			var cards = new List<Card>();
+			var card = Deck[Deck.Count-1];
+			Deck.RemoveAt(Deck.Count-1);
+			Hand.Add(card);
+			card.Zone = Hand;
+			cards.Add(card);
+			DeclarePlay(new Draw(cards));
 		}
 
 		public void Discard(Card card)
