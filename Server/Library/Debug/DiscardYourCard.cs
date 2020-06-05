@@ -9,7 +9,7 @@
             AddSkill(new DiscardCard());
         }
 
-        public class DiscardCard : Skill
+        private class DiscardCard : Skill
         {
             public override void _SetUp()
             {

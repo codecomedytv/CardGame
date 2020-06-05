@@ -13,7 +13,7 @@ namespace CardGame.Server
             AddSkill(new DestroyUnit());
         }
 
-        public class DestroyUnit : Skill
+        private class DestroyUnit : Skill
         {
             public override void _SetUp()
             {

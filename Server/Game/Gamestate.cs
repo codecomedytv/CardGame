@@ -26,21 +26,12 @@ namespace CardGame.Server {
 			CardCatalog[card.Id] = card;
 			NextCardID++;
 		}
-		
-		public Card GetCard(int id)
-		{
-			return CardCatalog[id];
-		}
 
-		public void Pause()
-		{
-			Paused = true;
-		}
+		public Card GetCard(int id) => CardCatalog[id];
 
-		public Player GetTurnPlayer()
-		{
-			return TurnPlayer;
-		}
+		public void Pause() => Paused = true;
+
+		public Player GetTurnPlayer() => TurnPlayer;
 
 		public void TargetsRequested(int who, List<System.Object> what = default(List<System.Object>))
 		{

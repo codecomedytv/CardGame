@@ -18,24 +18,14 @@ namespace CardGame.Server {
 
 		public void SetUp(Gamestate game)
 		{
+			// Will eventually remove this?
 			if(Game == null) { Game = game; }
 		}
-		
-		public void AddResolvable(IResolvable action)
-		{
-			// In the original source, we checked if this had the action resolvable?
-			// We may be able to use an IResolvable interface here instead
-			Chain.Add(action);
-		}
-		
-		public void ApplyConstants(string gameEvent = "")
-		{
-			foreach (var skill in Constants)
-			{
-				skill.Resolve(gameEvent);
-			}
-		}
-		
+
+		public void AddResolvable(IResolvable action) => Chain.Add(action);
+
+		public void ApplyConstants(string gameEvent = "") => Constants.ForEach(s => s.Resolve(gameEvent));
+
 		public void ApplyTriggered(string gameEvent)
 		{
 			foreach (var skill in Auto)
@@ -48,14 +38,8 @@ namespace CardGame.Server {
 			}
 		}
 		
-		public void  SetupManual(string gameEvent)
-		{
-			foreach (var skill in Manual)
-			{
-				skill.SetUp(gameEvent);
-			}
-		}
-		
+		public void  SetupManual(string gameEvent) => Manual.ForEach(s => s.SetUp(gameEvent));
+
 		public void Broadcast(string gameEvent, List<Godot.Object> arguments)
 		{
 			ApplyConstants(gameEvent);

@@ -9,7 +9,7 @@
             AddSkill(new DrawXCards());
         }
 
-        public class DrawXCards : Skill
+        private class DrawXCards : Skill
         {
             protected override void _Resolve()
             {

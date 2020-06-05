@@ -11,7 +11,7 @@ namespace CardGame.Server
             AddSkill(new BounceSkill());
         }
 
-        public class BounceSkill : Skill
+        private class BounceSkill : Skill
         {
 
             public override void _SetUp()

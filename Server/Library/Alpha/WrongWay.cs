@@ -12,7 +12,7 @@ namespace CardGame.Server
             AddSkill(new ReturnTarget());
         }
 
-        public class ReturnTarget : Skill
+        private class ReturnTarget : Skill
         {
             public override void _SetUp()
             {

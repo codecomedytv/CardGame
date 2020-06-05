@@ -11,7 +11,7 @@
             AddSkill(new CannotTakeDamage());
         }
 
-        public class CannotTakeDamage : Skill
+        private class CannotTakeDamage : Skill
         {
             public CannotTakeDamage()
             {

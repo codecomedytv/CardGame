@@ -9,7 +9,7 @@
             AddSkill(new ReturnCard());
         }
 
-        public class ReturnCard : Skill
+        private class ReturnCard : Skill
         {
             public override void _SetUp()
             {

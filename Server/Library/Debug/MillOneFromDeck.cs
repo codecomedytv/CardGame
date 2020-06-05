@@ -8,8 +8,8 @@
             SetCode = SetCodes.MillOneFromDeck;
             AddSkill(new MillCard());
         }
-        
-        public class  MillCard: Skill
+
+        private class  MillCard: Skill
         {
             protected override void _Resolve()
             {

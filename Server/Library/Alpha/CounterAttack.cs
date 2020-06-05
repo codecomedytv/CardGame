@@ -9,7 +9,7 @@
             AddSkill(new DestroyAttacker());
         }
 
-        public class DestroyAttacker: Skill
+        private class DestroyAttacker: Skill
         {
             public DestroyAttacker()
             {

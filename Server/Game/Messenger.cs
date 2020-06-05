@@ -1,6 +1,7 @@
 using System;
 using Godot;
 using System.Collections.Generic;
+using System.Linq;
 using Godot.Collections;
 
 namespace CardGame.Server {
@@ -9,11 +10,8 @@ namespace CardGame.Server {
 	{
 		
 		
-		public RealMessenger()
-		{
-			Name = "Messenger";
-		}
-
+		public RealMessenger() => Name = "Messenger";
+		
 		public override void OnPlayExecuted(Player player, GameEvent gameEvent)
 		{
 			var message = gameEvent.GetMessage();
@@ -21,25 +19,19 @@ namespace CardGame.Server {
 			RpcId(player.Opponent.Id, "QueueEvent", message.Opponent["command"], message.Opponent["args"]);
 		}
 
-		public override void Update(System.Collections.Generic.Dictionary<int, Player>.ValueCollection players)
+		public override void Update(IEnumerable<Player> players)
 		{
-			foreach (var player in players)
-			{
-				RpcId(player.Id, "ExecuteEvents");
-			}
+			foreach (var player in players) { RpcId(player.Id, "ExecuteEvents");}
 		}
 
 		public override void DisqualifyPlayer(int player, int reason)
 		{
-			GD.Print(String.Format("Player {0} disqualified because: {1}", player, reason));
+			GD.Print($"Player {player} disqualified because: {reason}");
 		}
 
 		[Master]
-		public override void Deploy(int player, int card)
-		{
-			EmitSignal(nameof(Deployed), player, card);
-		}
-
+		public override void Deploy(int player, int card) => EmitSignal(nameof(Deployed), player, card);
+		
 		[Master]
 		public override void Attack(int player, int attacker, int defender)
 		{
@@ -59,27 +51,15 @@ namespace CardGame.Server {
 		}
 
 		[Master]
-		public override void Target(int player, int target)
-		{
-			EmitSignal(nameof(Targeted), target);
-		}
+		public override void Target(int player, int target) => EmitSignal(nameof(Targeted), target);
+		
+		[Master]
+		public override void PassPlay(int player) => EmitSignal(nameof(PassedPriority), player);
+		
+		[Master]
+		public override void EndTurn(int player) => EmitSignal(nameof(EndedTurn), player);
 
 		[Master]
-		public override void PassPlay(int player)
-		{
-			EmitSignal(nameof(PassedPriority), player);
-		}
-
-		[Master]
-		public override void EndTurn(int player)
-		{
-			EmitSignal(nameof(EndedTurn), player);
-		}
-
-		[Master]
-		public override void SetReady(int player)
-		{
-			EmitSignal(nameof(PlayerSeated), player);
-		}
+		public override void SetReady(int player) => EmitSignal(nameof(PlayerSeated), player);
 	}
 }

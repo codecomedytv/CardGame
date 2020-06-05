@@ -16,7 +16,7 @@ namespace CardGame.Server
             AddSkill(new OnSummonDestroy());
         }
 
-        public class OnSummonDestroy : Skill
+        private class OnSummonDestroy : Skill
         {
             public OnSummonDestroy()
             {
@@ -26,39 +26,19 @@ namespace CardGame.Server
 
             public override void _SetUp()
             {
-                // IEnumerable<Unit> units = (IEnumerable<Unit>)Opponent.Field.Where(u => u.Attack > 1000).ToList();
-                var units = new List<Unit>();
-                foreach (var unit in Opponent.Field)
-                {
-                    Unit u = (Unit) unit;
-                    if (u.Attack < 1000)
-                    {
-                        units.Add(u);
-                    }
-                }
+                var units = (from Unit u in Opponent.Field where u.Attack < 1000 select u).ToList();
                 CanBeUsed = units.Count > 0;
             }
 
             protected override void _Activate()
             {
-                // SetTargets(Opponent.Field.Where(u => u.Attack > 1000));
-                var units = new List<Card>();
-                foreach (var unit in Opponent.Field)
-                {
-                    Unit u = (Unit) unit;
-                    if (u.Attack < 1000)
-                    {
-                        units.Add(u);
-                    }
-                }
+                var units = (from Unit u in Opponent.Field where u.Attack < 1000 select u).Cast<Card>().ToList();
                 SetTargets(units);
                 AutoTarget();
             }
 
             protected override void _Resolve()
             {
-               // var target = (Unit) GameState.Target;
-                //GD.Print("target on card: ", target);
                 Controller.DestroyUnit(GameState.Target);
             }
         }

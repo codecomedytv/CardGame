@@ -13,7 +13,7 @@
             AddSkill(new BattleImmunity());
         }
 
-        public class BattleImmunity : Skill
+        private class BattleImmunity : Skill
         {
             public BattleImmunity()
             {
