@@ -11,6 +11,10 @@ namespace CardGame.Server {
 
 	public abstract class Card : Reference
 	{
+		[Signal]
+		public delegate void Exit();
+		
+		
 		public string Title = "Card";
 		public SetCodes SetCode = 0;
 		public int Id;
@@ -36,45 +40,25 @@ namespace CardGame.Server {
 			AddSkill(new NullSkill());
 		}
 
-		public virtual void SetCanBeDeployed()
-		{
-			CanBeDeployed = false;
-		}
+		public virtual void SetCanBeDeployed() => CanBeDeployed = false;
 
-		public virtual void SetCanBeSet()
-		{
-			CanBeSet = false;
-		}
+		public virtual void SetCanBeSet() => CanBeSet = false;
 
-		public virtual void SetCanAttack()
-		{
-			CanAttack = false;
-		}
+		public virtual void SetCanAttack() => CanAttack = false;
 
-		public virtual void SetCanBeActivated()
-		{
-			CanBeActivated = false;
-		}
+		public virtual void SetCanBeActivated() => CanBeActivated = false;
+
+		public bool HasTag(Tag tag) => Tags.Exists(decorator => decorator.Tag == tag);
 		
+		
+		public Dictionary<string, int> Serialize() => new Dictionary<string, int>{{"Id", Id}, {"setCode", (int)SetCode}};
 
-		[Signal]
-		public delegate void Exit();
-		
-		public Dictionary<string, int> Serialize()
-		{
-			return new Dictionary<string, int>{{"Id", Id}, {"setCode", (int)SetCode}};
-		}
-		
 		public void SetZone(List<Card> newZone)
 		{
 			// Zone = newZone;
 			// EmitSignal(nameof(Exit));
 		}
 		
-		public bool HasTag(Tag tag)
-		{
-			return Tags.Exists(decorator => decorator.Tag == tag);
-		}
 
 		protected void AddSkill(Skill skill)
 		{
@@ -82,10 +66,7 @@ namespace CardGame.Server {
 			skill.Card = this;
 		}
 		
-		public override string ToString()
-		{
-			return String.Format("{0}: {1}", Id.ToString(), Title);
-		}
+		public override string ToString() => $"{Id.ToString()}: {Title}";
 
 	}
 }

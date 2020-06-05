@@ -35,40 +35,18 @@ namespace CardGame.Server {
 		[Signal]
 		public delegate void Register();
 		public Player() {}
+		
+		public bool OnDeploy(Unit unit) => State.OnDeploy(unit);
+		
+		public bool OnAttack(Unit unit, object defender, bool isDirectAttack) => State.OnAttack(unit, defender, isDirectAttack);
+		
+		public bool OnActivation(Support card, Array<int> targets) => State.OnActivation(card, targets);
+		
+		public bool OnSetFaceDown(Support support) => State.OnSetFaceDown(support);
 
-		#region StateMachine
+		public bool OnPriorityPassed() => State.OnPassPlay();
 
-		public bool OnDeploy(Unit unit)
-		{
-			return State.OnDeploy(unit);
-		}
-
-		public bool OnAttack(Unit unit, object defender, bool isDirectAttack)
-		{
-			return State.OnAttack(unit, defender, isDirectAttack);
-		}
-
-		public bool OnActivation(Support card, Array<int> targets)
-		{
-			return State.OnActivation(card, targets);
-		}
-
-		public bool OnSetFaceDown(Support support)
-		{
-			return State.OnSetFaceDown(support);
-		}
-
-		public bool OnPriorityPassed()
-		{
-			return State.OnPassPlay();
-		}
-
-		public bool OnEndTurn()
-		{
-			return State.OnEndTurn();
-		}
-
-		#endregion
+		public bool OnEndTurn() => State.OnEndTurn();
 
 		public void SetState(State newState)
 		{
@@ -102,10 +80,8 @@ namespace CardGame.Server {
 			DeclarePlay(new LoadDeck(Deck.ToList()));
 		}
 
-		public void DeclarePlay(GameEvent gameEvent)
-		{
-			EmitSignal(nameof(PlayExecuted), this, gameEvent);
-		}
+		public void DeclarePlay(GameEvent gameEvent) => EmitSignal(nameof(PlayExecuted), this, gameEvent);
+		
 
 		public void Shuffle()
 		{
@@ -155,10 +131,8 @@ namespace CardGame.Server {
 			DeclarePlay(new ShowAttack(attacker, defender));
 		}
 
-		public bool HasTag(Tag tag)
-		{
-			return Tags.Exists(decorator => decorator.Tag == tag);
-		}
+		public bool HasTag(Tag tag) => Tags.Exists(decorator => decorator.Tag == tag);
+		
 
 		public void ReadyCard(Card card)
 		{
