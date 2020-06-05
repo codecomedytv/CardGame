@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using CardGame;
 using CardGame.Client.Match;
 using Godot;
 using Godot.Collections;
+using Array = Godot.Collections.Array;
 
 namespace CardGameSharp.Client.Game
 {
@@ -52,14 +55,14 @@ namespace CardGameSharp.Client.Game
 				switch((GameEvents)command["command"])
 				{
 					case GameEvents.Draw:
-						Player.Draw(args);
+						Player.Draw(command["args"] as Array);
 						break;
 					case GameEvents.LoadDeck:
 						var decksize = (int)args[0];
 						Player.LoadDeck(decksize);
 						break;
 					case GameEvents.OpponentDraw:
-						Opponent.Draw(args);
+						Opponent.Draw(command["args"] as Array);
 						break;
 					case GameEvents.OpponentLoadDeck:
 						var Odecksize = (int)args[0];
@@ -78,16 +81,16 @@ namespace CardGameSharp.Client.Game
 						Player.Lose();
 						break;
 					case GameEvents.Deploy:
-						Player.Deploy(args);
+						Player.Deploy(command["args"] as Array);
 						break;
 					case GameEvents.OpponentDeploy:
-						Opponent.Deploy(args);
+						Opponent.Deploy(command["args"] as Array);
 						break;
 					case GameEvents.SetFaceDown:
-						Player.SetFaceDown(args);
+						Player.SetFaceDown(command["args"] as Array);
 						break;
 					case GameEvents.OpponentSetFaceDown:
-						Opponent.SetFaceDown(args);
+						Opponent.SetFaceDown(command["args"] as Array);
 						break;
 					case GameEvents.LoseLife:
 						Player.LoseLife(new Array<int>(args));
@@ -96,16 +99,16 @@ namespace CardGameSharp.Client.Game
 						Opponent.LoseLife(new Array<int>(args));
 						break;
 					case GameEvents.CardDestroyed:
-						Player.DestroyUnit(args);
+						Player.DestroyUnit(command["args"] as Array);
 						break;
 					case GameEvents.OpponentCardDestroyed:
-						Opponent.DestroyUnit(args);
+						Opponent.DestroyUnit(command["args"] as Array);
 						break;
 					case GameEvents.AttackedUnit:
-						Player.AttackUnit(args);
+						Player.AttackUnit(command["args"] as Array);
 						break;
 					case GameEvents.OpponentAttackedUnit:
-						Opponent.AttackUnit(args);
+						Opponent.AttackUnit(command["args"] as Array);
 						break;
 					case GameEvents.ReadyCard:
 						Player.ReadyCards(new Array<int>(args));
@@ -114,13 +117,13 @@ namespace CardGameSharp.Client.Game
 						Player.UnreadyCards(new Array<int>(args));
 						break;
 					case GameEvents.AttackedDirectly:
-						Player.attack_directly(args);
+						Player.attack_directly(command["args"] as Array);
 						break;
 					case GameEvents.OpponentAttackedDirectly:
-						Opponent.AttackDirectly(args);
+						Opponent.AttackDirectly(command["args"] as Array);
 						break;
 					case GameEvents.OpponentActivate:
-						Opponent.Activate(args);
+						Opponent.Activate(command["args"] as Array);
 						break;
 					case GameEvents.Resolve:
 						Player.Resolve();
@@ -128,42 +131,60 @@ namespace CardGameSharp.Client.Game
 						Player.Link.Clear();
 						break;
 					case GameEvents.SetTargets:
-						Player.SetTargets(args);
+						Player.SetTargets(command["args"] as Array);
 						break;
 					case GameEvents.Bounce:
-						Player.bounce(args);
+						Player.bounce(command["args"] as Array);
 						break;
 					case GameEvents.OpponentBounce:
-						Opponent.Bounce(args);
+						Opponent.Bounce(command["args"] as Array);
 						break;
 					case GameEvents.AttackDeclared:
-						Opponent.ShowAttack(args);
+						Opponent.ShowAttack(command["args"] as Array);
 						break;
 					case GameEvents.AutoTarget:
-						Player.autotarget(args);
+						Player.autotarget(command["args"] as Array);
 						break;
 					case GameEvents.SetState:
-						Player.SetState(args);
+						Player.SetState(command["args"] as Array);
 						break;
 					case GameEvents.SetDeployable:
-						Player.SetDeployable(args);
+						Player.SetDeployable(command["args"] as Array);
 						break;
 					case GameEvents.SetAsAttacker:
-						Player.SetAttacker(args);
+						Player.SetAttacker(command["args"] as Array);
 						break;
 					case GameEvents.NoOp:
 						break;
 					case GameEvents.SetSettable:
-						Player.SetSettable(args);
+						Player.SetSettable(command["args"] as Array);
 						break;
 					case GameEvents.SetActivatable:
-						Player.SetActivatable(args);
+						Player.SetActivatable(command["args"] as Array);
 						break;
+					case GameEvents.Discard:
+						break;
+					case GameEvents.OpponentDiscard:
+						break;
+					case GameEvents.Mill:
+						break;
+					case GameEvents.OpponentMill:
+						break;
+					case GameEvents.Activate:
+						break;
+					case GameEvents.ReturnToDeck:
+						break;
+					case GameEvents.OpponentReturnedToDeck:
+						break;
+					default:
+						throw new ArgumentOutOfRangeException();
 				}
 			}
 			EmitSignal(nameof(Animated));
 			Events.Clear();
 		}
+
+        
         
     }
 }
