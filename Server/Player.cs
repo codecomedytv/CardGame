@@ -34,13 +34,9 @@ namespace CardGame.Server {
 		
 		[Signal]
 		public delegate void Register();
-
-		[Signal]
-		public delegate void Disqualified();
-
 		public Player() {}
 
-		#region StateCommandsTemp
+		#region StateMachine
 
 		public bool OnDeploy(Unit unit)
 		{
@@ -292,12 +288,7 @@ namespace CardGame.Server {
 		public void Win() { DeclarePlay(new GameOver(this, Opponent)); }
 
 		#endregion
-
-		public void Disqualify()
-		{
-			EmitSignal(nameof(Disqualified), Id, 0);
-			EmitSignal(nameof(Disqualified), Opponent.Id, 0);
-		}
+		
 		
 	}
 	

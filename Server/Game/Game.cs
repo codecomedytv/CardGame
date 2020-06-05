@@ -56,7 +56,6 @@ namespace CardGame.Server {
 			connect(Messenger, nameof(BaseMessenger.PassedPriority), this, nameof(OnPriorityPassed));
 			foreach (var player in Players.Values)
 			{
-				connect(player, nameof(Player.Disqualified), this, nameof(OnPlayerDisqualified));
 				connect(player, nameof(Player.PlayExecuted), this.Messenger, nameof(Messenger.OnPlayExecuted));
 				var bounds = new Godot.Collections.Array { player.Opponent };
 				connect(player, nameof(Player.Register), Link, nameof(Link.Register));
@@ -115,7 +114,7 @@ namespace CardGame.Server {
 			var disqualifyPlayer = player.OnDeploy(card);
 			if (disqualifyPlayer)
 			{
-				player.Disqualify();
+				Disqualify(player, 0);;
 			}
 			Update();
 			
@@ -139,7 +138,7 @@ namespace CardGame.Server {
 			var disqualifyPlayer = player.OnAttack(attacker, defender, defenderId == -1);
 			if (disqualifyPlayer)
 			{
-				player.Disqualify();
+				Disqualify(player, 0);;
 			}
 			Update();
 		}
@@ -152,7 +151,7 @@ namespace CardGame.Server {
 			var disqualifyPlayer = player.OnSetFaceDown(card);
 			if (disqualifyPlayer)
 			{
-				player.Disqualify();
+				Disqualify(player, 0);;
 			}
 			Update();
 		}
@@ -164,10 +163,8 @@ namespace CardGame.Server {
 			var disqualifyPlayer = player.OnActivation(card, targets);
 			if (disqualifyPlayer)
 			{
-				player.Disqualify();
+				Disqualify(player, 0);;
 			}
-			// player.SetState(new Acting());
-			// player.Opponent.SetState(new Active());
 			Update();
 			
 		}
@@ -178,7 +175,7 @@ namespace CardGame.Server {
 			var disqualifyPlayer = player.OnPriorityPassed();
 			if (disqualifyPlayer)
 			{
-				player.Disqualify();
+				Disqualify(player, 0);;
 			}
 			Update();
 			
@@ -190,19 +187,19 @@ namespace CardGame.Server {
 			var disqualifyPlayer = player.OnEndTurn();
 			if (disqualifyPlayer)
 			{
-				player.Disqualify();
+				Disqualify(player, 0);;
 			}
 			TurnPlayer = player.Opponent;
 			GameState.TurnPlayer = TurnPlayer;
 			BeginTurn();
 		}
 
-		public void OnPlayerDisqualified(int playerId, int reason)
+		public void Disqualify(Player player, int reason)
 		{
 			// We require this call to be deferred so we can keep the RPC Path Connected until Disconnected
-			Players[playerId].IsDisqualified = true;
-			Messenger.DisqualifyPlayer(playerId, reason);
-			EmitSignal(nameof(Disqualified), playerId);
+			player.IsDisqualified = true;
+			Messenger.DisqualifyPlayer(player.Id, reason);
+			Messenger.DisqualifyPlayer(player.Opponent.Id, 0);
 		}
 
 		public void Update()
