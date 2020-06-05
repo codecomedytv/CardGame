@@ -229,25 +229,23 @@ namespace CardGame.Client.Match
 			}
 		}
 
-		public void Deploy(Array args)
+		public void Deploy(Card card)
 		{
-			if (args[0] is Dictionary arg)
-			{
-				var card = Who == (int) Gfx.Who.Player ? (Card)Cards[args[0]] : (Card)Cards[arg["Id"]];
-				if (Who == (int) Gfx.Who.Opponent)
-				{
-					Hand.RemoveChild(Hand.GetChild(0));
-					Hand.AddChild(card);
-					Sort(Hand);
-					card.FlipFaceDown();
-				}
 			
-				QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Units), 0.3F, Delay());
-				QueueCallback(History, Delay() + 0.3F, "Deploy", Who, card);
-				QueueCallback(card.GetParent(), Delay(0.3F), "remove_child", card);
-				QueueCallback(Units, Delay(), "add_child", card);
-				QueueCallback(card, Delay(), "FlipFaceUp");
+			if (Who == (int) Gfx.Who.Opponent)
+			{
+				Hand.RemoveChild(Hand.GetChild(0));
+				Hand.AddChild(card);
+				Sort(Hand);
+				card.FlipFaceDown();
 			}
+		
+			QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Units), 0.3F, Delay());
+			QueueCallback(History, Delay() + 0.3F, "Deploy", Who, card);
+			QueueCallback(card.GetParent(), Delay(0.3F), "remove_child", card);
+			QueueCallback(Units, Delay(), "add_child", card);
+			QueueCallback(card, Delay(), "FlipFaceUp");
+			
 
 			QueueCallback(Sfx, Delay(), "Deploy");
 			
@@ -271,10 +269,9 @@ namespace CardGame.Client.Match
 			QueueCallback(Sfx, Delay(), "SetFaceDown");
 		}
 		
-		public void LoseLife(Array<int> args)
+		public void LoseLife(int damageTaken)
 		{
-			var damageTaken = args[0];
-			Damage.Text = "-" + args[0].ToString();
+			Damage.Text = "-" + damageTaken.ToString();
 			Life.Text = (Life.Text.ToInt() - (int) damageTaken).ToString();
 			var visible = Damage.Modulate + new Color(0, 0, 0, 255);
 			var invisible = Damage.Modulate - new Color(0, 0, 0, 255);
@@ -283,9 +280,8 @@ namespace CardGame.Client.Match
 			QueueCallback(Damage, Delay(0.5), "set_self_modulate", invisible);
 		}
 		
-		public void DestroyUnit(Array args)
+		public void DestroyUnit(Card card)
 		{
-			var card = (Card) Cards[args[0]];
 			QueueCallback(card.GetParent(), Delay(0.3), "remove_child", card);
 			QueueCallback(Discard, Delay(), "add_child", card);
 			QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, Discard.RectGlobalPosition, 0.3F,
@@ -293,10 +289,9 @@ namespace CardGame.Client.Match
 			QueueCallback(History, Delay() + 0.1F, "DestroyUnit", Who, card);
 		}
 		
-		public void LoadDeck(Array args)
+		public void LoadDeck(int deckSize)
 		{
-			var deckSize = args[0].ToString();
-			QueueCallback(Deck, Delay(0.3F), "set_text", deckSize);
+			QueueCallback(Deck, Delay(0.3F), "set_text", deckSize.ToString());
 		}
 
 		public void Draw(Array args, Player playerData)

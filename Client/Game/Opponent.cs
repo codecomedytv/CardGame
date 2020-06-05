@@ -65,15 +65,12 @@ namespace CardGameSharp.Client.Game
 			if (!(args[0] is Dictionary data)) return;
 			var id = (int) data["Id"];
 			var setCode = (SetCodes) data["setCode"];
-			if (Library.Fetch(id, setCode) is Card card)
-			{
-				card.Id = id;
-				Cards[card.Id] = card;
-				HandSize -= 1;
-				Field.Add(card);
-			}
-
-			Visual.Deploy(args);
+			var card = Library.Fetch(id, setCode) as Card;
+			card.Id = id;
+			Cards[card.Id] = card;
+			HandSize -= 1;
+			Field.Add(card);
+			Visual.Deploy(card);
 
 		}
 
@@ -159,23 +156,22 @@ namespace CardGameSharp.Client.Game
 		public void DestroyUnit(Array args)
 		{
 			var id = (int) args[0];
-			var card = Cards[id];
+			var card = Cards[id] as Card;
 			Field.Remove((Card) card);
 			Graveyard.Add((Card) card);
-			Visual.DestroyUnit(args);
+			Visual.DestroyUnit(card);
 		}
 
 		public void LoseLife(Array<int> args)
 		{
 			Health -= (int) args[0];
-			Visual.LoseLife(args);
+			Visual.LoseLife(args[0]);
 		}
 
-		public void LoadDeck(Array args)
+		public void LoadDeck(int deckSize)
 		{
-			var deckSize = (int)args[0];
 			DeckSize = deckSize;
-			Visual.LoadDeck(args);
+			Visual.LoadDeck(deckSize);
 		}
 	}
 }

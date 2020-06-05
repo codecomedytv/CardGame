@@ -81,7 +81,7 @@ namespace CardGame.Client.Match
 			}
 		}
 
-		public void set_activatable(Array args) 
+		public void SetActivatable(Array args) 
 		{
 			if (Cards[args[0]] is Card card)
 			{
@@ -158,7 +158,7 @@ namespace CardGame.Client.Match
 			Hand.Remove(card);
 			Field.Add(card);
 			if (card != null) card.Zone = Card.Zones.Unit;
-			Visual.Deploy(args);
+			Visual.Deploy(card);
 	    }
 			
 		public void Activate(Array args) {
@@ -203,17 +203,17 @@ namespace CardGame.Client.Match
 			Visual.Draw(args, this);
 	    }
 
-		public void destroy_unit(Array args) {
+		public void DestroyUnit(Array args) {
 			var card = Cards[args[0]] as Card;
 			Field.Remove(card);
 			Graveyard.Add(card);
 			card.Zone = Card.Zones.Discard;
-			Visual.DestroyUnit(args);
+			Visual.DestroyUnit(card);
 			}
 			
 		public void LoseLife(Array<int> args) {
 			Health -= args[0];
-			Visual.LoseLife(args);
+			Visual.LoseLife(args[0]);
 			}
 		
 		public void ReadyCards(Array<int> cardIds)
@@ -236,11 +236,11 @@ namespace CardGame.Client.Match
 			Visual.UnreadyCards(cardIds);
 		}
 
-		public void LoadDeck(Array args)
+		public void LoadDeck(int deckSize)
 		{
-			var deckSize = (int) args[0];
+			//var deckSize = (int) args[0];
 			DeckSize = deckSize;
-			Visual.LoadDeck(args);
+			Visual.LoadDeck(deckSize);
 		}
 
 		public void BeginTurn() 

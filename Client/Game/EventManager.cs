@@ -55,13 +55,15 @@ namespace CardGameSharp.Client.Game
 						Player.Draw(args);
 						break;
 					case GameEvents.LoadDeck:
-						Player.LoadDeck(args);
+						var decksize = (int)args[0];
+						Player.LoadDeck(decksize);
 						break;
 					case GameEvents.OpponentDraw:
 						Opponent.Draw(args);
 						break;
 					case GameEvents.OpponentLoadDeck:
-						Opponent.LoadDeck(args);
+						var Odecksize = (int)args[0];
+						Opponent.LoadDeck(Odecksize);
 						break;
 					case GameEvents.BeginTurn:
 						Player.BeginTurn();
@@ -94,7 +96,7 @@ namespace CardGameSharp.Client.Game
 						Opponent.LoseLife(new Array<int>(args));
 						break;
 					case GameEvents.CardDestroyed:
-						Player.destroy_unit(args);
+						Player.DestroyUnit(args);
 						break;
 					case GameEvents.OpponentCardDestroyed:
 						Opponent.DestroyUnit(args);
@@ -155,7 +157,7 @@ namespace CardGameSharp.Client.Game
 						Player.SetSettable(args);
 						break;
 					case GameEvents.SetActivatable:
-						Player.set_activatable(args);
+						Player.SetActivatable(args);
 						break;
 				}
 			}
