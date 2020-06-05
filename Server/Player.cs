@@ -114,19 +114,13 @@ namespace CardGame.Server {
 
 		public void DrawCards(int drawCount)
 		{
-			var lost = false;
 			for (var i = 0; i < drawCount; i++)
 			{
 				if (Deck.Count == 0)
 				{
-					lost = true;
-					break;
+					Opponent.Win();
 				}
 				Draw(1);
-			}
-			if (lost)
-			{
-				Opponent.Win();
 			}
 		}
 
