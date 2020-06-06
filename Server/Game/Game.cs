@@ -196,7 +196,6 @@ namespace CardGame.Server {
 				Disqualify(player, 0);;
 			}
 			TurnPlayer = player.Opponent;
-			GameState.TurnPlayer = TurnPlayer;
 			BeginTurn();
 		}
 

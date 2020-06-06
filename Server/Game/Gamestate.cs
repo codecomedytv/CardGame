@@ -10,7 +10,6 @@ namespace CardGame.Server {
 		public int NextCardID = 0;
 		public Godot.Collections.Dictionary<int, Card> CardCatalog = new Godot.Collections.Dictionary<int, Card>();
 		public Unit Attacking;
-		public Player TurnPlayer;
 
 		public void RegisterCard(Card card)
 		{
@@ -21,8 +20,6 @@ namespace CardGame.Server {
 
 		public Card GetCard(int id) => CardCatalog[id];
 		
-		public Player GetTurnPlayer() => TurnPlayer;
-
 	}
 
 }
