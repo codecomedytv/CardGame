@@ -39,7 +39,7 @@ namespace CardGame.Server {
 				// Defender is not a Card, so it must be int and the only int is directAttack
 				Attacking.AttackDirectly(Attacker);
 				Defending.LoseLife(Attacker.Attack);
-				Attacking.UnreadyCard(Attacker);
+				Attacking.DeclarePlay(new UnreadyCard(Attacker));
 				return;
 			}
 
@@ -55,7 +55,7 @@ namespace CardGame.Server {
 				}
 
 				Defending.LoseLife(overflow);
-				Attacking.UnreadyCard(Attacker);
+				Attacking.DeclarePlay(new UnreadyCard(Attacker));
 			}
 			
 			else if (Attacker.Attack <= defender.Defense && defender.Attack > Attacker.Defense)
@@ -67,12 +67,12 @@ namespace CardGame.Server {
 				}
 
 				Attacking.LoseLife(overflow);
-				Attacking.UnreadyCard(Attacker);
+				Attacking.DeclarePlay(new UnreadyCard(Attacker));
 			}
 
 			else
 			{
-				Attacking.UnreadyCard(Attacker);
+				Attacking.DeclarePlay(new UnreadyCard(Attacker));
 			}
 			{
 				

@@ -1,8 +1,8 @@
 ﻿namespace CardGame.Server
 {
-    public class ReturnToDeck: Support
+    public class ReturnCardToDeck: Support
     {
-        public ReturnToDeck()
+        public ReturnCardToDeck()
         {
             Title = "Debug.ReturnToDeck";
             SetCode = SetCodes.DebugReturnToDeck;
@@ -19,7 +19,7 @@
 
             protected override void _Resolve()
             {
-                Controller.ReturnToDeck(GameState.Target);
+                Controller.DeclarePlay( new ReturnToDeck(Card, Controller, GameState.Target));
             }
         }
         

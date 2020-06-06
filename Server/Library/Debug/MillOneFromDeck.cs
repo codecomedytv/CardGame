@@ -13,7 +13,7 @@
         {
             protected override void _Resolve()
             {
-                Controller.MillFromDeck();
+                Controller.DeclarePlay(new Mill(Card, Controller, Controller.Deck[Controller.Deck.Count-1]));
             }
         }
     }

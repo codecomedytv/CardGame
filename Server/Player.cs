@@ -103,28 +103,14 @@ namespace CardGame.Server {
 				{
 					Opponent.Win();
 				}
-				Draw(1);
+				Draw();
 			}
 		}
 
-		public void Draw(int drawCount)
+		public void Draw()
 		{
-			var card = Deck[Deck.Count-1];
-			//Deck.RemoveAt(Deck.Count-1);
-			//Hand.Add(card);
-			//card.Zone = Hand;
-			DeclarePlay(new Draw(this, this, card));
+			DeclarePlay(new Draw(this, this, Deck[Deck.Count-1]));
 		}
-
-		public void Discard(Card card)
-		{
-			Hand.Remove(card);
-			Graveyard.Add(card);
-			card.Zone = Graveyard;
-			card.EmitSignal(nameof(Card.Exit));
-			DeclarePlay(new Discard(card));
-		}
-		
 		
 		public void SetTargets(Card selector, List<Card> targets)
 		{
@@ -138,21 +124,6 @@ namespace CardGame.Server {
 
 		public bool HasTag(Tag tag) => Tags.Exists(decorator => decorator.Tag == tag);
 		
-
-		public void ReadyCard(Card card)
-		{
-			card.Ready = true;
-			DeclarePlay(new ReadyCard(card));
-		}
-
-		public void UnreadyCard(Card card)
-		{
-			card.Ready = false;
-			DeclarePlay(new UnreadyCard(card));
-		}
-
-
-
 		public void AttackUnit(Unit attacker, Unit defender)
 		{
 			DeclarePlay(new AttackUnit(attacker, defender));
@@ -162,16 +133,7 @@ namespace CardGame.Server {
 		{
 			DeclarePlay(new AttackDirectly(attacker));
 		}
-
-		public void Deploy(Unit card)
-		{
-			Hand.Remove(card);
-			Field.Add(card);
-			card.Zone = Field;
-			card.EmitSignal(nameof(Card.Exit));
-			DeclarePlay(new Deploy(card));
-		}
-
+		
 		public void DestroyUnit(Card card)
 		{
 			// This might be causing problems elsewhere?
@@ -196,18 +158,7 @@ namespace CardGame.Server {
 				Opponent.DeclarePlay(new DestroyUnits(card));
 			}
 		}
-
-		public void ReturnToDeck(Card card)
-		{
-			Hand.Remove(card);
-			card.Owner.Deck.Add(card);
-			card.Zone = card.Owner.Deck;
-			card.EmitSignal(nameof(Card.Exit));
-			DeclarePlay(new Discard(card));
-			Shuffle();
-			DeclarePlay(new ReturnedToDeck(card));
-		}
-
+		
 		public void LoseLife(int lifeLost)
 		{
 			if(HasTag(Tag.CannotTakeDamage))
@@ -223,35 +174,7 @@ namespace CardGame.Server {
 				Opponent.Win();
 			}
 		}
-
-		public void Bounce(Card card)
-		{
-			if(!card.Controller.Field.Contains(card))
-			{
-				return;
-			}
-			
-			card.Zone.Remove(card);
-			card.Owner.Hand.Add(card);
-			card.Zone = card.Owner.Hand;
-			card.EmitSignal(nameof(Card.Exit));
-			DeclarePlay(new Bounce(card));
-		}
-
-		public void MillFromDeck()
-		{
-			if (Deck.Count == 0)
-			{
-				return;
-			}
-
-			var card = Deck[Deck.Count - 1];
-			Deck.RemoveAt(Deck.Count - 1);
-			Graveyard.Add(card);
-			card.Zone = Graveyard;
-			DeclarePlay(new Mill(card));
-		}
-
+		
 		public void EndTurn() { DeclarePlay(new EndTurn()); }
 		
 		public void Win() { DeclarePlay(new GameOver(this, Opponent)); }
@@ -264,6 +187,7 @@ namespace CardGame.Server {
 			oldZone.Remove(card);
 			newZone.Add(card);
 			card.Zone = newZone;
+			card.EmitSignal(nameof(Card.Exit));
 		}
 	}
 	

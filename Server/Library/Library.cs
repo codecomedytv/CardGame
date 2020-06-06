@@ -35,7 +35,7 @@ namespace CardGame.Server
                  case SetCodes.DebugPlayerCannotTakeDamage:
                      return new PlayerCannotTakeDamage();
                  case SetCodes.DebugReturnToDeck:
-                     return new ReturnToDeck();
+                     return new ReturnCardToDeck();
                  case SetCodes.DebugUntargetableUnit:
                      return new Untargetable();
                  case SetCodes.Alpha_CounterAttack:

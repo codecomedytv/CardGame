@@ -98,7 +98,7 @@ namespace CardGame.Server {
 			var player = TurnPlayer;
 			// Need to figure a way for this to trigger on state entry?
 			// Might be better as command instead
-			player.Draw(1);
+			player.Draw();
 			player.SetState(new Idle());
 			Link.ApplyConstants();
 			Link.SetupManual("");

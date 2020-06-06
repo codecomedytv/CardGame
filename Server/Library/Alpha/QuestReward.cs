@@ -13,7 +13,7 @@
         {
             protected override void _Resolve()
             {
-                Controller.Draw(2);
+                Controller.DrawCards(2);
             }
         }
     }

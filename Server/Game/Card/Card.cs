@@ -9,7 +9,7 @@ using System.Reflection;
 
 namespace CardGame.Server {
 
-	public abstract class Card : Reference
+	public abstract class Card : Reference, ISource
 	{
 		[Signal]
 		public delegate void Exit();

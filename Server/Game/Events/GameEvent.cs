@@ -143,23 +143,40 @@ namespace CardGame.Server
         }
     }
 
-    public class Bounce : GameEvent
+    public class Bounce : GameEvent, ICommand
     {
-        private Card Bounced;
+        public readonly ISource Source;
+        public readonly Player Player;
+        public readonly Card Card;
+        public readonly List<Card> PreviousZone;
+        
 
-        public Bounce(Card bounced)
+        public Bounce(ISource source, Player player, Card card)
         {
-            Bounced = bounced;
+            Source = source;
+            Player = player;
+            Card = card;
+            PreviousZone = card.Zone;
         }
 
         public override Message GetMessage()
         {
             var message = new Message();
             message.Player["command"] = GameEvents.Bounce;
-            message.Player["args"] = new Array {Bounced.Id};
+            message.Player["args"] = new Array {Card.Id};
             message.Opponent["command"] = GameEvents.OpponentBounce;
-            message.Opponent["args"] = new Array {Bounced.Id};
+            message.Opponent["args"] = new Array {Card.Id};
             return message;
+        }
+
+        public void Execute()
+        {
+            Player.Move(PreviousZone, Card, Card.Owner.Hand);
+        }
+
+        public void Undo()
+        {
+            Player.Move(Card.Owner.Hand, Card, PreviousZone);
         }
     }
 
@@ -176,13 +193,17 @@ namespace CardGame.Server
         }
     }
     
-    public class Mill: GameEvent
+    public class Mill: GameEvent, ICommand
     {
-        private Card Milled;
+        public readonly ISource Source;
+        public readonly Player Player;
+        public readonly Card Card;
 
-        public Mill(Card milled)
+        public Mill(ISource source, Player player, Card card)
         {
-            Milled = milled;
+            Source = source;
+            Player = player;
+            Card = card;
         }
 
 
@@ -190,29 +211,55 @@ namespace CardGame.Server
         {
             var message = new Message();
             message.Player["command"] = GameEvents.Mill;
-            message.Player["args"] = new Array{Milled.Id}; // Might need to be serialized
+            message.Player["args"] = new Array{Card.Id}; // Might need to be serialized
             message.Opponent["command"] = GameEvents.OpponentMill;
-            message.Opponent["args"] = new Array{Milled.Serialize()};
+            message.Opponent["args"] = new Array{Card.Serialize()};
             return message;
+        }
+
+        public void Execute()
+        {
+            Player.Move(Card.Owner.Deck, Card, Card.Owner.Graveyard);
+        }
+
+        public void Undo()
+        {
+            Player.Move(Card.Owner.Graveyard, Card, Card.Owner.Deck);
         }
     }
 
-    public class Deploy : GameEvent
+    public class Deploy : GameEvent, ICommand
     {
-        private Unit Deployed;
+        public readonly ISource Source;
+        public readonly Player Player;
+        public readonly Card Card;
+        public readonly List<Card> PreviousZone;
 
-        public Deploy(Unit deployed)
+        public Deploy(ISource source, Player player, Card card)
         {
-            Deployed = deployed;
+            Source = source;
+            Player = player;
+            Card = card;
+            PreviousZone = Card.Zone;
+        }
+
+        public void Execute()
+        {
+            Player.Move(PreviousZone, Card, Player.Field);
+        }
+
+        public void Undo()
+        {
+            Player.Move(Player.Field, Card, PreviousZone);
         }
 
         public override Message GetMessage()
         {
             var message = new Message();
             message.Player["command"] = GameEvents.Deploy;
-            message.Player["args"] = new Array {Deployed.Id};
+            message.Player["args"] = new Array {Card.Id};
             message.Opponent["command"] = GameEvents.OpponentDeploy;
-            message.Opponent["args"] = new Array{Deployed.Serialize()};
+            message.Opponent["args"] = new Array{Card.Serialize()};
             return message;
         }
     }
@@ -273,13 +320,27 @@ namespace CardGame.Server
        
     }
 
-    public class  Discard : GameEvent
+    public class  Discard : GameEvent, ICommand
     {
+        public readonly ISource Source;
+        public readonly Player Player;
         public readonly Card Card;
 
-        public Discard(Card card)
+        public Discard(ISource source, Player player, Card card)
         {
+            Source = source;
+            Player = player;
             Card = card;
+        }
+
+        public void Execute()
+        {
+            Player.Move(Player.Hand, Card, Player.Graveyard);
+        }
+
+        public void Undo()
+        {
+            Player.Move(Player.Graveyard, Card, Player.Hand);
         }
 
         public override Message GetMessage()
@@ -368,7 +429,7 @@ namespace CardGame.Server
         }
     }
 
-    public class ReadyCard : GameEvent
+    public class ReadyCard : GameEvent, ICommand
     {
         public readonly Card Card;
 
@@ -376,6 +437,17 @@ namespace CardGame.Server
         {
             Card = card;
         }
+
+        public void Execute()
+        {
+            Card.Ready = true;
+        }
+
+        public void Undo()
+        {
+            Card.Ready = false;
+        }
+
 
         public override Message GetMessage()
         {
@@ -410,11 +482,21 @@ namespace CardGame.Server
 
     public class UnreadyCard : GameEvent
     {
-        private Card Card;
+        public readonly Card Card;
 
         public UnreadyCard(Card card)
         {
             Card = card;
+        }
+        
+        public void Execute()
+        {
+            Card.Ready = false;
+        }
+
+        public void Undo()
+        {
+            Card.Ready = true;
         }
 
         public override Message GetMessage()
@@ -428,13 +510,29 @@ namespace CardGame.Server
         }
     }
 
-    public class ReturnedToDeck : GameEvent
+    public class ReturnToDeck : GameEvent, ICommand
     {
+        public readonly ISource Source;
+        public readonly Player Player;
+        public readonly List<Card> PreviousZone;
         public readonly Card Card;
 
-        public ReturnedToDeck(Card card)
+        public ReturnToDeck(ISource source, Player player, Card card)
         {
+            Source = source;
+            Player = player;
             Card = card;
+            PreviousZone = card.Zone;
+        }
+
+        public void Execute()
+        {
+            Player.Move(PreviousZone, Card, Card.Owner.Deck);
+        }
+
+        public void Undo()
+        {
+            Player.Move(Card.Owner.Deck, Card, PreviousZone);
         }
 
         public override Message GetMessage()

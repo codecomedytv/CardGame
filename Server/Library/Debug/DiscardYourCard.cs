@@ -19,7 +19,7 @@
 
             protected override void _Resolve()
             {
-                Controller.Discard(GameState.Target);
+                Controller.DeclarePlay(new Discard(Card, Controller, GameState.Target));
             }
         }
     }

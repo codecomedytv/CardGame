@@ -23,7 +23,7 @@ namespace CardGame.Server.States
             {
                 return DisqualifyPlayer;
             }
-            Player.Deploy(unit);
+            Player.DeclarePlay(new Deploy(Player, Player, unit));
             Player.Link.Register(unit);
             Player.Link.Broadcast("deploy", new List<Godot.Object>{unit});
             Player.SetState(new Acting());
@@ -102,8 +102,8 @@ namespace CardGame.Server.States
             Player.EndTurn();
             Player.IsTurnPlayer = false;
             Player.Opponent.IsTurnPlayer = true;
-            Player.Opponent.Field.ForEach(unit => Player.Opponent.ReadyCard(unit));
-            Player.Support.ForEach(support => Player.ReadyCard(support));
+            Player.Opponent.Field.ForEach(unit => Player.Opponent.DeclarePlay(new ReadyCard(unit)));
+            Player.Support.ForEach(support => Player.DeclarePlay(new ReadyCard(support)));
             Player.Link.ApplyConstants();
             Player.SetState(new Passive());
             Player.Opponent.SetState(new Idle());
