@@ -20,8 +20,8 @@ namespace CardGame.Server
         {
             public OnSummonDestroy()
             {
-                Type = Types.Auto;
                 GameEvent = "deploy";
+                Type = Types.Auto;
             }
 
             public override void _SetUp()
