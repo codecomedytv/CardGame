@@ -15,6 +15,12 @@ namespace CardGame.Server
         public Dictionary Player = new Dictionary {{"command", null}, {"args", null}};
         public Dictionary Opponent = new Dictionary {{"command", null}, {"args", null}};
     }
+
+    public interface ICommand
+    {
+        void Execute();
+        void Undo();
+    }
     
     public abstract class GameEvent: Reference
     {
@@ -213,20 +219,16 @@ namespace CardGame.Server
 
     public class DestroyUnits : GameEvent
     {
-        private List<Unit> DestroyedUnits;
+        public readonly Card Card;
 
-        public DestroyUnits(List<Unit> destroyedUnits)
+        public DestroyUnits(Card card)
         {
-            DestroyedUnits = destroyedUnits;
+            Card = card;
         }
 
         public override Message GetMessage()
         {
-            var destroyed = new Array();
-            foreach (var unit in DestroyedUnits)
-            {
-                destroyed.Add(unit.Id);
-            }
+            var destroyed = new Array {Card.Id};
             var message = new Message();
             message.Player["command"] = GameEvents.CardDestroyed;
             message.Player["args"] = destroyed;
@@ -239,24 +241,20 @@ namespace CardGame.Server
     public class Draw : GameEvent
     {
         private List<Card> DrawnCards;
+        public readonly Card Card;
 
-        public Draw(List<Card> drawnCards)
+        public Draw(Card card)
         {
-            DrawnCards = drawnCards;
+            Card = card;
         }
 
        public override Message GetMessage()
         {
             var message = new Message();
             message.Player["command"] = GameEvents.Draw;
-            var data = new Array();
-            foreach (var card in DrawnCards)
-            {
-                data.Add(card.Serialize());
-            }
-            message.Player["args"] = data;
+            message.Player["args"] = new Array {Card.Serialize()};
             message.Opponent["command"] = GameEvents.OpponentDraw;
-            message.Opponent["args"] = new Array {DrawnCards.Count};
+            message.Opponent["args"] = new Array {1};
             return message;
         }
        
@@ -264,20 +262,20 @@ namespace CardGame.Server
 
     public class  Discard : GameEvent
     {
-        private Card Discarded;
+        public readonly Card Card;
 
-        public Discard(Card discarded)
+        public Discard(Card card)
         {
-            Discarded = discarded;
+            Card = card;
         }
 
         public override Message GetMessage()
         {
             var message = new Message();
             message.Player["command"] = GameEvents.Discard;
-            message.Player["args"] = new Array{Discarded.Id};
+            message.Player["args"] = new Array{Card.Id};
             message.Opponent["command"] = GameEvents.OpponentDiscard;
-            message.Opponent["args"] = new Array{Discarded.Serialize()};
+            message.Opponent["args"] = new Array{Card.Serialize()};
             return message;
         }
     }
@@ -297,8 +295,8 @@ namespace CardGame.Server
 
     public class GameOver : GameEvent
     {
-        private Player Winner;
-        private Player Loser;
+        public readonly Player Winner;
+        public readonly Player Loser;
 
         public GameOver(Player winner, Player loser)
         {
@@ -359,18 +357,18 @@ namespace CardGame.Server
 
     public class ReadyCard : GameEvent
     {
-        private Card ReadiedCard;
+        public readonly Card Card;
 
-        public ReadyCard(Card readiedCard)
+        public ReadyCard(Card card)
         {
-            ReadiedCard = readiedCard;
+            Card = card;
         }
 
         public override Message GetMessage()
         {
             var message = new Message();
             message.Player["command"] = GameEvents.ReadyCard;
-            message.Player["args"] = new Array {ReadiedCard.Id};
+            message.Player["args"] = new Array {Card.Id};
             message.Opponent["command"] = GameEvents.NoOp;
             message.Opponent["args"] = new Array();
             return message;
@@ -379,18 +377,18 @@ namespace CardGame.Server
 
     public class SetSupport : GameEvent
     {
-        private Card Facedown;
+        public readonly Card Card;
 
-        public SetSupport(Card faceDown)
+        public SetSupport(Card card)
         {
-            Facedown = faceDown;
+            Card = card;
         }
 
         public override Message GetMessage()
         {
             var message = new Message();
             message.Player["command"] = GameEvents.SetFaceDown;
-            message.Player["args"] = new Array{Facedown.Id};
+            message.Player["args"] = new Array{Card.Id};
             message.Opponent["command"] = GameEvents.OpponentSetFaceDown;
             message.Opponent["args"] = new Array();
             return message;
@@ -399,18 +397,18 @@ namespace CardGame.Server
 
     public class UnreadyCard : GameEvent
     {
-        private Card UnreadiedCard;
+        private Card Card;
 
-        public UnreadyCard(Card unreadiedCard)
+        public UnreadyCard(Card card)
         {
-            UnreadiedCard = unreadiedCard;
+            Card = card;
         }
 
         public override Message GetMessage()
         {
             var message = new Message();
             message.Player["command"] = GameEvents.UnreadyCard;
-            message.Player["args"] = new Array{UnreadiedCard.Id};
+            message.Player["args"] = new Array{Card.Id};
             message.Opponent["command"] = GameEvents.NoOp;
             message.Opponent["args"] = new Array();
             return message;
@@ -419,38 +417,38 @@ namespace CardGame.Server
 
     public class ReturnedToDeck : GameEvent
     {
-        private Card Returned;
+        public readonly Card Card;
 
-        public ReturnedToDeck(Card returned)
+        public ReturnedToDeck(Card card)
         {
-            Returned = returned;
+            Card = card;
         }
 
         public override Message GetMessage()
         {
             var message = new Message();
             message.Player["command"] = GameEvents.ReturnToDeck;
-            message.Player["args"] = new Array{Returned.Id};
+            message.Player["args"] = new Array{Card.Id};
             message.Opponent["command"] = GameEvents.OpponentReturnedToDeck;
-            message.Opponent["args"] = new Array(Returned.Serialize());
+            message.Opponent["args"] = new Array(Card.Serialize());
             return message;
         }
     }
     
     public class SetAsDeployable : GameEvent
     {
-        private Card Deployable;
+        public readonly Card Card;
 
-        public SetAsDeployable(Card deployable)
+        public SetAsDeployable(Card card)
         {
-            Deployable = deployable;
+            Card = card;
         }
 
         public override Message GetMessage()
         {
             var message = new Message();
             message.Player["command"] = GameEvents.SetDeployable;
-            message.Player["args"] = new Array {Deployable.Id};
+            message.Player["args"] = new Array {Card.Id};
             message.Opponent["command"] = GameEvents.NoOp;
             message.Opponent["args"] = new Array();
             return message;
@@ -459,18 +457,18 @@ namespace CardGame.Server
 
     public class SetAsSettable : GameEvent
     {
-        private Card Support;
+        public readonly Card Card;
 
-        public SetAsSettable(Card support)
+        public SetAsSettable(Card card)
         {
-            Support = support;
+            Card = card;
         }
 
         public override Message GetMessage()
         {
             var message = new Message();
             message.Player["command"] = GameEvents.SetSettable;
-            message.Player["args"] = new Array{Support.Id};
+            message.Player["args"] = new Array{Card.Id};
             message.Opponent["command"] = GameEvents.NoOp;
             message.Opponent["args"] = new Array();
             return message;
@@ -479,18 +477,18 @@ namespace CardGame.Server
 
     public class SetAsActivatable : GameEvent
     {
-        private Card Support;
+        public readonly Card Card;
 
-        public SetAsActivatable(Card support)
+        public SetAsActivatable(Card card)
         {
-            Support = support;
+            Card = Card;
         }
 
         public override Message GetMessage()
         {
             var message = new Message();
             message.Player["command"] = GameEvents.SetActivatable;
-            message.Player["args"] = new Array {Support.Id};
+            message.Player["args"] = new Array {Card.Id};
             message.Opponent["command"] = GameEvents.NoOp;
             message.Opponent["args"] = new Array();
             return message;
@@ -499,18 +497,18 @@ namespace CardGame.Server
 
     public class SetAsAttacker : GameEvent
     {
-        private Card Unit;
+        public readonly Card Card;
 
-        public SetAsAttacker(Card unit)
+        public SetAsAttacker(Card card)
         {
-            Unit = unit;
+            Card = card;
         }
         
         public override Message GetMessage()
         {
             var message = new Message();
             message.Player["command"] = GameEvents.SetAsAttacker;
-            message.Player["args"] = new Array {Unit.Id};
+            message.Player["args"] = new Array {Card.Id};
             message.Opponent["command"] = GameEvents.NoOp;
             message.Opponent["args"] = new Array();
             return message;
@@ -532,8 +530,8 @@ namespace CardGame.Server
 
     public class SetTargets : GameEvent
     {
-        private Card Selector;
-        private List<Card> Targets;
+        public readonly Card Selector;
+        public readonly List<Card> Targets;
 
         public SetTargets(Card selector, List<Card> targets)
         {

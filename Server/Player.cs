@@ -102,13 +102,11 @@ namespace CardGame.Server {
 
 		public void Draw(int drawCount)
 		{
-			var cards = new List<Card>();
 			var card = Deck[Deck.Count-1];
 			Deck.RemoveAt(Deck.Count-1);
 			Hand.Add(card);
 			card.Zone = Hand;
-			cards.Add(card);
-			DeclarePlay(new Draw(cards));
+			DeclarePlay(new Draw(card));
 		}
 
 		public void Discard(Card card)
@@ -167,7 +165,7 @@ namespace CardGame.Server {
 			DeclarePlay(new Deploy(card));
 		}
 
-		public void DestroyUnit(Unit card)
+		public void DestroyUnit(Card card)
 		{
 			// This might be causing problems elsewhere?
 			if (card.HasTag(Tag.CannotBeDestroyedByEffect))
@@ -185,10 +183,10 @@ namespace CardGame.Server {
 			
 			// This is (currently) required to make sure the animations sync
 			if(card.Zone == Graveyard)
-				DeclarePlay(new DestroyUnits(new List<Unit> { card }));
+				DeclarePlay(new DestroyUnits(card));
 			else
 			{
-				Opponent.DeclarePlay(new DestroyUnits(new List<Unit> { card }));
+				Opponent.DeclarePlay(new DestroyUnits(card));
 			}
 		}
 
