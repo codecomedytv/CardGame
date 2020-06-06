@@ -1,8 +1,8 @@
-﻿using CardGame;
+﻿using System;
+using CardGame;
 using CardGame.Client.Library.Card;
 using Godot;
-using Godot.Collections;
-
+using Array = Godot.Collections.Array;
 
 
 namespace CardGameSharp.Client.Game

@@ -238,17 +238,30 @@ namespace CardGame.Server
         }
     }
 
-    public class Draw : GameEvent
+    public class Draw : GameEvent, ICommand
     {
-        private List<Card> DrawnCards;
+        public readonly ISource Source;
+        public readonly Player Player;
         public readonly Card Card;
 
-        public Draw(Card card)
+        public Draw(ISource source, Player player, Card card)
         {
+            Source = source;
+            Player = player;
             Card = card;
         }
 
-       public override Message GetMessage()
+        public void Execute()
+        {
+            Player.Move(Player.Deck, Card, Player.Hand);
+        }
+
+        public void Undo()
+        {
+            Player.Move(Player.Hand, Card, Player.Deck);
+        }
+
+        public override Message GetMessage()
         {
             var message = new Message();
             message.Player["command"] = GameEvents.Draw;
@@ -481,7 +494,7 @@ namespace CardGame.Server
 
         public SetAsActivatable(Card card)
         {
-            Card = Card;
+            Card = card;
         }
 
         public override Message GetMessage()

@@ -8,7 +8,7 @@ using Godot.Collections;
 
 namespace CardGame.Server {
 
-	public class Player : Node
+	public class Player : Node, ISource
 	{
 		//public enum States { Idle, Active, Passive, Acting, Passing }
 
@@ -80,8 +80,15 @@ namespace CardGame.Server {
 			DeclarePlay(new LoadDeck(Deck.ToList()));
 		}
 
-		public void DeclarePlay(GameEvent gameEvent) => EmitSignal(nameof(PlayExecuted), this, gameEvent);
-		
+		public void DeclarePlay(GameEvent gameEvent)
+		{
+			if (gameEvent is ICommand command)
+			{
+				command.Execute();
+			}
+			EmitSignal(nameof(PlayExecuted), this, gameEvent);
+		}
+
 
 		public void Shuffle()
 		{
@@ -103,10 +110,10 @@ namespace CardGame.Server {
 		public void Draw(int drawCount)
 		{
 			var card = Deck[Deck.Count-1];
-			Deck.RemoveAt(Deck.Count-1);
-			Hand.Add(card);
-			card.Zone = Hand;
-			DeclarePlay(new Draw(card));
+			//Deck.RemoveAt(Deck.Count-1);
+			//Hand.Add(card);
+			//card.Zone = Hand;
+			DeclarePlay(new Draw(this, this, card));
 		}
 
 		public void Discard(Card card)
@@ -250,8 +257,14 @@ namespace CardGame.Server {
 		public void Win() { DeclarePlay(new GameOver(this, Opponent)); }
 
 		#endregion
-		
-		
+
+
+		public void Move(List<Card> oldZone, Card card, List<Card> newZone)
+		{
+			oldZone.Remove(card);
+			newZone.Add(card);
+			card.Zone = newZone;
+		}
 	}
 	
 }
