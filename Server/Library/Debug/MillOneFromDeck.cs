@@ -1,4 +1,6 @@
-﻿namespace CardGame.Server
+﻿using CardGame.Server.Commands;
+
+namespace CardGame.Server
 {
     public class MillOneFromDeck : Support
     {

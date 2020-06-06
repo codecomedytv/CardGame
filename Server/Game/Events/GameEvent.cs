@@ -143,42 +143,7 @@ namespace CardGame.Server
         }
     }
 
-    public class Bounce : GameEvent, ICommand
-    {
-        public readonly ISource Source;
-        public readonly Player Player;
-        public readonly Card Card;
-        public readonly List<Card> PreviousZone;
-        
-
-        public Bounce(ISource source, Player player, Card card)
-        {
-            Source = source;
-            Player = player;
-            Card = card;
-            PreviousZone = card.Zone;
-        }
-
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.Bounce;
-            message.Player["args"] = new Array {Card.Id};
-            message.Opponent["command"] = GameEvents.OpponentBounce;
-            message.Opponent["args"] = new Array {Card.Id};
-            return message;
-        }
-
-        public void Execute()
-        {
-            Player.Move(PreviousZone, Card, Card.Owner.Hand);
-        }
-
-        public void Undo()
-        {
-            Player.Move(Card.Owner.Hand, Card, PreviousZone);
-        }
-    }
+    
 
     public class BeginTurn : GameEvent
     {
@@ -193,76 +158,9 @@ namespace CardGame.Server
         }
     }
     
-    public class Mill: GameEvent, ICommand
-    {
-        public readonly ISource Source;
-        public readonly Player Player;
-        public readonly Card Card;
+    
 
-        public Mill(ISource source, Player player, Card card)
-        {
-            Source = source;
-            Player = player;
-            Card = card;
-        }
-
-
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.Mill;
-            message.Player["args"] = new Array{Card.Id}; // Might need to be serialized
-            message.Opponent["command"] = GameEvents.OpponentMill;
-            message.Opponent["args"] = new Array{Card.Serialize()};
-            return message;
-        }
-
-        public void Execute()
-        {
-            Player.Move(Card.Owner.Deck, Card, Card.Owner.Graveyard);
-        }
-
-        public void Undo()
-        {
-            Player.Move(Card.Owner.Graveyard, Card, Card.Owner.Deck);
-        }
-    }
-
-    public class Deploy : GameEvent, ICommand
-    {
-        public readonly ISource Source;
-        public readonly Player Player;
-        public readonly Card Card;
-        public readonly List<Card> PreviousZone;
-
-        public Deploy(ISource source, Player player, Card card)
-        {
-            Source = source;
-            Player = player;
-            Card = card;
-            PreviousZone = Card.Zone;
-        }
-
-        public void Execute()
-        {
-            Player.Move(PreviousZone, Card, Player.Field);
-        }
-
-        public void Undo()
-        {
-            Player.Move(Player.Field, Card, PreviousZone);
-        }
-
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.Deploy;
-            message.Player["args"] = new Array {Card.Id};
-            message.Opponent["command"] = GameEvents.OpponentDeploy;
-            message.Opponent["args"] = new Array{Card.Serialize()};
-            return message;
-        }
-    }
+    
 
     public class DestroyUnits : GameEvent
     {
@@ -285,74 +183,9 @@ namespace CardGame.Server
         }
     }
 
-    public class Draw : GameEvent, ICommand
-    {
-        public readonly ISource Source;
-        public readonly Player Player;
-        public readonly Card Card;
+    
 
-        public Draw(ISource source, Player player, Card card)
-        {
-            Source = source;
-            Player = player;
-            Card = card;
-        }
-
-        public void Execute()
-        {
-            Player.Move(Player.Deck, Card, Player.Hand);
-        }
-
-        public void Undo()
-        {
-            Player.Move(Player.Hand, Card, Player.Deck);
-        }
-
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.Draw;
-            message.Player["args"] = new Array {Card.Serialize()};
-            message.Opponent["command"] = GameEvents.OpponentDraw;
-            message.Opponent["args"] = new Array {1};
-            return message;
-        }
-       
-    }
-
-    public class  Discard : GameEvent, ICommand
-    {
-        public readonly ISource Source;
-        public readonly Player Player;
-        public readonly Card Card;
-
-        public Discard(ISource source, Player player, Card card)
-        {
-            Source = source;
-            Player = player;
-            Card = card;
-        }
-
-        public void Execute()
-        {
-            Player.Move(Player.Hand, Card, Player.Graveyard);
-        }
-
-        public void Undo()
-        {
-            Player.Move(Player.Graveyard, Card, Player.Hand);
-        }
-
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.Discard;
-            message.Player["args"] = new Array{Card.Id};
-            message.Opponent["command"] = GameEvents.OpponentDiscard;
-            message.Opponent["args"] = new Array{Card.Serialize()};
-            return message;
-        }
-    }
+    
 
     public class EndTurn : GameEvent
     {
@@ -429,36 +262,7 @@ namespace CardGame.Server
         }
     }
 
-    public class ReadyCard : GameEvent, ICommand
-    {
-        public readonly Card Card;
-
-        public ReadyCard(Card card)
-        {
-            Card = card;
-        }
-
-        public void Execute()
-        {
-            Card.Ready = true;
-        }
-
-        public void Undo()
-        {
-            Card.Ready = false;
-        }
-
-
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.ReadyCard;
-            message.Player["args"] = new Array {Card.Id};
-            message.Opponent["command"] = GameEvents.NoOp;
-            message.Opponent["args"] = new Array();
-            return message;
-        }
-    }
+    
 
     public class SetSupport : GameEvent
     {
@@ -480,71 +284,8 @@ namespace CardGame.Server
         }
     }
 
-    public class UnreadyCard : GameEvent
-    {
-        public readonly Card Card;
-
-        public UnreadyCard(Card card)
-        {
-            Card = card;
-        }
-        
-        public void Execute()
-        {
-            Card.Ready = false;
-        }
-
-        public void Undo()
-        {
-            Card.Ready = true;
-        }
-
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.UnreadyCard;
-            message.Player["args"] = new Array{Card.Id};
-            message.Opponent["command"] = GameEvents.NoOp;
-            message.Opponent["args"] = new Array();
-            return message;
-        }
-    }
-
-    public class ReturnToDeck : GameEvent, ICommand
-    {
-        public readonly ISource Source;
-        public readonly Player Player;
-        public readonly List<Card> PreviousZone;
-        public readonly Card Card;
-
-        public ReturnToDeck(ISource source, Player player, Card card)
-        {
-            Source = source;
-            Player = player;
-            Card = card;
-            PreviousZone = card.Zone;
-        }
-
-        public void Execute()
-        {
-            Player.Move(PreviousZone, Card, Card.Owner.Deck);
-        }
-
-        public void Undo()
-        {
-            Player.Move(Card.Owner.Deck, Card, PreviousZone);
-        }
-
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.ReturnToDeck;
-            message.Player["args"] = new Array{Card.Id};
-            message.Opponent["command"] = GameEvents.OpponentReturnedToDeck;
-            message.Opponent["args"] = new Array(Card.Serialize());
-            return message;
-        }
-    }
+    
+    
     
     public class SetAsDeployable : GameEvent
     {

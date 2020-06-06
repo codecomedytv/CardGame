@@ -92,6 +92,14 @@
     <Compile Include="Server\Game\Card\NullSkill.cs" />
     <Compile Include="Server\Game\Card\Support.cs" />
     <Compile Include="Server\Game\Card\Unit.cs" />
+    <Compile Include="Server\Game\Commands\Bounce.cs" />
+    <Compile Include="Server\Game\Commands\Deploy.cs" />
+    <Compile Include="Server\Game\Commands\Discard.cs" />
+    <Compile Include="Server\Game\Commands\Draw.cs" />
+    <Compile Include="Server\Game\Commands\Mill.cs" />
+    <Compile Include="Server\Game\Commands\ReadyCard.cs" />
+    <Compile Include="Server\Game\Commands\ReturnToDeck.cs" />
+    <Compile Include="Server\Game\Commands\UnreadyCard.cs" />
     <Compile Include="Server\Game\Events\GameEvent.cs" />
     <Compile Include="Server\Game\Gamestate.cs" />
     <Compile Include="Server\Game\Game.cs" />
