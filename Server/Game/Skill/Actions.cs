@@ -44,7 +44,7 @@ namespace CardGame.Server
 
         protected void AutoTarget()
         {
-            GameState.Paused = true;
+            Targeting = true;
             Controller.DeclarePlay(new AutoTarget(Card));
         }
     }

@@ -21,7 +21,7 @@ namespace CardGame.Server
 
             protected override void _Resolve()
             {
-                Controller.DeclarePlay(new Discard(Card, Controller, GameState.Target));
+                Controller.DeclarePlay(new Discard(Card, Controller, Target));
             }
         }
     }

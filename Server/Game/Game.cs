@@ -13,7 +13,7 @@ namespace CardGame.Server {
 		
 		//private List<Player> Players;
 		private System.Collections.Generic.Dictionary<int, Player> Players;
-		private System.Collections.Generic.Dictionary<int, Card> Cards;
+		//private System.Collections.Generic.Dictionary<int, Card> Cards;
 		private readonly BaseMessenger Messenger;
 		public readonly Gamestate GameState;
 		private readonly Battle Battle = new Battle();
@@ -32,7 +32,7 @@ namespace CardGame.Server {
 		{
 			Messenger = messenger ?? new RealMessenger();
 			Players = new System.Collections.Generic.Dictionary<int, Player>();
-			Cards = new System.Collections.Generic.Dictionary<int, Card>();
+			//Cards = new System.Collections.Generic.Dictionary<int, Card>();
 			Players[players[0].Id] = players[0];
 			Players[players[1].Id] = players[1];
 			players[0].Opponent = players[1];
@@ -44,7 +44,7 @@ namespace CardGame.Server {
 		public override void _Ready()
 		{
 			AddChild(Messenger);
-			connect(Messenger, nameof(BaseMessenger.Targeted), GameState, nameof(Gamestate.OnTargetsSelected));
+			connect(Messenger, nameof(BaseMessenger.Targeted), this, nameof(OnTarget));
 			connect(Messenger, nameof(BaseMessenger.PlayerSeated), this, nameof(OnPlayerSeated));
 			connect(Messenger, nameof(BaseMessenger.EndedTurn), this, nameof(OnEndTurn));
 			connect(Messenger, nameof(BaseMessenger.Deployed), this, nameof(OnDeploy));
@@ -165,6 +165,14 @@ namespace CardGame.Server {
 			}
 			Update();
 			
+		}
+
+		public void OnTarget(int playerId, int targetId)
+		{
+			// TODO: Refactor Into State
+			var player = Players[playerId];
+			var target = GameState.GetCard(targetId);
+			player.OnTargetSelected(target);
 		}
 
 		public void OnPriorityPassed(int playerId)

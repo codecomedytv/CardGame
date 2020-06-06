@@ -21,7 +21,7 @@ namespace CardGame.Server
 
             protected override void _Resolve()
             {
-                Controller.DeclarePlay( new ReturnToDeck(Card, Controller, GameState.Target));
+                Controller.DeclarePlay( new ReturnToDeck(Card, Controller, Target));
             }
         }
         

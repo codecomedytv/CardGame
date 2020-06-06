@@ -24,7 +24,7 @@ namespace CardGame.Server
 
             protected override void _Resolve()
             {
-                Controller.DestroyUnit((Unit)GameState.Target);
+                Controller.DestroyUnit(Target);
             }
         }
     }

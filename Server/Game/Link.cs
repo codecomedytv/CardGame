@@ -93,19 +93,15 @@ namespace CardGame.Server {
 			var activatedSkill = card.Skill;
 			if (targets.Count > 0)
 			{
-				Game.Target = (Unit)Game.GetCard(targets[0]);
+				activatedSkill.Target = (Unit)Game.GetCard(targets[0]);
 			}
 			activatedSkill.Activate();
-			if (Game.Paused)
+			if (activatedSkill.Targeting)
 			{
-				await ToSignal(Game, nameof(Gamestate.UnPaused));
+				var result = await ToSignal(player, nameof(Player.TargetSelected));
+				activatedSkill.Target = result[0] as Card;
 			}
-
-			var cards = new List<Card>();
-			if (Game.Target != null)
-			{
-				cards.Add(Game.Target);
-			}
+			
 			Chain.Add(activatedSkill);
 		}
 
@@ -115,9 +111,11 @@ namespace CardGame.Server {
 			player.State = new Passing();
 			var autoSkill = card.Skill;
 			autoSkill.Activate();
-			if(Game.Paused)
+			if(autoSkill.Targeting)
 			{
-				await ToSignal(Game, nameof(Gamestate.UnPaused));
+				var result = await ToSignal(player, nameof(Player.TargetSelected));
+				autoSkill.Target = result[0] as Card;
+				//autoSkill.Target =  await ToSignal(player, nameof(Player.TargetSelected));
 			}
 			autoSkill.Resolve();
 			player.DeclarePlay(new Resolve());

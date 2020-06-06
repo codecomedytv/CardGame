@@ -86,7 +86,6 @@
     <Compile Include="GameEvents.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Server\Game\Actions.cs" />
     <Compile Include="Server\Game\Battle.cs" />
     <Compile Include="Server\Game\Card\Support.cs" />
     <Compile Include="Server\Game\Card\Unit.cs" />

@@ -29,6 +29,9 @@ namespace CardGame.Server {
 		public bool IsTurnPlayer = false;
 		public Link Link;
 		public Battle Battle;
+		
+		[Signal]
+		public delegate void TargetSelected();
 
 		[Signal]
 		public delegate void PlayExecuted();
@@ -42,6 +45,8 @@ namespace CardGame.Server {
 		public bool OnAttack(Unit unit, object defender, bool isDirectAttack) => State.OnAttack(unit, defender, isDirectAttack);
 		
 		public bool OnActivation(Support card, Array<int> targets) => State.OnActivation(card, targets);
+
+		public void OnTargetSelected(Card card) => EmitSignal(nameof(TargetSelected), card);
 		
 		public bool OnSetFaceDown(Support support) => State.OnSetFaceDown(support);
 

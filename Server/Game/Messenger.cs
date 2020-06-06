@@ -51,7 +51,7 @@ namespace CardGame.Server {
 		}
 
 		[Master]
-		public override void Target(int player, int target) => EmitSignal(nameof(Targeted), target);
+		public override void Target(int player, int target) => EmitSignal(nameof(Targeted), player, target);
 		
 		[Master]
 		public override void PassPlay(int player) => EmitSignal(nameof(PassedPriority), player);

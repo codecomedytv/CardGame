@@ -33,7 +33,7 @@ namespace CardGame.Server
 
             protected override void _Resolve()
             {
-                Controller.DeclarePlay(new Bounce(Card, Controller, GameState.Target));
+                Controller.DeclarePlay(new Bounce(Card, Controller, Target));
             }
         }
     }

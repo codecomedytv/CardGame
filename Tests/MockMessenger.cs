@@ -50,7 +50,7 @@ namespace CardGame.Tests
 
         public override void Target(int player, int target)
         {
-            EmitSignal(nameof(Targeted), target);
+            EmitSignal(nameof(Targeted), player, target);
         }
 
         public override void PassPlay(int player)

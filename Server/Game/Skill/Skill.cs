@@ -21,6 +21,8 @@ namespace CardGame.Server {
 		public Gamestate GameState;
 		public Types Type = Types.Manual;
 		public string GameEvent;
+		public Card Target;
+		public bool Targeting = false;
 
 		public void SetUp(string gameEvent)
 		{
