@@ -47,14 +47,6 @@ namespace CardGame.Client.Match
 			}
 		}
 
-		public void AutoTarget(Card card)
-		{
-			foreach (var target in card.ValidTargets)
-			{
-				QueueCallback((Card)Cards[target], Delay(), "ShowAsValid", true);
-			}
-		}
-
 		public void QueueProperty(Object obj, string property, object start, object end, float duration,
 			float Delay = 0.0F)
 		{
@@ -66,36 +58,7 @@ namespace CardGame.Client.Match
 		{
 			Animate.InterpolateCallback(obj, delay, callback, args1, args2, args3, args4, args5);
 		}
-
-		[Signal]
-		public delegate void ButtonAction();
-
-		public void SetState(string state)
-		{
-			switch (state)
-			{
-				case "Idle":
-					EmitSignal(nameof(ButtonAction), "");
-					break;
-				case "Active":
-					EmitSignal(nameof(ButtonAction), "Pass");
-					break;
-				case "Passive":
-					break;
-				case "Acting":
-					break;
-				case "Passing":
-					break;
-				case "Targeting":
-					break;
-				default:
-					EmitSignal(nameof(ButtonAction), "Wait");
-					break;
-			}
-
-			var active = GetNode("Active") as Label;
-			if (active != null) active.Text = state.ToString();
-		}
+		
 
 		public void ShowAttack(Card attacker, object defender)
 		{
@@ -127,7 +90,6 @@ namespace CardGame.Client.Match
 			QueueCallback(Hand, Delay(), "add_child", card);
 			QueueCallback(Sfx, Delay(), "add_child", card);
 			QueueCallback(Sfx, Delay(), "Deploy"); // Guess we didn't have a dedicated bounce sfx
-			if (Who != (int) Gfx.Who.Opponent) return;
 			QueueCallback(card, Delay(), "FlipFaceDown");
 			var fake = Library.Library.Placeholder();
 			QueueCallback(Hand, Delay(), "remove_child", card);
@@ -148,13 +110,10 @@ namespace CardGame.Client.Match
 
 		public void Activate(Card card, List<Card> link, Array<Card> targets)
 		{
-			if (Who == (int) Gfx.Who.Opponent)
-			{
-				Support.GetChild(0).Free();
-				Support.AddChild(card);
-				card.Back.Visible = true;
-			}
-
+			
+			Support.GetChild(0).Free();
+			Support.AddChild(card);
+			card.Back.Visible = true;
 			link.Add(card);
 			QueueCallback(card.Link, Delay(), "set_text", link.Count.ToString());
 			QueueCallback(card.Link, Delay(0.1F), "set_visible", true);
@@ -176,19 +135,13 @@ namespace CardGame.Client.Match
 			QueueCallback(attacker.Combat, Delay(), "hide");
 			QueueCallback(attacker.Combat, Delay(), "hide");
 			QueueCallback(defender, Delay(), "RemoveAura");
-			if (Who == (int)Gfx.Who.Player)
-			{
-				QueueCallback(History, Delay(), "Attack", Who, attacker, defender);
-			}
 			QueueCallback(Sfx, Delay(0.3), "BattleUnit");
 		}
 
 		public Vector2 AttackTargetPosition(Card defender, int player)
 		{
 			var yModifier = new Vector2(0, defender.RectScale.y);
-			return player == (int) Gfx.Who.Player
-				? defender.RectGlobalPosition + yModifier
-				: defender.RectGlobalPosition - yModifier;
+			return defender.RectGlobalPosition - yModifier;
 		}
 
 		public void AttackDirectly(Card attacker)
@@ -196,10 +149,6 @@ namespace CardGame.Client.Match
 			var targetPosition = DirectAttackTargetPosition(attacker, Who);
 			QueueProperty(attacker, "RectGlobalPosition", attacker.RectGlobalPosition, targetPosition, 0.3F, Delay());
 			QueueProperty(attacker, "RectGlobalPosition", targetPosition, attacker.RectGlobalPosition, 0.3F, Delay(0.3F));
-			if (Who == (int) Gfx.Who.Player)
-			{
-				Animate.AddDelay(0.3F, (int)Gfx.Who.Opponent);
-			}
 			QueueCallback(attacker.Combat, Delay(), "hide");
 			QueueCallback(History, Delay(0.1), "DirectAttack", Who, attacker);
 			QueueCallback(Sfx, Delay(0.3F), "BattleUnit");
@@ -208,9 +157,7 @@ namespace CardGame.Client.Match
 		public Vector2 DirectAttackTargetPosition(Card attacker, int player)
 		{
 			var yModifier = new Vector2(0, 70);
-			return player == (int) Gfx.Who.Player
-				? attacker.RectGlobalPosition - yModifier
-				: attacker.RectGlobalPosition + yModifier;
+			return attacker.RectGlobalPosition + yModifier;
 		}
 
 		public void ReadyCards(Array args)
@@ -231,35 +178,24 @@ namespace CardGame.Client.Match
 
 		public void Deploy(Card card)
 		{
-			
-			if (Who == (int) Gfx.Who.Opponent)
-			{
-				Hand.RemoveChild(Hand.GetChild(0));
-				Hand.AddChild(card);
-				Sort(Hand);
-				card.FlipFaceDown();
-			}
-		
+			Hand.RemoveChild(Hand.GetChild(0));
+			Hand.AddChild(card);
+			Sort(Hand);
+			card.FlipFaceDown();
 			QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Units), 0.3F, Delay());
 			QueueCallback(History, Delay() + 0.3F, "Deploy", Who, card);
 			QueueCallback(card.GetParent(), Delay(0.3F), "remove_child", card);
 			QueueCallback(Units, Delay(), "add_child", card);
 			QueueCallback(card, Delay(), "FlipFaceUp");
-			
-
 			QueueCallback(Sfx, Delay(), "Deploy");
 			
 		}
 
 		public void SetFaceDown(Card card)
 		{
-			if (Who == (int) Gfx.Who.Opponent)
-			{
-				Hand.RemoveChild(Hand.GetChild(0));
-				Hand.AddChild(card);
-				Sort(Hand);
-			}
-
+			Hand.RemoveChild(Hand.GetChild(0));
+			Hand.AddChild(card);
+			Sort(Hand);
 			QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Support), 0.3F, Delay());
 			QueueCallback(History, Delay() + 0.3F, "SetFaceDown", Who, card);
 			QueueCallback(card.GetParent(), Delay(0.3), "remove_child", card);
@@ -292,43 +228,6 @@ namespace CardGame.Client.Match
 		public void LoadDeck(int deckSize)
 		{
 			QueueCallback(Deck, Delay(0.3F), "set_text", deckSize.ToString());
-		}
-
-		public void Draw(Array args, Player playerData)
-		{
-			var count = 0;
-			count = (int) (Who == (int)Gfx.Who.Player ? args.Count : args[0]);
-			Array drawn = new Array();
-			var positions = NextHandPositions(count);
-			for(var i = 0; i < count; i++)
-			{
-				if (args[i] is Dictionary arg)
-				{
-					var card = (Card) (Who == (int)Gfx.Who.Player ? Cards[arg["Id"]] : Library.Library.Placeholder());
-					drawn.Add(card);
-					Hand.AddChild((Card)card);
-					card.RectGlobalPosition = Deck.RectGlobalPosition;
-					card.TurnInvisible();
-					var pos = positions[0];
-					positions.RemoveAt(0);
-					QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, pos, 0.2F, Delay(0.2F));
-					QueueCallback(card, Delay(0.0), "TurnVisible");
-				}
-
-				var deckSize = (playerData.DeckSize + count - i - 1).ToString();
-				QueueCallback(Deck, Delay(), "set_text", deckSize);
-				QueueCallback(Sfx, Delay(), "DrawCard");
-			}
-
-			QueueCallback(this, Delay(0.2), "Sort", Hand);
-			if(Who == (int)Gfx.Who.Player)
-			{
-				QueueCallback(History, Delay(), "PlayerDraw", drawn);
-			}
-			else
-			{
-				QueueCallback(History, Delay(), "OpponentDraw", count);
-			}
 		}
 		
 		public Array NextHandPositions(int count)
@@ -408,14 +307,7 @@ namespace CardGame.Client.Match
 			}
 
 			QueueCallback(this, Delay(0.2), "Sort", Hand);
-			if(Who == (int)Gfx.Who.Player)
-			{
-				QueueCallback(History, Delay(), "PlayerDraw", drawn);
-			}
-			else
-			{
-				QueueCallback(History, Delay(), "OpponentDraw", count);
-			}
+			QueueCallback(History, Delay(), "OpponentDraw", count);
 		}
 	}
 }

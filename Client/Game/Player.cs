@@ -240,6 +240,7 @@ namespace CardGame.Client.Match
 
 		public void LoadDeck(int deckSize)
 		{
+			//var deckSize = (int) args[0];
 			DeckSize = deckSize;
 			Visual.LoadDeck(deckSize);
 		}
