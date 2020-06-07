@@ -211,12 +211,14 @@ namespace CardGame.Client.Match
 			Visual.DestroyUnit(card);
 			}
 			
-		public void LoseLife(Array<int> args) {
-			Health -= args[0];
-			Visual.LoseLife(args[0]);
+		public void LoseLife(Array args)
+		{
+			var lost = (int) args[0];
+			Health -= lost;
+			Visual.LoseLife(lost);
 			}
 		
-		public void ReadyCards(Array<int> cardIds)
+		public void ReadyCards(Array cardIds)
 		{
 			foreach (var id in cardIds)
 			{
@@ -226,7 +228,7 @@ namespace CardGame.Client.Match
 			Visual.ReadyCards(cardIds);
 		}
 
-		public void UnreadyCards(Array<int> cardIds) 
+		public void UnreadyCards(Array cardIds) 
 		{
 			foreach (var id in cardIds)
 			{
@@ -238,7 +240,6 @@ namespace CardGame.Client.Match
 
 		public void LoadDeck(int deckSize)
 		{
-			//var deckSize = (int) args[0];
 			DeckSize = deckSize;
 			Visual.LoadDeck(deckSize);
 		}

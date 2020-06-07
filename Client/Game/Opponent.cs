@@ -162,10 +162,11 @@ namespace CardGameSharp.Client.Game
 			Visual.DestroyUnit(card);
 		}
 
-		public void LoseLife(Array<int> args)
+		public void LoseLife(Array args)
 		{
-			Health -= (int) args[0];
-			Visual.LoseLife(args[0]);
+			var lost = (int) args[0];
+			Health -= lost;
+			Visual.LoseLife(lost);
 		}
 
 		public void LoadDeck(int deckSize)

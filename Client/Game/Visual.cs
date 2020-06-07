@@ -213,7 +213,7 @@ namespace CardGame.Client.Match
 				: attacker.RectGlobalPosition + yModifier;
 		}
 
-		public void ReadyCards(Array<int> args)
+		public void ReadyCards(Array args)
 		{
 			foreach (var id in args)
 			{
@@ -221,7 +221,7 @@ namespace CardGame.Client.Match
 			}
 		}
 
-		public void UnreadyCards(Array<int> args)
+		public void UnreadyCards(Array args)
 		{
 			foreach(var id in args)
 			{
