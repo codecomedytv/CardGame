@@ -19,13 +19,13 @@ namespace CardGameSharp.Client.Game
         public delegate void Battle();
 
         [Signal]
-        public delegate void Animated();
+        private delegate void Animated();
 
-        public Player Player;
-        public Opponent Opponent;
-        public GameInput GameInput;
-        
-        public List<(GameEvents Command, Array Arguments)> Events = new List<(GameEvents Command, Array Arguments)>();
+        private Player Player;
+        private Opponent Opponent;
+        private GameInput GameInput;
+
+        private List<(GameEvents Command, Array Arguments)> Events = new List<(GameEvents Command, Array Arguments)>();
 
         public void SetUp(Player player, Opponent opponent, GameInput gameInput)
         {
@@ -121,9 +121,7 @@ namespace CardGameSharp.Client.Game
 						Opponent.Activate(arguments);
 						break;
 					case GameEvents.Resolve:
-						Player.Resolve();
-						Opponent.Resolve();
-						Player.Link.Clear();
+						Resolve();
 						break;
 					case GameEvents.SetTargets:
 						Player.SetTargets(arguments);
@@ -179,7 +177,13 @@ namespace CardGameSharp.Client.Game
 			Events.Clear();
 		}
 
-        
+        private void Resolve()
+        {
+	        Player.Resolve();
+	        Opponent.Resolve();
+	        Player.Link.Clear();
+        }
+
         
     }
 }
