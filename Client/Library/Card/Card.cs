@@ -107,10 +107,8 @@ namespace CardGame.Client.Library.Card
 			SelectedTarget.Stop();
 		}
 
-		public override string ToString()
-		{
-			return String.Format("[ {0} : {1} ", Id, Title);
-		}
+		public override string ToString() => $"{Id} : {Title}";
+		
 
 		public void Ready()
 		{

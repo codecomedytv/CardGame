@@ -52,7 +52,7 @@ namespace CardGameSharp.Client.Game
 				switch(command)
 				{
 					case GameEvents.Draw:
-						Player.Draw(arguments);
+						Player.Draw((Dictionary)arguments[0]);
 						break;
 					case GameEvents.LoadDeck:
 						Player.LoadDeck((int)arguments[0]);
@@ -88,7 +88,7 @@ namespace CardGameSharp.Client.Game
 						Opponent.SetFaceDown();
 						break;
 					case GameEvents.LoseLife:
-						Player.LoseLife(arguments);
+						Player.LoseLife((int)arguments[0]);
 						break;
 					case GameEvents.OpponentLoseLife:
 						Opponent.LoseLife((int)arguments[0]);
@@ -112,7 +112,7 @@ namespace CardGameSharp.Client.Game
 						Player.UnreadyCards(arguments);
 						break;
 					case GameEvents.AttackedDirectly:
-						Player.attack_directly((int)arguments[0]);
+						Player.AttackDirectly((int)arguments[0]);
 						break;
 					case GameEvents.OpponentAttackedDirectly:
 						Opponent.AttackDirectly((int)arguments[0]);
@@ -124,7 +124,7 @@ namespace CardGameSharp.Client.Game
 						Resolve();
 						break;
 					case GameEvents.SetTargets:
-						Player.SetTargets(arguments);
+						Player.SetTargets((int)arguments[0], (Array)arguments[1]);
 						break;
 					case GameEvents.Bounce:
 						Player.Bounce((int)arguments[0]);
@@ -136,7 +136,7 @@ namespace CardGameSharp.Client.Game
 						Opponent.ShowAttack((int)arguments[0], (int)arguments[1]);
 						break;
 					case GameEvents.AutoTarget:
-						Player.autotarget((int)arguments[0]);
+						Player.AutoTarget((int)arguments[0]);
 						break;
 					case GameEvents.SetState:
 						Player.SetState((string)arguments[0]);
@@ -146,8 +146,6 @@ namespace CardGameSharp.Client.Game
 						break;
 					case GameEvents.SetAsAttacker:
 						Player.SetAttacker((int)arguments[0]);
-						break;
-					case GameEvents.NoOp:
 						break;
 					case GameEvents.SetSettable:
 						Player.SetSettable((int)arguments[0]);
@@ -168,6 +166,8 @@ namespace CardGameSharp.Client.Game
 					case GameEvents.ReturnToDeck:
 						break;
 					case GameEvents.OpponentReturnedToDeck:
+						break;
+					case GameEvents.NoOp:
 						break;
 					default:
 						throw new ArgumentOutOfRangeException();

@@ -255,34 +255,21 @@ namespace CardGame.Client.Match
 			QueueCallback(Deck, Delay(0.3F), "set_text", deckSize.ToString());
 		}
 
-		public void Draw(Array args, Player playerData)
+		public void Draw(Card card, Player playerData)
 		{
-			var count = 0;
-			count = (int) (Who == (int)Gfx.Who.Player ? args.Count : args[0]);
-			Array drawn = new Array();
-			var positions = NextHandPositions(count);
-			for(var i = 0; i < count; i++)
-			{
-				if (args[i] is Dictionary arg)
-				{
-					var card = (Card) Cards[(int)arg["Id"]];
-					drawn.Add(card);
-					Hand.AddChild((Card)card);
-					card.RectGlobalPosition = Deck.RectGlobalPosition;
-					card.TurnInvisible();
-					var pos = positions[0];
-					positions.RemoveAt(0);
-					QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, pos, 0.2F, Delay(0.2F));
-					QueueCallback(card, Delay(0.0), "TurnVisible");
-				}
-
-				var deckSize = (playerData.DeckSize + count - i - 1).ToString();
-				QueueCallback(Deck, Delay(), "set_text", deckSize);
-				QueueCallback(Sfx, Delay(), "DrawCard");
-			}
-
+			var positions = NextHandPositions(1);
+			Hand.AddChild((Card)card);
+			card.RectGlobalPosition = Deck.RectGlobalPosition;
+			card.TurnInvisible();
+			var pos = positions[0];
+			positions.RemoveAt(0);
+			QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, pos, 0.2F, Delay(0.2F));
+			QueueCallback(card, Delay(0.0), "TurnVisible");
+			var deckSize = (playerData.DeckSize - 1).ToString();
+			QueueCallback(Deck, Delay(), "set_text", deckSize);
+			QueueCallback(Sfx, Delay(), "DrawCard");
 			QueueCallback(this, Delay(0.2), "Sort", Hand);
-			QueueCallback(History, Delay(), "PlayerDraw", drawn);
+			QueueCallback(History, Delay(), "PlayerDraw", card);
 			
 		}
 		

@@ -41,45 +41,21 @@ namespace CardGame.Client.Match
         public GameInput Input;
         public Interact Interact;
 
-        // This has a setget attached to it in GDScript
-        public bool Active = false;
-
-
-
+        [Signal]
+        private delegate void PlayerWon();
 
         [Signal]
-        public delegate void PlayerWon();
-
-        [Signal]
-        public delegate void PlayerLost();
+        private delegate void PlayerLost();
         
-
-        public bool _get_active()
-		{
-			return State == "Idle" || State == "Active";
-		}
-
-		public void SetState(string state) 
-		{
-			Visual.SetState(state);
-	    }
+	    public void SetState(string state) => Visual.SetState(state); 
 			
-		public void SetDeployable(int id)
-		{
-			Cards[id].CanBeDeployed = true;
-		}
+		public void SetDeployable(int id) => Cards[id].CanBeDeployed = true;
 
-		public void SetSettable(int id)
-		{
-			Cards[id].CanBeSet = true;
-		}
+	    public void SetSettable(int id) => Cards[id].CanBeSet = true;
 
-		public void SetActivatable(int id)
-		{
-			Cards[id].CanBeActivated = true;
-		}
+		public void SetActivatable(int id) => Cards[id].CanBeActivated = true;
 
-		public void autotarget(int id) 
+		public void AutoTarget(int id) 
 		{
 			var targeter = Cards[id];
 			// change States
@@ -94,15 +70,8 @@ namespace CardGame.Client.Match
 			Cards = cards;
 	    }
 			
-		public void SetTargets(Array args) 
-		{
-			if (Cards[(int)args[0]] is Card card)
-			{
-				// Might be not a array?
-				card.ValidTargets = args[1] as Array;
-			}
-	    }
-
+		public void SetTargets(int id, Array targets) => Cards[id].ValidTargets = targets;
+		
 		public void Resolve()
 		{
 			var linked = new Array<Card>();
@@ -125,12 +94,8 @@ namespace CardGame.Client.Match
 			Visual.AttackUnit(attacker, defender);
 	    }
 			
-		public void attack_directly(int id) 
-		{
-			var attacker = Cards[id] as Card;
-			Visual.AttackDirectly(attacker);
-	    }
-			
+		public void AttackDirectly(int attackerId) => Visual.AttackDirectly(Cards[attackerId]);
+		
 		public void Bounce(int id)
 		{
 			var card = Cards[id];
@@ -159,44 +124,34 @@ namespace CardGame.Client.Match
 	    }
 		
 
-		public void Draw(Array args)
+		public void Draw(Dictionary codes)
 		{
-			DeckSize -= args.Count;
-			foreach (var c in args)
-			{
-				if (c is Dictionary codes)
-				{
-					var id = codes["Id"];
-					var setCode = codes["setCode"];
-					var card = Library.Library.Fetch((int) id, (SetCodes) setCode) as Card;
-					if (card == null) continue;
-					card.Connect("CardActivated", Input, "Activate");
-					card.Player = this;
-					card.Interact = Interact;
-					card.UnderPlayersControl = true;
-					Cards[card.Id] = card;
-					Hand.Add(card);
-					card.Zone = Card.Zones.Hand;
-				}
-			}
-
-			Visual.Draw(args, this);
+			DeckSize -= 1;
+			var card = Library.Library.Fetch((int)codes["id"], (SetCodes)codes["setCode"]);
+			card.Connect("CardActivated", Input, "Activate");
+			card.Player = this;
+			card.Interact = Interact;
+			card.UnderPlayersControl = true;
+			Cards[card.Id] = card;
+			Hand.Add(card);
+			card.Zone = Card.Zones.Hand;
+			Visual.Draw(card, this);
 	    }
 
-		public void DestroyUnit(int id) {
+		public void DestroyUnit(int id) 
+		{
 			var card = Cards[id];
 			Field.Remove(card);
 			Graveyard.Add(card);
 			card.Zone = Card.Zones.Discard;
 			Visual.DestroyUnit(card);
-			}
+	    }
 			
-		public void LoseLife(Array args)
+		public void LoseLife(int lostLife)
 		{
-			var lost = (int) args[0];
-			Health -= lost;
-			Visual.LoseLife(lost);
-			}
+			Health -= lostLife;
+			Visual.LoseLife(lostLife);
+	    }
 		
 		public void ReadyCards(Array cardIds)
 		{

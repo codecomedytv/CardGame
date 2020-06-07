@@ -16,15 +16,15 @@ namespace CardGameSharp.Client.Game
 
 	    private int Line = 0;
 
-	    public void PlayerDraw(Array drawn)
+	    public void PlayerDraw(Card card)
 	    {
-		    BbcodeText += String.Format("{0} : Your drew {1}\n", Line, drawn.ToString());
+		    BbcodeText += String.Format("{0} : Your drew {1}\n", Line, card.ToString());
 		    Line++;
 	    }
 
 	    public void OpponentDraw(int count)
 	    {
-		    BbcodeText += String.Format("{0}: Enemy drew {1} card(s)\n", Line, count);
+		    BbcodeText += String.Format("{0}: Enemy drew a card(s)\n", Line, count);
 		    Line++;
 	    }
 

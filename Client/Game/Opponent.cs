@@ -132,7 +132,7 @@ namespace CardGameSharp.Client.Game
 		{
 			HandSize += 1;
 			DeckSize -= 1;
-			Visual.Draw(new Array{1}, this);
+			Visual.Draw(1, this);
 		}
 
 		public void DestroyUnit(int id)
