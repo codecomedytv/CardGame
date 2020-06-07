@@ -103,11 +103,11 @@ namespace CardGame.Client.Match
 			if (defender is Card card)
 			{
 				card.Combat.Show();
-				History.Attack(Who, attacker, card);
+				History.AddLine($"Your {attacker} attacked Enemy's {defender}");
 			}
 			else
 			{
-				History.DirectAttack(Who, attacker);
+				History.AddLine($"Your {attacker} attacked directly" );
 			}
 		}
 
@@ -148,10 +148,10 @@ namespace CardGame.Client.Match
 			QueueCallback(card, Delay(), "FlipFaceUp");
 			QueueCallback(Sfx, Delay(), "Deploy");
 			QueueCallback(card.Back, Delay(0.1F), "hide");
-			QueueCallback(History, Delay(0.1F), "Activate", Who, card);
+			QueueCallback(History, Delay(0.1F), "AddLine", $"You activated {card}");
 			if (targets.Count != 0)
 			{
-				QueueCallback(History, Delay(0.1), "Target", Who, targets);
+				QueueCallback(History, Delay(0.1), "AddLine", $"Targeting: {targets}");
 			}
 		}
 
@@ -247,7 +247,7 @@ namespace CardGame.Client.Match
 			QueueCallback(Discard, Delay(), "add_child", card);
 			QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, Discard.RectGlobalPosition, 0.3F,
 				Delay());
-			QueueCallback(History, Delay() + 0.1F, "DestroyUnit", Who, card);
+			QueueCallback(History, Delay() + 0.1F, "AddLine", $"Your {card} was destroyed");
 		}
 		
 		public void LoadDeck(int deckSize)
