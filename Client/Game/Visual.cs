@@ -22,7 +22,7 @@ namespace CardGame.Client.Match
 		public int Who;
 		public AudioStreamPlayer Sfx;
 		public History History;
-		public Dictionary Cards;
+		public Godot.Collections.Dictionary<int, Card> Cards;
 
 		public override void _Ready()
 		{
@@ -51,7 +51,7 @@ namespace CardGame.Client.Match
 		{
 			foreach (var target in card.ValidTargets)
 			{
-				QueueCallback((Card)Cards[target], Delay(), "ShowAsValid", true);
+				QueueCallback((Card)Cards[(int)target], Delay(), "ShowAsValid", true);
 			}
 		}
 
@@ -195,7 +195,7 @@ namespace CardGame.Client.Match
 		{
 			foreach (var id in args)
 			{
-				QueueCallback((Card)Cards[id], Delay(), "Ready");
+				QueueCallback((Card)Cards[(int)id], Delay(), "Ready");
 			}
 		}
 
@@ -203,7 +203,7 @@ namespace CardGame.Client.Match
 		{
 			foreach(var id in args)
 			{
-				QueueCallback((Card)Cards[id], Delay(), "Exhaust");
+				QueueCallback((Card)Cards[(int)id], Delay(), "Exhaust");
 			}
 		}
 
@@ -265,7 +265,7 @@ namespace CardGame.Client.Match
 			{
 				if (args[i] is Dictionary arg)
 				{
-					var card = (Card) Cards[arg["Id"]];
+					var card = (Card) Cards[(int)arg["Id"]];
 					drawn.Add(card);
 					Hand.AddChild((Card)card);
 					card.RectGlobalPosition = Deck.RectGlobalPosition;

@@ -22,7 +22,7 @@ namespace CardGame.Client.Match
 		public int Who;
 		public AudioStreamPlayer Sfx;
 		public History History;
-		public Dictionary Cards;
+		public Godot.Collections.Dictionary<int, Card> Cards;
 
 		public override void _Ready()
 		{
@@ -164,7 +164,7 @@ namespace CardGame.Client.Match
 		{
 			foreach (var id in args)
 			{
-				QueueCallback((Card)Cards[id], Delay(), "Ready");
+				QueueCallback(Cards[(int)id], Delay(), "Ready");
 			}
 		}
 
@@ -172,7 +172,7 @@ namespace CardGame.Client.Match
 		{
 			foreach(var id in args)
 			{
-				QueueCallback((Card)Cards[id], Delay(), "Exhaust");
+				QueueCallback((Card)Cards[(int)id], Delay(), "Exhaust");
 			}
 		}
 

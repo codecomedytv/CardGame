@@ -35,7 +35,7 @@ namespace CardGame.Client.Match
         public bool Won = false;
         public bool Lost = false;
         public Visual Visual;
-        public Dictionary Cards = new Dictionary();
+        public Godot.Collections.Dictionary<int, Card> Cards = new Godot.Collections.Dictionary<int, Card>();
         public Opponent Opponent;
         public List<Card> Link = new List<Card>();
         public GameInput Input;
@@ -59,55 +59,44 @@ namespace CardGame.Client.Match
 			return State == "Idle" || State == "Active";
 		}
 
-		public void SetState(Array args) 
+		public void SetState(string state) 
 		{
-			State = (string)args[0];
-			Visual.SetState(State);
+			Visual.SetState(state);
 	    }
 			
-		public void SetDeployable(Array args)
+		public void SetDeployable(int id)
 		{
-			if (Cards[args[0]] is Card card)
-			{
-				card.CanBeDeployed = true;
-			}
-	    }
-
-		public void SetSettable(Array args)
-		{
-			if (Cards[args[0]] is Card card)
-			{
-				card.CanBeSet = true;
-			}
+			Cards[id].CanBeDeployed = true;
 		}
 
-		public void SetActivatable(Array args) 
+		public void SetSettable(int id)
 		{
-			if (Cards[args[0]] is Card card)
-			{
-				card.CanBeActivated = true;
-			}
-			
+			Cards[id].CanBeSet = true;
 		}
 
-		public void autotarget(Array args) 
+		public void SetActivatable(int id)
 		{
-			var targeter = Cards[args[0]];
+			Cards[id].CanBeActivated = true;
+		}
+
+		public void autotarget(int id) 
+		{
+			var targeter = Cards[id];
 			// change States
 		    //	State = "Targeting"
 		    State = "Targeting";
-			Visual.AutoTarget(targeter as Card);
+			Visual.AutoTarget(targeter);
 		    //	_show_valid_targets(targeter);
 		}
 
-		public void SetUp(Dictionary cards) 
+		public void SetUp(Godot.Collections.Dictionary<int, Card> cards) 
 		{
 			Cards = cards;
 	    }
 			
 		public void SetTargets(Array args) 
 		{
-			if (Cards[args[0]] is Card card)
+			if (Cards[(int)args[0]] is Card card)
 			{
 				// Might be not a array?
 				card.ValidTargets = args[1] as Array;
@@ -129,54 +118,45 @@ namespace CardGame.Client.Match
 			Visual.Resolve(linked);
 	    }
 
-		public void AttackUnit(Array args)
+		public void AttackUnit(int attackerId, int defenderId)
 		{
-			var attacker = Cards[args[0]] as Card;
-			var defender = Cards[args[1]] as Card;
+			var attacker = Cards[attackerId];
+			var defender = Cards[defenderId];
 			Visual.AttackUnit(attacker, defender);
 	    }
 			
-		public void attack_directly(Array args) 
+		public void attack_directly(int id) 
 		{
-			var attacker = Cards[args[0]] as Card;
+			var attacker = Cards[id] as Card;
 			Visual.AttackDirectly(attacker);
 	    }
 			
-		public void bounce(Array args) 
+		public void Bounce(int id)
 		{
-			var card= Cards[args[0]] as Card;
+			var card = Cards[id];
 			Field.Remove(card);
 			Hand.Add(card);
-			if (card == null) return;
 			card.Zone = Card.Zones.Hand;
 			Visual.Bounce(card);
 		}
 			
-		public void Deploy(Array args) 
+		public void Deploy(int id) 
 		{
-			var card = Cards[args[0]] as Card;
+			var card = Cards[id];
 			Hand.Remove(card);
 			Field.Add(card);
-			if (card != null) card.Zone = Card.Zones.Unit;
+			card.Zone = Card.Zones.Unit;
 			Visual.Deploy(card);
 	    }
-			
-		public void Activate(Array args) {
-			var card = Cards[args[0]] as Card;
-			Support.Remove(card);
-			Graveyard.Add(card);
-			if (card == null) return;
-			card.Zone = Card.Zones.Discard;
-			Visual.Activate(card, Link, new Array<Card>());
-		}
-
-		public void SetFaceDown(Array args) {
-			var card = Cards[args[0]] as Card;
+		
+		public void SetFaceDown(int id) 
+		{
+			var card = Cards[id];
 			Hand.Remove(card);
 			Support.Add(card);
-			if (card != null) card.Zone = Card.Zones.Support;
+			card.Zone = Card.Zones.Support;
 			Visual.SetFaceDown(card);
-			}
+	    }
 		
 
 		public void Draw(Array args)
@@ -203,8 +183,8 @@ namespace CardGame.Client.Match
 			Visual.Draw(args, this);
 	    }
 
-		public void DestroyUnit(Array args) {
-			var card = Cards[args[0]] as Card;
+		public void DestroyUnit(int id) {
+			var card = Cards[id];
 			Field.Remove(card);
 			Graveyard.Add(card);
 			card.Zone = Card.Zones.Discard;
@@ -222,7 +202,7 @@ namespace CardGame.Client.Match
 		{
 			foreach (var id in cardIds)
 			{
-				if (Cards[id] is Card card) card.IsReady = true;
+				if (Cards[(int)id] is Card card) card.IsReady = true;
 			}
 			
 			Visual.ReadyCards(cardIds);
@@ -232,7 +212,7 @@ namespace CardGame.Client.Match
 		{
 			foreach (var id in cardIds)
 			{
-				if (Cards[id] is Card card) card.IsReady = false;
+				if (Cards[(int)id] is Card card) card.IsReady = false;
 			}
 
 			Visual.UnreadyCards(cardIds);
@@ -240,7 +220,6 @@ namespace CardGame.Client.Match
 
 		public void LoadDeck(int deckSize)
 		{
-			//var deckSize = (int) args[0];
 			DeckSize = deckSize;
 			Visual.LoadDeck(deckSize);
 		}
@@ -270,12 +249,9 @@ namespace CardGame.Client.Match
 		}
 
 
-		public void SetAttacker(Array args)
+		public void SetAttacker(int id)
 		{
-			if (Cards[args[0]] is Card card)
-			{
-				card.CanAttack = true;
-			}
+			Cards[id].CanAttack = true;
 		}
     }
 }

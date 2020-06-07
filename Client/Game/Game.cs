@@ -23,7 +23,7 @@ namespace CardGame.Client {
 		public EventManager EventManager = new EventManager();
 		public GameInput GameInput;
 		public bool Muted = false;
-		public Dictionary Cards = new Dictionary();
+		public Godot.Collections.Dictionary<int, Card> Cards = new Godot.Collections.Dictionary<int, Card>();
 		public List<Card> Link = new List<Card>();
 
 		public override void _Ready()
@@ -67,7 +67,7 @@ namespace CardGame.Client {
 				Player.Input = input;
 				foreach (var card in Cards)
 				{
-					if (Cards[(int) card] is Card c) c.Interact = GetNode<Interact>("Interact");
+					if (Cards[card.Key] is Card c) c.Interact = GetNode<Interact>("Interact");
 				}
 			}
 			AddChild(GameInput, true);

@@ -22,11 +22,11 @@ namespace CardGameSharp.Client.Game
 		public Array<Card> Support = new Array<Card>();
 		public Array<Card> Graveyard = new Array<Card>();
 		public OpponentVisual Visual;
-		public Dictionary Cards;
+		public Godot.Collections.Dictionary<int, Card> Cards;
 		public Player Enemy;
 		public List<Card> Link;
 
-		public void SetUp(Dictionary cards)
+		public void SetUp(Godot.Collections.Dictionary<int, Card> cards)
 		{
 			Cards = cards;
 		}

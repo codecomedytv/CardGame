@@ -76,13 +76,13 @@ namespace CardGameSharp.Client.Game
 						Player.Lose();
 						break;
 					case GameEvents.Deploy:
-						Player.Deploy(arguments);
+						Player.Deploy((int)arguments[0]);
 						break;
 					case GameEvents.OpponentDeploy:
 						Opponent.Deploy(arguments);
 						break;
 					case GameEvents.SetFaceDown:
-						Player.SetFaceDown(arguments);
+						Player.SetFaceDown((int)arguments[0]);
 						break;
 					case GameEvents.OpponentSetFaceDown:
 						Opponent.SetFaceDown(arguments);
@@ -94,13 +94,13 @@ namespace CardGameSharp.Client.Game
 						Opponent.LoseLife(arguments);
 						break;
 					case GameEvents.CardDestroyed:
-						Player.DestroyUnit(arguments);
+						Player.DestroyUnit((int)arguments[0]);
 						break;
 					case GameEvents.OpponentCardDestroyed:
 						Opponent.DestroyUnit(arguments);
 						break;
 					case GameEvents.AttackedUnit:
-						Player.AttackUnit(arguments);
+						Player.AttackUnit((int)arguments[0], (int)arguments[1]);
 						break;
 					case GameEvents.OpponentAttackedUnit:
 						Opponent.AttackUnit(arguments);
@@ -112,7 +112,7 @@ namespace CardGameSharp.Client.Game
 						Player.UnreadyCards(arguments);
 						break;
 					case GameEvents.AttackedDirectly:
-						Player.attack_directly(arguments);
+						Player.attack_directly((int)arguments[0]);
 						break;
 					case GameEvents.OpponentAttackedDirectly:
 						Opponent.AttackDirectly(arguments);
@@ -127,7 +127,7 @@ namespace CardGameSharp.Client.Game
 						Player.SetTargets(arguments);
 						break;
 					case GameEvents.Bounce:
-						Player.bounce(arguments);
+						Player.Bounce((int)arguments[0]);
 						break;
 					case GameEvents.OpponentBounce:
 						Opponent.Bounce(arguments);
@@ -136,24 +136,24 @@ namespace CardGameSharp.Client.Game
 						Opponent.ShowAttack(arguments);
 						break;
 					case GameEvents.AutoTarget:
-						Player.autotarget(arguments);
+						Player.autotarget((int)arguments[0]);
 						break;
 					case GameEvents.SetState:
-						Player.SetState(arguments);
+						Player.SetState((string)arguments[0]);
 						break;
 					case GameEvents.SetDeployable:
-						Player.SetDeployable(arguments);
+						Player.SetDeployable((int)arguments[0]);
 						break;
 					case GameEvents.SetAsAttacker:
-						Player.SetAttacker(arguments);
+						Player.SetAttacker((int)arguments[0]);
 						break;
 					case GameEvents.NoOp:
 						break;
 					case GameEvents.SetSettable:
-						Player.SetSettable(arguments);
+						Player.SetSettable((int)arguments[0]);
 						break;
 					case GameEvents.SetActivatable:
-						Player.SetActivatable(arguments);
+						Player.SetActivatable((int)arguments[0]);
 						break;
 					case GameEvents.Discard:
 						break;
