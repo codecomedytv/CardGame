@@ -21,7 +21,7 @@ namespace CardGameSharp.Client.Game
 		public Array<Card> Field = new Array<Card>();
 		public Array<Card> Support = new Array<Card>();
 		public Array<Card> Graveyard = new Array<Card>();
-		public Visual Visual;
+		public OpponentVisual Visual;
 		public Dictionary Cards;
 		public Player Enemy;
 		public List<Card> Link;

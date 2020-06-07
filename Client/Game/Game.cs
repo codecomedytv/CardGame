@@ -43,7 +43,7 @@ namespace CardGame.Client {
 			AddChild(Messenger, true);
 			Messenger.CustomMultiplayer = GetParent().Multiplayer;
 			Player.Visual = GetNode<Visual>("Player");
-			Opponent.Visual = GetNode<Visual>("Opponent");
+			Opponent.Visual = GetNode<OpponentVisual>("Opponent");
 			Player.Visual.Setup(Gfx, Sfx, History, (int) Gfx.Who.Player);
 			Opponent.Visual.Setup(Gfx, Sfx, History, (int) Gfx.Who.Opponent);
 			var networkId = CustomMultiplayer.GetNetworkUniqueId();

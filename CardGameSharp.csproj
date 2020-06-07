@@ -68,6 +68,7 @@
     <Compile Include="Client\Game\Manual.cs" />
     <Compile Include="Client\Game\Messenger.cs" />
     <Compile Include="Client\Game\Opponent.cs" />
+    <Compile Include="Client\Game\OpponentVisual.cs" />
     <Compile Include="Client\Game\Player.cs" />
     <Compile Include="Client\Game\Sfx.cs" />
     <Compile Include="Client\Game\Visual.cs" />
