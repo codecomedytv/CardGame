@@ -4,58 +4,29 @@ namespace CardGameSharp.Client.Game
 {
 	public class Sfx : AudioStreamPlayer
 	{
-		private AudioStream DeploySfx = ResourceLoader.Load("res://Assets/sounds/Rune.wav") as AudioStream;
+		public readonly AudioStream Deploy = ResourceLoader.Load("res://Assets/sounds/Rune.wav") as AudioStream;
 
-		private AudioStream DrawSfx =
+		public readonly AudioStream Draw =
 			ResourceLoader.Load("res://Assets/sounds/Card_Game_Movement_Deal_Single_01.wav") as AudioStream;
 
-		private AudioStream SetFaceDownSfx =
+		public readonly AudioStream SetFaceDown =
 			ResourceLoader.Load("res://Assets/sounds/Card_Game_Play_Swirl_Wind_01.wav") as AudioStream;
 
-		private AudioStream BattleSfx =
+		public readonly AudioStream Battle =
 			ResourceLoader.Load("res://Assets/sounds/Card_Game_Action_Stomp_01.wav") as AudioStream;
 
-		private AudioStream VictorySfx =
+		public readonly AudioStream Victory =
 			ResourceLoader.Load("res://Assets/sounds/BRPG_Victory_Stinger.wav") as AudioStream;
 
-		private AudioStream DefeatSfx =
+		public readonly AudioStream Defeat =
 			ResourceLoader.Load("res://Assets/sounds/BRPG_Defeat_Stinger.wav") as AudioStream;
 
-		public void Deploy()
+		public void Play(AudioStream audio)
 		{
-			Stream = DeploySfx;
+			Stream = audio;
 			Play();
 		}
-
-		public void SetFaceDown()
-		{
-			Stream = SetFaceDownSfx;
-			Play();
-		}
-
-		public void DrawCard()
-		{
-			Stream = DrawSfx;
-			Play();
-		}
-
-		public void BattleUnit()
-		{
-			Stream = BattleSfx;
-			Play();
-		}
-
-		public void Victory()
-		{
-			Stream = VictorySfx;
-			Play();
-		}
-
-		public void Defeat()
-		{
-			Stream = DefeatSfx;
-			Play();
-		}
+		
 
 	}
 }

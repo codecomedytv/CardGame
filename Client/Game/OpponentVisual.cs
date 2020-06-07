@@ -20,7 +20,7 @@ namespace CardGame.Client.Match
 		public Label Damage;
 		public Gfx Animate;
 		public int Who;
-		public AudioStreamPlayer Sfx;
+		public Sfx Sfx;
 		public History History;
 		public Godot.Collections.Dictionary<int, Card> Cards;
 
@@ -74,7 +74,7 @@ namespace CardGame.Client.Match
 			}
 		}
 
-		public void Setup(Gfx animate, AudioStreamPlayer sfx, History history, int who)
+		public void Setup(Gfx animate, Sfx sfx, History history, int who)
 		{
 			Animate = animate;
 			Sfx = sfx;
@@ -88,8 +88,7 @@ namespace CardGame.Client.Match
 			QueueCallback(History, Delay() + 0.3F, "AddLine", $"{card} was returned to Enemy's Hand");
 			QueueCallback(card.GetParent(), Delay(0.3), "remove_child", card);
 			QueueCallback(Hand, Delay(), "add_child", card);
-			QueueCallback(Sfx, Delay(), "add_child", card);
-			QueueCallback(Sfx, Delay(), "Deploy"); // Guess we didn't have a dedicated bounce sfx
+			QueueCallback(Sfx, Delay(), "Play", Sfx.Deploy); // Guess we didn't have a dedicated bounce sfx
 			QueueCallback(card, Delay(), "FlipFaceDown");
 			var fake = Library.Library.Placeholder();
 			QueueCallback(Hand, Delay(), "remove_child", card);
@@ -118,7 +117,7 @@ namespace CardGame.Client.Match
 			QueueCallback(card.Link, Delay(), "set_text", link.Count.ToString());
 			QueueCallback(card.Link, Delay(0.1F), "set_visible", true);
 			QueueCallback(card, Delay(), "FlipFaceUp");
-			QueueCallback(Sfx, Delay(), "Deploy");
+			QueueCallback(Sfx, Delay(), "Play", Sfx.Deploy);
 			QueueCallback(card.Back, Delay(0.1F), "hide");
 			QueueCallback(History, Delay(0.1F), "AddLine", $"Enemy activated {card}");
 			if (targets.Count != 0)
@@ -135,7 +134,7 @@ namespace CardGame.Client.Match
 			QueueCallback(attacker.Combat, Delay(), "hide");
 			QueueCallback(attacker.Combat, Delay(), "hide");
 			QueueCallback(defender, Delay(), "RemoveAura");
-			QueueCallback(Sfx, Delay(0.3), "BattleUnit");
+			QueueCallback(Sfx, Delay(0.3), "Play", Sfx.Battle);
 		}
 
 		public Vector2 AttackTargetPosition(Card defender, int player)
@@ -151,7 +150,7 @@ namespace CardGame.Client.Match
 			QueueProperty(attacker, "RectGlobalPosition", targetPosition, attacker.RectGlobalPosition, 0.3F, Delay(0.3F));
 			QueueCallback(attacker.Combat, Delay(), "hide");
 			QueueCallback(History, Delay(0.1), "DirectAttack", Who, attacker);
-			QueueCallback(Sfx, Delay(0.3F), "BattleUnit");
+			QueueCallback(Sfx, Delay(0.3F), "Play", Sfx.Battle);
 		}
 
 		public Vector2 DirectAttackTargetPosition(Card attacker, int player)
@@ -187,7 +186,7 @@ namespace CardGame.Client.Match
 			QueueCallback(card.GetParent(), Delay(0.3F), "remove_child", card);
 			QueueCallback(Units, Delay(), "add_child", card);
 			QueueCallback(card, Delay(), "FlipFaceUp");
-			QueueCallback(Sfx, Delay(), "Deploy");
+			QueueCallback(Sfx, Delay(), "Play", Sfx.Deploy);
 			
 		}
 
@@ -202,7 +201,7 @@ namespace CardGame.Client.Match
 			QueueCallback(Support, Delay(), "add_child", card);
 			GD.Print("setting ", card.ToString());
 			QueueCallback(card, Delay(), "FlipFaceDown");
-			QueueCallback(Sfx, Delay(), "SetFaceDown");
+			QueueCallback(Sfx, Delay(), "Play", Sfx.SetFaceDown);
 		}
 		
 		public void LoseLife(int damageTaken)
@@ -295,7 +294,7 @@ namespace CardGame.Client.Match
 			QueueCallback(card, Delay(0.0), "TurnVisible");
 			var deckSize = (playerData.DeckSize - 1).ToString();
 			QueueCallback(Deck, Delay(), "set_text", deckSize);
-			QueueCallback(Sfx, Delay(), "DrawCard");
+			QueueCallback(Sfx, Delay(), "Play", Sfx.Draw);
 			QueueCallback(this, Delay(0.2), "Sort", Hand);
 			QueueCallback(History, Delay(), "AddLine", "Enemy drew a card");
 		}
