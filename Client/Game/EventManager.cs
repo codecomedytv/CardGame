@@ -58,7 +58,7 @@ namespace CardGameSharp.Client.Game
 						Player.LoadDeck((int)arguments[0]);
 						break;
 					case GameEvents.OpponentDraw:
-						Opponent.Draw(arguments);
+						Opponent.Draw();
 						break;
 					case GameEvents.OpponentLoadDeck:
 						Opponent.LoadDeck((int)arguments[0]);
@@ -79,31 +79,31 @@ namespace CardGameSharp.Client.Game
 						Player.Deploy((int)arguments[0]);
 						break;
 					case GameEvents.OpponentDeploy:
-						Opponent.Deploy(arguments);
+						Opponent.Deploy((Dictionary)arguments[0]);
 						break;
 					case GameEvents.SetFaceDown:
 						Player.SetFaceDown((int)arguments[0]);
 						break;
 					case GameEvents.OpponentSetFaceDown:
-						Opponent.SetFaceDown(arguments);
+						Opponent.SetFaceDown();
 						break;
 					case GameEvents.LoseLife:
 						Player.LoseLife(arguments);
 						break;
 					case GameEvents.OpponentLoseLife:
-						Opponent.LoseLife(arguments);
+						Opponent.LoseLife((int)arguments[0]);
 						break;
 					case GameEvents.CardDestroyed:
 						Player.DestroyUnit((int)arguments[0]);
 						break;
 					case GameEvents.OpponentCardDestroyed:
-						Opponent.DestroyUnit(arguments);
+						Opponent.DestroyUnit((int)arguments[0]);
 						break;
 					case GameEvents.AttackedUnit:
 						Player.AttackUnit((int)arguments[0], (int)arguments[1]);
 						break;
 					case GameEvents.OpponentAttackedUnit:
-						Opponent.AttackUnit(arguments);
+						Opponent.AttackUnit((int)arguments[0], (int)arguments[1]);
 						break;
 					case GameEvents.ReadyCard:
 						Player.ReadyCards(arguments);
@@ -115,7 +115,7 @@ namespace CardGameSharp.Client.Game
 						Player.attack_directly((int)arguments[0]);
 						break;
 					case GameEvents.OpponentAttackedDirectly:
-						Opponent.AttackDirectly(arguments);
+						Opponent.AttackDirectly((int)arguments[0]);
 						break;
 					case GameEvents.OpponentActivate:
 						Opponent.Activate(arguments);
@@ -130,10 +130,10 @@ namespace CardGameSharp.Client.Game
 						Player.Bounce((int)arguments[0]);
 						break;
 					case GameEvents.OpponentBounce:
-						Opponent.Bounce(arguments);
+						Opponent.Bounce((int)arguments[0]);
 						break;
 					case GameEvents.AttackDeclared:
-						Opponent.ShowAttack(arguments);
+						Opponent.ShowAttack((int)arguments[0], (int)arguments[1]);
 						break;
 					case GameEvents.AutoTarget:
 						Player.autotarget((int)arguments[0]);

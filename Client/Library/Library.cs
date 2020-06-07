@@ -7,7 +7,7 @@ namespace CardGame.Client.Library
 {
     public class Library
     {
-        static public Object Fetch(int id, SetCodes setCode)
+        static public Card.Card Fetch(int id, SetCodes setCode)
         {
             var cardScene = ResourceLoader.Load("res://Client/Library/Card/Card.tscn") as PackedScene;
             var card = (Card.Card) cardScene.Instance();

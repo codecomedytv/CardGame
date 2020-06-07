@@ -31,41 +31,32 @@ namespace CardGameSharp.Client.Game
 			Cards = cards;
 		}
 
-		public void ShowAttack(Array args)
+		public void ShowAttack(int attackerId, int targetId)
 		{
 			object defender = null;
-			var attacker = Cards[(int) args[0]];
-			if ((int) args[1] != -1)
-			{
-				defender = Cards[(int) args[1]];
-			}
-			else
-			{
-				defender = -1;
-			}
-
-			Visual.ShowAttack((Card) attacker, defender);
+			var attacker = Cards[attackerId];
+			defender = targetId != -1 ? (object) Cards[targetId] : -1;
+			Visual.ShowAttack(attacker, defender);
 		}
 
-		public void AttackUnit(Array args)
+		public void AttackUnit(int attackerId, int defenderId)
 		{
-			var attacker = Cards[(int) args[0]];
-			var defender = Cards[(int) args[1]];
-			Visual.AttackUnit((Card) attacker, (Card) defender);
+			var attacker = Cards[attackerId];
+			var defender = Cards[defenderId];
+			Visual.AttackUnit(attacker, defender);
 		}
 
-		public void AttackDirectly(Array args)
+		public void AttackDirectly(int attackerId)
 		{
-			var attacker = Cards[(int) args[0]];
-			Visual.AttackDirectly((Card) attacker);
+			var attacker = Cards[attackerId];
+			Visual.AttackDirectly(attacker);
 		}
 
-		public void Deploy(Array args)
+		public void Deploy(Dictionary data)
 		{
-			if (!(args[0] is Dictionary data)) return;
 			var id = (int) data["Id"];
 			var setCode = (SetCodes) data["setCode"];
-			var card = Library.Fetch(id, setCode) as Card;
+			var card = Library.Fetch(id, setCode);
 			card.Id = id;
 			Cards[card.Id] = card;
 			HandSize -= 1;
@@ -74,14 +65,14 @@ namespace CardGameSharp.Client.Game
 
 		}
 
-		public void Bounce(Array args)
+		public void Bounce(int id)
 		{
-			var card = Cards[(int) args[0]];
-			var c = card as Card;
-			Field.Remove((Card) card);
+			var card = Cards[id];
+			var c = card;
+			Field.Remove(card);
 			HandSize += 1;
 			Cards.Remove(c.Id);
-			Visual.Bounce((Card) card);
+			Visual.Bounce(card);
 		}
 
 		public void Resolve()
@@ -129,44 +120,33 @@ namespace CardGameSharp.Client.Game
 			Visual.Activate(card, Link, targets);
 		}
 
-		public void SetFaceDown(Array args)
+		public void SetFaceDown()
 		{
-			//var card = Cards[(int) args[0]];
 			HandSize -= 1;
 			var blank = Library.Placeholder();
 			Support.Add(blank);
 			Visual.SetFaceDown(blank);
 		}
-		
-		// var card = Cards[(int) args[0]];
-		// var c = card as Card;
-		// Field.Remove((Card) card);
-		// HandSize += 1;
-		// Cards.Remove(c.Id);
-		// Visual.Bounce((Card) card);
 
-		public void Draw(Array args)
+		public void Draw()
 		{
-			var count = (int) args[0];
-			HandSize += count;
-			DeckSize -= count;
-			Visual.Draw(args, this);
+			HandSize += 1;
+			DeckSize -= 1;
+			Visual.Draw(new Array{1}, this);
 		}
 
-		public void DestroyUnit(Array args)
+		public void DestroyUnit(int id)
 		{
-			var id = (int) args[0];
-			var card = Cards[id] as Card;
-			Field.Remove((Card) card);
-			Graveyard.Add((Card) card);
+			var card = Cards[id];
+			Field.Remove(card);
+			Graveyard.Add(card);
 			Visual.DestroyUnit(card);
 		}
 
-		public void LoseLife(Array args)
+		public void LoseLife(int lifeLost)
 		{
-			var lost = (int) args[0];
-			Health -= lost;
-			Visual.LoseLife(lost);
+			Health -= lifeLost;
+			Visual.LoseLife(lifeLost);
 		}
 
 		public void LoadDeck(int deckSize)
