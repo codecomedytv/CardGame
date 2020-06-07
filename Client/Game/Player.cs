@@ -127,7 +127,7 @@ namespace CardGame.Client.Match
 		public void Draw(Dictionary codes)
 		{
 			DeckSize -= 1;
-			var card = Library.Library.Fetch((int)codes["id"], (SetCodes)codes["setCode"]);
+			var card = Library.Library.Fetch((int)codes["Id"], (SetCodes)codes["setCode"]);
 			card.Connect("CardActivated", Input, "Activate");
 			card.Player = this;
 			card.Interact = Interact;
