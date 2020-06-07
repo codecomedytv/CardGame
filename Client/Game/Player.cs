@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+//using System.Collections.Generic;
 using CardGame.Client.Library.Card;
+using Zone = System.Collections.Generic.List<CardGame.Client.Library.Card.Card>;
 using CardGameSharp.Client.Game;
 using Godot;
 using Godot.Collections;
@@ -28,16 +29,16 @@ namespace CardGame.Client.Match
         public bool IsTurnPlayer = false;
         public int Health = 8000;
         public int DeckSize = 0;
-        public List<Card> Hand = new List<Card>();
-        public List<Card> Field = new List<Card>();
-        public List<Card> Graveyard = new List<Card>();
-        public List<Card> Support = new List<Card>();
+        public Zone Hand = new Zone();
+        public Zone Field = new Zone();
+        public Zone Graveyard = new Zone();
+        public Zone Support = new Zone();
         public bool Won = false;
         public bool Lost = false;
         public Visual Visual;
-        public Godot.Collections.Dictionary<int, Card> Cards = new Godot.Collections.Dictionary<int, Card>();
+        public Dictionary<int, Card> Cards;
         public Opponent Opponent;
-        public List<Card> Link = new List<Card>();
+        public Zone Link = new Zone();
         public GameInput Input;
         public Interact Interact;
 
@@ -65,7 +66,7 @@ namespace CardGame.Client.Match
 		    //	_show_valid_targets(targeter);
 		}
 
-		public void SetUp(Godot.Collections.Dictionary<int, Card> cards) 
+		public Player(Dictionary<int, Card> cards)
 		{
 			Cards = cards;
 	    }

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using CardGame;
+﻿using CardGame;
 using CardGame.Client.Match;
-using CardGame.Server;
 using Godot;
 using Godot.Collections;
 using Card = CardGame.Client.Library.Card.Card;
 using Player = CardGame.Client.Match.Player;
-using CardGame.Client.Library;
+using Zone = System.Collections.Generic.List<CardGame.Client.Library.Card.Card>;
 using Array = Godot.Collections.Array;
 using Library = CardGame.Client.Library.Library;
 
@@ -18,15 +15,15 @@ namespace CardGameSharp.Client.Game
 		public int Health = 8000;
 		public int DeckSize = 0;
 		public int HandSize = 0;
-		public Array<Card> Field = new Array<Card>();
-		public Array<Card> Support = new Array<Card>();
-		public Array<Card> Graveyard = new Array<Card>();
+		public Zone Field = new Zone();
+		public Zone Support = new Zone();
+		public Zone Graveyard = new Zone();
 		public OpponentVisual Visual;
-		public Godot.Collections.Dictionary<int, Card> Cards;
+		public Dictionary<int, Card> Cards;
 		public Player Enemy;
-		public List<Card> Link;
+		public Zone Link;
 
-		public void SetUp(Godot.Collections.Dictionary<int, Card> cards)
+		public Opponent(Dictionary<int, Card> cards)
 		{
 			Cards = cards;
 		}

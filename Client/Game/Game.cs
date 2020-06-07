@@ -18,8 +18,8 @@ namespace CardGame.Client {
 		public AudioStreamPlayer BackgroundMusic;
 		public History History;
 		public Messenger Messenger = new Messenger();
-		public Player Player = new Player();
-		public Opponent Opponent = new Opponent();
+		public Player Player;
+		public Opponent Opponent;
 		public EventManager EventManager = new EventManager();
 		public GameInput GameInput;
 		public bool Muted = false;
@@ -42,6 +42,8 @@ namespace CardGame.Client {
 			GameInput = gameInput;
 			AddChild(Messenger, true);
 			Messenger.CustomMultiplayer = GetParent().Multiplayer;
+			Player = new Player(Cards);
+			Opponent = new Opponent(Cards);
 			Player.Visual = GetNode<Visual>("Player");
 			Opponent.Visual = GetNode<OpponentVisual>("Opponent");
 			Player.Visual.Setup(Gfx, Sfx, History, (int) Gfx.Who.Player);
@@ -50,8 +52,6 @@ namespace CardGame.Client {
 			Messenger.Id = networkId;
 			Sfx.StreamPaused = Muted;
 			BackgroundMusic.StreamPaused = Muted;
-			Player.SetUp(Cards);
-			Opponent.SetUp(Cards);
 			Player.Link = Link;
 			Opponent.Link = Link;
 			Player.Opponent = Opponent;

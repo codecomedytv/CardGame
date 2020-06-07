@@ -323,41 +323,5 @@ namespace CardGame.Client.Match
 		{
 			QueueCallback(History, Delay() ,"AddLine", "You ended your turn");
 		}
-
-
-		public void Draw(Array args, Opponent playerData)
-		{
-			var count = 0;
-			count = (int) (Who == (int)Gfx.Who.Player ? args.Count : args[0]);
-			Array drawn = new Array();
-			var positions = NextHandPositions(count);
-			for(var i = 0; i < count; i++)
-			{
-				var card = Library.Library.Placeholder();
-				drawn.Add(card);
-				Hand.AddChild((Card)card);
-				card.RectGlobalPosition = Deck.RectGlobalPosition;
-				card.TurnInvisible();
-				var pos = positions[0];
-				positions.RemoveAt(0);
-				QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, pos, 0.2F, Delay(0.2F));
-				QueueCallback(card, Delay(0.0), "TurnVisible");
-			
-
-				var deckSize = (playerData.DeckSize + count - i - 1).ToString();
-				QueueCallback(Deck, Delay(), "set_text", deckSize);
-				QueueCallback(Sfx, Delay(), "Play", Sfx.Draw);
-			}
-
-			QueueCallback(this, Delay(0.2), "Sort", Hand);
-			if(Who == (int)Gfx.Who.Player)
-			{
-				QueueCallback(History, Delay(), "PlayerDraw", drawn);
-			}
-			else
-			{
-				QueueCallback(History, Delay(), "OpponentDraw", count);
-			}
-		}
 	}
 }
