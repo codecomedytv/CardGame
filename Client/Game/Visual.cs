@@ -122,7 +122,7 @@ namespace CardGame.Client.Match
 		public void Bounce(Card card)
 		{
 			QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Hand), 0.3F, Delay());
-			QueueCallback(History, Delay() + 0.3F, "Bounce", Who, card);
+			QueueCallback(History, Delay() + 0.3F, "AddLine", $"{card} was returned to your hand");
 			QueueCallback(card.GetParent(), Delay(0.3), "remove_child", card);
 			QueueCallback(Hand, Delay(), "add_child", card);
 			QueueCallback(Sfx, Delay(), "add_child", card);
@@ -211,7 +211,7 @@ namespace CardGame.Client.Match
 		{
 			
 			QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Units), 0.3F, Delay());
-			QueueCallback(History, Delay() + 0.3F, "Deploy", Who, card);
+			QueueCallback(History, Delay() + 0.3F, "AddLine", $"You deployed {card}");
 			QueueCallback(card.GetParent(), Delay(0.3F), "remove_child", card);
 			QueueCallback(Units, Delay(), "add_child", card);
 			QueueCallback(card, Delay(), "FlipFaceUp");
@@ -222,7 +222,7 @@ namespace CardGame.Client.Match
 		public void SetFaceDown(Card card)
 		{
 			QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Support), 0.3F, Delay());
-			QueueCallback(History, Delay() + 0.3F, "SetFaceDown", Who, card);
+			QueueCallback(History, Delay() + 0.3F, "AddLine", $"You set {card} FaceDown");
 			QueueCallback(card.GetParent(), Delay(0.3), "remove_child", card);
 			QueueCallback(Support, Delay(), "add_child", card);
 			GD.Print("setting ", card.ToString());
@@ -237,7 +237,7 @@ namespace CardGame.Client.Match
 			var visible = Damage.Modulate + new Color(0, 0, 0, 255);
 			var invisible = Damage.Modulate - new Color(0, 0, 0, 255);
 			QueueCallback(Damage, Delay(), "set_self_modulate", visible);
-			QueueCallback(History, Delay(0.1), "LoseLife", Who, damageTaken);
+			QueueCallback(History, Delay(0.1), "AddLine", $"You took {damageTaken} damage");
 			QueueCallback(Damage, Delay(0.5), "set_self_modulate", invisible);
 		}
 		
@@ -269,7 +269,7 @@ namespace CardGame.Client.Match
 			QueueCallback(Deck, Delay(), "set_text", deckSize);
 			QueueCallback(Sfx, Delay(), "DrawCard");
 			QueueCallback(this, Delay(0.2), "Sort", Hand);
-			QueueCallback(History, Delay(), "PlayerDraw", card);
+			QueueCallback(History, Delay(), "AddLine", $"You drew {card}");
 			
 		}
 		
@@ -316,12 +316,12 @@ namespace CardGame.Client.Match
 
 		public void BeginTurn()
 		{
-			QueueCallback(History, Delay(), "BeginTurn");
+			QueueCallback(History, Delay(), "AddLine", "Your turn has begun");
 		}
 
 		public void EndTurn()
 		{
-			QueueCallback(History, Delay() ,"EndTurn");
+			QueueCallback(History, Delay() ,"AddLine", "You ended your turn");
 		}
 
 
