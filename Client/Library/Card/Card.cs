@@ -110,21 +110,14 @@ namespace CardGame.Client.Library.Card
 		public override string ToString() => $"{Id} : {Title}";
 		
 
-		public void Ready()
-		{
-			Rest.Visible = false;
-		}
-
-		public void Exhaust()
-		{
-			Rest.Visible = true;
-		}
-
-		public bool DoesNotRequireTargets()
-		{
-			return ValidTargets.Count == 0;
-		}
+		public void Ready() => Rest.Visible = false;
 		
+
+		public void Exhaust() => Rest.Visible = true;
+		
+
+		public bool DoesNotRequireTargets() => ValidTargets.Count == 0;
+
 		private bool Legal
 		{
 			get => CanBeSet || CanBeDeployed || CanAttack || CanBeActivated;
@@ -154,25 +147,14 @@ namespace CardGame.Client.Library.Card
 			LegalPlay.Stop();
 		}
 
-		public void TurnInvisible()
-		{
-			Modulate = new Color(Modulate.r, Modulate.g, Modulate.b, 0);
-		}
+		public void TurnInvisible() => Modulate = new Color(Modulate.r, Modulate.g, Modulate.b, 0);
 
-		public void TurnVisible()
-		{
-			Modulate = new Color(Modulate.r, Modulate.g, Modulate.b, 1);
-		}
+		public void TurnVisible() => Modulate = new Color(Modulate.r, Modulate.g, Modulate.b, 1);
+		
+		public void FlipFaceUp() => Back.Visible = false;
 
-		public void FlipFaceUp()
-		{
-			Back.Visible = false;
-		}
-
-		public void FlipFaceDown()
-		{
-			Back.Visible = true;
-		}
+		public void FlipFaceDown() => Back.Visible = true;
+		
 
 		public void SetData(BaseCard card)
 		{
