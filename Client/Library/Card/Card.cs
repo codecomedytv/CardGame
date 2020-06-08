@@ -1,11 +1,7 @@
-using System;
 using CardGame.Client.Match;
-using CardGame.Server;
 using Godot;
 using Array = Godot.Collections.Array;
-using Environment = Godot.Environment;
-using Object = Godot.Object;
-using Player = CardGame.Client.Match.Player;
+using Player = CardGame.Client.Match.Model.Player;
 
 namespace CardGame.Client.Library.Card
 {

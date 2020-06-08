@@ -11,7 +11,7 @@ using Array = Godot.Collections.Array;
 // using Array = Godot.Collections.Array;
 
 
-namespace CardGame.Client.Match
+namespace CardGame.Client.Match.Model
 {
     public class Player: Reference
     {

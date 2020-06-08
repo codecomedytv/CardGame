@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using CardGame.Client.Library.Card;
 using CardGame.Client.Match;
+using CardGame.Client.Match.Model;
 
 namespace CardGame.Client {
 

@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.Hosting;
-using CardGame;
-using CardGame.Client.Match;
 using Godot;
 using Godot.Collections;
 using Array = Godot.Collections.Array;
+using CardGame.Client.Match.Model;
 
 namespace CardGame.Client.Match
 {

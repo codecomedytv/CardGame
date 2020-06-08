@@ -1,14 +1,10 @@
-﻿using CardGame;
-using CardGame.Client.Match;
-using Godot;
+﻿using Godot;
 using Godot.Collections;
 using Card = CardGame.Client.Library.Card.Card;
-using Player = CardGame.Client.Match.Player;
 using Zone = System.Collections.Generic.List<CardGame.Client.Library.Card.Card>;
 using Array = Godot.Collections.Array;
-using Library = CardGame.Client.Library.Library;
 
-namespace CardGame.Client.Match
+namespace CardGame.Client.Match.Model
 {
 	public class Opponent : Reference
 	{

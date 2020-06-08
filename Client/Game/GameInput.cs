@@ -1,5 +1,5 @@
 ﻿using CardGame.Client.Library.Card;
-using CardGame.Client.Match;
+using CardGame.Client.Match.Model;
 using Godot;
 using Godot.Collections;
 
