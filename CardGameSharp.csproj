@@ -71,6 +71,7 @@
     <Compile Include="Client\Game\OpponentVisual.cs" />
     <Compile Include="Client\Game\Player.cs" />
     <Compile Include="Client\Game\Sfx.cs" />
+    <Compile Include="Client\Game\PlayerVisual.cs" />
     <Compile Include="Client\Game\Visual.cs" />
     <Compile Include="Client\Library\Alpha\CounterAttack.cs" />
     <Compile Include="Client\Library\Alpha\DungeonGuide.cs" />

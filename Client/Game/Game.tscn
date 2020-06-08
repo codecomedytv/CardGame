@@ -6,7 +6,7 @@
 [ext_resource path="res://assets/spritesheets/17.png" type="Texture" id=4]
 [ext_resource path="res://client/game/PlayerViewer.tscn" type="PackedScene" id=5]
 [ext_resource path="res://client/game/CardViewer.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Client/Game/Visual.cs" type="Script" id=7]
+[ext_resource path="res://Client/Game/PlayerVisual.cs" type="Script" id=7]
 [ext_resource path="res://assets/UI/Background_Field.png" type="Texture" id=8]
 [ext_resource path="res://assets/UI/Seperator.png" type="Texture" id=9]
 [ext_resource path="res://assets/UI/Table.png" type="Texture" id=10]
@@ -620,7 +620,7 @@ position = Vector2( 906.037, 644.347 )
 scale = Vector2( 0.348772, 0.389158 )
 frames = SubResource( 48 )
 animation = "New Anim"
-frame = 11
+frame = 6
 playing = true
 script = ExtResource( 20 )
 

@@ -44,7 +44,7 @@ namespace CardGame.Client {
 			Messenger.CustomMultiplayer = GetParent().Multiplayer;
 			Player = new Player(Cards);
 			Opponent = new Opponent(Cards);
-			Player.Visual = GetNode<Visual>("Player");
+			Player.Visual = GetNode<PlayerVisual>("Player");
 			Opponent.Visual = GetNode<OpponentVisual>("Opponent");
 			Player.Visual.Setup(Gfx, Sfx, History, (int) Gfx.Who.Player);
 			Opponent.Visual.Setup(Gfx, Sfx, History, (int) Gfx.Who.Opponent);

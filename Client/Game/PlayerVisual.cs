@@ -9,34 +9,69 @@ using Object = Godot.Object;
 
 namespace CardGame.Client.Match
 {
-	public class OpponentVisual : Visual
+	public class PlayerVisual : Visual
 	{
+
+		public void AutoTarget(Card card)
+		{
+			foreach (var target in card.ValidTargets)
+			{
+				QueueCallback((Card)Cards[(int)target], Delay(), "ShowAsValid", true);
+			}
+		}
+
+		[Signal]
+		public delegate void ButtonAction();
+
+		public void SetState(string state)
+		{
+			switch (state)
+			{
+				case "Idle":
+					EmitSignal(nameof(ButtonAction), "");
+					break;
+				case "Active":
+					EmitSignal(nameof(ButtonAction), "Pass");
+					break;
+				case "Passive":
+					break;
+				case "Acting":
+					break;
+				case "Passing":
+					break;
+				case "Targeting":
+					break;
+				default:
+					EmitSignal(nameof(ButtonAction), "Wait");
+					break;
+			}
+
+			var active = GetNode("Active") as Label;
+			if (active != null) active.Text = state.ToString();
+		}
+
 		public void ShowAttack(Card attacker, object defender)
 		{
 			attacker.Combat.Show();
 			if (defender is Card card)
 			{
 				card.Combat.Show();
-				History.AddLine($"Enemy's {attacker} your {card}");
+				History.AddLine($"Your {attacker} attacked Enemy's {defender}");
 			}
 			else
 			{
-				History.AddLine($"Enemy's {attacker} attacked directly");
+				History.AddLine($"Your {attacker} attacked directly" );
 			}
 		}
 		
 		public void Bounce(Card card)
 		{
 			QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Hand), 0.3F, Delay());
-			QueueCallback(History, Delay() + 0.3F, "AddLine", $"{card} was returned to Enemy's Hand");
+			QueueCallback(History, Delay() + 0.3F, "AddLine", $"{card} was returned to your hand");
 			QueueCallback(card.GetParent(), Delay(0.3), "remove_child", card);
 			QueueCallback(Hand, Delay(), "add_child", card);
 			QueueCallback(Sfx, Delay(), "Play", Sfx.Deploy); // Guess we didn't have a dedicated bounce sfx
-			QueueCallback(card, Delay(), "FlipFaceDown");
-			var fake = Library.Library.Placeholder();
-			QueueCallback(Hand, Delay(), "remove_child", card);
-			QueueCallback(Hand, Delay(), "add_child", fake);
-			QueueCallback(card, Delay(), "QueueFree");
+			GD.Print();
 		}
 
 		public void Resolve(Array<Card> linked)
@@ -52,20 +87,16 @@ namespace CardGame.Client.Match
 
 		public void Activate(Card card, List<Card> link, Array<Card> targets)
 		{
-			
-			Support.GetChild(0).Free();
-			Support.AddChild(card);
-			card.Back.Visible = true;
 			link.Add(card);
 			QueueCallback(card.Link, Delay(), "set_text", link.Count.ToString());
 			QueueCallback(card.Link, Delay(0.1F), "set_visible", true);
 			QueueCallback(card, Delay(), "FlipFaceUp");
 			QueueCallback(Sfx, Delay(), "Play", Sfx.Deploy);
 			QueueCallback(card.Back, Delay(0.1F), "hide");
-			QueueCallback(History, Delay(0.1F), "AddLine", $"Enemy activated {card}");
+			QueueCallback(History, Delay(), "AddLine", $"You activated {card}");
 			if (targets.Count != 0)
 			{
-				QueueCallback(History, Delay(0.1), "AddLine", $"Targeting: {targets}");
+				QueueCallback(History, Delay(), "AddLine", $"Targeting: {targets}");
 			}
 		}
 
@@ -77,13 +108,15 @@ namespace CardGame.Client.Match
 			QueueCallback(attacker.Combat, Delay(), "hide");
 			QueueCallback(attacker.Combat, Delay(), "hide");
 			QueueCallback(defender, Delay(), "RemoveAura");
+			QueueCallback(History, Delay(), "Attack", Who, attacker, defender);
 			QueueCallback(Sfx, Delay(0.3), "Play", Sfx.Battle);
 		}
 
 		public Vector2 AttackTargetPosition(Card defender, int player)
 		{
 			var yModifier = new Vector2(0, defender.RectScale.y);
-			return defender.RectGlobalPosition - yModifier;
+			return defender.RectGlobalPosition + yModifier;
+			
 		}
 
 		public void AttackDirectly(Card attacker)
@@ -91,15 +124,16 @@ namespace CardGame.Client.Match
 			var targetPosition = DirectAttackTargetPosition(attacker, Who);
 			QueueProperty(attacker, "RectGlobalPosition", attacker.RectGlobalPosition, targetPosition, 0.3F, Delay());
 			QueueProperty(attacker, "RectGlobalPosition", targetPosition, attacker.RectGlobalPosition, 0.3F, Delay(0.3F));
+			Animate.AddDelay(0.3F, (int)Gfx.Who.Opponent);
 			QueueCallback(attacker.Combat, Delay(), "hide");
-			QueueCallback(History, Delay(0.1), "DirectAttack", Who, attacker);
+			QueueCallback(History, Delay(), "DirectAttack", Who, attacker);
 			QueueCallback(Sfx, Delay(0.3F), "Play", Sfx.Battle);
 		}
 
 		public Vector2 DirectAttackTargetPosition(Card attacker, int player)
 		{
 			var yModifier = new Vector2(0, 70);
-			return attacker.RectGlobalPosition + yModifier;
+			return attacker.RectGlobalPosition - yModifier;
 		}
 
 		public void ReadyCards(Array args)
@@ -114,18 +148,15 @@ namespace CardGame.Client.Match
 		{
 			foreach(var id in args)
 			{
-				QueueCallback((Card)Cards[(int)id], Delay(), "Exhaust");
+				QueueCallback(Cards[(int)id], Delay(), "Exhaust");
 			}
 		}
 
 		public void Deploy(Card card)
 		{
-			Hand.RemoveChild(Hand.GetChild(0));
-			Hand.AddChild(card);
-			Sort(Hand);
-			card.FlipFaceDown();
+			
 			QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Units), 0.3F, Delay());
-			QueueCallback(History, Delay() + 0.3F, "AddLine", $"Enemy Deployed {card}");
+			QueueCallback(History, Delay() + 0.3F, "AddLine", $"You deployed {card}");
 			QueueCallback(card.GetParent(), Delay(0.3F), "remove_child", card);
 			QueueCallback(Units, Delay(), "add_child", card);
 			QueueCallback(card, Delay(), "FlipFaceUp");
@@ -135,11 +166,8 @@ namespace CardGame.Client.Match
 
 		public void SetFaceDown(Card card)
 		{
-			Hand.RemoveChild(Hand.GetChild(0));
-			Hand.AddChild(card);
-			Sort(Hand);
 			QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Support), 0.3F, Delay());
-			QueueCallback(History, Delay(), "AddLine", "Enemy set a FaceDown Card");
+			QueueCallback(History, Delay() + 0.3F, "AddLine", $"You set {card} FaceDown");
 			QueueCallback(card.GetParent(), Delay(0.3), "remove_child", card);
 			QueueCallback(Support, Delay(), "add_child", card);
 			GD.Print("setting ", card.ToString());
@@ -154,7 +182,7 @@ namespace CardGame.Client.Match
 			var visible = Damage.Modulate + new Color(0, 0, 0, 255);
 			var invisible = Damage.Modulate - new Color(0, 0, 0, 255);
 			QueueCallback(Damage, Delay(), "set_self_modulate", visible);
-			QueueCallback(History, Delay(), "AddLine", $"Opponent took {damageTaken} damage");
+			QueueCallback(History, Delay(), "AddLine", $"You took {damageTaken} damage");
 			QueueCallback(Damage, Delay(0.5), "set_self_modulate", invisible);
 		}
 		
@@ -164,7 +192,7 @@ namespace CardGame.Client.Match
 			QueueCallback(Discard, Delay(), "add_child", card);
 			QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, Discard.RectGlobalPosition, 0.3F,
 				Delay());
-			QueueCallback(History, Delay(), "AddLine", $"Enemy's {card} was destroyed");
+			QueueCallback(History, Delay(), "AddLine", $"Your {card} was destroyed");
 		}
 		
 		public void LoadDeck(int deckSize)
@@ -172,21 +200,9 @@ namespace CardGame.Client.Match
 			QueueCallback(Deck, Delay(0.3F), "set_text", deckSize.ToString());
 		}
 
-		public void BeginTurn()
-		{
-			QueueCallback(History, Delay(), "AddLine", "Enemy's Turn Has Begun");
-		}
-
-		public void EndTurn()
-		{
-			QueueCallback(History, Delay() ,"AddLine", "Enemy Ended Their Turn");
-		}
-
-
-		public void Draw(int args, Opponent playerData)
+		public void Draw(Card card, Player playerData)
 		{
 			var positions = NextHandPositions(1);
-			var card = Library.Library.Placeholder();
 			Hand.AddChild((Card)card);
 			card.RectGlobalPosition = Deck.RectGlobalPosition;
 			card.TurnInvisible();
@@ -198,7 +214,18 @@ namespace CardGame.Client.Match
 			QueueCallback(Deck, Delay(), "set_text", deckSize);
 			QueueCallback(Sfx, Delay(), "Play", Sfx.Draw);
 			QueueCallback(this, Delay(0.2), "Sort", Hand);
-			QueueCallback(History, Delay(), "AddLine", "Enemy drew a card");
+			QueueCallback(History, Delay(), "AddLine", $"You drew {card}");
+			
+		}
+
+		public void BeginTurn()
+		{
+			QueueCallback(History, Delay(), "AddLine", "Your turn has begun");
+		}
+
+		public void EndTurn()
+		{
+			QueueCallback(History, Delay() ,"AddLine", "You ended your turn");
 		}
 	}
 }

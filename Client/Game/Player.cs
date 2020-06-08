@@ -35,7 +35,7 @@ namespace CardGame.Client.Match
         public Zone Support = new Zone();
         public bool Won = false;
         public bool Lost = false;
-        public Visual Visual;
+        public PlayerVisual Visual;
         public Dictionary<int, Card> Cards;
         public Opponent Opponent;
         public Zone Link = new Zone();
