@@ -67,12 +67,12 @@
     <Compile Include="Client\Game\Interact.cs" />
     <Compile Include="Client\Game\Manual.cs" />
     <Compile Include="Client\Game\Messenger.cs" />
-    <Compile Include="Client\Game\Opponent.cs" />
-    <Compile Include="Client\Game\OpponentVisual.cs" />
-    <Compile Include="Client\Game\Player.cs" />
+    <Compile Include="Client\Game\Model\Opponent.cs" />
+    <Compile Include="Client\Game\Model\Player.cs" />
     <Compile Include="Client\Game\Sfx.cs" />
-    <Compile Include="Client\Game\PlayerVisual.cs" />
-    <Compile Include="Client\Game\Visual.cs" />
+    <Compile Include="Client\Game\View\Opponent.cs" />
+    <Compile Include="Client\Game\View\Player.cs" />
+    <Compile Include="Client\Game\View\Visual.cs" />
     <Compile Include="Client\Library\Alpha\CounterAttack.cs" />
     <Compile Include="Client\Library\Alpha\DungeonGuide.cs" />
     <Compile Include="Client\Library\Alpha\GuardPuppy.cs" />
@@ -710,6 +710,9 @@
     <Content Include="Client\Game\Game.tscn" />
     <Content Include="Client\Game\PlayerViewer.tscn" />
     <Content Include="Client\Library\Card\Card.tscn" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Client\Game\Controller" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

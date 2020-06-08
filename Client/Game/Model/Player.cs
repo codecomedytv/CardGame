@@ -35,7 +35,7 @@ namespace CardGame.Client.Match
         public Zone Support = new Zone();
         public bool Won = false;
         public bool Lost = false;
-        public PlayerVisual Visual;
+        public View.Player Visual;
         public Dictionary<int, Card> Cards;
         public Opponent Opponent;
         public Zone Link = new Zone();
@@ -136,7 +136,7 @@ namespace CardGame.Client.Match
 			Cards[card.Id] = card;
 			Hand.Add(card);
 			card.Zone = Card.Zones.Hand;
-			Visual.Draw(card, this);
+			Visual.Draw(card, DeckSize);
 	    }
 
 		public void DestroyUnit(int id) 

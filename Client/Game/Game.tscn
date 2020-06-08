@@ -6,7 +6,7 @@
 [ext_resource path="res://assets/spritesheets/17.png" type="Texture" id=4]
 [ext_resource path="res://client/game/PlayerViewer.tscn" type="PackedScene" id=5]
 [ext_resource path="res://client/game/CardViewer.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Client/Game/PlayerVisual.cs" type="Script" id=7]
+[ext_resource path="res://Client/Game/View/Player.cs" type="Script" id=7]
 [ext_resource path="res://assets/UI/Background_Field.png" type="Texture" id=8]
 [ext_resource path="res://assets/UI/Seperator.png" type="Texture" id=9]
 [ext_resource path="res://assets/UI/Table.png" type="Texture" id=10]
@@ -52,7 +52,9 @@
 [ext_resource path="res://assets/spritesheets/ovalorange/030014.png" type="Texture" id=50]
 [ext_resource path="res://assets/spritesheets/ovalorange/030011.png" type="Texture" id=51]
 [ext_resource path="res://assets/spritesheets/ovalorange/030017.png" type="Texture" id=52]
-[ext_resource path="res://Client/Game/OpponentVisual.cs" type="Script" id=53]
+[ext_resource path="res://Client/Game/View/Opponent.cs" type="Script" id=53]
+
+
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 9 )
@@ -620,7 +622,7 @@ position = Vector2( 906.037, 644.347 )
 scale = Vector2( 0.348772, 0.389158 )
 frames = SubResource( 48 )
 animation = "New Anim"
-frame = 6
+frame = 18
 playing = true
 script = ExtResource( 20 )
 

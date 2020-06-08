@@ -18,7 +18,7 @@ namespace CardGameSharp.Client.Game
 		public Zone Field = new Zone();
 		public Zone Support = new Zone();
 		public Zone Graveyard = new Zone();
-		public OpponentVisual Visual;
+		public CardGame.Client.Match.View.Opponent Visual;
 		public Dictionary<int, Card> Cards;
 		public Player Enemy;
 		public Zone Link;
@@ -129,7 +129,7 @@ namespace CardGameSharp.Client.Game
 		{
 			HandSize += 1;
 			DeckSize -= 1;
-			Visual.Draw(1, this);
+			Visual.Draw(1, DeckSize);
 		}
 
 		public void DestroyUnit(int id)

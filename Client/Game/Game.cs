@@ -4,9 +4,6 @@ using System.Collections.Generic;
 using CardGame.Client.Library.Card;
 using CardGame.Client.Match;
 using CardGameSharp.Client.Game;
-using Godot.Collections;
-using Array = Godot.Collections.Array;
-using Environment = Godot.Environment;
 
 namespace CardGame.Client {
 
@@ -44,8 +41,8 @@ namespace CardGame.Client {
 			Messenger.CustomMultiplayer = GetParent().Multiplayer;
 			Player = new Player(Cards);
 			Opponent = new Opponent(Cards);
-			Player.Visual = GetNode<PlayerVisual>("Player");
-			Opponent.Visual = GetNode<OpponentVisual>("Opponent");
+			Player.Visual = GetNode<Match.View.Player>("Player");
+			Opponent.Visual = GetNode<Match.View.Opponent>("Opponent");
 			Player.Visual.Setup(Gfx, Sfx, History, (int) Gfx.Who.Player);
 			Opponent.Visual.Setup(Gfx, Sfx, History, (int) Gfx.Who.Opponent);
 			var networkId = CustomMultiplayer.GetNetworkUniqueId();
