@@ -1,6 +1,4 @@
 using Godot;
-using System;
-using CardGameSharp.Client.Game;
 using Godot.Collections;
 
 public class Connection : Control

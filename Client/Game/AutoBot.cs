@@ -3,7 +3,7 @@ using CardGame.Client.Library.Card;
 using CardGame.Server;
 using Godot;
 
-namespace CardGameSharp.Client.Game
+namespace CardGame.Client.Match
 {
     public class AutoBot: GameInput
     {

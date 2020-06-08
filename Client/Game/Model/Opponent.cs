@@ -8,7 +8,7 @@ using Zone = System.Collections.Generic.List<CardGame.Client.Library.Card.Card>;
 using Array = Godot.Collections.Array;
 using Library = CardGame.Client.Library.Library;
 
-namespace CardGameSharp.Client.Game
+namespace CardGame.Client.Match
 {
 	public class Opponent : Reference
 	{
@@ -53,7 +53,7 @@ namespace CardGameSharp.Client.Game
 		{
 			var id = (int) data["Id"];
 			var setCode = (SetCodes) data["setCode"];
-			var card = Library.Fetch(id, setCode);
+			var card = Library.Library.Fetch(id, setCode);
 			card.Id = id;
 			Cards[card.Id] = card;
 			HandSize -= 1;
@@ -93,7 +93,7 @@ namespace CardGameSharp.Client.Game
 			if (!(args[0] is Dictionary arg)) return;
 			var id = (int) arg["Id"];
 			var setCode = (SetCodes) arg["setCode"];
-			if (!(Library.Fetch(id, setCode) is Card card)) return;
+			if (!(Library.Library.Fetch(id, setCode) is Card card)) return;
 			card.Zone = Card.Zones.Support;
 			GD.Print(Support.Count, " is support Count");
 			var index = Support.Count - 1 >= 0 ? Support.Count - 1 : 0;
@@ -120,7 +120,7 @@ namespace CardGameSharp.Client.Game
 		public void SetFaceDown()
 		{
 			HandSize -= 1;
-			var blank = Library.Placeholder();
+			var blank = Library.Library.Placeholder();
 			Support.Add(blank);
 			Visual.SetFaceDown(blank);
 		}

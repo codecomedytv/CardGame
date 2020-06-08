@@ -44,7 +44,7 @@ Display=8
 
 [application]
 
-config/name="CardGameSharp"
+config/name="CardGame"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 

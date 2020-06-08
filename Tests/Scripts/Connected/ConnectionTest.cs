@@ -1,6 +1,6 @@
 using Godot;
 
-namespace CardGameSharp.Tests.Scripts.Connected
+namespace CardGame.Tests.Scripts.Connected
 {
     public class ConnectionTest: ConnectedFixture
     {

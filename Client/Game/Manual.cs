@@ -5,7 +5,7 @@ using Godot;
 using Godot.Collections;
 using Card = CardGame.Client.Library.Card.Card;
 
-namespace CardGameSharp.Client.Game
+namespace CardGame.Client.Match
 {
 	public class Manual : GameInput
 	{

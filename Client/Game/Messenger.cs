@@ -6,7 +6,7 @@ using Godot;
 using Array = Godot.Collections.Array;
 
 
-namespace CardGameSharp.Client.Game
+namespace CardGame.Client.Match
 {
     public class Messenger: Control
     {

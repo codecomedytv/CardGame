@@ -1,4 +1,4 @@
-using CardGameSharp.Client.Game;
+using CardGame.Client.Match;
 using Godot.Collections;
 
 namespace CardGame.Server.States

@@ -1,9 +1,6 @@
 using Godot;
-using System;
-using System.Collections.Generic;
-using CardGameSharp.Client.Game;
+using CardGame.Client.Match;
 using Godot.Collections;
-using Array = Godot.Collections.Array;
 
 namespace CardGame.Client {
 	

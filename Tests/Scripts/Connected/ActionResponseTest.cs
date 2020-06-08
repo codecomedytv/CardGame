@@ -5,7 +5,7 @@ using Godot;
 using Godot.Collections;
 using Array = Godot.Collections.Array;
 
-namespace CardGameSharp.Tests.Scripts.Connected
+namespace CardGame.Tests.Scripts.Connected
 {
     public class ActionResponseTest: ConnectedFixture
     {

@@ -8,7 +8,7 @@ using Godot;
 using Godot.Collections;
 using Array = Godot.Collections.Array;
 
-namespace CardGameSharp.Client.Game
+namespace CardGame.Client.Match
 {
     public class EventManager: Reference
     {

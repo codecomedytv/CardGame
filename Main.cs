@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using CardGame.Client;
 
 public class Main : Control

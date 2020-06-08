@@ -3,7 +3,7 @@ using CardGame.Client.Library.Card;
 using Godot;
 using Godot.Collections;
 
-namespace CardGameSharp.Client.Game
+namespace CardGame.Client.Match
 {
     public class Visual: Control
     {
@@ -68,7 +68,7 @@ namespace CardGameSharp.Client.Game
             var positions = new Array();
             for(var i = 0; i < count; i++)
             {
-                var blank = Library.Placeholder();
+                var blank = Library.Library.Placeholder();
                 Hand.AddChild(blank);
                 blanks.Add(blank);
             }
@@ -90,7 +90,7 @@ namespace CardGameSharp.Client.Game
 
         public Vector2 FuturePosition(Container zone)
         {
-            var blank = Library.Placeholder();
+            var blank = Library.Library.Placeholder();
             zone.AddChild(blank);
             Sort(zone);
             var nextPosition = blank.RectGlobalPosition;

@@ -2,10 +2,10 @@
 /shelf/
 /workspace.xml
 # Rider ignored files
-/.idea.CardGameSharp.iml
-/projectSettingsUpdater.xml
-/contentModel.xml
 /modules.xml
+/contentModel.xml
+/.idea.CardGame.iml
+/projectSettingsUpdater.xml
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml

@@ -2,7 +2,7 @@
 using CardGame.Client.Library.Card;
 using Godot;
 
-namespace CardGameSharp.Client.Game
+namespace CardGame.Client.Match
 {
     public class CardViewer: TextureRect
     {

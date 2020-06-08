@@ -4,7 +4,7 @@ using CardGame.Server;
 using Godot;
 using Godot.Collections;
 
-namespace CardGameSharp.Tests.Scripts
+namespace CardGame.Tests.Scripts
 {
     public class ConnectedFixture: WAT.Test
     {

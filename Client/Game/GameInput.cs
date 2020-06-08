@@ -3,7 +3,7 @@ using CardGame.Client.Match;
 using Godot;
 using Godot.Collections;
 
-namespace CardGameSharp.Client.Game
+namespace CardGame.Client.Match
 {
 	public class GameInput : Control
 	{

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CardGame.Client.Library.Card;
-using CardGameSharp.Client.Game;
+using CardGame.Client.Match;
 using Godot;
 using Godot.Collections;
 using Array = Godot.Collections.Array;

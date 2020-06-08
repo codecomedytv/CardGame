@@ -2,7 +2,7 @@
 //using System.Collections.Generic;
 using CardGame.Client.Library.Card;
 using Zone = System.Collections.Generic.List<CardGame.Client.Library.Card.Card>;
-using CardGameSharp.Client.Game;
+using CardGame.Client.Match;
 using Godot;
 using Godot.Collections;
 using Array = Godot.Collections.Array;
