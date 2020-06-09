@@ -154,24 +154,18 @@ namespace CardGame.Client.Match.Model
 			Visual.LoseLife(lostLife);
 	    }
 		
-		public void ReadyCards(Array cardIds)
+		public void ReadyCard(int id)
 		{
-			foreach (var id in cardIds)
-			{
-				if (Cards[(int)id] is Card card) card.IsReady = true;
-			}
-			
-			Visual.ReadyCards(cardIds);
+			var card = Cards[id];
+			card.IsReady = true;
+			Visual.ReadyCard(card);
 		}
 
-		public void UnreadyCards(Array cardIds) 
+		public void UnreadyCard(int id)
 		{
-			foreach (var id in cardIds)
-			{
-				if (Cards[(int)id] is Card card) card.IsReady = false;
-			}
-
-			Visual.UnreadyCards(cardIds);
+			var card = Cards[id];
+			card.IsReady = false;
+			Visual.UnreadyCard(card);
 		}
 
 		public void LoadDeck(int deckSize)

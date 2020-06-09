@@ -123,21 +123,10 @@ namespace CardGame.Client.Match.View
 			QueueCallback(Sfx, Delay(0.3F), "Play", Sfx.Battle);
 		}
 		
-		public void ReadyCards(Array args)
-		{
-			foreach (var id in args)
-			{
-				QueueCallback(Cards[(int)id], Delay(), "Ready");
-			}
-		}
-
-		public void UnreadyCards(Array args)
-		{
-			foreach(var id in args)
-			{
-				QueueCallback(Cards[(int)id], Delay(), "Exhaust");
-			}
-		}
+		public void ReadyCard(Card card) => QueueCallback(card, Delay(), "Ready");
+		
+		public void UnreadyCard(Card card) => QueueCallback(card, Delay(), "Exhaust");
+	
 
 		public void Deploy(Card card)
 		{

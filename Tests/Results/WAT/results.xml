@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
-<testsuites failures="0" name="TestXML" tests="1" time="0.965">
-<testsuite failures="0" name="Given A Client Action" tests="1" time="0.01">
-<testcase name="WhenTurnPlayerDeclaresAttack" time="13.587">
+<testsuites failures="0" name="TestXML" tests="1" time="0.987">
+<testsuite failures="0" name="Given A Client Action" tests="1" time="0.009">
+<testcase name="WhenTurnPlayerDeclaresAttack" time="13.52">
 </testcase>
 </testsuite>
 </testsuites>

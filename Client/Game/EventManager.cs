@@ -103,10 +103,10 @@ namespace CardGame.Client.Match
 						Opponent.AttackUnit((int)arguments[0], (int)arguments[1]);
 						break;
 					case GameEvents.ReadyCard:
-						Player.ReadyCards(arguments);
+						Player.ReadyCard((int)arguments[0]);
 						break;
 					case GameEvents.UnreadyCard:
-						Player.UnreadyCards(arguments);
+						Player.UnreadyCard((int)arguments[0]);
 						break;
 					case GameEvents.AttackedDirectly:
 						Player.AttackDirectly((int)arguments[0]);
