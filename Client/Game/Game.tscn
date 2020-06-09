@@ -19,7 +19,7 @@
 [ext_resource path="res://Client/Game/History.cs" type="Script" id=17]
 [ext_resource path="res://assets/UI/test.png" type="Texture" id=18]
 [ext_resource path="res://assets/fonts/history.tres" type="DynamicFontData" id=19]
-[ext_resource path="res://Client/Game/Interact.cs" type="Script" id=20]
+[ext_resource path="res://Client/Game/Controller/Interact.cs" type="Script" id=20]
 [ext_resource path="res://assets/UI/passbutton.png" type="Texture" id=21]
 [ext_resource path="res://assets/spritesheets/ovalorange/030029.png" type="Texture" id=22]
 [ext_resource path="res://assets/spritesheets/ovalorange/030019.png" type="Texture" id=23]
@@ -53,6 +53,7 @@
 [ext_resource path="res://assets/spritesheets/ovalorange/030011.png" type="Texture" id=51]
 [ext_resource path="res://assets/spritesheets/ovalorange/030017.png" type="Texture" id=52]
 [ext_resource path="res://Client/Game/View/Opponent.cs" type="Script" id=53]
+
 
 
 

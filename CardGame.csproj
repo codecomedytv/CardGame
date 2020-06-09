@@ -57,15 +57,15 @@
     <Compile Include="addons\WAT\core\test\Recorder.cs" />
     <Compile Include="addons\WAT\core\test\Test.cs" />
     <Compile Include="Client\ClientConn.cs" />
-    <Compile Include="Client\Game\AutoBot.cs" />
     <Compile Include="Client\Game\CardViewer.cs" />
+    <Compile Include="Client\Game\Controller\AutoBot.cs" />
+    <Compile Include="Client\Game\Controller\GameInput.cs" />
+    <Compile Include="Client\Game\Controller\Interact.cs" />
+    <Compile Include="Client\Game\Controller\Manual.cs" />
     <Compile Include="Client\Game\EventManager.cs" />
     <Compile Include="Client\Game\Game.cs" />
-    <Compile Include="Client\Game\GameInput.cs" />
     <Compile Include="Client\Game\Gfx.cs" />
     <Compile Include="Client\Game\History.cs" />
-    <Compile Include="Client\Game\Interact.cs" />
-    <Compile Include="Client\Game\Manual.cs" />
     <Compile Include="Client\Game\Messenger.cs" />
     <Compile Include="Client\Game\Model\Opponent.cs" />
     <Compile Include="Client\Game\Model\Player.cs" />
@@ -710,9 +710,6 @@
     <Content Include="Client\Game\Game.tscn" />
     <Content Include="Client\Game\PlayerViewer.tscn" />
     <Content Include="Client\Library\Card\Card.tscn" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Client\Game\Controller" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
