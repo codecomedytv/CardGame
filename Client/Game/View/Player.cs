@@ -102,7 +102,7 @@ namespace CardGame.Client.Match.View
 
 		public void AttackUnit(Card attacker, Card defender)
 		{
-			var targetPoisition = AttackTargetPosition(defender, Who);
+			var targetPoisition = new Vector2(0, defender.RectGlobalPosition.y + defender.RectScale.y);
 			QueueProperty(attacker, "RectGlobalPosition", attacker.RectGlobalPosition, targetPoisition, 0.1F, Delay());
 			QueueProperty(attacker, "RectGlobalPosition", targetPoisition, attacker.RectGlobalPosition, .1F, Delay(0.1F));
 			QueueCallback(attacker.Combat, Delay(), "hide");
@@ -111,17 +111,10 @@ namespace CardGame.Client.Match.View
 			QueueCallback(History, Delay(), "Attack", Who, attacker, defender);
 			QueueCallback(Sfx, Delay(0.3F), "Play", Sfx.Battle);
 		}
-
-		public Vector2 AttackTargetPosition(Card defender, int player)
-		{
-			var yModifier = new Vector2(0, defender.RectScale.y);
-			return defender.RectGlobalPosition + yModifier;
-			
-		}
-
+		
 		public void AttackDirectly(Card attacker)
 		{
-			var targetPosition = DirectAttackTargetPosition(attacker, Who);
+			var targetPosition = new Vector2(0, attacker.RectGlobalPosition.y - 70);
 			QueueProperty(attacker, "RectGlobalPosition", attacker.RectGlobalPosition, targetPosition, 0.3F, Delay());
 			QueueProperty(attacker, "RectGlobalPosition", targetPosition, attacker.RectGlobalPosition, 0.3F, Delay(0.3F));
 			Animate.AddDelay(0.3F);
@@ -129,13 +122,7 @@ namespace CardGame.Client.Match.View
 			QueueCallback(History, Delay(), "DirectAttack", Who, attacker);
 			QueueCallback(Sfx, Delay(0.3F), "Play", Sfx.Battle);
 		}
-
-		public Vector2 DirectAttackTargetPosition(Card attacker, int player)
-		{
-			var yModifier = new Vector2(0, 70);
-			return attacker.RectGlobalPosition - yModifier;
-		}
-
+		
 		public void ReadyCards(Array args)
 		{
 			foreach (var id in args)
