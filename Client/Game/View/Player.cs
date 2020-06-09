@@ -202,13 +202,11 @@ namespace CardGame.Client.Match.View
 
 		public void Draw(Card card, int deckSize)
 		{
-			var positions = NextHandPositions(1);
+			var destination = FuturePosition(Hand);
 			Hand.AddChild((Card)card);
 			card.RectGlobalPosition = Deck.RectGlobalPosition;
 			card.TurnInvisible();
-			var pos = positions[0];
-			positions.RemoveAt(0);
-			QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, pos, 0.2F, Delay(0.2F));
+			QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, destination, 0.2F, Delay(0.2F));
 			QueueCallback(card, Delay(0.0), "TurnVisible");
 			QueueCallback(Deck, Delay(), "set_text", deckSize);
 			QueueCallback(Sfx, Delay(), "Play", Sfx.Draw);

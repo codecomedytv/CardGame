@@ -61,32 +61,6 @@ namespace CardGame.Client.Match
         {
             Animate.InterpolateCallback(obj, delay, callback, args1, args2, args3, args4, args5);
         }
-        
-        public Array NextHandPositions(int count)
-        {
-            var blanks = new Array();
-            var positions = new Array();
-            for(var i = 0; i < count; i++)
-            {
-                var blank = Library.Library.Placeholder();
-                Hand.AddChild(blank);
-                blanks.Add(blank);
-            }
-
-            Sort(Hand);
-            foreach(Card blank in blanks)
-            {
-                positions.Add(blank.RectGlobalPosition);
-            }
-            foreach(Card blank in blanks)
-            {
-                Hand.RemoveChild(blank);
-                blank.Free();
-            }
-            blanks.Clear();
-            return positions;
-        }
-
 
         public Vector2 FuturePosition(Container zone)
         {
