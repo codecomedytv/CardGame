@@ -30,25 +30,14 @@ namespace CardGame.Client.Match
             Damage = GetNode("Damage") as Label;
         }
         
-        public void Setup(Gfx animate, Sfx sfx, History history, int who)
+        public void Setup(Gfx animate, Sfx sfx, History history)
         {
             Animate = animate;
             Sfx = sfx;
             History = history;
-            Who = who;
         }
 
-        public float Delay(object Delay = null)
-        {
-            if (Delay is float timeDelay)
-            {
-                return Animate.AddDelay(timeDelay, Who);
-            }
-            else
-            {
-                return Animate.TotalDelay(Who);
-            }
-        }
+        public float Delay(float timeDelay = 0.0F) => Animate.AddDelay(timeDelay);
 
         public void QueueProperty(Object obj, string property, object start, object end, float duration,
             float Delay = 0.0F)

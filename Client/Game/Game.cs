@@ -43,8 +43,8 @@ namespace CardGame.Client {
 			Opponent = new Opponent(Cards);
 			Player.Visual = GetNode<Match.View.Player>("Player");
 			Opponent.Visual = GetNode<Match.View.Opponent>("Opponent");
-			Player.Visual.Setup(Gfx, Sfx, History, (int) Gfx.Who.Player);
-			Opponent.Visual.Setup(Gfx, Sfx, History, (int) Gfx.Who.Opponent);
+			Player.Visual.Setup(Gfx, Sfx, History);
+			Opponent.Visual.Setup(Gfx, Sfx, History);
 			var networkId = CustomMultiplayer.GetNetworkUniqueId();
 			Messenger.Id = networkId;
 			Sfx.StreamPaused = Muted;
@@ -95,18 +95,18 @@ namespace CardGame.Client {
 
 		public void Win()
 		{
-			Gfx.InterpolateCallback(BackgroundMusic, Gfx.TotalDelay((int) Gfx.Who.Player), "Stop");
-			Gfx.InterpolateCallback(Sfx, Gfx.AddDelay(0.2F, (int) Gfx.Who.Player), "Victory");
-			Gfx.InterpolateCallback(WinLoseNote, Gfx.TotalDelay((int) Gfx.Who.Player), "SetText", "YOU WIN!");
-			Gfx.InterpolateCallback(WinLoseNote, Gfx.TotalDelay((int) Gfx.Who.Player), "SetVisible", true);
+			Gfx.InterpolateCallback(BackgroundMusic, Gfx.TotalDelay(), "Stop");
+			Gfx.InterpolateCallback(Sfx, Gfx.AddDelay(0.2F), "Victory");
+			Gfx.InterpolateCallback(WinLoseNote, Gfx.TotalDelay(), "SetText", "YOU WIN!");
+			Gfx.InterpolateCallback(WinLoseNote, Gfx.TotalDelay(), "SetVisible", true);
 		}
 
 		public void Lose()
 		{
-			Gfx.InterpolateCallback(BackgroundMusic, Gfx.TotalDelay((int) Gfx.Who.Player), "Stop");
-			Gfx.InterpolateCallback(Sfx, Gfx.AddDelay(0.2F, (int) Gfx.Who.Player), "Defeat");
-			Gfx.InterpolateCallback(WinLoseNote, Gfx.TotalDelay((int) Gfx.Who.Player), "SetText", "YOU LOSE!");
-			Gfx.InterpolateCallback(WinLoseNote, Gfx.TotalDelay((int) Gfx.Who.Player), "SetVisible", true);
+			Gfx.InterpolateCallback(BackgroundMusic, Gfx.TotalDelay(), "Stop");
+			Gfx.InterpolateCallback(Sfx, Gfx.AddDelay(0.2F), "Defeat");
+			Gfx.InterpolateCallback(WinLoseNote, Gfx.TotalDelay(), "SetText", "YOU LOSE!");
+			Gfx.InterpolateCallback(WinLoseNote, Gfx.TotalDelay(), "SetVisible", true);
 		}
 	}
 	

@@ -68,7 +68,7 @@ namespace CardGame.Client.Match.View
 		{
 			QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Hand), 0.3F, Delay());
 			QueueCallback(History, Delay() + 0.3F, "AddLine", $"{card} was returned to your hand");
-			QueueCallback(card.GetParent(), Delay(0.3), "remove_child", card);
+			QueueCallback(card.GetParent(), Delay(0.3F), "remove_child", card);
 			QueueCallback(Hand, Delay(), "add_child", card);
 			QueueCallback(Sfx, Delay(), "Play", Sfx.Deploy); // Guess we didn't have a dedicated bounce sfx
 			GD.Print();
@@ -78,7 +78,7 @@ namespace CardGame.Client.Match.View
 		{
 			foreach (var card in linked)
 			{
-				QueueCallback(card.GetParent(), Delay(0.3), "remove_child", card);
+				QueueCallback(card.GetParent(), Delay(0.3F), "remove_child", card);
 				QueueCallback(Discard, Delay(), "add_child", card);
 				// Should add a check for unit based effects (for some reason?)
 				QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, Discard.RectGlobalPosition, 0.3F, Delay());
@@ -104,12 +104,12 @@ namespace CardGame.Client.Match.View
 		{
 			var targetPoisition = AttackTargetPosition(defender, Who);
 			QueueProperty(attacker, "RectGlobalPosition", attacker.RectGlobalPosition, targetPoisition, 0.1F, Delay());
-			QueueProperty(attacker, "RectGlobalPosition", targetPoisition, attacker.RectGlobalPosition, .1F, Delay(0.1));
+			QueueProperty(attacker, "RectGlobalPosition", targetPoisition, attacker.RectGlobalPosition, .1F, Delay(0.1F));
 			QueueCallback(attacker.Combat, Delay(), "hide");
 			QueueCallback(attacker.Combat, Delay(), "hide");
 			QueueCallback(defender, Delay(), "RemoveAura");
 			QueueCallback(History, Delay(), "Attack", Who, attacker, defender);
-			QueueCallback(Sfx, Delay(0.3), "Play", Sfx.Battle);
+			QueueCallback(Sfx, Delay(0.3F), "Play", Sfx.Battle);
 		}
 
 		public Vector2 AttackTargetPosition(Card defender, int player)
@@ -124,7 +124,7 @@ namespace CardGame.Client.Match.View
 			var targetPosition = DirectAttackTargetPosition(attacker, Who);
 			QueueProperty(attacker, "RectGlobalPosition", attacker.RectGlobalPosition, targetPosition, 0.3F, Delay());
 			QueueProperty(attacker, "RectGlobalPosition", targetPosition, attacker.RectGlobalPosition, 0.3F, Delay(0.3F));
-			Animate.AddDelay(0.3F, (int)Gfx.Who.Opponent);
+			Animate.AddDelay(0.3F);
 			QueueCallback(attacker.Combat, Delay(), "hide");
 			QueueCallback(History, Delay(), "DirectAttack", Who, attacker);
 			QueueCallback(Sfx, Delay(0.3F), "Play", Sfx.Battle);
@@ -168,7 +168,7 @@ namespace CardGame.Client.Match.View
 		{
 			QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Support), 0.3F, Delay());
 			QueueCallback(History, Delay() + 0.3F, "AddLine", $"You set {card} FaceDown");
-			QueueCallback(card.GetParent(), Delay(0.3), "remove_child", card);
+			QueueCallback(card.GetParent(), Delay(0.3F), "remove_child", card);
 			QueueCallback(Support, Delay(), "add_child", card);
 			GD.Print("setting ", card.ToString());
 			QueueCallback(card, Delay(), "FlipFaceDown");
@@ -183,12 +183,12 @@ namespace CardGame.Client.Match.View
 			var invisible = Damage.Modulate - new Color(0, 0, 0, 255);
 			QueueCallback(Damage, Delay(), "set_self_modulate", visible);
 			QueueCallback(History, Delay(), "AddLine", $"You took {damageTaken} damage");
-			QueueCallback(Damage, Delay(0.5), "set_self_modulate", invisible);
+			QueueCallback(Damage, Delay(0.5F), "set_self_modulate", invisible);
 		}
 		
 		public void DestroyUnit(Card card)
 		{
-			QueueCallback(card.GetParent(), Delay(0.3), "remove_child", card);
+			QueueCallback(card.GetParent(), Delay(0.3F), "remove_child", card);
 			QueueCallback(Discard, Delay(), "add_child", card);
 			QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, Discard.RectGlobalPosition, 0.3F,
 				Delay());
@@ -207,10 +207,10 @@ namespace CardGame.Client.Match.View
 			card.RectGlobalPosition = Deck.RectGlobalPosition;
 			card.TurnInvisible();
 			QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, destination, 0.2F, Delay(0.2F));
-			QueueCallback(card, Delay(0.0), "TurnVisible");
+			QueueCallback(card, Delay(), "TurnVisible");
 			QueueCallback(Deck, Delay(), "set_text", deckSize);
 			QueueCallback(Sfx, Delay(), "Play", Sfx.Draw);
-			QueueCallback(this, Delay(0.2), "Sort", Hand);
+			QueueCallback(this, Delay(0.2F), "Sort", Hand);
 			QueueCallback(History, Delay(), "AddLine", $"You drew {card}");
 			
 		}

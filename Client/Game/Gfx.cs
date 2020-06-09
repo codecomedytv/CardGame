@@ -5,15 +5,7 @@ namespace CardGame.Client.Match
 {
     public class Gfx: Tween
     {
-        public enum Who
-        {
-            Global,
-            Player,
-            Opponent
-        };
-
-        public float OpponentDelay = 0.0F;
-        public float PlayerDelay = 0.0F;
+        public float Delay = 0.0F;
 
         public override void _Ready()
         {
@@ -27,30 +19,20 @@ namespace CardGame.Client.Match
         }
         
 
-        public float AddDelay(float delay, int who)
+        public float AddDelay(float delay)
         {
-            switch (who)
-            {
-                case (int) Who.Player:
-                    PlayerDelay += delay;
-                    break;
-                case (int) Who.Opponent:
-                    OpponentDelay += delay;
-                    break;
-            }
-
-            return TotalDelay(who);
+            Delay += delay;
+            return TotalDelay();
         }
 
-        public float TotalDelay(int who)
+        public float TotalDelay()
         {
-            return who == (int)Who.Player ? PlayerDelay : OpponentDelay;
+            return Delay;
         }
 
         public void Reset()
         {
-            OpponentDelay = 0.0F;
-            PlayerDelay = 0.0F;
+            Delay = 0.0F;
             RemoveAll();
         }
     }
