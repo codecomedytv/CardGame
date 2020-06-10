@@ -164,23 +164,7 @@ namespace CardGame.Server {
 				Opponent.DeclarePlay(new DestroyUnits(card));
 			}
 		}
-		
-		public void LoseLife(int lifeLost)
-		{
-			if(HasTag(Tag.CannotTakeDamage))
-			{
-				return;
-			}
 
-			Health -= lifeLost;
-			
-			DeclarePlay(new LoseLife(lifeLost));
-			if (Health <= 0)
-			{
-				Opponent.Win();
-			}
-		}
-		
 		public void EndTurn() { DeclarePlay(new EndTurn()); }
 		
 		public void Win() { DeclarePlay(new GameOver(this, Opponent)); }

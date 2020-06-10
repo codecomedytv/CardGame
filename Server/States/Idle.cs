@@ -76,7 +76,7 @@ namespace CardGame.Server.States
             support.EmitSignal(nameof(Card.Exit));
             Player.Link.ApplyConstants();
             Player.Link.Register(support);
-            Player.DeclarePlay(new SetSupport(support));
+            Player.DeclarePlay(new SetSupport(Player, Player, support));
 
             // Returning a new Idle State Retriggers the OnEnter System
             Player.SetState(new Idle());

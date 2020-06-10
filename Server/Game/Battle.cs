@@ -39,7 +39,14 @@ namespace CardGame.Server {
 			{
 				// Defender is not a Card, so it must be int and the only int is directAttack
 				Attacking.AttackDirectly(Attacker);
-				Defending.LoseLife(Attacker.Attack);
+				if(!Defending.HasTag(Tag.CannotTakeDamage))
+				{
+					Defending.DeclarePlay(new LoseLife(Attacker, Defending, Attacker.Attack));
+					if (Defending.Health <= 0)
+					{
+						Attacking.Win();
+					}
+				}
 				Attacking.DeclarePlay(new UnreadyCard(Attacker));
 				return;
 			}
@@ -55,7 +62,14 @@ namespace CardGame.Server {
 					Defending.DestroyUnit(Defender as Unit);
 				}
 
-				Defending.LoseLife(overflow);
+				if(!Defending.HasTag(Tag.CannotTakeDamage))
+				{
+					Defending.DeclarePlay(new LoseLife(Attacker, Defending, overflow));
+					if (Defending.Health <= 0)
+					{
+						Attacking.Win();
+					}
+				}
 				Attacking.DeclarePlay(new UnreadyCard(Attacker));
 			}
 			
@@ -67,7 +81,14 @@ namespace CardGame.Server {
 					Attacking.DestroyUnit(Attacker);
 				}
 
-				Attacking.LoseLife(overflow);
+				if(!Attacking.HasTag(Tag.CannotTakeDamage))
+				{
+					Attacking.DeclarePlay(new LoseLife((Unit)Defender, Attacking, overflow));
+					if (Attacking.Health <= 0)
+					{
+						Defending.Win();
+					}
+				}
 				Attacking.DeclarePlay(new UnreadyCard(Attacker));
 			}
 

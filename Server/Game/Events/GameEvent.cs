@@ -241,49 +241,6 @@ namespace CardGame.Server
             return message;
         }
     }
-
-    public class LoseLife : GameEvent
-    {
-        private int LifeLost;
-
-        public LoseLife(int lifeLost)
-        {
-            LifeLost = lifeLost;
-        }
-
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.LoseLife;
-            message.Player["args"] = new Array{LifeLost};
-            message.Opponent["command"] = GameEvents.NoOp;
-            message.Opponent["args"] = new Array();
-            return message;
-        }
-    }
-
-    
-
-    public class SetSupport : GameEvent
-    {
-        public readonly Card Card;
-
-        public SetSupport(Card card)
-        {
-            Card = card;
-        }
-
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.SetFaceDown;
-            message.Player["args"] = new Array{Card.Id};
-            message.Opponent["command"] = GameEvents.OpponentSetFaceDown;
-            message.Opponent["args"] = new Array();
-            return message;
-        }
-    }
-
     
     
     

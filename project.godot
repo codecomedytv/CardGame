@@ -37,8 +37,7 @@ Results_Directory="res://Tests/Results/WAT"
 Minimize_Window_When_Running_Tests=false
 TestStrategy={
 "repeat": 1,
-"script": "res://Tests/Scripts/Connected/ActionResponseTest.cs",
-"strategy": "RunScript"
+"strategy": "RerunFailures"
 }
 Tags=PoolStringArray(  )
 Display=8
