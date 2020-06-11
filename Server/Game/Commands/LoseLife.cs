@@ -25,14 +25,14 @@ namespace CardGame.Server.Game.Commands
             Player.Health += LifeLost;
         }
 
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.LoseLife;
-            message.Player["args"] = new Array{LifeLost};
-            message.Opponent["command"] = GameEvents.NoOp;
-            message.Opponent["args"] = new Array();
-            return message;
-        }
+        // public override Message GetMessage()
+        // {
+        //     var message = new Message();
+        //     message.Player["command"] = GameEvents.LoseLife;
+        //     message.Player["args"] = new Array{LifeLost};
+        //     message.Opponent["command"] = GameEvents.NoOp;
+        //     message.Opponent["args"] = new Array();
+        //     return message;
+        // }
     }
 }

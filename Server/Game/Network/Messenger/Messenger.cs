@@ -12,9 +12,9 @@ namespace CardGame.Server.Game.Network.Messenger {
 		
 		public override void OnPlayExecuted(Player player, GameEvent gameEvent)
 		{
-			var message = gameEvent.GetMessage();
-			RpcId(player.Id, "QueueEvent", message.Player["command"], message.Player["args"]);
-			RpcId(player.Opponent.Id, "QueueEvent", message.Opponent["command"], message.Opponent["args"]);
+			var message = gameEvent.Message;
+			RpcId(player.Id, "QueueEvent", message.Player);
+			RpcId(player.Opponent.Id, "QueueEvent", message.Opponent);
 		}
 
 		public override void Update(IEnumerable<Player> players)

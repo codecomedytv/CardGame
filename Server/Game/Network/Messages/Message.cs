@@ -4,8 +4,9 @@ namespace CardGame.Server.Game.Network.Messages
 {
     public class Message
     {
-        public readonly Dictionary<string, int> Player;
-        public readonly Dictionary<string, int> Opponent;
+        protected const string Command = "command";
+        public Dictionary<string, int> Player = new Dictionary<string, int> {{Command, (int) GameEvents.NoOp}};
+        public Dictionary<string, int> Opponent = new Dictionary<string, int>{{Command, (int) GameEvents.NoOp}};
 
         public Message()
         {

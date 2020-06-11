@@ -77,7 +77,7 @@ namespace CardGame.Client {
 			_Connect(Messenger, "QueuedEvent", EventManager, "Queue");
 			_Connect(Messenger, "ExecutedEvents", EventManager, "Execute");
 			_Connect(Messenger, "DisconnectPlayer", GetParent(), "ForceDisconnected");
-			_Connect(Gfx, "tween_all_completed", EventManager, "OnAnimationFinished");
+			//_Connect(Gfx, "tween_all_completed", EventManager, "OnAnimationFinished");
 
 			Messenger.CallDeferred("SetReady");
 

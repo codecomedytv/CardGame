@@ -1,49 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using Godot;
 using Godot.Collections;
-using Array = Godot.Collections.Array;
 using CardGame.Client.Match.Model;
 
 namespace CardGame.Client.Match
 {
-    public class EventManager: Reference
-    {
-        [Signal]
-        private delegate void Animated();
+	public class EventManager: Reference
+	{
+		[Signal]
+		private delegate void Animated();
 
-        private Player Player;
-        private Opponent Opponent;
+		private Player Player;
+		private Opponent Opponent;
 
-        private List<(GameEvents Command, Array Arguments)> Events = new List<(GameEvents Command, Array Arguments)>();
+		private Array<Dictionary<string, int>> Events = new Array<Dictionary<string, int>>();
 
-        public void SetUp(Player player, Opponent opponent)
-        {
-            Player = player;
-            Opponent = opponent;
-        }
-
-        public void Queue(int command, Array args)
-        {
-	        var message = (Command: (GameEvents) command, Arguments: args);
-	        Events.Add(message);
-        } 
-        
-        public void Execute()
+		public void SetUp(Player player, Opponent opponent)
 		{
-			foreach(var (command, arguments) in Events)
+			Player = player;
+			Opponent = opponent;
+		}
+
+		public void Queue(Dictionary<string,int> message)
+		{
+			Events.Add(message);
+		} 
+		
+		public void Execute()
+		{
+			foreach(var message in Events)
 			{
-				switch(command)
+				var e = (GameEvents)message["command"];
+				switch((GameEvents)message["command"])
 				{
 					case GameEvents.Draw:
-						Player.Draw((Dictionary)arguments[0]);
+						Player.Draw(message["id"], (SetCodes)message["setCode"]);
 						break;
+					/*
 					case GameEvents.LoadDeck:
 						Player.LoadDeck((int)arguments[0]);
 						break;
+						*/
 					case GameEvents.OpponentDraw:
 						Opponent.Draw();
 						break;
+					/*
 					case GameEvents.OpponentLoadDeck:
 						Opponent.LoadDeck((int)arguments[0]);
 						break;
@@ -150,7 +151,7 @@ namespace CardGame.Client.Match
 					case GameEvents.ReturnToDeck:
 						break;
 					case GameEvents.OpponentReturnedToDeck:
-						break;
+						break;*/
 					case GameEvents.NoOp:
 						break;
 					default:
@@ -161,15 +162,15 @@ namespace CardGame.Client.Match
 			Events.Clear();
 		}
 
-        private void Resolve()
-        {
-	        Player.Resolve();
-	        Opponent.Resolve();
-	        Player.Link.Clear();
-        }
+		private void Resolve()
+		{
+			Player.Resolve();
+			Opponent.Resolve();
+			Player.Link.Clear();
+		}
 
-        
-    }
+		
+	}
 }
 
 

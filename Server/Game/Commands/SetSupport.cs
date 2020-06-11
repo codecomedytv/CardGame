@@ -29,14 +29,14 @@ namespace CardGame.Server.Game.Commands
            Player.Move(Player.Support, Card, PreviousZone);
         }
         
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.SetFaceDown;
-            message.Player["args"] = new Array{Card.Id};
-            message.Opponent["command"] = GameEvents.OpponentSetFaceDown;
-            message.Opponent["args"] = new Array();
-            return message;
-        }
+        // public override Message GetMessage()
+        // {
+        //     var message = new Message();
+        //     message.Player["command"] = GameEvents.SetFaceDown;
+        //     message.Player["args"] = new Array{Card.Id};
+        //     message.Opponent["command"] = GameEvents.OpponentSetFaceDown;
+        //     message.Opponent["args"] = new Array();
+        //     return message;
+        // }
     }
 }

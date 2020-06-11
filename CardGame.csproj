@@ -103,6 +103,7 @@
     <Compile Include="Server\Game\Commands\UnreadyCard.cs" />
     <Compile Include="Server\Game\Events\GameEvent.cs" />
     <Compile Include="Server\Game\Gamestate.cs" />
+    <Compile Include="Server\Game\Network\Messages\Draw.cs" />
     <Compile Include="Server\Game\Network\Messages\Message.cs" />
     <Compile Include="Server\Game\Network\Messenger\BaseMessenger.cs" />
     <Compile Include="Server\Game\Network\Messenger\Messenger.cs" />

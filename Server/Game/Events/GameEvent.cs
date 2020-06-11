@@ -25,16 +25,7 @@ namespace CardGame.Server
     
     public abstract class GameEvent: Reference
     {
-        public virtual Serialized Serialize()
-        {
-            return new Serialized();
-        }
-
-        public virtual Message GetMessage()
-        {
-            var message = new Message();
-            return message;
-        }
+        public Game.Network.Messages.Message Message = new Game.Network.Messages.Message();
     }
 
     public class ShowAttack : GameEvent
@@ -48,14 +39,14 @@ namespace CardGame.Server
             Defender = defender;
         }
 
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.AttackDeclared;
-            message.Player["args"] = new Array{Attacker.Id, Defender.Id};
-            message.Opponent["command"] = GameEvents.NoOp;
-            return message;
-        }
+        // public override Message GetMessage()
+        // {
+        //     var message = new Message();
+        //     message.Player["command"] = GameEvents.AttackDeclared;
+        //     message.Player["args"] = new Array{Attacker.Id, Defender.Id};
+        //     message.Opponent["command"] = GameEvents.NoOp;
+        //     return message;
+        // }
     }
 
     public class SetState : GameEvent
@@ -69,15 +60,15 @@ namespace CardGame.Server
             State = state;
         }
 
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.SetState;
-            message.Player["args"] = new Array{State.ToString()};
-            message.Opponent["command"] = GameEvents.NoOp;
-            message.Opponent["args"] = new Array();
-            return message;
-        }
+        // public override Message GetMessage()
+        // {
+        //     var message = new Message();
+        //     message.Player["command"] = GameEvents.SetState;
+        //     message.Player["args"] = new Array{State.ToString()};
+        //     message.Opponent["command"] = GameEvents.NoOp;
+        //     message.Opponent["args"] = new Array();
+        //     return message;
+        // }
     }
 
     public class Activate : GameEvent
@@ -91,15 +82,15 @@ namespace CardGame.Server
             Targets = targets;
         }
 
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.NoOp;
-            message.Player["args"] = new Array{Activated.Id};
-            message.Opponent["command"] = GameEvents.OpponentActivate;
-            message.Opponent["args"] = new Array{Activated.Serialize(), Targets};
-            return message;
-        }
+        // public override Message GetMessage()
+        // {
+        //     var message = new Message();
+        //     message.Player["command"] = GameEvents.NoOp;
+        //     message.Player["args"] = new Array{Activated.Id};
+        //     message.Opponent["command"] = GameEvents.OpponentActivate;
+        //     message.Opponent["args"] = new Array{Activated.Serialize(), Targets};
+        //     return message;
+        // }
     }
 
     public class AttackUnit : GameEvent
@@ -113,15 +104,15 @@ namespace CardGame.Server
             Defender = defender;
         }
 
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.AttackedUnit;
-            message.Player["args"] = new Array {Attacker.Id, Defender.Id};
-            message.Opponent["command"] = GameEvents.OpponentAttackedUnit;
-            message.Opponent["args"] = new Array{Attacker.Id, Defender.Id};
-            return message;
-        }
+        // public override Message GetMessage()
+        // {
+        //     var message = new Message();
+        //     message.Player["command"] = GameEvents.AttackedUnit;
+        //     message.Player["args"] = new Array {Attacker.Id, Defender.Id};
+        //     message.Opponent["command"] = GameEvents.OpponentAttackedUnit;
+        //     message.Opponent["args"] = new Array{Attacker.Id, Defender.Id};
+        //     return message;
+        // }
     }
 
     public class AttackDirectly : GameEvent
@@ -133,30 +124,30 @@ namespace CardGame.Server
             Attacker = attacker;
         }
 
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.AttackedDirectly;
-            message.Player["args"] = new Array {Attacker.Id};
-            message.Opponent["command"] = GameEvents.OpponentAttackedDirectly;
-            message.Opponent["args"] = new Array{Attacker.Id};
-            return message;
-        }
+        // public override Message GetMessage()
+        // {
+        //     var message = new Message();
+        //     message.Player["command"] = GameEvents.AttackedDirectly;
+        //     message.Player["args"] = new Array {Attacker.Id};
+        //     message.Opponent["command"] = GameEvents.OpponentAttackedDirectly;
+        //     message.Opponent["args"] = new Array{Attacker.Id};
+        //     return message;
+        // }
     }
 
     
 
     public class BeginTurn : GameEvent
     {
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.BeginTurn;
-            message.Player["args"] = new Array();
-            message.Opponent["command"] = GameEvents.NoOp;
-            message.Opponent["args"] = new Array();
-            return message;
-        }
+        // public override Message GetMessage()
+        // {
+        //     var message = new Message();
+        //     message.Player["command"] = GameEvents.BeginTurn;
+        //     message.Player["args"] = new Array();
+        //     message.Opponent["command"] = GameEvents.NoOp;
+        //     message.Opponent["args"] = new Array();
+        //     return message;
+        // }
     }
     
     
@@ -172,16 +163,16 @@ namespace CardGame.Server
             Card = card;
         }
 
-        public override Message GetMessage()
-        {
-            var destroyed = new Array {Card.Id};
-            var message = new Message();
-            message.Player["command"] = GameEvents.CardDestroyed;
-            message.Player["args"] = destroyed;
-            message.Opponent["command"] = GameEvents.OpponentCardDestroyed;
-            message.Opponent["args"] = destroyed;
-            return message;
-        }
+        // public override Message GetMessage()
+        // {
+        //     var destroyed = new Array {Card.Id};
+        //     var message = new Message();
+        //     message.Player["command"] = GameEvents.CardDestroyed;
+        //     message.Player["args"] = destroyed;
+        //     message.Opponent["command"] = GameEvents.OpponentCardDestroyed;
+        //     message.Opponent["args"] = destroyed;
+        //     return message;
+        // }
     }
 
     
@@ -190,15 +181,15 @@ namespace CardGame.Server
 
     public class EndTurn : GameEvent
     {
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.EndTurn;
-            message.Player["args"] = new Array();
-            message.Opponent["command"] = GameEvents.NoOp;
-            message.Opponent["args"] = new Array();
-            return message;
-        }
+        // public override Message GetMessage()
+        // {
+        //     var message = new Message();
+        //     message.Player["command"] = GameEvents.EndTurn;
+        //     message.Player["args"] = new Array();
+        //     message.Opponent["command"] = GameEvents.NoOp;
+        //     message.Opponent["args"] = new Array();
+        //     return message;
+        // }
     }
 
     public class GameOver : GameEvent
@@ -212,15 +203,15 @@ namespace CardGame.Server
             Loser = loser;
         }
 
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.Win;
-            message.Player["args"] = new Array();
-            message.Opponent["command"] = GameEvents.Lose;
-            message.Opponent["args"] = new Array();
-            return message;
-        }
+        // public override Message GetMessage()
+        // {
+        //     var message = new Message();
+        //     message.Player["command"] = GameEvents.Win;
+        //     message.Player["args"] = new Array();
+        //     message.Opponent["command"] = GameEvents.Lose;
+        //     message.Opponent["args"] = new Array();
+        //     return message;
+        // }
     }
 
     public class LoadDeck : GameEvent
@@ -232,15 +223,15 @@ namespace CardGame.Server
             CardsLoaded = cardsLoaded;
         }
 
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.LoadDeck;
-            message.Player["args"] = new Array {CardsLoaded.Count};
-            message.Opponent["command"] = GameEvents.OpponentLoadDeck;
-            message.Opponent["args"] = new Array {CardsLoaded.Count};
-            return message;
-        }
+        // public override Message GetMessage()
+        // {
+        //     var message = new Message();
+        //     message.Player["command"] = GameEvents.LoadDeck;
+        //     message.Player["args"] = new Array {CardsLoaded.Count};
+        //     message.Opponent["command"] = GameEvents.OpponentLoadDeck;
+        //     message.Opponent["args"] = new Array {CardsLoaded.Count};
+        //     return message;
+        // }
     }
     
     
@@ -254,15 +245,15 @@ namespace CardGame.Server
             Card = card;
         }
 
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.SetDeployable;
-            message.Player["args"] = new Array {Card.Id};
-            message.Opponent["command"] = GameEvents.NoOp;
-            message.Opponent["args"] = new Array();
-            return message;
-        }
+        // public override Message GetMessage()
+        // {
+        //     var message = new Message();
+        //     message.Player["command"] = GameEvents.SetDeployable;
+        //     message.Player["args"] = new Array {Card.Id};
+        //     message.Opponent["command"] = GameEvents.NoOp;
+        //     message.Opponent["args"] = new Array();
+        //     return message;
+        // }
     }
 
     public class SetAsSettable : GameEvent
@@ -274,15 +265,15 @@ namespace CardGame.Server
             Card = card;
         }
 
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.SetSettable;
-            message.Player["args"] = new Array{Card.Id};
-            message.Opponent["command"] = GameEvents.NoOp;
-            message.Opponent["args"] = new Array();
-            return message;
-        }
+        // public override Message GetMessage()
+        // {
+        //     var message = new Message();
+        //     message.Player["command"] = GameEvents.SetSettable;
+        //     message.Player["args"] = new Array{Card.Id};
+        //     message.Opponent["command"] = GameEvents.NoOp;
+        //     message.Opponent["args"] = new Array();
+        //     return message;
+        // }
     }
 
     public class SetAsActivatable : GameEvent
@@ -294,15 +285,15 @@ namespace CardGame.Server
             Card = card;
         }
 
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.SetActivatable;
-            message.Player["args"] = new Array {Card.Id};
-            message.Opponent["command"] = GameEvents.NoOp;
-            message.Opponent["args"] = new Array();
-            return message;
-        }
+        // public override Message GetMessage()
+        // {
+        //     var message = new Message();
+        //     message.Player["command"] = GameEvents.SetActivatable;
+        //     message.Player["args"] = new Array {Card.Id};
+        //     message.Opponent["command"] = GameEvents.NoOp;
+        //     message.Opponent["args"] = new Array();
+        //     return message;
+        // }
     }
 
     public class SetAsAttacker : GameEvent
@@ -314,28 +305,28 @@ namespace CardGame.Server
             Card = card;
         }
         
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.SetAsAttacker;
-            message.Player["args"] = new Array {Card.Id};
-            message.Opponent["command"] = GameEvents.NoOp;
-            message.Opponent["args"] = new Array();
-            return message;
-        }
+        // public override Message GetMessage()
+        // {
+        //     var message = new Message();
+        //     message.Player["command"] = GameEvents.SetAsAttacker;
+        //     message.Player["args"] = new Array {Card.Id};
+        //     message.Opponent["command"] = GameEvents.NoOp;
+        //     message.Opponent["args"] = new Array();
+        //     return message;
+        // }
     }
 
     public class Resolve : GameEvent
     {
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.Resolve;
-            message.Player["args"] = new Array();
-            message.Opponent["command"] = GameEvents.Resolve;
-            message.Opponent["args"] = new Array();
-            return message;
-        }
+        // public override Message GetMessage()
+        // {
+        //     var message = new Message();
+        //     message.Player["command"] = GameEvents.Resolve;
+        //     message.Player["args"] = new Array();
+        //     message.Opponent["command"] = GameEvents.Resolve;
+        //     message.Opponent["args"] = new Array();
+        //     return message;
+        // }
     }
 
     public class SetTargets : GameEvent
@@ -349,7 +340,7 @@ namespace CardGame.Server
             Targets = targets;
         }
 
-        public override Message GetMessage()
+        /*public override Message GetMessage()
         {
             var message = new Message();
             var targets = new Array();
@@ -362,7 +353,7 @@ namespace CardGame.Server
             message.Opponent["command"] = GameEvents.NoOp;
             message.Opponent["args"] = new Array();
             return message;
-        }
+        }*/
     }
 
     public class AutoTarget : GameEvent
@@ -375,15 +366,15 @@ namespace CardGame.Server
             Selector = selector;
         }
 
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.AutoTarget;
-            message.Player["args"] = new Array{Selector.Id};
-            message.Opponent["command"] = GameEvents.NoOp;
-            message.Opponent["args"] = new Array();
-            return message;
-        }
+        // public override Message GetMessage()
+        // {
+        //     var message = new Message();
+        //     message.Player["command"] = GameEvents.AutoTarget;
+        //     message.Player["args"] = new Array{Selector.Id};
+        //     message.Opponent["command"] = GameEvents.NoOp;
+        //     message.Opponent["args"] = new Array();
+        //     return message;
+        // }
     }
 
 

@@ -1,9 +1,6 @@
-﻿using System;
-using CardGame;
-using CardGame.Client.Library.Card;
-using CardGame.Client.Match;
+﻿using CardGame.Client.Library.Card;
 using Godot;
-using Array = Godot.Collections.Array;
+using Godot.Collections;
 
 
 namespace CardGame.Client.Match
@@ -36,9 +33,9 @@ namespace CardGame.Client.Match
         }
 
         [Puppet]
-        public void QueueEvent(int command, Array arguments)
+        public void QueueEvent(Dictionary<string, int> message)
         {
-            EmitSignal(nameof(QueuedEvent), command, arguments);
+            EmitSignal(nameof(QueuedEvent), message);
         }
 
         [Puppet]

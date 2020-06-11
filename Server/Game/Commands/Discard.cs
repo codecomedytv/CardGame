@@ -26,14 +26,14 @@ namespace CardGame.Server.Game.Commands
             Player.Move(Player.Graveyard, Card, Player.Hand);
         }
 
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.Discard;
-            message.Player["args"] = new Array{Card.Id};
-            message.Opponent["command"] = GameEvents.OpponentDiscard;
-            message.Opponent["args"] = new Array{Card.Serialize()};
-            return message;
-        }
+        // public override Message GetMessage()
+        // {
+        //     var message = new Message();
+        //     message.Player["command"] = GameEvents.Discard;
+        //     message.Player["args"] = new Array{Card.Id};
+        //     message.Opponent["command"] = GameEvents.OpponentDiscard;
+        //     message.Opponent["args"] = new Array{Card.Serialize()};
+        //     return message;
+        // }
     }
 }

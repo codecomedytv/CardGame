@@ -20,15 +20,15 @@ namespace CardGame.Server.Game.Commands
             PreviousZone = card.Zone;
         }
 
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.Bounce;
-            message.Player["args"] = new Array {Card.Id};
-            message.Opponent["command"] = GameEvents.OpponentBounce;
-            message.Opponent["args"] = new Array {Card.Id};
-            return message;
-        }
+        // public override Message GetMessage()
+        // {
+        //     var message = new Message();
+        //     message.Player["command"] = GameEvents.Bounce;
+        //     message.Player["args"] = new Array {Card.Id};
+        //     message.Opponent["command"] = GameEvents.OpponentBounce;
+        //     message.Opponent["args"] = new Array {Card.Id};
+        //     return message;
+        // }
 
         public void Execute()
         {

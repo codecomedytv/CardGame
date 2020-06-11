@@ -18,15 +18,15 @@ namespace CardGame.Server.Game.Commands
         }
 
 
-        public override Message GetMessage()
-        {
-            var message = new Message();
-            message.Player["command"] = GameEvents.Mill;
-            message.Player["args"] = new Array{Card.Id}; // Might need to be serialized
-            message.Opponent["command"] = GameEvents.OpponentMill;
-            message.Opponent["args"] = new Array{Card.Serialize()};
-            return message;
-        }
+        // public override Message GetMessage()
+        // {
+        //     var message = new Message();
+        //     message.Player["command"] = GameEvents.Mill;
+        //     message.Player["args"] = new Array{Card.Id}; // Might need to be serialized
+        //     message.Opponent["command"] = GameEvents.OpponentMill;
+        //     message.Opponent["args"] = new Array{Card.Serialize()};
+        //     return message;
+        // }
 
         public void Execute()
         {
