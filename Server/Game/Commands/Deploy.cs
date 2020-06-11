@@ -20,14 +20,8 @@ namespace CardGame.Server.Game.Commands
             Message = new Network.Messages.Deploy(card);
         }
 
-        public void Execute()
-        {
-            Player.Move(PreviousZone, Card, Player.Field);
-        }
-
-        public void Undo()
-        {
-            Player.Move(Player.Field, Card, PreviousZone);
-        }
+        public void Execute() => Player.Move(PreviousZone, Card, Player.Field);
+        public void Undo() => Player.Move(Player.Field, Card, PreviousZone);
+        
     }
 }

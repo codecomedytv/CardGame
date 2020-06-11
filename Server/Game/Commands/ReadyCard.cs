@@ -13,14 +13,8 @@ namespace CardGame.Server.Game.Commands
             Message = new Network.Messages.ReadyCard(card);
         }
 
-        public void Execute()
-        {
-            Card.Ready = true;
-        }
-
-        public void Undo()
-        {
-            Card.Ready = false;
-        }
+        public void Execute() => Card.Ready = true;
+        public void Undo() => Card.Ready = false;
+        
     }
 }

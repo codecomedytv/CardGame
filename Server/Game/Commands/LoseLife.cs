@@ -16,14 +16,7 @@ namespace CardGame.Server.Game.Commands
             Message = new Network.Messages.LoseLife(lifeLost);
         }
 
-        public void Execute()
-        {
-            Player.Health -= LifeLost;
-        }
-
-        public void Undo()
-        {
-            Player.Health += LifeLost;
-        }
+        public void Execute() => Player.Health -= LifeLost;
+        public void Undo() => Player.Health += LifeLost;
     }
 }

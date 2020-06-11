@@ -20,16 +20,8 @@ namespace CardGame.Server.Game.Commands
             Message = new Network.Messages.SetSupport(card);
         }
 
-        public void Execute()
-        {
-            Player.Move(PreviousZone, Card, Player.Support);
-        }
-
-        public void Undo()
-        {
-           Player.Move(Player.Support, Card, PreviousZone);
-        }
-        
+        public void Execute() => Player.Move(PreviousZone, Card, Player.Support);
+        public void Undo() => Player.Move(Player.Support, Card, PreviousZone);
         
     }
 }

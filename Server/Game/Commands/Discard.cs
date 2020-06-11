@@ -17,16 +17,7 @@ namespace CardGame.Server.Game.Commands
             Message = new Network.Messages.Discard(card);
         }
 
-        public void Execute()
-        {
-            Player.Move(Player.Hand, Card, Player.Graveyard);
-        }
-
-        public void Undo()
-        {
-            Player.Move(Player.Graveyard, Card, Player.Hand);
-        }
-
-        
+        public void Execute() => Player.Move(Player.Hand, Card, Player.Graveyard);
+        public void Undo() => Player.Move(Player.Graveyard, Card, Player.Hand);
     }
 }

@@ -18,15 +18,8 @@ namespace CardGame.Server.Game.Commands
             Message = new Network.Messages.Mill(card);
         }
         
-        public void Execute()
-        {
-            Player.Move(Card.Owner.Deck, Card, Card.Owner.Graveyard);
-        }
-
-        public void Undo()
-        {
-            Player.Move(Card.Owner.Graveyard, Card, Card.Owner.Deck);
-        }
-    
+        public void Execute() => Player.Move(Card.Owner.Deck, Card, Card.Owner.Graveyard);
+        public void Undo() => Player.Move(Card.Owner.Graveyard, Card, Card.Owner.Deck);
+        
     }
 }
