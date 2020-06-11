@@ -36,7 +36,7 @@ namespace CardGame.Client.Match.View
 			var fake = Library.Library.Placeholder();
 			QueueCallback(Hand, Delay(), "remove_child", card);
 			QueueCallback(Hand, Delay(), "add_child", fake);
-			QueueCallback(card, Delay(), "QueueFree");
+			//QueueCallback(card, Delay(), "queue_free");
 		}
 
 		public void Resolve(IEnumerable<Card> linked)

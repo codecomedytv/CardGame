@@ -43,6 +43,10 @@
         SetActivatable,
         ReturnToDeck,
         OpponentReturnedToDeck,
-        SetAsAttacker
+        SetAsAttacker,
+        MoveCard,
+        SetProperty,
+        CreateCard,
+        DeleteCard
     }
 }

@@ -53,7 +53,12 @@ namespace CardGame.Client.Match.Model
 		    //Visual.SetState(state);
 	    }
 
-	    public void SetDeployable(int id) => Cards[id].CanBeDeployed = true;
+	    public void SetDeployable(int id)
+	    {	
+		    GD.Print(id); // We're bouncing the card back so it isn't in our hand yet?
+		    GD.Print(Cards.Keys.Contains(id));
+		    Cards[id].CanBeDeployed = true;
+	    }
 
 	    public void SetSettable(int id) => Cards[id].CanBeSet = true;
 
@@ -210,6 +215,11 @@ namespace CardGame.Client.Match.Model
 		public void SetAttacker(int id)
 		{
 			Cards[id].CanAttack = true;
+		}
+
+		public void Move(int from, int id, int to)
+		{
+			GD.Print("Moving");
 		}
     }
 }

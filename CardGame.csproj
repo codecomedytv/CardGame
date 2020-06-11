@@ -176,6 +176,7 @@
     <Compile Include="Tests\MockMessenger.cs" />
     <Compile Include="Tests\Scripts\Connected\ActionResponseTest.cs" />
     <Compile Include="Tests\Scripts\Connected\ConnectionTest.cs" />
+    <Compile Include="Tests\Scripts\Connected\SkillTest.cs" />
     <Compile Include="Tests\Scripts\Serverside\BattleTest.cs" />
     <Compile Include="Tests\Scripts\Serverside\JudgeTest.cs" />
     <Compile Include="Tests\Scripts\Serverside\LinkTest.cs" />

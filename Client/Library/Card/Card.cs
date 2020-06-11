@@ -1,5 +1,6 @@
 using CardGame.Client.Match;
 using Godot;
+using Godot.Collections;
 using Array = Godot.Collections.Array;
 using Player = CardGame.Client.Match.Model.Player;
 
@@ -202,7 +203,7 @@ namespace CardGame.Client.Library.Card
 		[Signal]
 		public delegate void CardActivated();
 
-		public void ActivateCard(Array targets) 
+		public void ActivateCard(Array<int> targets) 
 		{
 			//Player.Activate([Id])
 			//Player.Visual.Animate.Start();
@@ -239,7 +240,7 @@ namespace CardGame.Client.Library.Card
 				case Zones.Support:
 					if (CanBeActivated)
 					{
-						ActivateCard(new Array());
+						ActivateCard(new Array<int>());
 					}
 					break;
 				default:

@@ -151,6 +151,18 @@ namespace CardGame.Client.Match
 						break;
 					case GameEvents.NoOp:
 						break;
+					case GameEvents.MoveCard:
+						Player.Move(message["from"], message["id"], message["to"]);
+						break;
+					case GameEvents.SetProperty:
+						var x =(message["id"], message["property"], message["value"]);
+						break;
+					case GameEvents.CreateCard:
+						var c = (message["id"], message["setCode"]);
+						break;
+					case GameEvents.DeleteCard:
+						var g = message["id"];
+						break;
 					default:
 						throw new ArgumentOutOfRangeException();
 				}
