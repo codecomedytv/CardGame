@@ -10,6 +10,7 @@ namespace CardGame.Server.Game.Commands
         public ReadyCard(Card card)
         {
             Card = card;
+            Message = new Network.Messages.ReadyCard(card);
         }
 
         public void Execute()
@@ -21,16 +22,5 @@ namespace CardGame.Server.Game.Commands
         {
             Card.Ready = false;
         }
-
-
-        // public override Message GetMessage()
-        // {
-        //     var message = new Message();
-        //     message.Player["command"] = GameEvents.ReadyCard;
-        //     message.Player["args"] = new Array {Card.Id};
-        //     message.Opponent["command"] = GameEvents.NoOp;
-        //     message.Opponent["args"] = new Array();
-        //     return message;
-        // }
     }
 }

@@ -8,8 +8,8 @@ namespace CardGame.Server.Game.Network.Messages
 		public Draw(Card card)
 		{
 			Player[Command] = (int)GameEvents.Draw;
-			Player["id"] = card.Id;
-			Player["setCode"] = (int) card.SetCode;
+			Player[Id] = card.Id;
+			Player[SetCode] = (int) card.SetCode;
 			Opponent[Command] = (int) GameEvents.OpponentDraw;
 		}
 	}

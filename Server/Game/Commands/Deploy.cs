@@ -17,6 +17,7 @@ namespace CardGame.Server.Game.Commands
             Player = player;
             Card = card;
             PreviousZone = Card.Zone;
+            Message = new Network.Messages.Deploy(card);
         }
 
         public void Execute()
@@ -28,15 +29,5 @@ namespace CardGame.Server.Game.Commands
         {
             Player.Move(Player.Field, Card, PreviousZone);
         }
-
-        // public override Message GetMessage()
-        // {
-        //     var message = new Message();
-        //     message.Player["command"] = GameEvents.Deploy;
-        //     message.Player["args"] = new Array {Card.Id};
-        //     message.Opponent["command"] = GameEvents.OpponentDeploy;
-        //     message.Opponent["args"] = new Array {Card.Serialize()};
-        //     return message;
-        // }
     }
 }

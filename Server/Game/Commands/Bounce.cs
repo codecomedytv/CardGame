@@ -18,18 +18,9 @@ namespace CardGame.Server.Game.Commands
             Player = player;
             Card = card;
             PreviousZone = card.Zone;
+            Message = new Network.Messages.Bounce(card);
         }
-
-        // public override Message GetMessage()
-        // {
-        //     var message = new Message();
-        //     message.Player["command"] = GameEvents.Bounce;
-        //     message.Player["args"] = new Array {Card.Id};
-        //     message.Opponent["command"] = GameEvents.OpponentBounce;
-        //     message.Opponent["args"] = new Array {Card.Id};
-        //     return message;
-        // }
-
+        
         public void Execute()
         {
             Player.Move(PreviousZone, Card, Card.Owner.Hand);

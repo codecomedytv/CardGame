@@ -103,8 +103,17 @@
     <Compile Include="Server\Game\Commands\UnreadyCard.cs" />
     <Compile Include="Server\Game\Events\GameEvent.cs" />
     <Compile Include="Server\Game\Gamestate.cs" />
+    <Compile Include="Server\Game\Network\Messages\Bounce.cs" />
+    <Compile Include="Server\Game\Network\Messages\Deploy.cs" />
+    <Compile Include="Server\Game\Network\Messages\Discard.cs" />
     <Compile Include="Server\Game\Network\Messages\Draw.cs" />
+    <Compile Include="Server\Game\Network\Messages\LoseLife.cs" />
     <Compile Include="Server\Game\Network\Messages\Message.cs" />
+    <Compile Include="Server\Game\Network\Messages\Mill.cs" />
+    <Compile Include="Server\Game\Network\Messages\ReadyCard.cs" />
+    <Compile Include="Server\Game\Network\Messages\ReturnToDeck.cs" />
+    <Compile Include="Server\Game\Network\Messages\SetSupport.cs" />
+    <Compile Include="Server\Game\Network\Messages\UnreadyCard.cs" />
     <Compile Include="Server\Game\Network\Messenger\BaseMessenger.cs" />
     <Compile Include="Server\Game\Network\Messenger\Messenger.cs" />
     <Compile Include="Server\Game\Room.cs" />
