@@ -103,12 +103,13 @@
     <Compile Include="Server\Game\Commands\UnreadyCard.cs" />
     <Compile Include="Server\Game\Events\GameEvent.cs" />
     <Compile Include="Server\Game\Gamestate.cs" />
-    <Compile Include="Server\Game\Game.cs" />
+    <Compile Include="Server\Game\Room.cs" />
     <Compile Include="Server\Game\Card\Card.cs" />
     <Compile Include="Server\Game\Decorator.cs" />
     <Compile Include="Server\Game\BaseMessenger.cs" />
     <Compile Include="Server\Game\ISource.cs" />
     <Compile Include="Server\Game\Link.cs" />
+    <Compile Include="Server\Game\Messages\Messages.cs" />
     <Compile Include="Server\Game\Messenger.cs" />
     <Compile Include="Server\Game\Skill\IResolvable.cs" />
     <Compile Include="Server\Game\Skill\NullSkill.cs" />

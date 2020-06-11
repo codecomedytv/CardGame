@@ -8,7 +8,7 @@ using Godot.Collections;
 
 namespace CardGame.Server {
 
-	public class Game : Node
+	public class Room : Node
 	{
 		
 		//private List<Player> Players;
@@ -26,9 +26,9 @@ namespace CardGame.Server {
 		[Signal]
 		public delegate void Disqualified();
 
-		public Game() { }
+		public Room() { }
 
-		public Game(List<Player> players, BaseMessenger messenger = null)
+		public Room(List<Player> players, BaseMessenger messenger = null)
 		{
 			Messenger = messenger ?? new RealMessenger();
 			Players = new System.Collections.Generic.Dictionary<int, Player>();
