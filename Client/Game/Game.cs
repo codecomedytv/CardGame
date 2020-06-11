@@ -55,7 +55,7 @@ namespace CardGame.Client {
 			Opponent.Enemy = Player;
 			Player.Visual.Cards = Cards;
 			Opponent.Visual.Cards = Cards;
-			EventManager.SetUp(Player, Opponent, GameInput);
+			EventManager.SetUp(Player, Opponent);
 			GameInput.SetUp(Player, Opponent, networkId, Messenger, Cards);
 			if(GameInput is Manual input)
 			{
@@ -71,7 +71,6 @@ namespace CardGame.Client {
 			GetNode<Button>("Background/EndTurn").Connect("pressed", GameInput, "OnEndTurn");
 			GetNode<Button>("Background/Pass").Connect("pressed", GameInput, "PassPriority");
 			Player.Visual.Connect("ButtonAction", GetNode<Button>("Background/Pass"), "set_text");
-			_Connect(EventManager, "CommandRequested", GameInput, "Command");
 			_Connect(EventManager, "Animated", Gfx, nameof(CardGame.Client.Match.Gfx.StartAnimation));
 			_Connect(Player, "PlayerWon", this, "Win");
 			_Connect(Player, "PlayerLost", this, "Lose");

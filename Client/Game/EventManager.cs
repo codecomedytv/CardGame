@@ -10,30 +10,17 @@ namespace CardGame.Client.Match
     public class EventManager: Reference
     {
         [Signal]
-        public delegate void CommandRequested();
-
-        [Signal]
-        public delegate void Battle();
-
-        [Signal]
         private delegate void Animated();
 
         private Player Player;
         private Opponent Opponent;
-        private GameInput GameInput;
 
         private List<(GameEvents Command, Array Arguments)> Events = new List<(GameEvents Command, Array Arguments)>();
 
-        public void SetUp(Player player, Opponent opponent, GameInput gameInput)
+        public void SetUp(Player player, Opponent opponent)
         {
             Player = player;
             Opponent = opponent;
-            GameInput = gameInput;
-        }
-        
-        public void OnAnimationFinished()
-        {
-            EmitSignal(nameof(CommandRequested));
         }
 
         public void Queue(int command, Array args)
