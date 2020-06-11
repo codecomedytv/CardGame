@@ -26,6 +26,11 @@ namespace CardGame.Server
     
     public abstract class GameEvent: Reference
     {
+        protected GameEvent()
+        {
+            
+        }
+        
         public Game.Network.Messages.Message Message = new Game.Network.Messages.Message();
     }
 

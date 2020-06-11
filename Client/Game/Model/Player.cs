@@ -68,6 +68,11 @@ namespace CardGame.Client.Match.Model
 			Visual.AutoTarget(targeter);
 		    //	_show_valid_targets(targeter);
 		}
+		
+		protected Player()
+		{
+			
+		}
 
 		public Player(Dictionary<int, Card> cards)
 		{

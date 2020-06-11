@@ -19,6 +19,10 @@ namespace CardGame.Client.Match.Model
 		public Player Enemy;
 		public Zone Link;
 
+		protected Opponent()
+		{
+			
+		}
 		public Opponent(Dictionary<int, Card> cards)
 		{
 			Cards = cards;
