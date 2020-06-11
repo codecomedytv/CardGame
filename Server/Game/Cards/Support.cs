@@ -15,7 +15,7 @@ namespace CardGame.Server.Game.Cards
         public override void SetCanBeActivated()
         {
             CanBeActivated = Skill.CanBeUsed;
-            if (CanBeActivated) {Controller.DeclarePlay(new Activate(this, new List<Card>()));}
+            if (CanBeActivated) {Controller.DeclarePlay(new SetAsActivatable(this));}
         }
 
     }

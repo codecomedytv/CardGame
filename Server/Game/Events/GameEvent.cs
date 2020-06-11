@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Network.Messages;
 using CardGame.Server.States;
 using Godot;
 using Godot.Collections;
@@ -37,16 +38,8 @@ namespace CardGame.Server
         {
             Attacker = attacker;
             Defender = defender;
+            Message = new Game.Network.Messages.ShowAttack(attacker, defender);
         }
-
-        // public override Message GetMessage()
-        // {
-        //     var message = new Message();
-        //     message.Player["command"] = GameEvents.AttackDeclared;
-        //     message.Player["args"] = new Array{Attacker.Id, Defender.Id};
-        //     message.Opponent["command"] = GameEvents.NoOp;
-        //     return message;
-        // }
     }
 
     public class SetState : GameEvent
@@ -58,41 +51,11 @@ namespace CardGame.Server
         {
             Player = player;
             State = state;
+            Message = new Game.Network.Messages.SetState(state.ToString());
         }
-
-        // public override Message GetMessage()
-        // {
-        //     var message = new Message();
-        //     message.Player["command"] = GameEvents.SetState;
-        //     message.Player["args"] = new Array{State.ToString()};
-        //     message.Opponent["command"] = GameEvents.NoOp;
-        //     message.Opponent["args"] = new Array();
-        //     return message;
-        // }
+        
     }
-
-    public class Activate : GameEvent
-    {
-        private Card Activated;
-        private List<Card> Targets;
-
-        public Activate(Card activated, List<Card> targets)
-        {
-            Activated = activated;
-            Targets = targets;
-        }
-
-        // public override Message GetMessage()
-        // {
-        //     var message = new Message();
-        //     message.Player["command"] = GameEvents.NoOp;
-        //     message.Player["args"] = new Array{Activated.Id};
-        //     message.Opponent["command"] = GameEvents.OpponentActivate;
-        //     message.Opponent["args"] = new Array{Activated.Serialize(), Targets};
-        //     return message;
-        // }
-    }
-
+    
     public class AttackUnit : GameEvent
     {
         private Unit Attacker;
@@ -102,17 +65,9 @@ namespace CardGame.Server
         {
             Attacker = attacker;
             Defender = defender;
+            Message = new Game.Network.Messages.AttackUnit(attacker, defender);
         }
-
-        // public override Message GetMessage()
-        // {
-        //     var message = new Message();
-        //     message.Player["command"] = GameEvents.AttackedUnit;
-        //     message.Player["args"] = new Array {Attacker.Id, Defender.Id};
-        //     message.Opponent["command"] = GameEvents.OpponentAttackedUnit;
-        //     message.Opponent["args"] = new Array{Attacker.Id, Defender.Id};
-        //     return message;
-        // }
+        
     }
 
     public class AttackDirectly : GameEvent
@@ -122,38 +77,16 @@ namespace CardGame.Server
         public AttackDirectly(Unit attacker)
         {
             Attacker = attacker;
+            Message = new Game.Network.Messages.AttackDirectly(attacker);
         }
-
-        // public override Message GetMessage()
-        // {
-        //     var message = new Message();
-        //     message.Player["command"] = GameEvents.AttackedDirectly;
-        //     message.Player["args"] = new Array {Attacker.Id};
-        //     message.Opponent["command"] = GameEvents.OpponentAttackedDirectly;
-        //     message.Opponent["args"] = new Array{Attacker.Id};
-        //     return message;
-        // }
+        
     }
-
     
-
     public class BeginTurn : GameEvent
     {
-        // public override Message GetMessage()
-        // {
-        //     var message = new Message();
-        //     message.Player["command"] = GameEvents.BeginTurn;
-        //     message.Player["args"] = new Array();
-        //     message.Opponent["command"] = GameEvents.NoOp;
-        //     message.Opponent["args"] = new Array();
-        //     return message;
-        // }
+        public BeginTurn() => Message = new Game.Network.Messages.BeginTurn();
     }
     
-    
-
-    
-
     public class DestroyUnits : GameEvent
     {
         public readonly Card Card;
@@ -161,35 +94,14 @@ namespace CardGame.Server
         public DestroyUnits(Card card)
         {
             Card = card;
+            Message = new Game.Network.Messages.Destroy(card);
         }
 
-        // public override Message GetMessage()
-        // {
-        //     var destroyed = new Array {Card.Id};
-        //     var message = new Message();
-        //     message.Player["command"] = GameEvents.CardDestroyed;
-        //     message.Player["args"] = destroyed;
-        //     message.Opponent["command"] = GameEvents.OpponentCardDestroyed;
-        //     message.Opponent["args"] = destroyed;
-        //     return message;
-        // }
     }
-
     
-
-    
-
     public class EndTurn : GameEvent
     {
-        // public override Message GetMessage()
-        // {
-        //     var message = new Message();
-        //     message.Player["command"] = GameEvents.EndTurn;
-        //     message.Player["args"] = new Array();
-        //     message.Opponent["command"] = GameEvents.NoOp;
-        //     message.Opponent["args"] = new Array();
-        //     return message;
-        // }
+        public EndTurn() => Message = new Game.Network.Messages.BeginTurn();
     }
 
     public class GameOver : GameEvent
@@ -201,17 +113,8 @@ namespace CardGame.Server
         {
             Winner = winner;
             Loser = loser;
+            Message = new Game.Network.Messages.GameOver();
         }
-
-        // public override Message GetMessage()
-        // {
-        //     var message = new Message();
-        //     message.Player["command"] = GameEvents.Win;
-        //     message.Player["args"] = new Array();
-        //     message.Opponent["command"] = GameEvents.Lose;
-        //     message.Opponent["args"] = new Array();
-        //     return message;
-        // }
     }
 
     public class LoadDeck : GameEvent
@@ -221,20 +124,9 @@ namespace CardGame.Server
         public LoadDeck(List<Card> cardsLoaded)
         {
             CardsLoaded = cardsLoaded;
+            Message = new Game.Network.Messages.LoadDeck(cardsLoaded.Count);
         }
-
-        // public override Message GetMessage()
-        // {
-        //     var message = new Message();
-        //     message.Player["command"] = GameEvents.LoadDeck;
-        //     message.Player["args"] = new Array {CardsLoaded.Count};
-        //     message.Opponent["command"] = GameEvents.OpponentLoadDeck;
-        //     message.Opponent["args"] = new Array {CardsLoaded.Count};
-        //     return message;
-        // }
     }
-    
-    
     
     public class SetAsDeployable : GameEvent
     {
@@ -243,17 +135,8 @@ namespace CardGame.Server
         public SetAsDeployable(Card card)
         {
             Card = card;
+            Message = new Game.Network.Messages.SetAsDeployable(card);
         }
-
-        // public override Message GetMessage()
-        // {
-        //     var message = new Message();
-        //     message.Player["command"] = GameEvents.SetDeployable;
-        //     message.Player["args"] = new Array {Card.Id};
-        //     message.Opponent["command"] = GameEvents.NoOp;
-        //     message.Opponent["args"] = new Array();
-        //     return message;
-        // }
     }
 
     public class SetAsSettable : GameEvent
@@ -263,17 +146,8 @@ namespace CardGame.Server
         public SetAsSettable(Card card)
         {
             Card = card;
+            Message = new Game.Network.Messages.SetAsSettable(card);
         }
-
-        // public override Message GetMessage()
-        // {
-        //     var message = new Message();
-        //     message.Player["command"] = GameEvents.SetSettable;
-        //     message.Player["args"] = new Array{Card.Id};
-        //     message.Opponent["command"] = GameEvents.NoOp;
-        //     message.Opponent["args"] = new Array();
-        //     return message;
-        // }
     }
 
     public class SetAsActivatable : GameEvent
@@ -283,17 +157,9 @@ namespace CardGame.Server
         public SetAsActivatable(Card card)
         {
             Card = card;
+            Message = new Game.Network.Messages.SetAsActivatable(card);
         }
 
-        // public override Message GetMessage()
-        // {
-        //     var message = new Message();
-        //     message.Player["command"] = GameEvents.SetActivatable;
-        //     message.Player["args"] = new Array {Card.Id};
-        //     message.Opponent["command"] = GameEvents.NoOp;
-        //     message.Opponent["args"] = new Array();
-        //     return message;
-        // }
     }
 
     public class SetAsAttacker : GameEvent
@@ -303,34 +169,18 @@ namespace CardGame.Server
         public SetAsAttacker(Card card)
         {
             Card = card;
+            Message = new Game.Network.Messages.SetAsAttacker(card);
         }
-        
-        // public override Message GetMessage()
-        // {
-        //     var message = new Message();
-        //     message.Player["command"] = GameEvents.SetAsAttacker;
-        //     message.Player["args"] = new Array {Card.Id};
-        //     message.Opponent["command"] = GameEvents.NoOp;
-        //     message.Opponent["args"] = new Array();
-        //     return message;
-        // }
     }
 
     public class Resolve : GameEvent
     {
-        // public override Message GetMessage()
-        // {
-        //     var message = new Message();
-        //     message.Player["command"] = GameEvents.Resolve;
-        //     message.Player["args"] = new Array();
-        //     message.Opponent["command"] = GameEvents.Resolve;
-        //     message.Opponent["args"] = new Array();
-        //     return message;
-        // }
+        public Resolve() => Message = new Game.Network.Messages.Resolve();
     }
 
     public class SetTargets : GameEvent
     {
+        // Possibly best to only add a target at a time?
         public readonly Card Selector;
         public readonly List<Card> Targets;
 
@@ -364,18 +214,7 @@ namespace CardGame.Server
         public AutoTarget(Card selector)
         {
             Selector = selector;
+            Message = new Game.Network.Messages.AutoTarget(selector);
         }
-
-        // public override Message GetMessage()
-        // {
-        //     var message = new Message();
-        //     message.Player["command"] = GameEvents.AutoTarget;
-        //     message.Player["args"] = new Array{Selector.Id};
-        //     message.Opponent["command"] = GameEvents.NoOp;
-        //     message.Opponent["args"] = new Array();
-        //     return message;
-        // }
     }
-
-
 }

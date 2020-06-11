@@ -13,7 +13,6 @@ namespace CardGame.Server {
 
 	public class Player : Node, ISource
 	{
-		//public enum States { Idle, Active, Passive, Acting, Passing }
 
 		public State State;
 		public List<SetCodes> DeckList;
