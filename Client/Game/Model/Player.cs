@@ -48,9 +48,12 @@ namespace CardGame.Client.Match.Model
         [Signal]
         private delegate void PlayerLost();
         
-	    public void SetState(string state) => Visual.SetState(state); 
-			
-		public void SetDeployable(int id) => Cards[id].CanBeDeployed = true;
+	    public void SetState(int state)
+	    {
+		    //Visual.SetState(state);
+	    }
+
+	    public void SetDeployable(int id) => Cards[id].CanBeDeployed = true;
 
 	    public void SetSettable(int id) => Cards[id].CanBeSet = true;
 

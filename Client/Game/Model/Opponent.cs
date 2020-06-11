@@ -45,10 +45,8 @@ namespace CardGame.Client.Match.Model
 			Visual.AttackDirectly(attacker);
 		}
 
-		public void Deploy(Dictionary data)
+		public void Deploy(int id, SetCodes setCode)
 		{
-			var id = (int) data["Id"];
-			var setCode = (SetCodes) data["setCode"];
 			var card = Library.Library.Fetch(id, setCode);
 			card.Id = id;
 			Cards[card.Id] = card;
