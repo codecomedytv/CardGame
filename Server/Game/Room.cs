@@ -1,12 +1,12 @@
-using System;
-using Godot;
 using System.Collections.Generic;
 using System.Linq;
+using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Network.Messenger;
 using CardGame.Server.States;
+using Godot;
 using Godot.Collections;
 
-
-namespace CardGame.Server {
+namespace CardGame.Server.Game {
 
 	public class Room : Node
 	{

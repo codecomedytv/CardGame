@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CardGame.Server
+namespace CardGame.Server.Game.Cards
 {
     public class Support: Card
     {

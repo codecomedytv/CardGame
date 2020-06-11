@@ -1,4 +1,7 @@
-﻿namespace CardGame.Server
+﻿using CardGame.Server.Game;
+using CardGame.Server.Game.Cards;
+
+namespace CardGame.Server
 {
     public class Untargetable: Unit
     {

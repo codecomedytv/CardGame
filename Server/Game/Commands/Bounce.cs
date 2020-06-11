@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using CardGame.Server.Game.Cards;
 using Godot.Collections;
 
-namespace CardGame.Server.Commands
+namespace CardGame.Server.Game.Commands
 {
     public class Bounce : GameEvent, ICommand
     {

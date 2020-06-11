@@ -1,9 +1,9 @@
-using Godot;
 using System;
 using System.Collections.Generic;
+using Godot;
 using Godot.Collections;
 
-namespace CardGame.Server {
+namespace CardGame.Server.Game.Network.Messenger {
 	
 	public class BaseMessenger : Node
 	{

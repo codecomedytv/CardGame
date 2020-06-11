@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using CardGame.Server.Commands;
+using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Commands;
 using Godot;
 using Godot.Collections;
 

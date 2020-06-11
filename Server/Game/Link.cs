@@ -1,12 +1,10 @@
-using Godot;
-using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
+using CardGame.Server.Game.Cards;
 using CardGame.Server.States;
+using Godot;
 using Godot.Collections;
-using Object = Godot.Object;
 
-namespace CardGame.Server {
+namespace CardGame.Server.Game {
 
 	public class Link : Reference
 	{

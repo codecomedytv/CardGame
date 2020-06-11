@@ -1,13 +1,7 @@
-using Godot;
-using System;
-using System.CodeDom;
-using System.Collections;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Reflection;
+using Godot;
 
-namespace CardGame.Server {
+namespace CardGame.Server.Game.Cards {
 
 	public abstract class Card : Reference, ISource
 	{

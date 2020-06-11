@@ -1,4 +1,6 @@
-﻿namespace CardGame.Server
+﻿using CardGame.Server.Game.Cards;
+
+namespace CardGame.Server
 {
     public class Atk15KDef1k : Unit
     {

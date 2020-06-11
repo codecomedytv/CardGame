@@ -1,8 +1,8 @@
+using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Commands;
 using Godot;
-using System;
-using CardGame.Server.Commands;
 
-namespace CardGame.Server {
+namespace CardGame.Server.Game {
 
 	public class Battle : Reference, IResolvable
 	{

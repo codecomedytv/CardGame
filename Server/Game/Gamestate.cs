@@ -1,9 +1,7 @@
+using CardGame.Server.Game.Cards;
 using Godot;
-using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
 
-namespace CardGame.Server {
+namespace CardGame.Server.Game {
 		
 	public class Gamestate : Reference
 	{

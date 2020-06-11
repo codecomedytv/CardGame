@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using CardGame.Server.Game.Cards;
 using CardGame.Server.States;
 using Godot;
 using Godot.Collections;

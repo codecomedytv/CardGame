@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CardGame.Server;
+using CardGame.Server.Game;
 using Godot.Collections;
 
 namespace CardGame.Tests.Scripts.Serverside

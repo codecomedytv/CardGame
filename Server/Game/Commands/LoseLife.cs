@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using Godot.Collections;
+﻿using Godot.Collections;
 
-namespace CardGame.Server.Commands
+namespace CardGame.Server.Game.Commands
 {
     public class LoseLife : GameEvent, ICommand
     {

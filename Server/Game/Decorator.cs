@@ -1,9 +1,10 @@
-using Godot;
 using System;
 using System.Collections.Generic;
+using CardGame.Server.Game.Cards;
+using Godot;
 using Object = Godot.Object;
 
-namespace CardGame.Server {
+namespace CardGame.Server.Game {
 	
 	public class Decorator : Node
 	{

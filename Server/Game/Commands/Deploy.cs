@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using CardGame.Server.Game.Cards;
 using Godot.Collections;
-using CardGame.Server;
 
-namespace CardGame.Server.Commands
+namespace CardGame.Server.Game.Commands
 {
     public class Deploy : GameEvent, ICommand
     {

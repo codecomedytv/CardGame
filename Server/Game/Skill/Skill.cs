@@ -1,6 +1,8 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using CardGame.Server.Game;
+using CardGame.Server.Game.Cards;
 using Godot.Collections;
 using Array = Godot.Collections.Array;
 using Object = Godot.Object;
