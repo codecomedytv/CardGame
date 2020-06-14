@@ -8,7 +8,6 @@ namespace CardGame.Server.Game.Network.Messages
         public SetAsDeployable(Card unit)
         {
             Player[Command] = (int) GameEvents.SetDeployable;
-            GD.Print(unit.Title);
             Player[Id] = unit.Id;
         }
     }

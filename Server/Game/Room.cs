@@ -158,7 +158,6 @@ namespace CardGame.Server.Game {
 		{
 			var player = Players[playerId];
 			var card = (Support)GameState.GetCard(cardId);
-			GD.Print(card);
 			var disqualifyPlayer = player.OnActivation(card, targets);
 			if (disqualifyPlayer)
 			{
