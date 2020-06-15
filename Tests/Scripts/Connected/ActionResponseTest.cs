@@ -36,7 +36,7 @@ namespace CardGame.Tests.Scripts.Connected
 	    [Test]
 	    public async void WhenTurnPlayerDeclaresAttack()
 	    {
-		    var input = Clients[1].GetNode<Game>("1").GameInput;
+		    /*var input = Clients[1].GetNode<Game>("1").GameInput;
 		    var player = Clients[1].GetNode<Game>("1").Player;
 		    var input2 = Clients[0].GetNode<Game>("1").GameInput;
 		    var player2 = Clients[0].GetNode<Game>("1").Player;
@@ -72,40 +72,9 @@ namespace CardGame.Tests.Scripts.Connected
 
 		    Assert.Has(DungeonGuide, player2.Graveyard,
 			    "Then their opponent can respond with a support card (that destroys the attacker)");
-		    Assert.IsEqual(oldHealth, player.Health, "(And the battle was cancelled)");
+		    Assert.IsEqual(oldHealth, player.Health, "(And the battle was cancelled)");*/
+
+		    Assert.Fail("Test Is Temporaily Commented Out");
 	    }
     }
 }
-
-/*	
-
-	# Player 1 sets counter_attack
-	var CounterAttack = player.Hand[0];
-	input.set_facedown(CounterAttack);
-	await ToSignal(UntilTimeout(1.0F), YIELD);
-	input.EndTurn();
-	await ToSignal(UntilTimeout(1.0F), YIELD);
-	var DungeonGuide = player2.Hand[2];
-	input2.deploy(DungeonGuide) # Future responses tests might break this
-	await ToSignal(UntilTimeout(1.0F), YIELD);
-	input.PassPriority();
-	await ToSignal(UntilTimeout(1.0F), YIELD);
-	input2.PassPriority();
-	await ToSignal(UntilTimeout(1.0F), YIELD);
-	input2.EndTurn();
-	await ToSignal(UntilTimeout(1.0F), YIELD);
-	input.EndTurn();
-	await ToSignal(UntilTimeout(1.0F), YIELD);
-	input2.DirectAttack(DungeonGuide);
-	await ToSignal(UntilTimeout(1.0F), YIELD);
-	CounterAttack.Activate();
-	await ToSignal(UntilTimeout(1.0F), YIELD);
-	input2.PassPriority();
-	await ToSignal(UntilTimeout(1.0F), YIELD);
-	input.PassPriority();
-	await ToSignal(UntilTimeout(1.0F), YIELD);
-	
-	Assert.Has(DungeonGuide, player2.Graveyard, \
-				"Then their opponent can respond with a support card (that destroys the attacker)")
-	Assert.IsEqual(oldHealth, player.Health, "(And the battle was cancelled)");
-*/
