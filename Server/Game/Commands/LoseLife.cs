@@ -13,7 +13,6 @@ namespace CardGame.Server.Game.Commands
             Source = source;
             Player = player;
             LifeLost = lifeLost;
-            Message = new Network.Messages.LoseLife(lifeLost);
         }
 
         public void Execute() => Player.Health -= LifeLost;

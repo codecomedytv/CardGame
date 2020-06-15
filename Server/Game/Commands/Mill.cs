@@ -15,7 +15,6 @@ namespace CardGame.Server.Game.Commands
             Source = source;
             Player = player;
             Card = card;
-            Message = new Network.Messages.Mill(card);
         }
         
         public void Execute() => Player.Move(Card.Owner.Deck, Card, Card.Owner.Graveyard);

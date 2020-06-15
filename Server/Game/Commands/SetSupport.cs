@@ -17,7 +17,6 @@ namespace CardGame.Server.Game.Commands
             Player = player;
             Card = card;
             PreviousZone = card.Zone;
-            Message = new Network.Messages.SetSupport(card);
         }
 
         public void Execute() => Player.Move(PreviousZone, Card, Player.Support);

@@ -14,7 +14,6 @@ namespace CardGame.Server.Game.Commands
             Source = source;
             Player = player;
             Card = card;
-            Message = new Network.Messages.Discard(card);
         }
 
         public void Execute() => Player.Move(Player.Hand, Card, Player.Graveyard);

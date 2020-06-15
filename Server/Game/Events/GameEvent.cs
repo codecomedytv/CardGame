@@ -43,7 +43,6 @@ namespace CardGame.Server
         {
             Attacker = attacker;
             Defender = defender;
-            Message = new Game.Network.Messages.ShowAttack(attacker, defender);
         }
     }
 
@@ -70,7 +69,6 @@ namespace CardGame.Server
         {
             Attacker = attacker;
             Defender = defender;
-            Message = new Game.Network.Messages.AttackUnit(attacker, defender);
         }
         
     }
@@ -82,14 +80,12 @@ namespace CardGame.Server
         public AttackDirectly(Unit attacker)
         {
             Attacker = attacker;
-            Message = new Game.Network.Messages.AttackDirectly(attacker);
         }
         
     }
     
     public class BeginTurn : GameEvent
     {
-        public BeginTurn() => Message = new Game.Network.Messages.BeginTurn();
     }
     
     public class DestroyUnits : GameEvent
@@ -99,14 +95,13 @@ namespace CardGame.Server
         public DestroyUnits(Card card)
         {
             Card = card;
-            Message = new Game.Network.Messages.Destroy(card);
         }
 
     }
     
     public class EndTurn : GameEvent
     {
-        public EndTurn() => Message = new Game.Network.Messages.BeginTurn();
+
     }
 
     public class GameOver : GameEvent
@@ -118,7 +113,6 @@ namespace CardGame.Server
         {
             Winner = winner;
             Loser = loser;
-            Message = new Game.Network.Messages.GameOver();
         }
     }
 
@@ -180,7 +174,6 @@ namespace CardGame.Server
 
     public class Resolve : GameEvent
     {
-        public Resolve() => Message = new Game.Network.Messages.Resolve();
     }
 
     public class SetTargets : GameEvent
@@ -219,7 +212,6 @@ namespace CardGame.Server
         public AutoTarget(Card selector)
         {
             Selector = selector;
-            Message = new Game.Network.Messages.AutoTarget(selector);
         }
     }
 }
