@@ -17,7 +17,6 @@ namespace CardGame.Client.Match
         protected Gfx Animate;
         protected int Who;
         protected Sfx Sfx;
-        protected History History;
         public Godot.Collections.Dictionary<int, Card> Cards;
         public override void _Ready()
         {
@@ -30,11 +29,10 @@ namespace CardGame.Client.Match
             Damage = GetNode("Damage") as Label;
         }
         
-        public void Setup(Gfx animate, Sfx sfx, History history)
+        public void Setup(Gfx animate, Sfx sfx)
         {
             Animate = animate;
             Sfx = sfx;
-            History = history;
         }
 
         public float Delay(float timeDelay = 0.0F) => Animate.AddDelay(timeDelay);

@@ -13,7 +13,6 @@ namespace CardGame.Client {
 		public Gfx Gfx;
 		public Sfx Sfx;
 		public AudioStreamPlayer BackgroundMusic;
-		public History History;
 		public Messenger Messenger = new Messenger();
 		public Player Player;
 		public Opponent Opponent;
@@ -29,7 +28,6 @@ namespace CardGame.Client {
 			Gfx = GetNode<Gfx>("Effects/GFX_Visual");
 			Sfx = GetNode<Sfx>("Effects/SFX_Audio");
 			BackgroundMusic = GetNode<AudioStreamPlayer>("Effects/BGM_Audio");
-			History = GetNode<History>("History");
 		}
 
 		public void SetUp(bool muteMusic, GameInput gameInput)
@@ -43,8 +41,8 @@ namespace CardGame.Client {
 			Opponent = new Opponent(Cards);
 			Player.Visual = GetNode<Match.View.Player>("Player");
 			Opponent.Visual = GetNode<Match.View.Opponent>("Opponent");
-			Player.Visual.Setup(Gfx, Sfx, History);
-			Opponent.Visual.Setup(Gfx, Sfx, History);
+			Player.Visual.Setup(Gfx, Sfx);
+			Opponent.Visual.Setup(Gfx, Sfx);
 			var networkId = CustomMultiplayer.GetNetworkUniqueId();
 			Messenger.Id = networkId;
 			Sfx.StreamPaused = Muted;

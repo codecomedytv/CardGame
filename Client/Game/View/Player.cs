@@ -56,18 +56,12 @@ namespace CardGame.Client.Match.View
 			if (defender is Card card)
 			{
 				card.Combat.Show();
-				History.AddLine($"Your {attacker} attacked Enemy's {defender}");
-			}
-			else
-			{
-				History.AddLine($"Your {attacker} attacked directly" );
 			}
 		}
 		
 		public void Bounce(Card card)
 		{
 			QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Hand), 0.3F, Delay());
-			QueueCallback(History, Delay() + 0.3F, "AddLine", $"{card} was returned to your hand");
 			QueueCallback(card.GetParent(), Delay(0.3F), "remove_child", card);
 			QueueCallback(Hand, Delay(), "add_child", card);
 			QueueCallback(Sfx, Delay(), "Play", Sfx.Deploy); // Guess we didn't have a dedicated bounce sfx
@@ -93,11 +87,6 @@ namespace CardGame.Client.Match.View
 			QueueCallback(card, Delay(), "FlipFaceUp");
 			QueueCallback(Sfx, Delay(), "Play", Sfx.Deploy);
 			QueueCallback(card.Back, Delay(0.1F), "hide");
-			QueueCallback(History, Delay(), "AddLine", $"You activated {card}");
-			if (targets.Count != 0)
-			{
-				QueueCallback(History, Delay(), "AddLine", $"Targeting: {targets}");
-			}
 		}
 
 		public void AttackUnit(Card attacker, Card defender)
@@ -108,7 +97,6 @@ namespace CardGame.Client.Match.View
 			QueueCallback(attacker.Combat, Delay(), "hide");
 			QueueCallback(attacker.Combat, Delay(), "hide");
 			QueueCallback(defender, Delay(), "RemoveAura");
-			QueueCallback(History, Delay(), "Attack", Who, attacker, defender);
 			QueueCallback(Sfx, Delay(0.3F), "Play", Sfx.Battle);
 		}
 		
@@ -119,7 +107,6 @@ namespace CardGame.Client.Match.View
 			QueueProperty(attacker, "RectGlobalPosition", targetPosition, attacker.RectGlobalPosition, 0.3F, Delay(0.3F));
 			Animate.AddDelay(0.3F);
 			QueueCallback(attacker.Combat, Delay(), "hide");
-			QueueCallback(History, Delay(), "DirectAttack", Who, attacker);
 			QueueCallback(Sfx, Delay(0.3F), "Play", Sfx.Battle);
 		}
 		
@@ -132,7 +119,6 @@ namespace CardGame.Client.Match.View
 		{
 			
 			QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Units), 0.3F, Delay());
-			QueueCallback(History, Delay() + 0.3F, "AddLine", $"You deployed {card}");
 			QueueCallback(card.GetParent(), Delay(0.3F), "remove_child", card);
 			QueueCallback(Units, Delay(), "add_child", card);
 			QueueCallback(card, Delay(), "FlipFaceUp");
@@ -143,7 +129,6 @@ namespace CardGame.Client.Match.View
 		public void SetFaceDown(Card card)
 		{
 			QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Support), 0.3F, Delay());
-			QueueCallback(History, Delay() + 0.3F, "AddLine", $"You set {card} FaceDown");
 			QueueCallback(card.GetParent(), Delay(0.3F), "remove_child", card);
 			QueueCallback(Support, Delay(), "add_child", card);
 			GD.Print("setting ", card.ToString());
@@ -158,7 +143,6 @@ namespace CardGame.Client.Match.View
 			var visible = Damage.Modulate + new Color(0, 0, 0, 255);
 			var invisible = Damage.Modulate - new Color(0, 0, 0, 255);
 			QueueCallback(Damage, Delay(), "set_self_modulate", visible);
-			QueueCallback(History, Delay(), "AddLine", $"You took {damageTaken} damage");
 			QueueCallback(Damage, Delay(0.5F), "set_self_modulate", invisible);
 		}
 		
@@ -168,7 +152,6 @@ namespace CardGame.Client.Match.View
 			QueueCallback(Discard, Delay(), "add_child", card);
 			QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, Discard.RectGlobalPosition, 0.3F,
 				Delay());
-			QueueCallback(History, Delay(), "AddLine", $"Your {card} was destroyed");
 		}
 		
 		public void LoadDeck(int deckSize)
@@ -187,18 +170,17 @@ namespace CardGame.Client.Match.View
 			QueueCallback(Deck, Delay(), "set_text", deckSize);
 			QueueCallback(Sfx, Delay(), "Play", Sfx.Draw);
 			QueueCallback(this, Delay(0.2F), "Sort", Hand);
-			QueueCallback(History, Delay(), "AddLine", $"You drew {card}");
 			
 		}
 
 		public void BeginTurn()
 		{
-			QueueCallback(History, Delay(), "AddLine", "Your turn has begun");
+			GD.PushWarning("Delete Unused Method");
 		}
 
 		public void EndTurn()
 		{
-			QueueCallback(History, Delay() ,"AddLine", "You ended your turn");
+			GD.PushWarning("Delete Unused Method");
 		}
 	}
 }

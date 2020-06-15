@@ -65,7 +65,6 @@
     <Compile Include="Client\Game\EventManager.cs" />
     <Compile Include="Client\Game\Game.cs" />
     <Compile Include="Client\Game\Gfx.cs" />
-    <Compile Include="Client\Game\History.cs" />
     <Compile Include="Client\Game\Messenger.cs" />
     <Compile Include="Client\Game\Model\Opponent.cs" />
     <Compile Include="Client\Game\Model\Player.cs" />
