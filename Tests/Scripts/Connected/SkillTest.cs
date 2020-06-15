@@ -22,7 +22,7 @@ namespace CardGame.Tests.Scripts.Connected
 	    [Test]
 	    public async void That_Returns_A_Unit_To_Opponents_Hand()
 	    {
-		    var input = Clients[1].GetNode<Game>("1").GameInput;
+		    /*var input = Clients[1].GetNode<Game>("1").GameInput;
 		    var player = Clients[1].GetNode<Game>("1").Player;
 		    var input2 = Clients[0].GetNode<Game>("1").GameInput;
 		    var player2 = Clients[0].GetNode<Game>("1").Player;
@@ -42,7 +42,10 @@ namespace CardGame.Tests.Scripts.Connected
 			await ToSignal(UntilTimeout(1.0F), YIELD);
 
 		    Assert.Has(Unit, player2.Hand, "Unit was bounced");
-		    Assert.Has(Bouncer, player.Graveyard, "Support was activated");
+		    Assert.Has(Bouncer, player.Graveyard, "Support was activated");*/
+
+		    // When left in this crashes and we haven't implemented the proper system for it yet
+		    Assert.Fail("Commented Out Test");
 	    }
     }
 }
