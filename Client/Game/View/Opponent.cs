@@ -18,9 +18,11 @@ namespace CardGame.Client.Match.View
 		
 		public void Draw(int args, int deckSize)
 		{
-			var destination = FuturePosition(Hand);
 			var card = Library.Library.Placeholder();
+			card.TurnInvisible();
 			Hand.AddChild((Card)card);
+			Sort(Hand);
+			var destination = card.RectGlobalPosition;
 			card.RectGlobalPosition = Deck.RectGlobalPosition;
 			card.TurnInvisible();
 			QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, destination, 0.2F, Delay(0.2F));

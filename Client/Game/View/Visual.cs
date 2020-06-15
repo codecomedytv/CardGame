@@ -48,17 +48,7 @@ namespace CardGame.Client.Match
         {
             Animate.InterpolateCallback(obj, delay, callback, args1, args2, args3, args4, args5);
         }
-
-        public Vector2 FuturePosition(Container zone)
-        {
-            var blank = Library.Library.Placeholder();
-            zone.AddChild(blank);
-            Sort(zone);
-            var nextPosition = blank.RectGlobalPosition;
-            zone.RemoveChild(blank);
-            return nextPosition;
-        }
-
+        
         public void Sort(Container zone)
         {
             zone.Notification(Container.NotificationSortChildren);
