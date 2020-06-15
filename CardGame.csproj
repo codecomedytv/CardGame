@@ -732,9 +732,7 @@
     <Content Include="Assets\UI\Table.png.import" />
     <Content Include="Assets\UI\test.png" />
     <Content Include="Assets\UI\test.png.import" />
-    <Content Include="Client\client.gd" />
     <Content Include="Client\Client.tscn" />
-    <Content Include="Client\Error.gd" />
     <Content Include="Client\Game\CardViewer.tscn" />
     <Content Include="Client\Game\Game.tscn" />
     <Content Include="Client\Game\PlayerViewer.tscn" />
