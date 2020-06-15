@@ -135,22 +135,6 @@ namespace CardGame.Client.Match
 					case GameEvents.SetActivatable:
 						Player.SetActivatable(message["id"]);
 						break;
-					case GameEvents.Discard:
-						break;
-					case GameEvents.OpponentDiscard:
-						break;
-					case GameEvents.Mill:
-						break;
-					case GameEvents.OpponentMill:
-						break;
-					case GameEvents.Activate:
-						break;
-					case GameEvents.ReturnToDeck:
-						break;
-					case GameEvents.OpponentReturnedToDeck:
-						break;
-					case GameEvents.NoOp:
-						break;
 					case GameEvents.MoveCard:
 						Player.Move(message["from"], message["id"], message["to"]);
 						break;
@@ -162,6 +146,8 @@ namespace CardGame.Client.Match
 						break;
 					case GameEvents.DeleteCard:
 						var g = message["id"];
+						break;
+					case GameEvents.NoOp:
 						break;
 					default:
 						throw new ArgumentOutOfRangeException();
