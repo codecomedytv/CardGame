@@ -58,10 +58,7 @@
     <Compile Include="addons\WAT\core\test\Test.cs" />
     <Compile Include="Client\ClientConn.cs" />
     <Compile Include="Client\Game\CardViewer.cs" />
-    <Compile Include="Client\Game\Controller\AutoBot.cs" />
-    <Compile Include="Client\Game\Controller\GameInput.cs" />
     <Compile Include="Client\Game\Controller\Interact.cs" />
-    <Compile Include="Client\Game\Controller\Manual.cs" />
     <Compile Include="Client\Game\EventManager.cs" />
     <Compile Include="Client\Game\Game.cs" />
     <Compile Include="Client\Game\Gfx.cs" />
