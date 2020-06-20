@@ -37,17 +37,13 @@ namespace CardGame.Server.Game {
 
 			if (IsDirectAttack)
 			{
-				// Defender is not a Card, so it must be int and the only int is directAttack
 				Attacking.AttackDirectly(Attacker);
-				if(!Defending.HasTag(Tag.CannotTakeDamage))
+				Defending.DeclarePlay(new ModifyPlayer(Attacker, Defending, nameof(Player.Health), Defending.Health - Attacker.Attack));
+				if (Defending.Health <= 0)
 				{
-					//Defending.DeclarePlay(new LoseLife(Attacker, Defending, Attacker.Attack));
-					Defending.DeclarePlay(new ModifyPlayer(Attacker, Defending, nameof(Player.Health), Defending.Health - Attacker.Attack));
-					if (Defending.Health <= 0)
-					{
-						Attacking.Win();
-					}
+					Attacking.Win();
 				}
+			
 				Attacking.DeclarePlay(new Modify(Attacking, Attacker, nameof(Card.Ready), false));
 				return;
 			}
@@ -58,40 +54,26 @@ namespace CardGame.Server.Game {
 			if (Attacker.Attack > defender.Defense)
 			{
 				var overflow = Attacker.Attack - defender.Defense;
-				if (!defender.HasTag(Tag.CannotBeDestroyedByBattle))
+				Defending.DeclarePlay(new ModifyPlayer(Attacker, Defending, nameof(Player.Health), Defending.Health - overflow));
+				Defending.DestroyUnit(Defender as Unit);
+				if (Defending.Health <= 0)
 				{
-					Defending.DestroyUnit(Defender as Unit);
+					Attacking.Win();
 				}
-
-				if(!Defending.HasTag(Tag.CannotTakeDamage))
-				{
-					//Defending.DeclarePlay(new LoseLife(Attacker, Defending, overflow));
-					Defending.DeclarePlay(new ModifyPlayer(Attacker, Defending, nameof(Player.Health), Defending.Health - overflow));
-					if (Defending.Health <= 0)
-					{
-						Attacking.Win();
-					}
-				}
+				
 				Attacking.DeclarePlay(new Modify(Attacking, Attacker, nameof(Card.Ready), false));
 			}
 			
 			else if (Attacker.Attack <= defender.Defense && defender.Attack > Attacker.Defense)
 			{
 				var overflow = defender.Attack - Attacker.Defense;
-				if (!Attacker.HasTag(Tag.CannotBeDestroyedByBattle))
+				Attacking.DeclarePlay(new ModifyPlayer(defender, Attacking, nameof(Player.Health), Attacking.Health - overflow));
+				Attacking.DestroyUnit(Attacker);
+				if (Attacking.Health <= 0)
 				{
-					Attacking.DestroyUnit(Attacker);
+					Defending.Win();
 				}
-
-				if(!Attacking.HasTag(Tag.CannotTakeDamage))
-				{
-					//Attacking.DeclarePlay(new LoseLife((Unit)Defender, Attacking, overflow));
-					Attacking.DeclarePlay(new ModifyPlayer(defender, Attacking, nameof(Player.Health), Attacking.Health - overflow));
-					if (Attacking.Health <= 0)
-					{
-						Defending.Win();
-					}
-				}
+			
 				Attacking.DeclarePlay(new Modify(Attacking, Attacker, nameof(Card.Ready), false));
 			}
 

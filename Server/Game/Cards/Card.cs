@@ -5,9 +5,6 @@ namespace CardGame.Server.Game.Cards {
 
 	public abstract class Card : Reference, ISource
 	{
-		[Signal]
-		public delegate void Exit();
-		
 		
 		public string Title = "Card";
 		public SetCodes SetCode = 0;
@@ -17,7 +14,6 @@ namespace CardGame.Server.Game.Cards {
 		public Player Opponent => Controller.Opponent;
 		public Skill Skill;
 		public List<Card> Zone; //= new List<Card> // Might be worth updating
-		public List<Decorator> Tags = new List<Decorator>();
 		public bool Activated = false;
 		public bool Ready = false;
 		// public bool Attacked = false;
@@ -42,18 +38,8 @@ namespace CardGame.Server.Game.Cards {
 
 		public virtual void SetCanBeActivated() => CanBeActivated = false;
 
-		public bool HasTag(Tag tag) => Tags.Exists(decorator => decorator.Tag == tag);
-		
-		
 		public Dictionary<string, int> Serialize() => new Dictionary<string, int>{{"Id", Id}, {"setCode", (int)SetCode}};
-
-		public void SetZone(List<Card> newZone)
-		{
-			// Zone = newZone;
-			// EmitSignal(nameof(Exit));
-		}
 		
-
 		protected void AddSkill(Skill skill)
 		{
 			Skill = skill;

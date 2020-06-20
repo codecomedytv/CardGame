@@ -13,7 +13,6 @@ namespace CardGame.Server.Game.Cards
 
         public Unit()
         {
-            Tags = new List<Decorator>();
         }
 
         public override void SetCanBeDeployed()
@@ -25,7 +24,7 @@ namespace CardGame.Server.Game.Cards
         public override void SetCanAttack()
         {
             if (Zone != Controller.Field || !Ready || Attacked) return;
-            ValidAttackTargets = Opponent.Field.Where(u => !u.HasTag(Tag.CannotBeAttacked)).ToList();
+            ValidAttackTargets = Opponent.Field;
             Controller.DeclarePlay(new Modify(Controller, this, nameof(CanAttack), true));
             Controller.DeclarePlay(new SetTargets(this, ValidAttackTargets));
         }

@@ -11,21 +11,7 @@ namespace CardGame.Server
             Attack = 1000;
             Defense = 1000;
             SetCode = SetCodes.DebugPlayerCannotTakeDamage;
-            AddSkill(new CannotTakeDamage());
-        }
-
-        private class CannotTakeDamage : Skill
-        {
-            public CannotTakeDamage()
-            {
-                GameEvent = "deploy";
-                Type = Types.Constant;
-            }
-
-            protected override void _Resolve()
-            {
-                AddTagToController(Tag.CannotTakeDamage);
-            }
+            // TODO: Re-Implement Tagged Decorators
         }
     }
 }

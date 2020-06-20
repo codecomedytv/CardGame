@@ -106,7 +106,6 @@
     <Compile Include="Server\Game\Network\Messenger\Messenger.cs" />
     <Compile Include="Server\Game\Room.cs" />
     <Compile Include="Server\Game\Cards\Card.cs" />
-    <Compile Include="Server\Game\Decorator.cs" />
     <Compile Include="Server\Game\ISource.cs" />
     <Compile Include="Server\Game\Link.cs" />
     <Compile Include="Server\Game\Skill\IResolvable.cs" />
@@ -157,7 +156,6 @@
     <Compile Include="Tests\Scripts\Serverside\PlayerStateRedux.cs" />
     <Compile Include="Tests\Scripts\Serverside\PlayerStates.cs" />
     <Compile Include="Tests\Scripts\Serverside\PlayTest.cs" />
-    <Compile Include="Tests\Scripts\Serverside\PuppyTest.cs" />
     <Compile Include="Tests\Scripts\Serverside\SkillTest.cs" />
   </ItemGroup>
   <ItemGroup>

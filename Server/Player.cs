@@ -25,7 +25,6 @@ namespace CardGame.Server {
 		public List<Card> Hand = new List<Card>();
 		public List<Card> Field = new List<Card>();
 		public List<Card> Support = new List<Card>();
-		public List<Decorator> Tags = new List<Decorator>();
 		public bool IsDisqualified;
 		public bool IsTurnPlayer = false;
 		public Link Link;
@@ -124,8 +123,6 @@ namespace CardGame.Server {
 			DeclarePlay(new SetTargets(selector, targets));
 		}
 		
-
-		public bool HasTag(Tag tag) => Tags.Exists(decorator => decorator.Tag == tag);
 		
 		public void AttackUnit(Unit attacker, Unit defender)
 		{
@@ -139,11 +136,6 @@ namespace CardGame.Server {
 		
 		public void DestroyUnit(Card card)
 		{
-			// This might be causing problems elsewhere?
-			if (card.HasTag(Tag.CannotBeDestroyedByEffect))
-			{
-				return;
-			}
 			if (!card.Controller.Field.Contains(card))
 			{
 				return;
@@ -151,7 +143,6 @@ namespace CardGame.Server {
 			card.Controller.Field.Remove(card);
 			card.Owner.Graveyard.Add(card);
 			card.Zone = card.Owner.Graveyard;
-			card.EmitSignal(nameof(Card.Exit));
 			
 			// This is (currently) required to make sure the animations sync
 			if(card.Zone == Graveyard)
@@ -174,7 +165,6 @@ namespace CardGame.Server {
 			oldZone.Remove(card);
 			newZone.Add(card);
 			card.Zone = newZone;
-			card.EmitSignal(nameof(Card.Exit));
 		}
 	}
 	

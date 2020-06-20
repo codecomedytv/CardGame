@@ -11,8 +11,6 @@ namespace CardGame.Server
             Attack = 1000;
             Defense = 1000;
             SetCode = SetCodes.DebugCannotBeDestoyedByEffect;
-            var decorator = new Decorator(Tag.CannotBeDestroyedByEffect);
-            decorator.AddTagTo(this);
         }
     }
 }

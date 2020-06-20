@@ -73,7 +73,6 @@ namespace CardGame.Server.States
             Player.Hand.Remove(support);
             Player.Support.Add(support);
             support.Zone = Player.Support;
-            support.EmitSignal(nameof(Card.Exit));
             Player.Link.ApplyConstants();
             Player.Link.Register(support);
             Player.DeclarePlay(new Move(Player, Player, support, Player.Support));
