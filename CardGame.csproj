@@ -92,9 +92,8 @@
     <Compile Include="Server\Game\Cards\Unit.cs" />
     <Compile Include="Server\Game\Commands\Draw.cs" />
     <Compile Include="Server\Game\Commands\LoseLife.cs" />
+    <Compile Include="Server\Game\Commands\Modify.cs" />
     <Compile Include="Server\Game\Commands\Move.cs" />
-    <Compile Include="Server\Game\Commands\ReadyCard.cs" />
-    <Compile Include="Server\Game\Commands\UnreadyCard.cs" />
     <Compile Include="Server\Game\Events\GameEvent.cs" />
     <Compile Include="Server\Game\Gamestate.cs" />
     <Compile Include="Server\Game\Network\Messages\Deploy.cs" />

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CardGame.Server.Game.Commands;
 
 namespace CardGame.Server.Game.Cards
 {
@@ -8,14 +9,19 @@ namespace CardGame.Server.Game.Cards
 
         public override void SetCanBeSet()
         {
-            CanBeSet = Zone == Controller.Hand && Controller.Support.Count < 7;
-            if (CanBeSet) { Controller.DeclarePlay(new SetAsSettable(this)); }
+           if (Zone == Controller.Hand && Controller.Support.Count < 7) 
+           { Controller.DeclarePlay(new Modify(this, nameof(CanBeSet), true)); }
+           else
+           {
+               // This exists to explicitly declare it an illegal player for a disqualification but I'm not sure if
+               // this is a problematic work-around or that the other cards don't exist properly yet.
+               Controller.DeclarePlay(new Modify(this, nameof(CanBeSet), false));
+           }
         }
 
         public override void SetCanBeActivated()
         {
-            CanBeActivated = Skill.CanBeUsed;
-            if (CanBeActivated) {Controller.DeclarePlay(new SetAsActivatable(this));}
+            if (Skill.CanBeUsed) {Controller.DeclarePlay(new Modify(this, nameof(CanBeActivated), true));}
         }
 
     }

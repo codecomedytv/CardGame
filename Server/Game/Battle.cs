@@ -47,7 +47,7 @@ namespace CardGame.Server.Game {
 						Attacking.Win();
 					}
 				}
-				Attacking.DeclarePlay(new UnreadyCard(Attacker));
+				Attacking.DeclarePlay(new Modify(Attacker, nameof(Card.Ready), false));
 				return;
 			}
 
@@ -70,7 +70,7 @@ namespace CardGame.Server.Game {
 						Attacking.Win();
 					}
 				}
-				Attacking.DeclarePlay(new UnreadyCard(Attacker));
+				Attacking.DeclarePlay(new Modify(Attacker, nameof(Card.Ready), false));
 			}
 			
 			else if (Attacker.Attack <= defender.Defense && defender.Attack > Attacker.Defense)
@@ -89,12 +89,12 @@ namespace CardGame.Server.Game {
 						Defending.Win();
 					}
 				}
-				Attacking.DeclarePlay(new UnreadyCard(Attacker));
+				Attacking.DeclarePlay(new Modify(Attacker, nameof(Card.Ready), false));
 			}
 
 			else
 			{
-				Attacking.DeclarePlay(new UnreadyCard(Attacker));
+				Attacking.DeclarePlay(new Modify(Attacker, nameof(Card.Ready), false));
 			}
 			{
 				

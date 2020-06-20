@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CardGame.Server.Game.Commands;
 
 namespace CardGame.Server.Game.Cards
 {
@@ -17,19 +18,16 @@ namespace CardGame.Server.Game.Cards
 
         public override void SetCanBeDeployed()
         {
-            CanBeDeployed = Zone == Controller.Hand && Controller.Field.Count < 7;
-            if (CanBeDeployed) { Controller.DeclarePlay(new SetAsDeployable(this)); }
+            if (Zone == Controller.Hand && Controller.Field.Count < 7) 
+            { Controller.DeclarePlay(new Modify(this, nameof(CanBeDeployed), this)); }
         }
 
         public override void SetCanAttack()
         {
-            CanAttack = Zone == Controller.Field && Ready && !Attacked;
-            if (CanAttack)
-            {
-                ValidAttackTargets = Opponent.Field.Where(u => !u.HasTag(Tag.CannotBeAttacked)).ToList();
-                Controller.DeclarePlay(new SetAsAttacker(this));
-                Controller.DeclarePlay(new SetTargets(this, ValidAttackTargets));
-            }
+            if (Zone != Controller.Field || !Ready || Attacked) return;
+            ValidAttackTargets = Opponent.Field.Where(u => !u.HasTag(Tag.CannotBeAttacked)).ToList();
+            Controller.DeclarePlay(new Modify(this, nameof(CanAttack), true));
+            Controller.DeclarePlay(new SetTargets(this, ValidAttackTargets));
         }
         
 

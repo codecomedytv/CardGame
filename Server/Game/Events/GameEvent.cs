@@ -126,51 +126,6 @@ namespace CardGame.Server
             Message = new Game.Network.Messages.LoadDeck(cardsLoaded.Count);
         }
     }
-    
-    public class SetAsDeployable : GameEvent
-    {
-        public readonly Card Card;
-
-        public SetAsDeployable(Card card)
-        {
-            Card = card;
-            Message = new Game.Network.Messages.SetAsDeployable(card);
-        }
-    }
-
-    public class SetAsSettable : GameEvent
-    {
-        public readonly Card Card;
-
-        public SetAsSettable(Card card)
-        {
-            Card = card;
-            Message = new Game.Network.Messages.SetAsSettable(card);
-        }
-    }
-
-    public class SetAsActivatable : GameEvent
-    {
-        public readonly Card Card;
-
-        public SetAsActivatable(Card card)
-        {
-            Card = card;
-            Message = new Game.Network.Messages.SetAsActivatable(card);
-        }
-
-    }
-
-    public class SetAsAttacker : GameEvent
-    {
-        public readonly Card Card;
-
-        public SetAsAttacker(Card card)
-        {
-            Card = card;
-            Message = new Game.Network.Messages.SetAsAttacker(card);
-        }
-    }
 
     public class Resolve : GameEvent
     {
