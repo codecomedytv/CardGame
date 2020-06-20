@@ -8,10 +8,12 @@ namespace CardGame.Server.Game.Commands
         public readonly object Old;
         public readonly object New;
         public readonly string Property;
+        public readonly ISource Source;
         public readonly Card Card;
         
-        public Modify(Card card, string property, object newValue)
+        public Modify(ISource source, Card card, string property, object newValue)
         {
+            Source = source;
             Card = card;
             Old = card.Get(Property);
             Property = property;

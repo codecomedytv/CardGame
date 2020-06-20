@@ -123,11 +123,7 @@ namespace CardGame.Server {
 		{
 			DeclarePlay(new SetTargets(selector, targets));
 		}
-
-		public void ShowAttack(Player player, Unit attacker, Unit defender)
-		{
-			DeclarePlay(new ShowAttack(attacker, defender));
-		}
+		
 
 		public bool HasTag(Tag tag) => Tags.Exists(decorator => decorator.Tag == tag);
 		

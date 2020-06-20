@@ -33,19 +33,7 @@ namespace CardGame.Server
         
         public Game.Network.Messages.Message Message = new Game.Network.Messages.Message();
     }
-
-    public class ShowAttack : GameEvent
-    {
-        private Unit Attacker;
-        private Unit Defender;
-
-        public ShowAttack(Unit attacker, Unit defender)
-        {
-            Attacker = attacker;
-            Defender = defender;
-        }
-    }
-
+    
     public class SetState : GameEvent
     {
         private Player Player;
@@ -142,21 +130,6 @@ namespace CardGame.Server
             Selector = selector;
             Targets = targets;
         }
-
-        /*public override Message GetMessage()
-        {
-            var message = new Message();
-            var targets = new Array();
-            foreach (var u in Targets)
-            {
-                targets.Add(u.Id);
-            }
-            message.Player["command"] = GameEvents.SetTargets;
-            message.Player["args"] = new Array{Selector.Id, targets};
-            message.Opponent["command"] = GameEvents.NoOp;
-            message.Opponent["args"] = new Array();
-            return message;
-        }*/
     }
 
     public class AutoTarget : GameEvent

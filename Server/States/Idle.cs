@@ -55,7 +55,6 @@ namespace CardGame.Server.States
                 return DisqualifyPlayer;
             }
 
-            if(!isDirectAttack){ Player.Opponent.ShowAttack(Player, attacker, (Unit)defender); }
             Player.Battle.Begin(Player, attacker, defender, isDirectAttack);
             Player.Link.AddResolvable(Player.Battle);
             Player.Link.Broadcast("attack", new List<Object>());
@@ -104,8 +103,8 @@ namespace CardGame.Server.States
             Player.EndTurn();
             Player.IsTurnPlayer = false;
             Player.Opponent.IsTurnPlayer = true;
-            Player.Opponent.Field.ForEach(unit => Player.Opponent.DeclarePlay(new Modify(unit, nameof(Card.Ready), true)));
-            Player.Support.ForEach(support => Player.DeclarePlay(new Modify(support, nameof(Card.Ready), true)));
+            Player.Opponent.Field.ForEach(unit => Player.Opponent.DeclarePlay(new Modify(Player.Opponent, unit, nameof(Card.Ready), true)));
+            Player.Support.ForEach(support => Player.DeclarePlay(new Modify(Player, support, nameof(Card.Ready), true)));
             Player.Link.ApplyConstants();
             Player.SetState(new Passive());
             Player.Opponent.SetState(new Idle());
