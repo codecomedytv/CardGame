@@ -12,11 +12,6 @@ using Serialized = System.Collections.Generic.Dictionary<object, object>;
 
 namespace CardGame.Server
 {
-    public class Message
-    {
-        public Dictionary Player = new Dictionary {{"command", null}, {"args", null}};
-        public Dictionary Opponent = new Dictionary {{"command", null}, {"args", null}};
-    }
 
     public interface ICommand
     {
@@ -26,12 +21,13 @@ namespace CardGame.Server
     
     public abstract class GameEvent: Reference
     {
+        public Message Message = new Message();
+
         protected GameEvent()
         {
             
         }
         
-        public Game.Network.Messages.Message Message = new Game.Network.Messages.Message();
     }
     
     public class SetState : GameEvent
@@ -70,21 +66,6 @@ namespace CardGame.Server
             Attacker = attacker;
         }
         
-    }
-    
-    public class BeginTurn : GameEvent
-    {
-    }
-    
-    public class DestroyUnits : GameEvent
-    {
-        public readonly Card Card;
-
-        public DestroyUnits(Card card)
-        {
-            Card = card;
-        }
-
     }
     
     public class EndTurn : GameEvent
