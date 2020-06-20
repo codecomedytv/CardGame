@@ -25,7 +25,7 @@ namespace CardGame.Server.States
             {
                 return DisqualifyPlayer;
             }
-            Player.DeclarePlay(new Deploy(Player, Player, unit));
+            Player.DeclarePlay(new Move(Player, Player, unit, Player.Field));
             Player.Link.Register(unit);
             Player.Link.Broadcast("deploy", new List<Godot.Object>{unit});
             Player.SetState(new Acting());
@@ -77,7 +77,7 @@ namespace CardGame.Server.States
             support.EmitSignal(nameof(Card.Exit));
             Player.Link.ApplyConstants();
             Player.Link.Register(support);
-            Player.DeclarePlay(new SetSupport(Player, Player, support));
+            Player.DeclarePlay(new Move(Player, Player, support, Player.Support));
 
             // Returning a new Idle State Retriggers the OnEnter System
             Player.SetState(new Idle());

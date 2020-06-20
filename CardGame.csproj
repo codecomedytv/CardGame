@@ -90,16 +90,10 @@
     <Compile Include="Server\Game\Battle.cs" />
     <Compile Include="Server\Game\Cards\Support.cs" />
     <Compile Include="Server\Game\Cards\Unit.cs" />
-    <Compile Include="Server\Game\Commands\Bounce.cs" />
-    <Compile Include="Server\Game\Commands\Deploy.cs" />
-    <Compile Include="Server\Game\Commands\Discard.cs" />
     <Compile Include="Server\Game\Commands\Draw.cs" />
     <Compile Include="Server\Game\Commands\LoseLife.cs" />
-    <Compile Include="Server\Game\Commands\Mill.cs" />
     <Compile Include="Server\Game\Commands\Move.cs" />
     <Compile Include="Server\Game\Commands\ReadyCard.cs" />
-    <Compile Include="Server\Game\Commands\ReturnToDeck.cs" />
-    <Compile Include="Server\Game\Commands\SetSupport.cs" />
     <Compile Include="Server\Game\Commands\UnreadyCard.cs" />
     <Compile Include="Server\Game\Events\GameEvent.cs" />
     <Compile Include="Server\Game\Gamestate.cs" />

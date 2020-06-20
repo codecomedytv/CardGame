@@ -34,7 +34,7 @@ namespace CardGame.Server
 
             protected override void _Resolve()
             {
-                Controller.DeclarePlay(new Bounce(Card, Controller, Target));
+                Controller.DeclarePlay(new Move(Card, Controller, Target, Target.Owner.Hand));
             }
         }
     }

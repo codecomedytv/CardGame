@@ -16,7 +16,8 @@ namespace CardGame.Server
         {
             protected override void _Resolve()
             {
-                Controller.DeclarePlay(new Mill(Card, Controller, Controller.Deck[Controller.Deck.Count-1]));
+                var toMill = Controller.Deck[Controller.Deck.Count - 1];
+                Controller.DeclarePlay(new Move(Card, Controller, toMill, Controller.Graveyard));
             }
         }
     }

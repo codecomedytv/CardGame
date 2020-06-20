@@ -22,7 +22,7 @@ namespace CardGame.Server
 
             protected override void _Resolve()
             {
-                Controller.DeclarePlay( new ReturnToDeck(Card, Controller, Target));
+                Controller.DeclarePlay(new Move(Card, Controller, Target, Target.Owner.Deck));
             }
         }
         
