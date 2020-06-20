@@ -133,25 +133,6 @@ namespace CardGame.Server {
 		{
 			DeclarePlay(new AttackDirectly(attacker));
 		}
-		
-		public void DestroyUnit(Card card)
-		{
-			if (!card.Controller.Field.Contains(card))
-			{
-				return;
-			}
-			card.Controller.Field.Remove(card);
-			card.Owner.Graveyard.Add(card);
-			card.Zone = card.Owner.Graveyard;
-			
-			// This is (currently) required to make sure the animations sync
-			if(card.Zone == Graveyard)
-				DeclarePlay(new DestroyUnits(card));
-			else
-			{
-				Opponent.DeclarePlay(new DestroyUnits(card));
-			}
-		}
 
 		public void EndTurn() { DeclarePlay(new EndTurn()); }
 		

@@ -1,4 +1,5 @@
 ﻿using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Commands;
 using Godot;
 
 namespace CardGame.Server
@@ -21,7 +22,7 @@ namespace CardGame.Server
 
             protected override void _Resolve()
             {
-                Controller.DestroyUnit(GameState.Attacking);
+                Controller.DeclarePlay(new Move(Card, GameState.Attacking.Owner, GameState.Attacking, GameState.Attacking.Owner.Graveyard));
             }
         }
         

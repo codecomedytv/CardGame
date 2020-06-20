@@ -2,6 +2,7 @@
 using System.Linq;
 using CardGame.Server.Game;
 using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Commands;
 using Godot;
 
 namespace CardGame.Server
@@ -26,7 +27,7 @@ namespace CardGame.Server
 
             protected override void _Resolve()
             {
-                Controller.DestroyUnit(Target);
+                Controller.DeclarePlay(new Move(Card, Target.Owner, Target, Target.Owner.Graveyard));
             }
         }
     }
