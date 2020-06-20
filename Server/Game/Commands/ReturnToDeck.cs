@@ -11,6 +11,10 @@ namespace CardGame.Server.Game.Commands
         public readonly List<Card> PreviousZone;
         public readonly Card Card;
 
+        public ReturnToDeck()
+        {
+        }
+
         public ReturnToDeck(ISource source, Player player, Card card)
         {
             Source = source;
