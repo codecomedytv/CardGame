@@ -41,7 +41,8 @@ namespace CardGame.Server.Game {
 				Attacking.AttackDirectly(Attacker);
 				if(!Defending.HasTag(Tag.CannotTakeDamage))
 				{
-					Defending.DeclarePlay(new LoseLife(Attacker, Defending, Attacker.Attack));
+					//Defending.DeclarePlay(new LoseLife(Attacker, Defending, Attacker.Attack));
+					Defending.DeclarePlay(new ModifyPlayer(Attacker, Defending, nameof(Player.Health), Defending.Health - Attacker.Attack));
 					if (Defending.Health <= 0)
 					{
 						Attacking.Win();
@@ -64,7 +65,8 @@ namespace CardGame.Server.Game {
 
 				if(!Defending.HasTag(Tag.CannotTakeDamage))
 				{
-					Defending.DeclarePlay(new LoseLife(Attacker, Defending, overflow));
+					//Defending.DeclarePlay(new LoseLife(Attacker, Defending, overflow));
+					Defending.DeclarePlay(new ModifyPlayer(Attacker, Defending, nameof(Player.Health), Defending.Health - overflow));
 					if (Defending.Health <= 0)
 					{
 						Attacking.Win();
@@ -83,7 +85,8 @@ namespace CardGame.Server.Game {
 
 				if(!Attacking.HasTag(Tag.CannotTakeDamage))
 				{
-					Attacking.DeclarePlay(new LoseLife((Unit)Defender, Attacking, overflow));
+					//Attacking.DeclarePlay(new LoseLife((Unit)Defender, Attacking, overflow));
+					Attacking.DeclarePlay(new ModifyPlayer(defender, Attacking, nameof(Player.Health), Attacking.Health - overflow));
 					if (Attacking.Health <= 0)
 					{
 						Defending.Win();
