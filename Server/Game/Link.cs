@@ -8,12 +8,12 @@ namespace CardGame.Server.Game {
 
 	public class Link : Reference
 	{
-		private List<IResolvable> Chain = new List<IResolvable>();
+		private Stack<IResolvable> Chain = new Stack<IResolvable>();
 		private List<Skill> Constants = new List<Skill>();
 		private List<Skill> Manual = new List<Skill>();
 		private List<Skill> Auto = new List<Skill>();
 
-		public void AddResolvable(IResolvable action) => Chain.Add(action);
+		public void AddResolvable(IResolvable action) => Chain.Push(action);
 
 		public void ApplyConstants(string gameEvent = "") => Constants.ForEach(s => s.Resolve(gameEvent));
 
@@ -22,10 +22,9 @@ namespace CardGame.Server.Game {
 			foreach (var skill in Auto)
 			{
 				skill.SetUp(gameEvent);
-				if (skill.CanBeUsed)
-				{
-					Automatic(skill.Controller, skill);
-				}
+				if (!skill.CanBeUsed) continue;
+				skill.Activate();
+				Chain.Push(skill);
 			}
 		}
 		
@@ -84,33 +83,24 @@ namespace CardGame.Server.Game {
 		}
 		
 		
-		public async void Activate(Skill skill, Card target)
+		public void Activate(Skill skill, Card target)
 		{
 			skill.Target = target;
 			skill.Activate();
-			Chain.Add(skill);
-		}
-
-		public async void Automatic(Player player, Skill skill)
-		{
-			skill.Activate();
-			Chain.Add(skill);
-
+			Chain.Push(skill);
 		}
 		
 		public async void Resolve()
 		{
 			while (Chain.Count != 0)
 			{
-				var skill = Chain[Chain.Count - 1];
-				Chain.RemoveAt(Chain.Count - 1);
-				if(skill is Skill s && s.Targeting)
+				var resolvable = Chain.Pop();
+				if(resolvable is Skill skill && skill.Targeting)
 				{
-					var result = await ToSignal(s.Controller, nameof(Player.TargetSelected));
-					s.Target = result[0] as Card;
-					//autoSkill.Target =  await ToSignal(player, nameof(Player.TargetSelected));
+					var result = await ToSignal(skill.Controller, nameof(Player.TargetSelected));
+					skill.Target = result[0] as Card;
 				}
-				skill.Resolve();
+				resolvable.Resolve();
 			}
 			
 			ApplyConstants();
