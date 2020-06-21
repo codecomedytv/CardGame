@@ -10,7 +10,6 @@
         SetState,
         SetDeployable,
         SetSettable,
-        SetActivatable,
         MoveCard,
         SetProperty,
         CreateCard,

@@ -56,9 +56,7 @@ namespace CardGame.Client.Match.Model
 	    public void SetDeployable(int id) => Cards[id].CanBeDeployed = true;
 	    
 	    public void SetSettable(int id) => Cards[id].CanBeSet = true;
-
-		public void SetActivatable(int id) => Cards[id].CanBeActivated = true;
-		
+	    
 		protected Player()
 		{
 			

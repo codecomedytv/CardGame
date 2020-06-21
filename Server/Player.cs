@@ -118,12 +118,6 @@ namespace CardGame.Server {
 			DeclarePlay(new Draw(this, this, Deck[Deck.Count-1]));
 		}
 		
-		public void SetTargets(Card selector, List<Card> targets)
-		{
-			DeclarePlay(new SetTargets(selector, targets));
-		}
-		
-		
 		public void AttackUnit(Unit attacker, Unit defender)
 		{
 			DeclarePlay(new AttackUnit(attacker, defender));

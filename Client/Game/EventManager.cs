@@ -54,9 +54,6 @@ namespace CardGame.Client.Match
 					case GameEvents.SetSettable:
 						Player.SetSettable(message["id"]);
 						break;
-					case GameEvents.SetActivatable:
-						Player.SetActivatable(message["id"]);
-						break;
 					case GameEvents.MoveCard:
 						Player.Move(message["from"], message["id"], message["to"]);
 						break;
