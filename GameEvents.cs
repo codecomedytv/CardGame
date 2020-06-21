@@ -19,6 +19,7 @@
         MoveCard,
         SetProperty,
         CreateCard,
-        DeleteCard
+        DeleteCard,
+        EndTurn
     }
 }

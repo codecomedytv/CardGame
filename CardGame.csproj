@@ -91,6 +91,7 @@
     <Compile Include="Server\Game\Cards\Support.cs" />
     <Compile Include="Server\Game\Cards\Unit.cs" />
     <Compile Include="Server\Game\Commands\Draw.cs" />
+    <Compile Include="Server\Game\Commands\MarkerEvent.cs" />
     <Compile Include="Server\Game\Commands\Modify.cs" />
     <Compile Include="Server\Game\Commands\ModifyPlayer.cs" />
     <Compile Include="Server\Game\Commands\Move.cs" />

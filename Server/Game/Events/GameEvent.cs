@@ -68,11 +68,6 @@ namespace CardGame.Server
         
     }
     
-    public class EndTurn : GameEvent
-    {
-
-    }
-
     public class GameOver : GameEvent
     {
         public readonly Player Winner;

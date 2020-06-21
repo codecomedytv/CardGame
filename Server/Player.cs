@@ -134,7 +134,7 @@ namespace CardGame.Server {
 			DeclarePlay(new AttackDirectly(attacker));
 		}
 
-		public void EndTurn() { DeclarePlay(new EndTurn()); }
+		public void EndTurn() { DeclarePlay(new MarkerEvent(GameEvents.EndTurn)); }
 		
 		public void Win() { DeclarePlay(new GameOver(this, Opponent)); }
 
