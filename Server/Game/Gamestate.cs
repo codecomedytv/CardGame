@@ -5,18 +5,12 @@ namespace CardGame.Server.Game {
 		
 	public class Gamestate : Reference
 	{
-		public int NextCardID = 0;
-		public Godot.Collections.Dictionary<int, Card> CardCatalog = new Godot.Collections.Dictionary<int, Card>();
+		private readonly CardCatalog CardCatalog = new CardCatalog();
 		public Unit Attacking;
 
-		public void RegisterCard(Card card)
-		{
-			card.Id = NextCardID;
-			CardCatalog[card.Id] = card;
-			NextCardID++;
-		}
+		public void RegisterCard(Card card) => CardCatalog.RegisterCard(card);
 
-		public Card GetCard(int id) => CardCatalog[id];
+		public Card GetCard(int id) => CardCatalog.GetCard(id);
 		
 	}
 
