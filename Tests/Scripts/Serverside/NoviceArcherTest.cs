@@ -33,7 +33,8 @@ namespace CardGame.Tests.Scripts.Serverside
             Play.EndTurn(Players[1].Id);
             var noviceArcher = Players[0].Hand[0];
             Play.Deploy(Players[0].Id, noviceArcher.Id);
-            // Game gets paused here
+            Play.PassPlay(Players[1].Id);
+            Play.PassPlay(Players[0].Id);
             Play.Target(Players[0].Id, weakling.Id);
             
             Assert.Has(weakling, Players[1].Graveyard, "Then it destroys a 500/500 Unit");

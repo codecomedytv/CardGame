@@ -24,7 +24,7 @@ namespace CardGame.Server.Game {
 				skill.SetUp(gameEvent);
 				if (skill.CanBeUsed)
 				{
-					Automatic(skill.Controller, skill.Card);
+					Automatic(skill.Controller, skill);
 				}
 			}
 		}
@@ -91,29 +91,27 @@ namespace CardGame.Server.Game {
 			Chain.Add(skill);
 		}
 
-		public async void Automatic(Player player, Card card)
+		public async void Automatic(Player player, Skill skill)
 		{
-			// Needs serious rewriting
-			player.State = new Passing();
-			var autoSkill = card.Skill;
-			autoSkill.Activate();
-			if(autoSkill.Targeting)
-			{
-				var result = await ToSignal(player, nameof(Player.TargetSelected));
-				autoSkill.Target = result[0] as Card;
-				//autoSkill.Target =  await ToSignal(player, nameof(Player.TargetSelected));
-			}
-			autoSkill.Resolve();
-			player.DeclarePlay(new Resolve());
+			skill.Activate();
+			Chain.Add(skill);
+			//skill.Resolve();
+			//player.DeclarePlay(new Resolve());
 
 		}
 		
-		public void Resolve()
+		public async void Resolve()
 		{
 			while (Chain.Count != 0)
 			{
 				var skill = Chain[Chain.Count - 1];
 				Chain.RemoveAt(Chain.Count - 1);
+				if(skill is Skill s && s.Targeting)
+				{
+					var result = await ToSignal(s.Controller, nameof(Player.TargetSelected));
+					s.Target = result[0] as Card;
+					//autoSkill.Target =  await ToSignal(player, nameof(Player.TargetSelected));
+				}
 				skill.Resolve();
 			}
 			
