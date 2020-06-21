@@ -8,17 +8,10 @@ namespace CardGame.Server.Game {
 
 	public class Link : Reference
 	{
-		public Gamestate Game;
 		private List<IResolvable> Chain = new List<IResolvable>();
 		private List<Skill> Constants = new List<Skill>();
 		private List<Skill> Manual = new List<Skill>();
 		private List<Skill> Auto = new List<Skill>();
-
-		public void SetUp(Gamestate game)
-		{
-			// Will eventually remove this?
-			if(Game == null) { Game = game; }
-		}
 
 		public void AddResolvable(IResolvable action) => Chain.Add(action);
 
