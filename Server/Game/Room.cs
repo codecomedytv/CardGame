@@ -48,6 +48,7 @@ namespace CardGame.Server.Game {
 			connect(Messenger, nameof(BaseMessenger.EndedTurn), this, nameof(OnEndTurn));
 			connect(Messenger, nameof(BaseMessenger.Deployed), this, nameof(OnDeploy));
 			connect(Messenger, nameof(BaseMessenger.Attacked), this, nameof(OnAttack));
+			connect(Messenger, nameof(BaseMessenger.AttackedDirectly), this, nameof(OnDirectAttack));
 			connect(Messenger, nameof(BaseMessenger.FaceDownSet),this, nameof(OnSetFaceDown));
 			connect(Messenger, nameof(BaseMessenger.Activated), this, nameof(OnActivation));
 			connect(Messenger, nameof(BaseMessenger.PassedPriority), this, nameof(OnPriorityPassed));
@@ -135,6 +136,19 @@ namespace CardGame.Server.Game {
 			if (disqualifyPlayer)
 			{
 				Disqualify(player, 0);;
+			}
+			Update();
+		}
+
+		public void OnDirectAttack(int playerId, int attackerId)
+		{
+			var player = Players[playerId];
+			var attacker = GameState.GetCard(attackerId) as Unit;
+			GameState.Attacking = attacker;
+			var disqualifyPlayer = player.OnDirectAttack(attacker);
+			if (disqualifyPlayer)
+			{
+				Disqualify(player, 0);
 			}
 			Update();
 		}

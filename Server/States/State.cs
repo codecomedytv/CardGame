@@ -25,6 +25,11 @@ namespace CardGame.Server.States
             return DisqualifyPlayer;
         }
         
+        public virtual bool OnDirectAttack(Unit attacker)
+        {
+            return DisqualifyPlayer;
+        }
+        
         public virtual bool OnActivation(Support card, Card target)
         {
             return DisqualifyPlayer;
@@ -49,6 +54,7 @@ namespace CardGame.Server.States
         {
             return "State";
         }
-        
+ 
+
     }
 }

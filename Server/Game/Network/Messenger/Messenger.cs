@@ -37,6 +37,12 @@ namespace CardGame.Server.Game.Network.Messenger {
 		}
 
 		[Master]
+		public override void DirectAttack(int player, int attacker)
+		{
+			EmitSignal(nameof(AttackedDirectly));
+		}
+
+		[Master]
 		public override void Activate(int player, int card, int targetId = 0)
 		{
 			EmitSignal(nameof(Activated), player, card, targetId);

@@ -14,6 +14,9 @@ namespace CardGame.Server.Game.Network.Messenger {
 		public delegate void Attacked();
 
 		[Signal]
+		public delegate void AttackedDirectly();
+
+		[Signal]
 		public delegate void Activated();
 
 		[Signal]
@@ -57,6 +60,11 @@ namespace CardGame.Server.Game.Network.Messenger {
 		}
 
 		public virtual void Attack(int player, int attacker, int defender)
+		{
+			throw new NotImplementedException();
+		}
+
+		public virtual void DirectAttack(int player, int attacker)
 		{
 			throw new NotImplementedException();
 		}

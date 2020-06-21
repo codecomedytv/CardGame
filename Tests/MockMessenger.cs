@@ -40,6 +40,11 @@ namespace CardGame.Tests
             EmitSignal(nameof(Attacked), player, attacker, defender);
         }
 
+        public override void DirectAttack(int player, int attacker)
+        {
+            EmitSignal(nameof(AttackedDirectly), player, attacker);
+        }
+
         public override void Activate(int player, int card, int targetId = 0)
         {
             EmitSignal(nameof(Activated), player, card, targetId);

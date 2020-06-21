@@ -22,6 +22,14 @@ namespace CardGame.Server.Game {
 			IsDirectAttack = isDirectAttack;
 		}
 		
+		public void BeginDirectAttack(Player player, Unit attacker)
+		{
+			Attacking = player;
+			Defending = player.Opponent;
+			Attacker = attacker;
+			IsDirectAttack = true;
+		}
+		
 		public void Resolve(string ignore = "")
 		{
 			Attacker.Attacked = true;
@@ -85,6 +93,8 @@ namespace CardGame.Server.Game {
 				
 			}
 		}
+
+
 	}
 
 }

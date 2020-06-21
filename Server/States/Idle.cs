@@ -63,6 +63,20 @@ namespace CardGame.Server.States
             return Ok;
         }
 
+        public override bool OnDirectAttack(Unit attacker)
+        {
+            if (!attacker.CanAttack || Player.Opponent.Field.Count != 0)
+            {
+                return DisqualifyPlayer;
+            }
+            Player.Battle.BeginDirectAttack(Player, attacker);
+            Player.Link.AddResolvable(Player.Battle);
+            Player.Link.Broadcast("attack", new List<Object>());
+            Player.SetState(new Acting());
+            Player.Opponent.SetState(new Active());
+            return Ok;
+        }
+
         public override bool OnSetFaceDown(Support support)
         {
             if (!support.CanBeSet)
