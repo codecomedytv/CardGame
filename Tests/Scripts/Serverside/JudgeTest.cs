@@ -184,7 +184,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        StartGame(DeckList);
 	        var support = Players[1].Hand[0].Id;
 	        Play.SetFaceDown(Players[1].Id, support);
-	        Play.Activate(Players[1].Id, support, new Array<int>());
+	        Play.Activate(Players[1].Id, support);
 
 	        Assert.IsTrue(Players[1].IsDisqualified);
         }
@@ -197,7 +197,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        var support = Players[1].Hand[0].Id;
 	        Play.SetFaceDown(Players[1].Id, support);
 	        Play.EndTurn(Players[1].Id);
-	        Play.Activate(Players[1].Id, support, new Array<int>());
+	        Play.Activate(Players[1].Id, support);
 
 	        Assert.IsTrue(Players[1].IsDisqualified);
         }

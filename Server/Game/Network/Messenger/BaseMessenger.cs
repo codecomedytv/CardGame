@@ -61,7 +61,7 @@ namespace CardGame.Server.Game.Network.Messenger {
 			throw new NotImplementedException();
 		}
 
-		public virtual void Activate(int player, int card, Array<int> array)
+		public virtual void Activate(int player, int card, int targetId = 0)
 		{
 			throw new NotImplementedException();
 		}

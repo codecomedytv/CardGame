@@ -84,23 +84,18 @@ namespace CardGame.Server.Game {
 					return;
 			}
 		}
-		
-		
-		public async void Activate(Player player, Card card, Array<int> targets)
+
+		public void Unregister(Card card)
 		{
-			var activatedSkill = card.Skill;
-			if (targets.Count > 0)
-			{
-				activatedSkill.Target = (Unit)Game.GetCard(targets[0]);
-			}
-			activatedSkill.Activate();
-			if (activatedSkill.Targeting)
-			{
-				var result = await ToSignal(player, nameof(Player.TargetSelected));
-				activatedSkill.Target = result[0] as Card;
-			}
 			
-			Chain.Add(activatedSkill);
+		}
+		
+		
+		public async void Activate(Skill skill, Card target)
+		{
+			skill.Target = target;
+			skill.Activate();
+			Chain.Add(skill);
 		}
 
 		public async void Automatic(Player player, Card card)

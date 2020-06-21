@@ -1,4 +1,4 @@
-﻿using System.Security.Policy;
+using System.Security.Policy;
 using CardGame.Server.Game.Cards;
 using Godot.Collections;
 
@@ -24,8 +24,8 @@ namespace CardGame.Server.States
         {
             return DisqualifyPlayer;
         }
-
-        public virtual bool OnActivation(Support card, Array<int> targets)
+        
+        public virtual bool OnActivation(Support card, Card target)
         {
             return DisqualifyPlayer;
         }
@@ -49,5 +49,6 @@ namespace CardGame.Server.States
         {
             return "State";
         }
+        
     }
 }

@@ -154,11 +154,13 @@ namespace CardGame.Server.Game {
 			Update();
 		}
 		
-		public void OnActivation(int playerId, int cardId, Array<int> targets)
+		public void OnActivation(int playerId, int cardId, int targetId = 0)
 		{
 			var player = Players[playerId];
 			var card = (Support)GameState.GetCard(cardId);
-			var disqualifyPlayer = player.OnActivation(card, targets);
+			// Note: We may want to add a null object card for situations like this
+			var target = GameState.GetCard(targetId);
+			var disqualifyPlayer = player.OnActivation(card, target);
 			if (disqualifyPlayer)
 			{
 				Disqualify(player, 0);;

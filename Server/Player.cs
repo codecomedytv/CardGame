@@ -44,7 +44,7 @@ namespace CardGame.Server {
 		
 		public bool OnAttack(Unit unit, object defender, bool isDirectAttack) => State.OnAttack(unit, defender, isDirectAttack);
 		
-		public bool OnActivation(Support card, Array<int> targets) => State.OnActivation(card, targets);
+		public bool OnActivation(Support card, Card target) => State.OnActivation(card, target);
 
 		public void OnTargetSelected(Card card) => EmitSignal(nameof(TargetSelected), card);
 		

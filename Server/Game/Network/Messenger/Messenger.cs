@@ -37,9 +37,9 @@ namespace CardGame.Server.Game.Network.Messenger {
 		}
 
 		[Master]
-		public override void Activate(int player, int card, Array<int> targets)
+		public override void Activate(int player, int card, int targetId = 0)
 		{
-			EmitSignal(nameof(Activated), player, card, targets);
+			EmitSignal(nameof(Activated), player, card, targetId);
 		}
 
 		[Master]

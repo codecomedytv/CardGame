@@ -40,9 +40,9 @@ namespace CardGame.Tests
             EmitSignal(nameof(Attacked), player, attacker, defender);
         }
 
-        public override void Activate(int player, int card, Godot.Collections.Array<int> targets)
+        public override void Activate(int player, int card, int targetId = 0)
         {
-            EmitSignal(nameof(Activated), player, card, targets);
+            EmitSignal(nameof(Activated), player, card, targetId);
         }
 
         public override void SetFaceDown(int player, int card)

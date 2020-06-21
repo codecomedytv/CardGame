@@ -39,7 +39,7 @@ namespace CardGame.Tests.Scripts.Serverside
             Play.EndTurn(Players[0].Id);
             const int targetDirectAttack = -1;
             Play.Attack(Players[1].Id, attacker.Id, targetDirectAttack);
-            Play.Activate(Players[0].Id, chainMine.Id, new Array<int>());
+            Play.Activate(Players[0].Id, chainMine.Id);
             Play.PassPlay(Players[1].Id);
             Play.PassPlay(Players[0].Id);
             

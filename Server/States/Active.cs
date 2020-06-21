@@ -12,13 +12,13 @@ namespace CardGame.Server.States
             Player.Support.ForEach(card => card.SetCanBeActivated());
         }
 
-        public override bool OnActivation(Support card, Array<int> targets)
+        public override bool OnActivation(Support card, Card target)
         {
             if (!card.CanBeActivated)
             {
                 return DisqualifyPlayer;
             }
-            Player.Link.Activate(Player, card, targets);
+            Player.Link.Activate(card.Skill, target);
             Player.SetState(new Acting());
             Player.Opponent.SetState(new Active());
 
