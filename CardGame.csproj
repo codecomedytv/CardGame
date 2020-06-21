@@ -102,7 +102,6 @@
     <Compile Include="Server\Game\Skill\NullSkill.cs" />
     <Compile Include="Server\Game\Skill\Skill.cs" />
     <Compile Include="Server\Game\Skill\Actions.cs" />
-    <Compile Include="Server\Game\Tag.cs" />
     <Compile Include="Server\Library\Alpha\CounterAttack.cs" />
     <Compile Include="Server\Library\Alpha\DungeonGuide.cs" />
     <Compile Include="Server\Library\Alpha\GuardPuppy.cs" />
