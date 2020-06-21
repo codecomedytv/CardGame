@@ -32,37 +32,9 @@ namespace CardGame.Server.Game {
 
 		private void _ResolveAttackUnit()
 		{
-			
-		}
-
-		private void _ResolveDirectAttack()
-		{
-			
-		}
-		
-		public void Resolve(string ignore = "")
-		{
 			Attacker.Attacked = true;
-			if (!Attacking.Field.Contains(Attacker))
+			if (!Attacking.Field.Contains(Attacker) || !Defending.Field.Contains(Defender))
 			{
-				return;
-			}
-
-			if (!IsDirectAttack && !Defending.Field.Contains(Defender))
-			{
-				return;
-			}
-
-			if (IsDirectAttack)
-			{
-				Attacking.AttackDirectly(Attacker);
-				Defending.DeclarePlay(new ModifyPlayer(Attacker, Defending, nameof(Player.Health), Defending.Health - Attacker.Attack));
-				if (Defending.Health <= 0)
-				{
-					Attacking.Win();
-				}
-			
-				Attacking.DeclarePlay(new Modify(Attacking, Attacker, nameof(Card.Ready), false));
 				return;
 			}
 
@@ -98,6 +70,24 @@ namespace CardGame.Server.Game {
 			{
 				Attacking.DeclarePlay(new Modify(Attacking, Attacker, nameof(Card.Ready), false));
 			}
+		}
+
+		private void _ResolveDirectAttack()
+		{
+			Attacker.Attacked = true;
+			Attacking.AttackDirectly(Attacker);
+			Defending.DeclarePlay(new ModifyPlayer(Attacker, Defending, nameof(Player.Health), Defending.Health - Attacker.Attack));
+			if (Defending.Health <= 0)
+			{
+				Attacking.Win();
+			}
+			
+			Attacking.DeclarePlay(new Modify(Attacking, Attacker, nameof(Card.Ready), false));
+		}
+		
+		public void Resolve(string ignore = "")
+		{
+			if (IsDirectAttack) { _ResolveDirectAttack(); } else { _ResolveAttackUnit(); }
 		}
 	}
 }
