@@ -95,8 +95,6 @@ namespace CardGame.Server.Game {
 		{
 			skill.Activate();
 			Chain.Add(skill);
-			//skill.Resolve();
-			//player.DeclarePlay(new Resolve());
 
 		}
 		

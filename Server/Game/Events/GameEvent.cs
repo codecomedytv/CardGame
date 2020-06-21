@@ -95,11 +95,7 @@ namespace CardGame.Server
             Message = new Game.Network.Messages.LoadDeck(cardsLoaded.Count);
         }
     }
-
-    public class Resolve : GameEvent
-    {
-    }
-
+    
     public class SetTargets : GameEvent
     {
         // Possibly best to only add a target at a time?
