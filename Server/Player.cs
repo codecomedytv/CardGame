@@ -40,7 +40,7 @@ namespace CardGame.Server {
 		
 		public bool OnDeploy(Unit unit) => State.OnDeploy(unit);
 		
-		public bool OnAttack(Unit unit, object defender, bool isDirectAttack) => State.OnAttack(unit, defender, isDirectAttack);
+		public bool OnAttack(Unit unit, Unit defender) => State.OnAttack(unit, defender);
 
 		public bool OnDirectAttack(Unit attacker) => State.OnDirectAttack(attacker);
 		

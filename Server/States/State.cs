@@ -20,7 +20,7 @@ namespace CardGame.Server.States
             return DisqualifyPlayer;
         }
 
-        public virtual bool OnAttack(Unit unit, object defender, bool isDirectAttack)
+        public virtual bool OnAttack(Unit unit, Unit defender)
         {
             return DisqualifyPlayer;
         }

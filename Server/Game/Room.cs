@@ -120,19 +120,10 @@ namespace CardGame.Server.Game {
 		public void OnAttack(int playerId, int attackerId, int defenderId)
 		{
 			var player = Players[playerId];
-			var attacker = (Unit)GameState.GetCard(attackerId);
-			object defender;
-			if (defenderId != -1)
-			{
-				defender = (Unit)GameState.GetCard(defenderId);
-			}
-			else
-			{
-				defender = defenderId;
-			}
-			
+			var attacker = GameState.GetCard(attackerId) as Unit;
+			var defender = GameState.GetCard(defenderId) as Unit;
 			GameState.Attacking = attacker;
-			var disqualifyPlayer = player.OnAttack(attacker, defender, defenderId == -1);
+			var disqualifyPlayer = player.OnAttack(attacker, defender);
 			if (disqualifyPlayer)
 			{
 				Disqualify(player, 0);;

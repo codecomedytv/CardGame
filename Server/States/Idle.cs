@@ -33,19 +33,14 @@ namespace CardGame.Server.States
             return Ok;
         }
 
-        public override bool OnAttack(Unit attacker, object defender, bool isDirectAttack)
+        public override bool OnAttack(Unit attacker, Unit defender)
         {
             if (!attacker.CanAttack)
             {
                 return DisqualifyPlayer;
             }
 
-            if (isDirectAttack && Player.Opponent.Field.Count != 0)
-            {
-                return DisqualifyPlayer;
-            }
-
-            if (!isDirectAttack && !Player.Opponent.Field.Contains((Unit)defender))
+            if (!Player.Opponent.Field.Contains(defender))
             {
                 return DisqualifyPlayer;
             }
@@ -55,7 +50,7 @@ namespace CardGame.Server.States
                 return DisqualifyPlayer;
             }
 
-            Player.Battle.Begin(Player, attacker, defender, isDirectAttack);
+            Player.Battle.Begin(Player, attacker, defender);
             Player.Link.AddResolvable(Player.Battle);
             Player.Link.Broadcast("attack", new List<Object>());
             Player.SetState(new Acting());

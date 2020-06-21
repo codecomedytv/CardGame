@@ -10,16 +10,16 @@ namespace CardGame.Server.Game {
 		private Player Attacking;
 		private Player Defending;
 		private Unit Attacker;
-		private object Defender;
+		private Unit Defender;
 		private bool IsDirectAttack;
 		
-		public void Begin(Player attacking, Unit attacker, object defender, bool isDirectAttack)
+		public void Begin(Player attacking, Unit attacker, Unit defender)
 		{
 			Attacking = attacking;
 			Defending = attacking.Opponent;
 			Attacker = attacker;
 			Defender = defender;
-			IsDirectAttack = isDirectAttack;
+			IsDirectAttack = false;
 		}
 		
 		public void BeginDirectAttack(Player player, Unit attacker)
@@ -28,6 +28,16 @@ namespace CardGame.Server.Game {
 			Defending = player.Opponent;
 			Attacker = attacker;
 			IsDirectAttack = true;
+		}
+
+		private void _ResolveAttackUnit()
+		{
+			
+		}
+
+		private void _ResolveDirectAttack()
+		{
+			
 		}
 		
 		public void Resolve(string ignore = "")
@@ -38,7 +48,7 @@ namespace CardGame.Server.Game {
 				return;
 			}
 
-			if (!IsDirectAttack && !Defending.Field.Contains((Card)Defender))
+			if (!IsDirectAttack && !Defending.Field.Contains(Defender))
 			{
 				return;
 			}
@@ -57,13 +67,12 @@ namespace CardGame.Server.Game {
 			}
 
 			Attacking.AttackUnit(Attacker, Defender as Unit);
-
-			var defender = (Unit)Defender;
-			if (Attacker.Attack > defender.Defense)
+			
+			if (Attacker.Attack > Defender.Defense)
 			{
-				var overflow = Attacker.Attack - defender.Defense;
+				var overflow = Attacker.Attack - Defender.Defense;
 				Defending.DeclarePlay(new ModifyPlayer(Attacker, Defending, nameof(Player.Health), Defending.Health - overflow));
-				Defending.DeclarePlay(new Move(Attacker, Defending, Defender as Unit, ((Unit) Defender).Owner.Graveyard));
+				Defending.DeclarePlay(new Move(Attacker, Defending, Defender, Defender.Owner.Graveyard));
 				if (Defending.Health <= 0)
 				{
 					Attacking.Win();
@@ -72,11 +81,11 @@ namespace CardGame.Server.Game {
 				Attacking.DeclarePlay(new Modify(Attacking, Attacker, nameof(Card.Ready), false));
 			}
 			
-			else if (Attacker.Attack <= defender.Defense && defender.Attack > Attacker.Defense)
+			else if (Attacker.Attack <= Defender.Defense && Defender.Attack > Attacker.Defense)
 			{
-				var overflow = defender.Attack - Attacker.Defense;
-				Attacking.DeclarePlay(new ModifyPlayer(defender, Attacking, nameof(Player.Health), Attacking.Health - overflow));
-				Attacking.DeclarePlay(new Move(Defender as Card, Attacking, Attacker, Attacker.Owner.Graveyard));
+				var overflow = Defender.Attack - Attacker.Defense;
+				Attacking.DeclarePlay(new ModifyPlayer(Defender, Attacking, nameof(Player.Health), Attacking.Health - overflow));
+				Attacking.DeclarePlay(new Move(Defender, Attacking, Attacker, Attacker.Owner.Graveyard));
 				if (Attacking.Health <= 0)
 				{
 					Defending.Win();
@@ -89,12 +98,6 @@ namespace CardGame.Server.Game {
 			{
 				Attacking.DeclarePlay(new Modify(Attacking, Attacker, nameof(Card.Ready), false));
 			}
-			{
-				
-			}
 		}
-
-
 	}
-
 }
