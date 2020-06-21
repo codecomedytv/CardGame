@@ -13,17 +13,17 @@ namespace CardGame.Server.Game.Cards {
 		public Player Controller;
 		public Player Opponent => Controller.Opponent;
 		public Skill Skill;
-		public List<Card> Zone; //= new List<Card> // Might be worth updating
-		public bool Activated = false;
+		public List<Card> Zone;
 		public bool Ready = false;
-		// public bool Attacked = false;
+		public bool Activated = false;
 
 		// When a player enters an active state (idle or active) then it iterates on all
 		// owned cards to see if these can be used or not.
-		public bool CanBeDeployed = false;
-		public bool CanBeSet = false;
-		public bool CanBeActivated = false;
-		public bool CanAttack = false;
+		public bool R = false;
+		public bool CanBeDeployed;
+		public bool CanBeSet;
+		public bool CanBeActivated;
+		public bool CanAttack;
 
 		protected Card()
 		{
