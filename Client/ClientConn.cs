@@ -59,7 +59,7 @@ namespace CardGame.Client {
 			var Room = gameScene.Instance() as Game;
 			Room.Name = GameID;
 			AddChild(Room);
-			Room.SetUp(true, new Manual());
+			Room.SetUp();
 		}
 
 	}

@@ -2,7 +2,6 @@ using CardGame.Client.Match;
 using Godot;
 using Godot.Collections;
 using Array = Godot.Collections.Array;
-using Player = CardGame.Client.Match.Model.Player;
 
 namespace CardGame.Client.Library.Card
 {
@@ -25,125 +24,32 @@ namespace CardGame.Client.Library.Card
 		public string Effect;
 		public CardTypes CardType;
 		public bool Blank = false;
-		public Zones Zone = Zones.Deck;
-		public bool UnderPlayersControl = false;
-		public string Type = "None";
-		public Array ValidTargets = new Array();
-		public Array SelectedTargets = new Array();
-		public bool Activated = false;
-		public bool CanBeDeployed = false;
-		public bool CanBeSet = false;
-		public bool CanBeActivated = false;
-		public bool CanAttack = false;
-		public bool IsReady = false; // Do we care clientSide? Only for visual purposes?
-		public Player Player; // Client Player doesn't exist yet
-
-		// Set by Game
-		public Interact Interact;
-
+		
 		// Visual Onready Vars
 		public AnimatedSprite LegalPlay;
-		public Label Link;
 		public Label Identifier;
 		public Label TitleLabel;
 		public Label AttackLabel;
 		public Label DefenseLabel;
-		public Sprite Frame;
 		public Sprite Art;
 		public TextureRect Back;
-		public Label Rest;
-		public AudioStreamPlayer Sound;
-		public AnimatedSprite ValidTarget;
-		public AnimatedSprite SelectedTarget;
 		public TextureRect Combat;
 
 		public override void _Ready()
 		{
 			LegalPlay = GetNode("Frame/LegalPlay") as AnimatedSprite;
-			Link = GetNode("Link") as Label;
 			Identifier = GetNode("ID") as Label;
 			TitleLabel = GetNode("Title") as Label;
 			AttackLabel = GetNode("Battle/Attack") as Label;
 			DefenseLabel = GetNode("Battle/Defense") as Label;
-			Frame = GetNode("Frame") as Sprite;
 			Art = GetNode("Frame/Illustration") as Sprite;
 			Back = GetNode("Back") as TextureRect;
-			Rest = GetNode("Rest") as Label;
-			Sound = GetNode("AudioStreamPlayer") as AudioStreamPlayer;
-			ValidTarget = GetNode("Frame/ValidTarget") as AnimatedSprite;
-			SelectedTarget = GetNode("Frame/Selected") as AnimatedSprite;
 			Combat = GetNode("Combat") as TextureRect;
 			Visualize();
 		}
-
-		public void ShowAsValid(bool yes)
-		{
-			if (yes)
-			{
-				ValidTarget.Show();
-				ValidTarget.Play();
-			}
-			else
-			{
-				ValidTarget.Hide();
-				ValidTarget.Stop();
-			}
-		}
-
-		public void ShowAsTargeted()
-		{
-			SelectedTarget.Show();
-			SelectedTarget.Play();
-		}
-
-		public void RemoveAura()
-		{
-			ValidTarget.Hide();
-			SelectedTarget.Hide();
-			ValidTarget.Stop();
-			SelectedTarget.Stop();
-		}
-
+		
 		public override string ToString() => $"{Id} : {Title}";
 		
-
-		public void Ready() => Rest.Visible = false;
-		
-
-		public void Exhaust() => Rest.Visible = true;
-		
-
-		public bool DoesNotRequireTargets() => ValidTargets.Count == 0;
-
-		private bool Legal
-		{
-			get => CanBeSet || CanBeDeployed || CanAttack || CanBeActivated;
-		}
-
-		public int C;
-
-		public void SetZ(int value)
-		{
-			if (C + value < -1) { return; }
-			else if (C + value > 1) { return; }
-			C += value;
-			Frame.ZIndex += value;
-		}
-
-		public void Glow()
-		{
-			if (Legal && GetGlobalRect().HasPoint(GetGlobalMousePosition()) && Zone == Zones.Hand)
-			{
-				Sound.Play();
-				LegalPlay.Visible = true;
-				LegalPlay.Play();
-				return;
-			}
-
-			LegalPlay.Visible = false;
-			LegalPlay.Stop();
-		}
-
 		public void TurnInvisible() => Modulate = new Color(Modulate.r, Modulate.g, Modulate.b, 0);
 
 		public void TurnVisible() => Modulate = new Color(Modulate.r, Modulate.g, Modulate.b, 1);
@@ -158,16 +64,16 @@ namespace CardGame.Client.Library.Card
 			Title = card.Title;
 			Effect = card.Text;
 			Illustration = card.Illustration;
-			if (card is Unit unit)
+			switch (card)
 			{
-				CardType = unit.CardType;
-				Attack = unit.Attack;
-				Defense = unit.Defense;
-			}
-			else if(card is Support support)
-			{
-				CardType = support.CardType;
-				
+				case Unit unit:
+					CardType = unit.CardType;
+					Attack = unit.Attack;
+					Defense = unit.Defense;
+					break;
+				case Support support:
+					CardType = support.CardType;
+					break;
 			}
 		}
 
@@ -175,6 +81,7 @@ namespace CardGame.Client.Library.Card
 		{
 			if (Blank)
 			{
+				// We can handle this by just creating a null object
 				FlipFaceDown();
 				return;
 			}
@@ -194,73 +101,6 @@ namespace CardGame.Client.Library.Card
 			}
 
 		}
-
-		public void Select()
-		{
-
-		}
-
-		[Signal]
-		public delegate void CardActivated();
-
-		public void ActivateCard(Array<int> targets) 
-		{
-			//Player.Activate([Id])
-			//Player.Visual.Animate.Start();
-			Activated = true;
-			CallDeferred("emit_signal", nameof(CardActivated), this, targets);
-		}
-		
-		private void _on_Card_pressed()
-		{
-			if (Interact == null)
-			{
-				return;
-			}
-			
-			if (Interact.Card != null)
-			{
-				return;
-			}
-
-			switch (Zone)
-			{
-				case Zones.Hand:
-					if (CanBeDeployed || CanBeSet)
-					{
-						Interact.Add(this);
-					}
-					break;
-				case Zones.Unit:
-					if (CanAttack)
-					{
-						Interact.Add(this);
-					}
-					break;
-				case Zones.Support:
-					if (CanBeActivated)
-					{
-						ActivateCard(new Array<int>());
-					}
-					break;
-				default:
-					return;
-			}
-		}
-		
-		
-		private void _on_Card_mouse_entered()
-		{
-			Glow();
-		}
-		
-		
-		private void _on_Card_mouse_exited()
-		{
-		    Sound.Stop();
-		    Glow();
-		}
-		
 		
 	}
 }

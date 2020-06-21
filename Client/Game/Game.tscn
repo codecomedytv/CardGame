@@ -1,55 +1,16 @@
-[gd_scene load_steps=100 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://assets/UI/CardBack_Wooden.png" type="Texture" id=1]
 [ext_resource path="res://assets/fonts/LemonMilkbolditalic.otf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://assets/spritesheets/17.png" type="Texture" id=4]
 [ext_resource path="res://client/game/PlayerViewer.tscn" type="PackedScene" id=5]
 [ext_resource path="res://client/game/CardViewer.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Client/Game/View/Player.cs" type="Script" id=7]
 [ext_resource path="res://assets/UI/Background_Field.png" type="Texture" id=8]
 [ext_resource path="res://assets/UI/Seperator.png" type="Texture" id=9]
 [ext_resource path="res://assets/UI/Table.png" type="Texture" id=10]
 [ext_resource path="res://assets/UI/Label_WoodPlank.png" type="Texture" id=11]
-[ext_resource path="res://assets/sounds/HellsBattle.ogg" type="AudioStream" id=12]
-[ext_resource path="res://Client/Game/Gfx.cs" type="Script" id=13]
-[ext_resource path="res://Client/Game/Sfx.cs" type="Script" id=14]
 [ext_resource path="res://Client/Game/Game.cs" type="Script" id=15]
-[ext_resource path="res://assets/spritesheets/ovalorange/030026.png" type="Texture" id=16]
-[ext_resource path="res://Client/Game/Controller/Interact.cs" type="Script" id=20]
 [ext_resource path="res://assets/UI/passbutton.png" type="Texture" id=21]
-[ext_resource path="res://assets/spritesheets/ovalorange/030029.png" type="Texture" id=22]
-[ext_resource path="res://assets/spritesheets/ovalorange/030019.png" type="Texture" id=23]
-[ext_resource path="res://assets/spritesheets/ovalorange/030004.png" type="Texture" id=24]
-[ext_resource path="res://assets/spritesheets/ovalorange/030012.png" type="Texture" id=25]
-[ext_resource path="res://assets/spritesheets/ovalorange/030020.png" type="Texture" id=26]
-[ext_resource path="res://assets/spritesheets/ovalorange/030021.png" type="Texture" id=27]
-[ext_resource path="res://assets/spritesheets/ovalorange/030007.png" type="Texture" id=28]
-[ext_resource path="res://assets/spritesheets/ovalorange/030030.png" type="Texture" id=29]
-[ext_resource path="res://assets/spritesheets/ovalorange/030002.png" type="Texture" id=30]
-[ext_resource path="res://assets/spritesheets/ovalorange/030031.png" type="Texture" id=31]
-[ext_resource path="res://assets/spritesheets/ovalorange/030025.png" type="Texture" id=32]
-[ext_resource path="res://assets/spritesheets/ovalorange/030023.png" type="Texture" id=33]
-[ext_resource path="res://assets/spritesheets/ovalorange/030003.png" type="Texture" id=34]
-[ext_resource path="res://assets/spritesheets/ovalorange/030028.png" type="Texture" id=35]
-[ext_resource path="res://assets/spritesheets/ovalorange/030001.png" type="Texture" id=36]
-[ext_resource path="res://assets/spritesheets/ovalorange/030018.png" type="Texture" id=37]
-[ext_resource path="res://assets/spritesheets/ovalorange/030010.png" type="Texture" id=38]
-[ext_resource path="res://assets/spritesheets/ovalorange/030000.png" type="Texture" id=39]
-[ext_resource path="res://assets/spritesheets/ovalorange/030009.png" type="Texture" id=40]
-[ext_resource path="res://assets/spritesheets/ovalorange/030008.png" type="Texture" id=41]
-[ext_resource path="res://assets/spritesheets/ovalorange/030027.png" type="Texture" id=42]
-[ext_resource path="res://assets/spritesheets/ovalorange/030022.png" type="Texture" id=43]
-[ext_resource path="res://assets/spritesheets/ovalorange/030016.png" type="Texture" id=44]
-[ext_resource path="res://assets/spritesheets/ovalorange/030005.png" type="Texture" id=45]
-[ext_resource path="res://assets/spritesheets/ovalorange/030006.png" type="Texture" id=46]
-[ext_resource path="res://assets/spritesheets/ovalorange/030013.png" type="Texture" id=47]
-[ext_resource path="res://assets/spritesheets/ovalorange/030015.png" type="Texture" id=48]
-[ext_resource path="res://assets/spritesheets/ovalorange/030024.png" type="Texture" id=49]
-[ext_resource path="res://assets/spritesheets/ovalorange/030014.png" type="Texture" id=50]
-[ext_resource path="res://assets/spritesheets/ovalorange/030011.png" type="Texture" id=51]
-[ext_resource path="res://assets/spritesheets/ovalorange/030017.png" type="Texture" id=52]
-[ext_resource path="res://Client/Game/View/Opponent.cs" type="Script" id=53]
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 9 )
@@ -129,188 +90,6 @@ font_data = ExtResource( 2 )
 [sub_resource type="StyleBoxTexture" id=15]
 texture = ExtResource( 1 )
 region_rect = Rect2( 0, 0, 1422, 2000 )
-
-[sub_resource type="AtlasTexture" id=16]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 0, 0, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=17]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 256, 0, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=18]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 512, 0, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=19]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 768, 0, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=20]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 1024, 0, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=21]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 1280, 0, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=22]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 1536, 0, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=23]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 1792, 0, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=24]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 0, 256, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=25]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 256, 256, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=26]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 512, 256, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=27]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 768, 256, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=28]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 1024, 256, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=29]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 1280, 256, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=30]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 1536, 256, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=31]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 1792, 256, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=32]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 0, 512, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=33]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 256, 512, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=34]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 512, 512, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=35]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 768, 512, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=36]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 1024, 512, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=37]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 1280, 512, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=38]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 1536, 512, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=39]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 1792, 512, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=40]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 0, 768, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=41]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 256, 768, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=42]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 512, 768, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=43]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 768, 768, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=44]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 1024, 768, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=45]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 1280, 768, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=46]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 1536, 768, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=47]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 1792, 768, 256, 256 )
-
-[sub_resource type="SpriteFrames" id=48]
-animations = [ {
-"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ), SubResource( 47 ) ],
-"loop": true,
-"name": "default",
-"speed": 32.0
-}, {
-"frames": [ ExtResource( 39 ), ExtResource( 36 ), ExtResource( 30 ), ExtResource( 34 ), ExtResource( 24 ), ExtResource( 45 ), ExtResource( 46 ), ExtResource( 28 ), ExtResource( 41 ), ExtResource( 40 ), ExtResource( 38 ), ExtResource( 51 ), ExtResource( 25 ), ExtResource( 47 ), ExtResource( 50 ), ExtResource( 48 ), ExtResource( 44 ), ExtResource( 52 ), ExtResource( 37 ), ExtResource( 23 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 43 ), ExtResource( 33 ), ExtResource( 49 ), ExtResource( 32 ), ExtResource( 16 ), ExtResource( 42 ), ExtResource( 35 ), ExtResource( 22 ), ExtResource( 29 ), ExtResource( 31 ) ],
-"loop": true,
-"name": "New Anim",
-"speed": 32.0
-} ]
-
-[sub_resource type="DynamicFont" id=49]
-size = 64
-outline_size = 10
-outline_color = Color( 0, 0, 0, 1 )
-use_mipmaps = true
-use_filter = true
-extra_spacing_char = 20
-font_data = ExtResource( 2 )
 
 [node name="Playmat" type="Control" groups=[
 "playmat",
@@ -396,7 +175,6 @@ __meta__ = {
 [node name="Player" type="Control" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
-script = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -508,7 +286,6 @@ __meta__ = {
 [node name="Opponent" type="Control" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
-script = ExtResource( 53 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -593,37 +370,3 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Interact" type="AnimatedSprite" parent="."]
-visible = false
-position = Vector2( 906.037, 644.347 )
-scale = Vector2( 0.348772, 0.389158 )
-frames = SubResource( 48 )
-animation = "New Anim"
-frame = 22
-playing = true
-script = ExtResource( 20 )
-
-[node name="WIN_LOSE" type="Label" parent="."]
-visible = false
-margin_right = 1920.0
-margin_bottom = 1080.0
-custom_fonts/font = SubResource( 49 )
-text = "YOU WIN"
-align = 1
-valign = 1
-
-[node name="Effects" type="Node" parent="."]
-
-[node name="GFX_Visual" type="Tween" parent="Effects"]
-script = ExtResource( 13 )
-
-[node name="SFX_Audio" type="AudioStreamPlayer" parent="Effects"]
-volume_db = -5.0
-script = ExtResource( 14 )
-
-[node name="BGM_Audio" type="AudioStreamPlayer" parent="Effects"]
-stream = ExtResource( 12 )
-volume_db = -10.0
-autoplay = true
-mix_target = 1

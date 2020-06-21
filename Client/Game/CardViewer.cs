@@ -41,14 +41,7 @@ namespace CardGame.Client.Match
                     Art.Texture = ResourceLoader.Load(card.Illustration) as Texture;
                 }
 
-                if (card.CardType == CardTypes.Unit)
-                {
-                    Battle.Text = String.Format("[ {0} / ATK {1} / DEF {2} ]", "Warrior", card.Attack, card.Defense);
-                }
-                else
-                {
-                    Battle.Text = "";
-                }
+                Battle.Text = card.CardType == CardTypes.Unit ? $"Warrior / ATK {card.Attack} / DEF {card.Defense}" : "";
 
                 Effect.Text = card.Effect;
             }

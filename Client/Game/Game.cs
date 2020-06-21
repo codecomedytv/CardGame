@@ -1,82 +1,22 @@
 using Godot;
-using System;
-using System.Collections.Generic;
-using CardGame.Client.Library.Card;
 using CardGame.Client.Match;
-using CardGame.Client.Match.Model;
 
 namespace CardGame.Client {
 
 	public class Game : Control
 	{
-		public Label WinLoseNote;
-		public Gfx Gfx;
-		public Sfx Sfx;
-		public AudioStreamPlayer BackgroundMusic;
 		public Messenger Messenger = new Messenger();
-		public Player Player;
-		public Opponent Opponent;
-		public EventManager EventManager = new EventManager();
-		public GameInput GameInput;
-		public bool Muted = false;
-		public Godot.Collections.Dictionary<int, Card> Cards = new Godot.Collections.Dictionary<int, Card>();
-		public List<Card> Link = new List<Card>();
 
 		public override void _Ready()
 		{
-			WinLoseNote = GetNode<Label>("WIN_LOSE");
-			Gfx = GetNode<Gfx>("Effects/GFX_Visual");
-			Sfx = GetNode<Sfx>("Effects/SFX_Audio");
-			BackgroundMusic = GetNode<AudioStreamPlayer>("Effects/BGM_Audio");
 		}
 
-		public void SetUp(bool muteMusic, GameInput gameInput)
+		public void SetUp()
 		{
-			
-			Muted = muteMusic;
-			GameInput = gameInput;
 			AddChild(Messenger, true);
 			Messenger.CustomMultiplayer = GetParent().Multiplayer;
-			Player = new Player(Cards);
-			Opponent = new Opponent(Cards);
-			Player.Visual = GetNode<Match.View.Player>("Player");
-			Opponent.Visual = GetNode<Match.View.Opponent>("Opponent");
-			Player.Visual.Setup(Gfx, Sfx);
-			Opponent.Visual.Setup(Gfx, Sfx);
 			var networkId = CustomMultiplayer.GetNetworkUniqueId();
 			Messenger.Id = networkId;
-			Sfx.StreamPaused = Muted;
-			BackgroundMusic.StreamPaused = Muted;
-			Player.Link = Link;
-			Opponent.Link = Link;
-			Player.Opponent = Opponent;
-			Opponent.Enemy = Player;
-			Player.Visual.Cards = Cards;
-			Opponent.Visual.Cards = Cards;
-			EventManager.SetUp(Player, Opponent);
-			GameInput.SetUp(Player, Opponent, networkId, Messenger, Cards);
-			if(GameInput is Manual input)
-			{
-				input.Interact = GetNode<Interact>("Interact");
-				Player.Interact = input.Interact;
-				Player.Input = input;
-				foreach (var card in Cards)
-				{
-					if (Cards[card.Key] is Card c) c.Interact = GetNode<Interact>("Interact");
-				}
-			}
-			AddChild(GameInput, true);
-			GetNode<Button>("Background/EndTurn").Connect("pressed", GameInput, "OnEndTurn");
-			GetNode<Button>("Background/Pass").Connect("pressed", GameInput, "PassPriority");
-			Player.Visual.Connect("ButtonAction", GetNode<Button>("Background/Pass"), "set_text");
-			_Connect(EventManager, "Animated", Gfx, nameof(CardGame.Client.Match.Gfx.StartAnimation));
-			_Connect(Player, "PlayerWon", this, "Win");
-			_Connect(Player, "PlayerLost", this, "Lose");
-			_Connect(Messenger, "QueuedEvent", EventManager, "Queue");
-			_Connect(Messenger, "ExecutedEvents", EventManager, "Execute");
-			_Connect(Messenger, "DisconnectPlayer", GetParent(), "ForceDisconnected");
-			//_Connect(Gfx, "tween_all_completed", EventManager, "OnAnimationFinished");
-
 			Messenger.CallDeferred("SetReady");
 
 		}
@@ -90,21 +30,6 @@ namespace CardGame.Client {
 			}
 		}
 
-		public void Win()
-		{
-			Gfx.InterpolateCallback(BackgroundMusic, Gfx.TotalDelay(), "Stop");
-			Gfx.InterpolateCallback(Sfx, Gfx.AddDelay(0.2F), "Victory");
-			Gfx.InterpolateCallback(WinLoseNote, Gfx.TotalDelay(), "SetText", "YOU WIN!");
-			Gfx.InterpolateCallback(WinLoseNote, Gfx.TotalDelay(), "SetVisible", true);
-		}
-
-		public void Lose()
-		{
-			Gfx.InterpolateCallback(BackgroundMusic, Gfx.TotalDelay(), "Stop");
-			Gfx.InterpolateCallback(Sfx, Gfx.AddDelay(0.2F), "Defeat");
-			Gfx.InterpolateCallback(WinLoseNote, Gfx.TotalDelay(), "SetText", "YOU LOSE!");
-			Gfx.InterpolateCallback(WinLoseNote, Gfx.TotalDelay(), "SetVisible", true);
-		}
 	}
 	
 }
