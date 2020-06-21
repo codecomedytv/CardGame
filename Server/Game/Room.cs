@@ -55,7 +55,6 @@ namespace CardGame.Server.Game {
 			{
 				connect(player, nameof(Player.PlayExecuted), this.Messenger, nameof(Messenger.OnPlayExecuted));
 				var bounds = new Godot.Collections.Array { player.Opponent };
-				connect(player, nameof(Player.Register), Link, nameof(Link.Register));
 				player.Link = Link;
 				player.Battle = Battle;
 			}

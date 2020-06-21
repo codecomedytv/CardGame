@@ -35,9 +35,7 @@ namespace CardGame.Server {
 
 		[Signal]
 		public delegate void PlayExecuted();
-		
-		[Signal]
-		public delegate void Register();
+	
 		public Player() {}
 		
 		public bool OnDeploy(Unit unit) => State.OnDeploy(unit);
@@ -68,7 +66,6 @@ namespace CardGame.Server {
 			// Shuffle = shuffle;
 		}
 
-		#region Commands
 
 		public void LoadDeck(Gamestate game)
 		{
@@ -131,10 +128,7 @@ namespace CardGame.Server {
 		public void EndTurn() { DeclarePlay(new MarkerEvent(GameEvents.EndTurn)); }
 		
 		public void Win() { DeclarePlay(new GameOver(this, Opponent)); }
-
-		#endregion
-
-
+		
 		public void Move(List<Card> oldZone, Card card, List<Card> newZone)
 		{
 			oldZone.Remove(card);

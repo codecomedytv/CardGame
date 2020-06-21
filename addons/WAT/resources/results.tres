@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource( 1 )
-failures = [ "res://Tests/Scripts/Connected/ActionResponseTest.cs", "res://Tests/Scripts/Connected/SkillTest.cs" ]
+failures = [  ]
 _list = [  ]

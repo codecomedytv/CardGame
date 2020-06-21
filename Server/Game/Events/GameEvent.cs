@@ -106,6 +106,8 @@ namespace CardGame.Server
 
     public class AutoTarget : GameEvent
     {
+        // This shouldn't be a GameEvent at all
+        // We could probably include this directly
         // This could be a state setter
         private Card Selector;
 
