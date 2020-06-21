@@ -32,7 +32,6 @@ namespace CardGame.Server.Game {
 		{
 			Messenger = messenger ?? new RealMessenger();
 			Players = new System.Collections.Generic.Dictionary<int, Player>();
-			//Cards = new System.Collections.Generic.Dictionary<int, Card>();
 			Players[players[0].Id] = players[0];
 			Players[players[1].Id] = players[1];
 			players[0].Opponent = players[1];
@@ -104,7 +103,7 @@ namespace CardGame.Server.Game {
 			Update();
 		}
 		
-		public void OnDeploy(int playerId, int cardId)
+		private void OnDeploy(int playerId, int cardId)
 		{
 			var player = Players[playerId];
 			var card = (Unit)GameState.GetCard(cardId);
@@ -117,7 +116,7 @@ namespace CardGame.Server.Game {
 			
 		}
 		
-		public void OnAttack(int playerId, int attackerId, int defenderId)
+		private void OnAttack(int playerId, int attackerId, int defenderId)
 		{
 			var player = Players[playerId];
 			var attacker = GameState.GetCard(attackerId) as Unit;
@@ -131,7 +130,7 @@ namespace CardGame.Server.Game {
 			Update();
 		}
 
-		public void OnDirectAttack(int playerId, int attackerId)
+		private void OnDirectAttack(int playerId, int attackerId)
 		{
 			var player = Players[playerId];
 			var attacker = GameState.GetCard(attackerId) as Unit;
@@ -145,7 +144,7 @@ namespace CardGame.Server.Game {
 		}
 		
 		
-		public void OnSetFaceDown(int playerId, int faceDownId)
+		private void OnSetFaceDown(int playerId, int faceDownId)
 		{
 			var player = Players[playerId];
 			var card = (Support)GameState.GetCard(faceDownId);
@@ -157,7 +156,7 @@ namespace CardGame.Server.Game {
 			Update();
 		}
 		
-		public void OnActivation(int playerId, int cardId, int targetId = 0)
+		private void OnActivation(int playerId, int cardId, int targetId = 0)
 		{
 			var player = Players[playerId];
 			var card = (Support)GameState.GetCard(cardId);
@@ -172,7 +171,7 @@ namespace CardGame.Server.Game {
 			
 		}
 
-		public void OnTarget(int playerId, int targetId)
+		private void OnTarget(int playerId, int targetId)
 		{
 			// TODO: Refactor Into State
 			var player = Players[playerId];
@@ -180,7 +179,7 @@ namespace CardGame.Server.Game {
 			player.OnTargetSelected(target);
 		}
 
-		public void OnPriorityPassed(int playerId)
+		private void OnPriorityPassed(int playerId)
 		{
 			var player = Players[playerId];
 			var disqualifyPlayer = player.OnPriorityPassed();
@@ -192,7 +191,7 @@ namespace CardGame.Server.Game {
 			
 		}
 
-		public void OnEndTurn(int playerId)
+		private void OnEndTurn(int playerId)
 		{
 			var player = Players[playerId];
 			var disqualifyPlayer = player.OnEndTurn();
