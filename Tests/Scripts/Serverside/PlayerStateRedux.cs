@@ -85,7 +85,7 @@ namespace CardGame.Tests.Scripts.Serverside
 			
 			Assert.IsTrue(Players[1].State.GetType() == typeof(Idle), "Player 1 is IDLE");
 			Assert.IsTrue(Players[0].State.GetType() == typeof(Passive), "Player 0 is PASSIVE");
-			Play.Attack(Players[1].Id, attacker.Id, directAttack);
+			Play.DirectAttack(Players[1].Id, attacker.Id);
 			
 			Console.WriteLine(Players[1].State + "|" + Players[1].State.GetType().ToString());
 			Console.WriteLine(Players[0].State + "|" + Players[0].State.GetType().ToString());

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using CardGame.Server;
 using Godot;
@@ -37,7 +37,6 @@ namespace CardGame.Tests.Scripts.Serverside
 	        StartGame(DeckList);
 	        var unit = Players[0].Hand[0].Id;
 	        Play.Deploy(Players[0].Id, unit);
-
 	        Assert.IsTrue(Players[0].IsDisqualified);
         }
 
@@ -56,7 +55,6 @@ namespace CardGame.Tests.Scripts.Serverside
 			Play.EndTurn(Players[1].Id);
 			Play.EndTurn(Players[0].Id);
 			Play.Deploy(Players[1].Id, Players[1].Hand[0].Id);
-
 			Assert.IsEqual(Players[1].Field.Count, 7);
 			Assert.IsTrue(Players[1].IsDisqualified);
         }
@@ -67,7 +65,6 @@ namespace CardGame.Tests.Scripts.Serverside
 	        StartGame(DeckList);
 	        var card = Players[1].Deck[0].Id;
 	        Play.Deploy(Players[1].Id, card);
-
 	        Assert.IsTrue(Players[1].IsDisqualified);
         }
 
@@ -135,8 +132,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        Play.EndTurn(Players[1].Id);
 	        Play.EndTurn(Players[0].Id);
 	        Play.EndTurn(Players[1].Id);
-	        const int directAttack = -1;
-	        Play.Attack(Players[1].Id, unit, directAttack);
+	        Play.DirectAttack(Players[1].Id, unit);
 
 	        Assert.IsTrue(Players[1].IsDisqualified);
 
@@ -148,8 +144,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        StartGame(DeckList);
 	        var unit = Players[1].Hand[0].Id;
 	        Play.Deploy(Players[1].Id, unit);
-	        const int directAttack = -1;
-	        Play.Attack(Players[1].Id, unit, directAttack);
+	        Play.DirectAttack(Players[1].Id, unit);
 
 	        Assert.IsTrue(Players[1].IsDisqualified);
         }
@@ -158,8 +153,7 @@ namespace CardGame.Tests.Scripts.Serverside
         {
 	        StartGame(DeckList);
 	        var unit = Players[1].Hand[0].Id;
-	        const int directAttack = -1;
-	        Play.Attack(Players[1].Id, unit, directAttack);
+	        Play.DirectAttack(Players[1].Id, unit);
 
 	        Assert.IsTrue(Players[1].IsDisqualified);
         }
