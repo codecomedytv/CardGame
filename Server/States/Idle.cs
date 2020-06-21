@@ -108,7 +108,7 @@ namespace CardGame.Server.States
 
         public override bool OnEndTurn()
         {
-            Player.EndTurn();
+            Player.DeclarePlay(new MarkerEvent(Player, GameEvents.EndTurn));
             Player.IsTurnPlayer = false;
             Player.Opponent.IsTurnPlayer = true;
             Player.Opponent.Field.ForEach(unit => Player.Opponent.DeclarePlay(new Modify(Player.Opponent, unit, nameof(Card.Ready), true)));

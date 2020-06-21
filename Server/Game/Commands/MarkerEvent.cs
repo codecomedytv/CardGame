@@ -2,10 +2,12 @@
 {
     public class MarkerEvent: GameEvent
     {
+        public readonly ISource Source;
         public readonly GameEvents GameEvent;
 
-        public MarkerEvent(GameEvents gameEvent)
+        public MarkerEvent(ISource source, GameEvents gameEvent)
         {
+            Source = source;
             GameEvent = gameEvent;
         }
         
