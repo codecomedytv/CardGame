@@ -14,6 +14,7 @@ namespace CardGame.Server.Room {
 		private readonly BaseMessenger Messenger;
 		private Dictionary<int, Player> Players;
 		private readonly CardCatalog CardCatalog = new CardCatalog();
+		public readonly History History = new History();
 		public readonly Battle Battle = new Battle();
 		public readonly Link Link = new Link();
 		private Player TurnPlayer;
@@ -51,7 +52,8 @@ namespace CardGame.Server.Room {
 			ConnectSignals(Messenger, nameof(BaseMessenger.PassedPriority), this, nameof(OnPriorityPassed));
 			foreach (var player in Players.Values)
 			{
-				ConnectSignals(player, nameof(Player.PlayExecuted), this.Messenger, nameof(Messenger.OnPlayExecuted));
+				ConnectSignals(player, nameof(Player.PlayExecuted), History, nameof(History.OnPlayExecuted));
+				ConnectSignals(player, nameof(Player.PlayExecuted), Messenger, nameof(Messenger.OnPlayExecuted));
 				player.Game = this;
 			}
 
@@ -95,8 +97,6 @@ namespace CardGame.Server.Room {
 		private void BeginTurn()
 		{
 			var player = TurnPlayer;
-			// Need to figure a way for this to trigger on state entry?
-			// Might be better as command instead
 			player.Draw();
 			player.SetState(new Idle());
 			Link.ApplyConstants();
