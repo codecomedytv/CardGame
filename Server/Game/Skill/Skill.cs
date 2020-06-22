@@ -1,8 +1,8 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using CardGame.Server.Game;
-using CardGame.Server.Game.Cards;
+using CardGame.Server.Room;
+using CardGame.Server.Room.Cards;
 using Godot.Collections;
 using Array = Godot.Collections.Array;
 using Object = Godot.Object;
@@ -20,7 +20,7 @@ namespace CardGame.Server {
 		public bool CanBeUsed = false;
 		public string AreaOfActivation;
 		public Dictionary Parameters;
-		public Gamestate GameState;
+		public Game Game;
 		public Types Type = Types.Manual;
 		public string GameEvent;
 		public Card Target;

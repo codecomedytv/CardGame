@@ -1,5 +1,5 @@
 using CardGame.Client.Match;
-using CardGame.Server.Game.Cards;
+using CardGame.Server.Room.Cards;
 using Godot.Collections;
 
 namespace CardGame.Server.States

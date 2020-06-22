@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using CardGame.Server.Game.Cards;
+using CardGame.Server.Room.Cards;
 using CardGame.Server.States;
 using Godot;
 using Godot.Collections;
 
-namespace CardGame.Server.Game {
+namespace CardGame.Server.Room {
 
 	public class Link : Reference
 	{

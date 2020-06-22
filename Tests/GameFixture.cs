@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CardGame.Server;
-using CardGame.Server.Game;
+using CardGame.Server.Room;
 
 namespace CardGame.Tests.Scripts
 {
@@ -11,7 +11,7 @@ namespace CardGame.Tests.Scripts
     public List<Player> Players = new List<Player>();
     // public Gamestate GameState = new Gamestate();
     public MockMessenger Play;// Replace with test focused
-    public Room Game;
+    public Game Game;
 
     protected void StartGame(List<SetCodes> deckList, List<SetCodes> deckList2 = null)
     {
@@ -19,7 +19,7 @@ namespace CardGame.Tests.Scripts
         Players.Add(new Player(1, deckList.ToList()));
         Players.Add(new Player(2, deckList2.ToList()));
         Play = new MockMessenger();
-        Game = new Room(Players, Play);
+        Game = new Game(Players, Play);
         AddChild(Game);
         foreach(var player in Players){ Play.SetReady(player.Id); }
     }

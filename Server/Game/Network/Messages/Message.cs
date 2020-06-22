@@ -1,6 +1,6 @@
 ﻿using Godot.Collections;
 
-namespace CardGame.Server.Game.Network.Messages
+namespace CardGame.Server.Room.Network.Messages
 {
     public class Message
     {

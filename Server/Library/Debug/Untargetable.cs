@@ -1,5 +1,5 @@
-﻿using CardGame.Server.Game;
-using CardGame.Server.Game.Cards;
+﻿using CardGame.Server.Room;
+using CardGame.Server.Room.Cards;
 
 namespace CardGame.Server
 {

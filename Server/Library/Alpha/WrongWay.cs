@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq.Expressions;
-using CardGame.Server.Game.Cards;
-using CardGame.Server.Game.Commands;
+using CardGame.Server.Room.Cards;
+using CardGame.Server.Room.Commands;
 
 namespace CardGame.Server
 {

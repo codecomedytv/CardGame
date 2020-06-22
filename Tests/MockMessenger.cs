@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using CardGame.Server;
-using CardGame.Server.Game;
-using CardGame.Server.Game.Network.Messenger;
+using CardGame.Server.Room;
+using CardGame.Server.Room.Network.Messenger;
 using Godot;
 using static Godot.Collections.Array;
 

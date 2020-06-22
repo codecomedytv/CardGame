@@ -1,7 +1,7 @@
-﻿using CardGame.Server.Game.Cards;
+﻿using CardGame.Server.Room.Cards;
 using Godot;
 
-namespace CardGame.Server.Game.Commands
+namespace CardGame.Server.Room.Commands
 {
     public class Modify: GameEvent, ICommand
     {

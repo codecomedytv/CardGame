@@ -1,4 +1,4 @@
-﻿namespace CardGame.Server.Game
+﻿namespace CardGame.Server.Room
 {
     public interface ISource
     {

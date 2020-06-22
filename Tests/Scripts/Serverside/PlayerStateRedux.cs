@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CardGame.Server;
-using CardGame.Server.Game.Cards;
+using CardGame.Server.Room.Cards;
 using CardGame.Server.States;
 using Godot;
 using Godot.Collections;

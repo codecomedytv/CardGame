@@ -1,6 +1,6 @@
-﻿using CardGame.Server.Game.Cards;
+﻿using CardGame.Server.Room.Cards;
 
-namespace CardGame.Server.Game.Network.Messages
+namespace CardGame.Server.Room.Network.Messages
 {
     public class SetAsSettable: Message
     {

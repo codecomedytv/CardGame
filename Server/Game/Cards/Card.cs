@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 
-namespace CardGame.Server.Game.Cards {
+namespace CardGame.Server.Room.Cards {
 
 	public abstract class Card : Reference, ISource
 	{

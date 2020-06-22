@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using CardGame.Server.Game.Cards;
-using CardGame.Server.Game.Network.Messages;
+using CardGame.Server.Room.Cards;
+using CardGame.Server.Room.Network.Messages;
 using CardGame.Server.States;
 using Godot;
 using Serialized = System.Collections.Generic.Dictionary<object, object>;
@@ -34,7 +34,7 @@ namespace CardGame.Server
         {
             Player = player;
             State = state;
-            Message = new Game.Network.Messages.SetState(state.ToString());
+            Message = new Room.Network.Messages.SetState(state.ToString());
         }
         
     }
@@ -82,7 +82,7 @@ namespace CardGame.Server
         public LoadDeck(List<Card> cardsLoaded)
         {
             CardsLoaded = cardsLoaded;
-            Message = new Game.Network.Messages.LoadDeck(cardsLoaded.Count);
+            Message = new Room.Network.Messages.LoadDeck(cardsLoaded.Count);
         }
     }
     

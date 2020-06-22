@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using CardGame.Server.Game;
-using CardGame.Server.Game.Cards;
+using CardGame.Server.Room;
+using CardGame.Server.Room.Cards;
 using Godot.Collections;
 
 namespace CardGame.Server

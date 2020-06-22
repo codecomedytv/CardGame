@@ -1,5 +1,5 @@
-﻿using CardGame.Server.Game.Cards;
-using CardGame.Server.Game.Commands;
+﻿using CardGame.Server.Room.Cards;
+using CardGame.Server.Room.Commands;
 
 namespace CardGame.Server
 {
@@ -21,7 +21,7 @@ namespace CardGame.Server
 
             protected override void _Resolve()
             {
-                Controller.DeclarePlay(new Move(Card, GameState.Attacking.Owner, GameState.Attacking, GameState.Attacking.Owner.Graveyard));
+                Controller.DeclarePlay(new Move(Card, Game.Attacking.Owner, Game.Attacking, Game.Attacking.Owner.Graveyard));
             }
         }
     }

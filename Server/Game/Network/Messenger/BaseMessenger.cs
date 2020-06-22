@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Godot;
 using Godot.Collections;
 
-namespace CardGame.Server.Game.Network.Messenger {
+namespace CardGame.Server.Room.Network.Messenger {
 	
 	public class BaseMessenger : Node
 	{

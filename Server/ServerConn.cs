@@ -1,7 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
-using CardGame.Server.Game;
+using CardGame.Server.Room;
 
 namespace CardGame.Server {
 	
@@ -61,7 +61,7 @@ namespace CardGame.Server {
 		private void CreateRoom() 
 		{
 			var players = GetPlayers();
-			var room = new Room(players);
+			var room = new Room.Game(players);
 			RoomCount++;
 			room.Name = RoomCount.ToString();
 			AddChild(room);

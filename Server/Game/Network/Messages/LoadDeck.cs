@@ -1,4 +1,4 @@
-﻿namespace CardGame.Server.Game.Network.Messages
+﻿namespace CardGame.Server.Room.Network.Messages
 {
     public class LoadDeck: Message
     {

@@ -3,9 +3,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using CardGame.Server.Game;
-using CardGame.Server.Game.Cards;
-using CardGame.Server.Game.Commands;
+using CardGame.Server.Room;
+using CardGame.Server.Room.Cards;
+using CardGame.Server.Room.Commands;
 using CardGame.Server.States;
 using Godot.Collections;
 
@@ -69,12 +69,12 @@ namespace CardGame.Server {
 		}
 
 
-		public void LoadDeck(Gamestate game)
+		public void LoadDeck(Room.Game game)
 		{
 			foreach (SetCodes setCode in DeckList)
 			{
 				var card = Library.Create(setCode);
-				card.Skill.GameState = game;
+				card.Skill.Game = game;
 				card.Owner = this;
 				card.Controller = this;
 				card.Zone = Deck;

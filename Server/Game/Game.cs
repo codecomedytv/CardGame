@@ -1,24 +1,23 @@
 using System.Collections.Generic;
 using System.Linq;
-using CardGame.Server.Game.Cards;
-using CardGame.Server.Game.Network.Messenger;
+using CardGame.Server.Room.Cards;
+using CardGame.Server.Room.Network.Messenger;
 using CardGame.Server.States;
 using Godot;
-using Godot.Collections;
 
-namespace CardGame.Server.Game {
 
-	public class Room : Node
+namespace CardGame.Server.Room {
+
+	public class Game : Node
 	{
 		
-		//private List<Player> Players;
-		private System.Collections.Generic.Dictionary<int, Player> Players;
-		//private System.Collections.Generic.Dictionary<int, Card> Cards;
 		private readonly BaseMessenger Messenger;
-		public readonly Gamestate GameState;
+		private Dictionary<int, Player> Players;
+		private readonly CardCatalog CardCatalog = new CardCatalog();
 		private readonly Battle Battle = new Battle();
 		private readonly Link Link = new Link();
 		private Player TurnPlayer;
+		public Unit Attacking;
 
 		[Signal]
 		public delegate void GameStateUpdated();
@@ -26,9 +25,9 @@ namespace CardGame.Server.Game {
 		[Signal]
 		public delegate void Disqualified();
 
-		public Room() { }
+		public Game() { }
 
-		public Room(List<Player> players, BaseMessenger messenger = null)
+		public Game(List<Player> players, BaseMessenger messenger = null)
 		{
 			Messenger = messenger ?? new RealMessenger();
 			Players = new System.Collections.Generic.Dictionary<int, Player>();
@@ -36,7 +35,7 @@ namespace CardGame.Server.Game {
 			Players[players[1].Id] = players[1];
 			players[0].Opponent = players[1];
 			players[1].Opponent = players[0];
-			GameState = new Gamestate();
+			//GameState = new Gamestate();
 		}
 
 		public override void _Ready()
@@ -75,7 +74,7 @@ namespace CardGame.Server.Game {
 
 			foreach (var player in Players.Values)
 			{
-				player.LoadDeck(GameState);
+				player.LoadDeck(this);
 				player.Shuffle();
 			}
 
@@ -106,7 +105,7 @@ namespace CardGame.Server.Game {
 		private void OnDeploy(int playerId, int cardId)
 		{
 			var player = Players[playerId];
-			var card = (Unit)GameState.GetCard(cardId);
+			var card = (Unit)CardCatalog.GetCard(cardId);
 			var disqualifyPlayer = player.OnDeploy(card);
 			if (disqualifyPlayer)
 			{
@@ -119,9 +118,9 @@ namespace CardGame.Server.Game {
 		private void OnAttack(int playerId, int attackerId, int defenderId)
 		{
 			var player = Players[playerId];
-			var attacker = GameState.GetCard(attackerId) as Unit;
-			var defender = GameState.GetCard(defenderId) as Unit;
-			GameState.Attacking = attacker;
+			var attacker = CardCatalog.GetCard(attackerId) as Unit;
+			var defender = CardCatalog.GetCard(defenderId) as Unit;
+			Attacking = attacker;
 			var disqualifyPlayer = player.OnAttack(attacker, defender);
 			if (disqualifyPlayer)
 			{
@@ -133,8 +132,8 @@ namespace CardGame.Server.Game {
 		private void OnDirectAttack(int playerId, int attackerId)
 		{
 			var player = Players[playerId];
-			var attacker = GameState.GetCard(attackerId) as Unit;
-			GameState.Attacking = attacker;
+			var attacker = CardCatalog.GetCard(attackerId) as Unit;
+			Attacking = attacker;
 			var disqualifyPlayer = player.OnDirectAttack(attacker);
 			if (disqualifyPlayer)
 			{
@@ -147,7 +146,7 @@ namespace CardGame.Server.Game {
 		private void OnSetFaceDown(int playerId, int faceDownId)
 		{
 			var player = Players[playerId];
-			var card = (Support)GameState.GetCard(faceDownId);
+			var card = (Support)CardCatalog.GetCard(faceDownId);
 			var disqualifyPlayer = player.OnSetFaceDown(card);
 			if (disqualifyPlayer)
 			{
@@ -159,9 +158,9 @@ namespace CardGame.Server.Game {
 		private void OnActivation(int playerId, int cardId, int targetId = 0)
 		{
 			var player = Players[playerId];
-			var card = (Support)GameState.GetCard(cardId);
+			var card = (Support)CardCatalog.GetCard(cardId);
 			// Note: We may want to add a null object card for situations like this
-			var target = GameState.GetCard(targetId);
+			var target = CardCatalog.GetCard(targetId);
 			var disqualifyPlayer = player.OnActivation(card, target);
 			if (disqualifyPlayer)
 			{
@@ -175,7 +174,7 @@ namespace CardGame.Server.Game {
 		{
 			// TODO: Refactor Into State
 			var player = Players[playerId];
-			var target = GameState.GetCard(targetId);
+			var target = CardCatalog.GetCard(targetId);
 			player.OnTargetSelected(target);
 		}
 
@@ -210,6 +209,8 @@ namespace CardGame.Server.Game {
 			Messenger.DisqualifyPlayer(player.Id, reason);
 			Messenger.DisqualifyPlayer(player.Opponent.Id, 0);
 		}
+		
+		public void RegisterCard(Card card) => CardCatalog.RegisterCard(card);
 
 		public void Update()
 		{

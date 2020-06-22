@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace CardGame.Server.Game.Commands
+namespace CardGame.Server.Room.Commands
 {
     public class ModifyPlayer: GameEvent, ICommand
     {
