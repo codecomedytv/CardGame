@@ -26,7 +26,7 @@ namespace CardGame.Server.Room.Cards
             if (Zone != Controller.Field || !Ready || Attacked) return;
             ValidAttackTargets = Opponent.Field;
             Controller.DeclarePlay(new Modify(Controller, this, nameof(CanAttack), true));
-            Controller.DeclarePlay(new SetTargets(this, ValidAttackTargets));
+            // TODO: Re-implement Setting Attack Targets
         }
         
 

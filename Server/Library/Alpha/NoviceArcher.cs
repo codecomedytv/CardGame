@@ -36,7 +36,7 @@ namespace CardGame.Server
             {
                 var units = (from Unit u in Opponent.Field where u.Attack < 1000 select u).Cast<Card>().ToList();
                 SetTargets(units);
-                AutoTarget();
+                RequestTarget();
             }
 
             protected override void _Resolve()

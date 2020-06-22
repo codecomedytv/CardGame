@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using CardGame.Server.Room;
 using CardGame.Server.Room.Cards;
-using Godot.Collections;
 
 namespace CardGame.Server
 {
@@ -9,14 +7,23 @@ namespace CardGame.Server
     {
         protected void SetTargets(List<Card> cards)
         {
-            Controller.DeclarePlay(new SetTargets(Card, cards));
+            // TODO: Re-implement This
+            // Our previous version was an event, not a command!
+            // We also may need to separate Attack Targets and Skill Targets
+            // To help sending messages we could probably set it to a godot collection
+            // (I don't know if System.Collections works and even if it did, it won't work on the
+            // signal end).
         }
 
-        protected void AutoTarget()
+        protected void RequestTarget()
         {
             Targeting = true;
-            // This shouldn't be an event. We could likely hard code this via signal
             // TODO: Re-implement This
+            // The previous version of this was a GameEvent. It is likely that we could possibly hard-code this
+            // Although that may cause problems with an animation sync (unless of course the targets don't become
+            // valid until we change the client state to a valid state to target)
+            // I'm not sure if the targeting bool should exist on this skill or on the player itself.
+            
         }
     }
 }

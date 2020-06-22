@@ -85,18 +85,5 @@ namespace CardGame.Server
             Message = new Room.Network.Messages.LoadDeck(cardsLoaded.Count);
         }
     }
-    
-    public class SetTargets : GameEvent
-    {
-        // Possibly best to only add a target at a time?
-        public readonly Card Selector;
-        public readonly List<Card> Targets;
 
-        public SetTargets(Card selector, List<Card> targets)
-        {
-            Selector = selector;
-            Targets = targets;
-        }
-    }
-    
 }
