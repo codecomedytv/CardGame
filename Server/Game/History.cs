@@ -8,7 +8,7 @@ namespace CardGame.Server.Room
         private int TurnCount = 0;
         private readonly List<GameEvent> Events = new List<GameEvent>();
 
-        public void OnPlayExecuted(GameEvent gameEvent)
+        public void OnPlayExecuted(Player player, GameEvent gameEvent)
         {
             // Should be private but will need to reroute connection
             Events.Add(gameEvent);
