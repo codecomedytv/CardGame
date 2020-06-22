@@ -3,7 +3,7 @@ using Godot;
 
 namespace CardGame.Server.Room.Commands
 {
-    public class Modify: GameEvent, ICommand
+    public class ModifyCard: GameEvent, ICommand
     {
         public readonly object Old;
         public readonly object New;
@@ -11,7 +11,7 @@ namespace CardGame.Server.Room.Commands
         public readonly ISource Source;
         public readonly Card Card;
         
-        public Modify(ISource source, Card card, string property, object newValue)
+        public ModifyCard(ISource source, Card card, string property, object newValue)
         {
             Source = source;
             Card = card;

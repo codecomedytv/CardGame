@@ -111,8 +111,8 @@ namespace CardGame.Server.States
             Player.DeclarePlay(new MarkerEvent(Player, GameEvents.EndTurn));
             Player.IsTurnPlayer = false;
             Player.Opponent.IsTurnPlayer = true;
-            Player.Opponent.Field.ForEach(unit => Player.Opponent.DeclarePlay(new Modify(Player.Opponent, unit, nameof(Card.Ready), true)));
-            Player.Support.ForEach(support => Player.DeclarePlay(new Modify(Player, support, nameof(Card.Ready), true)));
+            Player.Opponent.Field.ForEach(unit => Player.Opponent.DeclarePlay(new ModifyCard(Player.Opponent, unit, nameof(Card.Ready), true)));
+            Player.Support.ForEach(support => Player.DeclarePlay(new ModifyCard(Player, support, nameof(Card.Ready), true)));
             Link.ApplyConstants();
             Player.SetState(new Passive());
             Player.Opponent.SetState(new Idle());

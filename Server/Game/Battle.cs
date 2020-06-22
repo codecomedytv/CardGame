@@ -50,7 +50,7 @@ namespace CardGame.Server.Room {
 					Attacking.Win();
 				}
 				
-				Attacking.DeclarePlay(new Modify(Attacking, Attacker, nameof(Card.Ready), false));
+				Attacking.DeclarePlay(new ModifyCard(Attacking, Attacker, nameof(Card.Ready), false));
 			}
 			
 			else if (Attacker.Attack <= Defender.Defense && Defender.Attack > Attacker.Defense)
@@ -63,12 +63,12 @@ namespace CardGame.Server.Room {
 					Defending.Win();
 				}
 			
-				Attacking.DeclarePlay(new Modify(Attacking, Attacker, nameof(Card.Ready), false));
+				Attacking.DeclarePlay(new ModifyCard(Attacking, Attacker, nameof(Card.Ready), false));
 			}
 
 			else
 			{
-				Attacking.DeclarePlay(new Modify(Attacking, Attacker, nameof(Card.Ready), false));
+				Attacking.DeclarePlay(new ModifyCard(Attacking, Attacker, nameof(Card.Ready), false));
 			}
 		}
 
@@ -82,7 +82,7 @@ namespace CardGame.Server.Room {
 				Attacking.Win();
 			}
 			
-			Attacking.DeclarePlay(new Modify(Attacking, Attacker, nameof(Card.Ready), false));
+			Attacking.DeclarePlay(new ModifyCard(Attacking, Attacker, nameof(Card.Ready), false));
 		}
 		
 		public void Resolve(string ignore = "")

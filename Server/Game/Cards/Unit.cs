@@ -18,14 +18,14 @@ namespace CardGame.Server.Room.Cards
         public override void SetCanBeDeployed()
         {
             if (Zone == Controller.Hand && Controller.Field.Count < 7) 
-            { Controller.DeclarePlay(new Modify(Controller, this, nameof(CanBeDeployed), this)); }
+            { Controller.DeclarePlay(new ModifyCard(Controller, this, nameof(CanBeDeployed), this)); }
         }
 
         public override void SetCanAttack()
         {
             if (Zone != Controller.Field || !Ready || Attacked) return;
             ValidAttackTargets = Opponent.Field;
-            Controller.DeclarePlay(new Modify(Controller, this, nameof(CanAttack), true));
+            Controller.DeclarePlay(new ModifyCard(Controller, this, nameof(CanAttack), true));
             // TODO: Re-implement Setting Attack Targets
         }
         
