@@ -163,14 +163,14 @@ animations = [ {
 
 [sub_resource type="SpriteFrames" id=8]
 animations = [ {
-"frames": [ ExtResource( 8 ), ExtResource( 11 ), ExtResource( 45 ), ExtResource( 10 ), ExtResource( 56 ), ExtResource( 64 ), ExtResource( 72 ), ExtResource( 48 ), ExtResource( 73 ), ExtResource( 60 ), ExtResource( 66 ), ExtResource( 65 ), ExtResource( 70 ), ExtResource( 63 ), ExtResource( 71 ), ExtResource( 52 ), ExtResource( 68 ), ExtResource( 53 ), ExtResource( 46 ), ExtResource( 51 ), ExtResource( 49 ), ExtResource( 58 ), ExtResource( 61 ), ExtResource( 55 ), ExtResource( 59 ), ExtResource( 67 ), ExtResource( 62 ), ExtResource( 54 ), ExtResource( 50 ), ExtResource( 69 ), ExtResource( 57 ), ExtResource( 47 ) ],
-"loop": true,
-"name": "Valid",
-"speed": 31.0
-}, {
 "frames": [ ExtResource( 77 ), ExtResource( 81 ), ExtResource( 74 ), ExtResource( 78 ), ExtResource( 79 ), ExtResource( 80 ), ExtResource( 75 ), ExtResource( 76 ), ExtResource( 93 ), ExtResource( 102 ), ExtResource( 97 ), ExtResource( 92 ), ExtResource( 87 ), ExtResource( 89 ), ExtResource( 83 ), ExtResource( 84 ), ExtResource( 96 ), ExtResource( 95 ), ExtResource( 101 ), ExtResource( 105 ), ExtResource( 82 ), ExtResource( 104 ), ExtResource( 85 ), ExtResource( 86 ), ExtResource( 98 ), ExtResource( 91 ), ExtResource( 88 ), ExtResource( 99 ), ExtResource( 90 ), ExtResource( 94 ), ExtResource( 100 ), ExtResource( 103 ) ],
 "loop": true,
 "name": "Selected",
+"speed": 31.0
+}, {
+"frames": [ ExtResource( 8 ), ExtResource( 11 ), ExtResource( 45 ), ExtResource( 10 ), ExtResource( 56 ), ExtResource( 64 ), ExtResource( 72 ), ExtResource( 48 ), ExtResource( 73 ), ExtResource( 60 ), ExtResource( 66 ), ExtResource( 65 ), ExtResource( 70 ), ExtResource( 63 ), ExtResource( 71 ), ExtResource( 52 ), ExtResource( 68 ), ExtResource( 53 ), ExtResource( 46 ), ExtResource( 51 ), ExtResource( 49 ), ExtResource( 58 ), ExtResource( 61 ), ExtResource( 55 ), ExtResource( 59 ), ExtResource( 67 ), ExtResource( 62 ), ExtResource( 54 ), ExtResource( 50 ), ExtResource( 69 ), ExtResource( 57 ), ExtResource( 47 ) ],
+"loop": true,
+"name": "Valid",
 "speed": 31.0
 } ]
 
@@ -187,6 +187,7 @@ __meta__ = {
 }
 
 [node name="Title" type="Label" parent="."]
+visible = false
 margin_top = 91.0
 margin_right = 100.0
 margin_bottom = 102.0
@@ -310,7 +311,7 @@ position = Vector2( 1174.45, 1291.75 )
 scale = Vector2( 19.0056, 18.9296 )
 frames = SubResource( 7 )
 animation = "Blue"
-frame = 23
+frame = 24
 playing = true
 
 [node name="ValidTarget" type="AnimatedSprite" parent="Frame"]
@@ -321,7 +322,7 @@ position = Vector2( -1120.24, -784.34 )
 scale = Vector2( 18.2857, 19.2292 )
 frames = SubResource( 8 )
 animation = "Valid"
-frame = 26
+frame = 27
 playing = true
 centered = false
 
@@ -333,7 +334,7 @@ position = Vector2( -1120.24, -784.34 )
 scale = Vector2( 18.2857, 19.2292 )
 frames = SubResource( 8 )
 animation = "Selected"
-frame = 7
+frame = 8
 playing = true
 centered = false
 

@@ -40,18 +40,18 @@ namespace CardGame.Server.Room {
 		public override void _Ready()
 		{
 			AddChild(Messenger);
-			connect(Messenger, nameof(BaseMessenger.Targeted), this, nameof(OnTarget));
-			connect(Messenger, nameof(BaseMessenger.PlayerSeated), this, nameof(OnPlayerSeated));
-			connect(Messenger, nameof(BaseMessenger.EndedTurn), this, nameof(OnEndTurn));
-			connect(Messenger, nameof(BaseMessenger.Deployed), this, nameof(OnDeploy));
-			connect(Messenger, nameof(BaseMessenger.Attacked), this, nameof(OnAttack));
-			connect(Messenger, nameof(BaseMessenger.AttackedDirectly), this, nameof(OnDirectAttack));
-			connect(Messenger, nameof(BaseMessenger.FaceDownSet),this, nameof(OnSetFaceDown));
-			connect(Messenger, nameof(BaseMessenger.Activated), this, nameof(OnActivation));
-			connect(Messenger, nameof(BaseMessenger.PassedPriority), this, nameof(OnPriorityPassed));
+			ConnectSignals(Messenger, nameof(BaseMessenger.Targeted), this, nameof(OnTarget));
+			ConnectSignals(Messenger, nameof(BaseMessenger.PlayerSeated), this, nameof(OnPlayerSeated));
+			ConnectSignals(Messenger, nameof(BaseMessenger.EndedTurn), this, nameof(OnEndTurn));
+			ConnectSignals(Messenger, nameof(BaseMessenger.Deployed), this, nameof(OnDeploy));
+			ConnectSignals(Messenger, nameof(BaseMessenger.Attacked), this, nameof(OnAttack));
+			ConnectSignals(Messenger, nameof(BaseMessenger.AttackedDirectly), this, nameof(OnDirectAttack));
+			ConnectSignals(Messenger, nameof(BaseMessenger.FaceDownSet),this, nameof(OnSetFaceDown));
+			ConnectSignals(Messenger, nameof(BaseMessenger.Activated), this, nameof(OnActivation));
+			ConnectSignals(Messenger, nameof(BaseMessenger.PassedPriority), this, nameof(OnPriorityPassed));
 			foreach (var player in Players.Values)
 			{
-				connect(player, nameof(Player.PlayExecuted), this.Messenger, nameof(Messenger.OnPlayExecuted));
+				ConnectSignals(player, nameof(Player.PlayExecuted), this.Messenger, nameof(Messenger.OnPlayExecuted));
 				player.Game = this;
 			}
 
@@ -92,7 +92,7 @@ namespace CardGame.Server.Room {
 			Update();
 		}
 		
-		public void BeginTurn()
+		private void BeginTurn()
 		{
 			var player = TurnPlayer;
 			// Need to figure a way for this to trigger on state entry?
@@ -204,7 +204,7 @@ namespace CardGame.Server.Room {
 			BeginTurn();
 		}
 
-		public void Disqualify(Player player, int reason)
+		private void Disqualify(Player player, int reason)
 		{
 			// We require this call to be deferred so we can keep the RPC Path Connected until Disconnected
 			player.IsDisqualified = true;
@@ -214,14 +214,14 @@ namespace CardGame.Server.Room {
 		
 		public void RegisterCard(Card card) => CardCatalog.RegisterCard(card);
 
-		public void Update()
+		private void Update()
 		{
 			Messenger.Update(Players.Values);
 		}
 		
-		private void connect(Godot.Object emitter, string signal, Godot.Object receiver, string method, Godot.Collections.Array binds = default(Godot.Collections.Array))
+		private static void ConnectSignals(Object emitter, string signal, Object receiver, string method)
 		{
-			var error = emitter.Connect(signal, receiver, method, binds);
+			var error = emitter.Connect(signal, receiver, method);
 			if(error != Error.Ok) { GD.PushWarning(error.ToString()); }
 		}
 	}
