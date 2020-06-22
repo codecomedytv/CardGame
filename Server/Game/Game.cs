@@ -52,9 +52,6 @@ namespace CardGame.Server.Room {
 			foreach (var player in Players.Values)
 			{
 				connect(player, nameof(Player.PlayExecuted), this.Messenger, nameof(Messenger.OnPlayExecuted));
-				var bounds = new Godot.Collections.Array { player.Opponent };
-				//player.Link = Link;
-				//player.Battle = Battle;
 				player.Game = this;
 			}
 

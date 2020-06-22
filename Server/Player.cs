@@ -68,7 +68,7 @@ namespace CardGame.Server {
 		}
 
 
-		public void LoadDeck(Room.Game game)
+		public void LoadDeck(Game game)
 		{
 			foreach (SetCodes setCode in DeckList)
 			{
