@@ -67,7 +67,6 @@ namespace CardGame.Server
         public LoadDeck(List<Card> cardsLoaded)
         {
             CardsLoaded = cardsLoaded;
-            Message = new Room.Network.Messages.LoadDeck(cardsLoaded.Count);
         }
     }
 

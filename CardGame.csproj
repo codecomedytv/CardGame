@@ -88,7 +88,6 @@
     <Compile Include="Server\Game\Events\GameEvent.cs" />
     <Compile Include="Server\Game\History.cs" />
     <Compile Include="Server\Game\Network\BaseMessenger.cs" />
-    <Compile Include="Server\Game\Network\LoadDeck.cs" />
     <Compile Include="Server\Game\Network\Message.cs" />
     <Compile Include="Server\Game\Game.cs" />
     <Compile Include="Server\Game\Cards\Card.cs" />
