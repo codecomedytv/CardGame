@@ -24,21 +24,7 @@ namespace CardGame.Server
         }
         
     }
-    
-    public class SetState : GameEvent
-    {
-        private Player Player;
-        private State State;
 
-        public SetState(Player player, State state)
-        {
-            Player = player;
-            State = state;
-            Message = new Room.Network.Messages.SetState(state.ToString());
-        }
-        
-    }
-    
     public class AttackUnit : GameEvent
     {
         private Unit Attacker;

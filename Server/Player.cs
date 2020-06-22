@@ -57,7 +57,8 @@ namespace CardGame.Server {
 		{
 			State = newState;
 			State.OnEnter(this);
-			DeclarePlay(new SetState(this, State));
+			// TODO: We've removed the state game event since it was largely unnecessary but we will still..
+			// TODO: need a way to inform the client
 		}
 		
 		public Player(int id, List<SetCodes> deckList)
