@@ -98,18 +98,7 @@ namespace CardGame.Server {
 		{
 			// TODO: Implement Shuffle
 		}
-
-		public void DrawCards(int drawCount)
-		{
-			for (var i = 0; i < drawCount; i++)
-			{
-				if (Deck.Count == 0)
-				{
-					Opponent.Win();
-				}
-				Draw();
-			}
-		}
+		
 
 		public void Draw()
 		{

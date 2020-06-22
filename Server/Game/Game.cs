@@ -80,7 +80,12 @@ namespace CardGame.Server.Room {
 
 			foreach (var player in Players.Values)
 			{
-				player.DrawCards(7);
+				{
+					for (var i = 0; i < 7; i++)
+					{
+						player.Draw();
+					}
+				}
 			}
 
 			TurnPlayer = Players.Values.ToList()[Players.Count - 1];

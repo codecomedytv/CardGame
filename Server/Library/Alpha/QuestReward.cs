@@ -15,7 +15,8 @@ namespace CardGame.Server
         {
             protected override void _Resolve()
             {
-                Controller.DrawCards(2);
+                Controller.Draw();
+                Controller.Draw();
             }
         }
     }
