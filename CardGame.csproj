@@ -88,9 +88,6 @@
     <Compile Include="Server\Game\Network\Messages\Draw.cs" />
     <Compile Include="Server\Game\Network\Messages\LoadDeck.cs" />
     <Compile Include="Server\Game\Network\Messages\Message.cs" />
-    <Compile Include="Server\Game\Network\Messages\SetAsDeployable.cs" />
-    <Compile Include="Server\Game\Network\Messages\SetAsSettable.cs" />
-    <Compile Include="Server\Game\Network\Messages\SetState.cs" />
     <Compile Include="Server\Game\Network\Messenger\BaseMessenger.cs" />
     <Compile Include="Server\Game\Network\Messenger\Messenger.cs" />
     <Compile Include="Server\Game\Game.cs" />

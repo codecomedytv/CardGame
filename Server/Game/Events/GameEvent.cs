@@ -22,7 +22,6 @@ namespace CardGame.Server
         {
             
         }
-        
     }
 
     public class AttackUnit : GameEvent
