@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics.PerformanceData;
+using System.Dynamic;
 using CardGame.Client.Library.Alpha;
+using CardGame.Client.Library.Card;
 using Godot;
 using Godot.Collections;
 
@@ -7,47 +9,30 @@ namespace CardGame.Client.Library
 {
     public class Library
     {
-        static public Card.Card Fetch(int id, SetCodes setCode)
+        public static Card.Card Fetch(int id, SetCodes setCode)
         {
-            var cardScene = ResourceLoader.Load("res://Client/Library/Card/Card.tscn") as PackedScene;
-            var card = (Card.Card) cardScene.Instance();
-            card.Id = id;
-            switch (setCode)
+            
+            var card = setCode switch
             {
-                case SetCodes.Alpha_DungeonGuide:
-                    card.SetData(new DungeonGuide());
-                    break;
-                case SetCodes.Alpha_QuestReward:
-                    card.SetData(new QuestReward());
-                    break;
-                case SetCodes.Alpha_CounterAttack:
-                    card.SetData(new CounterAttack());
-                    break;
-                case SetCodes.Alpha_WrongWay:
-                    card.SetData(new WrongWay());
-                    break;
-                case SetCodes.Alpha_GuardPuppy:
-                    card.SetData(new GuardPuppy());
-                    break;
-                case SetCodes.Alpha_TrainingTrainer:
-                    card.SetData(new TrainingTrainer());
-                    break;
-                case SetCodes.Alpha_NoviceArcher:
-                    card.SetData(new NoviceArcher());
-                    break;
-                default:
-                    card.Blank = true;
-                    break;
-            }
-
+                SetCodes.Alpha_DungeonGuide => Create(id, new DungeonGuide()),
+                SetCodes.Alpha_QuestReward => Create(id, new QuestReward()),
+                SetCodes.Alpha_CounterAttack => Create(id, new CounterAttack()),
+                SetCodes.Alpha_WrongWay => Create(id, new WrongWay()),
+                SetCodes.Alpha_GuardPuppy => Create(id, new GuardPuppy()),
+                SetCodes.Alpha_TrainingTrainer => Create(id, new TrainingTrainer()),
+                SetCodes.Alpha_NoviceArcher => Create(id, new NoviceArcher()),
+                _ => Create(id, new NullCard())
+            };
+                
             return card;
         }
 
-        public static Card.Card Placeholder()
+        private static Card.Card Create(int id, BaseCard data)
         {
-            var cardScene = ResourceLoader.Load("res://Client/Library/Card/Card.tscn") as PackedScene;
+            var cardScene = (PackedScene) ResourceLoader.Load("res://Client/Library/Card/Card.tscn");
             var card = (Card.Card) cardScene.Instance();
-            card.Blank = true;
+            card.Id = id;
+            card.SetData(data);
             return card;
         }
     }

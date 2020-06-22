@@ -2,6 +2,7 @@
 {
     public enum SetCodes
     {
+        NullCard,
         Debug1000_1000,
         Debug500_500,
         Debug1500_1000,
@@ -21,6 +22,6 @@
         Alpha_NoviceArcher,
         Alpha_QuestReward,
         Alpha_TrainingTrainer,
-        Alpha_WrongWay
+        Alpha_WrongWay,
     }
 }

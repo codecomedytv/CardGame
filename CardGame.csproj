@@ -14,6 +14,7 @@
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)\$(Configuration)</IntermediateOutputPath>
     <ApiConfiguration Condition=" '$(Configuration)' != 'Release' ">Debug</ApiConfiguration>
     <ApiConfiguration Condition=" '$(Configuration)' == 'Release' ">Release</ApiConfiguration>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -64,6 +65,7 @@
     <Compile Include="Client\Library\Alpha\DungeonGuide.cs" />
     <Compile Include="Client\Library\Alpha\GuardPuppy.cs" />
     <Compile Include="Client\Library\Alpha\NoviceArcher.cs" />
+    <Compile Include="Client\Library\Alpha\NullCard.cs" />
     <Compile Include="Client\Library\Alpha\QuestReward.cs" />
     <Compile Include="Client\Library\Alpha\TrainingTrainer.cs" />
     <Compile Include="Client\Library\Alpha\WrongWay.cs" />
