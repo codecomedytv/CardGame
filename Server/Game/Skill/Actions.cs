@@ -15,7 +15,8 @@ namespace CardGame.Server
         protected void AutoTarget()
         {
             Targeting = true;
-            Controller.DeclarePlay(new AutoTarget(Card));
+            // This shouldn't be an event. We could likely hard code this via signal
+            // TODO: Re-implement This
         }
     }
 }
