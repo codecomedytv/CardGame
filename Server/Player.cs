@@ -96,7 +96,7 @@ namespace CardGame.Server {
 		
 		public void Shuffle() { /* TODO: Implement Shuffle */ }
 		
-		public void Draw() => DeclarePlay(new Draw(this, this, Deck[Deck.Count-1]));
+		public void Draw() => DeclarePlay(new Move(this, Deck[Deck.Count-1], Hand));
 		
 		public void AttackUnit(Unit attacker, Unit defender) => DeclarePlay(new AttackUnit(attacker, defender));
 		
@@ -104,12 +104,6 @@ namespace CardGame.Server {
 
 		public void Win() { DeclarePlay(new GameOver(this, Opponent)); }
 		
-		public void Move(List<Card> oldZone, Card card, List<Card> newZone)
-		{
-			oldZone.Remove(card);
-			newZone.Add(card);
-			card.Zone = newZone;
-		}
 		
 	}
 	

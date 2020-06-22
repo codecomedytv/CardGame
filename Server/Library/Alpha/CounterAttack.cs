@@ -21,7 +21,7 @@ namespace CardGame.Server
 
             protected override void _Resolve()
             {
-                Controller.DeclarePlay(new Move(Card, Game.Attacking.Owner, Game.Attacking, Game.Attacking.Owner.Graveyard));
+                Controller.DeclarePlay(new Move(Card, Game.Attacking, Game.Attacking.Owner.Graveyard));
             }
         }
     }

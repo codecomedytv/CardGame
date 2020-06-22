@@ -5,32 +5,31 @@ namespace CardGame.Server.Room.Commands
 {
     public class Move: GameEvent, ICommand
     {
-        // The intiiator of the action (either a player or effect)
         public readonly ISource Source;
-        
-        // The Player ("receiver") performing the action
-        public readonly Player Player;
-
-        // The Card the action is being performed on
         public readonly Card Card;
-        
-        // Where they card was
         public readonly List<Card> Origin;
-        
-        // Where the card is being moved to
         public readonly List<Card> Destination;
 
-        public Move(ISource source, Player player, Card card, List<Card> destination)
+        public Move(ISource source, Card card, List<Card> destination)
         {
             Source = source;
-            Player = player;
             Card = card;
             Origin = card.Zone;
             Destination = destination;
         }
 
-        public void Execute() => Player.Move(Origin, Card, Destination);
+        public void Execute()
+        {
+            Origin.Remove(Card);
+            Destination.Add(Card);
+            Card.Zone = Destination;
+        }
 
-        public void Undo() => Player.Move(Destination, Card, Origin);
+        public void Undo()
+        {
+            Destination.Remove(Card);
+            Origin.Add(Card);
+            Card.Zone = Destination;
+        }
     }
 }
