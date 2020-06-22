@@ -92,29 +92,15 @@ namespace CardGame.Server {
 			}
 			EmitSignal(nameof(PlayExecuted), this, gameEvent);
 		}
-
-
-		public void Shuffle()
-		{
-			// TODO: Implement Shuffle
-		}
 		
-
-		public void Draw()
-		{
-			DeclarePlay(new Draw(this, this, Deck[Deck.Count-1]));
-		}
+		public void Shuffle() { /* TODO: Implement Shuffle */ }
 		
-		public void AttackUnit(Unit attacker, Unit defender)
-		{
-			DeclarePlay(new AttackUnit(attacker, defender));
-		}
-
-		public void AttackDirectly(Unit attacker)
-		{
-			DeclarePlay(new AttackDirectly(attacker));
-		}
+		public void Draw() => DeclarePlay(new Draw(this, this, Deck[Deck.Count-1]));
 		
+		public void AttackUnit(Unit attacker, Unit defender) => DeclarePlay(new AttackUnit(attacker, defender));
+		
+		public void AttackDirectly(Unit attacker) => DeclarePlay(new AttackDirectly(attacker));
+
 		public void Win() { DeclarePlay(new GameOver(this, Opponent)); }
 		
 		public void Move(List<Card> oldZone, Card card, List<Card> newZone)
