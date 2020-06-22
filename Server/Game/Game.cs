@@ -62,13 +62,9 @@ namespace CardGame.Server.Room {
 		public void OnPlayerSeated(int id)
 		{
 			Players[id].Ready = true;
-			foreach (var player in Players.Values)
+			if (Players.Values.Any(player => !player.Ready))
 			{
-				if (!player.Ready)
-				{
-					return;
-				}
-				
+				return;
 			}
 
 			foreach (var player in Players.Values)
