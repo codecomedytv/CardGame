@@ -14,9 +14,9 @@ namespace CardGame.Server {
 	public class Player : Node, ISource
 	{
 
-		public State State;
-		public List<SetCodes> DeckList;
+		private readonly List<SetCodes> DeckList;
 		public readonly int Id;
+		public State State;
 		public Player Opponent;
 		public int Health = 8000;
 		public bool Ready = false;
