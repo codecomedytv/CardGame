@@ -18,7 +18,7 @@ namespace CardGame.Server.States
             {
                 return DisqualifyPlayer;
             }
-            Player.Link.Activate(card.Skill, target);
+            Link.Activate(card.Skill, target);
             Player.SetState(new Acting());
             Player.Opponent.SetState(new Active());
 
@@ -29,7 +29,7 @@ namespace CardGame.Server.States
         {
             if (Player.Opponent.State.GetType() == typeof(Passing))
             {
-                Player.Link.Resolve();
+                Link.Resolve();
                 var turnPlayer = Player.IsTurnPlayer ? Player : Player.Opponent;
                 turnPlayer.SetState(new Idle());
                 turnPlayer.Opponent.SetState(new Passive());

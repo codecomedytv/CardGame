@@ -26,8 +26,8 @@ namespace CardGame.Server.States
                 return DisqualifyPlayer;
             }
             Player.DeclarePlay(new Move(Player, Player, unit, Player.Field));
-            Player.Link.Register(unit);
-            Player.Link.Broadcast("deploy", new List<Godot.Object>{unit});
+            Link.Register(unit);
+            Link.Broadcast("deploy", new List<Godot.Object>{unit});
             Player.SetState(new Acting());
             Player.Opponent.SetState(new Active());
             return Ok;
@@ -50,9 +50,9 @@ namespace CardGame.Server.States
                 return DisqualifyPlayer;
             }
 
-            Player.Battle.Begin(Player, attacker, defender);
-            Player.Link.AddResolvable(Player.Battle);
-            Player.Link.Broadcast("attack", new List<Object>());
+            Battle.Begin(Player, attacker, defender);
+            Link.AddResolvable(Battle);
+            Link.Broadcast("attack", new List<Object>());
             Player.SetState(new Acting());
             Player.Opponent.SetState(new Active());
             return Ok;
@@ -64,9 +64,9 @@ namespace CardGame.Server.States
             {
                 return DisqualifyPlayer;
             }
-            Player.Battle.BeginDirectAttack(Player, attacker);
-            Player.Link.AddResolvable(Player.Battle);
-            Player.Link.Broadcast("attack", new List<Object>());
+            Battle.BeginDirectAttack(Player, attacker);
+            Link.AddResolvable(Battle);
+            Link.Broadcast("attack", new List<Object>());
             Player.SetState(new Acting());
             Player.Opponent.SetState(new Active());
             return Ok;
@@ -82,8 +82,8 @@ namespace CardGame.Server.States
             Player.Hand.Remove(support);
             Player.Support.Add(support);
             support.Zone = Player.Support;
-            Player.Link.ApplyConstants();
-            Player.Link.Register(support);
+            Link.ApplyConstants();
+            Link.Register(support);
             Player.DeclarePlay(new Move(Player, Player, support, Player.Support));
 
             // Returning a new Idle State Retriggers the OnEnter System
@@ -98,7 +98,7 @@ namespace CardGame.Server.States
             {
                 return DisqualifyPlayer;
             }
-            Player.Link.Activate(card.Skill, target);
+            Link.Activate(card.Skill, target);
             Player.SetState(new Acting());
             Player.Opponent.SetState(new Active());
 
@@ -113,7 +113,7 @@ namespace CardGame.Server.States
             Player.Opponent.IsTurnPlayer = true;
             Player.Opponent.Field.ForEach(unit => Player.Opponent.DeclarePlay(new Modify(Player.Opponent, unit, nameof(Card.Ready), true)));
             Player.Support.ForEach(support => Player.DeclarePlay(new Modify(Player, support, nameof(Card.Ready), true)));
-            Player.Link.ApplyConstants();
+            Link.ApplyConstants();
             Player.SetState(new Passive());
             Player.Opponent.SetState(new Idle());
             return Ok;

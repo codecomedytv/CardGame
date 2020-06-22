@@ -14,8 +14,8 @@ namespace CardGame.Server.Room {
 		private readonly BaseMessenger Messenger;
 		private Dictionary<int, Player> Players;
 		private readonly CardCatalog CardCatalog = new CardCatalog();
-		private readonly Battle Battle = new Battle();
-		private readonly Link Link = new Link();
+		public readonly Battle Battle = new Battle();
+		public readonly Link Link = new Link();
 		private Player TurnPlayer;
 		public Unit Attacking;
 
@@ -35,7 +35,6 @@ namespace CardGame.Server.Room {
 			Players[players[1].Id] = players[1];
 			players[0].Opponent = players[1];
 			players[1].Opponent = players[0];
-			//GameState = new Gamestate();
 		}
 
 		public override void _Ready()
@@ -54,8 +53,9 @@ namespace CardGame.Server.Room {
 			{
 				connect(player, nameof(Player.PlayExecuted), this.Messenger, nameof(Messenger.OnPlayExecuted));
 				var bounds = new Godot.Collections.Array { player.Opponent };
-				player.Link = Link;
-				player.Battle = Battle;
+				//player.Link = Link;
+				//player.Battle = Battle;
+				player.Game = this;
 			}
 
 		}

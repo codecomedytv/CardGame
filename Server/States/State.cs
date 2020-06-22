@@ -1,4 +1,5 @@
 using System.Security.Policy;
+using CardGame.Server.Room;
 using CardGame.Server.Room.Cards;
 using Godot.Collections;
 
@@ -9,6 +10,8 @@ namespace CardGame.Server.States
         protected const bool Ok = false;
         protected const bool DisqualifyPlayer = true; 
         protected Player Player;
+        public Link Link => Player.Game.Link;
+        public Battle Battle => Player.Game.Battle;
 
         public virtual void OnEnter(Player player)
         {

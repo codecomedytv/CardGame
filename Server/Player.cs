@@ -27,9 +27,8 @@ namespace CardGame.Server {
 		public List<Card> Support = new List<Card>();
 		public bool IsDisqualified;
 		public bool IsTurnPlayer = false;
-		public Link Link;
-		public Battle Battle;
-		
+		public Game Game;
+
 		[Signal]
 		public delegate void TargetSelected();
 
