@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using CardGame.Server;
-using CardGame.Server.Game.Events;
+using CardGame.Server.Game.Commands;
 using CardGame.Server.Game.Network;
 using Godot;
 using static Godot.Collections.Array;
@@ -15,7 +15,7 @@ namespace CardGame.Tests
             Name = "Messenger";
         }
         
-        public override void OnPlayExecuted(Player player, GameEvent @event)
+        public override void OnPlayExecuted(Player player, Command command)
         {
             // Warning: Dummy Method
         }

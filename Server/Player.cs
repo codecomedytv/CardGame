@@ -1,15 +1,12 @@
 using Godot;
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using CardGame.Server.Game;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Commands;
-using CardGame.Server.Game.Events;
 using CardGame.Server.Game.Zones;
 using CardGame.Server.States;
-using Godot.Collections;
 
 namespace CardGame.Server {
 
@@ -93,25 +90,22 @@ namespace CardGame.Server {
 				Deck.Add(card);
 			}
 
-			DeclarePlay(new LoadDeck(Deck.ToList()));
+			DeclarePlay(new LoadDeck(this, new ReadOnlyCollection<Card>(Deck.ToList())));
 		}
 
-		public void DeclarePlay(GameEvent gameEvent)
+		public void DeclarePlay(Command command)
 		{
-			if (gameEvent is ICommand command)
-			{
-				command.Execute();
-			}
-			EmitSignal(nameof(PlayExecuted), this, gameEvent);
+			command.Execute();
+			EmitSignal(nameof(PlayExecuted), this, command);
 		}
 		
 		public void Shuffle() { /* TODO: Implement Shuffle */ }
 		
 		public void Draw() => DeclarePlay(new Move(this, Deck.Top, Hand));
 		
-		public void AttackUnit(Unit attacker, Unit defender) => DeclarePlay(new AttackUnit(attacker, defender));
+		public void AttackUnit(Unit attacker, Unit defender) => DeclarePlay(new DeclareAttack(attacker, defender));
 		
-		public void AttackDirectly(Unit attacker) => DeclarePlay(new AttackDirectly(attacker));
+		public void AttackDirectly(Unit attacker) => DeclarePlay(new DeclareDirectAttack(attacker));
 
 		public void Win() { DeclarePlay(new GameOver(this, Opponent)); }
 		

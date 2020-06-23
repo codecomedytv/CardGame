@@ -1,8 +1,6 @@
-﻿using CardGame.Server.Game.Events;
-
-namespace CardGame.Server.Game.Commands
+﻿namespace CardGame.Server.Game.Commands
 {
-    public class ModifyPlayer: GameEvent, ICommand
+    public class ModifyPlayer: Command
     {
         public readonly Player Player;
         public readonly ISource Source;
@@ -19,8 +17,8 @@ namespace CardGame.Server.Game.Commands
             New = newValue;
         }
 
-        public void Execute() => Player.Set(Property, New);
+        public override void Execute() => Player.Set(Property, New);
 
-        public void Undo() => Player.Set(Property, Old);
+        public override void Undo() => Player.Set(Property, Old);
     }
 }

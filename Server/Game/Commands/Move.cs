@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using CardGame.Server.Game.Cards;
-using CardGame.Server.Game.Events;
+﻿using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Zones;
 
 namespace CardGame.Server.Game.Commands
 {
-    public class Move: GameEvent, ICommand
+    public class Move: Command
     {
         public readonly ISource Source;
         public readonly Card Card;
@@ -24,14 +22,14 @@ namespace CardGame.Server.Game.Commands
             Destination = destination;
         }
 
-        public void Execute()
+        public override void Execute()
         {
             Origin.Remove(Card);
             Destination.Add(Card);
             Card.Zone = Destination;
         }
 
-        public void Undo()
+        public override void Undo()
         {
             Destination.Remove(Card);
             Origin.Add(Card);

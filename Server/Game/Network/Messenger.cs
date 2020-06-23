@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using CardGame.Server.Game.Events;
+using CardGame.Server.Game.Commands;
 using Godot;
 
 namespace CardGame.Server.Game.Network {
@@ -10,11 +10,11 @@ namespace CardGame.Server.Game.Network {
 		
 		public RealMessenger() => Name = "Messenger";
 		
-		public override void OnPlayExecuted(Player player, GameEvent gameEvent)
+		public override void OnPlayExecuted(Player player, Command gameEvent)
 		{
-			var message = gameEvent.Message;
-			RpcId(player.Id, "QueueEvent", message.Player);
-			RpcId(player.Opponent.Id, "QueueEvent", message.Opponent);
+			// var message = gameEvent.Message;
+			// RpcId(player.Id, "QueueEvent", message.Player);
+			// RpcId(player.Opponent.Id, "QueueEvent", message.Opponent);
 		}
 
 		public override void Update(IEnumerable<Player> players)

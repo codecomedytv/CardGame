@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using CardGame.Server.Game.Events;
+using CardGame.Server.Game.Commands;
 using Godot;
 
 namespace CardGame.Server.Game.Network {
@@ -39,7 +39,7 @@ namespace CardGame.Server.Game.Network {
 			Name = "Messenger";
 		}
 
-		public virtual void OnPlayExecuted(Player player, GameEvent @event)
+		public virtual void OnPlayExecuted(Player player, Command command)
 		{
 			throw new NotImplementedException();
 		}
@@ -99,7 +99,7 @@ namespace CardGame.Server.Game.Network {
 			throw new NotImplementedException();
 		}
 
-		public virtual void OnPlayExecuted(GameEvent gameEvent)
+		public virtual void OnPlayExecuted(Command gameEvent)
 		{
 			// TODO: Implement This
 		}

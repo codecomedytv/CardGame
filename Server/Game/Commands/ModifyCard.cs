@@ -1,9 +1,8 @@
 ﻿using CardGame.Server.Game.Cards;
-using CardGame.Server.Game.Events;
 
 namespace CardGame.Server.Game.Commands
 {
-    public class ModifyCard: GameEvent, ICommand
+    public class ModifyCard: Command
     {
         public readonly object Old;
         public readonly object New;
@@ -20,8 +19,8 @@ namespace CardGame.Server.Game.Commands
             New = newValue;
         }
 
-        public void Execute() => Card.Set(Property, New);
+        public override void Execute() => Card.Set(Property, New);
 
-        public void Undo() => Card.Set(Property, Old);
+        public override void Undo() => Card.Set(Property, Old);
     }
 }

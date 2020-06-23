@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using CardGame.Server.Game.Events;
+using CardGame.Server.Game.Commands;
 
 namespace CardGame.Server.Game
 {
@@ -7,12 +7,12 @@ namespace CardGame.Server.Game
     {
         private int Cursor = 0;
         private int TurnCount = 0;
-        private readonly List<GameEvent> Events = new List<GameEvent>();
+        private readonly List<Command> Events = new List<Command>();
 
-        public void OnPlayExecuted(Player player, GameEvent gameEvent)
+        public void OnPlayExecuted(Player player, Command executedCommand)
         {
             // Should be private but will need to reroute connection
-            Events.Add(gameEvent);
+            Events.Add(executedCommand);
             //if(gameEvent.Identity == TurnEnded) {TurnCount += 1}
         }
 
