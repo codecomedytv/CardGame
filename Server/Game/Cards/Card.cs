@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using CardGame.Server.Game.Skill;
 using Godot;
 
-namespace CardGame.Server.Room.Cards {
+namespace CardGame.Server.Game.Cards {
 
 	public abstract class Card : Reference, ISource
 	{
@@ -12,7 +13,7 @@ namespace CardGame.Server.Room.Cards {
 		public Player Owner;
 		public Player Controller;
 		public Player Opponent => Controller.Opponent;
-		public Skill Skill;
+		public Skill.Skill Skill;
 		public List<Card> Zone;
 		public bool Ready = false;
 		public bool Activated = false;
@@ -40,7 +41,7 @@ namespace CardGame.Server.Room.Cards {
 
 		public Dictionary<string, int> Serialize() => new Dictionary<string, int>{{"Id", Id}, {"setCode", (int)SetCode}};
 		
-		protected void AddSkill(Skill skill)
+		protected void AddSkill(Skill.Skill skill)
 		{
 			Skill = skill;
 			skill.Card = this;

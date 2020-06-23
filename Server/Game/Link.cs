@@ -1,17 +1,16 @@
 using System.Collections.Generic;
-using CardGame.Server.Room.Cards;
-using CardGame.Server.States;
+using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Skill;
 using Godot;
-using Godot.Collections;
 
-namespace CardGame.Server.Room {
+namespace CardGame.Server.Game {
 
 	public class Link : Reference
 	{
 		private Stack<IResolvable> Chain = new Stack<IResolvable>();
-		private List<Skill> Constants = new List<Skill>();
-		private List<Skill> Manual = new List<Skill>();
-		private List<Skill> Auto = new List<Skill>();
+		private List<Skill.Skill> Constants = new List<Skill.Skill>();
+		private List<Skill.Skill> Manual = new List<Skill.Skill>();
+		private List<Skill.Skill> Auto = new List<Skill.Skill>();
 
 		public void AddResolvable(IResolvable action) => Chain.Push(action);
 
@@ -42,15 +41,15 @@ namespace CardGame.Server.Room {
 			
 			switch (card.Skill.Type)
 			{
-				case Skill.Types.Constant:
+				case Skill.Skill.Types.Constant:
 					Constants.Add(card.Skill);
 					break;
 				
-				case Skill.Types.Auto:
+				case Skill.Skill.Types.Auto:
 					Auto.Add(card.Skill);
 					break;
 				
-				case Skill.Types.Manual:
+				case Skill.Skill.Types.Manual:
 					Manual.Add(card.Skill);
 					break;
 				default:
@@ -59,17 +58,17 @@ namespace CardGame.Server.Room {
 			
 		}
 		
-		public void Unregister(Skill skill)
+		public void Unregister(Skill.Skill skill)
 		{
 			switch (skill.Type)
 			{
-				case Skill.Types.Constant:
+				case Skill.Skill.Types.Constant:
 					Constants.Remove(skill);
 					return;
-				case Skill.Types.Auto:
+				case Skill.Skill.Types.Auto:
 					Auto.Remove(skill);
 					return;
-				case Skill.Types.Manual:
+				case Skill.Skill.Types.Manual:
 					Manual.Remove(skill);
 					return;
 				default:
@@ -83,7 +82,7 @@ namespace CardGame.Server.Room {
 		}
 		
 		
-		public void Activate(Skill skill, Card target)
+		public void Activate(Skill.Skill skill, Card target)
 		{
 			skill.Target = target;
 			skill.Activate();
@@ -95,7 +94,7 @@ namespace CardGame.Server.Room {
 			while (Chain.Count != 0)
 			{
 				var resolvable = Chain.Pop();
-				if(resolvable is Skill skill && skill.Targeting)
+				if(resolvable is Skill.Skill skill && skill.Targeting)
 				{
 					var result = await ToSignal(skill.Controller, nameof(Player.TargetSelected));
 					skill.Target = result[0] as Card;

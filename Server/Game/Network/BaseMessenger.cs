@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
+using CardGame.Server.Game.Events;
 using Godot;
-using Godot.Collections;
 
-namespace CardGame.Server.Room.Network.Messenger {
+namespace CardGame.Server.Game.Network {
 	
 	public class BaseMessenger : Node
 	{

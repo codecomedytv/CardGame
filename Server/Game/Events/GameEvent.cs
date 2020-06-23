@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using CardGame.Server.Room.Cards;
-using CardGame.Server.Room.Network.Messages;
-using CardGame.Server.States;
+using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Network;
 using Godot;
-using Serialized = System.Collections.Generic.Dictionary<object, object>;
 
-namespace CardGame.Server
+namespace CardGame.Server.Game.Events
 {
 
     public interface ICommand

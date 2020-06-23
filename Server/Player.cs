@@ -3,9 +3,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using CardGame.Server.Room;
-using CardGame.Server.Room.Cards;
-using CardGame.Server.Room.Commands;
+using CardGame.Server.Game;
+using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Commands;
+using CardGame.Server.Game.Events;
 using CardGame.Server.States;
 using Godot.Collections;
 

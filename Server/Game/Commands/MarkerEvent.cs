@@ -1,4 +1,6 @@
-﻿namespace CardGame.Server.Room.Commands
+﻿using CardGame.Server.Game.Events;
+
+namespace CardGame.Server.Game.Commands
 {
     public class MarkerEvent: GameEvent
     {

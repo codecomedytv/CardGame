@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using CardGame.Server.Game.Events;
 
-namespace CardGame.Server.Room
+namespace CardGame.Server.Game
 {
     public class History: Godot.Object
     {

@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
-using CardGame.Server.Room.Cards;
+using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Events;
 
-namespace CardGame.Server.Room.Commands
+namespace CardGame.Server.Game.Commands
 {
     public class Move: GameEvent, ICommand
     {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using CardGame.Server;
-using CardGame.Server.Room.Cards;
+using CardGame.Server.Game.Cards;
 
 namespace CardGame.Tests.Scripts.Serverside
 {

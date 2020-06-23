@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
-using CardGame.Server.Room.Cards;
-using CardGame.Server.Room.Network.Messenger;
+using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Network;
 using CardGame.Server.States;
 using Godot;
 
-
-namespace CardGame.Server.Room {
+namespace CardGame.Server.Game {
 
 	public class Match : Node
 	{

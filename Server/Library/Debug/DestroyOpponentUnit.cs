@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics.Tracing;
 using System.Linq;
-using CardGame.Server.Room;
-using CardGame.Server.Room.Cards;
-using CardGame.Server.Room.Commands;
+using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Commands;
+using CardGame.Server.Game.Skill;
 using Godot;
 
 namespace CardGame.Server

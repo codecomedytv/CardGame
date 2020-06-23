@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using CardGame.Server.Room.Cards;
+using CardGame.Server.Game.Cards;
 
-namespace CardGame.Server
+namespace CardGame.Server.Game.Skill
 {
     public partial class Skill
     {

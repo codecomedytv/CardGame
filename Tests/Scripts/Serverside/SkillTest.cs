@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CardGame.Server;
-using CardGame.Server.Room;
 using Godot;
 using Godot.Collections;
 

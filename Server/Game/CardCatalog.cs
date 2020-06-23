@@ -1,7 +1,7 @@
-﻿using CardGame.Server.Room.Cards;
+﻿using CardGame.Server.Game.Cards;
 using Godot.Collections;
 
-namespace CardGame.Server.Room
+namespace CardGame.Server.Game
 {
     public class CardCatalog
     {

@@ -1,5 +1,6 @@
-﻿using CardGame.Server.Room.Cards;
-using CardGame.Server.Room.Commands;
+﻿using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Commands;
+using CardGame.Server.Game.Skill;
 using Godot;
 
 namespace CardGame.Server

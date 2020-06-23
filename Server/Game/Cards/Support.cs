@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using CardGame.Server.Room.Commands;
+﻿using CardGame.Server.Game.Commands;
 
-namespace CardGame.Server.Room.Cards
+namespace CardGame.Server.Game.Cards
 {
     public class Support: Card
     {

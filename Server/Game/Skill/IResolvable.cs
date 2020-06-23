@@ -1,4 +1,4 @@
-﻿namespace CardGame.Server
+﻿namespace CardGame.Server.Game.Skill
 {
     public interface IResolvable
     {

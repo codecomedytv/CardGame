@@ -1,4 +1,4 @@
-﻿using CardGame.Server.Room.Cards;
+﻿using CardGame.Server.Game.Cards;
 using Godot;
 
 namespace CardGame.Server

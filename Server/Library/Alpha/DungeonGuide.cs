@@ -1,4 +1,4 @@
-﻿using CardGame.Server.Room.Cards;
+﻿using CardGame.Server.Game.Cards;
 
 namespace CardGame.Server
 {

@@ -1,6 +1,6 @@
 using System.Security.Policy;
-using CardGame.Server.Room;
-using CardGame.Server.Room.Cards;
+using CardGame.Server.Game;
+using CardGame.Server.Game.Cards;
 using Godot.Collections;
 
 namespace CardGame.Server.States
