@@ -11,7 +11,7 @@ namespace CardGame.Server.Game {
 	{
 		
 		private readonly BaseMessenger Messenger;
-		private readonly Dictionary<int, Player> Players;
+		private readonly Players Players;
 		private readonly CardCatalog CardCatalog = new CardCatalog();
 		public readonly History History = new History();
 		public readonly Battle Battle = new Battle();
@@ -30,9 +30,8 @@ namespace CardGame.Server.Game {
 		public Match(List<Player> players, BaseMessenger messenger = null)
 		{
 			Messenger = messenger ?? new RealMessenger();
-			Players = new Dictionary<int, Player> {[players[0].Id] = players[0], [players[1].Id] = players[1]};
-			players[0].Opponent = players[1];
-			players[1].Opponent = players[0];
+			Players = new Players(players);
+			
 		}
 
 		public override void _Ready()
@@ -47,7 +46,7 @@ namespace CardGame.Server.Game {
 			ConnectSignals(Messenger, nameof(BaseMessenger.FaceDownSet),this, nameof(OnSetFaceDown));
 			ConnectSignals(Messenger, nameof(BaseMessenger.Activated), this, nameof(OnActivation));
 			ConnectSignals(Messenger, nameof(BaseMessenger.PassedPriority), this, nameof(OnPriorityPassed));
-			foreach (var player in Players.Values)
+			foreach (var player in Players)
 			{
 				ConnectSignals(player, nameof(Player.PlayExecuted), History, nameof(History.OnPlayExecuted));
 				ConnectSignals(player, nameof(Player.PlayExecuted), Messenger, nameof(Messenger.OnPlayExecuted));
@@ -59,12 +58,12 @@ namespace CardGame.Server.Game {
 		public void OnPlayerSeated(int id)
 		{
 			Players[id].Ready = true;
-			if (Players.Values.Any(player => !player.Ready))
+			if (Players.Any(player => !player.Ready))
 			{
 				return;
 			}
 
-			foreach (var player in Players.Values)
+			foreach (var player in Players)
 			{
 				player.LoadDeck(this);
 				player.Shuffle();
@@ -74,7 +73,7 @@ namespace CardGame.Server.Game {
 				}
 			}
 			
-			TurnPlayer = Players.Values.ToList()[Players.Count - 1];
+			TurnPlayer = Players.TurnPlayer();
 			TurnPlayer.IsTurnPlayer = true;
 			TurnPlayer.SetState(new Idle());
 			TurnPlayer.Opponent.SetState(new Passive());
@@ -203,7 +202,7 @@ namespace CardGame.Server.Game {
 
 		private void Update()
 		{
-			Messenger.Update(Players.Values);
+			Messenger.Update(Players);
 		}
 		
 		private static void ConnectSignals(Object emitter, string signal, Object receiver, string method)

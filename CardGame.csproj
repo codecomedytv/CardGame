@@ -94,6 +94,7 @@
     <Compile Include="Server\Game\ISource.cs" />
     <Compile Include="Server\Game\Link.cs" />
     <Compile Include="Server\Game\Network\Messenger.cs" />
+    <Compile Include="Server\Game\Players.cs" />
     <Compile Include="Server\Game\Skill\IResolvable.cs" />
     <Compile Include="Server\Game\Skill\NullSkill.cs" />
     <Compile Include="Server\Game\Skill\Skill.cs" />
