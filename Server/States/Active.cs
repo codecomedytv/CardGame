@@ -9,7 +9,7 @@ namespace CardGame.Server.States
         public override void OnEnter(Player player)
         {
             Player = player;
-            Player.Support.ForEach(card => card.SetCanBeActivated());
+            foreach(var card in Player.Support) {card.SetCanBeActivated();}
         }
 
         public override bool OnActivation(Support card, Card target)

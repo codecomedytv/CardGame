@@ -21,7 +21,7 @@ namespace CardGame.Server
             public override void _SetUp()
             {
                 var units = Opponent.Field;
-                SetTargets(units);
+                SetTargets(units.ToList());
                 CanBeUsed = units.Count > 0;
             }
 

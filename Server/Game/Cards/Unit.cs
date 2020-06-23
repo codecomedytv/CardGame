@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using CardGame.Server.Game.Commands;
 
 namespace CardGame.Server.Game.Cards
@@ -23,7 +24,7 @@ namespace CardGame.Server.Game.Cards
         public override void SetCanAttack()
         {
             if (Zone != Controller.Field || !Ready || Attacked) return;
-            ValidAttackTargets = Opponent.Field;
+            ValidAttackTargets = Opponent.Field.ToList();
             Controller.DeclarePlay(new ModifyCard(Controller, this, nameof(CanAttack), true));
             // TODO: Re-implement Setting Attack Targets
         }

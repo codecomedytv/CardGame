@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Commands;
 using Godot;
@@ -13,10 +14,10 @@ namespace CardGame.Server.States
             Player = player;
             // We're only doing this for cards in hand but it might worth iterating through all cards?
             // Otherwise users may be able to deploy cards illegal from graveyard or deck etc
-            Player.Hand.ForEach(card => card.SetCanBeDeployed());
-            Player.Hand.ForEach(card => card.SetCanBeSet());
-            Player.Field.ForEach(card => card.SetCanAttack());
-            Player.Support.ForEach(card => card.SetCanBeActivated());
+            foreach(var card in Player.Hand) {card.SetCanBeDeployed();}
+            foreach(var card in Player.Hand) {card.SetCanBeSet();}
+            foreach(var card in Player.Field) {card.SetCanAttack();}
+            foreach(var card in Player.Support) {card.SetCanBeActivated();}
         }
 
         public override bool OnDeploy(Unit unit)
@@ -111,8 +112,8 @@ namespace CardGame.Server.States
             Player.DeclarePlay(new MarkerEvent(Player, GameEvents.EndTurn));
             Player.IsTurnPlayer = false;
             Player.Opponent.IsTurnPlayer = true;
-            Player.Opponent.Field.ForEach(unit => Player.Opponent.DeclarePlay(new ModifyCard(Player.Opponent, unit, nameof(Card.Ready), true)));
-            Player.Support.ForEach(support => Player.DeclarePlay(new ModifyCard(Player, support, nameof(Card.Ready), true)));
+            foreach(var unit in Player.Opponent.Field) {Player.Opponent.DeclarePlay(new ModifyCard(Player.Opponent, unit, nameof(Card.Ready), true)); };
+            foreach (var support in Player.Support) { Player.DeclarePlay(new ModifyCard(Player, support, nameof(Card.Ready), true)); }
             Link.ApplyConstants();
             Player.SetState(new Passive());
             Player.Opponent.SetState(new Idle());

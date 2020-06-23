@@ -7,6 +7,7 @@ using CardGame.Server.Game;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Commands;
 using CardGame.Server.Game.Events;
+using CardGame.Server.Game.Zones;
 using CardGame.Server.States;
 using Godot.Collections;
 
@@ -21,11 +22,11 @@ namespace CardGame.Server {
 		public Player Opponent;
 		public int Health = 8000;
 		public bool Ready = false;
-		public List<Card> Deck = new List<Card>();
-		public List<Card> Graveyard = new List<Card>();
-		public List<Card> Hand = new List<Card>();
-		public List<Card> Field = new List<Card>();
-		public List<Card> Support = new List<Card>();
+		public Zone Deck;
+		public Zone Graveyard;
+		public Zone Hand;
+		public Zone Support;
+		public Zone Field;
 		public bool IsDisqualified;
 		public bool IsTurnPlayer = false;
 		public Match Match;
@@ -35,8 +36,15 @@ namespace CardGame.Server {
 
 		[Signal]
 		public delegate void PlayExecuted();
-	
-		public Player() {}
+
+		public Player()
+		{
+			Deck = new Zone(this);
+			Graveyard = new Zone(this);
+			Hand = new Zone(this);
+			Support = new Zone(this);
+			Field = new Zone(this);
+		}
 		
 		public bool OnDeploy(Unit unit) => State.OnDeploy(unit);
 		
@@ -97,7 +105,7 @@ namespace CardGame.Server {
 		
 		public void Shuffle() { /* TODO: Implement Shuffle */ }
 		
-		public void Draw() => DeclarePlay(new Move(this, Deck[Deck.Count-1], Hand));
+		public void Draw() => DeclarePlay(new Move(this, Deck.Top, Hand));
 		
 		public void AttackUnit(Unit attacker, Unit defender) => DeclarePlay(new AttackUnit(attacker, defender));
 		

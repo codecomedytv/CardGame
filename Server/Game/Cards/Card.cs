@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CardGame.Server.Game.Skill;
+using CardGame.Server.Game.Zones;
 using Godot;
 
 namespace CardGame.Server.Game.Cards {
@@ -14,7 +15,7 @@ namespace CardGame.Server.Game.Cards {
 		public Player Controller;
 		public Player Opponent => Controller.Opponent;
 		public Skill.Skill Skill;
-		public List<Card> Zone;
+		public Zone Zone;
 		public bool Ready = false;
 		public bool Activated = false;
 

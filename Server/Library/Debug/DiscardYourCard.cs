@@ -1,4 +1,5 @@
-﻿using CardGame.Server.Game.Cards;
+﻿using System.Linq;
+using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Commands;
 using CardGame.Server.Game.Skill;
 
@@ -17,7 +18,7 @@ namespace CardGame.Server
         {
             public override void _SetUp()
             {
-                SetTargets(Controller.Hand);
+                SetTargets(Controller.Hand.ToList());
                 CanBeUsed = Controller.Hand.Count > 0;
             }
 
