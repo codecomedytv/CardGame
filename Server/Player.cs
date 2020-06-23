@@ -22,11 +22,11 @@ namespace CardGame.Server {
 		public Player Opponent;
 		public int Health = 8000;
 		public bool Ready = false;
-		public Zone Deck;
-		public Zone Graveyard;
-		public Zone Hand;
-		public Zone Support;
-		public Zone Field;
+		public readonly Zone Deck;
+		public readonly Zone Graveyard;
+		public readonly Zone Hand;
+		public readonly Zone Support;
+		public readonly Zone Field;
 		public bool IsDisqualified;
 		public bool IsTurnPlayer = false;
 		public Match Match;
