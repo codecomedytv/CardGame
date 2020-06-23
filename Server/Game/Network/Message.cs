@@ -12,7 +12,9 @@ namespace CardGame.Server.Game.Network
 
         public Message()
         {
-            
+            // This doesn't need to be a Message
+            // We can likely tell the client to do things directly since we only have a few actions
+            // We still need to figure out how to redefine some of these actions though
         }
     }
 }
