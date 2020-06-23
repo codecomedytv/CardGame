@@ -39,11 +39,7 @@ namespace CardGame.Server {
 
 		public Player()
 		{
-			Deck = new Zone(this);
-			Graveyard = new Zone(this);
-			Hand = new Zone(this);
-			Support = new Zone(this);
-			Field = new Zone(this);
+			
 		}
 		
 		public bool OnDeploy(Unit unit) => State.OnDeploy(unit);
@@ -75,6 +71,11 @@ namespace CardGame.Server {
 			DeckList = deckList;
 			Id = id;
 			// Shuffle = shuffle;
+			Deck = new Zone(this);
+			Graveyard = new Zone(this);
+			Hand = new Zone(this);
+			Support = new Zone(this);
+			Field = new Zone(this);
 		}
 
 
