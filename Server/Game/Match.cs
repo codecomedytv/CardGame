@@ -11,7 +11,7 @@ namespace CardGame.Server.Game {
 	{
 		
 		private readonly BaseMessenger Messenger;
-		private Dictionary<int, Player> Players;
+		private readonly Dictionary<int, Player> Players;
 		private readonly CardCatalog CardCatalog = new CardCatalog();
 		public readonly History History = new History();
 		public readonly Battle Battle = new Battle();
@@ -30,9 +30,7 @@ namespace CardGame.Server.Game {
 		public Match(List<Player> players, BaseMessenger messenger = null)
 		{
 			Messenger = messenger ?? new RealMessenger();
-			Players = new System.Collections.Generic.Dictionary<int, Player>();
-			Players[players[0].Id] = players[0];
-			Players[players[1].Id] = players[1];
+			Players = new Dictionary<int, Player> {[players[0].Id] = players[0], [players[1].Id] = players[1]};
 			players[0].Opponent = players[1];
 			players[1].Opponent = players[0];
 		}
