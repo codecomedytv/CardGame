@@ -30,6 +30,7 @@ namespace CardGame.Server {
 		public bool IsDisqualified;
 		public bool IsTurnPlayer = false;
 		public Match Match;
+		public int Seat;
 
 		[Signal]
 		public delegate void TargetSelected();

@@ -14,6 +14,8 @@ namespace CardGame.Server.Game
             PlayersById[p2.Id] = p2;
             p1.Opponent = p2;
             p2.Opponent = p1;
+            p1.Seat = 1;
+            p2.Seat = 2;
         }
         public IEnumerator<Player> GetEnumerator() => PlayersById.Values.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

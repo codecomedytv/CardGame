@@ -53,13 +53,13 @@ namespace CardGame.Client {
 		public void OnFailed() { GD.Print("Connection Failed"); }
 
 		[Puppet]
-		public void CreateRoom(string GameID){
+		public void CreateRoom(string gameId, int seatPosition){
 			GD.Print("Creating Rooms");
-			var gameScene = ResourceLoader.Load("res://Client/Game/Game.tscn") as PackedScene;
-			var Room = gameScene.Instance() as Game;
-			Room.Name = GameID;
-			AddChild(Room);
-			Room.SetUp();
+			var gameScene = (PackedScene) ResourceLoader.Load("res://Client/Game/Game.tscn");
+			var room = (Game) gameScene.Instance();
+			room.Name = gameId;
+			AddChild(room);
+			room.SetUp();
 		}
 
 	}
