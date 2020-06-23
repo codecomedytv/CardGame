@@ -68,18 +68,12 @@ namespace CardGame.Server.Game {
 			{
 				player.LoadDeck(this);
 				player.Shuffle();
-			}
-
-			foreach (var player in Players.Values)
-			{
+				for (var i = 0; i < 7; i++)
 				{
-					for (var i = 0; i < 7; i++)
-					{
-						player.Draw();
-					}
+					player.Draw();
 				}
 			}
-
+			
 			TurnPlayer = Players.Values.ToList()[Players.Count - 1];
 			TurnPlayer.IsTurnPlayer = true;
 			TurnPlayer.SetState(new Idle());
