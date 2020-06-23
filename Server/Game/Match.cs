@@ -27,11 +27,11 @@ namespace CardGame.Server.Game {
 
 		public Match() { }
 
-		public Match(List<Player> players, BaseMessenger messenger = null)
+		public Match(Players players, BaseMessenger messenger = null)
 		{
 			Messenger = messenger ?? new RealMessenger();
-			Players = new Players(players);
-			
+			Players = players;
+
 		}
 
 		public override void _Ready()

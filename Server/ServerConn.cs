@@ -11,7 +11,7 @@ namespace CardGame.Server {
 		private const int Port = 5000;
 		private int RoomCount = 0;
 		public NetworkedMultiplayerENet Server;
-		private List<Player> Queue = new List<Player>();
+		private Queue<Player> Queue = new Queue<Player>();
 		
 		public override void _Ready() 
 		{
@@ -47,7 +47,7 @@ namespace CardGame.Server {
 		public void RegisterPlayer(int player, List<int> deckList)
 		{
 			//List<SetCodes> deckCodes = deckList.ConvertAll(SetCodes).ToList();
-			Queue.Add(new Player(player, deckList.Select(c => (SetCodes) c).ToList()));
+			Queue.Enqueue(new Player(player, deckList.Select(c => (SetCodes) c).ToList()));
 		}
 		
 		private void Host() 
@@ -70,14 +70,9 @@ namespace CardGame.Server {
 			RpcId(players[1].Id, "CreateRoom", room.Name);
 		}
 		
-		private List<Player> GetPlayers(int count = 2)
+		private Players GetPlayers(int count = 2)
 		{
-			var players = new List<Player>();
-			for(var i = 0; i < count; i++){
-				players.Add(Queue[0]);
-				Queue.RemoveAt(0);
-			}
-			return players;
+			return new Players(Queue.Dequeue(), Queue.Dequeue());
 		}
 			
 		

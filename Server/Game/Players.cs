@@ -8,11 +8,12 @@ namespace CardGame.Server.Game
     {
         private Dictionary<int, Player> PlayersById = new Dictionary<int, Player>();
 
-        public Players(IReadOnlyList<Player> players)
+        public Players(Player p1, Player p2)
         {
-            foreach (var player in players) {PlayersById[player.Id] = player;}
-            players[0].Opponent = players[1];
-            players[1].Opponent = players[0];
+            PlayersById[p1.Id] = p1;
+            PlayersById[p2.Id] = p2;
+            p1.Opponent = p2;
+            p2.Opponent = p1;
         }
         public IEnumerator<Player> GetEnumerator() => PlayersById.Values.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

@@ -19,7 +19,7 @@ namespace CardGame.Tests.Scripts
         Players.Add(new Player(1, deckList.ToList()));
         Players.Add(new Player(2, deckList2.ToList()));
         Play = new MockMessenger();
-        Match = new Match(Players, Play);
+        Match = new Match(new Players(Players[0], Players[1]), Play);
         AddChild(Match);
         foreach(var player in Players){ Play.SetReady(player.Id); }
     }
