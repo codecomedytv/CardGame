@@ -27,7 +27,7 @@ namespace CardGame.Server {
 		public List<Card> Support = new List<Card>();
 		public bool IsDisqualified;
 		public bool IsTurnPlayer = false;
-		public Game Game;
+		public Match Match;
 
 		[Signal]
 		public delegate void TargetSelected();
@@ -69,16 +69,16 @@ namespace CardGame.Server {
 		}
 
 
-		public void LoadDeck(Game game)
+		public void LoadDeck(Match match)
 		{
 			foreach (SetCodes setCode in DeckList)
 			{
 				var card = Library.Create(setCode);
-				card.Skill.Game = game;
+				card.Skill.Match = match;
 				card.Owner = this;
 				card.Controller = this;
 				card.Zone = Deck;
-				game.RegisterCard(card);
+				match.RegisterCard(card);
 				Deck.Add(card);
 			}
 

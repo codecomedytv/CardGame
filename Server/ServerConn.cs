@@ -61,7 +61,7 @@ namespace CardGame.Server {
 		private void CreateRoom() 
 		{
 			var players = GetPlayers();
-			var room = new Room.Game(players);
+			var room = new Room.Match(players);
 			RoomCount++;
 			room.Name = RoomCount.ToString();
 			AddChild(room);

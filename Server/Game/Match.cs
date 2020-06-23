@@ -8,7 +8,7 @@ using Godot;
 
 namespace CardGame.Server.Room {
 
-	public class Game : Node
+	public class Match : Node
 	{
 		
 		private readonly BaseMessenger Messenger;
@@ -26,9 +26,9 @@ namespace CardGame.Server.Room {
 		[Signal]
 		public delegate void Disqualified();
 
-		public Game() { }
+		public Match() { }
 
-		public Game(List<Player> players, BaseMessenger messenger = null)
+		public Match(List<Player> players, BaseMessenger messenger = null)
 		{
 			Messenger = messenger ?? new RealMessenger();
 			Players = new System.Collections.Generic.Dictionary<int, Player>();
@@ -54,7 +54,7 @@ namespace CardGame.Server.Room {
 			{
 				ConnectSignals(player, nameof(Player.PlayExecuted), History, nameof(History.OnPlayExecuted));
 				ConnectSignals(player, nameof(Player.PlayExecuted), Messenger, nameof(Messenger.OnPlayExecuted));
-				player.Game = this;
+				player.Match = this;
 			}
 
 		}

@@ -10,8 +10,8 @@ namespace CardGame.Server.States
         protected const bool Ok = false;
         protected const bool DisqualifyPlayer = true; 
         protected Player Player;
-        public Link Link => Player.Game.Link;
-        public Battle Battle => Player.Game.Battle;
+        public Link Link => Player.Match.Link;
+        public Battle Battle => Player.Match.Battle;
 
         public virtual void OnEnter(Player player)
         {

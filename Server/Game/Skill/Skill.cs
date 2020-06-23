@@ -20,7 +20,7 @@ namespace CardGame.Server {
 		public bool CanBeUsed = false;
 		public string AreaOfActivation;
 		public Dictionary Parameters;
-		public Game Game;
+		public Match Match;
 		public Types Type = Types.Manual;
 		public string GameEvent;
 		public Card Target;
