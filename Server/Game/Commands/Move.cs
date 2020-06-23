@@ -10,6 +10,10 @@ namespace CardGame.Server.Room.Commands
         public readonly List<Card> Origin;
         public readonly List<Card> Destination;
 
+        public Move()
+        {
+        }
+
         public Move(ISource source, Card card, List<Card> destination)
         {
             Source = source;
