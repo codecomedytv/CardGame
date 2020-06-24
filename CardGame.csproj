@@ -90,7 +90,6 @@
     <Compile Include="Server\Game\Commands\ModifyCard.cs" />
     <Compile Include="Server\Game\Commands\ModifyPlayer.cs" />
     <Compile Include="Server\Game\Commands\Move.cs" />
-    <Compile Include="Server\Game\Events\GameEvent.cs" />
     <Compile Include="Server\Game\History.cs" />
     <Compile Include="Server\Game\Match.cs" />
     <Compile Include="Server\Game\Cards\Card.cs" />
