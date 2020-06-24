@@ -93,52 +93,82 @@ namespace CardGame.Server.Game {
 		{
 			var player = Players[playerId];
 			var card = (Unit)CardCatalog.GetCard(cardId);
-			var disqualifyPlayer = player.OnDeploy(card);
-			if (disqualifyPlayer || player.State.ToString() != "Idle")
+			//var disqualifyPlayer = player.OnDeploy(card);
+			if (!card.CanBeDeployed || player.State.ToString() != "Idle")
 			{
-				Disqualify(player, 0);;
+				Disqualify(player, 0);
+				Update();
+				return;
 			}
+			
+			Link.Register(card);
+			History.Add(new Move(GameEvents.Deploy, player, card, player.Field));
+			player.SetState(new Acting());
+			player.Opponent.SetState(new Active());
 			Update();
 			
 		}
-		
+
 		private void OnAttack(int playerId, int attackerId, int defenderId)
 		{
 			var player = Players[playerId];
-			var attacker = CardCatalog.GetCard(attackerId) as Unit;
-			var defender = CardCatalog.GetCard(defenderId) as Unit;
+			var attacker = (Unit)CardCatalog.GetCard(attackerId);
+			var defender = (Unit) CardCatalog.GetCard(defenderId);
 			Attacking = attacker;
-			var disqualifyPlayer = player.OnAttack(attacker, defender);
-			if (disqualifyPlayer)
+			if (!attacker.CanAttack || !player.Opponent.Field.Contains(defender) || !attacker.ValidAttackTargets.Contains(defender) || player.State.ToString() != "Idle")
 			{
 				Disqualify(player, 0);;
+				Update();
+				return;
 			}
+			
+			Battle.Begin(player, attacker, defender);
+			Link.AddResolvable(Battle);
+			History.Add(new DeclareAttack(attacker, defender));
+			player.SetState(new Acting());
+			player.Opponent.SetState(new Active());
 			Update();
 		}
 
 		private void OnDirectAttack(int playerId, int attackerId)
 		{
 			var player = Players[playerId];
-			var attacker = CardCatalog.GetCard(attackerId) as Unit;
+			var attacker = (Unit) CardCatalog.GetCard(attackerId);
 			Attacking = attacker;
-			var disqualifyPlayer = player.OnDirectAttack(attacker);
-			if (disqualifyPlayer)
+			if (!attacker.CanAttack || player.Opponent.Field.Count != 0 || player.State.ToString() != "Idle")
 			{
 				Disqualify(player, 0);
+				Update();
+				return;
 			}
+			
+			Battle.BeginDirectAttack(player, attacker);
+			Link.AddResolvable(Battle);
+			History.Add(new DeclareDirectAttack(attacker));
+			player.SetState(new Acting());
+			player.Opponent.SetState(new Active());
 			Update();
 		}
-		
 		
 		private void OnSetFaceDown(int playerId, int faceDownId)
 		{
 			var player = Players[playerId];
 			var card = (Support)CardCatalog.GetCard(faceDownId);
-			var disqualifyPlayer = player.OnSetFaceDown(card);
-			if (disqualifyPlayer)
+			//var disqualifyPlayer = player.OnSetFaceDown(card);
+			if (!card.CanBeSet || player.State.ToString() != "Idle")
 			{
 				Disqualify(player, 0);;
+				Update();
+				return;
 			}
+			
+			player.Hand.Remove(card);
+			player.Support.Add(card);
+			card.Zone = player.Support;
+			Link.ApplyConstants();
+			Link.Register(card);
+			History.Add(new Move(GameEvents.SetFaceDown, player, card, player.Support));
+			player.SetState(new Idle());
 			Update();
 		}
 		
@@ -157,6 +187,16 @@ namespace CardGame.Server.Game {
 			Update();
 			
 		}
+		
+		/* if (!card.CanBeActivated)
+            {
+                return DisqualifyPlayer;
+            }
+            GD.Print(card.IsReady);
+            Link.Activate(card.Skill, target);
+            Player.SetState(new Acting());
+            Player.Opponent.SetState(new Active());
+*/
 
 		private void OnTarget(int playerId, int targetId)
 		{

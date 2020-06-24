@@ -18,73 +18,10 @@ namespace CardGame.Server.States
             foreach(var card in Player.Field) {card.SetCanAttack();}
             foreach(var card in Player.Support) {card.SetCanBeActivated();}
         }
-
-        public override bool OnDeploy(Unit unit)
-        {
-            if (!unit.CanBeDeployed)
-            {
-                return DisqualifyPlayer;
-            }
-            Link.Register(unit);
-            Player.Match.History.Add(new Move(GameEvents.Deploy, Player, unit, Player.Field));
-            Player.SetState(new Acting());
-            Player.Opponent.SetState(new Active());
-            return Ok;
-        }
-
-        public override bool OnAttack(Unit attacker, Unit defender)
-        {
-            if (!attacker.CanAttack || !Player.Opponent.Field.Contains(defender) || !attacker.ValidAttackTargets.Contains(defender))
-            {
-                return DisqualifyPlayer;
-            }
-            
-            Battle.Begin(Player, attacker, defender);
-            Link.AddResolvable(Battle);
-            Player.Match.History.Add(new DeclareAttack(attacker, defender));
-            Player.SetState(new Acting());
-            Player.Opponent.SetState(new Active());
-            return Ok;
-        }
-
-        public override bool OnDirectAttack(Unit attacker)
-        {
-            if (!attacker.CanAttack || Player.Opponent.Field.Count != 0)
-            {
-                return DisqualifyPlayer;
-            }
-            Battle.BeginDirectAttack(Player, attacker);
-            Link.AddResolvable(Battle);
-            Player.Match.History.Add(new DeclareDirectAttack(attacker));
-            Player.SetState(new Acting());
-            Player.Opponent.SetState(new Active());
-            return Ok;
-        }
-
-        public override bool OnSetFaceDown(Support support)
-        {
-            if (!support.CanBeSet)
-            {
-                return DisqualifyPlayer;
-            }
-            
-            Player.Hand.Remove(support);
-            Player.Support.Add(support);
-            support.Zone = Player.Support;
-            Link.ApplyConstants();
-            Link.Register(support);
-            Player.Match.History.Add(new Move(GameEvents.SetFaceDown, Player, support, Player.Support));
-            GD.Print(support.IsReady);
-            // This is retriggering cards getting ready!
-            Player.SetState(new Idle());
-            GD.Print(support.IsReady);
-            return Ok;
-        }
+        
 
         public override bool OnActivation(Support card, Card target)
         {
-            //GD.Print($"Activating Ready Card? {card.IsReady}");
-            //GD.Print($"A");
             if (!card.CanBeActivated)
             {
                 return DisqualifyPlayer;
