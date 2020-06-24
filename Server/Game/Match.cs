@@ -208,15 +208,40 @@ namespace CardGame.Server.Game {
 		private void OnPriorityPassed(int playerId)
 		{
 			var player = Players[playerId];
-			var disqualifyPlayer = player.OnPriorityPassed();
-			if (disqualifyPlayer)
+			if (player.State.ToString() != "Active")
 			{
-				Disqualify(player, 0);;
+				Disqualify(player, 0);
+				Update();
+				return;
+			}
+			if (player.Opponent.State.GetType() == typeof(Passing))
+			{
+				Link.Resolve();
+				var turnPlayer = player.IsTurnPlayer ? player : player.Opponent;
+				turnPlayer.SetState(new Idle());
+				turnPlayer.Opponent.SetState(new Passive());
+			}
+			else
+			{
+				player.Opponent.SetState(new Active());
+				player.SetState(new Passing());
 			}
 			Update();
 			
 		}
 
+		/*if (Player.Opponent.State.GetType() == typeof(Passing))
+		{
+			Link.Resolve();
+			var turnPlayer = Player.IsTurnPlayer ? Player : Player.Opponent;
+			turnPlayer.SetState(new Idle());
+			turnPlayer.Opponent.SetState(new Passive());
+		}
+		else
+		{
+			Player.Opponent.SetState(new Active());
+			Player.SetState(new Passing());
+		}*/
 		private void OnEndTurn(int playerId)
 		{
 			var player = Players[playerId];

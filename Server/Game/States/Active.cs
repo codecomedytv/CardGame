@@ -27,7 +27,7 @@ namespace CardGame.Server.States
 
         public override bool OnPassPlay()
         {
-            if (Player.Opponent.State.GetType() == typeof(Passing))
+            /*if (Player.Opponent.State.GetType() == typeof(Passing))
             {
                 Link.Resolve();
                 var turnPlayer = Player.IsTurnPlayer ? Player : Player.Opponent;
@@ -39,6 +39,7 @@ namespace CardGame.Server.States
                 Player.Opponent.SetState(new Active());
                 Player.SetState(new Passing());
             }
+            */
 
             return Ok;
         }
