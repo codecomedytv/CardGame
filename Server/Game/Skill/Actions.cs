@@ -1,10 +1,40 @@
 ﻿using System.Collections.Generic;
 using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Commands;
 
 namespace CardGame.Server.Game.Skill
 {
     public partial class Skill
     {
+        protected void Bounce(Card bounced)
+        {
+            History.Add(new Move(GameEvents.Bounce, Card, bounced, bounced.Owner.Hand));
+        }
+
+        protected void Mill(Card milled)
+        {
+            History.Add(new Move(GameEvents.Mill, Card, milled, milled.Controller.Graveyard));
+        }
+
+        protected void Draw()
+        {
+            
+        }
+
+        protected void Discard(Card discarded)
+        {
+            History.Add(new Move(GameEvents.Discard, Card, discarded, discarded.Owner.Graveyard));
+        }
+
+        protected void Destroy(Card destroyed)
+        {
+            History.Add(new Move(GameEvents.DestroyByEffect, Card, destroyed, destroyed.Owner.Graveyard));
+        }
+
+        protected void TopDeck(Card topDecked)
+        {
+            History.Add(new Move(GameEvents.TopDeck, Card, topDecked, topDecked.Owner.Deck));
+        }
         protected void SetTargets(List<Card> cards)
         {
             // TODO: Re-implement This

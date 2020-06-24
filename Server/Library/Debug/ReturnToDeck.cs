@@ -24,7 +24,7 @@ namespace CardGame.Server
 
             protected override void _Resolve()
             {
-                Controller.Match.History.Add(new Move(GameEvents.TopDeck, Card, Target, Target.Owner.Deck));
+                TopDeck(Target);
             }
         }
         

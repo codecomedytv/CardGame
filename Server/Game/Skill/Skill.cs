@@ -14,6 +14,7 @@ namespace CardGame.Server.Game.Skill {
 		public Card Card;
 		public bool CanBeUsed = false;
 		public Match Match;
+		public History History => Match.History;
 		public Types Type = Types.Manual;
 		public string GameEvent;
 		public Card Target;
