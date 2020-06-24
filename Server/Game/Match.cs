@@ -93,7 +93,6 @@ namespace CardGame.Server.Game {
 		{
 			var player = Players[playerId];
 			var card = (Unit)CardCatalog.GetCard(cardId);
-			//var disqualifyPlayer = player.OnDeploy(card);
 			if (!card.CanBeDeployed || player.State.ToString() != "Idle")
 			{
 				Disqualify(player, 0);
@@ -162,9 +161,9 @@ namespace CardGame.Server.Game {
 				return;
 			}
 			
-			player.Hand.Remove(card);
-			player.Support.Add(card);
-			card.Zone = player.Support;
+			// player.Hand.Remove(card);
+			// player.Support.Add(card);
+			// card.Zone = player.Support;
 			Link.ApplyConstants();
 			Link.Register(card);
 			History.Add(new Move(GameEvents.SetFaceDown, player, card, player.Support));
@@ -224,7 +223,12 @@ namespace CardGame.Server.Game {
 			var disqualifyPlayer = player.OnEndTurn();
 			if (disqualifyPlayer)
 			{
-				Disqualify(player, 0);;
+				// This may be more of a test problem than a real problem but when we return too early
+				// states are not being set which leads to other moves being considered legal!
+				Disqualify(player, 0);
+				//player.SetState(new State());
+				//Update();
+				//return;
 			}
 			TurnPlayer = player.Opponent;
 			BeginTurn();
