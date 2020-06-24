@@ -11,7 +11,7 @@ namespace CardGame.Server.Game {
 	public class Match : Node
 	{
 		
-		private readonly BaseMessenger Messenger;
+		private readonly Messenger Messenger;
 		private readonly Players Players;
 		private readonly CardCatalog CardCatalog = new CardCatalog();
 		public readonly History History = new History();
@@ -28,9 +28,9 @@ namespace CardGame.Server.Game {
 
 		public Match() { }
 
-		public Match(Players players, BaseMessenger messenger = null)
+		public Match(Players players, Messenger messenger = null)
 		{
-			Messenger = messenger ?? new RealMessenger();
+			Messenger = messenger ?? new Messenger();
 			Players = players;
 
 		}
@@ -38,15 +38,15 @@ namespace CardGame.Server.Game {
 		public override void _Ready()
 		{
 			AddChild(Messenger);
-			ConnectSignals(Messenger, nameof(BaseMessenger.Targeted), this, nameof(OnTarget));
-			ConnectSignals(Messenger, nameof(BaseMessenger.PlayerSeated), this, nameof(OnPlayerSeated));
-			ConnectSignals(Messenger, nameof(BaseMessenger.EndedTurn), this, nameof(OnEndTurn));
-			ConnectSignals(Messenger, nameof(BaseMessenger.Deployed), this, nameof(OnDeploy));
-			ConnectSignals(Messenger, nameof(BaseMessenger.Attacked), this, nameof(OnAttack));
-			ConnectSignals(Messenger, nameof(BaseMessenger.AttackedDirectly), this, nameof(OnDirectAttack));
-			ConnectSignals(Messenger, nameof(BaseMessenger.FaceDownSet),this, nameof(OnSetFaceDown));
-			ConnectSignals(Messenger, nameof(BaseMessenger.Activated), this, nameof(OnActivation));
-			ConnectSignals(Messenger, nameof(BaseMessenger.PassedPriority), this, nameof(OnPriorityPassed));
+			ConnectSignals(Messenger, nameof(Messenger.Targeted), this, nameof(OnTarget));
+			ConnectSignals(Messenger, nameof(Messenger.PlayerSeated), this, nameof(OnPlayerSeated));
+			ConnectSignals(Messenger, nameof(Messenger.EndedTurn), this, nameof(OnEndTurn));
+			ConnectSignals(Messenger, nameof(Messenger.Deployed), this, nameof(OnDeploy));
+			ConnectSignals(Messenger, nameof(Messenger.Attacked), this, nameof(OnAttack));
+			ConnectSignals(Messenger, nameof(Messenger.AttackedDirectly), this, nameof(OnDirectAttack));
+			ConnectSignals(Messenger, nameof(Messenger.FaceDownSet),this, nameof(OnSetFaceDown));
+			ConnectSignals(Messenger, nameof(Messenger.Activated), this, nameof(OnActivation));
+			ConnectSignals(Messenger, nameof(Messenger.PassedPriority), this, nameof(OnPriorityPassed));
 			foreach (var player in Players)
 			{
 				ConnectSignals(player, nameof(Player.PlayExecuted), History, nameof(History.OnPlayExecuted));
