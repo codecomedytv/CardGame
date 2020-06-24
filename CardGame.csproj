@@ -98,6 +98,7 @@
     <Compile Include="Server\Game\ISource.cs" />
     <Compile Include="Server\Game\Link.cs" />
     <Compile Include="Server\Game\Network\Messenger.cs" />
+    <Compile Include="Server\Game\Player.cs" />
     <Compile Include="Server\Game\Players.cs" />
     <Compile Include="Server\Game\Skill\IResolvable.cs" />
     <Compile Include="Server\Game\Skill\NullSkill.cs" />
@@ -131,7 +132,6 @@
     <Compile Include="Server\Library\Debug\ReturnToDeck.cs" />
     <Compile Include="Server\Library\Debug\Untargetable.cs" />
     <Compile Include="Server\Library\Library.cs" />
-    <Compile Include="Server\Player.cs" />
     <Compile Include="Server\ServerConn.cs" />
     <Compile Include="SetCodes.cs" />
     <Compile Include="Tests\ConnectedFixture.cs" />
