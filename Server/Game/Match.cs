@@ -94,7 +94,7 @@ namespace CardGame.Server.Game {
 			var player = Players[playerId];
 			var card = (Unit)CardCatalog.GetCard(cardId);
 			var disqualifyPlayer = player.OnDeploy(card);
-			if (disqualifyPlayer)
+			if (disqualifyPlayer || player.State.ToString() != "Idle")
 			{
 				Disqualify(player, 0);;
 			}
@@ -109,7 +109,7 @@ namespace CardGame.Server.Game {
 			var defender = CardCatalog.GetCard(defenderId) as Unit;
 			Attacking = attacker;
 			var disqualifyPlayer = player.OnAttack(attacker, defender);
-			if (disqualifyPlayer)
+			if (disqualifyPlayer || player.State.ToString() != "Idle")
 			{
 				Disqualify(player, 0);;
 			}
@@ -122,7 +122,7 @@ namespace CardGame.Server.Game {
 			var attacker = CardCatalog.GetCard(attackerId) as Unit;
 			Attacking = attacker;
 			var disqualifyPlayer = player.OnDirectAttack(attacker);
-			if (disqualifyPlayer)
+			if (disqualifyPlayer || player.State.ToString() != "Idle")
 			{
 				Disqualify(player, 0);
 			}
@@ -135,7 +135,7 @@ namespace CardGame.Server.Game {
 			var player = Players[playerId];
 			var card = (Support)CardCatalog.GetCard(faceDownId);
 			var disqualifyPlayer = player.OnSetFaceDown(card);
-			if (disqualifyPlayer)
+			if (disqualifyPlayer || player.State.ToString() != "Idle")
 			{
 				Disqualify(player, 0);;
 			}
@@ -149,7 +149,7 @@ namespace CardGame.Server.Game {
 			// Note: We may want to add a null object card for situations like this
 			var target = CardCatalog.GetCard(targetId);
 			var disqualifyPlayer = player.OnActivation(card, target);
-			if (disqualifyPlayer)
+			if (disqualifyPlayer && (player.State.ToString() != "Idle" || player.State.ToString() != "Active"))
 			{
 				Disqualify(player, 0);;
 			}
@@ -181,7 +181,7 @@ namespace CardGame.Server.Game {
 		{
 			var player = Players[playerId];
 			var disqualifyPlayer = player.OnEndTurn();
-			if (disqualifyPlayer)
+			if (disqualifyPlayer || player.State.ToString() != "Idle")
 			{
 				Disqualify(player, 0);;
 			}
