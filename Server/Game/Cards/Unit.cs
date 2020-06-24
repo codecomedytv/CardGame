@@ -23,7 +23,7 @@ namespace CardGame.Server.Game.Cards
 
         public override void SetCanAttack()
         {
-            if (Zone != Controller.Field || !Ready || Attacked) return;
+            if (Zone != Controller.Field || !IsReady || Attacked) return;
             ValidAttackTargets = Opponent.Field.ToList();
             Controller.Match.History.Add(new ModifyCard(Controller, this, nameof(CanAttack), true));
             // TODO: Re-implement Setting Attack Targets

@@ -51,7 +51,7 @@ namespace CardGame.Server.Game {
 					Attacking.Win();
 				}
 				
-				Attacking.Match.History.Add(new ModifyCard(Attacking, Attacker, nameof(Card.Ready), false));
+				Attacker.Exhaust();
 			}
 			
 			else if (Attacker.Attack <= Defender.Defense && Defender.Attack > Attacker.Defense)
@@ -64,12 +64,12 @@ namespace CardGame.Server.Game {
 					Defending.Win();
 				}
 			
-				Attacking.Match.History.Add(new ModifyCard(Attacking, Attacker, nameof(Card.Ready), false));
+				Attacker.Exhaust();
 			}
 
 			else
 			{
-				Attacking.Match.History.Add(new ModifyCard(Attacking, Attacker, nameof(Card.Ready), false));
+				Attacker.Exhaust();
 			}
 		}
 
@@ -83,7 +83,7 @@ namespace CardGame.Server.Game {
 				Attacking.Win();
 			}
 			
-			Attacking.Match.History.Add(new ModifyCard(Attacking, Attacker, nameof(Card.Ready), false));
+			Attacker.Exhaust();
 		}
 		
 		public void Resolve(string ignore = "")

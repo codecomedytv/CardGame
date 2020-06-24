@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CardGame.Server.Game.Commands;
 using CardGame.Server.Game.Skill;
 using CardGame.Server.Game.Zones;
 using Godot;
@@ -19,7 +20,7 @@ namespace CardGame.Server.Game.Cards {
 		
 		// When a player enters an active state (idle or active) then it iterates on all
 		// owned cards to see if these can be used or not.
-		public bool Ready = false;
+		public bool IsReady = false;
 		public bool Activated = false;
 		public bool CanBeDeployed;
 		public bool CanBeSet;
@@ -38,6 +39,16 @@ namespace CardGame.Server.Game.Cards {
 		public virtual void SetCanAttack() => CanAttack = false;
 
 		public virtual void SetCanBeActivated() => CanBeActivated = false;
+
+		public void Ready()
+		{
+			Owner.Match.History.Add(new ModifyCard(this, this, nameof(IsReady), true));
+		}
+		
+		public void Exhaust()
+		{
+			Owner.Match.History.Add(new ModifyCard(this, this, nameof(IsReady), false));
+		}
 
 		public Dictionary<string, int> Serialize() => new Dictionary<string, int>{{"Id", Id}, {"setCode", (int)SetCode}};
 		

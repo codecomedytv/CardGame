@@ -113,8 +113,8 @@ namespace CardGame.Server.States
             Player.IsTurnPlayer = false;
             Player.Opponent.IsTurnPlayer = true;
             Link.ApplyConstants();
-            foreach(var unit in Player.Opponent.Field) {Player.Opponent.Match.History.Add(new ModifyCard(Player.Opponent, unit, nameof(Card.Ready), true)); };
-            foreach (var support in Player.Support) { Player.Match.History.Add(new ModifyCard(Player, support, nameof(Card.Ready), true)); }
+            foreach (var unit in Player.Opponent.Field) { unit.Ready(); };
+            foreach (var support in Player.Support) { support.Ready(); }
             Player.SetState(new Passive());
             Player.Opponent.SetState(new Idle());
             return Ok;
