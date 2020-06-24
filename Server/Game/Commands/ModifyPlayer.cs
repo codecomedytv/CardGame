@@ -2,7 +2,6 @@
 {
     public class ModifyPlayer: Command
     {
-        public readonly GameEvents Identity;
         public readonly Player Player;
         public readonly ISource Source;
         public readonly string Property;
@@ -11,6 +10,7 @@
         
         public ModifyPlayer(GameEvents identity, ISource source, Player player, string property, object newValue)
         {
+            GameEvent = identity;
             Source = source;
             Player = player;
             Property = property;

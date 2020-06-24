@@ -2,6 +2,9 @@
 {
     public abstract class Command: Godot.Object
     {
+        protected GameEvents GameEvent = GameEvents.NoOp;
+        public GameEvents Identity => GameEvent;
+
         public Command()
         {
             

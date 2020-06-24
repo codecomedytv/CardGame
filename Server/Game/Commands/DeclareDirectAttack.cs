@@ -4,12 +4,12 @@ namespace CardGame.Server.Game.Commands
 {
     public class DeclareDirectAttack : Command
     {
-        public readonly GameEvents Identity = GameEvents.DeclareDirectAttack;
         public readonly ISource Source;
         public readonly Unit Attacker;
 
         public DeclareDirectAttack(Unit attacker)
         {
+            GameEvent = GameEvents.DeclareDirectAttack;
             Source = attacker;
             Attacker = attacker;
         }

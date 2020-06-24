@@ -5,7 +5,6 @@ namespace CardGame.Server.Game.Commands
 {
     public class Move: Command
     {
-        public GameEvents Identity;
         public readonly ISource Source;
         public readonly Card Card;
         public readonly Zone Origin;
@@ -17,7 +16,7 @@ namespace CardGame.Server.Game.Commands
 
         public Move(GameEvents identity, ISource source, Card card, Zone destination)
         {
-            Identity = identity;
+            GameEvent = identity;
             Source = source;
             Card = card;
             Origin = card.Zone;

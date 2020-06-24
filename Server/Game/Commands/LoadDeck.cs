@@ -7,11 +7,9 @@ namespace CardGame.Server.Game.Commands
 {
     public class LoadDeck : Command
     {
-	    public readonly GameEvents Identity = GameEvents.LoadDeck;
         public readonly ISource Source;
         public readonly Player Player;
         public readonly List<SetCodes> DeckList;
-        public readonly ReadOnlyCollection<Card> CardsLoaded;
         public readonly Match Match;
         private ReadOnlyCollection<Card> CardsAlreadyLoaded;
 
@@ -21,6 +19,7 @@ namespace CardGame.Server.Game.Commands
         }
         public LoadDeck(Player player, Match match)
         {
+	        GameEvent = GameEvents.LoadDeck;
 	        Source = player;
 	        Player = player;
 	        DeckList = player.DeckList;
