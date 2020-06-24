@@ -86,10 +86,6 @@ namespace CardGame.Server {
 		
 		public void Draw() => DeclarePlay(new Move(this, Deck.Top, Hand));
 		
-		public void AttackUnit(Unit attacker, Unit defender) => DeclarePlay(new DeclareAttack(attacker, defender));
-		
-		public void AttackDirectly(Unit attacker) => DeclarePlay(new DeclareDirectAttack(attacker));
-
 		public void Win() { DeclarePlay(new GameOver(this, Opponent)); }
 		
 		

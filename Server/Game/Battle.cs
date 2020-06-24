@@ -39,7 +39,7 @@ namespace CardGame.Server.Game {
 				return;
 			}
 
-			Attacking.AttackUnit(Attacker, Defender as Unit);
+			Attacking.DeclarePlay(new DeclareAttack(Attacker, Defender));
 			
 			if (Attacker.Attack > Defender.Defense)
 			{
@@ -76,7 +76,7 @@ namespace CardGame.Server.Game {
 		private void _ResolveDirectAttack()
 		{
 			Attacker.Attacked = true;
-			Attacking.AttackDirectly(Attacker);
+			Attacking.DeclarePlay(new DeclareDirectAttack(Attacker));
 			Defending.DeclarePlay(new ModifyPlayer(Attacker, Defending, nameof(Player.Health), Defending.Health - Attacker.Attack));
 			if (Defending.Health <= 0)
 			{
