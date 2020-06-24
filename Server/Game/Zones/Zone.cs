@@ -16,6 +16,7 @@ namespace CardGame.Server.Game.Zones
         public void Add(Card card) => Cards.Add(card);
         public void Remove(Card card) => Cards.Remove(card);
         public bool Contains(Card card) => Cards.Contains(card);
+        public void Clear() => Cards.Clear();
         public IEnumerator<Card> GetEnumerator() => Cards.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 

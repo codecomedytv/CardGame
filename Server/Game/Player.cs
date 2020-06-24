@@ -13,7 +13,7 @@ namespace CardGame.Server {
 	public class Player : Node, ISource
 	{
 
-		private readonly List<SetCodes> DeckList;
+		public readonly List<SetCodes> DeckList;
 		public readonly int Id;
 		public State State;
 		public Player Opponent;
@@ -75,24 +75,7 @@ namespace CardGame.Server {
 			Support = new Zone(this);
 			Field = new Zone(this);
 		}
-
-
-		public void LoadDeck(Match match)
-		{
-			foreach (SetCodes setCode in DeckList)
-			{
-				var card = Library.Create(setCode);
-				card.Skill.Match = match;
-				card.Owner = this;
-				card.Controller = this;
-				card.Zone = Deck;
-				match.RegisterCard(card);
-				Deck.Add(card);
-			}
-
-			DeclarePlay(new LoadDeck(this, new ReadOnlyCollection<Card>(Deck.ToList())));
-		}
-
+		
 		public void DeclarePlay(Command command)
 		{
 			command.Execute();

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Commands;
 using CardGame.Server.Game.Network;
 using CardGame.Server.States;
 using Godot;
@@ -65,7 +66,7 @@ namespace CardGame.Server.Game {
 
 			foreach (var player in Players)
 			{
-				player.LoadDeck(this);
+				player.DeclarePlay(new LoadDeck(player, this));
 				player.Shuffle();
 				for (var i = 0; i < 7; i++)
 				{
