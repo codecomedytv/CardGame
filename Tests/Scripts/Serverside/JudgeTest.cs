@@ -78,6 +78,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        }
 	        StartGame(DeckList);
 	        Play.EndTurn(Players[1].Id);
+	        GD.Print(Players[1].IsTurnPlayer);
 	        var ids = Players[0].Hand.Select(card => card.Id).ToList();
 	        Assert.IsEqual(ids.Count, 8);
 	        foreach (var id in ids)

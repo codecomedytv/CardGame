@@ -72,7 +72,9 @@ namespace CardGame.Server.Game {
 				}
 			}
 			
-			TurnPlayer = Players.TurnPlayer();
+			// TODO: Access TurnPlayer Directly from Tests to avoid Index Misalignment
+			//TurnPlayer = Players.TurnPlayer();
+			TurnPlayer = Players.ToList()[1];
 			TurnPlayer.IsTurnPlayer = true;
 			TurnPlayer.SetState(new Idle());
 			TurnPlayer.Opponent.SetState(new Passive());
@@ -230,29 +232,18 @@ namespace CardGame.Server.Game {
 			
 		}
 
-		/*if (Player.Opponent.State.GetType() == typeof(Passing))
-		{
-			Link.Resolve();
-			var turnPlayer = Player.IsTurnPlayer ? Player : Player.Opponent;
-			turnPlayer.SetState(new Idle());
-			turnPlayer.Opponent.SetState(new Passive());
-		}
-		else
-		{
-			Player.Opponent.SetState(new Active());
-			Player.SetState(new Passing());
-		}*/
+
 		private void OnEndTurn(int playerId)
 		{
 			var player = Players[playerId];
 			var disqualifyPlayer = player.OnEndTurn();
-			if (disqualifyPlayer)
+			if (disqualifyPlayer || player.State.ToString() != "Idle")
 			{
 				// This may be more of a test problem than a real problem but when we return too early
 				// states are not being set which leads to other moves being considered legal!
 				Disqualify(player, 0);
 				//player.SetState(new State());
-				//Update();
+				Update();
 				//return;
 			}
 			TurnPlayer = player.Opponent;
