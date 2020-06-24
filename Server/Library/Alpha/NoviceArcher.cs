@@ -23,7 +23,7 @@ namespace CardGame.Server
         {
             public OnSummonDestroy()
             {
-                GameEvent = "deploy";
+                Triggers.Add(GameEvents.Deploy);
                 Type = Types.Auto;
             }
 

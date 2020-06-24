@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Commands;
 using Godot;
 using Godot.Collections;
 
@@ -16,13 +18,13 @@ namespace CardGame.Server.Game.Skill {
 		public Match Match;
 		public History History => Match.History;
 		public Types Type = Types.Manual;
-		public string GameEvent;
+		public List<GameEvents> Triggers = new List<GameEvents>();
 		public Card Target;
 		public bool Targeting = false;
 
-		public void SetUp(string gameEvent)
+		public void SetUp(Command gameEvent)
 		{
-			if (!GameEvent.Empty() && GameEvent != gameEvent)
+			if (Triggers.Count > 0 && !Triggers.Contains(gameEvent.Identity))
 			{
 				return;
 			}
@@ -37,7 +39,6 @@ namespace CardGame.Server.Game.Skill {
 
 		public virtual void _SetUp()
 		{
-			// This is accessed with self but there is no clear setget in the source?
 			CanBeUsed = true;
 		}
 
@@ -49,13 +50,13 @@ namespace CardGame.Server.Game.Skill {
 			_Activate();
 		}
 
-		public void Resolve(string gameEvent = "")
+		public void Resolve()
 		{
-			if (!GameEvent.Empty() && GameEvent != gameEvent && Type == Types.Constant)
-			{
-				return;
-			}
-			
+			// if (GameEvent != GameEvents.NoOp && GameEvent != gameEvent.Identity && Type == Types.Constant)
+			// {
+			// 	return;
+			// }
+			//
 			
 			_Resolve();
 			Card.Activated = false;

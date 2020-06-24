@@ -15,15 +15,15 @@ namespace CardGame.Server.Game
 
         public void Add(Command command)
         {
-            if (Events.Contains(command))
-            {
-                // Figure out a way to handle compound effects (effects that call other ones)
-                // possibly give them an identity, cache them, and then check against the references
-                
-                // Some Events Trigger Other Events (for example ending a turn triggers readying cards)
-                // What about events that call commands? Invert them?
-                return;
-            }
+            // if (Events.Contains(command))
+            // {
+            //     // Figure out a way to handle compound effects (effects that call other ones)
+            //     // possibly give them an identity, cache them, and then check against the references
+            //     
+            //     // Some Events Trigger Other Events (for example ending a turn triggers readying cards)
+            //     // What about events that call commands? Invert them?
+            //     return;
+            // }
             command.Execute();
             Events.Add(command);
             if (command is EndTurn) {TurnCount += 1;}

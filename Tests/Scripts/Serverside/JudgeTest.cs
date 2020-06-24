@@ -176,11 +176,16 @@ namespace CardGame.Tests.Scripts.Serverside
         {
 	        DeckList.Add(SetCodes.DebugDraw2Cards);
 	        StartGame(DeckList);
+	        var s = Players[1].Hand[0];
 	        var support = Players[1].Hand[0].Id;
+	        Assert.IsFalse(s.IsReady, "Card is not ready in hand");
 	        Play.SetFaceDown(Players[1].Id, support);
+	        //Play.PassPlay(Players[0].Id);
+	        //Play.PassPlay(Players[1].Id);
+	        Assert.IsFalse(s.IsReady, "Card is not ready when set");
 	        Play.Activate(Players[1].Id, support);
-
-	        Assert.IsTrue(Players[1].IsDisqualified);
+	        Assert.IsFalse(s.IsReady, "Card is not ready when activated");
+	        Assert.IsTrue(Players[1].IsDisqualified, "Player is disqualified");
         }
 
         [Test]

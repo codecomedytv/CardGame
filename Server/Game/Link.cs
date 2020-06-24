@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Commands;
 using CardGame.Server.Game.Skill;
 using Godot;
 
@@ -14,9 +15,9 @@ namespace CardGame.Server.Game {
 
 		public void AddResolvable(IResolvable action) => Chain.Push(action);
 
-		public void ApplyConstants(string gameEvent = "") => Constants.ForEach(s => s.Resolve(gameEvent));
+		public void ApplyConstants(Command gameEvent = null) => Constants.ForEach(s => s.Resolve());
 
-		public void ApplyTriggered(string gameEvent)
+		public void ApplyTriggered(Command gameEvent)
 		{
 			foreach (var skill in Auto)
 			{
@@ -27,9 +28,9 @@ namespace CardGame.Server.Game {
 			}
 		}
 		
-		public void  SetupManual(string gameEvent) => Manual.ForEach(s => s.SetUp(gameEvent));
+		public void  SetupManual(Command gameEvent) => Manual.ForEach(s => s.SetUp(gameEvent));
 
-		public void Broadcast(string gameEvent, List<Godot.Object> arguments)
+		public void Broadcast(Command gameEvent)
 		{
 			ApplyConstants(gameEvent);
 			ApplyTriggered(gameEvent);

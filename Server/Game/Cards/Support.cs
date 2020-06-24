@@ -1,4 +1,5 @@
 ﻿using CardGame.Server.Game.Commands;
+using Godot;
 
 namespace CardGame.Server.Game.Cards
 {
@@ -20,7 +21,16 @@ namespace CardGame.Server.Game.Cards
 
         public override void SetCanBeActivated()
         {
-            if (Skill.CanBeUsed) {Controller.Match.History.Add(new ModifyCard(Controller, this, nameof(CanBeActivated), true));}
+            GD.Print($"Is Ready {IsReady}");
+            if (Skill.CanBeUsed && IsReady)
+            {
+                GD.Print($"Is Ready {IsReady}");
+                Controller.Match.History.Add(new ModifyCard(Controller, this, nameof(CanBeActivated), true));
+            }
+            else
+            {
+                Controller.Match.History.Add(new ModifyCard(Controller, this, nameof(CanBeActivated), false));
+            }
         }
 
     }

@@ -1,7 +1,9 @@
-﻿namespace CardGame.Server.Game.Skill
+﻿using CardGame.Server.Game.Commands;
+
+namespace CardGame.Server.Game.Skill
 {
     public interface IResolvable
     {
-        void Resolve(string gameEvent = "");
+        void Resolve();
     }
 }

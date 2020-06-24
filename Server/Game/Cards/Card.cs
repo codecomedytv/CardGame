@@ -24,13 +24,14 @@ namespace CardGame.Server.Game.Cards {
 		public bool Activated = false;
 		public bool CanBeDeployed;
 		public bool CanBeSet;
-		public bool CanBeActivated;
+		public bool CanBeActivated = false;
 		public bool CanAttack;
 
 		protected Card()
 		{
 			AddSkill(new NullSkill());
 		}
+		
 
 		public virtual void SetCanBeDeployed() => CanBeDeployed = false;
 

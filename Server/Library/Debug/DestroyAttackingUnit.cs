@@ -18,7 +18,8 @@ namespace CardGame.Server
         {
             public DestroyAttacking()
             {
-                GameEvent = "attack";
+                Triggers.Add(GameEvents.DeclareAttack);
+                Triggers.Add(GameEvents.DeclareDirectAttack);
             }
 
             protected override void _Resolve()

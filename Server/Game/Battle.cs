@@ -38,8 +38,6 @@ namespace CardGame.Server.Game {
 			{
 				return;
 			}
-
-			Attacking.Match.History.Add(new DeclareAttack(Attacker, Defender));
 			
 			if (Attacker.Attack > Defender.Defense)
 			{
@@ -76,7 +74,6 @@ namespace CardGame.Server.Game {
 		private void _ResolveDirectAttack()
 		{
 			Attacker.Attacked = true;
-			Attacking.Match.History.Add(new DeclareDirectAttack(Attacker));
 			Defending.Match.History.Add(new ModifyPlayer(GameEvents.BattleDamage, Attacker, Defending, nameof(Player.Health), Defending.Health - Attacker.Attack));
 			if (Defending.Health <= 0)
 			{
@@ -86,7 +83,7 @@ namespace CardGame.Server.Game {
 			Attacker.Exhaust();
 		}
 		
-		public void Resolve(string ignore = "")
+		public void Resolve()
 		{
 			if (IsDirectAttack) { _ResolveDirectAttack(); } else { _ResolveAttackUnit(); }
 		}

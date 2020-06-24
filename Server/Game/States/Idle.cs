@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CardGame.Server.Game;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Commands;
 using Godot;
@@ -24,9 +25,8 @@ namespace CardGame.Server.States
             {
                 return DisqualifyPlayer;
             }
-            Player.Match.History.Add(new Move(GameEvents.Deploy, Player, unit, Player.Field));
             Link.Register(unit);
-            Link.Broadcast("deploy", new List<Godot.Object>{unit});
+            Player.Match.History.Add(new Move(GameEvents.Deploy, Player, unit, Player.Field));
             Player.SetState(new Acting());
             Player.Opponent.SetState(new Active());
             return Ok;
@@ -41,7 +41,7 @@ namespace CardGame.Server.States
             
             Battle.Begin(Player, attacker, defender);
             Link.AddResolvable(Battle);
-            Link.Broadcast("attack", new List<Object>());
+            Player.Match.History.Add(new DeclareAttack(attacker, defender));
             Player.SetState(new Acting());
             Player.Opponent.SetState(new Active());
             return Ok;
@@ -55,7 +55,7 @@ namespace CardGame.Server.States
             }
             Battle.BeginDirectAttack(Player, attacker);
             Link.AddResolvable(Battle);
-            Link.Broadcast("attack", new List<Object>());
+            Player.Match.History.Add(new DeclareDirectAttack(attacker));
             Player.SetState(new Acting());
             Player.Opponent.SetState(new Active());
             return Ok;
@@ -73,20 +73,22 @@ namespace CardGame.Server.States
             support.Zone = Player.Support;
             Link.ApplyConstants();
             Link.Register(support);
-            Player.Match.History.Add(new Move(GameEvents.SetFaceDown, Player, support, Player.Support));
-
-            // Returning a new Idle State Retriggers the OnEnter System
+            //Player.Match.History.Add(new Move(GameEvents.SetFaceDown, Player, support, Player.Support));
+            GD.Print(support.IsReady);
+            // This is retriggering cards getting ready!
             Player.SetState(new Idle());
-
+            GD.Print(support.IsReady);
             return Ok;
         }
 
         public override bool OnActivation(Support card, Card target)
         {
+            GD.Print($"Activating Ready Card? {card.IsReady}");
             if (!card.CanBeActivated)
             {
                 return DisqualifyPlayer;
             }
+            GD.Print(card.IsReady);
             Link.Activate(card.Skill, target);
             Player.SetState(new Acting());
             Player.Opponent.SetState(new Active());

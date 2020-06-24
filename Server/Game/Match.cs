@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Commands;
@@ -48,6 +49,7 @@ namespace CardGame.Server.Game {
 			ConnectSignals(Messenger, nameof(Messenger.Activated), this, nameof(OnActivation));
 			ConnectSignals(Messenger, nameof(Messenger.PassedPriority), this, nameof(OnPriorityPassed));
 			ConnectSignals(History, nameof(History.EventRecorded), Messenger, nameof(Messenger.OnPlayExecuted));
+			ConnectSignals(History, nameof(History.EventRecorded), Link, nameof(Link.Broadcast));
 			foreach (var player in Players) { player.Match = this; }
 
 		}
@@ -83,7 +85,7 @@ namespace CardGame.Server.Game {
 			player.Draw();
 			player.SetState(new Idle());
 			Link.ApplyConstants();
-			Link.SetupManual("");
+			Link.SetupManual(new NullCommand());
 			Update();
 		}
 		
@@ -206,6 +208,19 @@ namespace CardGame.Server.Game {
 		{
 			var error = emitter.Connect(signal, receiver, method);
 			if(error != Error.Ok) { GD.PushWarning(error.ToString()); }
+		}
+	}
+
+	internal class NullCommand : Command
+	{
+		public override void Execute()
+		{
+			
+		}
+
+		public override void Undo()
+		{
+			
 		}
 	}
 }
