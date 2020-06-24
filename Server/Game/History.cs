@@ -31,5 +31,7 @@ namespace CardGame.Server.Game
             Cursor -= 1;
             var gameEvent = Events[Cursor];
         }
+
+        public Command this[int index] => Events[index];
     }
 }
