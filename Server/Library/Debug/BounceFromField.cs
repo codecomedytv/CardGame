@@ -25,7 +25,7 @@ namespace CardGame.Server
 
             protected override void _Resolve()
             {
-                Controller.DeclarePlay(new Move(GameEvents.Bounce, Card, Target, Target.Owner.Hand));
+                Controller.Match.History.Add(new Move(GameEvents.Bounce, Card, Target, Target.Owner.Hand));
             }
         }
     }

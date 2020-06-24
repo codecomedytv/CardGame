@@ -32,9 +32,6 @@ namespace CardGame.Server {
 		[Signal]
 		public delegate void TargetSelected();
 
-		[Signal]
-		public delegate void PlayExecuted();
-
 		public Player()
 		{
 			
@@ -76,19 +73,11 @@ namespace CardGame.Server {
 			Field = new Zone(this);
 		}
 		
-		public void DeclarePlay(Command command)
-		{
-			command.Execute();
-			EmitSignal(nameof(PlayExecuted), command);
-		}
-		
 		public void Shuffle() { /* TODO: Implement Shuffle */ }
 		
-		public void Draw() => DeclarePlay(new Move(GameEvents.Draw, this, Deck.Top, Hand));
+		public void Draw() => Match.History.Add(new Move(GameEvents.Draw, this, Deck.Top, Hand));
 		
-		public void Win() { DeclarePlay(new GameOver(this, Opponent)); }
-		
-		
+		public void Win() => Match.History.Add(new GameOver(this, Opponent)); 
 	}
 	
 }

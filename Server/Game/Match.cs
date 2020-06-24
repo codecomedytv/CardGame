@@ -47,12 +47,8 @@ namespace CardGame.Server.Game {
 			ConnectSignals(Messenger, nameof(Messenger.FaceDownSet),this, nameof(OnSetFaceDown));
 			ConnectSignals(Messenger, nameof(Messenger.Activated), this, nameof(OnActivation));
 			ConnectSignals(Messenger, nameof(Messenger.PassedPriority), this, nameof(OnPriorityPassed));
-			foreach (var player in Players)
-			{
-				ConnectSignals(player, nameof(Player.PlayExecuted), History, nameof(History.OnPlayExecuted));
-				ConnectSignals(player, nameof(Player.PlayExecuted), Messenger, nameof(Messenger.OnPlayExecuted));
-				player.Match = this;
-			}
+			ConnectSignals(History, nameof(History.EventRecorded), Messenger, nameof(Messenger.OnPlayExecuted));
+			foreach (var player in Players) { player.Match = this; }
 
 		}
 
@@ -66,7 +62,7 @@ namespace CardGame.Server.Game {
 
 			foreach (var player in Players)
 			{
-				player.DeclarePlay(new LoadDeck(player, this));
+				player.Match.History.Add(new LoadDeck(player, this));
 				player.Shuffle();
 				for (var i = 0; i < 7; i++)
 				{

@@ -22,7 +22,7 @@ namespace CardGame.Server
 
             protected override void _Resolve()
             {
-                Controller.DeclarePlay(new Move(GameEvents.DestroyByEffect, Card, Match.Attacking, Match.Attacking.Owner.Graveyard));
+                Controller.Match.History.Add(new Move(GameEvents.DestroyByEffect, Card, Match.Attacking, Match.Attacking.Owner.Graveyard));
             }
         }
     }

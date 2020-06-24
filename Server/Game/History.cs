@@ -12,11 +12,12 @@ namespace CardGame.Server.Game
         private int TurnCount = 0;
         private readonly List<Command> Events = new List<Command>();
 
-        public void OnPlayExecuted(Command executedCommand)
+        public void Add(Command command)
         {
-            Events.Add(executedCommand);
-            if (executedCommand is EndTurn) {TurnCount += 1;}
-            EmitSignal(nameof(EventRecorded), executedCommand);
+            command.Execute();
+            Events.Add(command);
+            if (command is EndTurn) {TurnCount += 1;}
+            EmitSignal(nameof(EventRecorded), command);
             
         }
 

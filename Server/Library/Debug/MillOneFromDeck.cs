@@ -18,7 +18,7 @@ namespace CardGame.Server
             protected override void _Resolve()
             {
                 var toMill = Controller.Deck.Top;
-                Controller.DeclarePlay(new Move(GameEvents.Mill, Card, toMill, Controller.Graveyard));
+                Controller.Match.History.Add(new Move(GameEvents.Mill, Card, toMill, Controller.Graveyard));
             }
         }
     }

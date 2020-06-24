@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CardGame.Server.Game;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Commands;
 using Godot;
@@ -25,7 +26,7 @@ namespace CardGame.Server.States
             {
                 return DisqualifyPlayer;
             }
-            Player.DeclarePlay(new Move(GameEvents.Deploy, Player, unit, Player.Field));
+            Player.Match.History.Add(new Move(GameEvents.Deploy, Player, unit, Player.Field));
             Link.Register(unit);
             Link.Broadcast("deploy", new List<Godot.Object>{unit});
             Player.SetState(new Acting());
@@ -84,7 +85,7 @@ namespace CardGame.Server.States
             support.Zone = Player.Support;
             Link.ApplyConstants();
             Link.Register(support);
-            Player.DeclarePlay(new Move(GameEvents.SetFaceDown, Player, support, Player.Support));
+            Player.Match.History.Add(new Move(GameEvents.SetFaceDown, Player, support, Player.Support));
 
             // Returning a new Idle State Retriggers the OnEnter System
             Player.SetState(new Idle());
@@ -108,12 +109,12 @@ namespace CardGame.Server.States
 
         public override bool OnEndTurn()
         {
-            Player.DeclarePlay(new EndTurn(Player));
+            Player.Match.History.Add(new EndTurn(Player));
             Player.IsTurnPlayer = false;
             Player.Opponent.IsTurnPlayer = true;
             Link.ApplyConstants();
-            foreach(var unit in Player.Opponent.Field) {Player.Opponent.DeclarePlay(new ModifyCard(Player.Opponent, unit, nameof(Card.Ready), true)); };
-            foreach (var support in Player.Support) { Player.DeclarePlay(new ModifyCard(Player, support, nameof(Card.Ready), true)); }
+            foreach(var unit in Player.Opponent.Field) {Player.Opponent.Match.History.Add(new ModifyCard(Player.Opponent, unit, nameof(Card.Ready), true)); };
+            foreach (var support in Player.Support) { Player.Match.History.Add(new ModifyCard(Player, support, nameof(Card.Ready), true)); }
             Player.SetState(new Passive());
             Player.Opponent.SetState(new Idle());
             return Ok;

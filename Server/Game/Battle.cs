@@ -39,51 +39,51 @@ namespace CardGame.Server.Game {
 				return;
 			}
 
-			Attacking.DeclarePlay(new DeclareAttack(Attacker, Defender));
+			Attacking.Match.History.Add(new DeclareAttack(Attacker, Defender));
 			
 			if (Attacker.Attack > Defender.Defense)
 			{
 				var overflow = Attacker.Attack - Defender.Defense;
-				Defending.DeclarePlay(new ModifyPlayer(GameEvents.BattleDamage, Attacker, Defending, nameof(Player.Health), Defending.Health - overflow));
-				Defending.DeclarePlay(new Move(GameEvents.DestroyByBattle, Attacker, Defender, Defender.Owner.Graveyard));
+				Defending.Match.History.Add(new ModifyPlayer(GameEvents.BattleDamage, Attacker, Defending, nameof(Player.Health), Defending.Health - overflow));
+				Defending.Match.History.Add(new Move(GameEvents.DestroyByBattle, Attacker, Defender, Defender.Owner.Graveyard));
 				if (Defending.Health <= 0)
 				{
 					Attacking.Win();
 				}
 				
-				Attacking.DeclarePlay(new ModifyCard(Attacking, Attacker, nameof(Card.Ready), false));
+				Attacking.Match.History.Add(new ModifyCard(Attacking, Attacker, nameof(Card.Ready), false));
 			}
 			
 			else if (Attacker.Attack <= Defender.Defense && Defender.Attack > Attacker.Defense)
 			{
 				var overflow = Defender.Attack - Attacker.Defense;
-				Attacking.DeclarePlay(new ModifyPlayer(GameEvents.BattleDamage, Defender, Attacking, nameof(Player.Health), Attacking.Health - overflow));
-				Attacking.DeclarePlay(new Move(GameEvents.DestroyByBattle, Defender, Attacker, Attacker.Owner.Graveyard));
+				Attacking.Match.History.Add(new ModifyPlayer(GameEvents.BattleDamage, Defender, Attacking, nameof(Player.Health), Attacking.Health - overflow));
+				Attacking.Match.History.Add(new Move(GameEvents.DestroyByBattle, Defender, Attacker, Attacker.Owner.Graveyard));
 				if (Attacking.Health <= 0)
 				{
 					Defending.Win();
 				}
 			
-				Attacking.DeclarePlay(new ModifyCard(Attacking, Attacker, nameof(Card.Ready), false));
+				Attacking.Match.History.Add(new ModifyCard(Attacking, Attacker, nameof(Card.Ready), false));
 			}
 
 			else
 			{
-				Attacking.DeclarePlay(new ModifyCard(Attacking, Attacker, nameof(Card.Ready), false));
+				Attacking.Match.History.Add(new ModifyCard(Attacking, Attacker, nameof(Card.Ready), false));
 			}
 		}
 
 		private void _ResolveDirectAttack()
 		{
 			Attacker.Attacked = true;
-			Attacking.DeclarePlay(new DeclareDirectAttack(Attacker));
-			Defending.DeclarePlay(new ModifyPlayer(GameEvents.BattleDamage, Attacker, Defending, nameof(Player.Health), Defending.Health - Attacker.Attack));
+			Attacking.Match.History.Add(new DeclareDirectAttack(Attacker));
+			Defending.Match.History.Add(new ModifyPlayer(GameEvents.BattleDamage, Attacker, Defending, nameof(Player.Health), Defending.Health - Attacker.Attack));
 			if (Defending.Health <= 0)
 			{
 				Attacking.Win();
 			}
 			
-			Attacking.DeclarePlay(new ModifyCard(Attacking, Attacker, nameof(Card.Ready), false));
+			Attacking.Match.History.Add(new ModifyCard(Attacking, Attacker, nameof(Card.Ready), false));
 		}
 		
 		public void Resolve(string ignore = "")
