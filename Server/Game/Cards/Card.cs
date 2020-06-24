@@ -41,15 +41,9 @@ namespace CardGame.Server.Game.Cards {
 
 		public virtual void SetCanBeActivated() => CanBeActivated = false;
 
-		public void Ready()
-		{
-			Owner.Match.History.Add(new ModifyCard(this, this, nameof(IsReady), true));
-		}
-		
-		public void Exhaust()
-		{
-			Owner.Match.History.Add(new ModifyCard(this, this, nameof(IsReady), false));
-		}
+		public void Ready() => IsReady = true;
+
+		public void Exhaust() => IsReady = false;
 
 		public Dictionary<string, int> Serialize() => new Dictionary<string, int>{{"Id", Id}, {"setCode", (int)SetCode}};
 		

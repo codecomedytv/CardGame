@@ -30,10 +30,9 @@ Test_Directory="res://Tests/Scripts"
 Results_Directory="res://Tests/Results/WAT"
 Minimize_Window_When_Running_Tests=false
 TestStrategy={
-"method": "When_They_Activate_An_Unready_Support",
+"directory": "res://Tests/Scripts/Serverside",
 "repeat": 1,
-"script": "res://Tests/Scripts/Serverside/JudgeTest.cs",
-"strategy": "RunMethod"
+"strategy": "RunDirectory"
 }
 Tags=PoolStringArray(  )
 Display=8

@@ -73,7 +73,7 @@ namespace CardGame.Server.States
             support.Zone = Player.Support;
             Link.ApplyConstants();
             Link.Register(support);
-            //Player.Match.History.Add(new Move(GameEvents.SetFaceDown, Player, support, Player.Support));
+            Player.Match.History.Add(new Move(GameEvents.SetFaceDown, Player, support, Player.Support));
             GD.Print(support.IsReady);
             // This is retriggering cards getting ready!
             Player.SetState(new Idle());
@@ -83,7 +83,8 @@ namespace CardGame.Server.States
 
         public override bool OnActivation(Support card, Card target)
         {
-            GD.Print($"Activating Ready Card? {card.IsReady}");
+            //GD.Print($"Activating Ready Card? {card.IsReady}");
+            //GD.Print($"A");
             if (!card.CanBeActivated)
             {
                 return DisqualifyPlayer;

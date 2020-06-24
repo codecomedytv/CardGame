@@ -17,16 +17,14 @@ namespace CardGame.Server.Game.Cards
 
         public override void SetCanBeDeployed()
         {
-            if (Zone == Controller.Hand && Controller.Field.Count < 7) 
-            { Controller.Match.History.Add(new ModifyCard(Controller, this, nameof(CanBeDeployed), this)); }
+            CanBeDeployed = Zone == Controller.Hand && Controller.Field.Count < 7;
         }
 
         public override void SetCanAttack()
         {
             if (Zone != Controller.Field || !IsReady || Attacked) return;
             ValidAttackTargets = Opponent.Field.ToList();
-            Controller.Match.History.Add(new ModifyCard(Controller, this, nameof(CanAttack), true));
-            // TODO: Re-implement Setting Attack Targets
+            CanAttack = true;
         }
         
 
