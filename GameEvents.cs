@@ -17,6 +17,7 @@
         DeclareAttack,
         DeclareDirectAttack,
         EndTurn,
-        GameOver
+        GameOver,
+        TopDeck
     }
 }

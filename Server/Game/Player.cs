@@ -84,7 +84,7 @@ namespace CardGame.Server {
 		
 		public void Shuffle() { /* TODO: Implement Shuffle */ }
 		
-		public void Draw() => DeclarePlay(new Move(this, Deck.Top, Hand));
+		public void Draw() => DeclarePlay(new Move(GameEvents.Draw, this, Deck.Top, Hand));
 		
 		public void Win() { DeclarePlay(new GameOver(this, Opponent)); }
 		

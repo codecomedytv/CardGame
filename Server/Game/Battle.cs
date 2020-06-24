@@ -45,7 +45,7 @@ namespace CardGame.Server.Game {
 			{
 				var overflow = Attacker.Attack - Defender.Defense;
 				Defending.DeclarePlay(new ModifyPlayer(Attacker, Defending, nameof(Player.Health), Defending.Health - overflow));
-				Defending.DeclarePlay(new Move(Attacker, Defender, Defender.Owner.Graveyard));
+				Defending.DeclarePlay(new Move(GameEvents.DestroyByBattle, Attacker, Defender, Defender.Owner.Graveyard));
 				if (Defending.Health <= 0)
 				{
 					Attacking.Win();
@@ -58,7 +58,7 @@ namespace CardGame.Server.Game {
 			{
 				var overflow = Defender.Attack - Attacker.Defense;
 				Attacking.DeclarePlay(new ModifyPlayer(Defender, Attacking, nameof(Player.Health), Attacking.Health - overflow));
-				Attacking.DeclarePlay(new Move(Defender, Attacker, Attacker.Owner.Graveyard));
+				Attacking.DeclarePlay(new Move(GameEvents.DestroyByBattle, Defender, Attacker, Attacker.Owner.Graveyard));
 				if (Attacking.Health <= 0)
 				{
 					Defending.Win();

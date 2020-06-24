@@ -3,7 +3,6 @@ using System.Linq;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Commands;
 using Godot;
-using Godot.Collections;
 
 namespace CardGame.Server.States
 {
@@ -26,7 +25,7 @@ namespace CardGame.Server.States
             {
                 return DisqualifyPlayer;
             }
-            Player.DeclarePlay(new Move(Player, unit, Player.Field));
+            Player.DeclarePlay(new Move(GameEvents.Deploy, Player, unit, Player.Field));
             Link.Register(unit);
             Link.Broadcast("deploy", new List<Godot.Object>{unit});
             Player.SetState(new Acting());
@@ -85,7 +84,7 @@ namespace CardGame.Server.States
             support.Zone = Player.Support;
             Link.ApplyConstants();
             Link.Register(support);
-            Player.DeclarePlay(new Move(Player, support, Player.Support));
+            Player.DeclarePlay(new Move(GameEvents.SetFaceDown, Player, support, Player.Support));
 
             // Returning a new Idle State Retriggers the OnEnter System
             Player.SetState(new Idle());

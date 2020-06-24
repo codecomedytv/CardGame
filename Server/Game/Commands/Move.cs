@@ -15,7 +15,7 @@ namespace CardGame.Server.Game.Commands
         {
         }
 
-        public Move(ISource source, Card card, Zone destination)
+        public Move(GameEvents identity, ISource source, Card card, Zone destination)
         {
             Source = source;
             Card = card;
