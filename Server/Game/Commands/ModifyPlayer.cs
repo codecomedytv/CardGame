@@ -9,7 +9,7 @@
         public readonly object Old;
         public readonly object New;
         
-        public ModifyPlayer(ISource source, Player player, string property, object newValue)
+        public ModifyPlayer(GameEvents identity, ISource source, Player player, string property, object newValue)
         {
             Source = source;
             Player = player;
