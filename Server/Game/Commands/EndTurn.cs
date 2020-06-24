@@ -2,6 +2,7 @@
 {
     public class EndTurn: Command
     {
+        public readonly GameEvents Identity = GameEvents.EndTurn;
         public readonly ISource Source;
 
         public EndTurn(ISource source)

@@ -4,6 +4,7 @@ namespace CardGame.Server.Game.Commands
 {
     public class ModifyCard: Command
     {
+        public readonly GameEvents Identity;
         public readonly object Old;
         public readonly object New;
         public readonly string Property;

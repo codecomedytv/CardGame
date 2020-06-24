@@ -2,6 +2,7 @@
 {
     public class GameOver : Command
     {
+        public readonly GameEvents Identity = GameEvents.GameOver;
         public readonly ISource Source;
         public readonly Player Winner;
         public readonly Player Loser;

@@ -7,6 +7,7 @@ namespace CardGame.Server.Game.Commands
 {
     public class LoadDeck : Command
     {
+	    public readonly GameEvents Identity = GameEvents.LoadDeck;
         public readonly ISource Source;
         public readonly Player Player;
         public readonly List<SetCodes> DeckList;

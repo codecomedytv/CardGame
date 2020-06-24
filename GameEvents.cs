@@ -3,6 +3,20 @@
     public enum GameEvents
     {
         NoOp,
-        EndTurn
+        LoadDeck,
+        Draw,
+        Deploy,
+        SetFaceDown,
+        Discard,
+        Bounce, 
+        Mill,
+        DestroyByEffect,
+        DestroyByBattle,
+        BattleDamage,
+        EffectDamage,
+        DeclareAttack,
+        DeclareDirectAttack,
+        EndTurn,
+        GameOver
     }
 }
