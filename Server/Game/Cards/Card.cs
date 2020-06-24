@@ -16,12 +16,11 @@ namespace CardGame.Server.Game.Cards {
 		public Player Opponent => Controller.Opponent;
 		public Skill.Skill Skill;
 		public Zone Zone;
-		public bool Ready = false;
-		public bool Activated = false;
-
+		
 		// When a player enters an active state (idle or active) then it iterates on all
 		// owned cards to see if these can be used or not.
-		public bool R = false;
+		public bool Ready = false;
+		public bool Activated = false;
 		public bool CanBeDeployed;
 		public bool CanBeSet;
 		public bool CanBeActivated;

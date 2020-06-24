@@ -13,8 +13,6 @@ namespace CardGame.Server.Game.Skill {
 		public Player Opponent => Card.Opponent;
 		public Card Card;
 		public bool CanBeUsed = false;
-		public string AreaOfActivation;
-		public Dictionary Parameters;
 		public Match Match;
 		public Types Type = Types.Manual;
 		public string GameEvent;
