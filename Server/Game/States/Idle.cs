@@ -36,21 +36,11 @@ namespace CardGame.Server.States
 
         public override bool OnAttack(Unit attacker, Unit defender)
         {
-            if (!attacker.CanAttack)
-            {
-                return DisqualifyPlayer;
-            }
-
-            if (!Player.Opponent.Field.Contains(defender))
+            if (!attacker.CanAttack || !Player.Opponent.Field.Contains(defender) || !attacker.ValidAttackTargets.Contains(defender))
             {
                 return DisqualifyPlayer;
             }
             
-            if (defender is Card defendingUnit && !attacker.ValidAttackTargets.Contains(defendingUnit))
-            {
-                return DisqualifyPlayer;
-            }
-
             Battle.Begin(Player, attacker, defender);
             Link.AddResolvable(Battle);
             Link.Broadcast("attack", new List<Object>());
