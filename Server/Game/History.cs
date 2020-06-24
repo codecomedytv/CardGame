@@ -1,19 +1,23 @@
 ﻿using System.Collections.Generic;
 using CardGame.Server.Game.Commands;
+using Godot;
 
 namespace CardGame.Server.Game
 {
     public class History: Godot.Object
     {
+        [Signal]
+        public delegate void EventRecorded();
         private int Cursor = 0;
         private int TurnCount = 0;
         private readonly List<Command> Events = new List<Command>();
 
-        public void OnPlayExecuted(Player player, Command executedCommand)
+        public void OnPlayExecuted(Command executedCommand)
         {
-            // Should be private but will need to reroute connection
             Events.Add(executedCommand);
-            //if(gameEvent.Identity == TurnEnded) {TurnCount += 1}
+            if (executedCommand is EndTurn) {TurnCount += 1;}
+            EmitSignal(nameof(EventRecorded), executedCommand);
+            
         }
 
         public void Redo()

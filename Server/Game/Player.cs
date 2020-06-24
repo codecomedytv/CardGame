@@ -79,7 +79,7 @@ namespace CardGame.Server {
 		public void DeclarePlay(Command command)
 		{
 			command.Execute();
-			EmitSignal(nameof(PlayExecuted), this, command);
+			EmitSignal(nameof(PlayExecuted), command);
 		}
 		
 		public void Shuffle() { /* TODO: Implement Shuffle */ }
