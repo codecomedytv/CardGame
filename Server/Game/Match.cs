@@ -66,14 +66,13 @@ namespace CardGame.Server.Game {
 			{
 				player.Match.History.Add(new LoadDeck(player, this));
 				player.Shuffle();
-				for (var i = 0; i <= 7; i++)
+				for (var i = 0; i < 7; i++)
 				{
 					player.Draw();
 				}
 			}
 			
 			// TODO: Access TurnPlayer Directly from Tests to avoid Index Misalignment
-			//TurnPlayer = Players.TurnPlayer();
 			TurnPlayer = Players.TurnPlayer();
 			TurnPlayer.IsTurnPlayer = true;
 			TurnPlayer.SetState(new Idle());
@@ -233,13 +232,22 @@ namespace CardGame.Server.Game {
 		private void OnEndTurn(int playerId)
 		{
 			var player = Players[playerId];
-			var disqualifyPlayer = player.OnEndTurn();
-			if (disqualifyPlayer || player.State.ToString() != "Idle")
+			//var disqualifyPlayer = player.OnEndTurn();
+			if (player.State.ToString() != "Idle")
 			{
 				Disqualify(player, 0);
 				Update();
 				return;
 			}
+			
+			player.Match.History.Add(new EndTurn(player));
+			player.IsTurnPlayer = false;
+			player.Opponent.IsTurnPlayer = true;
+			Link.ApplyConstants();
+			foreach (var unit in player.Opponent.Field) { unit.Ready(); };
+			foreach (var support in player.Support) { support.Ready(); }
+			player.SetState(new Passive());
+			player.Opponent.SetState(new Idle());
 			TurnPlayer = player.Opponent;
 			BeginTurn();
 		}

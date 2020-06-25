@@ -79,6 +79,8 @@ namespace CardGame.Tests.Scripts.Serverside
 		        DeckList.Add(SetCodes.DebugDraw2Cards);
 	        }
 	        StartGame(DeckList);
+	        Assert.IsEqual(Player.Hand.Count, 7);
+	        Assert.IsEqual(Opponent.Hand.Count, 7);
 	        Play.EndTurn(Player.Id);
 	        GD.Print(Player.IsTurnPlayer);
 	        var ids = Opponent.Hand.Select(card => card.Id).ToList();

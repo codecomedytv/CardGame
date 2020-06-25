@@ -34,19 +34,6 @@ namespace CardGame.Server.States
             return Ok;
         }
         
-
-        public override bool OnEndTurn()
-        {
-            Player.Match.History.Add(new EndTurn(Player));
-            Player.IsTurnPlayer = false;
-            Player.Opponent.IsTurnPlayer = true;
-            Link.ApplyConstants();
-            foreach (var unit in Player.Opponent.Field) { unit.Ready(); };
-            foreach (var support in Player.Support) { support.Ready(); }
-            Player.SetState(new Passive());
-            Player.Opponent.SetState(new Idle());
-            return Ok;
-        }
         
         public override string ToString()
         {
