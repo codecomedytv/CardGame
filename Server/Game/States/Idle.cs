@@ -19,22 +19,6 @@ namespace CardGame.Server.States
             foreach(var card in Player.Support) {card.SetCanBeActivated();}
         }
         
-
-        public override bool OnActivation(Support card, Card target)
-        {
-            if (!card.CanBeActivated)
-            {
-                return DisqualifyPlayer;
-            }
-            GD.Print(card.IsReady);
-            Link.Activate(card.Skill, target);
-            Player.SetState(new Acting());
-            Player.Opponent.SetState(new Active());
-
-            return Ok;
-        }
-        
-        
         public override string ToString()
         {
             return "Idle";

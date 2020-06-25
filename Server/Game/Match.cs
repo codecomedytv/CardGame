@@ -154,7 +154,6 @@ namespace CardGame.Server.Game {
 		{
 			var player = Players[playerId];
 			var card = (Support)CardCatalog.GetCard(faceDownId);
-			//var disqualifyPlayer = player.OnSetFaceDown(card);
 			if (!card.CanBeSet || player.State.ToString() != "Idle")
 			{
 				Disqualify(player, 0);;
@@ -173,27 +172,21 @@ namespace CardGame.Server.Game {
 		{
 			var player = Players[playerId];
 			var card = (Support)CardCatalog.GetCard(cardId);
-			// Note: We may want to add a null object card for situations like this
 			var target = CardCatalog.GetCard(targetId);
-			var disqualifyPlayer = player.OnActivation(card, target);
-			// (player.State.ToString() != "Idle" || player.State.ToString() != "Active")
-			if (disqualifyPlayer)
+			var invalidState = !(player.State.ToString() == "Idle" || player.State.ToString() == "Active");
+			if (!card.CanBeActivated || invalidState)
 			{
-				Disqualify(player, 0);;
+				Disqualify(player, 0);
+				Update();
+				return;
 			}
+			
+			Link.Activate(card.Skill, target);
+			player.SetState(new Acting());
+			player.Opponent.SetState(new Active());
 			Update();
 			
 		}
-		
-		/* if (!card.CanBeActivated)
-            {
-                return DisqualifyPlayer;
-            }
-            GD.Print(card.IsReady);
-            Link.Activate(card.Skill, target);
-            Player.SetState(new Acting());
-            Player.Opponent.SetState(new Active());
-*/
 
 		private void OnTarget(int playerId, int targetId)
 		{
@@ -232,7 +225,6 @@ namespace CardGame.Server.Game {
 		private void OnEndTurn(int playerId)
 		{
 			var player = Players[playerId];
-			//var disqualifyPlayer = player.OnEndTurn();
 			if (player.State.ToString() != "Idle")
 			{
 				Disqualify(player, 0);

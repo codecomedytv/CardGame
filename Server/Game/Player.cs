@@ -37,22 +37,9 @@ namespace CardGame.Server {
 			
 		}
 		
-		public bool OnDeploy(Unit unit) => State.OnDeploy(unit);
-		
-		public bool OnAttack(Unit unit, Unit defender) => State.OnAttack(unit, defender);
-
-		public bool OnDirectAttack(Unit attacker) => State.OnDirectAttack(attacker);
-		
-		public bool OnActivation(Support card, Card target) => State.OnActivation(card, target);
 
 		public void OnTargetSelected(Card card) => EmitSignal(nameof(TargetSelected), card);
 		
-		public bool OnSetFaceDown(Support support) => State.OnSetFaceDown(support);
-
-		public bool OnPriorityPassed() => State.OnPassPlay();
-
-		public bool OnEndTurn() => State.OnEndTurn();
-
 		public void SetState(State newState)
 		{
 			State = newState;
