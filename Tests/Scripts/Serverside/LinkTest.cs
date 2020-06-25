@@ -32,8 +32,8 @@ namespace CardGame.Tests.Scripts.Serverside
             var attacker = Player.Hand[6];
             var chainMine = Opponent.Hand[3];
             Play.Deploy(Player.Id, attacker.Id);
-            Play.PassPlay(Player.Id);
             Play.PassPlay(Opponent.Id);
+            Play.PassPlay(Player.Id);
             Play.EndTurn(Player.Id);
             Play.SetFaceDown(Opponent.Id, chainMine.Id);
             Play.EndTurn(Opponent.Id);
