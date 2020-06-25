@@ -10,13 +10,6 @@ namespace CardGame.Server.States
     {
         public override void OnEnter(Player player)
         {
-            Player = player;
-            // We're only doing this for cards in hand but it might worth iterating through all cards?
-            // Otherwise users may be able to deploy cards illegal from graveyard or deck etc
-            foreach(var card in Player.Hand) {card.SetCanBeDeployed();}
-            foreach(var card in Player.Hand) {card.SetCanBeSet();}
-            foreach(var card in Player.Field) {card.SetCanAttack();}
-            foreach(var card in Player.Support) {card.SetCanBeActivated();}
         }
         
         public override string ToString()

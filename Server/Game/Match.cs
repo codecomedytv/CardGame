@@ -12,6 +12,9 @@ namespace CardGame.Server.Game {
 	public class Match : Node
 	{
 		
+		// TODO
+		// Handle Link Events B
+		
 		private readonly Messenger Messenger;
 		private readonly Players Players;
 		private readonly CardCatalog CardCatalog = new CardCatalog();

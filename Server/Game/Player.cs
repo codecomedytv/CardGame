@@ -15,6 +15,7 @@ namespace CardGame.Server {
 
 		public readonly List<SetCodes> DeckList;
 		public readonly int Id;
+
 		public State State;
 		public Player Opponent;
 		public int Health = 8000;
@@ -44,6 +45,17 @@ namespace CardGame.Server {
 		{
 			State = newState;
 			State.OnEnter(this);
+			if (State.ToString() == "Idle")
+			{
+				foreach(var card in Hand) {card.SetCanBeDeployed();}
+				foreach(var card in Hand) {card.SetCanBeSet();}
+				foreach(var card in Field) {card.SetCanAttack();}
+				foreach(var card in Support) {card.SetCanBeActivated();}
+			}
+			else if (State.ToString() == "Active")
+			{
+				foreach(var card in Support) {card.SetCanBeActivated();}
+			}
 			// TODO: We've removed the state game event since it was largely unnecessary but we will still..
 			// TODO: need a way to inform the client
 		}
