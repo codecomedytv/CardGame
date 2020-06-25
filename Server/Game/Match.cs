@@ -239,7 +239,12 @@ namespace CardGame.Server.Game {
 			player.SetState(States.Passive);
 			player.Opponent.SetState(States.Idle);
 			TurnPlayer = player.Opponent;
-			BeginTurn();
+			//var player = TurnPlayer;
+			TurnPlayer.Draw();
+			TurnPlayer.SetState(States.Idle);
+			Link.ApplyConstants();
+			Link.SetupManual(new NullCommand());
+			Update();
 		}
 
 		private void Disqualify(Player player, int reason)
