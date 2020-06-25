@@ -1,12 +1,9 @@
 using Godot;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using CardGame.Server.Game;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Commands;
 using CardGame.Server.Game.Zones;
-using CardGame.Server.States;
 
 namespace CardGame.Server {
 
@@ -16,7 +13,7 @@ namespace CardGame.Server {
 		public readonly List<SetCodes> DeckList;
 		public readonly int Id;
 
-		public State State;
+		public States State;
 		public Player Opponent;
 		public int Health = 8000;
 		public bool Ready = false;
@@ -41,23 +38,27 @@ namespace CardGame.Server {
 
 		public void OnTargetSelected(Card card) => EmitSignal(nameof(TargetSelected), card);
 		
-		public void SetState(State newState)
+		public void SetState(States newState)
 		{
 			State = newState;
-			State.OnEnter(this);
-			if (State.ToString() == "Idle")
+			switch (State)
 			{
-				foreach(var card in Hand) {card.SetCanBeDeployed();}
-				foreach(var card in Hand) {card.SetCanBeSet();}
-				foreach(var card in Field) {card.SetCanAttack();}
-				foreach(var card in Support) {card.SetCanBeActivated();}
+				case States.Idle:
+				{
+					foreach(var card in Hand) {card.SetCanBeDeployed();}
+					foreach(var card in Hand) {card.SetCanBeSet();}
+					foreach(var card in Field) {card.SetCanAttack();}
+					foreach(var card in Support) {card.SetCanBeActivated();}
+
+					break;
+				}
+				case States.Active:
+				{
+					foreach(var card in Support) {card.SetCanBeActivated();}
+
+					break;
+				}
 			}
-			else if (State.ToString() == "Active")
-			{
-				foreach(var card in Support) {card.SetCanBeActivated();}
-			}
-			// TODO: We've removed the state game event since it was largely unnecessary but we will still..
-			// TODO: need a way to inform the client
 		}
 		
 		public Player(int id, List<SetCodes> deckList)

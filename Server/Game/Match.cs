@@ -1,10 +1,7 @@
-using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.Linq;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Commands;
 using CardGame.Server.Game.Network;
-using CardGame.Server.States;
 using Godot;
 
 namespace CardGame.Server.Game {
@@ -78,8 +75,8 @@ namespace CardGame.Server.Game {
 			// TODO: Access TurnPlayer Directly from Tests to avoid Index Misalignment
 			TurnPlayer = Players.TurnPlayer();
 			TurnPlayer.IsTurnPlayer = true;
-			TurnPlayer.SetState(new Idle());
-			TurnPlayer.Opponent.SetState(new Passive());
+			TurnPlayer.SetState(States.Idle);
+			TurnPlayer.Opponent.SetState(States.Passive);
 			Update();
 		}
 		
@@ -87,7 +84,7 @@ namespace CardGame.Server.Game {
 		{
 			var player = TurnPlayer;
 			player.Draw();
-			player.SetState(new Idle());
+			player.SetState(States.Idle);
 			Link.ApplyConstants();
 			Link.SetupManual(new NullCommand());
 			Update();
@@ -97,7 +94,7 @@ namespace CardGame.Server.Game {
 		{
 			var player = Players[playerId];
 			var card = (Unit)CardCatalog.GetCard(cardId);
-			if (!card.CanBeDeployed || player.State.ToString() != "Idle")
+			if (!card.CanBeDeployed || player.State != States.Idle)
 			{
 				Disqualify(player, 0);
 				Update();
@@ -106,8 +103,8 @@ namespace CardGame.Server.Game {
 			
 			Link.Register(card);
 			History.Add(new Move(GameEvents.Deploy, player, card, player.Field));
-			player.SetState(new Acting());
-			player.Opponent.SetState(new Active());
+			player.SetState(States.Acting);
+			player.Opponent.SetState(States.Active);
 			Update();
 			
 		}
@@ -118,7 +115,7 @@ namespace CardGame.Server.Game {
 			var attacker = (Unit)CardCatalog.GetCard(attackerId);
 			var defender = (Unit) CardCatalog.GetCard(defenderId);
 			Attacking = attacker;
-			if (!attacker.CanAttack || !player.Opponent.Field.Contains(defender) || !attacker.ValidAttackTargets.Contains(defender) || player.State.ToString() != "Idle")
+			if (!attacker.CanAttack || !player.Opponent.Field.Contains(defender) || !attacker.ValidAttackTargets.Contains(defender) || player.State != States.Idle)
 			{
 				Disqualify(player, 0);;
 				Update();
@@ -128,8 +125,8 @@ namespace CardGame.Server.Game {
 			Battle.Begin(player, attacker, defender);
 			Link.AddResolvable(Battle);
 			History.Add(new DeclareAttack(attacker, defender));
-			player.SetState(new Acting());
-			player.Opponent.SetState(new Active());
+			player.SetState(States.Acting);
+			player.Opponent.SetState(States.Active);
 			Update();
 		}
 
@@ -138,7 +135,7 @@ namespace CardGame.Server.Game {
 			var player = Players[playerId];
 			var attacker = (Unit) CardCatalog.GetCard(attackerId);
 			Attacking = attacker;
-			if (!attacker.CanAttack || player.Opponent.Field.Count != 0 || player.State.ToString() != "Idle")
+			if (!attacker.CanAttack || player.Opponent.Field.Count != 0 || player.State != States.Idle)
 			{
 				Disqualify(player, 0);
 				Update();
@@ -148,8 +145,8 @@ namespace CardGame.Server.Game {
 			Battle.BeginDirectAttack(player, attacker);
 			Link.AddResolvable(Battle);
 			History.Add(new DeclareDirectAttack(attacker));
-			player.SetState(new Acting());
-			player.Opponent.SetState(new Active());
+			player.SetState(States.Acting);
+			player.Opponent.SetState(States.Active);
 			Update();
 		}
 		
@@ -157,7 +154,7 @@ namespace CardGame.Server.Game {
 		{
 			var player = Players[playerId];
 			var card = (Support)CardCatalog.GetCard(faceDownId);
-			if (!card.CanBeSet || player.State.ToString() != "Idle")
+			if (!card.CanBeSet || player.State != States.Idle)
 			{
 				Disqualify(player, 0);;
 				Update();
@@ -167,7 +164,7 @@ namespace CardGame.Server.Game {
 			Link.ApplyConstants();
 			Link.Register(card);
 			History.Add(new Move(GameEvents.SetFaceDown, player, card, player.Support));
-			player.SetState(new Idle());
+			player.SetState(States.Idle);
 			Update();
 		}
 		
@@ -176,7 +173,7 @@ namespace CardGame.Server.Game {
 			var player = Players[playerId];
 			var card = (Support)CardCatalog.GetCard(cardId);
 			var target = CardCatalog.GetCard(targetId);
-			var invalidState = !(player.State.ToString() == "Idle" || player.State.ToString() == "Active");
+			var invalidState = !(player.State == States.Idle || player.State == States.Active);
 			if (!card.CanBeActivated || invalidState)
 			{
 				Disqualify(player, 0);
@@ -185,8 +182,8 @@ namespace CardGame.Server.Game {
 			}
 			
 			Link.Activate(card.Skill, target);
-			player.SetState(new Acting());
-			player.Opponent.SetState(new Active());
+			player.SetState(States.Acting);
+			player.Opponent.SetState(States.Active);
 			Update();
 			
 		}
@@ -202,23 +199,23 @@ namespace CardGame.Server.Game {
 		private void OnPriorityPassed(int playerId)
 		{
 			var player = Players[playerId];
-			if (player.State.ToString() != "Active")
+			if (player.State != States.Active)
 			{
 				Disqualify(player, 0);
 				Update();
 				return;
 			}
-			if (player.Opponent.State.GetType() == typeof(Passing))
+			if (player.Opponent.State == States.Passing)
 			{
 				Link.Resolve();
 				var turnPlayer = player.IsTurnPlayer ? player : player.Opponent;
-				turnPlayer.SetState(new Idle());
-				turnPlayer.Opponent.SetState(new Passive());
+				turnPlayer.SetState(States.Idle);
+				turnPlayer.Opponent.SetState(States.Passive);
 			}
 			else
 			{
-				player.Opponent.SetState(new Active());
-				player.SetState(new Passing());
+				player.Opponent.SetState(States.Active);
+				player.SetState(States.Passing);
 			}
 			Update();
 			
@@ -228,7 +225,7 @@ namespace CardGame.Server.Game {
 		private void OnEndTurn(int playerId)
 		{
 			var player = Players[playerId];
-			if (player.State.ToString() != "Idle")
+			if (player.State != States.Idle)
 			{
 				Disqualify(player, 0);
 				Update();
@@ -241,8 +238,8 @@ namespace CardGame.Server.Game {
 			Link.ApplyConstants();
 			foreach (var unit in player.Opponent.Field) { unit.Ready(); };
 			foreach (var support in player.Support) { support.Ready(); }
-			player.SetState(new Passive());
-			player.Opponent.SetState(new Idle());
+			player.SetState(States.Passive);
+			player.Opponent.SetState(States.Idle);
 			TurnPlayer = player.Opponent;
 			BeginTurn();
 		}

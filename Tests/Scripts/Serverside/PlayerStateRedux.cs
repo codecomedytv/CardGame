@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using CardGame.Server;
+using CardGame.Server.Game;
 using CardGame.Server.Game.Cards;
-using CardGame.Server.States;
-using Godot;
-using Godot.Collections;
 
 namespace CardGame.Tests.Scripts.Serverside
 {
@@ -49,8 +46,8 @@ namespace CardGame.Tests.Scripts.Serverside
 
 			
 			// Whitebox Checking
-			Assert.IsTrue(Player.State.GetType() == typeof(Idle), "Player 1 is IDLE");
-			Assert.IsTrue(Opponent.State.GetType() == typeof(Passive), "Player 0 is PASSIVE");
+			Assert.IsTrue(Player.State == States.Idle, "Player 1 is IDLE");
+			Assert.IsTrue(Opponent.State == States.Passive, "Player 0 is PASSIVE");
 			
 			Play.Deploy(Player.Id, attacker.Id);
 			
@@ -60,54 +57,54 @@ namespace CardGame.Tests.Scripts.Serverside
 			
 			Assert.Has(attacker, Player.Field, "Attacker Has been Deployed");
 			
-			Assert.IsTrue(Player.State.GetType() == typeof(Acting), "Player 1 is ACTING");
-			Assert.IsTrue(Opponent.State.GetType() == typeof(Active), "Player 0 is ACTIVE");
+			Assert.IsTrue(Player.State == States.Acting, "Player 1 is ACTING");
+			Assert.IsTrue(Opponent.State == States.Active, "Player 0 is ACTIVE");
 			
 			Play.PassPlay(Opponent.Id);
 			
 			// Whitebox Check
-			Assert.IsTrue(Opponent.State.GetType() == typeof(Passing), "Player 0 is PASSING");
-			Assert.IsTrue(Player.State.GetType() == typeof(Active), "Player 1 is ACTIVE");
+			Assert.IsTrue(Opponent.State == States.Passing, "Player 0 is PASSING");
+			Assert.IsTrue(Player.State == States.Active, "Player 1 is ACTIVE");
 			
 			Play.PassPlay(Player.Id);
 			
-			Assert.IsTrue(Player.State.GetType() == typeof(Idle), "Player 1 is IDLE");
-			Assert.IsTrue(Opponent.State.GetType() == typeof(Passive), "Player 0 is PASSIVE");
+			Assert.IsTrue(Player.State == States.Idle, "Player 1 is IDLE");
+			Assert.IsTrue(Opponent.State == States.Passive, "Player 0 is PASSIVE");
 			
 			Play.EndTurn(Player.Id);
 			
-			Assert.IsTrue(Player.State.GetType() == typeof(Passive), "Player 1 is PASSIVE");
-			Assert.IsTrue(Opponent.State.GetType() == typeof(Idle), "Player 0 is IDLE");
+			Assert.IsTrue(Player.State == States.Passive, "Player 1 is PASSIVE");
+			Assert.IsTrue(Opponent.State == States.Idle, "Player 0 is IDLE");
 			
 			Play.SetFaceDown(Opponent.Id, chainMines.Id);
 			Assert.Has(chainMines, Opponent.Support, "Chain Mines Has been set");
 			Play.EndTurn(Opponent.Id);
 			
-			Assert.IsTrue(Player.State.GetType() == typeof(Idle), "Player 1 is IDLE");
-			Assert.IsTrue(Opponent.State.GetType() == typeof(Passive), "Player 0 is PASSIVE");
+			Assert.IsTrue(Player.State == States.Idle, "Player 1 is IDLE");
+			Assert.IsTrue(Opponent.State == States.Passive, "Player 0 is PASSIVE");
 			Play.DirectAttack(Player.Id, attacker.Id);
 			
-			Console.WriteLine(Player.State + "|" + Player.State.GetType().ToString());
-			Console.WriteLine(Opponent.State + "|" + Opponent.State.GetType().ToString());
-			Assert.IsTrue(Player.State.GetType() == typeof(Acting), "Player 1 is ACTING");
-			Assert.IsTrue(Opponent.State.GetType() == typeof(Active), "Player 0 is ACTIVE");
+			Console.WriteLine(Player.State + "|" + Player.State.ToString());
+			Console.WriteLine(Opponent.State + "|" + Opponent.State.ToString());
+			Assert.IsTrue(Player.State == States.Acting, "Player 1 is ACTING");
+			Assert.IsTrue(Opponent.State == States.Active, "Player 0 is ACTIVE");
 			
 			Assert.IsTrue(chainMines.IsReady, "ChainMines Is Ready");
 			Assert.IsTrue(chainMines.CanBeActivated, "ChainMine can be activated");
 			Play.Activate(Opponent.Id, chainMines.Id);
 
-			Assert.IsTrue(Opponent.State.GetType() == typeof(Acting), "Player 0 is ACTING");
-			Assert.IsTrue(Player.State.GetType() == typeof(Active), "Player 1 is ACTIVE");
+			Assert.IsTrue(Opponent.State == States.Acting, "Player 0 is ACTING");
+			Assert.IsTrue(Player.State == States.Active, "Player 1 is ACTIVE");
 			
 			Play.PassPlay(Player.Id);
 			
-			Assert.IsTrue(Player.State.GetType() == typeof(Passing), "Player 1 is PASSING");
-			Assert.IsTrue(Opponent.State.GetType() == typeof(Active), "Player 0 is ACTIVE");
+			Assert.IsTrue(Player.State == States.Passing, "Player 1 is PASSING");
+			Assert.IsTrue(Opponent.State == States.Active, "Player 0 is ACTIVE");
 			
 			Play.PassPlay(Opponent.Id);
 			
-			Assert.IsTrue(Player.State.GetType() == typeof(Idle), "Player 1 is IDLE");
-			Assert.IsTrue(Opponent.State.GetType() == typeof(Passive), "Player 0 is PASSIVE");
+			Assert.IsTrue(Player.State == States.Idle, "Player 1 is IDLE");
+			Assert.IsTrue(Opponent.State == States.Passive, "Player 0 is PASSIVE");
 			
 			
 			

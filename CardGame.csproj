@@ -102,12 +102,7 @@
     <Compile Include="Server\Game\Skill\NullSkill.cs" />
     <Compile Include="Server\Game\Skill\Skill.cs" />
     <Compile Include="Server\Game\Skill\Actions.cs" />
-    <Compile Include="Server\Game\States\Acting.cs" />
-    <Compile Include="Server\Game\States\Active.cs" />
-    <Compile Include="Server\Game\States\Idle.cs" />
-    <Compile Include="Server\Game\States\Passing.cs" />
-    <Compile Include="Server\Game\States\Passive.cs" />
-    <Compile Include="Server\Game\States\State.cs" />
+    <Compile Include="Server\Game\States.cs" />
     <Compile Include="Server\Game\Zones\Zone.cs" />
     <Compile Include="Server\Library\Alpha\CounterAttack.cs" />
     <Compile Include="Server\Library\Alpha\DungeonGuide.cs" />
