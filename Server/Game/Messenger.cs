@@ -47,9 +47,9 @@ namespace CardGame.Server.Game.Network {
 			foreach (var player in players) { RpcId(player.Id, "ExecuteEvents");}
 		}
 
-		public virtual void DisqualifyPlayer(int player, int reason)
+		public virtual void DisqualifyPlayer(int player)
 		{
-			GD.Print($"Player {player} disqualified because: {reason}");
+			GD.Print($"Player {player} disqualified");
 		}
 
 		[Master]

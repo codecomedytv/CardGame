@@ -95,8 +95,7 @@ namespace CardGame.Server.Game {
 			var card = (Unit)CardCatalog.GetCard(cardId);
 			if (!card.CanBeDeployed || player.State != States.Idle)
 			{
-				Disqualify(player, 0);
-				Update();
+				Disqualify(player);
 				return;
 			}
 			
@@ -116,8 +115,7 @@ namespace CardGame.Server.Game {
 			Attacking = attacker;
 			if (!attacker.CanAttack || !player.Opponent.Field.Contains(defender) || !attacker.ValidAttackTargets.Contains(defender) || player.State != States.Idle)
 			{
-				Disqualify(player, 0);;
-				Update();
+				Disqualify(player);;
 				return;
 			}
 			
@@ -136,8 +134,7 @@ namespace CardGame.Server.Game {
 			Attacking = attacker;
 			if (!attacker.CanAttack || player.Opponent.Field.Count != 0 || player.State != States.Idle)
 			{
-				Disqualify(player, 0);
-				Update();
+				Disqualify(player);
 				return;
 			}
 			
@@ -155,8 +152,7 @@ namespace CardGame.Server.Game {
 			var card = (Support)CardCatalog.GetCard(faceDownId);
 			if (!card.CanBeSet || player.State != States.Idle)
 			{
-				Disqualify(player, 0);;
-				Update();
+				Disqualify(player);
 				return;
 			}
 			
@@ -175,8 +171,7 @@ namespace CardGame.Server.Game {
 			var invalidState = !(player.State == States.Idle || player.State == States.Active);
 			if (!card.CanBeActivated || invalidState)
 			{
-				Disqualify(player, 0);
-				Update();
+				Disqualify(player);
 				return;
 			}
 			
@@ -200,8 +195,7 @@ namespace CardGame.Server.Game {
 			var player = Players[playerId];
 			if (player.State != States.Active)
 			{
-				Disqualify(player, 0);
-				Update();
+				Disqualify(player);
 				return;
 			}
 			if (player.Opponent.State == States.Passing)
@@ -225,8 +219,7 @@ namespace CardGame.Server.Game {
 			var player = Players[playerId];
 			if (player.State != States.Idle)
 			{
-				Disqualify(player, 0);
-				Update();
+				Disqualify(player);
 				return;
 			}
 			
@@ -246,11 +239,11 @@ namespace CardGame.Server.Game {
 			Update();
 		}
 
-		private void Disqualify(Player player, int reason)
+		private void Disqualify(Player player)
 		{
 			player.IsDisqualified = true;
-			Messenger.DisqualifyPlayer(player.Id, reason);
-			Messenger.DisqualifyPlayer(player.Opponent.Id, 0);
+			Messenger.DisqualifyPlayer(player.Id);
+			Messenger.DisqualifyPlayer(player.Opponent.Id);
 		}
 		
 		public void RegisterCard(Card card) => CardCatalog.RegisterCard(card);

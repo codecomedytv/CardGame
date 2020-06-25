@@ -14,7 +14,7 @@ namespace CardGame.Tests
 
         public override void Update(IEnumerable<Player> enumerable) { /* Empty Test Implementation */ }
 
-        public override void DisqualifyPlayer(int player, int reason) { /* Empty Test Implementation */}
+        public override void DisqualifyPlayer(int player) { /* Empty Test Implementation */}
 
     }
 }
