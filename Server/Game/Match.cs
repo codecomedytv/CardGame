@@ -72,7 +72,6 @@ namespace CardGame.Server.Game {
 				}
 			}
 			
-			// TODO: Access TurnPlayer Directly from Tests to avoid Index Misalignment
 			TurnPlayer = Players.TurnPlayer();
 			TurnPlayer.IsTurnPlayer = true;
 			TurnPlayer.SetState(States.Idle);
@@ -112,7 +111,7 @@ namespace CardGame.Server.Game {
 		private void OnAttack(int playerId, int attackerId, int defenderId)
 		{
 			var player = Players[playerId];
-			var attacker = (Unit)CardCatalog.GetCard(attackerId);
+			var attacker = (Unit) CardCatalog.GetCard(attackerId);
 			var defender = (Unit) CardCatalog.GetCard(defenderId);
 			Attacking = attacker;
 			if (!attacker.CanAttack || !player.Opponent.Field.Contains(defender) || !attacker.ValidAttackTargets.Contains(defender) || player.State != States.Idle)
@@ -208,9 +207,8 @@ namespace CardGame.Server.Game {
 			if (player.Opponent.State == States.Passing)
 			{
 				Link.Resolve();
-				var turnPlayer = player.IsTurnPlayer ? player : player.Opponent;
-				turnPlayer.SetState(States.Idle);
-				turnPlayer.Opponent.SetState(States.Passive);
+				TurnPlayer.SetState(States.Idle);
+				TurnPlayer.Opponent.SetState(States.Passive);
 			}
 			else
 			{
@@ -232,7 +230,7 @@ namespace CardGame.Server.Game {
 				return;
 			}
 			
-			player.Match.History.Add(new EndTurn(player));
+			History.Add(new EndTurn(player));
 			player.IsTurnPlayer = false;
 			player.Opponent.IsTurnPlayer = true;
 			Link.ApplyConstants();
