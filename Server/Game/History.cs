@@ -26,7 +26,10 @@ namespace CardGame.Server.Game
             // }
             command.Execute();
             Events.Add(command);
-            if (command is EndTurn) {TurnCount += 1;}
+            if (command is EndTurn)
+            {
+                TurnCount += 1;
+            }
             EmitSignal(nameof(EventRecorded), command);
             
         }

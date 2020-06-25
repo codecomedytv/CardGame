@@ -22,5 +22,10 @@ namespace CardGame.Server.Game.Zones
 
         public Card this[int i] => Cards[i];
 
+        public int GetCount()
+        {
+            return Cards.Count;
+        }
+
     }
 }

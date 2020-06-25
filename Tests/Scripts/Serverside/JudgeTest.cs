@@ -44,7 +44,10 @@ namespace CardGame.Tests.Scripts.Serverside
         public void When_They_Try_To_Deploy_A_Unit_When_Their_Field_Is_Full()
         {
 	        StartGame(DeckList);
-			var ids = Player.Hand.Select(card => card.Id).ToList();
+	        
+	        Play.EndTurn(Player.Id);
+	        Play.EndTurn(Opponent.Id);
+	        var ids = Player.Hand.Select(card => card.Id).ToList();
 			foreach (var card in ids)
 			{
 				Play.Deploy(Player.Id, card);
@@ -52,8 +55,7 @@ namespace CardGame.Tests.Scripts.Serverside
 				Play.PassPlay(Player.Id);
 			}
 
-			Play.EndTurn(Player.Id);
-			Play.EndTurn(Opponent.Id);
+			
 			Play.Deploy(Player.Id, Player.Hand[0].Id);
 			Assert.IsEqual(Player.Field.Count, 7);
 			Assert.IsTrue(Player.IsDisqualified);

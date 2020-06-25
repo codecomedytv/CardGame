@@ -66,7 +66,7 @@ namespace CardGame.Server.Game {
 			{
 				player.Match.History.Add(new LoadDeck(player, this));
 				player.Shuffle();
-				for (var i = 0; i < 7; i++)
+				for (var i = 0; i <= 7; i++)
 				{
 					player.Draw();
 				}
@@ -237,6 +237,8 @@ namespace CardGame.Server.Game {
 			if (disqualifyPlayer || player.State.ToString() != "Idle")
 			{
 				Disqualify(player, 0);
+				Update();
+				return;
 			}
 			TurnPlayer = player.Opponent;
 			BeginTurn();
