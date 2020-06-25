@@ -32,29 +32,29 @@ namespace CardGame.Tests.Scripts.Serverside
         public void When_They_Deploy_A_Unit()
         {
             StartGame(DeckList);
-            var unit = Players[1].Hand[0].Id;
-            Play.Deploy(Players[1].Id, unit);
+            var unit = Player.Hand[0].Id;
+            Play.Deploy(Player.Id, unit);
             
-            Assert.IsEqual(Players[1].Field.Count, 1,"Then Their Field has 1 Unit");
+            Assert.IsEqual(Player.Field.Count, 1,"Then Their Field has 1 Unit");
         }
 
         [Test]
         public void When_They_Set_A_Support()
         {
             StartGame(DeckList);
-            var support = Players[1].Hand[4].Id;
-            Play.SetFaceDown(Players[1].Id, support);
+            var support = Player.Hand[4].Id;
+            Play.SetFaceDown(Player.Id, support);
             
-            Assert.IsEqual(Players[1].Support.Count, 1, "Then Their Support has 1 Support");
+            Assert.IsEqual(Player.Support.Count, 1, "Then Their Support has 1 Support");
         }
 
         [Test]
         public void When_They_End_Their_Turn()
         {
             StartGame(DeckList);
-            Play.EndTurn(Players[1].Id);
+            Play.EndTurn(Player.Id);
             
-            Assert.IsFalse(Players[1].IsTurnPlayer, "Then They Are Not The Turn Player");
+            Assert.IsFalse(Player.IsTurnPlayer, "Then They Are Not The Turn Player");
         }
 
     }

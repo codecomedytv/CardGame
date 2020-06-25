@@ -18,7 +18,7 @@ namespace CardGame.Server.Game {
 		public readonly History History = new History();
 		public readonly Battle Battle = new Battle();
 		public readonly Link Link = new Link();
-		private Player TurnPlayer;
+		public Player TurnPlayer;
 		public Unit Attacking;
 
 		[Signal]
@@ -74,7 +74,7 @@ namespace CardGame.Server.Game {
 			
 			// TODO: Access TurnPlayer Directly from Tests to avoid Index Misalignment
 			//TurnPlayer = Players.TurnPlayer();
-			TurnPlayer = Players.ToList()[1];
+			TurnPlayer = Players.TurnPlayer();
 			TurnPlayer.IsTurnPlayer = true;
 			TurnPlayer.SetState(new Idle());
 			TurnPlayer.Opponent.SetState(new Passive());
@@ -163,9 +163,6 @@ namespace CardGame.Server.Game {
 				return;
 			}
 			
-			// player.Hand.Remove(card);
-			// player.Support.Add(card);
-			// card.Zone = player.Support;
 			Link.ApplyConstants();
 			Link.Register(card);
 			History.Add(new Move(GameEvents.SetFaceDown, player, card, player.Support));
@@ -239,12 +236,7 @@ namespace CardGame.Server.Game {
 			var disqualifyPlayer = player.OnEndTurn();
 			if (disqualifyPlayer || player.State.ToString() != "Idle")
 			{
-				// This may be more of a test problem than a real problem but when we return too early
-				// states are not being set which leads to other moves being considered legal!
 				Disqualify(player, 0);
-				//player.SetState(new State());
-				Update();
-				//return;
 			}
 			TurnPlayer = player.Opponent;
 			BeginTurn();
@@ -252,7 +244,6 @@ namespace CardGame.Server.Game {
 
 		private void Disqualify(Player player, int reason)
 		{
-			// We require this call to be deferred so we can keep the RPC Path Connected until Disconnected
 			player.IsDisqualified = true;
 			Messenger.DisqualifyPlayer(player.Id, reason);
 			Messenger.DisqualifyPlayer(player.Opponent.Id, 0);

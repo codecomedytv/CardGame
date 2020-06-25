@@ -13,6 +13,9 @@ namespace CardGame.Tests.Scripts
     // public Gamestate GameState = new Gamestate();
     public MockMessenger Play;// Replace with test focused
     public Match Match;
+    protected Player TurnPlayer;
+    protected Player Player;
+    protected Player Opponent;
 
     protected void StartGame(List<SetCodes> deckList, List<SetCodes> deckList2 = null)
     {
@@ -24,10 +27,15 @@ namespace CardGame.Tests.Scripts
         Match = new Match(new Players(Players[0], Players[1]), Play);
         AddChild(Match);
         foreach(var player in Players){ Play.SetReady(player.Id); }
+
+        TurnPlayer = Match.TurnPlayer;
+        Player = TurnPlayer;
+        Opponent = TurnPlayer.Opponent;
     }
 
     public override void Post()
     {
+        TurnPlayer = null;
         Players.Clear();
         Play.Free();
         Match.Free();

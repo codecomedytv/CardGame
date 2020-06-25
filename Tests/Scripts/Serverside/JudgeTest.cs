@@ -35,37 +35,37 @@ namespace CardGame.Tests.Scripts.Serverside
         {
 	
 	        StartGame(DeckList);
-	        var unit = Players[0].Hand[0].Id;
-	        Play.Deploy(Players[0].Id, unit);
-	        Assert.IsTrue(Players[0].IsDisqualified);
+	        var unit = Opponent.Hand[0].Id;
+	        Play.Deploy(Opponent.Id, unit);
+	        Assert.IsTrue(Opponent.IsDisqualified);
         }
 
         [Test]
         public void When_They_Try_To_Deploy_A_Unit_When_Their_Field_Is_Full()
         {
 	        StartGame(DeckList);
-			var ids = Players[1].Hand.Select(card => card.Id).ToList();
+			var ids = Player.Hand.Select(card => card.Id).ToList();
 			foreach (var card in ids)
 			{
-				Play.Deploy(Players[1].Id, card);
-				Play.PassPlay(Players[0].Id);
-				Play.PassPlay(Players[1].Id);
+				Play.Deploy(Player.Id, card);
+				Play.PassPlay(Opponent.Id);
+				Play.PassPlay(Player.Id);
 			}
 
-			Play.EndTurn(Players[1].Id);
-			Play.EndTurn(Players[0].Id);
-			Play.Deploy(Players[1].Id, Players[1].Hand[0].Id);
-			Assert.IsEqual(Players[1].Field.Count, 7);
-			Assert.IsTrue(Players[1].IsDisqualified);
+			Play.EndTurn(Player.Id);
+			Play.EndTurn(Opponent.Id);
+			Play.Deploy(Player.Id, Player.Hand[0].Id);
+			Assert.IsEqual(Player.Field.Count, 7);
+			Assert.IsTrue(Player.IsDisqualified);
         }
         
         [Test]
         public void When_They_Try_To_Deploy_A_Unit_Not_In_Their_Hand()
         {
 	        StartGame(DeckList);
-	        var card = Players[1].Deck[0].Id;
-	        Play.Deploy(Players[1].Id, card);
-	        Assert.IsTrue(Players[1].IsDisqualified);
+	        var card = Player.Deck[0].Id;
+	        Play.Deploy(Player.Id, card);
+	        Assert.IsTrue(Player.IsDisqualified);
         }
 
         [Test]
@@ -77,16 +77,16 @@ namespace CardGame.Tests.Scripts.Serverside
 		        DeckList.Add(SetCodes.DebugDraw2Cards);
 	        }
 	        StartGame(DeckList);
-	        Play.EndTurn(Players[1].Id);
-	        GD.Print(Players[1].IsTurnPlayer);
-	        var ids = Players[0].Hand.Select(card => card.Id).ToList();
+	        Play.EndTurn(Player.Id);
+	        GD.Print(Player.IsTurnPlayer);
+	        var ids = Opponent.Hand.Select(card => card.Id).ToList();
 	        Assert.IsEqual(ids.Count, 8);
 	        foreach (var id in ids)
 	        {
-		        Play.SetFaceDown(Players[0].Id, id);
+		        Play.SetFaceDown(Opponent.Id, id);
 	        }
 
-	        Assert.IsTrue(Players[0].IsDisqualified);
+	        Assert.IsTrue(Opponent.IsDisqualified);
         }
 
         [Test]
@@ -98,9 +98,9 @@ namespace CardGame.Tests.Scripts.Serverside
 		        DeckList.Add(SetCodes.DebugDraw2Cards);
 	        }
 	        StartGame(DeckList);
-	        Play.SetFaceDown(Players[1].Id, Players[1].Deck[0].Id);
+	        Play.SetFaceDown(Player.Id, Player.Deck[0].Id);
 	        
-	        Assert.IsTrue(Players[1].IsDisqualified);
+	        Assert.IsTrue(Player.IsDisqualified);
         }
 
         [Test]
@@ -108,34 +108,34 @@ namespace CardGame.Tests.Scripts.Serverside
         {
 	        DeckList.Add(SetCodes.DebugDraw2Cards);
 	        StartGame(DeckList);
-	        var support = Players[0].Hand[0].Id;
-	        Play.SetFaceDown(Players[0].Id, support);
+	        var support = Opponent.Hand[0].Id;
+	        Play.SetFaceDown(Opponent.Id, support);
 
-	        Assert.IsTrue(Players[0].IsDisqualified);
+	        Assert.IsTrue(Opponent.IsDisqualified);
         }
 
 	    [Test]
         public void When_They_End_Their_Turn_During_Their_Opponents_Turn()
         {
 	        StartGame(DeckList);
-	        Play.EndTurn(Players[0].Id);
+	        Play.EndTurn(Opponent.Id);
 
-	        Assert.IsTrue(Players[0].IsDisqualified);
+	        Assert.IsTrue(Opponent.IsDisqualified);
         }
 
         [Test]
         public void When_A_Player_Declares_An_Attack_During_Their_Opponents_Turn()
         {
 	        StartGame(DeckList);
-	        var unit = Players[1].Hand[0].Id;
-	        Play.Deploy(Players[1].Id, unit);
+	        var unit = Player.Hand[0].Id;
+	        Play.Deploy(Player.Id, unit);
 	        // Ending twice so the unit is ready
-	        Play.EndTurn(Players[1].Id);
-	        Play.EndTurn(Players[0].Id);
-	        Play.EndTurn(Players[1].Id);
-	        Play.DirectAttack(Players[1].Id, unit);
+	        Play.EndTurn(Player.Id);
+	        Play.EndTurn(Opponent.Id);
+	        Play.EndTurn(Player.Id);
+	        Play.DirectAttack(Player.Id, unit);
 
-	        Assert.IsTrue(Players[1].IsDisqualified);
+	        Assert.IsTrue(Player.IsDisqualified);
 
         }
 
@@ -143,33 +143,33 @@ namespace CardGame.Tests.Scripts.Serverside
         public void When_They_Declare_An_Attack_With_An_Unready_Unit()
         {
 	        StartGame(DeckList);
-	        var unit = Players[1].Hand[0].Id;
-	        Play.Deploy(Players[1].Id, unit);
-	        Play.DirectAttack(Players[1].Id, unit);
+	        var unit = Player.Hand[0].Id;
+	        Play.Deploy(Player.Id, unit);
+	        Play.DirectAttack(Player.Id, unit);
 
-	        Assert.IsTrue(Players[1].IsDisqualified);
+	        Assert.IsTrue(Player.IsDisqualified);
         }
 
         public void When_They_Declare_An_Attack_With_A_Unit_Not_On_Their_Field()
         {
 	        StartGame(DeckList);
-	        var unit = Players[1].Hand[0].Id;
-	        Play.DirectAttack(Players[1].Id, unit);
+	        var unit = Player.Hand[0].Id;
+	        Play.DirectAttack(Player.Id, unit);
 
-	        Assert.IsTrue(Players[1].IsDisqualified);
+	        Assert.IsTrue(Player.IsDisqualified);
         }
 
         public void When_They_Declare_An_Attack_Against_A_Unit_Not_On_Their_Opponents_Field()
         {
 	        StartGame(DeckList);
-	        var unit = Players[1].Hand[0].Id;
-	        Play.Deploy(Players[1].Id, unit);
-	        Play.EndTurn(Players[1].Id);
-	        Play.EndTurn(Players[0].Id);
-	        var attackTarget = Players[0].Hand[0].Id;
-	        Play.Attack(Players[1].Id, unit, attackTarget);
+	        var unit = Player.Hand[0].Id;
+	        Play.Deploy(Player.Id, unit);
+	        Play.EndTurn(Player.Id);
+	        Play.EndTurn(Opponent.Id);
+	        var attackTarget = Opponent.Hand[0].Id;
+	        Play.Attack(Player.Id, unit, attackTarget);
 
-	        Assert.IsTrue(Players[1].IsDisqualified);
+	        Assert.IsTrue(Player.IsDisqualified);
         }
 
         [Test]
@@ -177,16 +177,16 @@ namespace CardGame.Tests.Scripts.Serverside
         {
 	        DeckList.Add(SetCodes.DebugDraw2Cards);
 	        StartGame(DeckList);
-	        var s = Players[1].Hand[0];
-	        var support = Players[1].Hand[0].Id;
+	        var s = Player.Hand[0];
+	        var support = Player.Hand[0].Id;
 	        Assert.IsFalse(s.IsReady, "Card is not ready in hand");
-	        Play.SetFaceDown(Players[1].Id, support);
-	        //Play.PassPlay(Players[0].Id);
-	        //Play.PassPlay(Players[1].Id);
+	        Play.SetFaceDown(Player.Id, support);
+	        //Play.PassPlay(Opponent.Id);
+	        //Play.PassPlay(Player.Id);
 	        Assert.IsFalse(s.IsReady, "Card is not ready when set");
-	        Play.Activate(Players[1].Id, support);
+	        Play.Activate(Player.Id, support);
 	        Assert.IsFalse(s.IsReady, "Card is not ready when activated");
-	        Assert.IsTrue(Players[1].IsDisqualified, "Player is disqualified");
+	        Assert.IsTrue(Player.IsDisqualified, "Player is disqualified");
         }
 
         [Test]
@@ -194,12 +194,12 @@ namespace CardGame.Tests.Scripts.Serverside
         {
 	        DeckList.Add(SetCodes.DebugDraw2Cards);
 	        StartGame(DeckList);
-	        var support = Players[1].Hand[0].Id;
-	        Play.SetFaceDown(Players[1].Id, support);
-	        Play.EndTurn(Players[1].Id);
-	        Play.Activate(Players[1].Id, support);
+	        var support = Player.Hand[0].Id;
+	        Play.SetFaceDown(Player.Id, support);
+	        Play.EndTurn(Player.Id);
+	        Play.Activate(Player.Id, support);
 
-	        Assert.IsTrue(Players[1].IsDisqualified);
+	        Assert.IsTrue(Player.IsDisqualified);
         }
     }
 }

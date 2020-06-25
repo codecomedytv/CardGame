@@ -28,9 +28,9 @@ namespace CardGame.Tests.Scripts.Serverside
         public void Idle_Player_Becomes_Passive_When_Ending_Their_Turn()
         {
             StartGame(Decklist);
-            var oldState = Players[1].State;
-            Play.EndTurn(Players[1].Id);
-            var newState = Players[1].State;
+            var oldState = Player.State;
+            Play.EndTurn(Player.Id);
+            var newState = Player.State;
             
             Assert.IsTrue(oldState.GetType() == typeof(Idle), "Player Was Idle");
             Assert.IsTrue(newState.GetType() == typeof(Passive), "Player Is Passive");
@@ -40,10 +40,10 @@ namespace CardGame.Tests.Scripts.Serverside
         public void Idle_Player_Becomes_Acting_When_Taking_Action()
         {
             StartGame(Decklist);
-            var oldState = Players[1].State;
-            var unit = Players[1].Hand[0].Id;
-            Play.Deploy(Players[1].Id, unit);
-            var newState = Players[1].State;
+            var oldState = Player.State;
+            var unit = Player.Hand[0].Id;
+            Play.Deploy(Player.Id, unit);
+            var newState = Player.State;
             
             Assert.IsTrue(oldState.GetType() == typeof(Idle), "Player Was Idle");
             Assert.IsTrue(newState.GetType() == typeof(Acting), "Player is Acting");
@@ -53,11 +53,11 @@ namespace CardGame.Tests.Scripts.Serverside
         public void Active_Player_Becomes_Passing_When_Passing()
         {
             StartGame(Decklist);
-            var unit = Players[1].Hand[0].Id;
-            Play.Deploy(Players[1].Id, unit);
-            var oldState = Players[0].State;
-            Play.PassPlay(Players[0].Id);
-            var newState = Players[0].State;
+            var unit = Player.Hand[0].Id;
+            Play.Deploy(Player.Id, unit);
+            var oldState = Opponent.State;
+            Play.PassPlay(Opponent.Id);
+            var newState = Opponent.State;
             
             Assert.IsTrue(oldState.GetType() == typeof(Active), "Player was Active");
             Assert.IsTrue(newState.GetType() == typeof(Passing), "Player is Passing");
@@ -67,12 +67,12 @@ namespace CardGame.Tests.Scripts.Serverside
         public void Turn_Player_Becomes_Idle_When_Both_Players_Pass()
         {
             StartGame(Decklist);
-            var unit = Players[1].Hand[0].Id;
-            Play.Deploy(Players[1].Id, unit);
-            var oldState = Players[1].State;
-            Play.PassPlay(Players[0].Id);
-            Play.PassPlay(Players[1].Id);
-            var newState = Players[1].State;
+            var unit = Player.Hand[0].Id;
+            Play.Deploy(Player.Id, unit);
+            var oldState = Player.State;
+            Play.PassPlay(Opponent.Id);
+            Play.PassPlay(Player.Id);
+            var newState = Player.State;
             
             Assert.IsTrue(oldState.GetType() == typeof(Acting), "Player was Acting");
             Assert.IsTrue(newState.GetType() == typeof(Idle), "Player is Idle");
@@ -82,12 +82,12 @@ namespace CardGame.Tests.Scripts.Serverside
         public void NonTurn_Player_Becomes_Passive_When_Both_Players_Pass()
         {
             StartGame(Decklist);
-            var unit = Players[1].Hand[0].Id;
-            Play.Deploy(Players[1].Id, unit);
-            var oldState = Players[0].State;
-            Play.PassPlay(Players[0].Id);
-            Play.PassPlay(Players[1].Id);
-            var newState = Players[0].State;
+            var unit = Player.Hand[0].Id;
+            Play.Deploy(Player.Id, unit);
+            var oldState = Opponent.State;
+            Play.PassPlay(Opponent.Id);
+            Play.PassPlay(Player.Id);
+            var newState = Opponent.State;
             
             Assert.IsTrue(oldState.GetType() == typeof(Active), "Player was Active");
             Assert.IsTrue(newState.GetType() == typeof(Passive), "Player is Passive");
@@ -97,9 +97,9 @@ namespace CardGame.Tests.Scripts.Serverside
         public void NonTurn_Player_Becomes_Idle_When_TurnPlayer_Ends_Their_Turn()
         {
             StartGame(Decklist);
-            var oldState = Players[0].State;
-            Play.EndTurn(Players[1].Id);
-            var newState = Players[0].State;
+            var oldState = Opponent.State;
+            Play.EndTurn(Player.Id);
+            var newState = Opponent.State;
             
             Assert.IsTrue(oldState.GetType() == typeof(Passive), "Player was Passive");
             Assert.IsTrue(newState.GetType() == typeof(Idle), "Player is Idle");
@@ -109,10 +109,10 @@ namespace CardGame.Tests.Scripts.Serverside
         public void Passive_Opponent_Becomes_Active_When_IdlePlayer_Takes_Action()
         {
             StartGame(Decklist);
-            var oldState = Players[0].State;
-            var unit = Players[1].Hand[0].Id;
-            Play.Deploy(Players[1].Id, unit);
-            var newState = Players[0].State;
+            var oldState = Opponent.State;
+            var unit = Player.Hand[0].Id;
+            Play.Deploy(Player.Id, unit);
+            var newState = Opponent.State;
             
             Assert.IsTrue(oldState.GetType() == typeof(Passive), "Player was Passive");
             Assert.IsTrue(newState.GetType() == typeof(Active), "Player is Active");
@@ -122,14 +122,14 @@ namespace CardGame.Tests.Scripts.Serverside
         public void ActivePlayer_Becomes_Active_When_They_Take_An_Action()
         {
             StartGame(Decklist);
-            var support = Players[1].Hand[3].Id;
-            Play.SetFaceDown(Players[1].Id, support);
-            Play.EndTurn(Players[1].Id);
-            var unit = Players[0].Hand[0].Id;
-            Play.Deploy(Players[0].Id, unit);
-            var oldState = Players[1].State;
-            Play.Activate(Players[1].Id, support);
-            var newState = Players[1].State;
+            var support = Player.Hand[3].Id;
+            Play.SetFaceDown(Player.Id, support);
+            Play.EndTurn(Player.Id);
+            var unit = Opponent.Hand[0].Id;
+            Play.Deploy(Opponent.Id, unit);
+            var oldState = Player.State;
+            Play.Activate(Player.Id, support);
+            var newState = Player.State;
             
             Assert.IsTrue(oldState.GetType() == typeof(Active), "Player was Active");
             Assert.IsTrue(newState.GetType() == typeof(Acting), "Player is Acting");

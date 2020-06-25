@@ -36,23 +36,23 @@ namespace CardGame.Tests.Scripts.Serverside
             DeckList.Add(SetCodes.DebugDestroyOpponentUnit);
             StartGame(DeckList);
             
-            var support = Players[1].Hand[0].Id;
-            Play.SetFaceDown(Players[1].Id, support);
-            Play.EndTurn(Players[1].Id);
-            var unitA = Players[0].Hand[1];
-            var unitB = Players[0].Hand[6];
-            Play.Deploy(Players[0].Id, unitA.Id);
-            Play.PassPlay(Players[1].Id);
-            Play.PassPlay(Players[0].Id);
-            Play.Deploy(Players[0].Id, unitB.Id);
-            Play.PassPlay(Players[1].Id);
-            Play.PassPlay(Players[0].Id);
-            Play.EndTurn(Players[0].Id);
-            Play.Activate(Players[1].Id, support, unitA.Id);
-            Play.PassPlay(Players[0].Id);
-            Play.PassPlay(Players[1].Id);
+            var support = Player.Hand[0].Id;
+            Play.SetFaceDown(Player.Id, support);
+            Play.EndTurn(Player.Id);
+            var unitA = Opponent.Hand[1];
+            var unitB = Opponent.Hand[6];
+            Play.Deploy(Opponent.Id, unitA.Id);
+            Play.PassPlay(Player.Id);
+            Play.PassPlay(Opponent.Id);
+            Play.Deploy(Opponent.Id, unitB.Id);
+            Play.PassPlay(Player.Id);
+            Play.PassPlay(Opponent.Id);
+            Play.EndTurn(Opponent.Id);
+            Play.Activate(Player.Id, support, unitA.Id);
+            Play.PassPlay(Opponent.Id);
+            Play.PassPlay(Player.Id);
             
-            Assert.Has(unitA, Players[0].Graveyard, "Then That Unit Is Destroyed");
+            Assert.Has(unitA, Opponent.Graveyard, "Then That Unit Is Destroyed");
 
         }
 
@@ -61,16 +61,16 @@ namespace CardGame.Tests.Scripts.Serverside
         {
 	        DeckList.Add(SetCodes.DebugDiscardYourCard);
 	        StartGame(DeckList);
-	        var discarding = Players[1].Hand[1];
-	        var discarder = Players[1].Hand[0].Id;
-	        Play.SetFaceDown(Players[1].Id, discarder);
-	        Play.EndTurn(Players[1].Id);
-	        Play.EndTurn(Players[0].Id);
-	        Play.Activate(Players[1].Id, discarder, discarding.Id);
-	        Play.PassPlay(Players[0].Id);
-	        Play.PassPlay(Players[1].Id);
+	        var discarding = Player.Hand[1];
+	        var discarder = Player.Hand[0].Id;
+	        Play.SetFaceDown(Player.Id, discarder);
+	        Play.EndTurn(Player.Id);
+	        Play.EndTurn(Opponent.Id);
+	        Play.Activate(Player.Id, discarder, discarding.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.PassPlay(Player.Id);
 	        
-	        Assert.Has(discarding, Players[1].Graveyard, "Then that card is in that Player's Discard");
+	        Assert.Has(discarding, Player.Graveyard, "Then that card is in that Player's Discard");
         }
 
         [Test]
@@ -78,21 +78,21 @@ namespace CardGame.Tests.Scripts.Serverside
         {
 	        DeckList.Add(SetCodes.DebugBounceFromField);
 	        StartGame(DeckList);
-	        var bouncer = Players[1].Hand[0].Id;
-	        var bounce = Players[0].Hand[1];
-	        Play.SetFaceDown(Players[1].Id, bouncer);
-	        Play.EndTurn(Players[1].Id);
-	        Play.Deploy(Players[0].Id, bounce.Id);
-	        Play.PassPlay(Players[1].Id);
-	        Play.PassPlay(Players[0].Id);
-	        Play.EndTurn(Players[0].Id);
-	        var bounceIsOnField = Players[0].Field.Contains(bounce);
-	        Play.Activate(Players[1].Id, bouncer, bounce.Id);
-	        Play.PassPlay(Players[0].Id);
-	        Play.PassPlay(Players[1].Id);
+	        var bouncer = Player.Hand[0].Id;
+	        var bounce = Opponent.Hand[1];
+	        Play.SetFaceDown(Player.Id, bouncer);
+	        Play.EndTurn(Player.Id);
+	        Play.Deploy(Opponent.Id, bounce.Id);
+	        Play.PassPlay(Player.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.EndTurn(Opponent.Id);
+	        var bounceIsOnField = Opponent.Field.Contains(bounce);
+	        Play.Activate(Player.Id, bouncer, bounce.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.PassPlay(Player.Id);
 
 	        Assert.IsTrue(bounceIsOnField, "Bounced Card Was On Field");
-	        Assert.Has(bounce, Players[0].Hand, "Bounce is in Owners Hand");
+	        Assert.Has(bounce, Opponent.Hand, "Bounce is in Owners Hand");
 
         }
 
@@ -103,16 +103,16 @@ namespace CardGame.Tests.Scripts.Serverside
 	        DeckList.Add(SetCodes.MillOneFromDeck);
 
 	        StartGame(DeckList);
-	        var millCard = Players[1].Hand[0].Id;
-	        Play.SetFaceDown(Players[1].Id, millCard);
-	        Play.EndTurn(Players[1].Id);
-	        Play.EndTurn(Players[0].Id);
-	        var cardToMill = Players[1].Deck[Players[1].Deck.Count - 1];
-	        Play.Activate(Players[1].Id, millCard);
-	        Play.PassPlay(Players[0].Id);
-	        Play.PassPlay(Players[1].Id);
+	        var millCard = Player.Hand[0].Id;
+	        Play.SetFaceDown(Player.Id, millCard);
+	        Play.EndTurn(Player.Id);
+	        Play.EndTurn(Opponent.Id);
+	        var cardToMill = Player.Deck[Player.Deck.Count - 1];
+	        Play.Activate(Player.Id, millCard);
+	        Play.PassPlay(Opponent.Id);
+	        Play.PassPlay(Player.Id);
 
-	        Assert.Has(cardToMill, Players[1].Graveyard, "Then that card is in the Player's discard");
+	        Assert.Has(cardToMill, Player.Graveyard, "Then that card is in the Player's discard");
         }
 
         [Test]
@@ -122,17 +122,17 @@ namespace CardGame.Tests.Scripts.Serverside
 	        DeckList.Add(SetCodes.DebugReturnToDeck);
 
 	        StartGame(DeckList);
-	        var returnToDeckCard = Players[1].Hand[0].Id;
-	        Play.SetFaceDown(Players[1].Id, returnToDeckCard);
-	        Play.EndTurn(Players[1].Id);
-	        Play.EndTurn(Players[0].Id);
+	        var returnToDeckCard = Player.Hand[0].Id;
+	        Play.SetFaceDown(Player.Id, returnToDeckCard);
+	        Play.EndTurn(Player.Id);
+	        Play.EndTurn(Opponent.Id);
 
-	        var cardToReturn = Players[1].Hand[0];
-	        Play.Activate(Players[1].Id, returnToDeckCard, cardToReturn.Id);
-	        Play.PassPlay(Players[0].Id);
-	        Play.PassPlay(Players[1].Id);
+	        var cardToReturn = Player.Hand[0];
+	        Play.Activate(Player.Id, returnToDeckCard, cardToReturn.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.PassPlay(Player.Id);
 
-	        Assert.Has(cardToReturn, Players[1].Deck, "Then that card is in the Player's Deck");
+	        Assert.Has(cardToReturn, Player.Deck, "Then that card is in the Player's Deck");
         }
         
         
