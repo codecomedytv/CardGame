@@ -239,7 +239,6 @@ namespace CardGame.Server.Game {
 			player.SetState(States.Passive);
 			player.Opponent.SetState(States.Idle);
 			TurnPlayer = player.Opponent;
-			//var player = TurnPlayer;
 			TurnPlayer.Draw();
 			TurnPlayer.SetState(States.Idle);
 			Link.ApplyConstants();
