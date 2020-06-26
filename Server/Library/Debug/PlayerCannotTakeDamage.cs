@@ -24,7 +24,6 @@ namespace CardGame.Server
             {
                 Card = card;
                 AreaOfEffects.Add(Controller.Field);
-                Type = Types.Constant;
             }
 
             protected override void _Apply()

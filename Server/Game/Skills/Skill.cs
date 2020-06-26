@@ -20,10 +20,8 @@ namespace CardGame.Server.Game.Skills {
 		public Player Controller => Card.Controller;
 		protected Player Opponent => Card.Opponent;
 		public Card Card;
-		public bool CanBeUsed = false;
 		public Match Match;
 		public History History => Match.History;
-		public Types Type = Types.Manual;
 		protected readonly List<GameEvents> Triggers = new List<GameEvents>();
 		protected readonly List<Zone> AreaOfEffects = new List<Zone>();
 		public Card Target;

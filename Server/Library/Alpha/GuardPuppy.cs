@@ -29,7 +29,6 @@ namespace CardGame.Server
                 Card = card;
                 AreaOfEffects.Add(Controller.Field);
                 AreaOfEffects.Add(Controller.Graveyard);
-                Type = Types.Constant;
             }
 
             protected override void _Apply()

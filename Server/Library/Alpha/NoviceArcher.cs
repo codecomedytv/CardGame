@@ -28,7 +28,6 @@ namespace CardGame.Server
                 Card = card;
                 AreaOfEffects.Add(Controller.Field);
                 Triggers.Add(GameEvents.Deploy);
-                Type = Types.Auto;
             }
             
             protected override void _Trigger(Command command)

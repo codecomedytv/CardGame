@@ -1,4 +1,5 @@
 ﻿using CardGame.Server.Game.Commands;
+using CardGame.Server.Game.Skills;
 using Godot;
 
 namespace CardGame.Server.Game.Cards
@@ -14,7 +15,7 @@ namespace CardGame.Server.Game.Cards
 
         public override void SetCanBeActivated()
         {
-            CanBeActivated = Skill.CanBeUsed && IsReady;
+            CanBeActivated = Skill is Manual skill && skill.CanBeUsed && IsReady;
         }
 
     }
