@@ -39,26 +39,18 @@ namespace CardGame.Server.Game {
 		
 		private void ApplyTriggered(Command command)
 		{
-			foreach (var card in TurnPlayer.Field.Where(c => c.Skill.Type == Skill.Types.Auto))
+			var automatic = new List<Automatic>();
+			automatic.AddRange(TurnPlayer.Field.Select(c => c.Skill).Where(s => s is Automatic).Cast<Automatic>());
+			automatic.AddRange(TurnPlayer.Opponent.Field.Select(c => c.Skill).Where(s => s is Automatic).Cast<Automatic>());
+			foreach (var skill in automatic)
 			{
-				card.Skill.SetUp(command);
-				if (!card.Skill.CanBeUsed)
+				skill.SetUp(command);
+				if (!skill.CanBeUsed)
 				{
 					continue;
 				}
-				card.Skill.Activate();
-				Chain.Push(card.Skill);
-			}
-			
-			foreach (var card in TurnPlayer.Opponent.Field.Where(c => c.Skill.Type == Skill.Types.Auto))
-			{
-				card.Skill.SetUp(command);
-				if (!card.Skill.CanBeUsed)
-				{
-					continue;
-				}
-				card.Skill.Activate();
-				Chain.Push(card.Skill);
+				skill.Activate();
+				Chain.Push(skill);
 			}
 		}
 		

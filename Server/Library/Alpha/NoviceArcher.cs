@@ -21,7 +21,7 @@ namespace CardGame.Server
             Skill = new OnSummonDestroy(this);
         }
 
-        private class OnSummonDestroy : Skill
+        private class OnSummonDestroy : Automatic
         {
             public OnSummonDestroy(Card card)
             {

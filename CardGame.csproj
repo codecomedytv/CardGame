@@ -98,6 +98,7 @@
     <Compile Include="Server\Game\Messenger.cs" />
     <Compile Include="Server\Game\Player.cs" />
     <Compile Include="Server\Game\Players.cs" />
+    <Compile Include="Server\Game\Skills\Automatic.cs" />
     <Compile Include="Server\Game\Skills\Constant.cs" />
     <Compile Include="Server\Game\Skills\IResolvable.cs" />
     <Compile Include="Server\Game\Skills\NullSkill.cs" />
