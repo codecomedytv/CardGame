@@ -49,13 +49,11 @@ namespace CardGame.Server {
 					foreach(var card in Hand) {card.SetCanBeSet();}
 					foreach(var card in Field) {card.SetCanAttack();}
 					foreach(var card in Support) {card.SetCanBeActivated();}
-
 					break;
 				}
 				case States.Active:
 				{
 					foreach(var card in Support) {card.SetCanBeActivated();}
-
 					break;
 				}
 			}

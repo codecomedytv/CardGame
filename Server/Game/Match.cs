@@ -33,7 +33,7 @@ namespace CardGame.Server.Game {
 		{
 			Messenger = messenger ?? new Messenger();
 			Players = players;
-
+			Link.Players = Players;
 		}
 
 		public override void _Ready()
@@ -49,7 +49,7 @@ namespace CardGame.Server.Game {
 			ConnectSignals(Messenger, nameof(Messenger.Activated), this, nameof(OnActivation));
 			ConnectSignals(Messenger, nameof(Messenger.PassedPriority), this, nameof(OnPriorityPassed));
 			ConnectSignals(History, nameof(History.EventRecorded), Messenger, nameof(Messenger.OnPlayExecuted));
-			ConnectSignals(History, nameof(History.EventRecorded), Link, nameof(Link.Broadcast));
+			ConnectSignals(History, nameof(History.EventRecorded), Link, nameof(Link.OnGameEventRecorded));
 			foreach (var player in Players) { player.Match = this; }
 
 		}
@@ -80,11 +80,8 @@ namespace CardGame.Server.Game {
 		
 		private void BeginTurn()
 		{
-			//var player = TurnPlayer;
 			TurnPlayer.Draw();
 			TurnPlayer.SetState(States.Idle);
-			Link.ApplyConstants();
-			Link.SetupManual(new NullCommand());
 			Update();
 		}
 		
@@ -98,7 +95,6 @@ namespace CardGame.Server.Game {
 				return;
 			}
 			
-			Link.Register(card);
 			History.Add(new Move(GameEvents.Deploy, player, card, player.Field));
 			player.SetState(States.Acting);
 			player.Opponent.SetState(States.Active);
@@ -155,8 +151,6 @@ namespace CardGame.Server.Game {
 				return;
 			}
 			
-			Link.ApplyConstants();
-			Link.Register(card);
 			History.Add(new Move(GameEvents.SetFaceDown, player, card, player.Support));
 			player.SetState(States.Idle);
 			Update();
@@ -224,14 +218,11 @@ namespace CardGame.Server.Game {
 			
 			History.Add(new EndTurn(player));
 			Players.ChangeTurnPlayer();
-			Link.ApplyConstants();
 			foreach (var unit in player.Opponent.Field) { unit.Ready(); };
 			foreach (var support in player.Support) { support.Ready(); }
 			TurnPlayer.Draw(); // Does This Trigger Something? Constants?
 			TurnPlayer.Opponent.SetState(States.Passive);
 			TurnPlayer.SetState(States.Idle);
-			Link.ApplyConstants();
-			Link.SetupManual(new NullCommand());
 			Update();
 		}
 

@@ -8,87 +8,92 @@ namespace CardGame.Server.Game {
 
 	public class Link : Reference
 	{
-		private Stack<IResolvable> Chain = new Stack<IResolvable>();
-		private List<Skill.Skill> Constants = new List<Skill.Skill>();
-		private List<Skill.Skill> Manual = new List<Skill.Skill>();
-		private List<Skill.Skill> Auto = new List<Skill.Skill>();
+		private readonly Stack<IResolvable> Chain = new Stack<IResolvable>();
+		public Players Players;
+		private Player TurnPlayer => Players.TurnPlayer;
 
 		public void OnGameEventRecorded(Command command)
 		{
 			ApplyConstants(command);
+			if (command.Identity == GameEvents.SetFaceDown || command.Identity == GameEvents.EndTurn)
+			{
+				return;
+			}
 			ApplyTriggered(command);
 			SetupManual(command);
 		}
 
 		public void AddResolvable(IResolvable action) => Chain.Push(action);
-
-		public void ApplyConstants(Command gameEvent = null) => Constants.ForEach(s => s.Resolve());
-
-		public void ApplyTriggered(Command gameEvent)
+		
+		private void ApplyConstants(Command command)
 		{
-			foreach (var skill in Auto)
+			foreach (var card in TurnPlayer.Field)
 			{
-				skill.SetUp(gameEvent);
-				if (!skill.CanBeUsed) continue;
-				skill.Activate();
-				Chain.Push(skill);
+				if (card.Skill.Type != Skill.Skill.Types.Constant)
+				{
+					continue;
+				}
+				card.Skill.Resolve();
 			}
-		}
-		
-		public void  SetupManual(Command gameEvent) => Manual.ForEach(s => s.SetUp(gameEvent));
-
-		public void Broadcast(Command gameEvent)
-		{
-			ApplyConstants(gameEvent);
-			ApplyTriggered(gameEvent);
-			SetupManual(gameEvent);
-		}
-		
-		public void Register(Card card)
-		{
 			
-			switch (card.Skill.Type)
+			foreach (var card in TurnPlayer.Opponent.Field)
 			{
-				case Skill.Skill.Types.Constant:
-					Constants.Add(card.Skill);
-					break;
-				
-				case Skill.Skill.Types.Auto:
-					Auto.Add(card.Skill);
-					break;
-				
-				case Skill.Skill.Types.Manual:
-					Manual.Add(card.Skill);
-					break;
-				default:
-					return;
+				if (card.Skill.Type != Skill.Skill.Types.Constant)
+				{
+					continue;
+				}
+				card.Skill.Resolve();
 			}
 			
 		}
 		
-		public void Unregister(Skill.Skill skill)
+		private void ApplyTriggered(Command command)
 		{
-			switch (skill.Type)
+			foreach (var card in TurnPlayer.Field)
 			{
-				case Skill.Skill.Types.Constant:
-					Constants.Remove(skill);
-					return;
-				case Skill.Skill.Types.Auto:
-					Auto.Remove(skill);
-					return;
-				case Skill.Skill.Types.Manual:
-					Manual.Remove(skill);
-					return;
-				default:
-					return;
+				if (card.Skill.Type != Skill.Skill.Types.Auto)
+				{
+					continue;
+				}
+				card.Skill.SetUp(command);
+				if (!card.Skill.CanBeUsed)
+				{
+					continue;
+				}
+				card.Skill.Activate();
+				Chain.Push(card.Skill);
+			}
+			
+			foreach (var card in TurnPlayer.Opponent.Field)
+			{
+				if (card.Skill.Type != Skill.Skill.Types.Auto)
+				{
+					continue;
+				}
+				card.Skill.SetUp(command);
+				if (!card.Skill.CanBeUsed)
+				{
+					continue;
+				}
+				card.Skill.Activate();
+				Chain.Push(card.Skill);
 			}
 		}
-
-		public void Unregister(Card card)
-		{
-			
-		}
 		
+		private void SetupManual(Command command)
+		{
+			foreach (var card in TurnPlayer.Support)
+			{
+				if(card.Skill.Type != Skill.Skill.Types.Manual) {continue;} 
+				card.Skill.SetUp(command);
+			}
+
+			foreach (var card in TurnPlayer.Opponent.Support)
+			{
+				if(card.Skill.Type != Skill.Skill.Types.Manual) {continue;}
+				card.Skill.SetUp(command);
+			}
+		}
 		
 		public void Activate(Skill.Skill skill, Card target)
 		{
@@ -110,7 +115,7 @@ namespace CardGame.Server.Game {
 				resolvable.Resolve();
 			}
 			
-			ApplyConstants();
+			ApplyConstants(new NullCommand());
 		}
 		
 		
