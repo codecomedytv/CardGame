@@ -16,8 +16,7 @@ namespace CardGame.Server
 
         private class BounceSkill : Skill
         {
-
-            public override void _SetUp()
+            protected override void _SetUp()
             {
                 SetTargets(Opponent.Field.ToList());
                 CanBeUsed = Opponent.Field.Count > 0;

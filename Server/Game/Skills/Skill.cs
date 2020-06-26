@@ -8,15 +8,15 @@ namespace CardGame.Server.Game.Skills {
 	{
 		public enum Types { Manual, Auto, Constant }
 
-		public Player Owner => Card.Owner;
+		private Player Owner => Card.Owner;
 		public Player Controller => Card.Controller;
-		public Player Opponent => Card.Opponent;
+		protected Player Opponent => Card.Opponent;
 		public Card Card;
 		public bool CanBeUsed = false;
 		public Match Match;
 		public History History => Match.History;
 		public Types Type = Types.Manual;
-		public List<GameEvents> Triggers = new List<GameEvents>();
+		protected readonly List<GameEvents> Triggers = new List<GameEvents>();
 		public Card Target;
 		public bool Targeting = false;
 
@@ -35,7 +35,7 @@ namespace CardGame.Server.Game.Skills {
 			}
 		}
 
-		public virtual void _SetUp()
+		protected virtual void _SetUp()
 		{
 			CanBeUsed = true;
 		}
@@ -44,7 +44,6 @@ namespace CardGame.Server.Game.Skills {
 		{
 			Card.Activated = true;
 			CanBeUsed = false;
-			// _SetLegal(false)
 			_Activate();
 		}
 
@@ -58,11 +57,9 @@ namespace CardGame.Server.Game.Skills {
 			
 			_Resolve();
 			Card.Activated = false;
-			if (Card is Support)
-			{
-				Controller.Support.Remove(Card);
-				Owner.Graveyard.Add(Card);
-			}
+			if (!(Card is Support)) return;
+			Controller.Support.Remove(Card);
+			Owner.Graveyard.Add(Card);
 		}
 
 		protected virtual void _Activate()

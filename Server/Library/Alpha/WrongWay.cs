@@ -17,7 +17,7 @@ namespace CardGame.Server
 
         private class ReturnTarget : Skill
         {
-            public override void _SetUp()
+            protected override void _SetUp()
             {
                 var targets = new List<Card>();
                 foreach (var card in Opponent.Field)

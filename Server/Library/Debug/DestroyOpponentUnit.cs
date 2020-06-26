@@ -18,7 +18,7 @@ namespace CardGame.Server
 
         private class DestroyUnit : Skill
         {
-            public override void _SetUp()
+            protected override void _SetUp()
             {
                 var units = Opponent.Field;
                 SetTargets(units.ToList());

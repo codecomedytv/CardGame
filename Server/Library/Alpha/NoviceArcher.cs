@@ -27,7 +27,7 @@ namespace CardGame.Server
                 Type = Types.Auto;
             }
 
-            public override void _SetUp()
+            protected override void _SetUp()
             {
                 var units = (from Unit u in Opponent.Field where u.Attack < 1000 select u).ToList();
                 CanBeUsed = units.Count > 0;

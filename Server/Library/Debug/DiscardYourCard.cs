@@ -16,7 +16,7 @@ namespace CardGame.Server
 
         private class DiscardCard : Skill
         {
-            public override void _SetUp()
+            protected override void _SetUp()
             {
                 SetTargets(Controller.Hand.ToList());
                 CanBeUsed = Controller.Hand.Count > 0;
