@@ -29,10 +29,10 @@ namespace CardGame.Server.Game {
 		private void ApplyConstants()
 		{
 			var constants = new List<Constant>();
-			constants.AddRange(TurnPlayer.Field.Select(c => c.Skill).Where(s => s is Constant).Cast<Constant>());
-			constants.AddRange(TurnPlayer.Graveyard.Select(c => c.Skill).Where(s => s is Constant).Cast<Constant>());
-			constants.AddRange(TurnPlayer.Opponent.Field.Select(c => c.Skill).Where(s => s is Constant).Cast<Constant>());
-			constants.AddRange(TurnPlayer.Opponent.Graveyard.Select(c => c.Skill).Where(s => s is Constant).Cast<Constant>());
+			constants.AddRange(TurnPlayer.Field.Select(c => c.Skill).OfType<Constant>());
+			constants.AddRange(TurnPlayer.Graveyard.Select(c => c.Skill).OfType<Constant>());
+			constants.AddRange(TurnPlayer.Opponent.Field.Select(c => c.Skill).OfType<Constant>());
+			constants.AddRange(TurnPlayer.Opponent.Graveyard.Select(c => c.Skill).OfType<Constant>());
 			foreach (var constant in constants) { constant.Apply(); }
 
 		}
@@ -40,8 +40,8 @@ namespace CardGame.Server.Game {
 		private void ApplyTriggered(Command command)
 		{
 			var automatic = new List<Automatic>();
-			automatic.AddRange(TurnPlayer.Field.Select(c => c.Skill).Where(s => s is Automatic).Cast<Automatic>());
-			automatic.AddRange(TurnPlayer.Opponent.Field.Select(c => c.Skill).Where(s => s is Automatic).Cast<Automatic>());
+			automatic.AddRange(TurnPlayer.Field.Select(c => c.Skill).OfType<Automatic>());
+			automatic.AddRange(TurnPlayer.Opponent.Field.Select(c => c.Skill).OfType<Automatic>());
 			foreach (var skill in automatic)
 			{
 				skill.Trigger(command);
@@ -55,8 +55,8 @@ namespace CardGame.Server.Game {
 		private void SetupManual(Command command)
 		{
 			var manual = new List<Manual>();
-			manual.AddRange(TurnPlayer.Support.Select(c => c.Skill).Where(s => s is Manual).Cast<Manual>());
-			manual.AddRange(TurnPlayer.Opponent.Support.Select(c => c.Skill).Where(s => s is Manual).Cast<Manual>());
+			manual.AddRange(TurnPlayer.Support.Select(c => c.Skill).OfType<Manual>());
+			manual.AddRange(TurnPlayer.Opponent.Support.Select(c => c.Skill).OfType<Manual>());
 			foreach (var skill in manual)
 			{
 				skill.SetUp(command);
