@@ -8,8 +8,10 @@ namespace CardGame.Server
 {
     public class WrongWay : Support
     {
-        public WrongWay()
+        public WrongWay(Player owner)
         {
+            Owner = owner;
+            Controller = owner;
             Title = "WrongWay";
             SetCode = SetCodes.Alpha_WrongWay;
             AddSkill(new ReturnTarget());

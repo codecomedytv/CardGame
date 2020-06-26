@@ -4,8 +4,10 @@ namespace CardGame.Server
 {
     public class CannotBeDestroyedByEffect : Unit
     {
-        public CannotBeDestroyedByEffect()
+        public CannotBeDestroyedByEffect(Player owner)
         {
+            Owner = owner;
+            Controller = owner;
             Title = "Debug.CannotBeDestroyedByEffect";
             Attack = 1000;
             Defense = 1000;

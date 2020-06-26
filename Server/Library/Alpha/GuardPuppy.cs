@@ -4,13 +4,16 @@ using System.Runtime.CompilerServices;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Skills;
 using CardGame.Server.Game.Tags;
+using Godot;
 
 namespace CardGame.Server
 {
     public class GuardPuppy: Unit
     {
-        public GuardPuppy()
+        public GuardPuppy(Player owner)
         {
+            Owner = owner;
+            Controller = owner;
             Title = "Guard Puppy";
             SetCode = SetCodes.Alpha_GuardPuppy;
             Attack = 500;
@@ -20,7 +23,7 @@ namespace CardGame.Server
 
         private class BattleImmunity : Skill
         {
-            private Tag Tag = new Tag(TagIds.CannotBeAttacked);
+            private readonly Tag Tag = new Tag(TagIds.CannotBeAttacked);
             public BattleImmunity()
             {
                 Type = Types.Constant;

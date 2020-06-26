@@ -6,8 +6,10 @@ namespace CardGame.Server
 {
     public class MillOneFromDeck : Support
     {
-        public MillOneFromDeck()
+        public MillOneFromDeck(Player owner)
         {
+            Owner = owner;
+            Controller = owner;
             Title = "Debug.MillOneFromCard";
             SetCode = SetCodes.MillOneFromDeck;
             AddSkill(new MillCard());

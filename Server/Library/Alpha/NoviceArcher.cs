@@ -10,8 +10,10 @@ namespace CardGame.Server
 {
     public class NoviceArcher : Unit
     {
-        public NoviceArcher()
+        public NoviceArcher(Player owner)
         {
+            Owner = owner;
+            Controller = owner;
             Title = "Novice Archer";
             SetCode = SetCodes.Alpha_NoviceArcher;
             Attack = 1000;

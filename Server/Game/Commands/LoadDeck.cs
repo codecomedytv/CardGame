@@ -36,11 +36,9 @@ namespace CardGame.Server.Game.Commands
 		        return;
 	        }
 
-	        foreach (var card in DeckList.Select(setCode => Library.Create(setCode)))
+	        foreach (var card in DeckList.Select(setCode => Library.Create(setCode, Player)))
 	        {
 		        card.Skill.Match = Match;
-		        card.Owner = Player;
-		        card.Controller = Player;
 		        card.Zone = Player.Deck;
 		        Match.RegisterCard(card);
 		        Player.Deck.Add(card);

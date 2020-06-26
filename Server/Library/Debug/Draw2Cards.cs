@@ -5,8 +5,10 @@ namespace CardGame.Server
 {
     public class Draw2Cards : Support
     {
-        public Draw2Cards()
+        public Draw2Cards(Player owner)
         {
+            Owner = owner;
+            Controller = owner;
             Title = "Debug.Draw2Cards";
             SetCode = SetCodes.DebugDraw2Cards;
             AddSkill(new DrawCards());

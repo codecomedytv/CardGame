@@ -7,8 +7,10 @@ namespace CardGame.Server
 {
     public class BounceFromField : Support
     {
-        public BounceFromField()
+        public BounceFromField(Player owner)
         {
+            Owner = owner;
+            Controller = owner;
             Title = "Debug.BounceFromField";
             SetCode = SetCodes.DebugBounceFromField;
             AddSkill(new BounceSkill());

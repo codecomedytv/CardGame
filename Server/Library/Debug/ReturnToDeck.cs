@@ -7,8 +7,10 @@ namespace CardGame.Server
 {
     public class ReturnCardToDeck: Support
     {
-        public ReturnCardToDeck()
+        public ReturnCardToDeck(Player owner)
         {
+            Owner = owner;
+            Controller = owner;
             Title = "Debug.ReturnToDeck";
             SetCode = SetCodes.DebugReturnToDeck;
             AddSkill(new ReturnCard());

@@ -33,6 +33,12 @@ namespace CardGame.Server.Game {
 				card.Skill.Resolve();
 			}
 			
+			// Our Guard Puppy cards triggers on field and graveyard
+			// foreach (var card in TurnPlayer.Field.Where(c => c.Skill.Type == Skill.Types.Constant))
+			// {
+			// 	card.Skill.Resolve();
+			// }
+			
 			foreach (var card in TurnPlayer.Opponent.Field.Where(c => c.Skill.Type == Skill.Types.Constant))
 			{
 				card.Skill.Resolve();

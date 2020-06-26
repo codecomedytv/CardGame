@@ -30,9 +30,9 @@ Test_Directory="res://Tests/Scripts"
 Results_Directory="res://Tests/Results/WAT"
 Minimize_Window_When_Running_Tests=false
 TestStrategy={
+"directory": "res://Tests/Scripts/Serverside",
 "repeat": 1,
-"script": "res://Tests/Scripts/Serverside/GuardPuppyTest.cs",
-"strategy": "RunScript"
+"strategy": "RunDirectory"
 }
 Tags=PoolStringArray(  )
 Display=8

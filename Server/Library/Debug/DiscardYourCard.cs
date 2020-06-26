@@ -7,8 +7,10 @@ namespace CardGame.Server
 {
     public class DiscardYourCard : Support
     {
-        public DiscardYourCard()
+        public DiscardYourCard(Player owner)
         {
+            Owner = owner;
+            Controller = owner;
             Title = "Debug.DiscardYourCard";
             SetCode = SetCodes.DebugDiscardYourCard;
             AddSkill(new DiscardCard());

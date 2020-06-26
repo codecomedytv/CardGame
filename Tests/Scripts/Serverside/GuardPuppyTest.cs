@@ -51,5 +51,60 @@ namespace CardGame.Tests.Scripts.Serverside
             Assert.IsTrue(dungeonGuide2.HasTag(TagIds.CannotBeAttacked),
                 "Then a Unit that was played after it has the tag 'Cannot Be Attacked'");
         }
+        
+        [Test]
+        public void test_guard_puppy_removed_from_the_field()
+        {
+
+	        DeckList.Add(SetCodes.DebugDestroyOpponentUnit);
+	        DeckList.Add(SetCodes.Alpha_GuardPuppy);
+
+	        StartGame(DeckList);
+	        var DestroyUnit = Player.Hand[1];
+	        Play.SetFaceDown(Player.Id, DestroyUnit.Id);
+	        Play.EndTurn(Player.Id);
+	        var GuardPuppy = Opponent.Hand[0];
+	        var DungeonGuide = Opponent.Hand[2];
+	        Play.Deploy(Opponent.Id, DungeonGuide.Id);
+	        Play.PassPlay(Player.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.Deploy(Opponent.Id, GuardPuppy.Id);
+	        Play.PassPlay(Player.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.EndTurn(Opponent.Id);
+	        Play.Activate(Player.Id, DestroyUnit.Id, GuardPuppy.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.PassPlay(Player.Id);
+	
+	        Assert.Has(GuardPuppy, Opponent.Graveyard, "GuardPuppy is in owner's discard");
+	        Assert.IsFalse(DungeonGuide.HasTag(TagIds.CannotBeAttacked), "Then a Unit it tagged no longer has the tag");
+        }
+        
+        //[Test]
+        public void test_tag_unit_removed_from_field()
+        {	
+	        DeckList.Add(SetCodes.DebugDestroyOpponentUnit);
+	        DeckList.Add(SetCodes.Alpha_GuardPuppy);
+	
+	        StartGame(DeckList);
+	        var destroyUnit = Player.Hand[1];
+	        Play.SetFaceDown(Player.Id, destroyUnit.Id);
+	        Play.EndTurn(Player.Id);
+	        var guardPuppy = Opponent.Hand[0];
+	        var dungeonGuide = Opponent.Hand[2];
+	        Play.Deploy(Opponent.Id, dungeonGuide.Id);
+	        Play.PassPlay(Player.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.Deploy(Opponent.Id, guardPuppy.Id);
+	        Play.PassPlay(Player.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.EndTurn(Opponent.Id);
+	        Play.Activate(Player.Id, destroyUnit.Id, dungeonGuide.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.PassPlay(Player.Id);
+	
+	        Assert.Has(dungeonGuide, Opponent.Graveyard, "That Unit is in owner's discard");
+	        Assert.IsFalse(dungeonGuide.HasTag(TagIds.CannotBeAttacked), "Then that Unit no longer has the tag");
+        }
     }
 }

@@ -5,8 +5,10 @@ namespace CardGame.Server
 {
     public class TrainingTrainer : Unit
     {
-        public TrainingTrainer()
+        public TrainingTrainer(Player owner)
         {
+            Owner = owner;
+            Controller = owner;
             Title = "Training Trainer";
             SetCode = SetCodes.Alpha_TrainingTrainer;
             Attack = 1000;

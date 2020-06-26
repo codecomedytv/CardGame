@@ -4,8 +4,10 @@ namespace CardGame.Server
 {
     public class PlayerCannotTakeDamage : Unit
     {
-        public PlayerCannotTakeDamage()
+        public PlayerCannotTakeDamage(Player owner)
         {
+            Owner = owner;
+            Controller = owner;
             Title = "Debug.PlayerCannotTakeDamage";
             Attack = 1000;
             Defense = 1000;

@@ -7,8 +7,10 @@ namespace CardGame.Server
 {
     public class DestroyAttackingUnit : Support
     {
-        public DestroyAttackingUnit()
+        public DestroyAttackingUnit(Player owner)
         {
+            Owner = owner;
+            Controller = owner;
             Title = "Debug.DestroyAttackingUnit";
             SetCode = SetCodes.DebugDestroyAttackingUnit;
             AddSkill(new DestroyAttacking());

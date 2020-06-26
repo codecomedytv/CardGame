@@ -5,8 +5,10 @@ namespace CardGame.Server
 {
     public class QuestReward : Support
     {
-        public QuestReward()
+        public QuestReward(Player owner)
         {
+            Owner = owner;
+            Controller = owner;
             Title = "QuestReward";
             SetCode = SetCodes.Alpha_QuestReward;
             AddSkill(new DrawXCards());

@@ -9,8 +9,10 @@ namespace CardGame.Server
 {
     public class DestroyOpponentUnit : Support
     {
-        public DestroyOpponentUnit()
+        public DestroyOpponentUnit(Player owner)
         {
+            Owner = owner;
+            Controller = owner;
             Title = "Debug.DestroyOpponentUnit";
             SetCode = SetCodes.DebugDestroyOpponentUnit;
             AddSkill(new DestroyUnit());

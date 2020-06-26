@@ -6,8 +6,10 @@ namespace CardGame.Server
 {
     public class CounterAttack: Support
     {
-        public CounterAttack()
+        public CounterAttack(Player owner)
         {
+            Owner = owner;
+            Controller = owner;
             Title = "CounterAttack";
             SetCode = SetCodes.Alpha_CounterAttack;
             AddSkill(new DestroyAttacker());
