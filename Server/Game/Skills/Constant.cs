@@ -9,9 +9,13 @@
                 return;
             }
             
-            _Resolve();
+            _Apply();
         }
-        
+
+        protected virtual void _Apply()
+        {
+            
+        }
 
     }
 }

@@ -3,7 +3,7 @@ using CardGame.Server.Game.Commands;
 
 namespace CardGame.Server.Game.Skills
 {
-    public class Automatic: Skill
+    public class Automatic: Skill, IResolvable
     {
         public bool Triggered = false;
         
@@ -25,6 +25,16 @@ namespace CardGame.Server.Game.Skills
         protected virtual void _Trigger(Command command)
         {
             throw new NotImplementedException();
+        }
+        
+        public void Resolve()
+        {
+            _Resolve();
+            EmitSignal(nameof(Resolved));
+        }
+		
+        protected virtual void _Resolve()
+        {
         }
     }
 }

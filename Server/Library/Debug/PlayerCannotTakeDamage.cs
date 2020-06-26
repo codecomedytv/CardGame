@@ -27,7 +27,7 @@ namespace CardGame.Server
                 Type = Types.Constant;
             }
 
-            protected override void _Resolve()
+            protected override void _Apply()
             {
                 Tag.UnTagAll();
                 if (Controller.Field.Contains(Card))

@@ -32,7 +32,7 @@ namespace CardGame.Server
                 Type = Types.Constant;
             }
 
-            protected override void _Resolve()
+            protected override void _Apply()
             {
                 // We refresh tags on each update cycle
                 Tag.UnTagAll();

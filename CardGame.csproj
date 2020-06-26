@@ -104,7 +104,6 @@
     <Compile Include="Server\Game\Skills\Manual.cs" />
     <Compile Include="Server\Game\Skills\NullSkill.cs" />
     <Compile Include="Server\Game\Skills\Skill.cs" />
-    <Compile Include="Server\Game\Skills\Actions.cs" />
     <Compile Include="Server\Game\States.cs" />
     <Compile Include="Server\Game\Tags\Tags.cs" />
     <Compile Include="Server\Game\Zones\Zone.cs" />

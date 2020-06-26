@@ -3,7 +3,7 @@ using CardGame.Server.Game.Commands;
 
 namespace CardGame.Server.Game.Skills
 {
-    public class Manual: Skill
+    public class Manual: Skill, IResolvable
     {
         public void SetUp(Command gameEvent)
         {
@@ -38,6 +38,19 @@ namespace CardGame.Server.Game.Skills
         }
 		
         protected virtual void _Activate()
+        {
+        }
+        
+        public void Resolve()
+        {
+            _Resolve();
+            Card.Activated = false;
+            Controller.Support.Remove(Card);
+            Owner.Graveyard.Add(Card);
+            EmitSignal(nameof(Resolved));
+        }
+		
+        protected virtual void _Resolve()
         {
         }
     }
