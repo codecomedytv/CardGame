@@ -25,8 +25,8 @@ namespace CardGame.Server
             }
             protected override void _SetUp()
             {
-                SetTargets(Opponent.Field.ToList());
-                CanBeUsed = Opponent.Field.Count > 0;
+                AddTargets(Opponent.Field);
+                CanBeUsed = ValidTargets.Count > 0;
             }
 
             protected override void _Resolve()

@@ -26,8 +26,8 @@ namespace CardGame.Server
             }
             protected override void _SetUp()
             {
-                SetTargets(Controller.Hand.ToList());
-                CanBeUsed = Controller.Hand.Count > 0;
+                AddTargets(Controller.Hand);
+                CanBeUsed = ValidTargets.Count > 0;
             }
 
             protected override void _Resolve()

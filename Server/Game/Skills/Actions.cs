@@ -41,7 +41,7 @@ namespace CardGame.Server.Game.Skills
         {
             History.Add(new Move(GameEvents.TopDeck, Card, topDecked, topDecked.Owner.Deck));
         }
-        protected void SetTargets(IEnumerable<Card> cards)
+        protected void AddTargets(IEnumerable<Card> cards)
         {
             // TODO: Implement A Way To Send This Information To Messenger (ModifyCard?)
             ValidTargets.AddRange(cards.Where(card => !card.HasTag(TagIds.CannotBeTargeted)));

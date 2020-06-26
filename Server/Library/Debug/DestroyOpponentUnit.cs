@@ -27,7 +27,7 @@ namespace CardGame.Server
             }
             protected override void _SetUp()
             {
-                SetTargets(Opponent.Field);
+                AddTargets(Opponent.Field);
                 CanBeUsed = ValidTargets.Count > 0;
             }
 

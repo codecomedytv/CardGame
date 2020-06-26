@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Commands;
@@ -27,18 +28,8 @@ namespace CardGame.Server
             
             protected override void _SetUp()
             {
-                var targets = new List<Card>();
-                foreach (var card in Opponent.Field)
-                {
-                    targets.Add(card);
-                }
-
-                foreach (var card in Controller.Field)
-                {
-                    targets.Add(card);
-                }
-
-                SetTargets(targets);
+                AddTargets(Opponent.Field);
+                AddTargets(Controller.Field);
             }
 
             protected override void _Resolve()

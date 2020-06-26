@@ -33,14 +33,13 @@ namespace CardGame.Server
 
             protected override void _SetUp()
             {
-                var units = (from Unit u in Opponent.Field where u.Attack < 1000 select u).ToList();
-                CanBeUsed = units.Count > 0;
+                AddTargets(Opponent.Field.Cast<Unit>().Where(unit => unit.Attack < 1000));
+                CanBeUsed = ValidTargets.Count > 0;
             }
 
             protected override void _Activate()
             {
-                var units = (from Unit u in Opponent.Field where u.Attack < 1000 select u).Cast<Card>().ToList();
-                SetTargets(units);
+                AddTargets(Opponent.Field.Cast<Unit>().Where(unit => unit.Attack < 1000));
                 RequestTarget();
             }
 
