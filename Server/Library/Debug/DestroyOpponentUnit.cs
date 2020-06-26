@@ -15,11 +15,15 @@ namespace CardGame.Server
             Controller = owner;
             Title = "Debug.DestroyOpponentUnit";
             SetCode = SetCodes.DebugDestroyOpponentUnit;
-            AddSkill(new DestroyUnit());
+            Skill = new DestroyUnit(this);
         }
 
         private class DestroyUnit : Skill
         {
+            public DestroyUnit(Card card)
+            {
+                Card = card;
+            }
             protected override void _SetUp()
             {
                 var units = Opponent.Field;

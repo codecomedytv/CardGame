@@ -18,13 +18,14 @@ namespace CardGame.Server
             SetCode = SetCodes.Alpha_NoviceArcher;
             Attack = 1000;
             Defense = 1000;
-            AddSkill(new OnSummonDestroy());
+            Skill = new OnSummonDestroy(this);
         }
 
         private class OnSummonDestroy : Skill
         {
-            public OnSummonDestroy()
+            public OnSummonDestroy(Card card)
             {
+                Card = card;
                 Triggers.Add(GameEvents.Deploy);
                 Type = Types.Auto;
             }

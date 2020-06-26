@@ -11,11 +11,15 @@ namespace CardGame.Server
             Controller = owner;
             Title = "QuestReward";
             SetCode = SetCodes.Alpha_QuestReward;
-            AddSkill(new DrawXCards());
+            Skill = new DrawXCards(this);
         }
 
         private class DrawXCards : Skill
         {
+            public DrawXCards(Card card)
+            {
+                Card = card;
+            }
             protected override void _Resolve()
             {
                 Controller.Draw();

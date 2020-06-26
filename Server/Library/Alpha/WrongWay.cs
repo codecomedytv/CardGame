@@ -14,11 +14,16 @@ namespace CardGame.Server
             Controller = owner;
             Title = "WrongWay";
             SetCode = SetCodes.Alpha_WrongWay;
-            AddSkill(new ReturnTarget());
+            Skill = new ReturnTarget(this);
         }
 
         private class ReturnTarget : Skill
         {
+            public ReturnTarget(Card card)
+            {
+                Card = card;
+            }
+            
             protected override void _SetUp()
             {
                 var targets = new List<Card>();

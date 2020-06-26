@@ -32,7 +32,7 @@ namespace CardGame.Server.Game.Cards {
 
 		protected Card()
 		{
-			AddSkill(new NullSkill());
+			Skill = new NullSkill {Card = this};
 		}
 		
 
@@ -51,13 +51,7 @@ namespace CardGame.Server.Game.Cards {
 		public bool HasTag(TagIds tagId) => Tags.Any(tag => tag.TagId == tagId);
 
 		public Dictionary<string, int> Serialize() => new Dictionary<string, int>{{"Id", Id}, {"setCode", (int)SetCode}};
-		
-		protected void AddSkill(Skill skill)
-		{
-			Skill = skill;
-			skill.Card = this;
-		}
-		
+
 		public override string ToString() => $"{Id.ToString()}: {Title}";
 
 	}

@@ -12,11 +12,15 @@ namespace CardGame.Server
             Controller = owner;
             Title = "Debug.MillOneFromCard";
             SetCode = SetCodes.MillOneFromDeck;
-            AddSkill(new MillCard());
+            Skill = new MillCard(this);
         }
 
         private class  MillCard: Skill
         {
+            public MillCard(Card card)
+            {
+                Card = card;
+            }
             protected override void _Resolve()
             {
                 Mill(Controller.Deck.Top);

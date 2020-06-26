@@ -13,11 +13,15 @@ namespace CardGame.Server
             Controller = owner;
             Title = "Debug.ReturnToDeck";
             SetCode = SetCodes.DebugReturnToDeck;
-            AddSkill(new ReturnCard());
+            Skill = new ReturnCard(this);
         }
 
         private class ReturnCard : Skill
         {
+            public ReturnCard(Card card)
+            {
+                Card = card;
+            }
             protected override void _SetUp()
             {
                 SetTargets(Controller.Hand.ToList());

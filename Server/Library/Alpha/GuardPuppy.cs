@@ -18,14 +18,15 @@ namespace CardGame.Server
             SetCode = SetCodes.Alpha_GuardPuppy;
             Attack = 500;
             Defense = 500;
-            AddSkill(new BattleImmunity());
+            Skill = new BattleImmunity(this);
         }
 
         private class BattleImmunity : Skill
         {
             private readonly Tag Tag = new Tag(TagIds.CannotBeAttacked);
-            public BattleImmunity()
+            public BattleImmunity(Card card)
             {
+                Card = card;
                 Type = Types.Constant;
             }
 

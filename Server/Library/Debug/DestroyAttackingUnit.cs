@@ -13,13 +13,14 @@ namespace CardGame.Server
             Controller = owner;
             Title = "Debug.DestroyAttackingUnit";
             SetCode = SetCodes.DebugDestroyAttackingUnit;
-            AddSkill(new DestroyAttacking());
+            Skill = new DestroyAttacking(this);
         }
 
         private class DestroyAttacking : Skill
         {
-            public DestroyAttacking()
+            public DestroyAttacking(Card card)
             {
+                Card = card;
                 Triggers.Add(GameEvents.DeclareAttack);
                 Triggers.Add(GameEvents.DeclareDirectAttack);
             }

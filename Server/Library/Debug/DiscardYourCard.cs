@@ -13,11 +13,15 @@ namespace CardGame.Server
             Controller = owner;
             Title = "Debug.DiscardYourCard";
             SetCode = SetCodes.DebugDiscardYourCard;
-            AddSkill(new DiscardCard());
+            Skill = new DiscardCard(this);
         }
 
         private class DiscardCard : Skill
         {
+            public DiscardCard(Card card)
+            {
+                Card = card;
+            }
             protected override void _SetUp()
             {
                 SetTargets(Controller.Hand.ToList());

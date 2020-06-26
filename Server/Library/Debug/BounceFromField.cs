@@ -13,11 +13,15 @@ namespace CardGame.Server
             Controller = owner;
             Title = "Debug.BounceFromField";
             SetCode = SetCodes.DebugBounceFromField;
-            AddSkill(new BounceSkill());
+            Skill = new BounceSkill(this);
         }
 
         private class BounceSkill : Skill
         {
+            public BounceSkill(Card card)
+            {
+                Card = card;
+            }
             protected override void _SetUp()
             {
                 SetTargets(Opponent.Field.ToList());

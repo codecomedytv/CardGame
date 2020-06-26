@@ -12,13 +12,14 @@ namespace CardGame.Server
             Controller = owner;
             Title = "CounterAttack";
             SetCode = SetCodes.Alpha_CounterAttack;
-            AddSkill(new DestroyAttacker());
+            Skill = new DestroyAttacker(this);
         }
 
         private class DestroyAttacker: Skill
         {
-            public DestroyAttacker()
+            public DestroyAttacker(Card card)
             {
+                Card = card;
                 Triggers.Add(GameEvents.DeclareAttack);
             }
 

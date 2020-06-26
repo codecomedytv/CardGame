@@ -11,11 +11,15 @@ namespace CardGame.Server
             Controller = owner;
             Title = "Debug.Draw2Cards";
             SetCode = SetCodes.DebugDraw2Cards;
-            AddSkill(new DrawCards());
+            Skill = new DrawCards(this);
         }
 
         private class DrawCards : Skill
         {
+            public DrawCards(Card card)
+            {
+                Card = card;
+            }
             protected override void _Resolve()
             {
                 Controller.Draw();
