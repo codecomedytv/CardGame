@@ -21,7 +21,7 @@ namespace CardGame.Server
             Skill = new BattleImmunity(this);
         }
 
-        private class BattleImmunity : Skill
+        private class BattleImmunity : Constant
         {
             private readonly Tag Tag = new Tag(TagIds.CannotBeAttacked);
             public BattleImmunity(Card card)

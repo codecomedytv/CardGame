@@ -15,7 +15,7 @@ namespace CardGame.Server.Game {
 
 		public void OnGameEventRecorded(Command command)
 		{
-			ApplyConstants(command);
+			ApplyConstants();
 			if (command.Identity == GameEvents.SetFaceDown || command.Identity == GameEvents.EndTurn)
 			{
 				return;
@@ -26,28 +26,15 @@ namespace CardGame.Server.Game {
 
 		public void AddResolvable(IResolvable action) => Chain.Push(action);
 		
-		private void ApplyConstants(Command command)
+		private void ApplyConstants()
 		{
-			foreach (var card in TurnPlayer.Field.Where(c => c.Skill.Type == Skill.Types.Constant))
-			{
-				card.Skill.Resolve();
-			}
-			
-			foreach (var card in TurnPlayer.Graveyard.Where(c => c.Skill.Type == Skill.Types.Constant))
-			{
-			 	card.Skill.Resolve();
-			}
-			
-			foreach (var card in TurnPlayer.Opponent.Field.Where(c => c.Skill.Type == Skill.Types.Constant))
-			{
-				card.Skill.Resolve();
-			}
-			
-			foreach (var card in TurnPlayer.Opponent.Graveyard.Where(c => c.Skill.Type == Skill.Types.Constant))
-			{
-				card.Skill.Resolve();
-			}
-			
+			var constants = new List<Constant>();
+			constants.AddRange(TurnPlayer.Field.Select(c => c.Skill).Where(s => s is Constant).Cast<Constant>());
+			constants.AddRange(TurnPlayer.Graveyard.Select(c => c.Skill).Where(s => s is Constant).Cast<Constant>());
+			constants.AddRange(TurnPlayer.Opponent.Field.Select(c => c.Skill).Where(s => s is Constant).Cast<Constant>());
+			constants.AddRange(TurnPlayer.Opponent.Graveyard.Select(c => c.Skill).Where(s => s is Constant).Cast<Constant>());
+			foreach (var constant in constants) { constant.Apply(); }
+
 		}
 		
 		private void ApplyTriggered(Command command)
@@ -108,7 +95,7 @@ namespace CardGame.Server.Game {
 				resolvable.Resolve();
 			}
 			
-			ApplyConstants(new NullCommand());
+			ApplyConstants();
 		}
 		
 		

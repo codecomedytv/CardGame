@@ -17,9 +17,9 @@ namespace CardGame.Server
             Skill = new PlayerCannotTakeBattleDamage(this);
         }
 
-        private class PlayerCannotTakeBattleDamage: Skill
+        private class PlayerCannotTakeBattleDamage: Constant
         {
-            private readonly Tag Tag = new Tag(TagIds.CannotTakeBattleDamage);
+        private readonly Tag Tag = new Tag(TagIds.CannotTakeBattleDamage);
             public PlayerCannotTakeBattleDamage(Card card)
             {
                 Card = card;
