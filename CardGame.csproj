@@ -103,6 +103,7 @@
     <Compile Include="Server\Game\Skills\Skill.cs" />
     <Compile Include="Server\Game\Skills\Actions.cs" />
     <Compile Include="Server\Game\States.cs" />
+    <Compile Include="Server\Game\Tags\Tags.cs" />
     <Compile Include="Server\Game\Zones\Zone.cs" />
     <Compile Include="Server\Library\Alpha\CounterAttack.cs" />
     <Compile Include="Server\Library\Alpha\DungeonGuide.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Tests\MockMessenger.cs" />
     <Compile Include="Tests\Scripts\Connected\ConnectionTest.cs" />
     <Compile Include="Tests\Scripts\Serverside\BattleTest.cs" />
+    <Compile Include="Tests\Scripts\Serverside\GuardPuppyTest.cs" />
     <Compile Include="Tests\Scripts\Serverside\JudgeTest.cs" />
     <Compile Include="Tests\Scripts\Serverside\LinkTest.cs" />
     <Compile Include="Tests\Scripts\Serverside\NoviceArcherTest.cs" />

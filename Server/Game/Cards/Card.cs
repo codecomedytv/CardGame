@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using CardGame.Server.Game.Commands;
 using CardGame.Server.Game.Skills;
+using CardGame.Server.Game.Tags;
 using CardGame.Server.Game.Zones;
 using Godot;
 
@@ -26,6 +28,7 @@ namespace CardGame.Server.Game.Cards {
 		public bool CanBeSet;
 		public bool CanBeActivated = false;
 		public bool CanAttack;
+		public List<Tag> Tags = new List<Tag>();
 
 		protected Card()
 		{
@@ -44,6 +47,8 @@ namespace CardGame.Server.Game.Cards {
 		public void Ready() => IsReady = true;
 
 		public void Exhaust() => IsReady = false;
+
+		public bool HasTag(TagIds tagId) => Tags.Any(tag => tag.TagId == tagId);
 
 		public Dictionary<string, int> Serialize() => new Dictionary<string, int>{{"Id", Id}, {"setCode", (int)SetCode}};
 		
