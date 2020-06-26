@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CardGame.Server;
+using CardGame.Server.Game.Tags;
 using Godot;
 using Godot.Collections;
 
@@ -158,6 +159,40 @@ namespace CardGame.Tests.Scripts.Serverside
 
 	        Assert.DoesNotHave(invincibleCard, Opponent.Graveyard,
 		        "But the invincible card is not in its owner discard");
+        }
+        
+        [Test]
+        public void That_Adds_A_Tag_To_Players_When_Unit_Card_Is_Played()
+        {
+	        
+	        // Battle is not implemented currently so this fails
+	        DeckList.Add(SetCodes.DebugPlayerCannotTakeDamage);
+	        StartGame(DeckList);
+
+	        var preventDamage = Opponent.Hand[0];
+	        var debug500500 = Opponent.Hand[4];
+	        var debug15001000 = Player.Hand[1];
+
+	        Play.Deploy(Player.Id, debug15001000.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.PassPlay(Player.Id);
+	        Play.EndTurn(Player.Id);
+	        Play.Deploy(Opponent.Id, debug500500.Id);
+	        Play.PassPlay(Player.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.Deploy(Opponent.Id, preventDamage.Id);
+	        //GD.Print(preventDamage);
+	        Play.PassPlay(Player.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.EndTurn(Opponent.Id);
+	        var life = Opponent.Health;
+	        Play.Attack(Player.Id, debug15001000.Id, debug500500.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.PassPlay(Player.Id);
+
+	        Assert.IsTrue(Opponent.HasTag(TagIds.CannotTakeBattleDamage), "Defending Player has Tag.CannotTakeDamage");
+	        Assert.IsEqual(life, Opponent.Health, "Player's life did not change");
+	        Assert.Has(debug500500, Opponent.Graveyard, "But the defending unit was still destroyed");
         }
 
         

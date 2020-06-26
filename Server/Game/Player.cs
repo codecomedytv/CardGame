@@ -1,9 +1,11 @@
 using System;
 using Godot;
 using System.Collections.Generic;
+using System.Linq;
 using CardGame.Server.Game;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Commands;
+using CardGame.Server.Game.Tags;
 using CardGame.Server.Game.Zones;
 
 namespace CardGame.Server {
@@ -18,6 +20,7 @@ namespace CardGame.Server {
 		public Player Opponent;
 		public int Health = 8000;
 		public bool Ready = false;
+		public readonly List<Tag> Tags = new List<Tag>();
 		public readonly Zone Deck;
 		public readonly Zone Graveyard;
 		public readonly Zone Hand;
@@ -75,7 +78,9 @@ namespace CardGame.Server {
 		
 		public void Draw() => Match.History.Add(new Move(GameEvents.Draw, this, Deck.Top, Hand));
 		
-		public void Win() => Match.History.Add(new GameOver(this, Opponent)); 
+		public void Win() => Match.History.Add(new GameOver(this, Opponent));
+
+		public bool HasTag(TagIds tagId) => Tags.Any(tag => tag.TagId == tagId);
 	}
 	
 }

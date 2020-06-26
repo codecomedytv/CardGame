@@ -28,7 +28,7 @@ namespace CardGame.Server.Game.Cards {
 		public bool CanBeSet;
 		public bool CanBeActivated = false;
 		public bool CanAttack;
-		public List<Tag> Tags = new List<Tag>();
+		public readonly List<Tag> Tags = new List<Tag>();
 
 		protected Card()
 		{

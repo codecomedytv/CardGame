@@ -1,6 +1,7 @@
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Commands;
 using CardGame.Server.Game.Skills;
+using CardGame.Server.Game.Tags;
 using Godot;
 
 namespace CardGame.Server.Game {
@@ -42,7 +43,11 @@ namespace CardGame.Server.Game {
 			if (Attacker.Attack > Defender.Defense)
 			{
 				var overflow = Attacker.Attack - Defender.Defense;
-				Defending.Match.History.Add(new ModifyPlayer(GameEvents.BattleDamage, Attacker, Defending, nameof(Player.Health), Defending.Health - overflow));
+				if(!Defending.HasTag(TagIds.CannotTakeBattleDamage))
+				{
+					Defending.Match.History.Add(new ModifyPlayer(GameEvents.BattleDamage, Attacker, Defending,
+						nameof(Player.Health), Defending.Health - overflow));
+				}
 				Defending.Match.History.Add(new Move(GameEvents.DestroyByBattle, Attacker, Defender, Defender.Owner.Graveyard));
 				if (Defending.Health <= 0)
 				{
@@ -55,7 +60,12 @@ namespace CardGame.Server.Game {
 			else if (Attacker.Attack <= Defender.Defense && Defender.Attack > Attacker.Defense)
 			{
 				var overflow = Defender.Attack - Attacker.Defense;
-				Attacking.Match.History.Add(new ModifyPlayer(GameEvents.BattleDamage, Defender, Attacking, nameof(Player.Health), Attacking.Health - overflow));
+				if (!Attacking.HasTag(TagIds.CannotTakeBattleDamage))
+				{
+					Attacking.Match.History.Add(new ModifyPlayer(GameEvents.BattleDamage, Defender, Attacking,
+						nameof(Player.Health), Attacking.Health - overflow));
+				}
+
 				Attacking.Match.History.Add(new Move(GameEvents.DestroyByBattle, Defender, Attacker, Attacker.Owner.Graveyard));
 				if (Attacking.Health <= 0)
 				{
@@ -74,7 +84,12 @@ namespace CardGame.Server.Game {
 		private void _ResolveDirectAttack()
 		{
 			Attacker.Attacked = true;
-			Defending.Match.History.Add(new ModifyPlayer(GameEvents.BattleDamage, Attacker, Defending, nameof(Player.Health), Defending.Health - Attacker.Attack));
+			if (!Defending.HasTag(TagIds.CannotTakeBattleDamage))
+			{
+				Defending.Match.History.Add(new ModifyPlayer(GameEvents.BattleDamage, Attacker, Defending,
+					nameof(Player.Health), Defending.Health - Attacker.Attack));
+			}
+
 			if (Defending.Health <= 0)
 			{
 				Attacking.Win();

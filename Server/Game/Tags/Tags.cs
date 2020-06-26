@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net.Sockets;
 using CardGame.Server.Game.Cards;
+using Godot;
 
 namespace CardGame.Server.Game.Tags
 {
@@ -17,6 +18,7 @@ namespace CardGame.Server.Game.Tags
     {
         public readonly TagIds TagId;
         private readonly List<Card> Tagged = new List<Card>();
+        private readonly List<Player> TaggedPlayers = new List<Player>();
 
         public Tag(TagIds tagId)
         {
@@ -32,11 +34,27 @@ namespace CardGame.Server.Game.Tags
             Tagged.Add(card);
             card.Tags.Add(this);
         }
+        
+        public void Add(Player player)
+        {
+            if (player.Tags.Contains(this))
+            {
+                return;
+            }
+            TaggedPlayers.Add(player);
+            player.Tags.Add(this);
+        }
 
         public void Remove(Card card)
         {
             Tagged.Remove(card);
             card.Tags.Remove(this);
+        }
+
+        public void Remove(Player player)
+        {
+            TaggedPlayers.Remove(player);
+            player.Tags.Remove(this);
         }
 
         public void UnTagAll()
@@ -45,7 +63,13 @@ namespace CardGame.Server.Game.Tags
             {
                 card.Tags.Remove(this);
             }
+
+            foreach (var player in TaggedPlayers)
+            {
+                player.Tags.Remove(this);
+            }
             Tagged.Clear();
+            TaggedPlayers.Clear();
         }
         
     }
