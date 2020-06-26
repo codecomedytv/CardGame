@@ -13,6 +13,13 @@ namespace CardGame.Server.Game {
 		private List<Skill.Skill> Manual = new List<Skill.Skill>();
 		private List<Skill.Skill> Auto = new List<Skill.Skill>();
 
+		public void OnGameEventRecorded(Command command)
+		{
+			ApplyConstants(command);
+			ApplyTriggered(command);
+			SetupManual(command);
+		}
+
 		public void AddResolvable(IResolvable action) => Chain.Push(action);
 
 		public void ApplyConstants(Command gameEvent = null) => Constants.ForEach(s => s.Resolve());

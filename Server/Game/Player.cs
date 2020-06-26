@@ -24,9 +24,7 @@ namespace CardGame.Server {
 		public readonly Zone Support;
 		public readonly Zone Field;
 		public bool IsDisqualified;
-		//public bool IsTurnPlayer; // = false;
 		public Func<bool> IsTurnPlayer;
-		//public Action<Player> IsTurnPlayer;
 		public Match Match;
 		public int Seat;
 

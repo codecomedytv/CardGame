@@ -23,23 +23,13 @@ namespace CardGame.Server.Game
             p2.IsTurnPlayer = () => p2 == TurnPlayer;
         }
 
-        public bool CompareTurnPlayer(Player p1)
-        {
-            return p1 == TurnPlayer;
-        }
+        public void ChangeTurnPlayer() => TurnPlayer = TurnPlayer.Opponent;
+        
         public IEnumerator<Player> GetEnumerator() => PlayersById.Values.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         public Player this[int id] => PlayersById[id];
 
-        // Todo: Temporary Method. Remove This
-        //public Player GetTurnPlayer() => PlayersById.Values.ToList()[1];
 
-        public void ChangeTurnPlayer()
-        {
-            TurnPlayer = TurnPlayer.Opponent;
-        }
-        
-        
 
     }
 }
