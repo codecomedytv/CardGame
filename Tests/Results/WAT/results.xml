@@ -1,11 +1,17 @@
 <?xml version="1.0" ?>
-<testsuites failures="0" name="TestXML" tests="1" time="1.05">
-<testsuite failures="0" name="Given Guard Puppy" tests="3" time="0.011">
-<testcase name=" tag unit removed from field" time="0.034">
+<testsuites failures="0" name="TestXML" tests="1" time="1.035">
+<testsuite failures="0" name="When using a Skill" tests="6" time="0.009">
+<testcase name="That Tries To Destroy An Indestructible Card" time="0.03">
 </testcase>
-<testcase name=" guard puppy removed from the field" time="0.004">
+<testcase name="That Returns A Card To The Players Deck" time="0.003">
 </testcase>
-<testcase name="guard puppy" time="0.005">
+<testcase name="That Mills A Card" time="0.004">
+</testcase>
+<testcase name="That Returns A Unit To Opponents Hand" time="0.004">
+</testcase>
+<testcase name="That Discards Your Target Card" time="0.004">
+</testcase>
+<testcase name="That Destroys Target Opponent Unit" time="0.004">
 </testcase>
 </testsuite>
 </testsuites>

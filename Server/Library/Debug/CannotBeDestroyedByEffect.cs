@@ -1,4 +1,5 @@
 ﻿using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Tags;
 
 namespace CardGame.Server
 {
@@ -12,6 +13,7 @@ namespace CardGame.Server
             Attack = 1000;
             Defense = 1000;
             SetCode = SetCodes.DebugCannotBeDestoyedByEffect;
+            Tags.Add(new Tag(TagIds.CannotBeDestroyedByEffect));
         }
     }
 }

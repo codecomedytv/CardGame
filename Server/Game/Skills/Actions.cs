@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Commands;
+using CardGame.Server.Game.Tags;
 
 namespace CardGame.Server.Game.Skills
 {
@@ -28,6 +29,10 @@ namespace CardGame.Server.Game.Skills
 
         protected void Destroy(Card destroyed)
         {
+            if (destroyed.HasTag(TagIds.CannotBeDestroyedByEffect))
+            {
+                return;
+            }
             History.Add(new Move(GameEvents.DestroyByEffect, Card, destroyed, destroyed.Owner.Graveyard));
         }
 

@@ -135,6 +135,32 @@ namespace CardGame.Tests.Scripts.Serverside
 	        Assert.Has(cardToReturn, Player.Deck, "Then that card is in the Player's Deck");
         }
         
+        [Test]
+        public void That_Tries_To_Destroy_An_Indestructible_Card()
+        {
+
+	        DeckList.Add(SetCodes.DebugDestroyOpponentUnit);
+	        DeckList.Add(SetCodes.DebugCannotBeDestoyedByEffect);
+	        StartGame(DeckList);
+	        var invincibleCard = Opponent.Hand[0];
+	        var destroyUnitCard = Player.Hand[1];
+	        Play.SetFaceDown(Player.Id, destroyUnitCard.Id);
+	        Play.EndTurn(Player.Id);
+	        Play.Deploy(Opponent.Id, invincibleCard.Id);
+	        Play.PassPlay(Player.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.EndTurn(Opponent.Id);
+	        Play.Activate(Player.Id, destroyUnitCard.Id, invincibleCard.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.PassPlay(Player.Id);
+
+	        Assert.Has(destroyUnitCard, Player.Graveyard, "Then that skill's card is in the discard");
+
+	        Assert.DoesNotHave(invincibleCard, Opponent.Graveyard,
+		        "But the invincible card is not in its owner discard");
+        }
+
+        
         
 
     }
