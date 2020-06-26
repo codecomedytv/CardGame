@@ -18,7 +18,7 @@ namespace CardGame.Server
             Skill = new ReturnTarget(this);
         }
 
-        private class ReturnTarget : Skill
+        private class ReturnTarget : Manual
         {
             public ReturnTarget(Card card)
             {

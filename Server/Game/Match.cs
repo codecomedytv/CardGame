@@ -2,6 +2,7 @@ using System.Linq;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Commands;
 using CardGame.Server.Game.Network;
+using CardGame.Server.Game.Skills;
 using Godot;
 
 namespace CardGame.Server.Game {
@@ -168,7 +169,7 @@ namespace CardGame.Server.Game {
 				return;
 			}
 			
-			Link.Activate(card.Skill, target);
+			Link.Activate((Manual) card.Skill, target);
 			player.SetState(States.Acting);
 			player.Opponent.SetState(States.Active);
 			Update();

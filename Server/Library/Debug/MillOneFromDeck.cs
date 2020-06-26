@@ -15,7 +15,7 @@ namespace CardGame.Server
             Skill = new MillCard(this);
         }
 
-        private class  MillCard: Skill
+        private class  MillCard: Manual
         {
             public MillCard(Card card)
             {

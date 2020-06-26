@@ -18,7 +18,7 @@ namespace CardGame.Server
             Skill = new DestroyUnit(this);
         }
 
-        private class DestroyUnit : Skill
+        private class DestroyUnit : Manual
         {
             public DestroyUnit(Card card)
             {

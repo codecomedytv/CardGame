@@ -14,7 +14,7 @@ namespace CardGame.Server
             Skill = new DrawXCards(this);
         }
 
-        private class DrawXCards : Skill
+        private class DrawXCards : Manual
         {
             public DrawXCards(Card card)
             {

@@ -16,7 +16,7 @@ namespace CardGame.Server
             Skill = new BounceSkill(this);
         }
 
-        private class BounceSkill : Skill
+        private class BounceSkill : Manual
         {
             public BounceSkill(Card card)
             {

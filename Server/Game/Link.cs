@@ -54,18 +54,16 @@ namespace CardGame.Server.Game {
 		
 		private void SetupManual(Command command)
 		{
-			foreach (var card in TurnPlayer.Support.Where(c => c.Skill.Type == Skill.Types.Manual))
+			var manual = new List<Manual>();
+			manual.AddRange(TurnPlayer.Support.Select(c => c.Skill).Where(s => s is Manual).Cast<Manual>());
+			manual.AddRange(TurnPlayer.Opponent.Support.Select(c => c.Skill).Where(s => s is Manual).Cast<Manual>());
+			foreach (var skill in manual)
 			{
-				card.Skill.SetUp(command);
-			}
-
-			foreach (var card in TurnPlayer.Opponent.Support.Where(c => c.Skill.Type == Skill.Types.Manual))
-			{
-				card.Skill.SetUp(command);
+				skill.SetUp(command);
 			}
 		}
 		
-		public void Activate(Skill skill, Card target)
+		public void Activate(Manual skill, Card target)
 		{
 			skill.Target = target;
 			skill.Activate();

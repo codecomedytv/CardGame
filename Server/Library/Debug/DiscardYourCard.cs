@@ -16,7 +16,7 @@ namespace CardGame.Server
             Skill = new DiscardCard(this);
         }
 
-        private class DiscardCard : Skill
+        private class DiscardCard : Manual
         {
             public DiscardCard(Card card)
             {
