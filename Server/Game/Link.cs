@@ -44,13 +44,11 @@ namespace CardGame.Server.Game {
 			automatic.AddRange(TurnPlayer.Opponent.Field.Select(c => c.Skill).Where(s => s is Automatic).Cast<Automatic>());
 			foreach (var skill in automatic)
 			{
-				skill.SetUp(command);
-				if (!skill.CanBeUsed)
+				skill.Trigger(command);
+				if (skill.Triggered)
 				{
-					continue;
+					Chain.Push(skill);
 				}
-				skill.Activate();
-				Chain.Push(skill);
 			}
 		}
 		
@@ -79,12 +77,11 @@ namespace CardGame.Server.Game {
 			while (Chain.Count != 0)
 			{
 				var resolvable = Chain.Pop();
+				resolvable.Resolve();
 				if(resolvable is Skill skill && skill.Targeting)
 				{
-					var result = await ToSignal(skill.Controller, nameof(Player.TargetSelected));
-					skill.Target = result[0] as Card;
+					await ToSignal(skill, nameof(Skill.Resolved));
 				}
-				resolvable.Resolve();
 			}
 			
 			ApplyConstants();

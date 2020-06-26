@@ -30,21 +30,22 @@ namespace CardGame.Server
                 Triggers.Add(GameEvents.Deploy);
                 Type = Types.Auto;
             }
-
-            protected override void _SetUp()
+            
+            protected override void _Trigger(Command command)
             {
-                AddTargets(Opponent.Field.Cast<Unit>().Where(unit => unit.Attack < 1000));
-                CanBeUsed = ValidTargets.Count > 0;
+                Triggered = command is Move move && move.Identity == GameEvents.Deploy && move.Card == Card;
             }
 
-            protected override void _Activate()
+            protected override async void _Resolve()
             {
                 AddTargets(Opponent.Field.Cast<Unit>().Where(unit => unit.Attack < 1000));
+                if (ValidTargets.Count == 0)
+                {
+                    return;
+                }
                 RequestTarget();
-            }
-
-            protected override void _Resolve()
-            {
+                var results = await ToSignal(Controller, nameof(Player.TargetSelected));
+                Target = results[0] as Card;
                 Destroy(Target);
             }
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Commands;
@@ -9,6 +10,9 @@ namespace CardGame.Server.Game.Skills {
 	public partial class Skill : Godot.Object, IResolvable
 	{
 		public enum Types { Manual, Auto, Constant }
+
+		[Signal]
+		public delegate void Resolved();
 
 		private Player Owner => Card.Owner;
 		public Player Controller => Card.Controller;
@@ -55,6 +59,8 @@ namespace CardGame.Server.Game.Skills {
 			_Activate();
 		}
 
+		
+
 		public void Resolve()
 		{
 			// if (GameEvent != GameEvents.NoOp && GameEvent != gameEvent.Identity && Type == Types.Constant)
@@ -68,6 +74,7 @@ namespace CardGame.Server.Game.Skills {
 			if (!(Card is Support)) return;
 			Controller.Support.Remove(Card);
 			Owner.Graveyard.Add(Card);
+			EmitSignal(nameof(Resolved));
 		}
 
 		protected virtual void _Activate()
