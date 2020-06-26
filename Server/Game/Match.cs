@@ -9,16 +9,12 @@ namespace CardGame.Server.Game {
 
 	public class Match : Node
 	{
-		
-		// TODO
-		// Handle Link Events B
-		
 		private readonly Messenger Messenger;
 		private readonly Players Players;
 		private readonly CardCatalog CardCatalog = new CardCatalog();
 		public readonly History History = new History();
-		public readonly Battle Battle = new Battle();
-		public readonly Link Link = new Link();
+		private readonly Battle Battle = new Battle();
+		private readonly Link Link = new Link();
 		public Player TurnPlayer => Players.TurnPlayer;
 		public Unit Attacking;
 
@@ -76,13 +72,6 @@ namespace CardGame.Server.Game {
 			// Turn Player is (Currently) Choosen When Player Object is created
 			TurnPlayer.SetState(States.Idle);
 			TurnPlayer.Opponent.SetState(States.Passive);
-			Update();
-		}
-		
-		private void BeginTurn()
-		{
-			TurnPlayer.Draw();
-			TurnPlayer.SetState(States.Idle);
 			Update();
 		}
 		
@@ -169,6 +158,8 @@ namespace CardGame.Server.Game {
 				return;
 			}
 			
+			// Activations don't trigger anything inherently but they are useful for animation
+			// Maybe add an "activation" command to history and have the link ignore it?
 			Link.Activate((Manual) card.Skill, target);
 			player.SetState(States.Acting);
 			player.Opponent.SetState(States.Active);
@@ -221,7 +212,7 @@ namespace CardGame.Server.Game {
 			Players.ChangeTurnPlayer();
 			foreach (var unit in player.Opponent.Field) { unit.Ready(); };
 			foreach (var support in player.Support) { support.Ready(); }
-			TurnPlayer.Draw(); // Does This Trigger Something? Constants?
+			TurnPlayer.Draw();
 			TurnPlayer.Opponent.SetState(States.Passive);
 			TurnPlayer.SetState(States.Idle);
 			Update();
@@ -245,19 +236,6 @@ namespace CardGame.Server.Game {
 		{
 			var error = emitter.Connect(signal, receiver, method);
 			if(error != Error.Ok) { GD.PushWarning(error.ToString()); }
-		}
-	}
-
-	internal class NullCommand : Command
-	{
-		public override void Execute()
-		{
-			
-		}
-
-		public override void Undo()
-		{
-			
 		}
 	}
 }
