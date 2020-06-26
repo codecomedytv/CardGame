@@ -1,9 +1,11 @@
 <?xml version="1.0" ?>
-<testsuites failures="0" name="TestXML" tests="1" time="1.09">
-<testsuite failures="0" name="Given Guard Puppy" tests="2" time="0.009">
-<testcase name=" guard puppy removed from the field" time="0.039">
+<testsuites failures="0" name="TestXML" tests="1" time="1.05">
+<testsuite failures="0" name="Given Guard Puppy" tests="3" time="0.011">
+<testcase name=" tag unit removed from field" time="0.034">
 </testcase>
-<testcase name="guard puppy" time="0.004">
+<testcase name=" guard puppy removed from the field" time="0.004">
+</testcase>
+<testcase name="guard puppy" time="0.005">
 </testcase>
 </testsuite>
 </testsuites>

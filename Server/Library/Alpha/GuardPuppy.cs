@@ -34,14 +34,11 @@ namespace CardGame.Server
 
             protected override void _Resolve()
             {
+                // We refresh tags on each update cycle
+                Tag.UnTagAll();
                 if (!Controller.Field.Contains(Card))
                 {
-                    foreach (var card in Controller.Field)
-                    {
-                        GD.Print("Removed???");
-                        card.Tags.Remove(Tag);
-                        return;
-                    }
+                    return;
                 }
                 foreach (var card in Controller.Field)
                 {
@@ -50,13 +47,7 @@ namespace CardGame.Server
                         continue;
                     }
 
-                    // Not to be confused with HasTag which only cares about the ID
-                    if (card.Tags.Contains(Tag))
-                    {
-                        continue;
-                    }
-
-                    card.Tags.Add(Tag);
+                    Tag.Add(card);
                 }
             }
         }

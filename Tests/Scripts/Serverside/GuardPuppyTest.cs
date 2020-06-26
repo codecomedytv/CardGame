@@ -80,7 +80,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        Assert.IsFalse(DungeonGuide.HasTag(TagIds.CannotBeAttacked), "Then a Unit it tagged no longer has the tag");
         }
         
-        //[Test]
+        [Test]
         public void test_tag_unit_removed_from_field()
         {	
 	        DeckList.Add(SetCodes.DebugDestroyOpponentUnit);
