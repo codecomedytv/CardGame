@@ -54,7 +54,7 @@ namespace CardGame.Tests.Scripts.Serverside
             StartGame(DeckList);
             Play.EndTurn(Player.Id);
             
-            Assert.IsFalse(Player.IsTurnPlayer, "Then They Are Not The Turn Player");
+            Assert.IsFalse(Player.IsTurnPlayer(), "Then They Are Not The Turn Player");
         }
 
     }

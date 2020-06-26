@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using System.Collections.Generic;
 using CardGame.Server.Game;
@@ -23,7 +24,9 @@ namespace CardGame.Server {
 		public readonly Zone Support;
 		public readonly Zone Field;
 		public bool IsDisqualified;
-		public bool IsTurnPlayer = false;
+		//public bool IsTurnPlayer; // = false;
+		public Func<bool> IsTurnPlayer;
+		//public Action<Player> IsTurnPlayer;
 		public Match Match;
 		public int Seat;
 
@@ -34,7 +37,6 @@ namespace CardGame.Server {
 		{
 			
 		}
-		
 
 		public void OnTargetSelected(Card card) => EmitSignal(nameof(TargetSelected), card);
 		

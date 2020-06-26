@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,6 +8,7 @@ namespace CardGame.Server.Game
     public class Players: IEnumerable<Player>
     {
         private Dictionary<int, Player> PlayersById = new Dictionary<int, Player>();
+        public Player TurnPlayer { get; private set; }
 
         public Players(Player p1, Player p2)
         {
@@ -16,13 +18,28 @@ namespace CardGame.Server.Game
             p2.Opponent = p1;
             p1.Seat = 1;
             p2.Seat = 2;
+            TurnPlayer = PlayersById.Values.ToList()[1];
+            p1.IsTurnPlayer = () => p1 == TurnPlayer;
+            p2.IsTurnPlayer = () => p2 == TurnPlayer;
+        }
+
+        public bool CompareTurnPlayer(Player p1)
+        {
+            return p1 == TurnPlayer;
         }
         public IEnumerator<Player> GetEnumerator() => PlayersById.Values.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         public Player this[int id] => PlayersById[id];
 
         // Todo: Temporary Method. Remove This
-        public Player TurnPlayer() => PlayersById.Values.ToList()[1];
+        //public Player GetTurnPlayer() => PlayersById.Values.ToList()[1];
+
+        public void ChangeTurnPlayer()
+        {
+            TurnPlayer = TurnPlayer.Opponent;
+        }
+        
+        
 
     }
 }

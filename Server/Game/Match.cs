@@ -18,7 +18,7 @@ namespace CardGame.Server.Game {
 		public readonly History History = new History();
 		public readonly Battle Battle = new Battle();
 		public readonly Link Link = new Link();
-		public Player TurnPlayer;
+		public Player TurnPlayer => Players.TurnPlayer;
 		public Unit Attacking;
 
 		[Signal]
@@ -72,8 +72,7 @@ namespace CardGame.Server.Game {
 				}
 			}
 			
-			TurnPlayer = Players.TurnPlayer();
-			TurnPlayer.IsTurnPlayer = true;
+			// Turn Player is (Currently) Choosen When Player Object is created
 			TurnPlayer.SetState(States.Idle);
 			TurnPlayer.Opponent.SetState(States.Passive);
 			Update();
@@ -81,9 +80,9 @@ namespace CardGame.Server.Game {
 		
 		private void BeginTurn()
 		{
-			var player = TurnPlayer;
-			player.Draw();
-			player.SetState(States.Idle);
+			//var player = TurnPlayer;
+			TurnPlayer.Draw();
+			TurnPlayer.SetState(States.Idle);
 			Link.ApplyConstants();
 			Link.SetupManual(new NullCommand());
 			Update();
@@ -224,15 +223,12 @@ namespace CardGame.Server.Game {
 			}
 			
 			History.Add(new EndTurn(player));
-			player.IsTurnPlayer = false;
-			player.Opponent.IsTurnPlayer = true;
+			Players.ChangeTurnPlayer();
 			Link.ApplyConstants();
 			foreach (var unit in player.Opponent.Field) { unit.Ready(); };
 			foreach (var support in player.Support) { support.Ready(); }
-			player.SetState(States.Passive);
-			player.Opponent.SetState(States.Idle);
-			TurnPlayer = player.Opponent;
-			TurnPlayer.Draw();
+			TurnPlayer.Draw(); // Does This Trigger Something? Constants?
+			TurnPlayer.Opponent.SetState(States.Passive);
 			TurnPlayer.SetState(States.Idle);
 			Link.ApplyConstants();
 			Link.SetupManual(new NullCommand());
