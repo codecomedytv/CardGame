@@ -15,6 +15,6 @@ namespace CardGame.Server.Game
             NextCardId += 1;
         }
 
-        public Card GetCard(int id) => CardsById[id];
+        public Card this[int id] => CardsById[id];
     }
 }

@@ -89,7 +89,7 @@ namespace CardGame.Server.Game {
 		private void OnDeploy(int playerId, int cardId)
 		{
 			var player = Players[playerId];
-			var card = (Unit)CardCatalog.GetCard(cardId);
+			var card = (Unit)CardCatalog[cardId];
 			if (!card.CanBeDeployed || player.State != States.Idle)
 			{
 				Disqualify(player);
@@ -106,8 +106,8 @@ namespace CardGame.Server.Game {
 		private void OnAttack(int playerId, int attackerId, int defenderId)
 		{
 			var player = Players[playerId];
-			var attacker = (Unit) CardCatalog.GetCard(attackerId);
-			var defender = (Unit) CardCatalog.GetCard(defenderId);
+			var attacker = (Unit) CardCatalog[attackerId];
+			var defender = (Unit) CardCatalog[defenderId];
 			Attacking = attacker;
 			if (!attacker.CanAttack || !player.Opponent.Field.Contains(defender) || !attacker.ValidAttackTargets.Contains(defender) || player.State != States.Idle)
 			{
@@ -126,7 +126,7 @@ namespace CardGame.Server.Game {
 		private void OnDirectAttack(int playerId, int attackerId)
 		{
 			var player = Players[playerId];
-			var attacker = (Unit) CardCatalog.GetCard(attackerId);
+			var attacker = (Unit) CardCatalog[attackerId];
 			Attacking = attacker;
 			if (!attacker.CanAttack || player.Opponent.Field.Count != 0 || player.State != States.Idle)
 			{
@@ -145,7 +145,7 @@ namespace CardGame.Server.Game {
 		private void OnSetFaceDown(int playerId, int faceDownId)
 		{
 			var player = Players[playerId];
-			var card = (Support)CardCatalog.GetCard(faceDownId);
+			var card = (Support)CardCatalog[faceDownId];
 			if (!card.CanBeSet || player.State != States.Idle)
 			{
 				Disqualify(player);
@@ -160,8 +160,8 @@ namespace CardGame.Server.Game {
 		private void OnActivation(int playerId, int cardId, int targetId = 0)
 		{
 			var player = Players[playerId];
-			var card = (Support)CardCatalog.GetCard(cardId);
-			var target = CardCatalog.GetCard(targetId);
+			var card = (Support)CardCatalog[cardId];
+			var target = CardCatalog[targetId];
 			var invalidState = !(player.State == States.Idle || player.State == States.Active);
 			if (!card.CanBeActivated || invalidState)
 			{
@@ -180,7 +180,7 @@ namespace CardGame.Server.Game {
 		{
 			// TODO: Refactor Into State
 			var player = Players[playerId];
-			var target = CardCatalog.GetCard(targetId);
+			var target = CardCatalog[targetId];
 			player.OnTargetSelected(target);
 		}
 
