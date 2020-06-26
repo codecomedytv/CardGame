@@ -28,21 +28,13 @@ namespace CardGame.Server.Game {
 		
 		private void ApplyConstants(Command command)
 		{
-			foreach (var card in TurnPlayer.Field)
+			foreach (var card in TurnPlayer.Field.Where(c => c.Skill.Type == Skill.Types.Constant))
 			{
-				if (card.Skill.Type != Skill.Types.Constant)
-				{
-					continue;
-				}
 				card.Skill.Resolve();
 			}
 			
-			foreach (var card in TurnPlayer.Opponent.Field)
+			foreach (var card in TurnPlayer.Opponent.Field.Where(c => c.Skill.Type == Skill.Types.Constant))
 			{
-				if (card.Skill.Type != Skill.Types.Constant)
-				{
-					continue;
-				}
 				card.Skill.Resolve();
 			}
 			
@@ -50,12 +42,8 @@ namespace CardGame.Server.Game {
 		
 		private void ApplyTriggered(Command command)
 		{
-			foreach (var card in TurnPlayer.Field)
+			foreach (var card in TurnPlayer.Field.Where(c => c.Skill.Type == Skill.Types.Auto))
 			{
-				if (card.Skill.Type != Skill.Types.Auto)
-				{
-					continue;
-				}
 				card.Skill.SetUp(command);
 				if (!card.Skill.CanBeUsed)
 				{
@@ -65,12 +53,8 @@ namespace CardGame.Server.Game {
 				Chain.Push(card.Skill);
 			}
 			
-			foreach (var card in TurnPlayer.Opponent.Field)
+			foreach (var card in TurnPlayer.Opponent.Field.Where(c => c.Skill.Type == Skill.Types.Auto))
 			{
-				if (card.Skill.Type != Skill.Types.Auto)
-				{
-					continue;
-				}
 				card.Skill.SetUp(command);
 				if (!card.Skill.CanBeUsed)
 				{
@@ -83,15 +67,13 @@ namespace CardGame.Server.Game {
 		
 		private void SetupManual(Command command)
 		{
-			foreach (var card in TurnPlayer.Support)
+			foreach (var card in TurnPlayer.Support.Where(c => c.Skill.Type == Skill.Types.Manual))
 			{
-				if(card.Skill.Type != Skill.Types.Manual) {continue;} 
 				card.Skill.SetUp(command);
 			}
 
-			foreach (var card in TurnPlayer.Opponent.Support)
+			foreach (var card in TurnPlayer.Opponent.Support.Where(c => c.Skill.Type == Skill.Types.Manual))
 			{
-				if(card.Skill.Type != Skill.Types.Manual) {continue;}
 				card.Skill.SetUp(command);
 			}
 		}
