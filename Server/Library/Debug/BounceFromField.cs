@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Commands;
-using CardGame.Server.Game.Skill;
+using CardGame.Server.Game.Skills;
 
 namespace CardGame.Server
 {

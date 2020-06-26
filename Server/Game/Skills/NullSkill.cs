@@ -1,4 +1,4 @@
-﻿namespace CardGame.Server.Game.Skill
+﻿namespace CardGame.Server.Game.Skills
 {
     public class NullSkill: Skill
     {

@@ -1,10 +1,8 @@
 using System.Collections.Generic;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Commands;
-using Godot;
-using Godot.Collections;
 
-namespace CardGame.Server.Game.Skill {
+namespace CardGame.Server.Game.Skills {
 	
 	public partial class Skill : Godot.Object, IResolvable
 	{

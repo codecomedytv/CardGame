@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using CardGame.Server.Game.Commands;
-using CardGame.Server.Game.Skill;
+using CardGame.Server.Game.Skills;
 using CardGame.Server.Game.Zones;
 using Godot;
 
@@ -15,7 +15,7 @@ namespace CardGame.Server.Game.Cards {
 		public Player Owner;
 		public Player Controller;
 		public Player Opponent => Controller.Opponent;
-		public Skill.Skill Skill;
+		public Skill Skill;
 		public Zone Zone;
 		
 		// When a player enters an active state (idle or active) then it iterates on all
@@ -47,7 +47,7 @@ namespace CardGame.Server.Game.Cards {
 
 		public Dictionary<string, int> Serialize() => new Dictionary<string, int>{{"Id", Id}, {"setCode", (int)SetCode}};
 		
-		protected void AddSkill(Skill.Skill skill)
+		protected void AddSkill(Skill skill)
 		{
 			Skill = skill;
 			skill.Card = this;

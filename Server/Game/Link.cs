@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Commands;
-using CardGame.Server.Game.Skill;
+using CardGame.Server.Game.Skills;
 using Godot;
 
 namespace CardGame.Server.Game {
@@ -29,7 +30,7 @@ namespace CardGame.Server.Game {
 		{
 			foreach (var card in TurnPlayer.Field)
 			{
-				if (card.Skill.Type != Skill.Skill.Types.Constant)
+				if (card.Skill.Type != Skill.Types.Constant)
 				{
 					continue;
 				}
@@ -38,7 +39,7 @@ namespace CardGame.Server.Game {
 			
 			foreach (var card in TurnPlayer.Opponent.Field)
 			{
-				if (card.Skill.Type != Skill.Skill.Types.Constant)
+				if (card.Skill.Type != Skill.Types.Constant)
 				{
 					continue;
 				}
@@ -51,7 +52,7 @@ namespace CardGame.Server.Game {
 		{
 			foreach (var card in TurnPlayer.Field)
 			{
-				if (card.Skill.Type != Skill.Skill.Types.Auto)
+				if (card.Skill.Type != Skill.Types.Auto)
 				{
 					continue;
 				}
@@ -66,7 +67,7 @@ namespace CardGame.Server.Game {
 			
 			foreach (var card in TurnPlayer.Opponent.Field)
 			{
-				if (card.Skill.Type != Skill.Skill.Types.Auto)
+				if (card.Skill.Type != Skill.Types.Auto)
 				{
 					continue;
 				}
@@ -84,18 +85,18 @@ namespace CardGame.Server.Game {
 		{
 			foreach (var card in TurnPlayer.Support)
 			{
-				if(card.Skill.Type != Skill.Skill.Types.Manual) {continue;} 
+				if(card.Skill.Type != Skill.Types.Manual) {continue;} 
 				card.Skill.SetUp(command);
 			}
 
 			foreach (var card in TurnPlayer.Opponent.Support)
 			{
-				if(card.Skill.Type != Skill.Skill.Types.Manual) {continue;}
+				if(card.Skill.Type != Skill.Types.Manual) {continue;}
 				card.Skill.SetUp(command);
 			}
 		}
 		
-		public void Activate(Skill.Skill skill, Card target)
+		public void Activate(Skill skill, Card target)
 		{
 			skill.Target = target;
 			skill.Activate();
@@ -107,7 +108,7 @@ namespace CardGame.Server.Game {
 			while (Chain.Count != 0)
 			{
 				var resolvable = Chain.Pop();
-				if(resolvable is Skill.Skill skill && skill.Targeting)
+				if(resolvable is Skill skill && skill.Targeting)
 				{
 					var result = await ToSignal(skill.Controller, nameof(Player.TargetSelected));
 					skill.Target = result[0] as Card;

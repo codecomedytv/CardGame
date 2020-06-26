@@ -2,7 +2,7 @@
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Commands;
 
-namespace CardGame.Server.Game.Skill
+namespace CardGame.Server.Game.Skills
 {
     public partial class Skill
     {
