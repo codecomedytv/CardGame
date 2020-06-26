@@ -152,9 +152,7 @@ namespace CardGame.Server.Game {
 				return;
 			}
 			
-			// Activations don't trigger anything inherently but they are useful for animation
-			// Maybe add an "activation" command to history and have the link ignore it?
-			Link.Activate((Manual) card.Skill, target);
+			History.Add(new Activate(player, card, (Manual) card.Skill, target));
 			player.SetState(States.Acting);
 			player.Opponent.SetState(States.Active);
 			Update();

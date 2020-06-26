@@ -15,6 +15,10 @@ namespace CardGame.Server.Game {
 
 		public void OnGameEventRecorded(Command command)
 		{
+			if (command is Activate activation)
+			{
+				Activate(activation.Skill, activation.Target);
+			}
 			ApplyConstants();
 			if (command.Identity == GameEvents.SetFaceDown || command.Identity == GameEvents.EndTurn)
 			{
@@ -63,7 +67,7 @@ namespace CardGame.Server.Game {
 			}
 		}
 		
-		public void Activate(Manual skill, Card target)
+		private void Activate(Manual skill, Card target)
 		{
 			skill.Target = target;
 			skill.Activate();

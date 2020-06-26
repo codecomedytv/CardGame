@@ -81,6 +81,7 @@
     <Compile Include="Server\Game\CardCatalog.cs" />
     <Compile Include="Server\Game\Cards\Support.cs" />
     <Compile Include="Server\Game\Cards\Unit.cs" />
+    <Compile Include="Server\Game\Commands\Activate.cs" />
     <Compile Include="Server\Game\Commands\DeclareDirectAttack.cs" />
     <Compile Include="Server\Game\Commands\DeclareAttack.cs" />
     <Compile Include="Server\Game\Commands\Command.cs" />

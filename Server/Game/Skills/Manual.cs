@@ -35,11 +35,6 @@ namespace CardGame.Server.Game.Skills
         {
             Card.Activated = true;
             CanBeUsed = false;
-            _Activate();
-        }
-		
-        protected virtual void _Activate()
-        {
         }
         
         public void Resolve()
