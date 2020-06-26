@@ -82,7 +82,6 @@ namespace CardGame.Server.Game {
 				}
 			}
 			
-			ApplyConstants();
 		}
 		
 		
