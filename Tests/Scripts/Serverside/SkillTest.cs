@@ -181,7 +181,6 @@ namespace CardGame.Tests.Scripts.Serverside
 	        Play.PassPlay(Player.Id);
 	        Play.PassPlay(Opponent.Id);
 	        Play.Deploy(Opponent.Id, preventDamage.Id);
-	        //GD.Print(preventDamage);
 	        Play.PassPlay(Player.Id);
 	        Play.PassPlay(Opponent.Id);
 	        Play.EndTurn(Opponent.Id);
@@ -194,6 +193,34 @@ namespace CardGame.Tests.Scripts.Serverside
 	        Assert.IsEqual(life, Opponent.Health, "Player's life did not change");
 	        Assert.Has(debug500500, Opponent.Graveyard, "But the defending unit was still destroyed");
         }
+        
+        [Test]
+        public void That_Targets_A_Unit_When_Only_One_Nontargetable_Target_Exists()
+        {
+	        // This requires restructing our targeting based systems.
+	        DeckList.Add(SetCodes.DebugUntargetableUnit);
+	        DeckList.Add(SetCodes.DebugDestroyOpponentUnit);
+	        StartGame(DeckList);
+
+	        var cannotBeTargeted  = Opponent.Hand[1];
+	        
+	        var destroyUnit  = Player.Hand[0];
+
+	        Play.SetFaceDown(Player.Id, destroyUnit.Id);
+	        Play.EndTurn(Player.Id);
+	        Play.Deploy(Opponent.Id, cannotBeTargeted.Id);
+	        Play.PassPlay(Player.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.EndTurn(Opponent.Id);
+
+	        Play.Activate(Player.Id, destroyUnit.Id, cannotBeTargeted.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.PassPlay(Player.Id);
+
+	        Assert.DoesNotHave(destroyUnit, Player.Graveyard, "DestroyUnit was not sent to Player's discard");
+	        Assert.DoesNotHave(cannotBeTargeted, Opponent.Graveyard, "Untargetable Card was not destroyed");
+        }		
+
 
         
         

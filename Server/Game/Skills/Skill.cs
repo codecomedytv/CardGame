@@ -21,6 +21,7 @@ namespace CardGame.Server.Game.Skills {
 		protected readonly List<GameEvents> Triggers = new List<GameEvents>();
 		protected readonly List<Zone> AreaOfEffects = new List<Zone>();
 		public Card Target;
+		public readonly List<Card> ValidTargets = new List<Card>();
 		public bool Targeting = false;
 
 		public void SetUp(Command gameEvent)

@@ -1,17 +1,19 @@
 <?xml version="1.0" ?>
-<testsuites failures="0" name="TestXML" tests="1" time="1.057">
-<testsuite failures="0" name="When using a Skill" tests="7" time="0.01">
-<testcase name="That Adds A Tag To Players When Unit Card Is Played" time="0.03">
+<testsuites failures="0" name="TestXML" tests="1" time="1.14">
+<testsuite failures="0" name="When using a Skill" tests="8" time="0.01">
+<testcase name="That Targets A Unit When Only One Nontargetable Target Exists" time="0.031">
 </testcase>
-<testcase name="That Tries To Destroy An Indestructible Card" time="0.006">
+<testcase name="That Adds A Tag To Players When Unit Card Is Played" time="0.009">
+</testcase>
+<testcase name="That Tries To Destroy An Indestructible Card" time="0.004">
 </testcase>
 <testcase name="That Returns A Card To The Players Deck" time="0.005">
 </testcase>
-<testcase name="That Mills A Card" time="0.003">
+<testcase name="That Mills A Card" time="0.004">
 </testcase>
-<testcase name="That Returns A Unit To Opponents Hand" time="0.004">
+<testcase name="That Returns A Unit To Opponents Hand" time="0.005">
 </testcase>
-<testcase name="That Discards Your Target Card" time="0.004">
+<testcase name="That Discards Your Target Card" time="0.005">
 </testcase>
 <testcase name="That Destroys Target Opponent Unit" time="0.004">
 </testcase>

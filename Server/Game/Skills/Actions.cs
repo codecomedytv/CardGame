@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Commands;
 using CardGame.Server.Game.Tags;
@@ -40,14 +41,10 @@ namespace CardGame.Server.Game.Skills
         {
             History.Add(new Move(GameEvents.TopDeck, Card, topDecked, topDecked.Owner.Deck));
         }
-        protected void SetTargets(List<Card> cards)
+        protected void SetTargets(IEnumerable<Card> cards)
         {
-            // TODO: Re-implement This
-            // Our previous version was an event, not a command!
-            // We also may need to separate Attack Targets and Skill Targets
-            // To help sending messages we could probably set it to a godot collection
-            // (I don't know if System.Collections works and even if it did, it won't work on the
-            // signal end).
+            // TODO: Implement A Way To Send This Information To Messenger (ModifyCard?)
+            ValidTargets.AddRange(cards.Where(card => !card.HasTag(TagIds.CannotBeTargeted)));
         }
 
         protected void RequestTarget()

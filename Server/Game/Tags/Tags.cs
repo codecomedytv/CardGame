@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Net.Sockets;
 using CardGame.Server.Game.Cards;
-using Godot;
 
 namespace CardGame.Server.Game.Tags
 {
@@ -12,6 +10,7 @@ namespace CardGame.Server.Game.Tags
         CannotBeDestroyedByEffect,
         CannotTakeBattleDamage,
         CannotTakeEffectDamage,
+        CannotBeTargeted
     }
 
     public class Tag
