@@ -20,6 +20,8 @@ namespace CardGame.Server
             public MillCard(Card card)
             {
                 Card = card;
+                AreaOfEffects.Add(Controller.Support);
+
             }
             protected override void _Resolve()
             {

@@ -21,6 +21,7 @@ namespace CardGame.Server
             public BounceSkill(Card card)
             {
                 Card = card;
+                AreaOfEffects.Add(Controller.Support);
             }
             protected override void _SetUp()
             {

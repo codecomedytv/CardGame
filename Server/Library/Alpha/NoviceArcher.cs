@@ -26,6 +26,7 @@ namespace CardGame.Server
             public OnSummonDestroy(Card card)
             {
                 Card = card;
+                AreaOfEffects.Add(Controller.Field);
                 Triggers.Add(GameEvents.Deploy);
                 Type = Types.Auto;
             }

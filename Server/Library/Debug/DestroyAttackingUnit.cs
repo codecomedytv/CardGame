@@ -21,6 +21,7 @@ namespace CardGame.Server
             public DestroyAttacking(Card card)
             {
                 Card = card;
+                AreaOfEffects.Add(Controller.Support);
                 Triggers.Add(GameEvents.DeclareAttack);
                 Triggers.Add(GameEvents.DeclareDirectAttack);
             }

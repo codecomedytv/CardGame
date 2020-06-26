@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Commands;
 using CardGame.Server.Game.Zones;
+using Godot;
 
 namespace CardGame.Server.Game.Skills {
 	
@@ -18,11 +19,18 @@ namespace CardGame.Server.Game.Skills {
 		public History History => Match.History;
 		public Types Type = Types.Manual;
 		protected readonly List<GameEvents> Triggers = new List<GameEvents>();
+		protected readonly List<Zone> AreaOfEffects = new List<Zone>();
 		public Card Target;
 		public bool Targeting = false;
 
 		public void SetUp(Command gameEvent)
 		{
+			// We may need to use an effect for this so that the connection is loosely coupled and not
+			// hardcoded like this
+			if (!AreaOfEffects.Contains(Card.Zone))
+			{
+				return;
+			}
 			if (Triggers.Count > 0 && !Triggers.Contains(gameEvent.Identity))
 			{
 				return;

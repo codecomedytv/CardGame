@@ -20,6 +20,7 @@ namespace CardGame.Server
             public DestroyAttacker(Card card)
             {
                 Card = card;
+                AreaOfEffects.Add(Controller.Support);
                 Triggers.Add(GameEvents.DeclareAttack);
             }
 

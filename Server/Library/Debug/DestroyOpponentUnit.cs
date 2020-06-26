@@ -23,6 +23,7 @@ namespace CardGame.Server
             public DestroyUnit(Card card)
             {
                 Card = card;
+                AreaOfEffects.Add(Controller.Support);
             }
             protected override void _SetUp()
             {

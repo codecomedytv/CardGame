@@ -21,6 +21,8 @@ namespace CardGame.Server
             public DiscardCard(Card card)
             {
                 Card = card;
+                AreaOfEffects.Add(Controller.Support);
+
             }
             protected override void _SetUp()
             {

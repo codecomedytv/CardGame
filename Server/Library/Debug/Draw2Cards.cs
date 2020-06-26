@@ -19,6 +19,8 @@ namespace CardGame.Server
             public DrawCards(Card card)
             {
                 Card = card;
+                AreaOfEffects.Add(Controller.Support);
+
             }
             protected override void _Resolve()
             {
