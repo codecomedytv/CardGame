@@ -25,8 +25,6 @@ namespace CardGame.Server.Game.Skills {
 
 		public void SetUp(Command gameEvent)
 		{
-			// We may need to use an effect for this so that the connection is loosely coupled and not
-			// hardcoded like this
 			if (!AreaOfEffects.Contains(Card.Zone))
 			{
 				return;

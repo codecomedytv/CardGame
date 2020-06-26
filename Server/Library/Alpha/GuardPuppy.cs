@@ -27,6 +27,8 @@ namespace CardGame.Server
             public BattleImmunity(Card card)
             {
                 Card = card;
+                AreaOfEffects.Add(Controller.Field);
+                AreaOfEffects.Add(Controller.Graveyard);
                 Type = Types.Constant;
             }
 
@@ -36,6 +38,7 @@ namespace CardGame.Server
                 {
                     foreach (var card in Controller.Field)
                     {
+                        GD.Print("Removed???");
                         card.Tags.Remove(Tag);
                         return;
                     }
