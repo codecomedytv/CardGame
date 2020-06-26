@@ -17,13 +17,7 @@ namespace CardGame.Server.Game {
 		private readonly Link Link = new Link();
 		public Player TurnPlayer => Players.TurnPlayer;
 		public Unit Attacking;
-
-		[Signal]
-		public delegate void GameStateUpdated();
 		
-		[Signal]
-		public delegate void Disqualified();
-
 		public Match() { }
 
 		public Match(Players players, Messenger messenger = null)
