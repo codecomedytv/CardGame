@@ -82,7 +82,7 @@
     <Compile Include="Server\Game\Commands\Activate.cs" />
     <Compile Include="Server\Game\Commands\DeclareDirectAttack.cs" />
     <Compile Include="Server\Game\Commands\DeclareAttack.cs" />
-    <Compile Include="Server\Game\Commands\Command.cs" />
+    <Compile Include="Server\Game\Commands\Event.cs" />
     <Compile Include="Server\Game\Commands\EndTurn.cs" />
     <Compile Include="Server\Game\Commands\GameOver.cs" />
     <Compile Include="Server\Game\Commands\LoadDeck.cs" />

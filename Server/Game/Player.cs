@@ -1,6 +1,7 @@
 using System;
 using Godot;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using CardGame.Server.Game;
 using CardGame.Server.Game.Cards;
@@ -73,7 +74,20 @@ namespace CardGame.Server {
 			Support = new Zone(this);
 			Field = new Zone(this);
 		}
-		
+
+		public void LoadDeck(Match match)
+		{
+			foreach (var card in DeckList.Select(setCode => Library.Create(setCode, this)))
+			{
+				card.Skill.Match = match;
+				card.Zone = Deck;
+				Match.RegisterCard(card);
+				Deck.Add(card);
+			}
+			
+			Match.History.Add(new LoadDeck(this, new ReadOnlyCollection<Card>(Deck.ToList())));
+		}
+
 		public void Shuffle() { /* TODO: Implement Shuffle */ }
 		
 		public void Draw() => Match.History.Add(new Move(GameEvents.Draw, this, Deck.Top, Hand));

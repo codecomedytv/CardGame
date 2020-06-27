@@ -1,6 +1,6 @@
 ﻿namespace CardGame.Server.Game.Commands
 {
-    public class EndTurn: Command
+    public class EndTurn: Event
     {
         public readonly ISource Source;
 

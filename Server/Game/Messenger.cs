@@ -35,7 +35,7 @@ namespace CardGame.Server.Game.Network {
 		
 		public Messenger() => Name = "Messenger";
 		
-		public virtual void OnPlayExecuted(Command gameEvent)
+		public virtual void OnPlayExecuted(Event gameEvent)
 		{
 			// var message = gameEvent.Message;
 			// RpcId(player.Id, "QueueEvent", message.Player);

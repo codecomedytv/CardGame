@@ -7,22 +7,22 @@ namespace CardGame.Server.Game.Skills
     {
         public bool Triggered = false;
         
-        public void Trigger(Command command)
+        public void Trigger(Event Event)
         {
             if (!AreaOfEffects.Contains(Card.Zone))
             {
                 return;
             }
-            if (Triggers.Count > 0 && !Triggers.Contains(command.Identity))
+            if (Triggers.Count > 0 && !Triggers.Contains(Event.Identity))
             {
                 return;
             }
 
             Triggered = true;
-            _Trigger(command);
+            _Trigger(Event);
         }
 
-        protected virtual void _Trigger(Command command)
+        protected virtual void _Trigger(Event Event)
         {
             throw new NotImplementedException();
         }

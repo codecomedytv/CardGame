@@ -2,7 +2,7 @@
 
 namespace CardGame.Server.Game.Commands
 {
-    public class ModifyCard: Command
+    public class ModifyCard: Event
     {
         public readonly object Old;
         public readonly object New;
@@ -20,8 +20,7 @@ namespace CardGame.Server.Game.Commands
             New = newValue;
         }
 
-        public override void Execute() => Card.Set(Property, New);
-
-        public override void Undo() => Card.Set(Property, Old);
+        public override void Execute(){}
+        public override void Undo(){}
     }
 }

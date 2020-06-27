@@ -54,7 +54,8 @@ namespace CardGame.Server.Game {
 
 			foreach (var player in Players)
 			{
-				player.Match.History.Add(new LoadDeck(player, this));
+				//player.Match.History.Add(new LoadDeck(player, this));
+				player.LoadDeck(this);
 				player.Shuffle();
 				for (var i = 0; i < 7; i++)
 				{

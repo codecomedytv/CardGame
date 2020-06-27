@@ -1,11 +1,11 @@
 ﻿namespace CardGame.Server.Game.Commands
 {
-    public abstract class Command: Godot.Object
+    public abstract class Event: Godot.Object
     {
         protected GameEvents GameEvent = GameEvents.NoOp;
         public GameEvents Identity => GameEvent;
 
-        public Command()
+        protected Event()
         {
             
         }

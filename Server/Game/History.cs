@@ -11,9 +11,9 @@ namespace CardGame.Server.Game
         public delegate void EventRecorded();
         private int Cursor = 0;
         private int TurnCount = 0;
-        private readonly List<Command> Events = new List<Command>();
+        private readonly List<Event> Events = new List<Event>();
 
-        public void Add(Command command)
+        public void Add(Event Event)
         {
             // if (Events.Contains(command))
             // {
@@ -24,13 +24,13 @@ namespace CardGame.Server.Game
             //     // What about events that call commands? Invert them?
             //     return;
             // }
-            command.Execute();
-            Events.Add(command);
-            if (command is EndTurn)
+            Event.Execute();
+            Events.Add(Event);
+            if (Event is EndTurn)
             {
                 TurnCount += 1;
             }
-            EmitSignal(nameof(EventRecorded), command);
+            EmitSignal(nameof(EventRecorded), Event);
             
         }
 
@@ -46,6 +46,6 @@ namespace CardGame.Server.Game
             var gameEvent = Events[Cursor];
         }
 
-        public Command this[int index] => Events[index];
+        public Event this[int index] => Events[index];
     }
 }

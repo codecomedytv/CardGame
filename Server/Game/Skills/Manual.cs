@@ -7,7 +7,7 @@ namespace CardGame.Server.Game.Skills
     public class Manual: Skill, IResolvable
     {
         public bool CanBeUsed;
-        public void SetUp(Command gameEvent)
+        public void SetUp(Event gameEvent)
         {
             if (!AreaOfEffects.Contains(Card.Zone))
             {

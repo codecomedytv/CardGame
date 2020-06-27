@@ -16,9 +16,9 @@ namespace CardGame.Server.Game {
 		public Players Players;
 		private Player TurnPlayer => Players.TurnPlayer;
 
-		public void OnGameEventRecorded(Command command)
+		public void OnGameEventRecorded(Event Event)
 		{
-			switch (command)
+			switch (Event)
 			{
 				case Activate activation:
 					Chain.Push(activation.Skill);
@@ -32,12 +32,12 @@ namespace CardGame.Server.Game {
 			}
 
 			ApplyConstants();
-			if (command.Identity == GameEvents.SetFaceDown || command.Identity == GameEvents.EndTurn)
+			if (Event.Identity == GameEvents.SetFaceDown || Event.Identity == GameEvents.EndTurn)
 			{
 				return;
 			}
-			ApplyTriggered(command);
-			SetupManual(command);
+			ApplyTriggered(Event);
+			SetupManual(Event);
 		}
 		
 		private void ApplyConstants()
@@ -51,14 +51,14 @@ namespace CardGame.Server.Game {
 
 		}
 		
-		private void ApplyTriggered(Command command)
+		private void ApplyTriggered(Event Event)
 		{
 			var automatic = new List<Automatic>();
 			automatic.AddRange(TurnPlayer.Field.Select(c => c.Skill).OfType<Automatic>());
 			automatic.AddRange(TurnPlayer.Opponent.Field.Select(c => c.Skill).OfType<Automatic>());
 			foreach (var skill in automatic)
 			{
-				skill.Trigger(command);
+				skill.Trigger(Event);
 				if (skill.Triggered)
 				{
 					Chain.Push(skill);
@@ -66,14 +66,14 @@ namespace CardGame.Server.Game {
 			}
 		}
 		
-		private void SetupManual(Command command)
+		private void SetupManual(Event Event)
 		{
 			var manual = new List<Manual>();
 			manual.AddRange(TurnPlayer.Support.Select(c => c.Skill).OfType<Manual>());
 			manual.AddRange(TurnPlayer.Opponent.Support.Select(c => c.Skill).OfType<Manual>());
 			foreach (var skill in manual)
 			{
-				skill.SetUp(command);
+				skill.SetUp(Event);
 			}
 		}
 

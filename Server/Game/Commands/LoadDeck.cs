@@ -5,51 +5,32 @@ using CardGame.Server.Game.Cards;
 
 namespace CardGame.Server.Game.Commands
 {
-    public class LoadDeck : Command
+    public class LoadDeck : Event
     {
         public readonly ISource Source;
         public readonly Player Player;
-        public readonly List<SetCodes> DeckList;
-        public readonly Match Match;
+        public readonly IReadOnlyCollection<Card> Deck;
         private ReadOnlyCollection<Card> CardsAlreadyLoaded;
 
         public LoadDeck()
         {
             
         }
-        public LoadDeck(Player player, Match match)
+        public LoadDeck(Player player, IReadOnlyCollection<Card> deck)
         {
 	        GameEvent = GameEvents.LoadDeck;
 	        Source = player;
 	        Player = player;
-	        DeckList = player.DeckList;
-            Match = match;
+	        Deck = deck;
         }
 
         public override void Execute()
         {
-	        if (CardsAlreadyLoaded != null)
-	        {
-		        Player.Deck.Clear();
-		        foreach(var card in CardsAlreadyLoaded) {Player.Deck.Add(card);}
 
-		        return;
-	        }
-
-	        foreach (var card in DeckList.Select(setCode => Library.Create(setCode, Player)))
-	        {
-		        card.Skill.Match = Match;
-		        card.Zone = Player.Deck;
-		        Match.RegisterCard(card);
-		        Player.Deck.Add(card);
-	        }
-
-	        CardsAlreadyLoaded = new ReadOnlyCollection<Card>(Player.Deck.ToList());
         }
 
         public override void Undo()
         {
-	        Player.Deck.Clear();
         }
     }
 }

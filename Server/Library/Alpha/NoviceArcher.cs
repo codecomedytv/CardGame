@@ -30,9 +30,9 @@ namespace CardGame.Server
                 Triggers.Add(GameEvents.Deploy);
             }
             
-            protected override void _Trigger(Command command)
+            protected override void _Trigger(Event Event)
             {
-                Triggered = command is Move move && move.Identity == GameEvents.Deploy && move.Card == Card;
+                Triggered = Event is Move move && move.Identity == GameEvents.Deploy && move.Card == Card;
             }
 
             protected override async void _Resolve()

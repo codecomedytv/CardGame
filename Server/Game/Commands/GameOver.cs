@@ -1,6 +1,6 @@
 ﻿namespace CardGame.Server.Game.Commands
 {
-    public class GameOver : Command
+    public class GameOver : Event
     {
         public readonly ISource Source;
         public readonly Player Winner;

@@ -60,8 +60,11 @@ namespace CardGame.Server.Game.Cards
                 Attacker.Attacked = true;
                 if (!Attacker.Opponent.HasTag(TagIds.CannotTakeBattleDamage))
                 {
+                    var oldLife = Attacker.Opponent.Health;
+                    Attacker.Opponent.Health -= Attacker.Attack;
+                    var newLife = Attacker.Opponent.Health;
                     History.Add(new ModifyPlayer(GameEvents.BattleDamage, Attacker, Attacker.Opponent,
-                        nameof(Player.Health), Attacker.Opponent.Health - Attacker.Attack));
+                        nameof(Player.Health), oldLife, newLife));
                 }
 
                 if (Attacker.Opponent.Health <= 0)
@@ -97,11 +100,14 @@ namespace CardGame.Server.Game.Cards
 
                 if (Attacker.Attack > Defender.Defense)
                 {
-                    var overflow = Attacker.Attack - Defender.Defense;
                     if (!defending.HasTag(TagIds.CannotTakeBattleDamage))
                     {
+                        var overflow = Attacker.Attack - Defender.Defense;
+                        var oldLife = defending.Health;
+                        defending.Health -= overflow;
+                        var newLife = defending.Health;
                         History.Add(new ModifyPlayer(GameEvents.BattleDamage, Attacker, defending,
-                            nameof(Player.Health), defending.Health - overflow));
+                            nameof(Player.Health), oldLife, newLife));
                     }
 
                     History.Add(new Move(GameEvents.DestroyByBattle, Attacker, Defender, Defender.Owner.Graveyard));
@@ -111,8 +117,11 @@ namespace CardGame.Server.Game.Cards
                     var overflow = Defender.Attack - Attacker.Defense;
                     if (!attacking.HasTag(TagIds.CannotTakeBattleDamage))
                     {
+                        var oldLife = attacking.Health;
+                        attacking.Health -= overflow;
+                        var newLife = attacking.Health;
                         History.Add(new ModifyPlayer(GameEvents.BattleDamage, Defender, attacking,
-                            nameof(Player.Health), attacking.Health - overflow));
+                            nameof(Player.Health), oldLife, newLife));
                     }
 
                     History.Add(new Move(GameEvents.DestroyByBattle, Defender, Attacker, Attacker.Owner.Graveyard));
@@ -127,46 +136,3 @@ namespace CardGame.Server.Game.Cards
         }
     }
 }
-
-
-/*public void Begin(Player attacking, Unit attacker, Unit defender)
-{
-Attacking = attacking;
-Defending = attacking.Opponent;
-Attacker = attacker;
-Defender = defender;
-}
-
-public void Resolve()
-{
-Attacker.Attacked = true;
-if (!Attacking.Field.Contains(Attacker) || !Defending.Field.Contains(Defender))
-{
-    return;
-}
-			
-if (Attacker.Attack > Defender.Defense)
-{
-    var overflow = Attacker.Attack - Defender.Defense;
-    if(!Defending.HasTag(TagIds.CannotTakeBattleDamage))
-    {
-        Defending.Match.History.Add(new ModifyPlayer(GameEvents.BattleDamage, Attacker, Defending,
-            nameof(Player.Health), Defending.Health - overflow));
-    }
-    Defending.Match.History.Add(new Move(GameEvents.DestroyByBattle, Attacker, Defender, Defender.Owner.Graveyard));
-    if (Defending.Health <= 0)
-    {
-        Attacking.Win();
-    }
-				
-    Attacker.Exhaust();
-}
-			
-
-}
-
-else
-{
-    Attacker.Exhaust();
-}
-}*/

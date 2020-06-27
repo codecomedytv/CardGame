@@ -3,7 +3,7 @@ using CardGame.Server.Game.Zones;
 
 namespace CardGame.Server.Game.Commands
 {
-    public class Move: Command
+    public class Move: Event
     {
         public readonly ISource Source;
         public readonly Card Card;

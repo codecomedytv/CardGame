@@ -3,7 +3,7 @@ using CardGame.Server.Game.Cards;
 
 namespace CardGame.Server.Game.Commands
 {
-    public class DeclareDirectAttack : Command
+    public class DeclareDirectAttack : Event
     {
         public readonly ISource Source;
         public readonly Unit Attacker;

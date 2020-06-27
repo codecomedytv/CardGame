@@ -4,7 +4,7 @@ using CardGame.Server.Game.Skills;
 
 namespace CardGame.Server.Game.Commands
 {
-    public class Activate: Command
+    public class Activate: Event
     {
         public readonly ISource Source;
         public readonly Support Card;
