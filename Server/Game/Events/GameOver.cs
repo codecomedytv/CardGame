@@ -1,4 +1,4 @@
-﻿namespace CardGame.Server.Game.Commands
+﻿namespace CardGame.Server.Game.Events
 {
     public class GameOver : Event
     {
@@ -13,13 +13,6 @@
             Winner = winner;
             Loser = loser;
         }
-
-        public override void Execute()
-        {
-        }
-
-        public override void Undo()
-        {
-        }
+        
     }
 }

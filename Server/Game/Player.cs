@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using CardGame.Server.Game;
 using CardGame.Server.Game.Cards;
-using CardGame.Server.Game.Commands;
+using CardGame.Server.Game.Events;
 using CardGame.Server.Game.Tags;
 using CardGame.Server.Game.Zones;
 
@@ -88,10 +88,22 @@ namespace CardGame.Server {
 			Match.History.Add(new LoadDeck(this, new ReadOnlyCollection<Card>(Deck.ToList())));
 		}
 
+		public void Move(Zone origin, Card card, Zone destination)
+		{
+			origin.Remove(card);
+			destination.Add(card);
+			card.Zone = destination;
+		}
+
 		public void Shuffle() { /* TODO: Implement Shuffle */ }
-		
-		public void Draw() => Match.History.Add(new Move(GameEvents.Draw, this, Deck.Top, Hand));
-		
+
+		public void Draw()
+		{
+			var card = Deck.Top;
+			Move(Deck, card, Hand);
+			Match.History.Add(new Move(GameEvents.Draw, this, Hand, card, Hand));
+		}
+
 		public void Win() => Match.History.Add(new GameOver(this, Opponent));
 
 		public bool HasTag(TagIds tagId) => Tags.Any(tag => tag.TagId == tagId);

@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using CardGame.Server.Game.Cards;
-using CardGame.Server.Game.Commands;
+using CardGame.Server.Game.Events;
 using CardGame.Server.Game.Skills;
 using Godot;
 using WAT;

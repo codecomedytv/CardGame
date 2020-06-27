@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CardGame.Server.Game.Cards;
-using CardGame.Server.Game.Commands;
+using CardGame.Server.Game.Events;
 using CardGame.Server.Game.Tags;
 using CardGame.Server.Game.Zones;
 using Godot;
@@ -28,14 +28,16 @@ namespace CardGame.Server.Game.Skills {
 		protected readonly List<Card> ValidTargets = new List<Card>();
 		public bool Targeting = false;
 		
-		 protected void Bounce(Card bounced)
+		protected void Bounce(Card bounced)
         {
-            History.Add(new Move(GameEvents.Bounce, Card, bounced, bounced.Owner.Hand));
+	        Move(bounced.Controller.Field, bounced, bounced.Owner.Hand);
+            History.Add(new Move(GameEvents.Bounce, Card, bounced.Controller.Field, bounced, bounced.Owner.Hand));
         }
 
         protected void Mill(Card milled)
         {
-            History.Add(new Move(GameEvents.Mill, Card, milled, milled.Controller.Graveyard));
+	        Move(milled.Controller.Deck, milled, milled.Controller.Graveyard);
+            History.Add(new Move(GameEvents.Mill, Card, milled.Controller.Deck, milled, milled.Controller.Graveyard));
         }
 
         protected void Draw()
@@ -45,7 +47,8 @@ namespace CardGame.Server.Game.Skills {
 
         protected void Discard(Card discarded)
         {
-            History.Add(new Move(GameEvents.Discard, Card, discarded, discarded.Owner.Graveyard));
+	        Move(discarded.Owner.Hand, discarded, discarded.Owner.Graveyard);
+            History.Add(new Move(GameEvents.Discard, Card, discarded.Owner.Hand, discarded, discarded.Owner.Graveyard));
         }
 
         protected void Destroy(Card destroyed)
@@ -54,12 +57,15 @@ namespace CardGame.Server.Game.Skills {
             {
                 return;
             }
-            History.Add(new Move(GameEvents.DestroyByEffect, Card, destroyed, destroyed.Owner.Graveyard));
+            Move(destroyed.Controller.Field, destroyed, destroyed.Owner.Graveyard);
+            History.Add(new Move(GameEvents.DestroyByEffect, Card, destroyed.Controller.Field, destroyed, destroyed.Owner.Graveyard));
         }
 
         protected void TopDeck(Card topDecked)
         {
-            History.Add(new Move(GameEvents.TopDeck, Card, topDecked, topDecked.Owner.Deck));
+	        var origin = topDecked.Zone;
+	        Move(origin, topDecked, topDecked.Owner.Deck);
+            History.Add(new Move(GameEvents.TopDeck, Card, origin, topDecked, topDecked.Owner.Deck));
         }
         protected void AddTargets(IEnumerable<Card> cards)
         {
@@ -75,6 +81,13 @@ namespace CardGame.Server.Game.Skills {
             // Although that may cause problems with an animation sync (unless of course the targets don't become
             // valid until we change the client state to a valid state to target)
             // I'm not sure if the targeting bool should exist on this skill or on the player itself.
+        }
+
+        private void Move(Zone origin, Card card, Zone destination)
+        {
+	        origin.Remove(card);
+	        destination.Add(card);
+	        card.Zone = destination;
         }
 
 

@@ -1,4 +1,4 @@
-﻿namespace CardGame.Server.Game.Commands
+﻿namespace CardGame.Server.Game.Events
 {
     public abstract class Event: Godot.Object
     {
@@ -9,7 +9,6 @@
         {
             
         }
-        public abstract void Execute();
-        public abstract void Undo();
+        
     }
 }

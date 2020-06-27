@@ -1,7 +1,7 @@
 ﻿using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Skills;
 
-namespace CardGame.Server.Game.Commands
+namespace CardGame.Server.Game.Events
 {
     public class DeclareAttack : Event
     {
@@ -18,15 +18,6 @@ namespace CardGame.Server.Game.Commands
             Defender = defender;
             Attack = attack;
         }
-
-        public override void Execute()
-        {
-            
-        }
-
-        public override void Undo()
-        {
-            
-        }
+        
     }
 }

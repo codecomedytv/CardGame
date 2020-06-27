@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Runtime.InteropServices;
 using CardGame.Server.Game.Cards;
-using CardGame.Server.Game.Commands;
+using CardGame.Server.Game.Events;
 using CardGame.Server.Game.Skills;
 using Godot;
 

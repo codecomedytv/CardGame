@@ -1,4 +1,4 @@
-﻿namespace CardGame.Server.Game.Commands
+﻿namespace CardGame.Server.Game.Events
 {
     public class ModifyPlayer: Event
     {
@@ -17,14 +17,6 @@
             Old = oldValue;
             New = newValue;
         }
-
-        public override void Execute()
-        {
-        }
-
-
-        public override void Undo()
-        {
-        }
+        
     }
 }

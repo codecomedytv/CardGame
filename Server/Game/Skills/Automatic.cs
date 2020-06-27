@@ -1,5 +1,5 @@
 ﻿using System;
-using CardGame.Server.Game.Commands;
+using CardGame.Server.Game.Events;
 
 namespace CardGame.Server.Game.Skills
 {

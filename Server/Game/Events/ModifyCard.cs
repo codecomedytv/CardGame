@@ -1,6 +1,6 @@
 ﻿using CardGame.Server.Game.Cards;
 
-namespace CardGame.Server.Game.Commands
+namespace CardGame.Server.Game.Events
 {
     public class ModifyCard: Event
     {
@@ -20,7 +20,5 @@ namespace CardGame.Server.Game.Commands
             New = newValue;
         }
 
-        public override void Execute(){}
-        public override void Undo(){}
     }
 }

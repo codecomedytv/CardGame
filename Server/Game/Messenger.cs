@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using CardGame.Server.Game.Commands;
+using CardGame.Server.Game.Events;
 using Godot;
 
 namespace CardGame.Server.Game.Network {

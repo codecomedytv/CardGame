@@ -1,7 +1,6 @@
-﻿using System.Diagnostics.Contracts;
-using CardGame.Server.Game.Cards;
+﻿using CardGame.Server.Game.Cards;
 
-namespace CardGame.Server.Game.Commands
+namespace CardGame.Server.Game.Events
 {
     public class DeclareDirectAttack : Event
     {
@@ -16,13 +15,6 @@ namespace CardGame.Server.Game.Commands
             Source = attacker;
             Attacker = attacker;
         }
-
-        public override void Execute()
-        {
-        }
-
-        public override void Undo()
-        {
-        }
+        
     }
 }

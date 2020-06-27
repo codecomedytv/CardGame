@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
-using CardGame.Server.Game.Commands;
+using CardGame.Server.Game.Events;
 using Godot;
 
 namespace CardGame.Server.Game
@@ -11,41 +10,31 @@ namespace CardGame.Server.Game
         public delegate void EventRecorded();
         private int Cursor = 0;
         private int TurnCount = 0;
-        private readonly List<Event> Events = new List<Event>();
+        private readonly List<Event> gameEvents = new List<Event>();
 
-        public void Add(Event Event)
+        public void Add(Event gameEvent)
         {
-            // if (Events.Contains(command))
-            // {
-            //     // Figure out a way to handle compound effects (effects that call other ones)
-            //     // possibly give them an identity, cache them, and then check against the references
-            //     
-            //     // Some Events Trigger Other Events (for example ending a turn triggers readying cards)
-            //     // What about events that call commands? Invert them?
-            //     return;
-            // }
-            Event.Execute();
-            Events.Add(Event);
-            if (Event is EndTurn)
+            gameEvents.Add(gameEvent);
+            if (gameEvent is EndTurn)
             {
                 TurnCount += 1;
             }
-            EmitSignal(nameof(EventRecorded), Event);
+            EmitSignal(nameof(EventRecorded), gameEvent);
             
         }
 
         public void Redo()
         {
             Cursor += 1;
-            var gameEvent = Events[Cursor];
+            var gameEvent = gameEvents[Cursor];
         }
 
         public void Undo()
         {
             Cursor -= 1;
-            var gameEvent = Events[Cursor];
+            var gameEvent = gameEvents[Cursor];
         }
 
-        public Event this[int index] => Events[index];
+        public Event this[int index] => gameEvents[index];
     }
 }

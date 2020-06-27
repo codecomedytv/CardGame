@@ -1,4 +1,4 @@
-﻿namespace CardGame.Server.Game.Commands
+﻿namespace CardGame.Server.Game.Events
 {
     public class EndTurn: Event
     {
@@ -10,14 +10,6 @@
             Source = source;
         }
 
-        public override void Execute()
-        {
-            
-        }
 
-        public override void Undo()
-        {
-            
-        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CardGame.Server.Game.Commands;
+using CardGame.Server.Game.Events;
 using CardGame.Server.Game.Skills;
 using CardGame.Server.Game.Tags;
 using Godot;
@@ -110,7 +110,10 @@ namespace CardGame.Server.Game.Cards
                             nameof(Player.Health), oldLife, newLife));
                     }
 
-                    History.Add(new Move(GameEvents.DestroyByBattle, Attacker, Defender, Defender.Owner.Graveyard));
+                    defending.Field.Remove(Defender);
+                    defending.Graveyard.Add(Defender);
+                    Defender.Zone = Defender.Owner.Graveyard;
+                    History.Add(new Move(GameEvents.DestroyByBattle, Attacker, defending.Field, Defender, Defender.Owner.Graveyard));
                 }
                 else if (Attacker.Attack <= Defender.Defense && Defender.Attack > Attacker.Defense)
                 {
@@ -124,7 +127,10 @@ namespace CardGame.Server.Game.Cards
                             nameof(Player.Health), oldLife, newLife));
                     }
 
-                    History.Add(new Move(GameEvents.DestroyByBattle, Defender, Attacker, Attacker.Owner.Graveyard));
+                    attacking.Field.Remove(Attacker);
+                    attacking.Graveyard.Add(Attacker);
+                    Attacker.Zone = Attacker.Owner.Graveyard;
+                    History.Add(new Move(GameEvents.DestroyByBattle, Defender, attacking.Field, Attacker, Attacker.Owner.Graveyard));
                     if (attacking.Health <= 0)
                     {
                         defending.Win();

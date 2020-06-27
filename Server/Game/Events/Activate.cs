@@ -2,7 +2,7 @@
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Skills;
 
-namespace CardGame.Server.Game.Commands
+namespace CardGame.Server.Game.Events
 {
     public class Activate: Event
     {
@@ -19,14 +19,6 @@ namespace CardGame.Server.Game.Commands
             Skill = skill;
             Target = target;
         }
-        public override void Execute()
-        {
-            // GameEvent
-        }
-
-        public override void Undo()
-        {
-            // GameEvent
-        }
+        
     }
 }

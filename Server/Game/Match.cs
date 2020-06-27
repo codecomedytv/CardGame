@@ -1,6 +1,6 @@
 using System.Linq;
 using CardGame.Server.Game.Cards;
-using CardGame.Server.Game.Commands;
+using CardGame.Server.Game.Events;
 using CardGame.Server.Game.Network;
 using CardGame.Server.Game.Skills;
 using Godot;
@@ -78,8 +78,8 @@ namespace CardGame.Server.Game {
 				Disqualify(player);
 				return;
 			}
-			
-			History.Add(new Move(GameEvents.Deploy, player, card, player.Field));
+			player.Move(player.Hand, card, player.Field);
+			History.Add(new Move(GameEvents.Deploy, player, player.Hand, card, player.Field));
 			player.SetState(States.Acting);
 			player.Opponent.SetState(States.Active);
 			Update();
@@ -130,8 +130,8 @@ namespace CardGame.Server.Game {
 				Disqualify(player);
 				return;
 			}
-			
-			History.Add(new Move(GameEvents.SetFaceDown, player, card, player.Support));
+			player.Move(player.Hand, card, player.Support);
+			History.Add(new Move(GameEvents.SetFaceDown, player, player.Hand, card, player.Support));
 			player.SetState(States.Idle);
 			Update();
 		}
@@ -225,5 +225,6 @@ namespace CardGame.Server.Game {
 			var error = emitter.Connect(signal, receiver, method);
 			if(error != Error.Ok) { GD.PushWarning(error.ToString()); }
 		}
+		
 	}
 }

@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using CardGame.Server.Game.Cards;
 
-namespace CardGame.Server.Game.Commands
+namespace CardGame.Server.Game.Events
 {
     public class LoadDeck : Event
     {
@@ -24,13 +23,6 @@ namespace CardGame.Server.Game.Commands
 	        Deck = deck;
         }
 
-        public override void Execute()
-        {
 
-        }
-
-        public override void Undo()
-        {
-        }
     }
 }
