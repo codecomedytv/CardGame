@@ -6,7 +6,7 @@ namespace CardGame.Server.Game.Cards
 {
     public class Support: Card
     {
-        public Support() { }
+        protected Support() { }
 
         public override void SetCanBeSet()
         {

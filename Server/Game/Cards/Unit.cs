@@ -9,9 +9,9 @@ namespace CardGame.Server.Game.Cards
         public int Attack = 0;
         public int Defense = 0;
         public bool Attacked = false;
-        public List<Card> ValidAttackTargets = new List<Card>();
+        public IEnumerable<Card> ValidAttackTargets = new List<Card>();
 
-        public Unit()
+        protected Unit()
         {
         }
 
@@ -23,7 +23,7 @@ namespace CardGame.Server.Game.Cards
         public override void SetCanAttack()
         {
             if (Zone != Controller.Field || !IsReady || Attacked) return;
-            ValidAttackTargets = Opponent.Field.ToList();
+            ValidAttackTargets = Opponent.Field.AsEnumerable();
             CanAttack = true;
         }
         
