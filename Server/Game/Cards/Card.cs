@@ -18,10 +18,11 @@ namespace CardGame.Server.Game.Cards {
 		public Player Opponent => Controller.Opponent;
 		public Skill Skill;
 		public Zone Zone;
-		
+
 		// When a player enters an active state (idle or active) then it iterates on all
 		// owned cards to see if these can be used or not.
 		public History History => Controller.Match.History;
+
 		public bool IsReady = false;
 		public bool Activated = false;
 		public bool CanBeDeployed;

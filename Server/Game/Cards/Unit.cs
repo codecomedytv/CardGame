@@ -1,19 +1,18 @@
-﻿#nullable enable
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using CardGame.Server.Game.Commands;
 using CardGame.Server.Game.Skills;
 using CardGame.Server.Game.Tags;
+using Godot;
 
 namespace CardGame.Server.Game.Cards
 {
-    public class Unit: Card
+    public class Unit : Card
     {
         public int Attack = 0;
         public int Defense = 0;
         public bool Attacked = false;
-        public Battle? DeclaredAttack;
         public IEnumerable<Card> ValidAttackTargets = new List<Card>();
 
         protected Unit()
@@ -32,82 +31,40 @@ namespace CardGame.Server.Game.Cards
             CanAttack = true;
         }
 
-        public void DeclareDirectAttack()
+        public void AttackDirectly()
         {
-            DeclaredAttack = new DirectAttack(this, History);
-            History.Add(new DeclareDirectAttack(this));
+            var directAttack = new DirectAttack(this, History);
+            History.Add(new DeclareDirectAttack(this, directAttack));
         }
-
-    public class AttackUnit: Battle
-    {
-        public void Declare()
+        
+        public class DirectAttack : Godot.Object, IResolvable
         {
-            
-        }
 
-        public override void Resolve()
-        {
-            
-        }
-    }
+            private readonly Unit Attacker;
+            private readonly History History;
 
-    public class DirectAttack: Battle
-    {
-        private readonly Unit Attacker;
-        private readonly History History;
-
-        public DirectAttack(Unit attacker, History history)
-        {
-            Attacker = attacker;
-            History = history;
-            History.Add(new DeclareDirectAttack(attacker));
-        }
-
-        public override void Resolve()
-        {
-            Attacker.Attacked = true;
-            if (!Attacker.Opponent.HasTag(TagIds.CannotTakeBattleDamage))
+            public DirectAttack(Unit attacker, History history)
             {
-                History.Add(new ModifyPlayer(GameEvents.BattleDamage, Attacker, Attacker.Opponent,
-                    nameof(Player.Health), Attacker.Opponent.Health - Attacker.Attack));
+                Attacker = attacker;
+                History = history;
             }
 
-            if (Attacker.Opponent.Health <= 0)
+            public void Resolve()
             {
-                Attacker.Controller.Win();
+                Attacker.Attacked = true;
+                if (!Attacker.Opponent.HasTag(TagIds.CannotTakeBattleDamage))
+                {
+                    History.Add(new ModifyPlayer(GameEvents.BattleDamage, Attacker, Attacker.Opponent,
+                        nameof(Player.Health), Attacker.Opponent.Health - Attacker.Attack));
+                }
+
+                if (Attacker.Opponent.Health <= 0)
+                {
+                    Attacker.Controller.Win();
+                }
+
+                Attacker.Exhaust();
             }
-            
-            Attacker.Exhaust();
-            Attacker.DeclaredAttack = null;
         }
     }
-
-
-    public abstract class Battle : IResolvable
-    {
-        public virtual void Resolve()
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    }
-    
 }
-
-/*
-Attacker.Attacked = true;
-if (!Defending.HasTag(TagIds.CannotTakeBattleDamage))
-{
-Defending.Match.History.Add(new ModifyPlayer(GameEvents.BattleDamage, Attacker, Defending,
-    nameof(Player.Health), Defending.Health - Attacker.Attack));
-}
-
-if (Defending.Health <= 0)
-{
-Attacking.Win();
-}
-			
-Attacker.Exhaust();
-}
-*/

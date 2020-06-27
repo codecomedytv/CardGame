@@ -117,10 +117,7 @@ namespace CardGame.Server.Game {
 				return;
 			}
 			
-			//Battle.BeginDirectAttack(player, attacker);
-			//Link.AddResolvable(Battle);
-			//History.Add(new DeclareDirectAttack(attacker));
-			attacker.DeclareDirectAttack();
+			attacker.AttackDirectly();
 			player.SetState(States.Acting);
 			player.Opponent.SetState(States.Active);
 			Update();

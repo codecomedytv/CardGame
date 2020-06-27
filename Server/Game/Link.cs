@@ -1,9 +1,12 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Commands;
 using CardGame.Server.Game.Skills;
 using Godot;
+using WAT;
 
 namespace CardGame.Server.Game {
 
@@ -15,15 +18,16 @@ namespace CardGame.Server.Game {
 
 		public void OnGameEventRecorded(Command command)
 		{
-			if (command is Activate activation)
+			switch (command)
 			{
-				Chain.Push(activation.Skill);
+				case Activate activation:
+					Chain.Push(activation.Skill);
+					break;
+				case DeclareDirectAttack directAttack:
+					Chain.Push(directAttack.DirectAttack);
+					break;
 			}
 
-			if (command is DeclareDirectAttack directAttack)
-			{
-				Chain.Push(directAttack.Attacker.DeclaredAttack);
-			}
 			ApplyConstants();
 			if (command.Identity == GameEvents.SetFaceDown || command.Identity == GameEvents.EndTurn)
 			{
@@ -72,15 +76,15 @@ namespace CardGame.Server.Game {
 			}
 		}
 
-		public async void Resolve()
+		public void Resolve()
 		{
 			while (Chain.Count != 0)
 			{
 				var resolvable = Chain.Pop();
 				resolvable.Resolve();
-				if(resolvable is Skill skill && skill.Targeting)
+				if (resolvable is Skill skill && skill.Targeting)
 				{
-					await ToSignal(skill, nameof(Skill.Resolved));
+					return;
 				}
 			}
 			

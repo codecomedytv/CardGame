@@ -8,12 +8,10 @@ namespace CardGame.Server.Game {
 
 	public class Battle : Reference, IResolvable
 	{
-		private const int DirectAttack = -1;
 		private Player Attacking;
 		private Player Defending;
 		private Unit Attacker;
 		private Unit Defender;
-		private bool IsDirectAttack;
 		
 		public void Begin(Player attacking, Unit attacker, Unit defender)
 		{
@@ -21,18 +19,9 @@ namespace CardGame.Server.Game {
 			Defending = attacking.Opponent;
 			Attacker = attacker;
 			Defender = defender;
-			IsDirectAttack = false;
-		}
-		
-		public void BeginDirectAttack(Player player, Unit attacker)
-		{
-			Attacking = player;
-			Defending = player.Opponent;
-			Attacker = attacker;
-			IsDirectAttack = true;
 		}
 
-		private void _ResolveAttackUnit()
+		public void Resolve()
 		{
 			Attacker.Attacked = true;
 			if (!Attacking.Field.Contains(Attacker) || !Defending.Field.Contains(Defender))
@@ -79,28 +68,6 @@ namespace CardGame.Server.Game {
 			{
 				Attacker.Exhaust();
 			}
-		}
-
-		private void _ResolveDirectAttack()
-		{
-			Attacker.Attacked = true;
-			if (!Defending.HasTag(TagIds.CannotTakeBattleDamage))
-			{
-				Defending.Match.History.Add(new ModifyPlayer(GameEvents.BattleDamage, Attacker, Defending,
-					nameof(Player.Health), Defending.Health - Attacker.Attack));
-			}
-
-			if (Defending.Health <= 0)
-			{
-				Attacking.Win();
-			}
-			
-			Attacker.Exhaust();
-		}
-		
-		public void Resolve()
-		{
-			if (IsDirectAttack) { _ResolveDirectAttack(); } else { _ResolveAttackUnit(); }
 		}
 	}
 }
