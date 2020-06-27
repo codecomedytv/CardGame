@@ -27,7 +27,7 @@ namespace CardGame.Server
 
             protected override void _Resolve()
             {
-                Destroy(Match.Attacking);
+                Destroy(GetAttackingUnit());
             }
         }
         

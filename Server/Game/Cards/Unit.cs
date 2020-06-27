@@ -33,12 +33,14 @@ namespace CardGame.Server.Game.Cards
 
         public void AttackDirectly()
         {
+            Controller.AttackingWith = this;
             var directAttack = new DirectAttack(this, History);
             History.Add(new DeclareDirectAttack(this, directAttack));
         }
 
         public void AttackTarget(Unit defender)
         {
+            Controller.AttackingWith = this;
             var attackUnit = new AttackUnit(this, defender, History);
             History.Add(new DeclareAttack(this, defender, attackUnit));
         }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using CardGame.Server.Game.Cards;
@@ -81,6 +80,11 @@ namespace CardGame.Server.Game.Skills {
             // Although that may cause problems with an animation sync (unless of course the targets don't become
             // valid until we change the client state to a valid state to target)
             // I'm not sure if the targeting bool should exist on this skill or on the player itself.
+        }
+
+        protected Unit GetAttackingUnit()
+        {
+	        return Controller.AttackingWith ?? Opponent.AttackingWith;
         }
 
         private void Move(Zone origin, Card card, Zone destination)

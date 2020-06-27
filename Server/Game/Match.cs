@@ -15,7 +15,7 @@ namespace CardGame.Server.Game {
 		public readonly History History = new History();
 		private readonly Link Link = new Link();
 		public Player TurnPlayer => Players.TurnPlayer;
-		public Unit Attacking;
+		//public Unit Attacking;
 		
 		public Match() { }
 
@@ -91,7 +91,6 @@ namespace CardGame.Server.Game {
 			var player = Players[playerId];
 			var attacker = (Unit) CardCatalog[attackerId];
 			var defender = (Unit) CardCatalog[defenderId];
-			Attacking = attacker;
 			if (!attacker.CanAttack || !player.Opponent.Field.Contains(defender) || !attacker.ValidAttackTargets.Contains(defender) || player.State != States.Idle)
 			{
 				Disqualify(player);;
@@ -108,7 +107,6 @@ namespace CardGame.Server.Game {
 		{
 			var player = Players[playerId];
 			var attacker = (Unit) CardCatalog[attackerId];
-			Attacking = attacker;
 			if (!attacker.CanAttack || player.Opponent.Field.Count != 0 || player.State != States.Idle)
 			{
 				Disqualify(player);
