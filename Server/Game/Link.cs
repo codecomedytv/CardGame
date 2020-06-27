@@ -19,6 +19,11 @@ namespace CardGame.Server.Game {
 			{
 				Chain.Push(activation.Skill);
 			}
+
+			if (command is DeclareDirectAttack directAttack)
+			{
+				Chain.Push(directAttack.Attacker.DeclaredAttack);
+			}
 			ApplyConstants();
 			if (command.Identity == GameEvents.SetFaceDown || command.Identity == GameEvents.EndTurn)
 			{
