@@ -23,8 +23,7 @@ namespace CardGame.Server
             }
             protected override void _Resolve()
             {
-                Controller.Draw();
-                Controller.Draw();
+                Draw(Controller, 2);
             }
         }
     }

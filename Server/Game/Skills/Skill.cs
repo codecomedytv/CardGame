@@ -38,9 +38,14 @@ namespace CardGame.Server.Game.Skills {
             History.Add(new Move(GameEvents.Mill, Card, milled.Controller.Deck, milled, milled.Controller.Graveyard));
         }
 
-        protected void Draw()
+        protected void Draw(Player who, int count = 1)
         {
-            
+	        for (var i = 0; i < 1; i++)
+	        {
+		        var card = who.Deck.Top;
+		        Move(who.Deck, card, who.Hand);
+		        History.Add(new Move(GameEvents.Draw, Card, who.Deck, card, who.Hand));
+	        }
         }
 
         protected void Discard(Card discarded)

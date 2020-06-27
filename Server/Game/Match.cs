@@ -12,10 +12,9 @@ namespace CardGame.Server.Game {
 		private readonly Messenger Messenger;
 		private readonly Players Players;
 		private readonly CardCatalog CardCatalog = new CardCatalog();
-		public readonly History History = new History();
+		private readonly History History = new History();
 		private readonly Link Link = new Link();
 		public Player TurnPlayer => Players.TurnPlayer;
-		//public Unit Attacking;
 		
 		public Match() { }
 
