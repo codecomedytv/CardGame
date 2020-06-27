@@ -10,15 +10,15 @@ namespace CardGame.Tests.Scripts.Serverside
 
         public override void Start()
         {
-            Decklist.Add(SetCodes.Debug1000_1000);
-            Decklist.Add(SetCodes.Debug1000_1000);
-            Decklist.Add(SetCodes.Debug1000_1000);
+            Decklist.Add(SetCodes.Debug10001000);
+            Decklist.Add(SetCodes.Debug10001000);
+            Decklist.Add(SetCodes.Debug10001000);
             Decklist.Add(SetCodes.DebugDraw2Cards);
             Decklist.Add(SetCodes.DebugDraw2Cards);
             Decklist.Add(SetCodes.DebugDraw2Cards);
-            Decklist.Add(SetCodes.Debug500_500);
-            Decklist.Add(SetCodes.Debug500_500);
-            Decklist.Add(SetCodes.Debug500_500);
+            Decklist.Add(SetCodes.Debug500500);
+            Decklist.Add(SetCodes.Debug500500);
+            Decklist.Add(SetCodes.Debug500500);
         }
 
         [Test]

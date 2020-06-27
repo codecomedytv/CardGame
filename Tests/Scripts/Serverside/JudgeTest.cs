@@ -13,15 +13,15 @@ namespace CardGame.Tests.Scripts.Serverside
         public override void Pre()
         {
 	        DeckList.Clear();
-	        DeckList.Add(SetCodes.Debug500_500);
-	        DeckList.Add(SetCodes.Debug500_500);
-	        DeckList.Add(SetCodes.Debug500_500);
-			DeckList.Add(SetCodes.Debug1000_1000);
-			DeckList.Add(SetCodes.Debug1000_1000);
-			DeckList.Add(SetCodes.Debug1000_1000);
-			DeckList.Add(SetCodes.Debug1000_1000);
-			DeckList.Add(SetCodes.Debug1000_1000);
-			DeckList.Add(SetCodes.Debug1000_1000);
+	        DeckList.Add(SetCodes.Debug500500);
+	        DeckList.Add(SetCodes.Debug500500);
+	        DeckList.Add(SetCodes.Debug500500);
+			DeckList.Add(SetCodes.Debug10001000);
+			DeckList.Add(SetCodes.Debug10001000);
+			DeckList.Add(SetCodes.Debug10001000);
+			DeckList.Add(SetCodes.Debug10001000);
+			DeckList.Add(SetCodes.Debug10001000);
+			DeckList.Add(SetCodes.Debug10001000);
 
         }
 

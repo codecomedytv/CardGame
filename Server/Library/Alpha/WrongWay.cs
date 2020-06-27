@@ -14,7 +14,7 @@ namespace CardGame.Server
             Owner = owner;
             Controller = owner;
             Title = "WrongWay";
-            SetCode = SetCodes.Alpha_WrongWay;
+            SetCode = SetCodes.AlphaWrongWay;
             Skill = new ReturnTarget(this);
         }
 

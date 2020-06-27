@@ -19,15 +19,15 @@ namespace CardGame.Tests.Scripts.Serverside
         public override void Pre()
         {
             DeckList.Clear();
-            DeckList.Add(SetCodes.Debug1000_1000);
-            DeckList.Add(SetCodes.Debug1000_1000);
-            DeckList.Add(SetCodes.Debug1000_1000);
-            DeckList.Add(SetCodes.Debug500_500);
-            DeckList.Add(SetCodes.Debug500_500);
-            DeckList.Add(SetCodes.Debug500_500);
-            DeckList.Add(SetCodes.Debug1500_1000);
-            DeckList.Add(SetCodes.Debug1500_1000);
-            DeckList.Add(SetCodes.Debug1500_1000);
+            DeckList.Add(SetCodes.Debug10001000);
+            DeckList.Add(SetCodes.Debug10001000);
+            DeckList.Add(SetCodes.Debug10001000);
+            DeckList.Add(SetCodes.Debug500500);
+            DeckList.Add(SetCodes.Debug500500);
+            DeckList.Add(SetCodes.Debug500500);
+            DeckList.Add(SetCodes.Debug15001000);
+            DeckList.Add(SetCodes.Debug15001000);
+            DeckList.Add(SetCodes.Debug15001000);
  
         }
 
@@ -198,7 +198,7 @@ namespace CardGame.Tests.Scripts.Serverside
         public void That_Targets_A_Unit_When_Only_One_Nontargetable_Target_Exists()
         {
 	        // This requires restructing our targeting based systems.
-	        DeckList.Add(SetCodes.DebugUntargetableUnit);
+	        DeckList.Add(SetCodes.DebugCannotBeTargeted);
 	        DeckList.Add(SetCodes.DebugDestroyOpponentUnit);
 	        StartGame(DeckList);
 

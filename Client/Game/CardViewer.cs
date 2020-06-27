@@ -1,15 +1,14 @@
-﻿using System;
-using CardGame.Client.Library.Card;
+﻿using CardGame.Client.Library.Cards;
 using Godot;
 
-namespace CardGame.Client.Match
+namespace CardGame.Client.Game
 {
     public class CardViewer: TextureRect
     {
-        public Label Title;
-        public TextureRect Art;
-        public Label Effect;
-        public Label Battle;
+        private Label Title;
+        private TextureRect Art;
+        private Label Effect;
+        private Label Battle;
 
         public override void _Ready()
         {
@@ -27,7 +26,7 @@ namespace CardGame.Client.Match
             }
         }
 
-        public void ViewCard()
+        private void ViewCard()
         {
             foreach (Card card in GetTree().GetNodesInGroup("cards"))
             {

@@ -6,7 +6,7 @@ namespace CardGame.Server.Game.Zones
 {
     public class Zone: IEnumerable<Card>
     {
-        public readonly Player Owner;
+        private readonly Player Owner;
         public int Count => Cards.Count;
         public bool IsEmpty => Cards.Count == 0;
         private readonly List<Card> Cards = new List<Card>();
@@ -21,11 +21,5 @@ namespace CardGame.Server.Game.Zones
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public Card this[int i] => Cards[i];
-
-        public int GetCount()
-        {
-            return Cards.Count;
-        }
-
     }
 }

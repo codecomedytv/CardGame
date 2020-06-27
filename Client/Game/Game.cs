@@ -1,11 +1,10 @@
 using Godot;
-using CardGame.Client.Match;
 
-namespace CardGame.Client {
+namespace CardGame.Client.Game {
 
 	public class Game : Control
 	{
-		public Messenger Messenger = new Messenger();
+		private readonly Messenger Messenger = new Messenger();
 
 		public override void _Ready()
 		{

@@ -1,4 +1,4 @@
-﻿using CardGame.Client.Library.Card;
+﻿using CardGame.Client.Library.Cards;
 
 namespace CardGame.Client.Library.Alpha
 {
@@ -8,7 +8,7 @@ namespace CardGame.Client.Library.Alpha
         {
             Title = "Guard Puppy";
             Text = "Cannot Be Destroyed By Battle.\nYour opponent cannot attack other units";
-            SetCode = SetCodes.Alpha_GuardPuppy;
+            SetCode = SetCodes.AlphaGuardPuppy;
             Attack = 500;
             Defense = 500;
             Illustration = "res://Assets/CardArt/boar.png";

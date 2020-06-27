@@ -1,4 +1,4 @@
-﻿using CardGame.Client.Library.Card;
+﻿using CardGame.Client.Library.Cards;
 
 namespace CardGame.Client.Library.Alpha
 {
@@ -7,7 +7,7 @@ namespace CardGame.Client.Library.Alpha
         public TrainingTrainer()
         {
             Title = "Training Trainer";
-            SetCode = SetCodes.Alpha_TrainingTrainer;
+            SetCode = SetCodes.AlphaTrainingTrainer;
             Attack = 1000;
             Defense = 1000;
             Text = "When this card is played: You may play one [Pet] from your Deck";

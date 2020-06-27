@@ -16,15 +16,15 @@ namespace CardGame.Tests.Scripts.Serverside
 	    public void OnAttack()
 	    {
 		    var deckList = new List<SetCodes>();
-		    deckList.Add(SetCodes.Debug500_500);
-		    deckList.Add(SetCodes.Debug500_500);
-		    deckList.Add(SetCodes.Debug500_500);
+		    deckList.Add(SetCodes.Debug500500);
+		    deckList.Add(SetCodes.Debug500500);
+		    deckList.Add(SetCodes.Debug500500);
 		    deckList.Add(SetCodes.DebugDestroyAttackingUnit);
 		    deckList.Add(SetCodes.DebugDestroyAttackingUnit);
 		    deckList.Add(SetCodes.DebugDestroyAttackingUnit);
-		    deckList.Add(SetCodes.Debug1500_1000);
-		    deckList.Add(SetCodes.Debug1500_1000);
-		    deckList.Add(SetCodes.Debug1500_1000);
+		    deckList.Add(SetCodes.Debug15001000);
+		    deckList.Add(SetCodes.Debug15001000);
+		    deckList.Add(SetCodes.Debug15001000);
 		    StartGame(deckList);
 		    
 		    // LINK SUMMARY

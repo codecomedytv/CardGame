@@ -12,7 +12,7 @@ namespace CardGame.Server
             Title = "Debug.Untargetable";
             Attack = 1000;
             Defense = 1000;
-            SetCode = SetCodes.DebugUntargetableUnit;
+            SetCode = SetCodes.DebugCannotBeTargeted;
             Tags.Add(new Tag(TagIds.CannotBeTargeted));
         }
     }

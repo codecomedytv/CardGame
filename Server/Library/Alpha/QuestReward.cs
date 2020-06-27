@@ -10,7 +10,7 @@ namespace CardGame.Server
             Owner = owner;
             Controller = owner;
             Title = "QuestReward";
-            SetCode = SetCodes.Alpha_QuestReward;
+            SetCode = SetCodes.AlphaQuestReward;
             Skill = new DrawXCards(this);
         }
 

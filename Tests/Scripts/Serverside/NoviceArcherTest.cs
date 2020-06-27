@@ -18,11 +18,11 @@ namespace CardGame.Tests.Scripts.Serverside
             var deckList = new List<SetCodes>();
             for (var i = 0; i < 11; i++)
             {
-                deckList.Add(SetCodes.Alpha_DungeonGuide);
+                deckList.Add(SetCodes.AlphaDungeonGuide);
             }
             
-            deckList.Add(SetCodes.Debug500_500);
-            deckList.Add(SetCodes.Alpha_NoviceArcher);
+            deckList.Add(SetCodes.Debug500500);
+            deckList.Add(SetCodes.AlphaNoviceArcher);
 
             StartGame(deckList);
 

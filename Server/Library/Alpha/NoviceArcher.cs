@@ -15,7 +15,7 @@ namespace CardGame.Server
             Owner = owner;
             Controller = owner;
             Title = "Novice Archer";
-            SetCode = SetCodes.Alpha_NoviceArcher;
+            SetCode = SetCodes.AlphaNoviceArcher;
             Attack = 1000;
             Defense = 1000;
             Skill = new OnSummonDestroy(this);

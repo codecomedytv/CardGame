@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-namespace CardGame.Client.Library.Card
+namespace CardGame.Client.Library.Cards
 {
     public enum CardTypes
     {
@@ -10,7 +10,7 @@ namespace CardGame.Client.Library.Card
     public class BaseCard: Reference
     {
         public string Title = "Card";
-        public SetCodes SetCode;
+        protected SetCodes SetCode;
         public int Id;
         public Reference Owner;
         public Reference Controller;

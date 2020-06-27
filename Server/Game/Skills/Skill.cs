@@ -17,15 +17,15 @@ namespace CardGame.Server.Game.Skills {
 		public delegate void Resolved();
 
 		protected Player Owner => Card.Owner;
-		public Player Controller => Card.Controller;
+		protected Player Controller => Card.Controller;
 		protected Player Opponent => Card.Opponent;
 		public Card Card;
 		public Match Match;
-		public History History => Match.History;
+		private History History => Match.History;
 		protected readonly List<GameEvents> Triggers = new List<GameEvents>();
 		protected readonly List<Zone> AreaOfEffects = new List<Zone>();
 		public Card Target;
-		public readonly List<Card> ValidTargets = new List<Card>();
+		protected readonly List<Card> ValidTargets = new List<Card>();
 		public bool Targeting = false;
 		
 		 protected void Bounce(Card bounced)

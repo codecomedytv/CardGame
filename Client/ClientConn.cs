@@ -1,9 +1,9 @@
 using Godot;
-using CardGame.Client.Match;
 using Godot.Collections;
 
 namespace CardGame.Client {
 	
+	// ReSharper disable once ClassNeverInstantiated.Global
 	public class ClientConn : Connection
 	{
 		const string Ip = "127.0.0.1";
@@ -23,15 +23,15 @@ namespace CardGame.Client {
 			var deckList = new Array<SetCodes>();
 			for (var i = 0; i < 34; i++)
 			{
-				deckList.Add(SetCodes.Alpha_DungeonGuide);
+				deckList.Add(SetCodes.AlphaDungeonGuide);
 			}
 
-			deckList.Add(SetCodes.Alpha_GuardPuppy);
-			deckList.Add(SetCodes.Alpha_WrongWay);
-			deckList.Add(SetCodes.Alpha_CounterAttack);
-			deckList.Add(SetCodes.Alpha_QuestReward);
-			deckList.Add(SetCodes.Alpha_NoviceArcher);
-			deckList.Add(SetCodes.Alpha_TrainingTrainer);
+			deckList.Add(SetCodes.AlphaGuardPuppy);
+			deckList.Add(SetCodes.AlphaWrongWay);
+			deckList.Add(SetCodes.AlphaCounterAttack);
+			deckList.Add(SetCodes.AlphaQuestReward);
+			deckList.Add(SetCodes.AlphaNoviceArcher);
+			deckList.Add(SetCodes.AlphaTrainingTrainer);
 			return deckList;
 		}
 
@@ -56,7 +56,7 @@ namespace CardGame.Client {
 		public void CreateRoom(string gameId, int seatPosition){
 			GD.Print("Creating Rooms");
 			var gameScene = (PackedScene) ResourceLoader.Load("res://Client/Game/Game.tscn");
-			var room = (Game) gameScene.Instance();
+			var room = (Game.Game) gameScene.Instance();
 			room.Name = gameId;
 			AddChild(room);
 			room.SetUp();

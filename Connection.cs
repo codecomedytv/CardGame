@@ -1,60 +1,63 @@
 using Godot;
 using Godot.Collections;
 
-public class Connection : Control
+namespace CardGame
 {
-	
-	protected Connection() 
-	{ 
-		CustomMultiplayer = new MultiplayerAPI();
-		CustomMultiplayer.SetRootNode(this); 
-	}
-	
-	public override void _Process(float delta)
+	public class Connection : Control
 	{
-		if(CustomMultiplayer.HasNetworkPeer()) { CustomMultiplayer.Poll(); }
-	}
 	
-	public override void _Notification(int notification)
-	{
-		if(notification == NotificationEnterTree)
+		protected Connection() 
+		{ 
+			CustomMultiplayer = new MultiplayerAPI();
+			CustomMultiplayer.SetRootNode(this); 
+		}
+	
+		public override void _Process(float delta)
 		{
-			GetTree().Connect("node_added", this, "OnNodeAdded");
-			CustomizeChildren();
+			if(CustomMultiplayer.HasNetworkPeer()) { CustomMultiplayer.Poll(); }
 		}
-	}
 	
-	public void OnNodeAdded(Godot.Node N) 
-	{
-		var treePath = (string)N.GetPath();
-		var ourPath = (string)GetPath();
-		var substr = treePath.Substr(0, ourPath.Length());
-		if(substr != ourPath) 
+		public override void _Notification(int notification)
 		{
-				return; 
+			if(notification == NotificationEnterTree)
+			{
+				GetTree().Connect("node_added", this, "OnNodeAdded");
+				CustomizeChildren();
+			}
 		}
-		var relativePath = (string)treePath.Substr(ourPath.Length(), treePath.Length());
-		if(relativePath.Length() > 0 && !relativePath.BeginsWith("/")) 
-		{  
+	
+		public void OnNodeAdded(Godot.Node N) 
+		{
+			var treePath = (string)N.GetPath();
+			var ourPath = (string)GetPath();
+			var substr = treePath.Substr(0, ourPath.Length());
+			if(substr != ourPath) 
+			{
 				return; 
-		}
+			}
+			var relativePath = (string)treePath.Substr(ourPath.Length(), treePath.Length());
+			if(relativePath.Length() > 0 && !relativePath.BeginsWith("/")) 
+			{  
+				return; 
+			}
 		
-		N.CustomMultiplayer = CustomMultiplayer;
-	}
-	
-	public void CustomizeChildren()
-	{
-		var frontier = new Array<Node>();
-		foreach(Node child in GetChildren()){
-			frontier.Add(child);
+			N.CustomMultiplayer = CustomMultiplayer;
 		}
+	
+		public void CustomizeChildren()
+		{
+			var frontier = new Array<Node>();
+			foreach(Node child in GetChildren()){
+				frontier.Add(child);
+			}
 
-		while(frontier.Count != 0) {
-			var child = frontier[0];
-			frontier.RemoveAt(0);
-			child.CustomMultiplayer = CustomMultiplayer;
-			foreach(Node grandchild in child.GetChildren()){
-				frontier.Add(grandchild);
+			while(frontier.Count != 0) {
+				var child = frontier[0];
+				frontier.RemoveAt(0);
+				child.CustomMultiplayer = CustomMultiplayer;
+				foreach(Node grandchild in child.GetChildren()){
+					frontier.Add(grandchild);
+				}
 			}
 		}
 	}

@@ -1,9 +1,8 @@
-﻿using CardGame.Client.Library.Card;
+﻿using CardGame.Client.Library.Cards;
 using Godot;
 using Godot.Collections;
 
-
-namespace CardGame.Client.Match
+namespace CardGame.Client.Game
 {
     public class Messenger: Control
     {

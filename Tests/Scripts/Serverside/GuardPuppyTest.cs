@@ -20,7 +20,7 @@ namespace CardGame.Tests.Scripts.Serverside
             DeckList.Clear();
             for (var i = 0; i < 11; i++)
             {
-                DeckList.Add(SetCodes.Alpha_DungeonGuide);
+                DeckList.Add(SetCodes.AlphaDungeonGuide);
             }
         }
 
@@ -30,7 +30,7 @@ namespace CardGame.Tests.Scripts.Serverside
             // Cannot Be Destroyed By Battle
             //No Other Units can be attacked (Other than puppy)
 
-            DeckList.Add(SetCodes.Alpha_GuardPuppy);
+            DeckList.Add(SetCodes.AlphaGuardPuppy);
             StartGame(DeckList);
             var guardPuppy = Player.Hand[0];
             var dungeonGuide = Player.Hand[1];
@@ -57,7 +57,7 @@ namespace CardGame.Tests.Scripts.Serverside
         {
 
 	        DeckList.Add(SetCodes.DebugDestroyOpponentUnit);
-	        DeckList.Add(SetCodes.Alpha_GuardPuppy);
+	        DeckList.Add(SetCodes.AlphaGuardPuppy);
 
 	        StartGame(DeckList);
 	        var DestroyUnit = Player.Hand[1];
@@ -84,7 +84,7 @@ namespace CardGame.Tests.Scripts.Serverside
         public void test_tag_unit_removed_from_field()
         {	
 	        DeckList.Add(SetCodes.DebugDestroyOpponentUnit);
-	        DeckList.Add(SetCodes.Alpha_GuardPuppy);
+	        DeckList.Add(SetCodes.AlphaGuardPuppy);
 	
 	        StartGame(DeckList);
 	        var destroyUnit = Player.Hand[1];

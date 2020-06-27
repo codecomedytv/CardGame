@@ -11,7 +11,7 @@ namespace CardGame.Server
             Owner = owner;
             Controller = owner;
             Title = "CounterAttack";
-            SetCode = SetCodes.Alpha_CounterAttack;
+            SetCode = SetCodes.AlphaCounterAttack;
             Skill = new DestroyAttacker(this);
         }
 

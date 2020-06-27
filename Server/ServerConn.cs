@@ -5,6 +5,7 @@ using CardGame.Server.Game;
 
 namespace CardGame.Server {
 	
+	// ReSharper disable once ClassNeverInstantiated.Global
 	public class ServerConn : Connection
 	{
 		

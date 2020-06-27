@@ -69,9 +69,8 @@
     <Compile Include="Client\Library\Alpha\QuestReward.cs" />
     <Compile Include="Client\Library\Alpha\TrainingTrainer.cs" />
     <Compile Include="Client\Library\Alpha\WrongWay.cs" />
-    <Compile Include="Client\Library\Card\BaseCard.cs" />
-    <Compile Include="Client\Library\Card\Card.cs" />
-    <Compile Include="Client\Library\Card\Selected.cs" />
+    <Compile Include="Client\Library\Cards\BaseCard.cs" />
+    <Compile Include="Client\Library\Cards\Card.cs" />
     <Compile Include="Client\Library\Library.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="GameEvents.cs" />
@@ -694,7 +693,7 @@
     <Content Include="Client\Game\CardViewer.tscn" />
     <Content Include="Client\Game\Game.tscn" />
     <Content Include="Client\Game\PlayerViewer.tscn" />
-    <Content Include="Client\Library\Card\Card.tscn" />
+    <Content Include="Client\Library\Cards\Card.tscn" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

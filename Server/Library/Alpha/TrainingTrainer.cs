@@ -10,7 +10,7 @@ namespace CardGame.Server
             Owner = owner;
             Controller = owner;
             Title = "Training Trainer";
-            SetCode = SetCodes.Alpha_TrainingTrainer;
+            SetCode = SetCodes.AlphaTrainingTrainer;
             Attack = 1000;
             Defense = 1000;
             GD.PushWarning("Skill Not Implemented");

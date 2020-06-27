@@ -1,9 +1,6 @@
-using CardGame.Client.Match;
 using Godot;
-using Godot.Collections;
-using Array = Godot.Collections.Array;
 
-namespace CardGame.Client.Library.Card
+namespace CardGame.Client.Library.Cards
 {
 	public class Card : Control
 	{
@@ -14,11 +11,11 @@ namespace CardGame.Client.Library.Card
 		public int Defense = 0;
 		public string Effect;
 		public CardTypes CardType;
-		public Label Identifier;
-		public Label AttackLabel;
-		public Label DefenseLabel;
-		public Sprite Art;
-		public TextureRect Back;
+		private Label Identifier;
+		private Label AttackLabel;
+		private Label DefenseLabel;
+		private Sprite Art;
+		private TextureRect Back;
 
 		public override void _Ready()
 		{
@@ -50,7 +47,7 @@ namespace CardGame.Client.Library.Card
 			}
 		}
 
-		public void Visualize()
+		private void Visualize()
 		{
 			Identifier.Text = Id.ToString();
 			Art.Texture = ResourceLoader.Load(Illustration) as Texture;
