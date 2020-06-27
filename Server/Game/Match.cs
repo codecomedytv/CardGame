@@ -24,6 +24,7 @@ namespace CardGame.Server.Game {
 			Messenger = messenger ?? new Messenger();
 			Players = players;
 			Link.Players = Players;
+			
 		}
 
 		public override void _Ready()
@@ -40,7 +41,7 @@ namespace CardGame.Server.Game {
 			ConnectSignals(Messenger, nameof(Messenger.PassedPriority), this, nameof(OnPriorityPassed));
 			ConnectSignals(History, nameof(History.EventRecorded), Messenger, nameof(Messenger.OnPlayExecuted));
 			ConnectSignals(History, nameof(History.EventRecorded), Link, nameof(Link.OnGameEventRecorded));
-			foreach (var player in Players) { player.Match = this; }
+			foreach (var player in Players) { player.History = History; }
 
 		}
 
@@ -54,8 +55,7 @@ namespace CardGame.Server.Game {
 
 			foreach (var player in Players)
 			{
-				//player.Match.History.Add(new LoadDeck(player, this));
-				player.LoadDeck(this);
+				player.LoadDeck(CardCatalog);
 				player.Shuffle();
 				for (var i = 0; i < 7; i++)
 				{

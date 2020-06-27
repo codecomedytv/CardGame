@@ -19,8 +19,7 @@ namespace CardGame.Server.Game.Skills {
 		protected Player Controller => Card.Controller;
 		protected Player Opponent => Card.Opponent;
 		public Card Card;
-		public Match Match;
-		protected History History => Match.History;
+		protected History History => Card.History;
 		protected readonly List<GameEvents> Triggers = new List<GameEvents>();
 		protected readonly List<Zone> AreaOfEffects = new List<Zone>();
 		public Card Target;

@@ -27,10 +27,10 @@ namespace CardGame.Server {
 		public readonly Zone Hand;
 		public readonly Zone Support;
 		public readonly Zone Field;
+		public History History;
 		public bool IsDisqualified;
 		public Func<bool> IsTurnPlayer;
 		public Unit AttackingWith;
-		public Match Match;
 		public int Seat;
 
 		[Signal]
@@ -76,17 +76,17 @@ namespace CardGame.Server {
 			Field = new Zone(this);
 		}
 
-		public void LoadDeck(Match match)
+		public void LoadDeck(CardCatalog cards)
 		{
 			foreach (var card in DeckList.Select(setCode => Library.Create(setCode, this)))
 			{
-				card.Skill.Match = match;
+				card.History = History;
 				card.Zone = Deck;
-				Match.RegisterCard(card);
+				cards.RegisterCard(card);
 				Deck.Add(card);
 			}
 			
-			Match.History.Add(new LoadDeck(this, new ReadOnlyCollection<Card>(Deck.ToList())));
+			History.Add(new LoadDeck(this, new ReadOnlyCollection<Card>(Deck.ToList())));
 		}
 
 		public void Move(Zone origin, Card card, Zone destination)
@@ -102,10 +102,10 @@ namespace CardGame.Server {
 		{
 			var card = Deck.Top;
 			Move(Deck, card, Hand);
-			Match.History.Add(new Move(GameEvents.Draw, this, Hand, card, Hand));
+			History.Add(new Move(GameEvents.Draw, this, Hand, card, Hand));
 		}
 
-		public void Win() => Match.History.Add(new GameOver(this, Opponent));
+		public void Win() => History.Add(new GameOver(this, Opponent));
 
 		public bool HasTag(TagIds tagId) => Tags.Any(tag => tag.TagId == tagId);
 	}

@@ -20,8 +20,7 @@ namespace CardGame.Server.Game.Cards {
 
 		// When a player enters an active state (idle or active) then it iterates on all
 		// owned cards to see if these can be used or not.
-		public History History => Controller.Match.History;
-
+		public History History;
 		public bool IsReady = false;
 		public bool Activated = false;
 		public bool CanBeDeployed;
