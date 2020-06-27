@@ -17,7 +17,7 @@ namespace CardGame.Server.Game {
 		{
 			if (command is Activate activation)
 			{
-				Activate(activation.Skill, activation.Target);
+				Chain.Push(activation.Skill);
 			}
 			ApplyConstants();
 			if (command.Identity == GameEvents.SetFaceDown || command.Identity == GameEvents.EndTurn)
@@ -66,14 +66,7 @@ namespace CardGame.Server.Game {
 				skill.SetUp(command);
 			}
 		}
-		
-		private void Activate(Manual skill, Card target)
-		{
-			skill.Target = target;
-			skill.Activate();
-			Chain.Push(skill);
-		}
-		
+
 		public async void Resolve()
 		{
 			while (Chain.Count != 0)

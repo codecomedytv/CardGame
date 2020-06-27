@@ -1,4 +1,5 @@
-﻿using CardGame.Server.Game.Cards;
+﻿#nullable enable
+using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Commands;
 
 namespace CardGame.Server.Game.Skills
@@ -31,10 +32,12 @@ namespace CardGame.Server.Game.Skills
             CanBeUsed = true;
         }
         
-        public void Activate()
+        public void Activate(Card? target)
         {
+            Target = target;
             Card.Activated = true;
             CanBeUsed = false;
+            History.Add(new Activate(Controller, (Support) Card, this, target));
         }
         
         public void Resolve()

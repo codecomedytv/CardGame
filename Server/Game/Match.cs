@@ -143,7 +143,8 @@ namespace CardGame.Server.Game {
 		private void OnActivation(int playerId, int cardId, int targetId = 0)
 		{
 			var player = Players[playerId];
-			var card = (Support)CardCatalog[cardId];
+			var card = (Support) CardCatalog[cardId];
+			var skill = (Manual) card.Skill;
 			var target = CardCatalog[targetId];
 			var invalidState = !(player.State == States.Idle || player.State == States.Active);
 			if (!card.CanBeActivated || invalidState)
@@ -151,8 +152,7 @@ namespace CardGame.Server.Game {
 				Disqualify(player);
 				return;
 			}
-			
-			History.Add(new Activate(player, card, (Manual) card.Skill, target));
+			skill.Activate(target);
 			player.SetState(States.Acting);
 			player.Opponent.SetState(States.Active);
 			Update();
