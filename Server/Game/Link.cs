@@ -23,6 +23,9 @@ namespace CardGame.Server.Game {
 				case Activate activation:
 					Chain.Push(activation.Skill);
 					break;
+				case DeclareAttack attackUnit:
+					Chain.Push(attackUnit.Attack);
+					break;
 				case DeclareDirectAttack directAttack:
 					Chain.Push(directAttack.DirectAttack);
 					break;
@@ -36,8 +39,6 @@ namespace CardGame.Server.Game {
 			ApplyTriggered(command);
 			SetupManual(command);
 		}
-
-		public void AddResolvable(IResolvable action) => Chain.Push(action);
 		
 		private void ApplyConstants()
 		{

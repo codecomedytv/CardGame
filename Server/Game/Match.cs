@@ -13,7 +13,6 @@ namespace CardGame.Server.Game {
 		private readonly Players Players;
 		private readonly CardCatalog CardCatalog = new CardCatalog();
 		public readonly History History = new History();
-		private readonly Battle Battle = new Battle();
 		private readonly Link Link = new Link();
 		public Player TurnPlayer => Players.TurnPlayer;
 		public Unit Attacking;
@@ -98,9 +97,7 @@ namespace CardGame.Server.Game {
 				return;
 			}
 			
-			Battle.Begin(player, attacker, defender);
-			Link.AddResolvable(Battle);
-			History.Add(new DeclareAttack(attacker, defender));
+			attacker.AttackTarget(defender);
 			player.SetState(States.Acting);
 			player.Opponent.SetState(States.Active);
 			Update();
