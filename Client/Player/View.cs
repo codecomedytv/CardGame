@@ -1,4 +1,5 @@
-﻿using CardGame.Client.Library;
+﻿using System.Reflection;
+using CardGame.Client.Library;
 using CardGame.Client.Library.Cards;
 using Godot;
 
@@ -49,6 +50,13 @@ namespace CardGame.Client.Player
             QueueProperty(card, nameof(Modulate), Colors.Transparent, originalColor, 0.1F, Delay);
             QueueCallback(this, AddDelay(0.2F),"Sort", Hand);
         }
+
+        public void Deploy(Card card)
+        {
+            QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Units), 0.3F, Delay);
+            QueueCallback(card.GetParent(), AddDelay(0.3F), "remove_child", card);
+            QueueCallback(Units, Delay, "add_child", card);
+        }
         
         private float AddDelay(float delay)
         {
@@ -71,6 +79,16 @@ namespace CardGame.Client.Player
         private static void Sort(Container zone)
         {
             zone.Notification(Container.NotificationSortChildren);
+        }
+
+        private static Vector2 FuturePosition(Container zone)
+        {
+            var blank = CheckOut.Fetch(0, SetCodes.NullCard);
+            zone.AddChild(blank);
+            Sort(zone);
+            var nextPosition = blank.RectGlobalPosition;
+            zone.RemoveChild(blank);
+            return nextPosition;
         }
     }
 }

@@ -23,6 +23,13 @@ namespace CardGame.Client.Player
             Model.Hand.Add(card);
             View.Draw(card, Model.DeckCount.ToString());
         }
+
+        public void Deploy(Card card)
+        {
+            Model.Hand.Remove(card);
+            Model.Units.Add(card);
+            View.Deploy(card);
+        }
     }
     
     
