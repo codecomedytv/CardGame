@@ -37,6 +37,7 @@ font_data = ExtResource( 7 )
 margin_right = 100.0
 margin_bottom = 150.0
 rect_min_size = Vector2( 100, 150 )
+focus_mode = 1
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false

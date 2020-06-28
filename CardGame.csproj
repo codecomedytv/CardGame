@@ -61,6 +61,7 @@
     <Compile Include="Client\Player\Model.cs" />
     <Compile Include="Client\Player\Controller.cs" />
     <Compile Include="Client\Player\View.cs" />
+    <Compile Include="Client\Room\CardCatalog.cs" />
     <Compile Include="Client\Room\CardViewer.cs" />
     <Compile Include="Client\Room\Game.cs" />
     <Compile Include="Client\Room\Messenger.cs" />

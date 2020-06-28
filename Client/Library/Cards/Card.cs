@@ -12,11 +12,13 @@ namespace CardGame.Client.Library.Cards
 		public int Defense = 0;
 		public string Effect;
 		public CardTypes CardType;
+		public States State = States.CanBeDeployed;
 		private Label Identifier;
 		private Label AttackLabel;
 		private Label DefenseLabel;
 		private Sprite Art;
 		private TextureRect Back;
+		private Sprite Frame;
 
 
 		public override void _Ready()
@@ -24,6 +26,7 @@ namespace CardGame.Client.Library.Cards
 			Identifier = GetNode("ID") as Label;
 			AttackLabel = GetNode("Battle/Attack") as Label;
 			DefenseLabel = GetNode("Battle/Defense") as Label;
+			Frame = GetNode("Frame") as Sprite;
 			Art = GetNode("Frame/Illustration") as Sprite;
 			Back = GetNode("Back") as TextureRect;
 			Visualize();
@@ -67,7 +70,16 @@ namespace CardGame.Client.Library.Cards
 
 
 		}
-		
+
+		[Signal]
+		public delegate void DoubleClicked();
+		public override void _Input(InputEvent inputEvent)
+		{
+			if (inputEvent is InputEventMouseButton mouseButton && mouseButton.Doubleclick & GetGlobalRect().HasPoint(mouseButton.Position))
+			{
+				EmitSignal(nameof(DoubleClicked), this);
+			}
+		}
 	}
 }
 

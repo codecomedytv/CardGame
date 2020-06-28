@@ -8,6 +8,15 @@ namespace CardGame.Client.Library.Cards
         Unit,
         Support
     };
+
+    public enum States
+    {
+        Invalid,
+        CanBeDeployed,
+        CanBeSet,
+        CanBeActivated,
+        CanAttack,
+    }
     public class BaseCard: Reference
     {
         public string Title = "Card";

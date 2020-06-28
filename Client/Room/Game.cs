@@ -9,6 +9,7 @@ namespace CardGame.Client.Room {
 	public class Game : Control
 	{
 		private readonly Messenger Messenger = new Messenger();
+		private readonly CardCatalog CardCatalog = new CardCatalog();
 		private readonly Tween Gfx = new Tween();
 		private Controller Player;
 		private Controller Opponent;
@@ -39,6 +40,7 @@ namespace CardGame.Client.Room {
 		private void OnDrawQueued(int id, SetCodes setCode)
 		{
 			var card = CheckOut.Fetch(id, setCode);
+			CardCatalog[id] = card;
 			Player.Draw(card);
 		}
 
