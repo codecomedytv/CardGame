@@ -41,11 +41,11 @@ namespace CardGame.Client.Room
             GD.Print($"{card} was double clicked");
             switch (card.State)
             {
-                case States.CanBeDeployed:
+                case CardStates.CanBeDeployed:
                     GD.Print("Deploying Card");
                     EmitSignal(nameof(Deploy), card.Id);
                     break;
-                case States.CanBeSet:
+                case CardStates.CanBeSet:
                     EmitSignal(nameof(SetFaceDown), card.Id);
                     break;
             }

@@ -9,14 +9,16 @@ namespace CardGame.Client.Library.Cards
         Support
     };
 
-    public enum States
+    public enum CardStates
     {
-        Invalid,
+        Passive,
         CanBeDeployed,
         CanBeSet,
         CanBeActivated,
         CanAttack,
+        Activated
     }
+    
     public class BaseCard: Reference
     {
         public string Title = "Card";

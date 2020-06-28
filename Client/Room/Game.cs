@@ -1,4 +1,5 @@
 using CardGame.Client.Library;
+using CardGame.Client.Library.Cards;
 using CardGame.Client.Player;
 using Godot;
 
@@ -22,6 +23,7 @@ namespace CardGame.Client.Room {
 			Player = new Controller(GetNode<View>("Player"), true);
 			Opponent = new Controller(GetNode<View>("Opponent"), false);
 			EndTurn = GetNode<Button>("Background/EndTurn");
+			Messenger.Connect(nameof(Messenger.CardStateSet), this, nameof(OnCardStateSet));
 			Messenger.Connect(nameof(Messenger.StateQueued), this, nameof(OnStateQueued));
 			Messenger.Connect(nameof(Messenger.DrawQueued), this, nameof(OnDrawQueued));
 			Messenger.Connect(nameof(Messenger.DeployQueued), this, nameof(OnDeployQueued));
@@ -50,6 +52,11 @@ namespace CardGame.Client.Room {
 		public void OnStateQueued(States state)
 		{
 			Player.SetState(state);
+		}
+
+		public void OnCardStateSet(int id, CardStates state)
+		{
+			CardCatalog[id].State = state;
 		}
 
 		private void OnDrawQueued(int id, SetCodes setCode)

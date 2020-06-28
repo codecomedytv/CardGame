@@ -23,6 +23,9 @@ namespace CardGame.Client.Room
         public delegate void StateQueued();
 
         [Signal]
+        public delegate void CardStateSet();
+
+        [Signal]
         public delegate void ExecutedEvents();
 
         [Signal]
@@ -81,6 +84,12 @@ namespace CardGame.Client.Room
         public void QueueState(States State)
         {
             EmitSignal(nameof(StateQueued), State);
+        }
+
+        [Puppet]
+        public void SetCardState(int id, CardStates states)
+        {
+            EmitSignal(nameof(CardStateSet), id, states);
         }
 
         [Puppet]

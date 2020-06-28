@@ -1,8 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Events;
 using Godot;
-using Card = CardGame.Client.Library.Cards.Card;
 
 namespace CardGame.Server.Game.Network {
 
@@ -60,7 +60,15 @@ namespace CardGame.Server.Game.Network {
 		{
 			foreach (var player in players)
 			{
-				// SetCardStates
+				var clientViewableCards = new List<Card>();
+				clientViewableCards.AddRange(player.Hand);
+				clientViewableCards.AddRange(player.Field);
+				clientViewableCards.AddRange(player.Support);
+				foreach (var card in clientViewableCards)
+				{
+					RpcId(player.Id, "SetCardState", card.Id, card.State);
+				}
+				clientViewableCards.Clear();
 				RpcId(player.Id, "QueueState", player.State);
 				RpcId(player.Id, "ExecuteEvents");
 			}
