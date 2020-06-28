@@ -61,7 +61,7 @@ namespace CardGame.Server.Game.Skills {
                 return;
             }
             Move(destroyed.Controller.Field, destroyed, destroyed.Owner.Graveyard);
-            History.Add(new Destroy(Card, destroyed.Owner, destroyed));
+            History.Add(new DestroyByEffect(Card, destroyed.Owner, destroyed));
         }
 
         protected void TopDeck(Card topDecked)

@@ -10,7 +10,7 @@ namespace CardGame.Server.Game.Events
 
         public DeclareDirectAttack(Unit attacker, Unit.DirectAttack directAttack)
         {
-            GameEvent = GameEvents.DeclareDirectAttack;
+            Identity = GameEvents.DeclareDirectAttack;
             DirectAttack = directAttack;
             Source = attacker;
             Attacker = attacker;

@@ -1,5 +1,6 @@
 ﻿using System;
 using CardGame.Server.Game.Events;
+using Godot;
 
 namespace CardGame.Server.Game.Skills
 {
@@ -7,22 +8,21 @@ namespace CardGame.Server.Game.Skills
     {
         public bool Triggered = false;
         
-        public void Trigger(Event Event)
+        public void Trigger(Event gameEvent)
         {
             if (!AreaOfEffects.Contains(Card.Zone))
             {
                 return;
             }
-            if (Triggers.Count > 0 && !Triggers.Contains(Event.Identity))
+            if (Triggers.Count > 0 && !Triggers.Contains(gameEvent.Identity))
             {
                 return;
             }
-
             Triggered = true;
-            _Trigger(Event);
+            _Trigger(gameEvent);
         }
 
-        protected virtual void _Trigger(Event Event)
+        protected virtual void _Trigger(Event gameEvent)
         {
             throw new NotImplementedException();
         }

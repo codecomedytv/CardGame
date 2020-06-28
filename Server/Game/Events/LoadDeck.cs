@@ -6,10 +6,10 @@ namespace CardGame.Server.Game.Events
 {
     public class LoadDeck : Event
     {
+	    public const GameEvents GameEvent = GameEvents.LoadDeck;
         public readonly ISource Source;
         public readonly Player Player;
         public readonly IReadOnlyCollection<Card> Deck;
-        private ReadOnlyCollection<Card> CardsAlreadyLoaded;
 
         public LoadDeck()
         {
@@ -17,7 +17,6 @@ namespace CardGame.Server.Game.Events
         }
         public LoadDeck(Player player, IReadOnlyCollection<Card> deck)
         {
-	        GameEvent = GameEvents.LoadDeck;
 	        Source = player;
 	        Player = player;
 	        Deck = deck;

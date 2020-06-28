@@ -19,6 +19,6 @@
         EndTurn,
         GameOver,
         TopDeck,
-        Activate
+        Activate,
     }
 }

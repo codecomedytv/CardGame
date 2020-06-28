@@ -8,7 +8,7 @@
 
         public GameOver(Player winner, Player loser)
         {
-            GameEvent = GameEvents.GameOver;
+            Identity = GameEvents.GameOver;
             Source = winner;
             Winner = winner;
             Loser = loser;

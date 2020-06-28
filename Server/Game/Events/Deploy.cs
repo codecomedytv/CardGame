@@ -10,6 +10,7 @@ namespace CardGame.Server.Game.Events
 
         public Deploy(ISource source, Player controller, Card card)
         {
+            Identity = GameEvents.Deploy;
             Source = source;
             Card = card;
             Controller = controller;

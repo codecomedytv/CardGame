@@ -10,6 +10,7 @@ namespace CardGame.Server.Game.Events
 
         public Discard(ISource source, Player owner, Card card)
         {
+            Identity = GameEvents.Discard;
             Source = source;
             Owner = owner;
             Card = card;

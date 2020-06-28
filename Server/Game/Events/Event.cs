@@ -1,9 +1,10 @@
-﻿namespace CardGame.Server.Game.Events
+﻿using Godot;
+
+namespace CardGame.Server.Game.Events
 {
     public abstract class Event: Godot.Object
     {
-        protected GameEvents GameEvent = GameEvents.NoOp;
-        public GameEvents Identity => GameEvent;
+        public GameEvents Identity { get; protected set; }
 
         protected Event()
         {

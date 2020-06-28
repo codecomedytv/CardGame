@@ -10,7 +10,7 @@
         
         public ModifyPlayer(GameEvents identity, ISource source, Player player, string property, object oldValue, object newValue)
         {
-            GameEvent = identity;
+            Identity = identity;
             Source = source;
             Player = player;
             Property = property;

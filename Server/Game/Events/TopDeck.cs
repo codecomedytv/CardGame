@@ -10,6 +10,7 @@ namespace CardGame.Server.Game.Events
 
         public TopDeck(ISource source, Player owner, Card card)
         {
+            Identity = GameEvents.TopDeck;
             Source = source;
             Owner = owner;
             Card = card;

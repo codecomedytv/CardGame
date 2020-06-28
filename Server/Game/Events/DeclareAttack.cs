@@ -12,7 +12,7 @@ namespace CardGame.Server.Game.Events
 
         public DeclareAttack(Unit attacker, Unit defender, IResolvable attack)
         {
-            GameEvent = GameEvents.DeclareAttack;
+            Identity = GameEvents.DeclareAttack;
             Source = attacker;
             Attacker = attacker;
             Defender = defender;

@@ -10,6 +10,7 @@ namespace CardGame.Server.Game.Events
 
         public Draw(ISource source, Player controller, Card card)
         {
+            Identity = GameEvents.Draw;
             Source = source;
             Controller = controller;
             Card = card;

@@ -13,12 +13,12 @@ namespace CardGame.Server.Game.Events
 
         public Activate(ISource source, Support card, Manual skill, Card? target = null)
         {
-            GameEvent = GameEvents.Activate;
+            Identity = GameEvents.Activate;
             Source = source;
             Card = card;
             Skill = skill;
             Target = target;
         }
-        
+
     }
 }

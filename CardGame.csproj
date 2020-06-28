@@ -88,7 +88,8 @@
     <Compile Include="Server\Game\Events\DeclareDirectAttack.cs" />
     <Compile Include="Server\Game\Events\DeclareAttack.cs" />
     <Compile Include="Server\Game\Events\Deploy.cs" />
-    <Compile Include="Server\Game\Events\Destroy.cs" />
+    <Compile Include="Server\Game\Events\DestroyByBattle.cs" />
+    <Compile Include="Server\Game\Events\DestroyByEffect.cs" />
     <Compile Include="Server\Game\Events\Discard.cs" />
     <Compile Include="Server\Game\Events\Draw.cs" />
     <Compile Include="Server\Game\Events\Event.cs" />

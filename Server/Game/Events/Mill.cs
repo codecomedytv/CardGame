@@ -10,6 +10,7 @@ namespace CardGame.Server.Game.Events
 
         public Mill(ISource source, Player controller, Card card)
         {
+            Identity = GameEvents.Mill;
             Source = source;
             Controller = controller;
             Card = card;

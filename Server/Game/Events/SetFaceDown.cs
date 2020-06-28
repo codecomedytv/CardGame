@@ -10,6 +10,7 @@ namespace CardGame.Server.Game.Events
 
         public SetFaceDown(ISource source, Player controller, Card card)
         {
+            Identity = GameEvents.SetFaceDown;
             Source = source;
             Controller = controller;
             Card = card;

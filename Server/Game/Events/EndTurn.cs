@@ -6,7 +6,7 @@
 
         public EndTurn(ISource source)
         {
-            GameEvent = GameEvents.EndTurn;
+            Identity = GameEvents.EndTurn;
             Source = source;
         }
 
