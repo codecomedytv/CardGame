@@ -16,6 +16,9 @@ namespace CardGame.Client.Room
         public delegate void DrawQueued();
 
         [Signal]
+        public delegate void DeployQueued();
+
+        [Signal]
         public delegate void ExecutedEvents();
 
         [Signal]
@@ -56,6 +59,18 @@ namespace CardGame.Client.Room
         public void QueueDraw()
         {
             EmitSignal(nameof(DrawQueued));
+        }
+
+        [Puppet]
+        public void QueueDeploy(int id)
+        {
+            EmitSignal(nameof(DeployQueued), id);
+        }
+
+        [Puppet]
+        public void QueueDeploy(int id, SetCodes setCode)
+        {
+            EmitSignal(nameof(DeployQueued), id, setCode);
         }
 
         [Puppet]

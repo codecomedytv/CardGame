@@ -1,4 +1,5 @@
 using CardGame.Client;
+using CardGame.Server;
 using Godot;
 
 namespace CardGame
@@ -8,14 +9,27 @@ namespace CardGame
         public bool IsReady;
         public override void _Ready()
         {
-            GetNode<Button>("Play").Connect("pressed", this, "Start");
+            GetNode<Button>("Options/Play").Connect("pressed", this, "Start");
+            GetNode<Button>("Options/HostJoin").Connect("pressed", this, "HostJoin");
+            GetNode<Button>("Options/Join").Connect("pressed", this, "Join");
         }
 
         public void Start()
         {
-            GD.Print("Game Begins");
+            GetNode<ServerConn>("ScrollContainer/VBoxContainer/Server").Host();
             GetNode<ClientConn>("ScrollContainer/VBoxContainer/Client").Join();
             GetNode<ClientConn>("ScrollContainer/VBoxContainer/Client2").Join();
+        }
+
+        public void HostJoin()
+        {
+            GetNode<ServerConn>("ScrollContainer/VBoxContainer/Server").Host();
+            GetNode<ClientConn>("ScrollContainer/VBoxContainer/Client").Join();
+        }
+
+        public void Join()
+        {
+            GetNode<ClientConn>("ScrollContainer/VBoxContainer/Client").Join();
         }
 
 

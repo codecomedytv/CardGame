@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Events;
 using Godot;
+using Card = CardGame.Client.Library.Cards.Card;
 
 namespace CardGame.Server.Game.Network {
 
@@ -37,13 +39,26 @@ namespace CardGame.Server.Game.Network {
 		
 		public virtual void OnPlayExecuted(Event gameEvent)
 		{
-			if (gameEvent.Identity == GameEvents.Draw)
+			switch (gameEvent.Identity)
 			{
-				var ge = (Move) gameEvent;
-				var player = ge.Card.Controller;
-				var card = ge.Card;
-				RpcId(player.Id, "QueueDraw", card.Id, card.SetCode);
-				RpcId(player.Opponent.Id, "QueueDraw");
+				case GameEvents.Draw:
+				{
+					var ge = (Move) gameEvent;
+					var player = ge.Card.Controller;
+					var card = ge.Card;
+					RpcId(player.Id, "QueueDraw", card.Id, card.SetCode);
+					RpcId(player.Opponent.Id, "QueueDraw");
+					break;
+				}
+				case GameEvents.Deploy:
+				{
+					var ge = (Move) gameEvent;
+					var player = ge.Card.Controller;
+					var id = ge.Card.Id;
+					RpcId(player.Id, "QueueDeploy", id);
+					RpcId(player.Opponent.Id, "QueueDeploy", id, ge.Card.SetCode);
+					break;
+				}
 			}
 		}
 

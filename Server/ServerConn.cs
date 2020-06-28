@@ -16,7 +16,7 @@ namespace CardGame.Server {
 		
 		public override void _Ready() 
 		{
-			Host();
+			//Host();
 		}
 	
 		public override void _Process(float delta) 
@@ -50,8 +50,8 @@ namespace CardGame.Server {
 			//List<SetCodes> deckCodes = deckList.ConvertAll(SetCodes).ToList();
 			Queue.Enqueue(new Player(player, deckList.Select(c => (SetCodes) c).ToList()));
 		}
-		
-		private void Host() 
+
+		public void Host() 
 		{
 			Server = new NetworkedMultiplayerENet();
 			var err = Server.CreateServer(Port);

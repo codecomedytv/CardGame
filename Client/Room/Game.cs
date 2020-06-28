@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using CardGame.Client.Library;
 using CardGame.Client.Player;
 using Godot;
@@ -24,9 +23,9 @@ namespace CardGame.Client.Room {
 			Opponent = new Controller(GetNode<View>("Opponent"));
 			EndTurn = GetNode<Button>("Background/EndTurn");
 			Messenger.Connect(nameof(Messenger.DrawQueued), this, nameof(OnDrawQueued));
+			Messenger.Connect(nameof(Messenger.DeployQueued), this, nameof(OnDeployQueued));
 			Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
-			//CardCatalog.Connect(nameof(CardCatalog.Deploy), Messenger, nameof(Messenger.Deploy));
-			CardCatalog.Connect(nameof(CardCatalog.Deploy), this, nameof(OnDeployQueued));
+			CardCatalog.Connect(nameof(CardCatalog.Deploy), Messenger, nameof(Messenger.Deploy));
 			CardCatalog.Connect(nameof(CardCatalog.SetFaceDown), Messenger, nameof(Messenger.SetFaceDown));
 			EndTurn.Connect("pressed", this, nameof(OnEndTurn));
 			Connect(nameof(EndedTurn), Messenger, nameof(Messenger.EndTurn));
@@ -64,6 +63,13 @@ namespace CardGame.Client.Room {
 		{
 			var card = CardCatalog[id];
 			Player.Deploy(card);
+		}
+
+		public void OnDeployQueued(int id, SetCodes setCode)
+		{
+			var card = CheckOut.Fetch(id, setCode);
+			CardCatalog[id] = card;
+			Opponent.Deploy(card, true);
 		}
 
 		private void OnEndTurn()

@@ -51,12 +51,28 @@ namespace CardGame.Client.Player
             QueueCallback(this, AddDelay(0.2F),"Sort", Hand);
         }
 
-        public void Deploy(Card card)
+        public void Deploy(Card card, bool isOpponent)
         {
+            if (isOpponent)
+            {
+                Hand.RemoveChild(Hand.GetChild(0));
+                Hand.AddChild(card);
+                Sort(Hand);
+            }
             QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Units), 0.3F, Delay);
             QueueCallback(card.GetParent(), AddDelay(0.3F), "remove_child", card);
             QueueCallback(Units, Delay, "add_child", card);
         }
+        
+        // Hand.RemoveChild(Hand.GetChild(0));
+        // Hand.AddChild(card);
+        // Sort(Hand);
+        // card.FlipFaceDown();
+        // QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Units), 0.3F, Delay());
+        // QueueCallback(card.GetParent(), Delay(0.3F), "remove_child", card);
+        // QueueCallback(Units, Delay(), "add_child", card);
+        // QueueCallback(card, Delay(), "FlipFaceUp");
+        // QueueCallback(Sfx, Delay(), "Play", Sfx.Deploy);
         
         private float AddDelay(float delay)
         {

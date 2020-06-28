@@ -24,11 +24,11 @@ namespace CardGame.Client.Player
             View.Draw(card, Model.DeckCount.ToString());
         }
 
-        public void Deploy(Card card)
+        public void Deploy(Card card, bool isOpponent = false)
         {
             Model.Hand.Remove(card);
             Model.Units.Add(card);
-            View.Deploy(card);
+            View.Deploy(card, isOpponent);
         }
     }
     
