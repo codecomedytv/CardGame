@@ -8,6 +8,9 @@ namespace CardGame.Client.Room
     public class CardCatalog: Object
     {
         [Signal]
+        public delegate void CardClicked();
+        
+        [Signal]
         public delegate void DoubleClicked();
 
         [Signal]
@@ -16,9 +19,8 @@ namespace CardGame.Client.Room
         [Signal]
         public delegate void SetFaceDown();
         
-
         private readonly Dictionary<int, Card> CardsById = new Dictionary<int, Card>();
-        
+
         public void RegisterCard(Card card)
         {
             CardsById[card.Id] = card;
@@ -32,9 +34,12 @@ namespace CardGame.Client.Room
         
         private Card AddCard(Card card)
         {
+            card.Connect(nameof(Card.Clicked), this, nameof(OnCardClicked));
             card.Connect(nameof(Card.DoubleClicked), this, nameof(this.OnCardDoubleClicked));
             return card;
         }
+
+        private void OnCardClicked(Card card) => EmitSignal(nameof(CardClicked), card);
 
         private void OnCardDoubleClicked(Card card)
         {

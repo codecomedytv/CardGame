@@ -73,13 +73,26 @@ namespace CardGame.Client.Library.Cards
 		}
 
 		[Signal]
+		public delegate void Clicked();
+
+		[Signal]
 		public delegate void DoubleClicked();
 		public override void _Input(InputEvent inputEvent)
 		{
-			if (inputEvent is InputEventMouseButton mouseButton && mouseButton.Doubleclick & GetGlobalRect().HasPoint(mouseButton.Position))
+			if (inputEvent is InputEventMouseButton mouseButton && GetGlobalRect().HasPoint(mouseButton.Position))
 			{
-				EmitSignal(nameof(DoubleClicked), this);
+				if (mouseButton.Doubleclick)
+				{
+					EmitSignal(nameof(DoubleClicked), this);
+				}
+				else if (mouseButton.Pressed)
+				{
+					EmitSignal(nameof(Clicked), this);
+				}
 			}
+			
+			
+			
 		}
 	}
 }

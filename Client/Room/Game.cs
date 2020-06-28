@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using CardGame.Client.Library;
 using CardGame.Client.Library.Cards;
 using CardGame.Client.Player;
@@ -16,18 +17,21 @@ namespace CardGame.Client.Room {
 		private readonly Tween Gfx = new Tween();
 		private Controller Player;
 		private Controller Opponent;
+		private CardViewer CardViewer;
 		private Button EndTurn;
 		public override void _Ready()
 		{
 			AddChild(Gfx);
 			Player = new Controller(GetNode<View>("Player"), true);
 			Opponent = new Controller(GetNode<View>("Opponent"), false);
+			CardViewer = GetNode<CardViewer>("Background/CardViewer");
 			EndTurn = GetNode<Button>("Background/EndTurn");
 			Messenger.Connect(nameof(Messenger.CardStateSet), this, nameof(OnCardStateSet));
 			Messenger.Connect(nameof(Messenger.StateQueued), this, nameof(OnStateQueued));
 			Messenger.Connect(nameof(Messenger.DrawQueued), this, nameof(OnDrawQueued));
 			Messenger.Connect(nameof(Messenger.DeployQueued), this, nameof(OnDeployQueued));
 			Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
+			CardCatalog.Connect(nameof(CardCatalog.CardClicked), CardViewer, nameof(CardViewer.OnCardClicked));
 			CardCatalog.Connect(nameof(CardCatalog.Deploy), Messenger, nameof(Messenger.Deploy));
 			CardCatalog.Connect(nameof(CardCatalog.SetFaceDown), Messenger, nameof(Messenger.SetFaceDown));
 			EndTurn.Connect("pressed", this, nameof(OnEndTurn));
