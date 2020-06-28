@@ -9,7 +9,14 @@ namespace CardGame.Client.Room
     {
         [Signal]
         public delegate void DoubleClicked();
+
+        [Signal]
+        public delegate void Deploy();
+
+        [Signal]
+        public delegate void SetFaceDown();
         
+
         private readonly Dictionary<int, Card> CardsById = new Dictionary<int, Card>();
         
         public void RegisterCard(Card card)
@@ -32,6 +39,16 @@ namespace CardGame.Client.Room
         private void OnCardDoubleClicked(Card card)
         {
             GD.Print($"{card} was double clicked");
+            switch (card.State)
+            {
+                case States.CanBeDeployed:
+                    GD.Print("Deploying Card");
+                    EmitSignal(nameof(Deploy), card.Id);
+                    break;
+                case States.CanBeSet:
+                    EmitSignal(nameof(SetFaceDown), card.Id);
+                    break;
+            }
         }
     }
 }

@@ -31,7 +31,8 @@ namespace CardGame.Client.Player
         {
             Gfx.Start();
             await ToSignal(Gfx, "tween_all_completed");
-            //Delay = 0.0F;
+            Delay = 0.0F;
+            Gfx.RemoveAll();
         }
 
         public void Draw(Card card, string deckSize)
