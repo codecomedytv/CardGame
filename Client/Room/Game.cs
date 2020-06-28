@@ -19,9 +19,10 @@ namespace CardGame.Client.Room {
 		public override void _Ready()
 		{
 			AddChild(Gfx);
-			Player = new Controller(GetNode<View>("Player"));
-			Opponent = new Controller(GetNode<View>("Opponent"));
+			Player = new Controller(GetNode<View>("Player"), true);
+			Opponent = new Controller(GetNode<View>("Opponent"), false);
 			EndTurn = GetNode<Button>("Background/EndTurn");
+			Messenger.Connect(nameof(Messenger.StateQueued), this, nameof(OnStateQueued));
 			Messenger.Connect(nameof(Messenger.DrawQueued), this, nameof(OnDrawQueued));
 			Messenger.Connect(nameof(Messenger.DeployQueued), this, nameof(OnDeployQueued));
 			Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
@@ -44,6 +45,11 @@ namespace CardGame.Client.Room {
 		{
 			Player.Execute();
 			Opponent.Execute();
+		}
+		
+		public void OnStateQueued(States state)
+		{
+			Player.SetState(state);
 		}
 
 		private void OnDrawQueued(int id, SetCodes setCode)

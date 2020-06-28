@@ -5,6 +5,7 @@ namespace CardGame.Client.Player
 {
     public class Model
     {
+        public States State;
         public int Health = 8000;
         public int DeckCount = 40;
         public IList<Card> Units = new List<Card>();

@@ -13,6 +13,7 @@ namespace CardGame.Client.Library.Cards
 		public string Effect;
 		public CardTypes CardType;
 		public States State = States.CanBeDeployed;
+		public Player.Controller Player;
 		private Label Identifier;
 		private Label AttackLabel;
 		private Label DefenseLabel;

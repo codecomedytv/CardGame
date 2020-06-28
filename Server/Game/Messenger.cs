@@ -58,7 +58,12 @@ namespace CardGame.Server.Game.Network {
 
 		public virtual void Update(IEnumerable<Player> players)
 		{
-			foreach (var player in players) { RpcId(player.Id, "ExecuteEvents");}
+			foreach (var player in players)
+			{
+				// SetCardStates
+				RpcId(player.Id, "QueueState", player.State);
+				RpcId(player.Id, "ExecuteEvents");
+			}
 		}
 
 		public virtual void DisqualifyPlayer(int player)

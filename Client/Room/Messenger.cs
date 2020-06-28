@@ -1,6 +1,7 @@
 ﻿using CardGame.Client.Library.Cards;
 using Godot;
 using Godot.Collections;
+using States = CardGame.Client.Player.States;
 
 namespace CardGame.Client.Room
 {
@@ -17,6 +18,9 @@ namespace CardGame.Client.Room
 
         [Signal]
         public delegate void DeployQueued();
+
+        [Signal]
+        public delegate void StateQueued();
 
         [Signal]
         public delegate void ExecutedEvents();
@@ -71,6 +75,12 @@ namespace CardGame.Client.Room
         public void QueueDeploy(int id, SetCodes setCode)
         {
             EmitSignal(nameof(DeployQueued), id, setCode);
+        }
+
+        [Puppet]
+        public void QueueState(States State)
+        {
+            EmitSignal(nameof(StateQueued), State);
         }
 
         [Puppet]
