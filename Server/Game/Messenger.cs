@@ -39,24 +39,18 @@ namespace CardGame.Server.Game.Network {
 		
 		public virtual void OnPlayExecuted(Event gameEvent)
 		{
-			switch (gameEvent.Identity)
+			switch (gameEvent)
 			{
-				case GameEvents.Draw:
+				case Draw draw:
 				{
-					var ge = (Move) gameEvent;
-					var player = ge.Card.Controller;
-					var card = ge.Card;
-					RpcId(player.Id, "QueueDraw", card.Id, card.SetCode);
-					RpcId(player.Opponent.Id, "QueueDraw");
+					RpcId(draw.Controller.Id, "QueueDraw", draw.Card.Id, draw.Card.SetCode);
+					RpcId(draw.Controller.Opponent.Id, "QueueDraw");
 					break;
 				}
-				case GameEvents.Deploy:
+				case Deploy deploy:
 				{
-					var ge = (Move) gameEvent;
-					var player = ge.Card.Controller;
-					var id = ge.Card.Id;
-					RpcId(player.Id, "QueueDeploy", id);
-					RpcId(player.Opponent.Id, "QueueDeploy", id, ge.Card.SetCode);
+					RpcId(deploy.Controller.Id, "QueueDeploy", deploy.Card.Id);
+					RpcId(deploy.Controller.Opponent.Id, "QueueDeploy", deploy.Card.Id, deploy.Card.SetCode);
 					break;
 				}
 			}

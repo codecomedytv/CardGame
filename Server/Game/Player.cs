@@ -102,7 +102,13 @@ namespace CardGame.Server {
 		{
 			var card = Deck.Top;
 			Move(Deck, card, Hand);
-			History.Add(new Move(GameEvents.Draw, this, Hand, card, Hand));
+			History.Add(new Draw(this, this, card));
+		}
+
+		public void Deploy(Unit unit)
+		{
+			Move(Hand, unit, Field);
+			History.Add(new Deploy(this, this, unit));
 		}
 
 		public void Win() => History.Add(new GameOver(this, Opponent));

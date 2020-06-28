@@ -77,8 +77,8 @@ namespace CardGame.Server.Game {
 				Disqualify(player);
 				return;
 			}
-			player.Move(player.Hand, card, player.Field);
-			History.Add(new Move(GameEvents.Deploy, player, player.Hand, card, player.Field));
+
+			player.Deploy(card);
 			player.SetState(States.Acting);
 			player.Opponent.SetState(States.Active);
 			Update();
