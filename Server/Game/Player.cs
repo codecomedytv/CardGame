@@ -50,8 +50,8 @@ namespace CardGame.Server {
 			{
 				case States.Idle:
 				{
-					foreach(var card in Hand) {card.SetCanBeDeployed();}
-					foreach(var card in Hand) {card.SetCanBeSet();}
+					foreach(var card in Hand.Where(c => c is Unit)) {card.SetCanBeDeployed();}
+					foreach(var card in Hand.Where(c => c is Support)) {card.SetCanBeSet();}
 					foreach(var card in Field) {card.SetCanAttack();}
 					foreach(var card in Support) {card.SetCanBeActivated();}
 					break;

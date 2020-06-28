@@ -21,14 +21,15 @@ namespace CardGame.Server.Game.Cards
 
         public override void SetCanBeDeployed()
         {
-            CanBeDeployed = Zone == Controller.Hand && Controller.Field.Count < 7;
+            State = Zone == Controller.Hand && Controller.Field.Count < 7 ? States.CanBeDeployed : States.Passive;
         }
 
         public override void SetCanAttack()
         {
+            State = States.Passive;
             if (Zone != Controller.Field || !IsReady || Attacked) return;
             ValidAttackTargets = Opponent.Field.AsEnumerable();
-            CanAttack = true;
+            State = States.CanAttack;
         }
 
         public void AttackDirectly()

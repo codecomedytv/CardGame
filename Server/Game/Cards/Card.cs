@@ -22,11 +22,18 @@ namespace CardGame.Server.Game.Cards {
 		// owned cards to see if these can be used or not.
 		public History History;
 		public bool IsReady = false;
-		public bool Activated = false;
-		public bool CanBeDeployed;
-		public bool CanBeSet;
-		public bool CanBeActivated = false;
-		public bool CanAttack;
+
+		public States State = States.Passive;
+		public enum States
+		{
+			Passive,
+			CanBeDeployed,
+			CanBeSet,
+			CanBeActivated,
+			CanAttack,
+			Activated
+		}
+
 		public readonly List<Tag> Tags = new List<Tag>();
 
 		protected Card()
@@ -35,13 +42,13 @@ namespace CardGame.Server.Game.Cards {
 		}
 		
 
-		public virtual void SetCanBeDeployed() => CanBeDeployed = false;
+		public virtual void SetCanBeDeployed() => State = States.Passive;
 
-		public virtual void SetCanBeSet() => CanBeSet = false;
+		public virtual void SetCanBeSet() => State = States.Passive;
 
-		public virtual void SetCanAttack() => CanAttack = false;
+		public virtual void SetCanAttack() => State = States.Passive;
 
-		public virtual void SetCanBeActivated() => CanBeActivated = false;
+		public virtual void SetCanBeActivated() => State = States.Passive;
 
 		public void Ready() => IsReady = true;
 

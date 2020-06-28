@@ -90,7 +90,7 @@ namespace CardGame.Tests.Scripts.Serverside
 			Assert.IsTrue(Opponent.State == States.Active, "Player 0 is ACTIVE");
 			
 			Assert.IsTrue(chainMines.IsReady, "ChainMines Is Ready");
-			Assert.IsTrue(chainMines.CanBeActivated, "ChainMine can be activated");
+			Assert.IsTrue(chainMines.State == Card.States.CanBeActivated, "ChainMine can be activated");
 			Play.Activate(Opponent.Id, chainMines.Id);
 
 			Assert.IsTrue(Opponent.State == States.Acting, "Player 0 is ACTING");

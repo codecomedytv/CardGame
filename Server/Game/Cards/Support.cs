@@ -9,12 +9,12 @@ namespace CardGame.Server.Game.Cards
 
         public override void SetCanBeSet()
         {
-            CanBeSet = Zone == Controller.Hand && Controller.Support.Count < 7;
+            State = Zone == Controller.Hand && Controller.Support.Count < 7 ? States.CanBeSet : States.Passive;
         }
 
         public override void SetCanBeActivated()
         {
-            CanBeActivated = Skill is Manual skill && skill.CanBeUsed && IsReady;
+            State = Skill is Manual skill && skill.CanBeUsed && IsReady ? States.CanBeActivated : States.Passive;
         }
 
     }

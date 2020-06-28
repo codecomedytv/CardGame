@@ -72,7 +72,7 @@ namespace CardGame.Server.Game {
 		{
 			var player = Players[playerId];
 			var card = (Unit)CardCatalog[cardId];
-			if (!card.CanBeDeployed || player.State != States.Idle)
+			if (card.State != Card.States.CanBeDeployed || player.State != States.Idle)
 			{
 				Disqualify(player);
 				return;
@@ -90,7 +90,7 @@ namespace CardGame.Server.Game {
 			var player = Players[playerId];
 			var attacker = (Unit) CardCatalog[attackerId];
 			var defender = (Unit) CardCatalog[defenderId];
-			if (!attacker.CanAttack || !player.Opponent.Field.Contains(defender) || !attacker.ValidAttackTargets.Contains(defender) || player.State != States.Idle)
+			if (attacker.State != Card.States.CanAttack || !player.Opponent.Field.Contains(defender) || !attacker.ValidAttackTargets.Contains(defender) || player.State != States.Idle)
 			{
 				Disqualify(player);;
 				return;
@@ -106,7 +106,7 @@ namespace CardGame.Server.Game {
 		{
 			var player = Players[playerId];
 			var attacker = (Unit) CardCatalog[attackerId];
-			if (!attacker.CanAttack || player.Opponent.Field.Count != 0 || player.State != States.Idle)
+			if (attacker.State != Card.States.CanAttack || player.Opponent.Field.Count != 0 || player.State != States.Idle)
 			{
 				Disqualify(player);
 				return;
@@ -122,7 +122,7 @@ namespace CardGame.Server.Game {
 		{
 			var player = Players[playerId];
 			var card = (Support)CardCatalog[faceDownId];
-			if (!card.CanBeSet || player.State != States.Idle)
+			if (card.State != Card.States.CanBeSet || player.State != States.Idle)
 			{
 				Disqualify(player);
 				return;
@@ -140,7 +140,7 @@ namespace CardGame.Server.Game {
 			var skill = (Manual) card.Skill;
 			var target = CardCatalog[targetId];
 			var invalidState = !(player.State == States.Idle || player.State == States.Active);
-			if (!card.CanBeActivated || invalidState)
+			if (card.State != Card.States.CanBeActivated || invalidState)
 			{
 				Disqualify(player);
 				return;

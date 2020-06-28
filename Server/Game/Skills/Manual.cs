@@ -14,7 +14,6 @@ namespace CardGame.Server.Game.Skills
                 return;
             }
             
-            // Doesn't seem right?
             if (Triggers.Count > 0 && !Triggers.Contains(gameEvent.Identity))
             {
                 return;
@@ -23,7 +22,7 @@ namespace CardGame.Server.Game.Skills
             _SetUp();
             if(CanBeUsed && Card is Support support)
             {
-                support.CanBeActivated = true;
+                support.State = Card.States.CanBeActivated;
             }
         }
 
@@ -35,7 +34,7 @@ namespace CardGame.Server.Game.Skills
         public void Activate(Card? target)
         {
             Target = target;
-            Card.Activated = true;
+            Card.State = Card.States.CanBeActivated;
             CanBeUsed = false;
             History.Add(new Activate(Controller, (Support) Card, this, target));
         }
@@ -43,7 +42,7 @@ namespace CardGame.Server.Game.Skills
         public void Resolve()
         {
             _Resolve();
-            Card.Activated = false;
+            Card.State = Card.States.Passive;
             Controller.Support.Remove(Card);
             Owner.Graveyard.Add(Card);
             EmitSignal(nameof(Resolved));
