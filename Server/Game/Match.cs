@@ -127,8 +127,8 @@ namespace CardGame.Server.Game {
 				Disqualify(player);
 				return;
 			}
-			player.Move(player.Hand, card, player.Support);
-			History.Add(new Move(GameEvents.SetFaceDown, player, player.Hand, card, player.Support));
+
+			player.SetFaceDown(card);
 			player.SetState(States.Idle);
 			Update();
 		}

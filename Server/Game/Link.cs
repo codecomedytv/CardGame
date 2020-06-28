@@ -32,7 +32,7 @@ namespace CardGame.Server.Game {
 			}
 
 			ApplyConstants();
-			if (gameEvent.Identity == GameEvents.SetFaceDown || gameEvent.Identity == GameEvents.EndTurn)
+			if (gameEvent is SetFaceDown || gameEvent is EndTurn)
 			{
 				return;
 			}
@@ -77,7 +77,7 @@ namespace CardGame.Server.Game {
 			}
 		}
 
-		public void Resolve()
+		public async void Resolve()
 		{
 			while (Chain.Count != 0)
 			{
@@ -85,6 +85,7 @@ namespace CardGame.Server.Game {
 				resolvable.Resolve();
 				if (resolvable is Skill skill && skill.Targeting)
 				{
+					// I don't think we're continuing the resolve here in async methods
 					return;
 				}
 			}

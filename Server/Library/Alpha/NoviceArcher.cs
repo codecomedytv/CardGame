@@ -32,7 +32,7 @@ namespace CardGame.Server
             
             protected override void _Trigger(Event Event)
             {
-                Triggered = Event is Move move && move.Identity == GameEvents.Deploy && move.Card == Card;
+                Triggered = Event is Deploy deployed && deployed.Card == Card;
             }
 
             protected override async void _Resolve()

@@ -115,7 +115,7 @@ namespace CardGame.Server.Game.Cards
                     defending.Field.Remove(Defender);
                     defending.Graveyard.Add(Defender);
                     Defender.Zone = Defender.Owner.Graveyard;
-                    History.Add(new Move(GameEvents.DestroyByBattle, Attacker, defending.Field, Defender, Defender.Owner.Graveyard));
+                    History.Add(new Destroy(Attacker, defending, Defender));
                 }
                 else if (Attacker.Attack <= Defender.Defense && Defender.Attack > Attacker.Defense)
                 {
@@ -132,7 +132,7 @@ namespace CardGame.Server.Game.Cards
                     attacking.Field.Remove(Attacker);
                     attacking.Graveyard.Add(Attacker);
                     Attacker.Zone = Attacker.Owner.Graveyard;
-                    History.Add(new Move(GameEvents.DestroyByBattle, Defender, attacking.Field, Attacker, Attacker.Owner.Graveyard));
+                    History.Add(new Destroy(Defender, attacking, Attacker));
                     if (attacking.Health <= 0)
                     {
                         defending.Win();

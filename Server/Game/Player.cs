@@ -111,6 +111,12 @@ namespace CardGame.Server {
 			History.Add(new Deploy(this, this, unit));
 		}
 
+		public void SetFaceDown(Support support)
+		{
+			Move(Hand, support, Support);
+			History.Add(new SetFaceDown(this, this, support));
+		}
+
 		public void Win() => History.Add(new GameOver(this, Opponent));
 
 		public bool HasTag(TagIds tagId) => Tags.Any(tag => tag.TagId == tagId);

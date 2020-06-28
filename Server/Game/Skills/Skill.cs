@@ -29,29 +29,29 @@ namespace CardGame.Server.Game.Skills {
 		protected void Bounce(Card bounced)
         {
 	        Move(bounced.Controller.Field, bounced, bounced.Owner.Hand);
-            History.Add(new Move(GameEvents.Bounce, Card, bounced.Controller.Field, bounced, bounced.Owner.Hand));
+            History.Add(new Bounce(Card, bounced.Owner, bounced));
         }
 
         protected void Mill(Card milled)
         {
 	        Move(milled.Controller.Deck, milled, milled.Controller.Graveyard);
-            History.Add(new Move(GameEvents.Mill, Card, milled.Controller.Deck, milled, milled.Controller.Graveyard));
+            History.Add(new Mill(Card, milled.Owner, milled));
         }
 
-        protected void Draw(Player who, int count = 1)
+        protected void Draw(Player player, int count = 1)
         {
 	        for (var i = 0; i < 1; i++)
 	        {
-		        var card = who.Deck.Top;
-		        Move(who.Deck, card, who.Hand);
-		        History.Add(new Move(GameEvents.Draw, Card, who.Deck, card, who.Hand));
+		        var card = player.Deck.Top;
+		        Move(player.Deck, card, player.Hand);
+		        History.Add(new Draw(Card, player, card));
 	        }
         }
 
         protected void Discard(Card discarded)
         {
 	        Move(discarded.Owner.Hand, discarded, discarded.Owner.Graveyard);
-            History.Add(new Move(GameEvents.Discard, Card, discarded.Owner.Hand, discarded, discarded.Owner.Graveyard));
+            History.Add(new Discard(Card, discarded.Owner, discarded));
         }
 
         protected void Destroy(Card destroyed)
@@ -61,14 +61,14 @@ namespace CardGame.Server.Game.Skills {
                 return;
             }
             Move(destroyed.Controller.Field, destroyed, destroyed.Owner.Graveyard);
-            History.Add(new Move(GameEvents.DestroyByEffect, Card, destroyed.Controller.Field, destroyed, destroyed.Owner.Graveyard));
+            History.Add(new Destroy(Card, destroyed.Owner, destroyed));
         }
 
         protected void TopDeck(Card topDecked)
         {
 	        var origin = topDecked.Zone;
 	        Move(origin, topDecked, topDecked.Owner.Deck);
-            History.Add(new Move(GameEvents.TopDeck, Card, origin, topDecked, topDecked.Owner.Deck));
+            History.Add(new TopDeck(Card, topDecked.Owner, topDecked));
         }
         protected void AddTargets(IEnumerable<Card> cards)
         {
