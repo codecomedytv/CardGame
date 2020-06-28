@@ -38,11 +38,9 @@ namespace CardGame.Client.Room
 
         private void OnCardDoubleClicked(Card card)
         {
-            GD.Print($"{card} was double clicked");
             switch (card.State)
             {
                 case CardStates.CanBeDeployed:
-                    GD.Print("Deploying Card");
                     EmitSignal(nameof(Deploy), card.Id);
                     break;
                 case CardStates.CanBeSet:

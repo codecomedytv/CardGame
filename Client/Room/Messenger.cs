@@ -81,9 +81,9 @@ namespace CardGame.Client.Room
         }
 
         [Puppet]
-        public void QueueState(States State)
+        public void QueueState(States state)
         {
-            EmitSignal(nameof(StateQueued), State);
+            EmitSignal(nameof(StateQueued), state);
         }
 
         [Puppet]

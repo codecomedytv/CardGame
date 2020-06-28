@@ -77,7 +77,7 @@ namespace CardGame.Server.Game {
 			}
 		}
 
-		public async void Resolve()
+		public void Resolve()
 		{
 			while (Chain.Count != 0)
 			{

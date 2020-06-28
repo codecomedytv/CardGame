@@ -13,7 +13,6 @@ namespace CardGame.Server
             SetCode = SetCodes.AlphaTrainingTrainer;
             Attack = 1000;
             Defense = 1000;
-            GD.PushWarning("Skill Not Implemented");
         }
     }
 }

@@ -38,8 +38,6 @@ namespace CardGame.Tests.Scripts.Serverside
 			// Player A May Respond To Own Action (Repeat This Until Pass) From ACTIVE
 			// Player B May Respond (From ACTIVE)
 			// Player A May Respond (From ACTIVE)
-			
-			const int directAttack = -1;
 			var attacker = Player.Hand[6];
 			var chainMines = (Support)Opponent.Hand[3];
 			

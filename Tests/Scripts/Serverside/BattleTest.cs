@@ -74,7 +74,6 @@ namespace CardGame.Tests.Scripts.Serverside
             Play.PassPlay(Player.Id);
             Play.EndTurn(Player.Id);
             Play.EndTurn(Opponent.Id);
-            const int directAttack = -1;
             var expectedLife = Opponent.Health - debug15001000.Attack;
             Play.DirectAttack(Player.Id, debug15001000.Id);
             Play.PassPlay(Opponent.Id);

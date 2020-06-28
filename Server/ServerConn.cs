@@ -16,15 +16,11 @@ namespace CardGame.Server {
 		
 		public override void _Ready() 
 		{
-			//Host();
 		}
 	
 		public override void _Process(float delta) 
 		{
 			if(Queue.Count > 1) { CreateRoom(); }
-			
-			// For some reason we need to call this manually if we override
-			// process otherwise multiplayer won't work!
 			Multiplayer.Poll();
 		}
 		
@@ -47,7 +43,6 @@ namespace CardGame.Server {
 		[Master]
 		public void RegisterPlayer(int player, List<int> deckList)
 		{
-			//List<SetCodes> deckCodes = deckList.ConvertAll(SetCodes).ToList();
 			Queue.Enqueue(new Player(player, deckList.Select(c => (SetCodes) c).ToList()));
 		}
 
@@ -68,8 +63,6 @@ namespace CardGame.Server {
 			AddChild(room);
 			// Add disqualification Method Here
 			foreach (var player in players) { RpcId(player.Id, "CreateRoom", room.Name, player.Seat);}
-			//RpcId(players[0].Id, "CreateRoom", room.Name, players[0]);
-			//RpcId(players[1].Id, "CreateRoom", room.Name);
 		}
 		
 		private Players GetPlayers(int count = 2)
