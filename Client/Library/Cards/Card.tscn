@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Client/Library/Card/Card.cs" type="Script" id=1]
+[ext_resource path="res://Client/Library/Cards/Card.cs" type="Script" id=1]
 [ext_resource path="res://assets/CardArt/cultist.png" type="Texture" id=2]
 [ext_resource path="res://assets/UI/CardFrame_Lava.png" type="Texture" id=3]
 [ext_resource path="res://assets/fonts/LemonMilkbolditalic.otf" type="DynamicFontData" id=4]
@@ -33,10 +33,7 @@ use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 7 )
 
-[node name="Card" type="Button" groups=[
-"cards",
-]]
-self_modulate = Color( 1, 1, 1, 0 )
+[node name="Visual" type="Control"]
 margin_right = 100.0
 margin_bottom = 150.0
 rect_min_size = Vector2( 100, 150 )
@@ -51,6 +48,9 @@ margin_right = 100.0
 margin_bottom = 150.0
 rect_min_size = Vector2( 100, 25 )
 alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Attack" type="Label" parent="Battle"]
 margin_left = 6.0
@@ -115,6 +115,3 @@ position = Vector2( 49.064, 39.0809 )
 scale = Vector2( 0.958936, 0.967719 )
 texture = ExtResource( 2 )
 centered = false
-[connection signal="mouse_entered" from="." to="." method="_on_Card_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_Card_mouse_exited"]
-[connection signal="pressed" from="." to="." method="_on_Card_pressed"]

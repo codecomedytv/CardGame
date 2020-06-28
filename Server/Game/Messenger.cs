@@ -37,9 +37,14 @@ namespace CardGame.Server.Game.Network {
 		
 		public virtual void OnPlayExecuted(Event gameEvent)
 		{
-			// var message = gameEvent.Message;
-			// RpcId(player.Id, "QueueEvent", message.Player);
-			// RpcId(player.Opponent.Id, "QueueEvent", message.Opponent);
+			if (gameEvent.Identity == GameEvents.Draw)
+			{
+				var ge = (Move) gameEvent;
+				var player = ge.Card.Controller;
+				var card = ge.Card;
+				RpcId(player.Id, "QueueDraw", card.Id, card.SetCode);
+				RpcId(player.Opponent.Id, "QueueDraw");
+			}
 		}
 
 		public virtual void Update(IEnumerable<Player> players)

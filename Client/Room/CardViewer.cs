@@ -1,7 +1,7 @@
 ﻿using CardGame.Client.Library.Cards;
 using Godot;
 
-namespace CardGame.Client.Game
+namespace CardGame.Client.Room
 {
     public class CardViewer: TextureRect
     {
@@ -28,7 +28,7 @@ namespace CardGame.Client.Game
 
         private void ViewCard()
         {
-            foreach (Card card in GetTree().GetNodesInGroup("cards"))
+            /*foreach (Card card in GetTree().GetNodesInGroup("cards"))
             {
                 if(card.GetGlobalRect().HasPoint(GetGlobalMousePosition()))
                 {
@@ -43,7 +43,7 @@ namespace CardGame.Client.Game
                 Battle.Text = card.CardType == CardTypes.Unit ? $"Warrior / ATK {card.Attack} / DEF {card.Defense}" : "";
 
                 Effect.Text = card.Effect;
-            }
+            }*/
         }
     }
 }

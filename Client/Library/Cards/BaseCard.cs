@@ -4,6 +4,7 @@ namespace CardGame.Client.Library.Cards
 {
     public enum CardTypes
     {
+        Null,
         Unit,
         Support
     };
@@ -28,5 +29,14 @@ namespace CardGame.Client.Library.Cards
     public class Support : BaseCard
     {
         public CardTypes CardType = CardTypes.Support;
+    }
+    
+    public class NullCard: BaseCard
+    {
+        public CardTypes CardType = CardTypes.Null;
+        public NullCard()
+        {
+            SetCode = SetCodes.NullCard;
+        }
     }
 }

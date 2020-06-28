@@ -58,9 +58,12 @@
     <Compile Include="addons\WAT\core\test\Recorder.cs" />
     <Compile Include="addons\WAT\core\test\Test.cs" />
     <Compile Include="Client\ClientConn.cs" />
-    <Compile Include="Client\Game\CardViewer.cs" />
-    <Compile Include="Client\Game\Game.cs" />
-    <Compile Include="Client\Game\Messenger.cs" />
+    <Compile Include="Client\Player\Model.cs" />
+    <Compile Include="Client\Player\Controller.cs" />
+    <Compile Include="Client\Player\View.cs" />
+    <Compile Include="Client\Room\CardViewer.cs" />
+    <Compile Include="Client\Room\Game.cs" />
+    <Compile Include="Client\Room\Messenger.cs" />
     <Compile Include="Client\Library\Alpha\CounterAttack.cs" />
     <Compile Include="Client\Library\Alpha\DungeonGuide.cs" />
     <Compile Include="Client\Library\Alpha\GuardPuppy.cs" />
@@ -71,7 +74,7 @@
     <Compile Include="Client\Library\Alpha\WrongWay.cs" />
     <Compile Include="Client\Library\Cards\BaseCard.cs" />
     <Compile Include="Client\Library\Cards\Card.cs" />
-    <Compile Include="Client\Library\Library.cs" />
+    <Compile Include="Client\Library\CheckOut.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="GameEvents.cs" />
     <Compile Include="Main.cs" />
@@ -689,9 +692,9 @@
     <Content Include="Assets\UI\test.png" />
     <Content Include="Assets\UI\test.png.import" />
     <Content Include="Client\Client.tscn" />
-    <Content Include="Client\Game\CardViewer.tscn" />
-    <Content Include="Client\Game\Game.tscn" />
-    <Content Include="Client\Game\PlayerViewer.tscn" />
+    <Content Include="Client\Room\CardViewer.tscn" />
+    <Content Include="Client\Room\Game.tscn" />
+    <Content Include="Client\Room\PlayerViewer.tscn" />
     <Content Include="Client\Library\Cards\Card.tscn" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

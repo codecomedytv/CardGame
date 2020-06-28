@@ -1,3 +1,4 @@
+using CardGame.Client.Library.Alpha;
 using Godot;
 
 namespace CardGame.Client.Library.Cards
@@ -16,6 +17,7 @@ namespace CardGame.Client.Library.Cards
 		private Label DefenseLabel;
 		private Sprite Art;
 		private TextureRect Back;
+
 
 		public override void _Ready()
 		{
@@ -44,11 +46,19 @@ namespace CardGame.Client.Library.Cards
 				case Support support:
 					CardType = support.CardType;
 					break;
+				case NullCard nullCard:
+					CardType = CardTypes.Null;
+					break;
 			}
 		}
 
 		private void Visualize()
 		{
+			if (CardType == CardTypes.Null)
+			{
+				Back.Visible = true;
+				return;
+			}
 			Identifier.Text = Id.ToString();
 			Art.Texture = ResourceLoader.Load(Illustration) as Texture;
 			if (CardType != 0) return;

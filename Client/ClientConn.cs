@@ -1,3 +1,4 @@
+using CardGame.Client.Room;
 using Godot;
 using Godot.Collections;
 
@@ -55,8 +56,8 @@ namespace CardGame.Client {
 		[Puppet]
 		public void CreateRoom(string gameId, int seatPosition){
 			GD.Print("Creating Rooms");
-			var gameScene = (PackedScene) ResourceLoader.Load("res://Client/Game/Game.tscn");
-			var room = (Game.Game) gameScene.Instance();
+			var gameScene = (PackedScene) ResourceLoader.Load("res://Client/Room/Game.tscn");
+			var room = (Game) gameScene.Instance();
 			room.Name = gameId;
 			AddChild(room);
 			room.SetUp();

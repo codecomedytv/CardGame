@@ -10,7 +10,7 @@ namespace CardGame.Server.Game.Cards {
 	public abstract class Card : Reference, ISource
 	{
 		protected string Title = "Card";
-		protected SetCodes SetCode = 0;
+		public SetCodes SetCode = 0;
 		public int Id;
 		public Player Owner;
 		public Player Controller;

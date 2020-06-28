@@ -2,7 +2,7 @@
 using Godot;
 using Godot.Collections;
 
-namespace CardGame.Client.Game
+namespace CardGame.Client.Room
 {
     public class Messenger: Control
     {
@@ -11,6 +11,9 @@ namespace CardGame.Client.Game
 
         [Signal]
         public delegate void QueuedEvent();
+
+        [Signal]
+        public delegate void DrawQueued();
 
         [Signal]
         public delegate void ExecutedEvents();
@@ -30,6 +33,12 @@ namespace CardGame.Client.Game
         {
             RpcId(ServerId, "SetReady", Id); // Complains about no network peer being assigned?
         }
+        
+        [Puppet]
+        public void ExecuteEvents()
+        {
+            EmitSignal(nameof(ExecutedEvents));
+        }
 
         [Puppet]
         public void QueueEvent(Dictionary<string, int> message)
@@ -38,9 +47,15 @@ namespace CardGame.Client.Game
         }
 
         [Puppet]
-        public void ExecuteEvents()
+        public void QueueDraw(int id, SetCodes setCode)
         {
-            EmitSignal(nameof(ExecutedEvents));
+            EmitSignal(nameof(DrawQueued), id, setCode);
+        }
+
+        [Puppet]
+        public void QueueDraw()
+        {
+            EmitSignal(nameof(DrawQueued));
         }
 
         [Puppet]
