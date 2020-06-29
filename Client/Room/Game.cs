@@ -45,9 +45,11 @@ namespace CardGame.Client.Room {
 			Messenger.Connect(nameof(Messenger.DrawQueued), this, nameof(OnDrawQueued));
 			Messenger.Connect(nameof(Messenger.DeployQueued), this, nameof(OnDeployQueued));
 			Messenger.Connect(nameof(Messenger.SetFaceDownQueued), this, nameof(OnSetFaceDownQueued));
+			Messenger.Connect(nameof(Messenger.ActivationQueued), this, nameof(OnActivationQueued));
 			CardCatalog.Connect(nameof(CardCatalog.MouseEnteredCard), CardViewer, nameof(CardViewer.OnCardClicked));
 			CardCatalog.Connect(nameof(CardCatalog.Deploy), Messenger, nameof(Messenger.Deploy));
 			CardCatalog.Connect(nameof(CardCatalog.SetFaceDown), Messenger, nameof(Messenger.SetFaceDown));
+			CardCatalog.Connect(nameof(CardCatalog.Activate), Messenger, nameof(Messenger.Activate));
 			
 			// See Execute()
 			Player.Connect(nameof(Controller.Executed), this, nameof(SetState));
@@ -158,6 +160,20 @@ namespace CardGame.Client.Room {
 		public void OnSetFaceDownQueued()
 		{
 			Opponent.SetFaceDown();
+		}
+
+		public void OnActivationQueued(int id, int positionInLink)
+		{
+			var card = CardCatalog[id];
+			card.ChainIndex = positionInLink;
+			Player.Activate(card);
+		}
+
+		public void OnActivationQueued(int id, SetCodes setCode, int positionInLink)
+		{
+			var card = CheckOut.Fetch(id, setCode);
+			CardCatalog[id] = card;
+			// ?????
 		}
 
 		private void OnEndTurn()

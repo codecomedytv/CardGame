@@ -64,6 +64,13 @@ namespace CardGame.Server.Game.Network {
 					RpcId(setFaceDown.Controller.Opponent.Id, "QueueSetFaceDown");
 					break;
 				}
+				case Activate activation:
+				{
+					RpcId(activation.Player.Id, "QueueActivation", activation.Card.Id, activation.PositionInLink);
+					RpcId(activation.Player.Opponent.Id, "QueueActivation", activation.Card.Id, activation.Card.SetCode,
+						activation.PositionInLink);
+					break;
+				}
 			}
 		}
 

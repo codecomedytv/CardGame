@@ -66,6 +66,11 @@ namespace CardGame.Client.Player
             Model.Support.Add(card);
             View.SetFaceDown(card);
         }
+
+        public void Activate(Card card)
+        {
+            View.Activate(card);
+        }
     }
     
     

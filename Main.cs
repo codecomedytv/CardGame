@@ -16,6 +16,7 @@ namespace CardGame
 
         public void Start()
         {
+            OS.WindowFullscreen = true;
             GetNode<VBoxContainer>("Options").Hide();
             GetNode<ServerConn>("ScrollContainer/VBoxContainer/Server").Host();
             GetNode<ClientConn>("ScrollContainer/VBoxContainer/Client").Join();

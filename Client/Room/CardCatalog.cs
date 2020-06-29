@@ -16,6 +16,9 @@ namespace CardGame.Client.Room
 
         [Signal]
         public delegate void SetFaceDown();
+
+        [Signal]
+        public delegate void Activate();
         
         private readonly System.Collections.Generic.Dictionary<int, Card> CardsById = new System.Collections.Generic.Dictionary<int, Card>();
         public Controller User;
@@ -67,6 +70,10 @@ namespace CardGame.Client.Room
                 case CardStates.CanBeSet:
                     card.Legal.Visible = false;
                     EmitSignal(nameof(SetFaceDown), card.Id);
+                    break;
+                case CardStates.CanBeActivated:
+                    card.Legal.Visible = false;
+                    EmitSignal(nameof(Activate), card, new Array());
                     break;
             }
         }

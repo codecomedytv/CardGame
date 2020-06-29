@@ -93,6 +93,13 @@ namespace CardGame.Client.Player
             QueueCallback(card.GetParent(), AddDelay(0.3F), "remove_child", card);
             QueueCallback(Support, Delay, "add_child", card);
         }
+
+        public void Activate(Card card)
+        {
+            // flip face-up, display/play chain?
+            QueueCallback(card, Delay, nameof(card.FlipFaceUp));
+            QueueCallback(card, Delay, nameof(card.AddToChain));
+        }
         
         private float AddDelay(float delay)
         {
