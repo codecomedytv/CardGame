@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://assets/UI/CardBack_Wooden.png" type="Texture" id=1]
 [ext_resource path="res://assets/fonts/LemonMilkbolditalic.otf" type="DynamicFontData" id=2]
@@ -91,6 +91,18 @@ font_data = ExtResource( 2 )
 [sub_resource type="StyleBoxTexture" id=15]
 texture = ExtResource( 1 )
 region_rect = Rect2( 0, 0, 1422, 2000 )
+
+[sub_resource type="DynamicFontData" id=16]
+font_path = "res://Assets/fonts/LemonMilkbolditalic.otf"
+
+[sub_resource type="DynamicFont" id=17]
+size = 50
+outline_size = 6
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+extra_spacing_char = 10
+font_data = SubResource( 16 )
 
 [node name="Playmat" type="Control" groups=[
 "playmat",
@@ -373,3 +385,14 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Disqualified" type="Label" parent="."]
+visible = false
+margin_left = 424.0
+margin_top = 490.0
+margin_right = 1497.0
+margin_bottom = 886.0
+custom_fonts/font = SubResource( 17 )
+text = "Disqualified"
+align = 1
+valign = 1

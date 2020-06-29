@@ -14,6 +14,9 @@ namespace CardGame.Client.Room
         public delegate void QueuedEvent();
 
         [Signal]
+        public delegate void Disqualified();
+
+        [Signal]
         public delegate void DrawQueued();
 
         [Signal]
@@ -42,6 +45,12 @@ namespace CardGame.Client.Room
         public void SetReady()
         {
             RpcId(ServerId, "SetReady", Id); // Complains about no network peer being assigned?
+        }
+
+        [Puppet]
+        public void Disqualify()
+        {
+            EmitSignal(nameof(Disqualified));
         }
         
         [Puppet]

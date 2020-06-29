@@ -74,9 +74,9 @@ namespace CardGame.Server.Game.Network {
 			}
 		}
 
-		public virtual void DisqualifyPlayer(int player)
+		public virtual void DisqualifyPlayer(int playerId)
 		{
-			GD.Print($"Player {player} disqualified");
+			RpcId(playerId, "Disqualify");
 		}
 
 		[Master]

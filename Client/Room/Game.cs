@@ -19,6 +19,7 @@ namespace CardGame.Client.Room {
 		private Controller Opponent;
 		private CardViewer CardViewer;
 		private Button EndTurn;
+		private Label DisqualificationNotice;
 		public override void _Ready()
 		{
 			AddChild(Gfx);
@@ -26,11 +27,13 @@ namespace CardGame.Client.Room {
 			Opponent = new Controller(GetNode<View>("Opponent"), false);
 			CardViewer = GetNode<CardViewer>("Background/CardViewer");
 			EndTurn = GetNode<Button>("Background/EndTurn");
+			DisqualificationNotice = GetNode<Label>("Disqualified");
+			Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
+			Messenger.Connect(nameof(Messenger.Disqualified), this, nameof(OnDisqualified));
 			Messenger.Connect(nameof(Messenger.CardStateSet), this, nameof(OnCardStateSet));
 			Messenger.Connect(nameof(Messenger.StateQueued), this, nameof(OnStateQueued));
 			Messenger.Connect(nameof(Messenger.DrawQueued), this, nameof(OnDrawQueued));
 			Messenger.Connect(nameof(Messenger.DeployQueued), this, nameof(OnDeployQueued));
-			Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
 			CardCatalog.Connect(nameof(CardCatalog.CardClicked), CardViewer, nameof(CardViewer.OnCardClicked));
 			CardCatalog.Connect(nameof(CardCatalog.Deploy), Messenger, nameof(Messenger.Deploy));
 			CardCatalog.Connect(nameof(CardCatalog.SetFaceDown), Messenger, nameof(Messenger.SetFaceDown));
@@ -52,6 +55,11 @@ namespace CardGame.Client.Room {
 			// Await Both Of These (Maybe we could prepare a signal, wait on both, then set state)
 			Player.Execute();
 			Opponent.Execute();
+		}
+
+		private void OnDisqualified()
+		{
+			DisqualificationNotice.Visible = true;
 		}
 		
 		public void OnStateQueued(States state)
