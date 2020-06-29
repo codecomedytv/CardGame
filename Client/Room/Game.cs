@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CardGame.Client.Library;
 using CardGame.Client.Library.Cards;
@@ -30,6 +32,7 @@ namespace CardGame.Client.Room {
 			DisqualificationNotice = GetNode<Label>("Disqualified");
 			Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
 			Messenger.Connect(nameof(Messenger.Disqualified), this, nameof(OnDisqualified));
+			Messenger.Connect(nameof(Messenger.DeckLoaded), this, nameof(OnDeckLoaded));
 			Messenger.Connect(nameof(Messenger.CardStateSet), this, nameof(OnCardStateSet));
 			Messenger.Connect(nameof(Messenger.StateQueued), this, nameof(OnStateQueued));
 			Messenger.Connect(nameof(Messenger.DrawQueued), this, nameof(OnDrawQueued));
@@ -61,6 +64,16 @@ namespace CardGame.Client.Room {
 		{
 			DisqualificationNotice.Visible = true;
 		}
+
+		public void OnDeckLoaded(Dictionary<int, SetCodes> deck)
+		{
+			foreach (var card in deck.Select(serial => CheckOut.Fetch(serial.Key, serial.Value)))
+			{
+				CardCatalog[card.Id] = card;
+				card.Player = Player;
+				// Set Zone
+			}
+		}
 		
 		public void OnStateQueued(States state)
 		{
@@ -74,8 +87,7 @@ namespace CardGame.Client.Room {
 
 		private void OnDrawQueued(int id, SetCodes setCode)
 		{
-			var card = CheckOut.Fetch(id, setCode);
-			CardCatalog[id] = card;
+			var card = CardCatalog[id];
 			Player.Draw(card);
 		}
 

@@ -41,6 +41,11 @@ namespace CardGame.Server.Game.Network {
 		{
 			switch (gameEvent)
 			{
+				case LoadDeck loadDeck:
+				{
+					RpcId(loadDeck.Player.Id, "LoadDeck", loadDeck.Deck.ToDictionary(c => c.Id, c => c.SetCode));
+					break;
+				}
 				case Draw draw:
 				{
 					RpcId(draw.Controller.Id, "QueueDraw", draw.Card.Id, draw.Card.SetCode);

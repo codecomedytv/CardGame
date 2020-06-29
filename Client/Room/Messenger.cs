@@ -14,6 +14,9 @@ namespace CardGame.Client.Room
         public delegate void QueuedEvent();
 
         [Signal]
+        public delegate void DeckLoaded();
+        
+        [Signal]
         public delegate void Disqualified();
 
         [Signal]
@@ -63,6 +66,12 @@ namespace CardGame.Client.Room
         public void QueueEvent(Dictionary<string, int> message)
         {
             EmitSignal(nameof(QueuedEvent), message);
+        }
+
+        [Puppet]
+        public void LoadDeck(Dictionary<int, SetCodes> deck)
+        {
+            EmitSignal(nameof(DeckLoaded), deck);
         }
 
         [Puppet]
