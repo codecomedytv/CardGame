@@ -21,6 +21,7 @@ namespace CardGame.Client.Room {
 		private Controller Opponent;
 		private CardViewer CardViewer;
 		private Button ActionButton;
+		private AnimatedSprite ActionButtonAnimation;
 		private Button EndTurn;
 		private Label DisqualificationNotice;
 		private int ExecutionCount = 0;
@@ -32,6 +33,7 @@ namespace CardGame.Client.Room {
 			Opponent = new Controller(GetNode<View>("Opponent"), false);
 			CardViewer = GetNode<CardViewer>("Background/CardViewer");
 			ActionButton = GetNode<Button>("Background/ActionButton");
+			ActionButtonAnimation = ActionButton.GetNode<AnimatedSprite>("Glow");
 			EndTurn = GetNode<Button>("Background/EndTurn");
 			DisqualificationNotice = GetNode<Label>("Disqualified");
 			ActionButton.Connect("pressed", this, nameof(OnActionButtonPressed));
@@ -78,6 +80,9 @@ namespace CardGame.Client.Room {
 				return;
 			}
 
+			ActionButtonAnimation.Stop();
+			ActionButtonAnimation.Hide();
+			ActionButtonAnimation.Frame = 0;
 			ActionButton.Text = "";
 			Messenger.PassPriority();
 		}
@@ -90,6 +95,8 @@ namespace CardGame.Client.Room {
 			Player.SetState(StateAfterExecution);
 			if (StateAfterExecution == States.Active)
 			{
+				ActionButtonAnimation.Show();
+				ActionButtonAnimation.Play();
 				ActionButton.Text = "Pass";
 			}
 			ExecutionCount = 0;
