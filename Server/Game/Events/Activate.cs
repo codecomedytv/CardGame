@@ -11,6 +11,7 @@ namespace CardGame.Server.Game.Events
         public readonly Manual Skill;
         public readonly Card? Target;
 
+        
         public Activate(ISource source, Support card, Manual skill, Card? target = null)
         {
             Identity = GameEvents.Activate;

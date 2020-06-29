@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using System;
+using Godot;
 
 namespace CardGame.Server.Game.Events
 {
@@ -10,6 +11,7 @@ namespace CardGame.Server.Game.Events
         {
             
         }
-        
+
     }
+    
 }

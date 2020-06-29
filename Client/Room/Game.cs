@@ -49,6 +49,7 @@ namespace CardGame.Client.Room {
 
 		private void Execute()
 		{
+			// Await Both Of These (Maybe we could prepare a signal, wait on both, then set state)
 			Player.Execute();
 			Opponent.Execute();
 		}
