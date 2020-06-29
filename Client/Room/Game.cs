@@ -5,6 +5,7 @@ using CardGame.Client.Library;
 using CardGame.Client.Library.Cards;
 using CardGame.Client.Player;
 using Godot;
+using States = CardGame.Server.Game.States;
 
 namespace CardGame.Client.Room {
 
@@ -34,7 +35,6 @@ namespace CardGame.Client.Room {
 			Messenger.Connect(nameof(Messenger.Disqualified), this, nameof(OnDisqualified));
 			Messenger.Connect(nameof(Messenger.DeckLoaded), this, nameof(OnDeckLoaded));
 			Messenger.Connect(nameof(Messenger.CardStateSet), this, nameof(OnCardStateSet));
-			Messenger.Connect(nameof(Messenger.StateQueued), this, nameof(OnStateQueued));
 			Messenger.Connect(nameof(Messenger.DrawQueued), this, nameof(OnDrawQueued));
 			Messenger.Connect(nameof(Messenger.DeployQueued), this, nameof(OnDeployQueued));
 			CardCatalog.Connect(nameof(CardCatalog.CardClicked), CardViewer, nameof(CardViewer.OnCardClicked));
@@ -53,7 +53,7 @@ namespace CardGame.Client.Room {
 			Messenger.CallDeferred("SetReady");
 		}
 
-		private void Execute()
+		private void Execute(States stateAfterExecution)
 		{
 			// Await Both Of These (Maybe we could prepare a signal, wait on both, then set state)
 			Player.Execute();
@@ -75,11 +75,6 @@ namespace CardGame.Client.Room {
 			}
 		}
 		
-		public void OnStateQueued(States state)
-		{
-			Player.SetState(state);
-		}
-
 		public void OnCardStateSet(int id, CardStates state)
 		{
 			CardCatalog[id].State = state;

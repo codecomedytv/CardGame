@@ -74,8 +74,7 @@ namespace CardGame.Server.Game.Network {
 					RpcId(player.Id, "SetCardState", card.Id, card.State);
 				}
 				clientViewableCards.Clear();
-				RpcId(player.Id, "QueueState", player.State);
-				RpcId(player.Id, "ExecuteEvents");
+				RpcId(player.Id, "ExecuteEvents", player.State);
 			}
 		}
 

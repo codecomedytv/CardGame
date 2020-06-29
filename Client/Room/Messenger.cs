@@ -26,9 +26,6 @@ namespace CardGame.Client.Room
         public delegate void DeployQueued();
 
         [Signal]
-        public delegate void StateQueued();
-
-        [Signal]
         public delegate void CardStateSet();
 
         [Signal]
@@ -57,9 +54,9 @@ namespace CardGame.Client.Room
         }
         
         [Puppet]
-        public void ExecuteEvents()
+        public void ExecuteEvents(States stateAfterExecution)
         {
-            EmitSignal(nameof(ExecutedEvents));
+            EmitSignal(nameof(ExecutedEvents), stateAfterExecution);
         }
 
         [Puppet]
@@ -97,12 +94,7 @@ namespace CardGame.Client.Room
         {
             EmitSignal(nameof(DeployQueued), id, setCode);
         }
-
-        [Puppet]
-        public void QueueState(States state)
-        {
-            EmitSignal(nameof(StateQueued), state);
-        }
+        
 
         [Puppet]
         public void SetCardState(int id, CardStates states)
