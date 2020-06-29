@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using CardGame.Client.Library;
 using CardGame.Client.Library.Cards;
 using Godot;
@@ -94,9 +95,14 @@ namespace CardGame.Client.Player
             QueueCallback(Support, Delay, "add_child", card);
         }
 
-        public void Activate(Card card)
+        public void Activate(Card card, bool isOpponent = false)
         {
-            // flip face-up, display/play chain?
+            if (isOpponent)
+            {
+                Support.RemoveChild(Support.GetChild(Support.GetChildCount() - 1));
+                Support.AddChild(card);
+                card.FlipFaceDown();
+            }
             QueueCallback(card, Delay, nameof(card.FlipFaceUp));
             QueueCallback(card, Delay, nameof(card.AddToChain));
         }

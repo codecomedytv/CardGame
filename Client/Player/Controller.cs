@@ -71,6 +71,14 @@ namespace CardGame.Client.Player
         {
             View.Activate(card);
         }
+
+        public void Activate(Card card, bool isOpponent)
+        {
+            // In future versions we may define zones as Dictionaries? Or store card index on the card object
+            Model.Support.RemoveAt(0);
+            Model.Support.Add(card);
+            View.Activate(card, isOpponent);
+        }
     }
     
     

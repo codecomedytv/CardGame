@@ -173,6 +173,8 @@ namespace CardGame.Client.Room {
 		{
 			var card = CheckOut.Fetch(id, setCode);
 			CardCatalog[id] = card;
+			card.ChainIndex = positionInLink;
+			Opponent.Activate(card, true);
 			// ?????
 		}
 
