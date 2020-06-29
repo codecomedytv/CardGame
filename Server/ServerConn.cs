@@ -27,8 +27,8 @@ namespace CardGame.Server {
 		public override void _Notification(int notification)
 		{
 			if(notification == NotificationExitTree) 
-			{ 
-			  Server.CloseConnection(); 
+			{
+				Server?.CloseConnection(); 
 			}
 			
 			// Have to add this here because Mono doesn't seem to process through all versions

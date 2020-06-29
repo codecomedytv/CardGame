@@ -16,6 +16,7 @@ namespace CardGame
 
         public void Start()
         {
+            GetNode<VBoxContainer>("Options").Hide();
             GetNode<ServerConn>("ScrollContainer/VBoxContainer/Server").Host();
             GetNode<ClientConn>("ScrollContainer/VBoxContainer/Client").Join();
             GetNode<ClientConn>("ScrollContainer/VBoxContainer/Client2").Join();
@@ -32,6 +33,24 @@ namespace CardGame
             GetNode<ClientConn>("ScrollContainer/VBoxContainer/Client").Join();
         }
 
-
+        public override void _Input(InputEvent inputEvent)
+        {
+            if (inputEvent is InputEventKey key && key.Pressed)
+            {
+                switch (key.Scancode)
+                {
+                    case (uint) KeyList.Q:
+                    {
+                        GetTree().Quit();
+                        break;
+                    }
+                    case (uint) KeyList.F:
+                    {
+                        OS.WindowFullscreen = !OS.WindowFullscreen;
+                        break;
+                    }
+                }
+            }
+        }
     }
 }
