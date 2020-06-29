@@ -40,7 +40,7 @@ namespace CardGame.Server.Game.Skills {
 
         protected void Draw(Player player, int count = 1)
         {
-	        for (var i = 0; i < 1; i++)
+	        for (var i = 0; i < count; i++)
 	        {
 		        var card = player.Deck.Top;
 		        Move(player.Deck, card, player.Hand);
