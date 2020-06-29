@@ -20,10 +20,12 @@ namespace CardGame.Client.Library.Cards
 		private Sprite Art;
 		private TextureRect Back;
 		private Sprite Frame;
+		public Sprite Legal;
 
 
 		public override void _Ready()
 		{
+			Legal = GetNode("Legal") as Sprite;
 			Identifier = GetNode("ID") as Label;
 			AttackLabel = GetNode("Battle/Attack") as Label;
 			DefenseLabel = GetNode("Battle/Defense") as Label;
@@ -73,21 +75,31 @@ namespace CardGame.Client.Library.Cards
 		}
 
 		[Signal]
+		public delegate void MouseExitedCard();
+
+		[Signal]
+		public delegate void MouseEnteredCard();
+		
+		[Signal]
 		public delegate void Clicked();
 
 		[Signal]
 		public delegate void DoubleClicked();
+
+		public void OnMouseEnter() => EmitSignal(nameof(MouseEnteredCard));
+
+		public void OnMouseExit() => EmitSignal(nameof(MouseExitedCard));
 		public override void _Input(InputEvent inputEvent)
 		{
 			if (inputEvent is InputEventMouseButton mouseButton && GetGlobalRect().HasPoint(mouseButton.Position))
 			{
 				if (mouseButton.Doubleclick)
 				{
-					EmitSignal(nameof(DoubleClicked), this);
+					EmitSignal(nameof(DoubleClicked));
 				}
 				else if (mouseButton.Pressed)
 				{
-					EmitSignal(nameof(Clicked), this);
+					EmitSignal(nameof(Clicked));
 				}
 			}
 			

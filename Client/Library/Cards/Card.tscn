@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Client/Library/Cards/Card.cs" type="Script" id=1]
 [ext_resource path="res://assets/CardArt/cultist.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/fonts/LemonMilkitalic.otf" type="DynamicFontData" id=5]
 [ext_resource path="res://assets/UI/CardBack_Wooden.png" type="Texture" id=6]
 [ext_resource path="res://assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://Assets/spritesheets/glow.png" type="Texture" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 size = 11
@@ -42,6 +43,14 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Legal" type="Sprite" parent="."]
+visible = false
+show_behind_parent = true
+position = Vector2( -37.7354, -36.226 )
+scale = Vector2( 0.0677191, 0.0696363 )
+texture = ExtResource( 8 )
+centered = false
 
 [node name="Battle" type="HBoxContainer" parent="."]
 margin_top = 115.0
@@ -116,3 +125,5 @@ position = Vector2( 49.064, 39.0809 )
 scale = Vector2( 0.958936, 0.967719 )
 texture = ExtResource( 2 )
 centered = false
+[connection signal="mouse_entered" from="." to="." method="OnMouseEnter"]
+[connection signal="mouse_exited" from="." to="." method="OnMouseExit"]

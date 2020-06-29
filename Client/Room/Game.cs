@@ -31,6 +31,7 @@ namespace CardGame.Client.Room {
 			AddChild(Gfx);
 			Player = new Controller(GetNode<View>("Player"), true);
 			Opponent = new Controller(GetNode<View>("Opponent"), false);
+			CardCatalog.User = Player;
 			CardViewer = GetNode<CardViewer>("Background/CardViewer");
 			ActionButton = GetNode<Button>("Background/ActionButton");
 			ActionButtonAnimation = ActionButton.GetNode<AnimatedSprite>("Glow");
