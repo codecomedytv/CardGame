@@ -34,6 +34,7 @@ namespace CardGame.Client.Player
             }
             // We may need to queue or block this to avoid interrupting animations.
             Model.State = state;
+            View.SetState(state);
         }
         
         public void Draw(Card card)

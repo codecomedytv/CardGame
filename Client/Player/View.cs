@@ -16,6 +16,7 @@ namespace CardGame.Client.Player
         public HBoxContainer Hand;
         private readonly Tween Gfx = new Tween();
         private float Delay = 0.0F;
+        public AnimatedSprite PlayingState;
 
         [Signal]
         public delegate void AnimationFinished();
@@ -23,12 +24,29 @@ namespace CardGame.Client.Player
         public override void _Ready()
         {
             AddChild(Gfx);
+            PlayingState = GetNode<AnimatedSprite>("View/PlayingState");
             Damage = GetNode<Label>("Damage");
             Deck = GetNode<Label>("Deck");
             Discard = GetNode<Label>("Discard");
             Units = GetNode<HBoxContainer>("Units");
             Support = GetNode<HBoxContainer>("Support");
             Hand = GetNode<HBoxContainer>("Hand");
+        }
+
+        public void SetState(States state)
+        {
+            if (state == States.Active || state == States.Idle)
+            {
+                PlayingState.Visible = true;
+                PlayingState.Play();
+            }
+
+            else
+            {
+                PlayingState.Frame = 0;
+                PlayingState.Visible = false;
+                PlayingState.Stop();
+            }
         }
 
         public async void Execute()
