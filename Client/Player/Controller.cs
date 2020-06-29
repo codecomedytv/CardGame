@@ -1,15 +1,16 @@
-﻿using System.IO.Ports;
-using System.Net.Configuration;
-using CardGame.Client.Library;
-using CardGame.Client.Library.Cards;
+﻿using CardGame.Client.Library.Cards;
+using Godot;
 
 namespace CardGame.Client.Player
 {
-    public class Controller
+    public class Controller: Godot.Object
     {
         public readonly Model Model;
         public readonly View View;
         public readonly bool IsUser;
+
+        [Signal]
+        public delegate void Executed();
 
         public Controller(View view, bool isUser)
         {
@@ -18,7 +19,12 @@ namespace CardGame.Client.Player
             View = view;
         }
 
-        public void Execute() => View.Execute();
+        public async void Execute()
+        {
+            View.Execute();
+            await ToSignal(View, nameof(View.AnimationFinished));
+            EmitSignal(nameof(Executed));
+        }
 
         public void SetState(States state)
         {
@@ -29,6 +35,7 @@ namespace CardGame.Client.Player
             // We may need to queue or block this to avoid interrupting animations.
             Model.State = state;
         }
+        
         public void Draw(Card card)
         {
             card.Player = this;

@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+﻿using System;
 using CardGame.Client.Library;
 using CardGame.Client.Library.Cards;
 using Godot;
@@ -17,6 +17,9 @@ namespace CardGame.Client.Player
         private readonly Tween Gfx = new Tween();
         private float Delay = 0.0F;
 
+        [Signal]
+        public delegate void AnimationFinished();
+        
         public override void _Ready()
         {
             AddChild(Gfx);
@@ -70,14 +73,14 @@ namespace CardGame.Client.Player
             return Delay;
         }
 
-        private void QueueProperty(Object obj, string property, object start, object end, float duration,
+        private void QueueProperty(Godot.Object obj, string property, object start, object end, float duration,
             float delay)
         {
             Gfx.InterpolateProperty(obj, property, start, end, duration, Tween.TransitionType.Linear,
                 Tween.EaseType.In, delay);
         }
 
-        private void QueueCallback(Object obj, float delay, string callback, object args1 = null, object args2 = null, object args3 = null, object args4 = null, object args5 = null)
+        private void QueueCallback(Godot.Object obj, float delay, string callback, object args1 = null, object args2 = null, object args3 = null, object args4 = null, object args5 = null)
         {
             Gfx.InterpolateCallback(obj, delay, callback, args1, args2, args3, args4, args5);
         }

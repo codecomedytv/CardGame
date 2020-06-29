@@ -1,11 +1,10 @@
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CardGame.Client.Library;
 using CardGame.Client.Library.Cards;
 using CardGame.Client.Player;
 using Godot;
-using States = CardGame.Server.Game.States;
+using Godot.Collections;
 
 namespace CardGame.Client.Room {
 
@@ -23,6 +22,7 @@ namespace CardGame.Client.Room {
 		private CardViewer CardViewer;
 		private Button EndTurn;
 		private Label DisqualificationNotice;
+		private int ExecutionCount = 0;
 		public override void _Ready()
 		{
 			AddChild(Gfx);
@@ -55,9 +55,20 @@ namespace CardGame.Client.Room {
 
 		private void Execute(States stateAfterExecution)
 		{
-			// Await Both Of These (Maybe we could prepare a signal, wait on both, then set state)
+			// We need to make sure all of our animations are finished (for both players) before allowing actions to happen
+			// but I didn't want to deal with async/await/threads and all that nonsense, so instead we track it via this execution count
+			Player.Connect(nameof(Controller.Executed), this, nameof(SetState), new Array(new[] {stateAfterExecution}), (uint) ConnectFlags.Oneshot);
+			Opponent.Connect(nameof(Controller.Executed), this, nameof(SetState), new Array(new[] {stateAfterExecution}), (uint) ConnectFlags.Oneshot);
 			Player.Execute();
 			Opponent.Execute();
+		}
+
+		private void SetState(States stateAfterExecution)
+		{
+			ExecutionCount += 1;
+			if (ExecutionCount != 2) return;
+			Player.SetState(stateAfterExecution);
+			ExecutionCount = 0;
 		}
 
 		private void OnDisqualified()
@@ -65,7 +76,7 @@ namespace CardGame.Client.Room {
 			DisqualificationNotice.Visible = true;
 		}
 
-		public void OnDeckLoaded(Dictionary<int, SetCodes> deck)
+		public void OnDeckLoaded(System.Collections.Generic.Dictionary<int, SetCodes> deck)
 		{
 			foreach (var card in deck.Select(serial => CheckOut.Fetch(serial.Key, serial.Value)))
 			{
