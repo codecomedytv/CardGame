@@ -20,6 +20,7 @@ namespace CardGame.Server.Game.Skills
             }
             Triggered = true;
             _Trigger(gameEvent);
+            History.Add(new Trigger(Card, Card, this));
         }
 
         protected virtual void _Trigger(Event gameEvent)

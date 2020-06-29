@@ -102,6 +102,7 @@
     <Compile Include="Server\Game\Events\ModifyPlayer.cs" />
     <Compile Include="Server\Game\Events\SetFaceDown.cs" />
     <Compile Include="Server\Game\Events\TopDeck.cs" />
+    <Compile Include="Server\Game\Events\Trigger.cs" />
     <Compile Include="Server\Game\History.cs" />
     <Compile Include="Server\Game\Match.cs" />
     <Compile Include="Server\Game\Cards\Card.cs" />
