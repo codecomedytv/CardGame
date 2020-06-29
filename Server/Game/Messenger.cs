@@ -58,6 +58,12 @@ namespace CardGame.Server.Game.Network {
 					RpcId(deploy.Controller.Opponent.Id, "QueueDeploy", deploy.Card.Id, deploy.Card.SetCode);
 					break;
 				}
+				case SetFaceDown setFaceDown:
+				{
+					RpcId(setFaceDown.Controller.Id, "QueueSetFaceDown", setFaceDown.Card.Id);
+					RpcId(setFaceDown.Controller.Opponent.Id, "QueueSetFaceDown");
+					break;
+				}
 			}
 		}
 

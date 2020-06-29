@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using CardGame.Client.Library.Cards;
 using CardGame.Client.Player;
 using Godot;

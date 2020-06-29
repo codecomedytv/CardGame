@@ -44,6 +44,7 @@ namespace CardGame.Client.Room {
 			Messenger.Connect(nameof(Messenger.CardStateSet), this, nameof(OnCardStateSet));
 			Messenger.Connect(nameof(Messenger.DrawQueued), this, nameof(OnDrawQueued));
 			Messenger.Connect(nameof(Messenger.DeployQueued), this, nameof(OnDeployQueued));
+			Messenger.Connect(nameof(Messenger.SetFaceDownQueued), this, nameof(OnSetFaceDownQueued));
 			CardCatalog.Connect(nameof(CardCatalog.MouseEnteredCard), CardViewer, nameof(CardViewer.OnCardClicked));
 			CardCatalog.Connect(nameof(CardCatalog.Deploy), Messenger, nameof(Messenger.Deploy));
 			CardCatalog.Connect(nameof(CardCatalog.SetFaceDown), Messenger, nameof(Messenger.SetFaceDown));
@@ -146,6 +147,17 @@ namespace CardGame.Client.Room {
 			var card = CheckOut.Fetch(id, setCode);
 			CardCatalog[id] = card;
 			Opponent.Deploy(card, true);
+		}
+
+		public void OnSetFaceDownQueued(int id)
+		{
+			var card = CardCatalog[id];
+			Player.SetFaceDown(card);
+		}
+
+		public void OnSetFaceDownQueued()
+		{
+			Opponent.SetFaceDown();
 		}
 
 		private void OnEndTurn()

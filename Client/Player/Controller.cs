@@ -51,6 +51,21 @@ namespace CardGame.Client.Player
             Model.Units.Add(card);
             View.Deploy(card, isOpponent);
         }
+
+        public void SetFaceDown(Card card)
+        {
+            Model.Hand.Remove(card);
+            Model.Support.Add(card);
+            View.SetFaceDown(card);
+        }
+
+        public void SetFaceDown()
+        {
+            var card = Model.Hand[0];
+            Model.Hand.Remove(card);
+            Model.Support.Add(card);
+            View.SetFaceDown(card);
+        }
     }
     
     

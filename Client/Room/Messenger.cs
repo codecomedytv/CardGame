@@ -26,6 +26,9 @@ namespace CardGame.Client.Room
         public delegate void DeployQueued();
 
         [Signal]
+        public delegate void SetFaceDownQueued();
+
+        [Signal]
         public delegate void CardStateSet();
 
         [Signal]
@@ -94,7 +97,18 @@ namespace CardGame.Client.Room
         {
             EmitSignal(nameof(DeployQueued), id, setCode);
         }
-        
+
+        [Puppet]
+        public void QueueSetFaceDown(int id)
+        {
+            EmitSignal(nameof(SetFaceDownQueued), id);
+        }
+
+        [Puppet]
+        public void QueueSetFaceDown()
+        {
+            EmitSignal(nameof(SetFaceDownQueued));
+        }
 
         [Puppet]
         public void SetCardState(int id, CardStates states)

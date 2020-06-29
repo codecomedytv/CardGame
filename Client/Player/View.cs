@@ -85,6 +85,14 @@ namespace CardGame.Client.Player
             QueueCallback(card.GetParent(), AddDelay(0.3F), "remove_child", card);
             QueueCallback(Units, Delay, "add_child", card);
         }
+
+        public void SetFaceDown(Card card)
+        {
+            QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Support), 0.3F, Delay);
+            QueueCallback(card, Delay, nameof(card.FlipFaceDown));
+            QueueCallback(card.GetParent(), AddDelay(0.3F), "remove_child", card);
+            QueueCallback(Support, Delay, "add_child", card);
+        }
         
         private float AddDelay(float delay)
         {

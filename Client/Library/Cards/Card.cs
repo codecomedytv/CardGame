@@ -36,6 +36,8 @@ namespace CardGame.Client.Library.Cards
 		}
 		
 		public override string ToString() => $"{Id} : {Title}";
+
+		public void FlipFaceDown() => Back.Visible = true;
 		
 		public void SetData(BaseCard card)
 		{
