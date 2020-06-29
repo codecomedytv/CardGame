@@ -13,10 +13,11 @@ namespace CardGame.Server.Game {
 	public class Link : Reference
 	{
 		private readonly Stack<IResolvable> Chain = new Stack<IResolvable>();
-		public Players Players;
+		private readonly Players Players;
 		private Player TurnPlayer => Players.TurnPlayer;
 		public int NextPositionInLink => Chain.Count + 1; // Index 0 == Not In Link
 
+		public Link(Players players) => Players = players;
 		public void OnGameEventRecorded(Event gameEvent)
 		{
 			switch (gameEvent)

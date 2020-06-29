@@ -79,6 +79,11 @@ namespace CardGame.Client.Player
             Model.Support.Add(card);
             View.Activate(card, isOpponent);
         }
+
+        public void Trigger(Card card)
+        {
+            View.Trigger(card);
+        }
     }
     
     

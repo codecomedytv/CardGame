@@ -1,17 +1,24 @@
 ﻿using System.Collections.Generic;
 using CardGame.Server.Game.Events;
+using CardGame.Server.Game.Network;
 using Godot;
 
 namespace CardGame.Server.Game
 {
     public class History: Godot.Object
     {
-        [Signal]
-        public delegate void EventRecorded();
         private int Cursor = 0;
         private int TurnCount = 0;
         private readonly List<Event> gameEvents = new List<Event>();
+        public readonly Messenger Messenger;
+        public readonly Link Link;
 
+
+        public History(Messenger messenger, Link link)
+        {
+            Messenger = messenger;
+            Link = link;
+        }
         public void Add(Event gameEvent)
         {
             gameEvents.Add(gameEvent);
@@ -19,7 +26,9 @@ namespace CardGame.Server.Game
             {
                 TurnCount += 1;
             }
-            EmitSignal(nameof(EventRecorded), gameEvent);
+            
+            Messenger.OnPlayExecuted(gameEvent);
+            Link.OnGameEventRecorded(gameEvent);
             
         }
 

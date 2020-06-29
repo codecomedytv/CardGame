@@ -46,6 +46,7 @@ namespace CardGame.Client.Room {
 			Messenger.Connect(nameof(Messenger.DeployQueued), this, nameof(OnDeployQueued));
 			Messenger.Connect(nameof(Messenger.SetFaceDownQueued), this, nameof(OnSetFaceDownQueued));
 			Messenger.Connect(nameof(Messenger.ActivationQueued), this, nameof(OnActivationQueued));
+			Messenger.Connect(nameof(Messenger.TriggerQueued), this, nameof(OnTriggeredQueued));
 			CardCatalog.Connect(nameof(CardCatalog.MouseEnteredCard), CardViewer, nameof(CardViewer.OnCardClicked));
 			CardCatalog.Connect(nameof(CardCatalog.Deploy), Messenger, nameof(Messenger.Deploy));
 			CardCatalog.Connect(nameof(CardCatalog.SetFaceDown), Messenger, nameof(Messenger.SetFaceDown));
@@ -147,6 +148,7 @@ namespace CardGame.Client.Room {
 		public void OnDeployQueued(int id, SetCodes setCode)
 		{
 			var card = CheckOut.Fetch(id, setCode);
+			card.Player = Opponent;
 			CardCatalog[id] = card;
 			Opponent.Deploy(card, true);
 		}
@@ -172,10 +174,24 @@ namespace CardGame.Client.Room {
 		public void OnActivationQueued(int id, SetCodes setCode, int positionInLink)
 		{
 			var card = CheckOut.Fetch(id, setCode);
+			card.Player = Opponent;
 			CardCatalog[id] = card;
 			card.ChainIndex = positionInLink;
 			Opponent.Activate(card, true);
-			// ?????
+		}
+
+		public void OnTriggeredQueued(int id, int positionInLink)
+		{
+			var card = CardCatalog[id];
+			card.ChainIndex = positionInLink;
+			if (card.Player == Player)
+			{
+				Player.Trigger(card);
+			}
+			else
+			{
+				Opponent.Trigger(card);
+			}
 		}
 
 		private void OnEndTurn()

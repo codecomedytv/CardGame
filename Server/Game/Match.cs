@@ -11,9 +11,9 @@ namespace CardGame.Server.Game {
 	{
 		private readonly Messenger Messenger;
 		private readonly Players Players;
-		private readonly CardCatalog CardCatalog = new CardCatalog();
-		private readonly History History = new History();
-		private readonly Link Link = new Link();
+		private readonly CardCatalog CardCatalog;
+		private readonly History History;
+		private readonly Link Link;
 		public Player TurnPlayer => Players.TurnPlayer;
 		
 		public Match() { }
@@ -22,8 +22,9 @@ namespace CardGame.Server.Game {
 		{
 			Messenger = messenger ?? new Messenger();
 			Players = players;
-			Link.Players = Players;
-			
+			CardCatalog = new CardCatalog();
+			Link = new Link(Players);
+			History = new History(Messenger, Link);
 		}
 
 		public override void _Ready()
@@ -38,12 +39,9 @@ namespace CardGame.Server.Game {
 			ConnectSignals(Messenger, nameof(Messenger.FaceDownSet),this, nameof(OnSetFaceDown));
 			ConnectSignals(Messenger, nameof(Messenger.Activated), this, nameof(OnActivation));
 			ConnectSignals(Messenger, nameof(Messenger.PassedPriority), this, nameof(OnPriorityPassed));
-			ConnectSignals(History, nameof(History.EventRecorded), Messenger, nameof(Messenger.OnPlayExecuted));
-			ConnectSignals(History, nameof(History.EventRecorded), Link, nameof(Link.OnGameEventRecorded));
 			foreach (var player in Players) { player.History = History; }
-
 		}
-
+		
 		public void OnPlayerSeated(int id)
 		{
 			Players[id].Ready = true;

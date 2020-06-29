@@ -71,6 +71,12 @@ namespace CardGame.Server.Game.Network {
 						activation.PositionInLink);
 					break;
 				}
+				case Trigger trigger:
+				{
+					RpcId(trigger.Player.Id, "QueueTrigger", trigger.Card.Id, trigger.PositionInLink);
+					RpcId(trigger.Player.Id, "QueueTrigger", trigger.Card.Id, trigger.PositionInLink);
+					break;
+				}
 			}
 		}
 

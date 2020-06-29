@@ -32,6 +32,9 @@ namespace CardGame.Client.Room
         public delegate void ActivationQueued();
 
         [Signal]
+        public delegate void TriggerQueued();
+
+        [Signal]
         public delegate void CardStateSet();
 
         [Signal]
@@ -106,6 +109,12 @@ namespace CardGame.Client.Room
         {
             EmitSignal(nameof(SetFaceDownQueued), id);
         }
+        
+        [Puppet]
+        public void QueueSetFaceDown()
+        {
+            EmitSignal(nameof(SetFaceDownQueued));
+        }
 
         [Puppet]
         public void QueueActivation(int id, int positionInLink)
@@ -120,9 +129,9 @@ namespace CardGame.Client.Room
         }
 
         [Puppet]
-        public void QueueSetFaceDown()
+        public void QueueTrigger(int id, int positionInLink)
         {
-            EmitSignal(nameof(SetFaceDownQueued));
+            EmitSignal(nameof(TriggerQueued), id, positionInLink);
         }
 
         [Puppet]

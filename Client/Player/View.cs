@@ -106,6 +106,11 @@ namespace CardGame.Client.Player
             QueueCallback(card, Delay, nameof(card.FlipFaceUp));
             QueueCallback(card, Delay, nameof(card.AddToChain));
         }
+
+        public void Trigger(Card card)
+        {
+            QueueCallback(card, AddDelay(0.1F), nameof(card.AddToChain));
+        }
         
         private float AddDelay(float delay)
         {
