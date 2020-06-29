@@ -9,11 +9,8 @@ namespace CardGame.Client.Room
     public class CardCatalog: Object
     {
         [Signal]
-        public delegate void CardClicked();
+        public delegate void MouseEnteredCard();
         
-        [Signal]
-        public delegate void DoubleClicked();
-
         [Signal]
         public delegate void Deploy();
 
@@ -38,14 +35,14 @@ namespace CardGame.Client.Room
         {
             card.Connect(nameof(Card.MouseEnteredCard), this, nameof(OnMouseEnterCard), new Array {card});
             card.Connect(nameof(Card.MouseExitedCard), this, nameof(OnMouseExitCard), new Array {card});
-            card.Connect(nameof(Card.Clicked), this, nameof(OnCardClicked), new Array {card});
+            //card.Connect(nameof(Card.Clicked), this, nameof(OnCardClicked), new Array {card});
             card.Connect(nameof(Card.DoubleClicked), this, nameof(this.OnCardDoubleClicked), new Array {card});
             return card;
         }
 
         private void OnMouseEnterCard(Card card)
         {
-            GD.Print($"Mouse Entered {card}");
+            EmitSignal(nameof(MouseEnteredCard), card);
             var playingState = User.Model.State == States.Idle || User.Model.State == States.Active;
             if (card.State == CardStates.Passive || card.State == CardStates.Activated || !playingState)
             {
@@ -58,9 +55,7 @@ namespace CardGame.Client.Room
         {
             card.Legal.Visible = false;
         }
-
-        private void OnCardClicked(Card card) => EmitSignal(nameof(CardClicked), card);
-
+        
         private void OnCardDoubleClicked(Card card)
         {
             switch (card.State)

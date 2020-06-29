@@ -74,14 +74,12 @@ namespace CardGame.Client.Library.Cards
 
 		}
 
-		[Signal]
-		public delegate void MouseExitedCard();
 
 		[Signal]
 		public delegate void MouseEnteredCard();
-		
+
 		[Signal]
-		public delegate void Clicked();
+		public delegate void MouseExitedCard();
 
 		[Signal]
 		public delegate void DoubleClicked();
@@ -91,20 +89,10 @@ namespace CardGame.Client.Library.Cards
 		public void OnMouseExit() => EmitSignal(nameof(MouseExitedCard));
 		public override void _Input(InputEvent inputEvent)
 		{
-			if (inputEvent is InputEventMouseButton mouseButton && GetGlobalRect().HasPoint(mouseButton.Position))
+			if (inputEvent is InputEventMouseButton mouseButton && mouseButton.Doubleclick && GetGlobalRect().HasPoint(mouseButton.Position))
 			{
-				if (mouseButton.Doubleclick)
-				{
-					EmitSignal(nameof(DoubleClicked));
-				}
-				else if (mouseButton.Pressed)
-				{
-					EmitSignal(nameof(Clicked));
-				}
+				EmitSignal(nameof(DoubleClicked));
 			}
-			
-			
-			
 		}
 	}
 }
