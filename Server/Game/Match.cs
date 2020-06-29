@@ -145,7 +145,7 @@ namespace CardGame.Server.Game {
 				Disqualify(player);
 				return;
 			}
-			skill.Activate(target);
+			skill.Activate(target, Link.NextPositionInLink);
 			player.SetState(States.Acting);
 			player.Opponent.SetState(States.Active);
 			Update();

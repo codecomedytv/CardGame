@@ -8,6 +8,7 @@ namespace CardGame.Server.Game.Events
         public readonly ISource Source;
         public readonly Card Card;
         public readonly Automatic Skill;
+        public readonly int PositionInLink;
         
         public Trigger(ISource source, Card card, Automatic skill)
         {
@@ -15,6 +16,7 @@ namespace CardGame.Server.Game.Events
             Source = source;
             Card = card;
             Skill = skill;
+            PositionInLink = skill.PositionInLink;
         }
     }
 }

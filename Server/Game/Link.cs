@@ -15,6 +15,7 @@ namespace CardGame.Server.Game {
 		private readonly Stack<IResolvable> Chain = new Stack<IResolvable>();
 		public Players Players;
 		private Player TurnPlayer => Players.TurnPlayer;
+		public int NextPositionInLink => Chain.Count + 1; // Index 0 == Not In Link
 
 		public void OnGameEventRecorded(Event gameEvent)
 		{
@@ -58,7 +59,7 @@ namespace CardGame.Server.Game {
 			automatic.AddRange(TurnPlayer.Opponent.Field.Select(c => c.Skill).OfType<Automatic>());
 			foreach (var skill in automatic)
 			{
-				skill.Trigger(gameEvent);
+				skill.Trigger(gameEvent, NextPositionInLink);
 				if (skill.Triggered)
 				{
 					Chain.Push(skill);

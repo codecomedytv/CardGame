@@ -7,8 +7,9 @@ namespace CardGame.Server.Game.Skills
     public class Automatic: Skill, IResolvable
     {
         public bool Triggered = false;
+        public int PositionInLink { get; private set; }
         
-        public void Trigger(Event gameEvent)
+        public void Trigger(Event gameEvent, int positionInLinkIfTriggered)
         {
             if (!AreaOfEffects.Contains(Card.Zone))
             {
@@ -20,6 +21,7 @@ namespace CardGame.Server.Game.Skills
             }
             Triggered = true;
             _Trigger(gameEvent);
+            PositionInLink = positionInLinkIfTriggered;
             History.Add(new Trigger(Card, Card, this));
         }
 
@@ -32,6 +34,7 @@ namespace CardGame.Server.Game.Skills
         {
             _Resolve();
             EmitSignal(nameof(Resolved));
+            PositionInLink = 0;
         }
 		
         protected virtual void _Resolve()

@@ -10,6 +10,7 @@ namespace CardGame.Server.Game.Events
         public readonly Support Card;
         public readonly Manual Skill;
         public readonly Card? Target;
+        public readonly int PositionInLink;
 
         
         public Activate(ISource source, Support card, Manual skill, Card? target = null)
@@ -19,6 +20,7 @@ namespace CardGame.Server.Game.Events
             Card = card;
             Skill = skill;
             Target = target;
+            PositionInLink = skill.PositionInLink;
         }
 
     }

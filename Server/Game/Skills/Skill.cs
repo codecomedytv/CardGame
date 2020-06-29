@@ -22,10 +22,10 @@ namespace CardGame.Server.Game.Skills {
 		protected History History => Card.History;
 		protected readonly List<GameEvents> Triggers = new List<GameEvents>();
 		protected readonly List<Zone> AreaOfEffects = new List<Zone>();
-		public Card Target;
 		protected readonly List<Card> ValidTargets = new List<Card>();
+		public Card Target;
 		public bool Targeting = false;
-		
+
 		protected void Bounce(Card bounced)
         {
 	        Move(bounced.Controller.Field, bounced, bounced.Owner.Hand);

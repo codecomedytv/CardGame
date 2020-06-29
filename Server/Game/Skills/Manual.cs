@@ -7,6 +7,8 @@ namespace CardGame.Server.Game.Skills
     public class Manual: Skill, IResolvable
     {
         public bool CanBeUsed;
+        public int PositionInLink { get; private set; }
+
         public void SetUp(Event gameEvent)
         {
             if (!AreaOfEffects.Contains(Card.Zone))
@@ -31,8 +33,9 @@ namespace CardGame.Server.Game.Skills
             CanBeUsed = true;
         }
         
-        public void Activate(Card? target)
+        public void Activate(Card? target, int positionInLink)
         {
+            PositionInLink = positionInLink;
             Target = target;
             Card.State = Card.States.CanBeActivated;
             CanBeUsed = false;
@@ -46,6 +49,7 @@ namespace CardGame.Server.Game.Skills
             Controller.Support.Remove(Card);
             Owner.Graveyard.Add(Card);
             EmitSignal(nameof(Resolved));
+            PositionInLink = 0;
         }
 		
         protected virtual void _Resolve()
