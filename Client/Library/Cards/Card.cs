@@ -21,10 +21,14 @@ namespace CardGame.Client.Library.Cards
 		private TextureRect Back;
 		private Sprite Frame;
 		public Sprite Legal;
+		private AnimatedSprite ChainLink;
+		private Label ChainIndex;
 
 
 		public override void _Ready()
 		{
+			ChainLink = GetNode("Frame/ChainLink") as AnimatedSprite;
+			ChainIndex = GetNode("Frame/ChainLink/Index") as Label;
 			Legal = GetNode("Legal") as Sprite;
 			Identifier = GetNode("ID") as Label;
 			AttackLabel = GetNode("Battle/Attack") as Label;
@@ -38,6 +42,14 @@ namespace CardGame.Client.Library.Cards
 		public override string ToString() => $"{Id} : {Title}";
 
 		public void FlipFaceDown() => Back.Visible = true;
+
+		public void AddToChain(int index)
+		{
+			ChainLink.Frame = 0;
+			ChainLink.Visible = true;
+			ChainIndex.Text = index.ToString();
+			ChainLink.Play();
+		}
 		
 		public void SetData(BaseCard card)
 		{
