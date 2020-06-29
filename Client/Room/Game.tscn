@@ -157,7 +157,7 @@ custom_styles/separator = SubResource( 1 )
 margin_right = 371.0
 margin_bottom = 603.0
 
-[node name="Pass" type="Button" parent="Background"]
+[node name="ActionButton" type="Button" parent="Background"]
 margin_left = 920.0
 margin_top = 455.698
 margin_right = 985.0
@@ -166,6 +166,7 @@ custom_styles/hover = SubResource( 2 )
 custom_styles/pressed = SubResource( 3 )
 custom_styles/normal = SubResource( 4 )
 custom_fonts/font = SubResource( 6 )
+text = "Text"
 __meta__ = {
 "_edit_use_anchors_": false
 }

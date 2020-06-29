@@ -20,17 +20,21 @@ namespace CardGame.Client.Room {
 		private Controller Player;
 		private Controller Opponent;
 		private CardViewer CardViewer;
+		private Button ActionButton;
 		private Button EndTurn;
 		private Label DisqualificationNotice;
 		private int ExecutionCount = 0;
+		private States StateAfterExecution;
 		public override void _Ready()
 		{
 			AddChild(Gfx);
 			Player = new Controller(GetNode<View>("Player"), true);
 			Opponent = new Controller(GetNode<View>("Opponent"), false);
 			CardViewer = GetNode<CardViewer>("Background/CardViewer");
+			ActionButton = GetNode<Button>("Background/ActionButton");
 			EndTurn = GetNode<Button>("Background/EndTurn");
 			DisqualificationNotice = GetNode<Label>("Disqualified");
+			ActionButton.Connect("pressed", this, nameof(OnActionButtonPressed));
 			Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
 			Messenger.Connect(nameof(Messenger.Disqualified), this, nameof(OnDisqualified));
 			Messenger.Connect(nameof(Messenger.DeckLoaded), this, nameof(OnDeckLoaded));
@@ -40,6 +44,11 @@ namespace CardGame.Client.Room {
 			CardCatalog.Connect(nameof(CardCatalog.CardClicked), CardViewer, nameof(CardViewer.OnCardClicked));
 			CardCatalog.Connect(nameof(CardCatalog.Deploy), Messenger, nameof(Messenger.Deploy));
 			CardCatalog.Connect(nameof(CardCatalog.SetFaceDown), Messenger, nameof(Messenger.SetFaceDown));
+			
+			// See Execute()
+			Player.Connect(nameof(Controller.Executed), this, nameof(SetState));
+			Opponent.Connect(nameof(Controller.Executed), this, nameof(SetState));
+			
 			EndTurn.Connect("pressed", this, nameof(OnEndTurn));
 			Connect(nameof(EndedTurn), Messenger, nameof(Messenger.EndTurn));
 		}
@@ -57,17 +66,32 @@ namespace CardGame.Client.Room {
 		{
 			// We need to make sure all of our animations are finished (for both players) before allowing actions to happen
 			// but I didn't want to deal with async/await/threads and all that nonsense, so instead we track it via this execution count
-			Player.Connect(nameof(Controller.Executed), this, nameof(SetState), new Array(new[] {stateAfterExecution}), (uint) ConnectFlags.Oneshot);
-			Opponent.Connect(nameof(Controller.Executed), this, nameof(SetState), new Array(new[] {stateAfterExecution}), (uint) ConnectFlags.Oneshot);
+			StateAfterExecution = stateAfterExecution;
 			Player.Execute();
 			Opponent.Execute();
 		}
 
-		private void SetState(States stateAfterExecution)
+		private void OnActionButtonPressed()
 		{
+			if (Player.Model.State != States.Active)
+			{
+				return;
+			}
+
+			ActionButton.Text = "";
+			Messenger.PassPriority();
+		}
+
+		private void SetState()
+		{
+			ActionButton.Text = "";
 			ExecutionCount += 1;
 			if (ExecutionCount != 2) return;
-			Player.SetState(stateAfterExecution);
+			Player.SetState(StateAfterExecution);
+			if (StateAfterExecution == States.Active)
+			{
+				ActionButton.Text = "Pass";
+			}
 			ExecutionCount = 0;
 		}
 
