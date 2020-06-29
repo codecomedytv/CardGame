@@ -29,6 +29,7 @@ namespace CardGame.Server
             {
                 AddTargets(Opponent.Field);
                 AddTargets(Controller.Field);
+                CanBeUsed = ValidTargets.Count > 0;
             }
 
             protected override void _Resolve()

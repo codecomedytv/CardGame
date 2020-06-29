@@ -1,6 +1,7 @@
 ﻿#nullable enable
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Events;
+using Godot;
 
 namespace CardGame.Server.Game.Skills
 {
@@ -22,9 +23,9 @@ namespace CardGame.Server.Game.Skills
             }
 
             _SetUp();
-            if(CanBeUsed && Card is Support support)
+            if(CanBeUsed && Card is Support)
             {
-                support.State = Card.States.CanBeActivated;
+                Card.State = Card.States.CanBeActivated;
             }
         }
 

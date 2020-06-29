@@ -75,6 +75,12 @@ namespace CardGame.Client.Room
                     card.Legal.Visible = false;
                     EmitSignal(nameof(Activate), card, new Array());
                     break;
+                case CardStates.CanAttack:
+                    break;
+                case CardStates.Passive:
+                    break;
+                case CardStates.Activated:
+                    break;
             }
         }
     }
