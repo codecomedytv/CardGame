@@ -6,7 +6,7 @@ namespace CardGame.Server.Game.Skills
 {
     public class Automatic: Skill, IResolvable
     {
-        public bool Triggered = false;
+        public bool Triggered { get; private set; } = false;
         public int PositionInLink { get; private set; }
         
         public void Trigger(Event gameEvent, int positionInLinkIfTriggered)
@@ -19,15 +19,14 @@ namespace CardGame.Server.Game.Skills
             {
                 return;
             }
-            Triggered = true;
-            _Trigger(gameEvent);
+            Triggered = _Trigger(gameEvent);
             PositionInLink = positionInLinkIfTriggered;
             History.Add(new Trigger(Card, Card, this));
         }
 
-        protected virtual void _Trigger(Event gameEvent)
+        protected virtual bool _Trigger(Event gameEvent)
         {
-            throw new NotImplementedException();
+            return true;
         }
         
         public void Resolve()
