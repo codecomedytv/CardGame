@@ -11,7 +11,8 @@ namespace CardGame.Client.Player
         public int Health = 8000;
         public Label Damage;
         public Label Deck;
-        public Label Discard;
+        public PanelContainer Discard;
+        public Label DiscardCount;
         public HBoxContainer Units;
         public HBoxContainer Support;
         public HBoxContainer Hand;
@@ -28,7 +29,8 @@ namespace CardGame.Client.Player
             PlayingState = GetNode<AnimatedSprite>("View/PlayingState");
             Damage = GetNode<Label>("Damage");
             Deck = GetNode<Label>("Deck");
-            Discard = GetNode<Label>("Discard");
+            Discard = GetNode<PanelContainer>("Discard");
+            DiscardCount = GetNode<Label>("Discard/Count");
             Units = GetNode<HBoxContainer>("Units");
             Support = GetNode<HBoxContainer>("Support");
             Hand = GetNode<HBoxContainer>("Hand");
@@ -117,6 +119,8 @@ namespace CardGame.Client.Player
             QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, Discard.RectGlobalPosition, 0.3F, Delay);
             QueueCallback(card.GetParent(), AddDelay(0.3F), "remove_child", card);
             QueueCallback(Discard, Delay, "add_child", card);
+            QueueCallback(card, Delay, "ShowBelowParent");
+            QueueCallback(DiscardCount, Delay, "set_text", (DiscardCount.Text.ToInt() + 1).ToString());
         }
         
         private float AddDelay(float delay)

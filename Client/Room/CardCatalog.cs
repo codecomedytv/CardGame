@@ -114,8 +114,7 @@ namespace CardGame.Client.Room
                 }
 
                 AttackingCard.Legal.Visible = false;
-                card.DefenseIcon.Visible = true;
-                card.SelectedTarget.Visible = true;
+                card.SelectedTarget.Visible = false;
                 EmitSignal(nameof(Attack), AttackingCard.Id, card.Id);
                 Attacking = false;
                 AttackingCard = null;

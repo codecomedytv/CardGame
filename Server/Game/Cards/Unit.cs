@@ -86,18 +86,60 @@ namespace CardGame.Server.Game.Cards
             private readonly Unit Attacker;
             private readonly Unit Defender;
             private readonly History History;
+            private readonly Player defending;
+            private readonly Player attacking;
 
             public AttackUnit(Unit attacker, Unit defender, History history)
             {
                 Attacker = attacker;
                 Defender = defender;
                 History = history;
+                attacking = attacker.Controller;
+                defending = defender.Controller;
             }
+
+            private void Attack()
+            {
+                if (!defending.HasTag(TagIds.CannotTakeBattleDamage))
+                {
+                    var overflow = Attacker.Attack - Defender.Defense;
+                    var oldLife = defending.Health;
+                    defending.Health -= overflow;
+                    var newLife = defending.Health;
+                    History.Add(new ModifyPlayer(GameEvents.BattleDamage, Attacker, defending,
+                        nameof(Player.Health), oldLife, newLife));
+                }
+                defending.Field.Remove(Defender);
+                defending.Graveyard.Add(Defender);
+                Defender.Zone = Defender.Owner.Graveyard;
+                History.Add(new DestroyByBattle(Attacker, defending, Defender));
+            }
+
+            private void CounterAttack()
+            {
+                var overflow = Defender.Attack - Attacker.Defense;
+                if (!attacking.HasTag(TagIds.CannotTakeBattleDamage))
+                {
+                    var oldLife = attacking.Health;
+                    attacking.Health -= overflow;
+                    var newLife = attacking.Health;
+                    History.Add(new ModifyPlayer(GameEvents.BattleDamage, Defender, attacking,
+                        nameof(Player.Health), oldLife, newLife));
+                }
+
+                attacking.Field.Remove(Attacker);
+                attacking.Graveyard.Add(Attacker);
+                Attacker.Zone = Attacker.Owner.Graveyard;
+                History.Add(new DestroyByBattle(Defender, attacking, Attacker));
+                if (attacking.Health <= 0)
+                {
+                    defending.Win();
+                }
+            }
+
 
             public void Resolve()
             {
-                var attacking = Attacker.Controller;
-                var defending = Defender.Controller;
                 if (!attacking.Field.Contains(Attacker) || !defending.Field.Contains(Defender))
                 {
                     return;
@@ -105,44 +147,18 @@ namespace CardGame.Server.Game.Cards
 
                 if (Attacker.Attack > Defender.Defense)
                 {
-                    if (!defending.HasTag(TagIds.CannotTakeBattleDamage))
-                    {
-                        var overflow = Attacker.Attack - Defender.Defense;
-                        var oldLife = defending.Health;
-                        defending.Health -= overflow;
-                        var newLife = defending.Health;
-                        History.Add(new ModifyPlayer(GameEvents.BattleDamage, Attacker, defending,
-                            nameof(Player.Health), oldLife, newLife));
-                    }
-
-                    defending.Field.Remove(Defender);
-                    defending.Graveyard.Add(Defender);
-                    Defender.Zone = Defender.Owner.Graveyard;
-                    History.Add(new DestroyByBattle(Attacker, defending, Defender));
+                    Attack();
                 }
                 else if (Attacker.Attack <= Defender.Defense && Defender.Attack > Attacker.Defense)
                 {
-                    var overflow = Defender.Attack - Attacker.Defense;
-                    if (!attacking.HasTag(TagIds.CannotTakeBattleDamage))
-                    {
-                        var oldLife = attacking.Health;
-                        attacking.Health -= overflow;
-                        var newLife = attacking.Health;
-                        History.Add(new ModifyPlayer(GameEvents.BattleDamage, Defender, attacking,
-                            nameof(Player.Health), oldLife, newLife));
-                    }
-
-                    attacking.Field.Remove(Attacker);
-                    attacking.Graveyard.Add(Attacker);
-                    Attacker.Zone = Attacker.Owner.Graveyard;
-                    History.Add(new DestroyByBattle(Defender, attacking, Attacker));
-                    if (attacking.Health <= 0)
-                    {
-                        defending.Win();
-                    }
-
-                    Attacker.Exhaust();
+                    CounterAttack();
                 }
+                else
+                {
+                    GD.Print("Tie?");
+                }
+
+                Attacker.Exhaust();
             }
         }
     }

@@ -68,6 +68,9 @@ namespace CardGame.Client.Library.Cards
 
 		public void FlipFaceUp() => Back.Visible = false;
 
+		public void ShowAboveParent() => ShowBehindParent = false;
+		public void ShowBelowParent() => ShowBehindParent = true;
+
 		public void AddToChain()
 		{
 			ChainLink.Frame = 0;

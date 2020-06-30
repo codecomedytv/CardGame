@@ -10,8 +10,8 @@ namespace CardGame.Server
             Controller = owner;
             Title = "Dungeon Guide";
             SetCode = SetCodes.AlphaDungeonGuide;
-            Attack = 1000;
-            Defense = 1500;
+            Attack = 2000;
+            Defense = 1000;
         }
     }
 }
