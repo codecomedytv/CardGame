@@ -1,5 +1,6 @@
 using CardGame;
 using CardGame.Client;
+using CardGame.Client.Room;
 using CardGame.Server;
 using Godot;
 using Godot.Collections;
@@ -14,8 +15,31 @@ namespace CardGame.Tests.Scripts
 	    protected readonly Array<ClientConn> Clients = new Array<ClientConn>();
 	    private readonly Array<SetCodes> DeckList = new Array<SetCodes>();
 
+	    
+
 	    protected async void AddGame()
 	    {
+		    /* Solution 1
+				We can store a Read Only Variable in the Client Class that set with a default but
+				we can also override it from the constructor (or we load the default in via the constructor) and then
+				we can pass it in from here (why is ClientConn a scene anyway? It should be fine as a Node? I guess it
+				is an issue with the exports
+				
+				Now that we can replace the gametype, we can create an extended type that contains test-only accessors.
+				This isn't perfect but it is better than nothing.
+		    */
+		    
+		    // We need direct access to cards
+		    // We also need to be able to reason about card ids?
+		    // Considering we are in control of the card order we could just work via IDs
+		    // BUT! This is likely flaky (what if we wrapped it in a method?)
+		    // We also need access to the EndTurn & PassPlay buttons (we can always access these through the tree)
+		    // On top of that we can't just click on a card, we need to be able to click on the card in the correct game
+		    // which essentially means we have two different card catalogs we need to track
+		    
+		    // Most of our actions are coming via card-catalog so we may only need those
+		    // but what if we wanted to check the state of the game?
+		    // We could always
 		    Server = PackedServer.Instance() as ServerConn;
 		    Clients.Add(PackedClient.Instance() as ClientConn);
 		    Clients.Add(PackedClient.Instance() as ClientConn);

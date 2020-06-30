@@ -58,7 +58,6 @@
     <Compile Include="addons\WAT\core\test\Recorder.cs" />
     <Compile Include="addons\WAT\core\test\Test.cs" />
     <Compile Include="Client\ClientConn.cs" />
-    <Compile Include="Client\Player\Model.cs" />
     <Compile Include="Client\Player\Controller.cs" />
     <Compile Include="Client\Player\States.cs" />
     <Compile Include="Client\Player\View.cs" />

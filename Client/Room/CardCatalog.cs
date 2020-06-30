@@ -54,7 +54,7 @@ namespace CardGame.Client.Room
         {
             if (Targeting || Attacking) { return; }
             EmitSignal(nameof(MouseEnteredCard), card);
-            var playingState = User.Model.State == States.Idle || User.Model.State == States.Active;
+            var playingState = User.State == States.Idle || User.State == States.Active;
             if (card.State == CardStates.Passive || card.State == CardStates.Activated || !playingState)
             {
                 return;
@@ -68,7 +68,7 @@ namespace CardGame.Client.Room
                 }
             }
 
-            else if (card.Attacks() && User.Model.State == States.Idle)
+            else if (card.Attacks() && User.State == States.Idle)
             {
                 card.AttackIcon.Visible = true;
                 foreach (var id in card.ValidAttackTargets)
@@ -146,7 +146,7 @@ namespace CardGame.Client.Room
                     }
                     break;
                 case CardStates.CanAttack:
-                    if (User.Model.State != States.Idle) { return; }
+                    if (User.State != States.Idle) { return; }
                     Attacking = true;
                     AttackingCard = card;
                     card.AttackIcon.Visible = true;

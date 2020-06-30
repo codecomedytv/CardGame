@@ -1,11 +1,21 @@
-﻿using CardGame.Client.Library.Cards;
+﻿using System.Collections.Generic;
+using CardGame.Client.Library.Cards;
 using Godot;
 
 namespace CardGame.Client.Player
 {
     public class Controller: Godot.Object
+    
     {
-        public readonly Model Model;
+        public States State;
+        public int Health = 8000;
+        public int DeckCount = 40;
+        public IList<Card> Units = new List<Card>();
+        public IList<Card> Support = new List<Card>();
+        public IList<Card> Hand = new List<Card>();
+        public IList<Card> Graveyard = new List<Card>();
+        
+        //public readonly Model Model;
         public readonly View View;
         public readonly bool IsUser;
         public Controller Opponent;
@@ -16,7 +26,6 @@ namespace CardGame.Client.Player
         public Controller(View view, bool isUser)
         {
             IsUser = isUser;
-            Model = new Model();
             View = view;
         }
 
@@ -34,37 +43,37 @@ namespace CardGame.Client.Player
                 return;
             }
             // We may need to queue or block this to avoid interrupting animations.
-            Model.State = state;
+            State = state;
             View.SetState(state);
         }
         
         public void Draw(Card card)
         {
             card.Player = this;
-            Model.DeckCount -= 1;
-            Model.Hand.Add(card);
-            View.Draw(card, Model.DeckCount.ToString());
+            DeckCount -= 1;
+            Hand.Add(card);
+            View.Draw(card, DeckCount.ToString());
         }
 
         public void Deploy(Card card, bool isOpponent = false)
         {
-            Model.Hand.Remove(card);
-            Model.Units.Add(card);
+            Hand.Remove(card);
+            Units.Add(card);
             View.Deploy(card, isOpponent);
         }
 
         public void SetFaceDown(Card card)
         {
-            Model.Hand.Remove(card);
-            Model.Support.Add(card);
+            Hand.Remove(card);
+            Support.Add(card);
             View.SetFaceDown(card);
         }
 
         public void SetFaceDown()
         {
-            var card = Model.Hand[0];
-            Model.Hand.Remove(card);
-            Model.Support.Add(card);
+            var card = Hand[0];
+            Hand.Remove(card);
+            Support.Add(card);
             View.SetFaceDown(card);
         }
 
@@ -76,8 +85,8 @@ namespace CardGame.Client.Player
         public void Activate(Card card, bool isOpponent)
         {
             // In future versions we may define zones as Dictionaries? Or store card index on the card object
-            Model.Support.RemoveAt(0);
-            Model.Support.Add(card);
+            Support.RemoveAt(0);
+            Support.Add(card);
             View.Activate(card, isOpponent);
         }
 
@@ -88,8 +97,8 @@ namespace CardGame.Client.Player
 
         public void Destroy(Card card)
         {
-            Model.Units.Remove(card);
-            Model.Graveyard.Add(card);
+            Units.Remove(card);
+            Graveyard.Add(card);
             View.Destroy(card);
         }
     }

@@ -86,7 +86,7 @@ namespace CardGame.Client.Room {
 
 		private void OnActionButtonPressed()
 		{
-			if (Player.Model.State != States.Active)
+			if (Player.State != States.Active)
 			{
 				return;
 			}
