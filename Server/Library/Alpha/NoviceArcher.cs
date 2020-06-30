@@ -30,9 +30,9 @@ namespace CardGame.Server
                 Triggers.Add(GameEvents.Deploy);
             }
             
-            protected override bool _Trigger(Event Event)
+            protected override bool _Trigger(Event gameEvent)
             {
-                return Event is Deploy deployed && deployed.Card == Card;
+                return gameEvent is Deploy deployed && deployed.Card == Card;
             }
 
             protected override async void _Resolve()
