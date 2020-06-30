@@ -12,6 +12,7 @@ namespace CardGame.Server.Game.Skills
 
         public void SetUp(Event gameEvent)
         {
+            ValidTargets.Clear();
             if (!AreaOfEffects.Contains(Card.Zone))
             {
                 return;

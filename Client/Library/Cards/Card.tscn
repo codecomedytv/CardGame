@@ -230,6 +230,24 @@ scale = Vector2( 0.0677191, 0.0696363 )
 texture = ExtResource( 8 )
 centered = false
 
+[node name="ValidTarget" type="Sprite" parent="."]
+visible = false
+modulate = Color( 0.164706, 0.988235, 0.0470588, 1 )
+show_behind_parent = true
+position = Vector2( -37.7354, -36.226 )
+scale = Vector2( 0.0677191, 0.0696363 )
+texture = ExtResource( 8 )
+centered = false
+
+[node name="SelectedTarget" type="Sprite" parent="."]
+visible = false
+modulate = Color( 0.94902, 0.0705882, 0.337255, 1 )
+show_behind_parent = true
+position = Vector2( -37.7354, -36.226 )
+scale = Vector2( 0.0677191, 0.0696363 )
+texture = ExtResource( 8 )
+centered = false
+
 [node name="Battle" type="HBoxContainer" parent="."]
 visible = false
 margin_top = 115.0

@@ -26,7 +26,7 @@ namespace CardGame
 			}
 		}
 	
-		public void OnNodeAdded(Godot.Node N) 
+		public void OnNodeAdded(Godot.Node N)
 		{
 			var treePath = (string)N.GetPath();
 			var ourPath = (string)GetPath();

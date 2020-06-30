@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CardGame.Client.Library;
@@ -47,6 +48,7 @@ namespace CardGame.Client.Room {
 			Messenger.Connect(nameof(Messenger.SetFaceDownQueued), this, nameof(OnSetFaceDownQueued));
 			Messenger.Connect(nameof(Messenger.ActivationQueued), this, nameof(OnActivationQueued));
 			Messenger.Connect(nameof(Messenger.TriggerQueued), this, nameof(OnTriggeredQueued));
+			Messenger.Connect(nameof(Messenger.ValidTargetsSet), this, nameof(OnValidTargetsSet));
 			CardCatalog.Connect(nameof(CardCatalog.MouseEnteredCard), CardViewer, nameof(CardViewer.OnCardClicked));
 			CardCatalog.Connect(nameof(CardCatalog.Deploy), Messenger, nameof(Messenger.Deploy));
 			CardCatalog.Connect(nameof(CardCatalog.SetFaceDown), Messenger, nameof(Messenger.SetFaceDown));
@@ -192,6 +194,13 @@ namespace CardGame.Client.Room {
 			{
 				Opponent.Trigger(card);
 			}
+		}
+
+		private void OnValidTargetsSet(int id, IEnumerable<int> validTargets)
+		{
+			var card = CardCatalog[id];
+			card.ValidTargets.Clear();
+			card.ValidTargets.AddRange(validTargets);
 		}
 
 		private void OnEndTurn()

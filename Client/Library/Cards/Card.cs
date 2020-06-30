@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CardGame.Client.Library.Alpha;
 using Godot;
 
@@ -21,9 +22,18 @@ namespace CardGame.Client.Library.Cards
 		private TextureRect Back;
 		private Sprite Frame;
 		public Sprite Legal;
+		public Sprite ValidTarget;
+		public Sprite SelectedTarget;
 		private AnimatedSprite ChainLink;
 		private Label ChainIndexDisplay;
 		public int ChainIndex;
+		public readonly List<int> ValidTargets = new List<int>();
+		public bool IsTargeting = false;
+
+		public bool Targets()
+		{
+			return ValidTargets.Count > 0;
+		}
 
 
 		public override void _Ready()
@@ -31,6 +41,8 @@ namespace CardGame.Client.Library.Cards
 			ChainLink = GetNode("Frame/ChainLink") as AnimatedSprite;
 			ChainIndexDisplay = GetNode("Frame/ChainLink/Index") as Label;
 			Legal = GetNode("Legal") as Sprite;
+			ValidTarget = GetNode("ValidTarget") as Sprite;
+			SelectedTarget = GetNode("SelectedTarget") as Sprite;
 			Identifier = GetNode("ID") as Label;
 			AttackLabel = GetNode("Battle/Attack") as Label;
 			DefenseLabel = GetNode("Battle/Defense") as Label;
@@ -87,8 +99,6 @@ namespace CardGame.Client.Library.Cards
 			if (CardType != 0) return;
 			AttackLabel.Text = Attack.ToString();
 			DefenseLabel.Text = Defense.ToString();
-
-
 		}
 
 

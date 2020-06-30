@@ -22,7 +22,7 @@ namespace CardGame.Server.Game.Skills {
 		protected History History => Card.History;
 		protected readonly List<GameEvents> Triggers = new List<GameEvents>();
 		protected readonly List<Zone> AreaOfEffects = new List<Zone>();
-		protected readonly List<Card> ValidTargets = new List<Card>();
+		public readonly List<Card> ValidTargets = new List<Card>();
 		public Card Target;
 		public bool Targeting = false;
 

@@ -11,6 +11,7 @@ namespace CardGame.Server.Game.Skills
         
         public void Trigger(Event gameEvent, int positionInLinkIfTriggered)
         {
+            ValidTargets.Clear();
             if (!AreaOfEffects.Contains(Card.Zone))
             {
                 return;

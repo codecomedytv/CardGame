@@ -1,4 +1,5 @@
-﻿using CardGame.Client.Library.Cards;
+﻿using System.Collections.Generic;
+using CardGame.Client.Library.Cards;
 using Godot;
 using Godot.Collections;
 using States = CardGame.Client.Player.States;
@@ -38,6 +39,9 @@ namespace CardGame.Client.Room
         public delegate void CardStateSet();
 
         [Signal]
+        public delegate void ValidTargetsSet();
+
+        [Signal]
         public delegate void ExecutedEvents();
 
         [Signal]
@@ -69,13 +73,13 @@ namespace CardGame.Client.Room
         }
 
         [Puppet]
-        public void QueueEvent(Dictionary<string, int> message)
+        public void QueueEvent(Godot.Collections.Dictionary<string, int> message)
         {
             EmitSignal(nameof(QueuedEvent), message);
         }
 
         [Puppet]
-        public void LoadDeck(Dictionary<int, SetCodes> deck)
+        public void LoadDeck(Godot.Collections.Dictionary<int, SetCodes> deck)
         {
             EmitSignal(nameof(DeckLoaded), deck);
         }
@@ -141,6 +145,12 @@ namespace CardGame.Client.Room
         }
 
         [Puppet]
+        public void SetValidTargets(int id, List<int> validTargets)
+        {
+            EmitSignal(nameof(ValidTargetsSet), id, validTargets);
+        }
+
+        [Puppet]
         public void ForceDisconnected(int reason)
         {
             EmitSignal(nameof(DisconnectPlayer), reason);
@@ -161,9 +171,9 @@ namespace CardGame.Client.Room
             RpcId(ServerId, "SetFaceDown", Id, cardId);
         }
 
-        public void Activate(Card card, Array targets)
+        public void Activate(Card card, int targetId)
         {
-            RpcId(ServerId, "Activate", Id, card.Id, targets);
+             RpcId(ServerId, "Activate", Id, card.Id, targetId);
         }
 
         public void Target(int cardId)

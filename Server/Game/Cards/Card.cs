@@ -22,7 +22,6 @@ namespace CardGame.Server.Game.Cards {
 		// owned cards to see if these can be used or not.
 		public History History;
 		public bool IsReady = false;
-
 		public States State = States.Passive;
 		public enum States
 		{
@@ -40,7 +39,9 @@ namespace CardGame.Server.Game.Cards {
 		{
 			Skill = new NullSkill {Card = this};
 		}
-		
+
+		// Maybe this should default to int?
+		public List<int> GetValidTargets() => Skill.ValidTargets.Select(target => target.Id).ToList();
 
 		public virtual void SetCanBeDeployed() => State = States.Passive;
 

@@ -22,6 +22,9 @@ namespace CardGame.Client.Room
         
         private readonly System.Collections.Generic.Dictionary<int, Card> CardsById = new System.Collections.Generic.Dictionary<int, Card>();
         public Controller User;
+        private bool Targeting = false;
+        private bool Attacking = false;
+        private Card TargetingCard;
         
         public void RegisterCard(Card card)
         {
@@ -45,6 +48,7 @@ namespace CardGame.Client.Room
 
         private void OnMouseEnterCard(Card card)
         {
+            if (Targeting) { return; }
             EmitSignal(nameof(MouseEnteredCard), card);
             var playingState = User.Model.State == States.Idle || User.Model.State == States.Active;
             if (card.State == CardStates.Passive || card.State == CardStates.Activated || !playingState)
@@ -52,15 +56,36 @@ namespace CardGame.Client.Room
                 return;
             }
             card.Legal.Visible = true;
+            if (card.Targets())
+            {
+                foreach (var id in card.ValidTargets)
+                {
+                    CardsById[id].ValidTarget.Visible = true;
+                }
+            }
         }
 
         private void OnMouseExitCard(Card card)
         {
+            if (Targeting) { return; }
             card.Legal.Visible = false;
+            foreach (var id in card.ValidTargets)
+            {
+                CardsById[id].ValidTarget.Visible = false;
+            }
         }
         
         private void OnCardDoubleClicked(Card card)
         {
+            if (Targeting && TargetingCard.ValidTargets.Contains(card.Id))
+            {
+                foreach (var id in TargetingCard.ValidTargets)
+                {
+                    CardsById[id].ValidTarget.Visible = false;
+                    EmitSignal(nameof(Activate), TargetingCard, card.Id);
+                    return;
+                }
+            }
             switch (card.State)
             {
                 case CardStates.CanBeDeployed:
@@ -72,8 +97,18 @@ namespace CardGame.Client.Room
                     EmitSignal(nameof(SetFaceDown), card.Id);
                     break;
                 case CardStates.CanBeActivated:
-                    card.Legal.Visible = false;
-                    EmitSignal(nameof(Activate), card, new Array());
+                    if (card.Targets())
+                    {
+                        card.FlipFaceUp();
+                        Targeting = true;
+                        TargetingCard = card;
+                        card.Legal.Visible = false;
+                    }
+                    else
+                    {
+                        card.Legal.Visible = false;
+                        EmitSignal(nameof(Activate), card, new Array());
+                    }
                     break;
                 case CardStates.CanAttack:
                     break;

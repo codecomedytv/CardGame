@@ -91,6 +91,8 @@ namespace CardGame.Server.Game.Network {
 				foreach (var card in clientViewableCards)
 				{
 					RpcId(player.Id, "SetCardState", card.Id, card.State);
+					RpcId(player.Id, "SetValidTargets", card.Id, card.GetValidTargets());
+					// Set Valid Attack Targets?
 				}
 				clientViewableCards.Clear();
 				RpcId(player.Id, "ExecuteEvents", player.State);
