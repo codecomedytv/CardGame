@@ -9,7 +9,6 @@ namespace CardGame.Client {
 	{
 		const string Ip = "127.0.0.1";
 		const int Port = 5000;
-		//private List<SetCodes> Decklist = new List<SetCodes>(); // How do we send this info online?
 		public NetworkedMultiplayerENet client;
 		public Array<SetCodes> DeckList;
 
