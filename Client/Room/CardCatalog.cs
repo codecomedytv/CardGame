@@ -24,7 +24,7 @@ namespace CardGame.Client.Room
         public delegate void Attack();
         
         private readonly System.Collections.Generic.Dictionary<int, Card> CardsById = new System.Collections.Generic.Dictionary<int, Card>();
-        public Controller User;
+        public Player.Player User;
         private bool Targeting = false;
         private bool Attacking = false;
         private Card TargetingCard;

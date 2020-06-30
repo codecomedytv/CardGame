@@ -4,7 +4,7 @@ using Godot;
 
 namespace CardGame.Client.Player
 {
-    public class Controller: Godot.Object
+    public class Player: Godot.Object
     
     {
         public States State;
@@ -18,12 +18,12 @@ namespace CardGame.Client.Player
         //public readonly Model Model;
         public readonly View View;
         public readonly bool IsUser;
-        public Controller Opponent;
+        public Player Opponent;
 
         [Signal]
         public delegate void Executed();
 
-        public Controller(View view, bool isUser)
+        public Player(View view, bool isUser)
         {
             IsUser = isUser;
             View = view;

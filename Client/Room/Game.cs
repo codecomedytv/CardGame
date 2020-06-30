@@ -19,8 +19,8 @@ namespace CardGame.Client.Room {
 		private readonly Messenger Messenger = new Messenger();
 		private readonly CardCatalog CardCatalog = new CardCatalog();
 		private readonly Tween Gfx = new Tween();
-		private Controller Player;
-		private Controller Opponent;
+		private Player.Player Player;
+		private Player.Player Opponent;
 		private CardViewer CardViewer;
 		private Button ActionButton;
 		private AnimatedSprite ActionButtonAnimation;
@@ -31,8 +31,8 @@ namespace CardGame.Client.Room {
 		public override void _Ready()
 		{
 			AddChild(Gfx);
-			Player = new Controller(GetNode<View>("Player"), true);
-			Opponent = new Controller(GetNode<View>("Opponent"), false);
+			Player = new Player.Player(GetNode<View>("Player"), true);
+			Opponent = new Player.Player(GetNode<View>("Opponent"), false);
 			CardCatalog.User = Player;
 			CardViewer = GetNode<CardViewer>("Background/CardViewer");
 			ActionButton = GetNode<Button>("Background/ActionButton");
@@ -59,8 +59,8 @@ namespace CardGame.Client.Room {
 			CardCatalog.Connect(nameof(CardCatalog.Attack), Messenger, nameof(Messenger.Attack));
 			
 			// See Execute()
-			Player.Connect(nameof(Controller.Executed), this, nameof(SetState));
-			Opponent.Connect(nameof(Controller.Executed), this, nameof(SetState));
+			Player.Connect(nameof(Client.Player.Player.Executed), this, nameof(SetState));
+			Opponent.Connect(nameof(Client.Player.Player.Executed), this, nameof(SetState));
 			
 			EndTurn.Connect("pressed", this, nameof(OnEndTurn));
 			Connect(nameof(EndedTurn), Messenger, nameof(Messenger.EndTurn));

@@ -14,7 +14,7 @@ namespace CardGame.Client.Library.Cards
 		public string Effect;
 		public CardTypes CardType;
 		public CardStates State = CardStates.CanBeDeployed;
-		public Player.Controller Player;
+		public Player.Player Player;
 		private Label Identifier;
 		private Label AttackLabel;
 		private Label DefenseLabel;
