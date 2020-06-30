@@ -111,6 +111,13 @@ namespace CardGame.Client.Player
         {
             QueueCallback(card, AddDelay(0.1F), nameof(card.AddToChain));
         }
+
+        public void Destroy(Card card)
+        {
+            QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, Discard.RectGlobalPosition, 0.3F, Delay);
+            QueueCallback(card.GetParent(), AddDelay(0.3F), "remove_child", card);
+            QueueCallback(Discard, Delay, "add_child", card);
+        }
         
         private float AddDelay(float delay)
         {

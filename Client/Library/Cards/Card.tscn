@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://Client/Library/Cards/Card.cs" type="Script" id=1]
 [ext_resource path="res://assets/CardArt/cultist.png" type="Texture" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://Assets/spritesheets/glow.png" type="Texture" id=8]
 [ext_resource path="res://Assets/16.png" type="Texture" id=9]
 [ext_resource path="res://Assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=10]
+[ext_resource path="res://Assets/UI/sword_02.png" type="Texture" id=11]
+[ext_resource path="res://Assets/UI/shield_t_04.png" type="Texture" id=12]
 
 [sub_resource type="DynamicFont" id=1]
 size = 11
@@ -246,6 +248,20 @@ show_behind_parent = true
 position = Vector2( -37.7354, -36.226 )
 scale = Vector2( 0.0677191, 0.0696363 )
 texture = ExtResource( 8 )
+centered = false
+
+[node name="AttackIcon" type="Sprite" parent="."]
+visible = false
+position = Vector2( 18.3723, 21.0741 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 11 )
+centered = false
+
+[node name="DefenseIcon" type="Sprite" parent="."]
+visible = false
+position = Vector2( 17.2916, 52.9554 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 12 )
 centered = false
 
 [node name="Battle" type="HBoxContainer" parent="."]

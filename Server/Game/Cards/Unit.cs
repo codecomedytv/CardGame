@@ -19,6 +19,8 @@ namespace CardGame.Server.Game.Cards
         {
         }
 
+        public override List<int> GetValidAttackTargets() => ValidAttackTargets.Select(c => c.Id).ToList();
+
         public override void SetCanBeDeployed()
         {
             State = Zone == Controller.Hand && Controller.Field.Count < 7 ? States.CanBeDeployed : States.Passive;

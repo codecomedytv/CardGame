@@ -24,15 +24,23 @@ namespace CardGame.Client.Library.Cards
 		public Sprite Legal;
 		public Sprite ValidTarget;
 		public Sprite SelectedTarget;
+		public Sprite AttackIcon;
+		public Sprite DefenseIcon;
 		private AnimatedSprite ChainLink;
 		private Label ChainIndexDisplay;
 		public int ChainIndex;
 		public readonly List<int> ValidTargets = new List<int>();
+		public readonly List<int> ValidAttackTargets = new List<int>();
 		public bool IsTargeting = false;
 
 		public bool Targets()
 		{
 			return ValidTargets.Count > 0;
+		}
+
+		public bool Attacks()
+		{
+			return ValidAttackTargets.Count > 0;
 		}
 
 
@@ -43,6 +51,8 @@ namespace CardGame.Client.Library.Cards
 			Legal = GetNode("Legal") as Sprite;
 			ValidTarget = GetNode("ValidTarget") as Sprite;
 			SelectedTarget = GetNode("SelectedTarget") as Sprite;
+			AttackIcon = GetNode("AttackIcon") as Sprite;
+			DefenseIcon = GetNode("DefenseIcon") as Sprite;
 			Identifier = GetNode("ID") as Label;
 			AttackLabel = GetNode("Battle/Attack") as Label;
 			DefenseLabel = GetNode("Battle/Defense") as Label;

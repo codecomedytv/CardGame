@@ -77,6 +77,18 @@ namespace CardGame.Server.Game.Network {
 					RpcId(trigger.Player.Opponent.Id, "QueueTrigger", trigger.Card.Id, trigger.PositionInLink);
 					break;
 				}
+				case DestroyByEffect destroyByEffect:
+				{
+					RpcId(destroyByEffect.Owner.Id, "DestroyCard", destroyByEffect.Card.Id);
+					RpcId(destroyByEffect.Owner.Opponent.Id, "DestroyCard", destroyByEffect.Card.Id);
+					break;
+				}
+				case DestroyByBattle destroyByBattle:
+				{
+					RpcId(destroyByBattle.Owner.Id, "DestroyCard", destroyByBattle.Card.Id);
+					RpcId(destroyByBattle.Owner.Opponent.Id, "DestroyCard", destroyByBattle.Card.Id);
+					break;
+				}
 			}
 		}
 
@@ -92,6 +104,7 @@ namespace CardGame.Server.Game.Network {
 				{
 					RpcId(player.Id, "SetCardState", card.Id, card.State);
 					RpcId(player.Id, "SetValidTargets", card.Id, card.GetValidTargets());
+					RpcId(player.Id, "SetValidAttackTargets", card.Id, card.GetValidAttackTargets());
 					// Set Valid Attack Targets?
 				}
 				clientViewableCards.Clear();

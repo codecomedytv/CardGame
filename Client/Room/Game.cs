@@ -6,6 +6,7 @@ using CardGame.Client.Library.Cards;
 using CardGame.Client.Player;
 using Godot;
 using Godot.Collections;
+using Card = CardGame.Server.Game.Cards.Card;
 
 namespace CardGame.Client.Room {
 
@@ -49,10 +50,13 @@ namespace CardGame.Client.Room {
 			Messenger.Connect(nameof(Messenger.ActivationQueued), this, nameof(OnActivationQueued));
 			Messenger.Connect(nameof(Messenger.TriggerQueued), this, nameof(OnTriggeredQueued));
 			Messenger.Connect(nameof(Messenger.ValidTargetsSet), this, nameof(OnValidTargetsSet));
+			Messenger.Connect(nameof(Messenger.ValidAttackTargetsSet), this, nameof(OnValidAttackTargetsSet));
+			Messenger.Connect(nameof(Messenger.CardDestroyed), this, nameof(OnCardDestroyed));
 			CardCatalog.Connect(nameof(CardCatalog.MouseEnteredCard), CardViewer, nameof(CardViewer.OnCardClicked));
 			CardCatalog.Connect(nameof(CardCatalog.Deploy), Messenger, nameof(Messenger.Deploy));
 			CardCatalog.Connect(nameof(CardCatalog.SetFaceDown), Messenger, nameof(Messenger.SetFaceDown));
 			CardCatalog.Connect(nameof(CardCatalog.Activate), Messenger, nameof(Messenger.Activate));
+			CardCatalog.Connect(nameof(CardCatalog.Attack), Messenger, nameof(Messenger.Attack));
 			
 			// See Execute()
 			Player.Connect(nameof(Controller.Executed), this, nameof(SetState));
@@ -201,6 +205,19 @@ namespace CardGame.Client.Room {
 			var card = CardCatalog[id];
 			card.ValidTargets.Clear();
 			card.ValidTargets.AddRange(validTargets);
+		}
+
+		public void OnValidAttackTargetsSet(int id, IEnumerable<int> validAttackTargets)
+		{
+			var card = CardCatalog[id];
+			card.ValidAttackTargets.Clear();
+			card.ValidAttackTargets.AddRange(validAttackTargets);
+		}
+
+		public void OnCardDestroyed(int id)
+		{
+			var card = CardCatalog[id];
+			if(card.Player == Player) { Player.Destroy(card); } else { Opponent.Destroy(card); }
 		}
 
 		private void OnEndTurn()

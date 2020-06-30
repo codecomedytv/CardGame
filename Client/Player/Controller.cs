@@ -8,6 +8,7 @@ namespace CardGame.Client.Player
         public readonly Model Model;
         public readonly View View;
         public readonly bool IsUser;
+        public Controller Opponent;
 
         [Signal]
         public delegate void Executed();
@@ -83,6 +84,13 @@ namespace CardGame.Client.Player
         public void Trigger(Card card)
         {
             View.Trigger(card);
+        }
+
+        public void Destroy(Card card)
+        {
+            Model.Units.Remove(card);
+            Model.Graveyard.Add(card);
+            View.Destroy(card);
         }
     }
     

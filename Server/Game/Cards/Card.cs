@@ -42,6 +42,8 @@ namespace CardGame.Server.Game.Cards {
 
 		// Maybe this should default to int?
 		public List<int> GetValidTargets() => Skill.ValidTargets.Select(target => target.Id).ToList();
+		
+		public virtual List<int> GetValidAttackTargets() => new List<int>();
 
 		public virtual void SetCanBeDeployed() => State = States.Passive;
 

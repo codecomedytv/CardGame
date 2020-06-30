@@ -42,6 +42,12 @@ namespace CardGame.Client.Room
         public delegate void ValidTargetsSet();
 
         [Signal]
+        public delegate void ValidAttackTargetsSet();
+
+        [Signal]
+        public delegate void CardDestroyed();
+
+        [Signal]
         public delegate void ExecutedEvents();
 
         [Signal]
@@ -148,6 +154,18 @@ namespace CardGame.Client.Room
         public void SetValidTargets(int id, List<int> validTargets)
         {
             EmitSignal(nameof(ValidTargetsSet), id, validTargets);
+        }
+
+        [Puppet]
+        public void SetValidAttackTargets(int id, List<int> validAttackTargets)
+        {
+            EmitSignal(nameof(ValidAttackTargetsSet), id, validAttackTargets);
+        }
+
+        [Puppet]
+        public void DestroyCard(int id)
+        {
+            EmitSignal(nameof(CardDestroyed), id);
         }
 
         [Puppet]
