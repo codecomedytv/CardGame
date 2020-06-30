@@ -7,10 +7,22 @@ namespace CardGame.Client {
 	// ReSharper disable once ClassNeverInstantiated.Global
 	public class ClientConn : Connection
 	{
-		const string Ip = "127.0.0.1";
-		const int Port = 5000;
-		public NetworkedMultiplayerENet client;
+		private const string Ip = "127.0.0.1";
+		private const int Port = 5000;
+		private readonly PackedScene Room = (PackedScene) ResourceLoader.Load("res://Client/Room/Game.tscn");
+		public NetworkedMultiplayerENet Client;
 		public Array<SetCodes> DeckList;
+
+		public ClientConn()
+		{
+			GD.Print("Default Constructor");
+		}
+
+		public ClientConn(PackedScene room)
+		{
+			GD.Print("Room Constructor");
+			Room = room;
+		}
 
 		public override void _Ready()
 		{
@@ -18,7 +30,7 @@ namespace CardGame.Client {
 		}
 
 		// Debug
-		public Array<SetCodes> DefaultDeck()
+		private Array<SetCodes> DefaultDeck()
 		{
 			var deckList = new Array<SetCodes>();
 			for (var i = 0; i < 34; i++)
@@ -37,13 +49,13 @@ namespace CardGame.Client {
 
 		public void Join() {
 			
-			client = new NetworkedMultiplayerENet();
-			Godot.Error err = client.CreateClient(Ip, Port);
+			Client = new NetworkedMultiplayerENet();
+			var err = Client.CreateClient(Ip, Port);
 			if(err != Error.Ok) { GD.PushWarning(err.ToString()); }
 			err = CustomMultiplayer.Connect("connected_to_server", this, "OnConnected");
 			if(err != Error.Ok) { GD.PushWarning(err.ToString()); }
 			CustomMultiplayer.Connect("connection_failed", this, "OnFailed");
-			CustomMultiplayer.NetworkPeer = client;
+			CustomMultiplayer.NetworkPeer = Client;
 		}
 		
 		public void OnConnected() {

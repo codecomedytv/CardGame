@@ -20,10 +20,10 @@ namespace CardGame.Tests.Scripts.Connected
 			Assert.IsEqual(Server.Server.GetConnectionStatus(),
 				NetworkedMultiplayerPeer.ConnectionStatus.Connected);
 				
-			Assert.IsEqual(Clients[0].client.GetConnectionStatus(),
+			Assert.IsEqual(Clients[0].Client.GetConnectionStatus(),
 				NetworkedMultiplayerPeer.ConnectionStatus.Connected);
 				
-			Assert.IsEqual(Clients[1].client.GetConnectionStatus(),
+			Assert.IsEqual(Clients[1].Client.GetConnectionStatus(),
 				NetworkedMultiplayerPeer.ConnectionStatus.Connected);
 		}
 		
