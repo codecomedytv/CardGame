@@ -12,7 +12,7 @@ namespace CardGame.Server {
 		private const int Port = 5000;
 		private int RoomCount = 0;
 		public NetworkedMultiplayerENet Server;
-		private Queue<Player> Queue = new Queue<Player>();
+		private readonly Queue<Player> Queue = new Queue<Player>();
 		
 		public override void _Ready() 
 		{

@@ -17,9 +17,11 @@ namespace CardGame
 
         private void AddClients(int count = 1)
         {
-
+    
+            var server = new ServerConn();
             var client = new ClientConn();
             var client2 = new ClientConn();
+            server.Name = "Server";
             client.Name = "Client";
             client2.Name = "Client2";
             client.RectMinSize = new Vector2(1920, 1080);
@@ -28,6 +30,8 @@ namespace CardGame
             client.SizeFlagsVertical = (int) SizeFlags.Fill;
             client2.SizeFlagsHorizontal = (int) SizeFlags.Fill;
             client2.SizeFlagsVertical = (int) SizeFlags.Fill;
+            server.Visible = false;
+            GetNode<VBoxContainer>("ScrollContainer/VBoxContainer").AddChild(server, true);
             GetNode<VBoxContainer>("ScrollContainer/VBoxContainer").AddChild(client, true);
             GetNode<VBoxContainer>("ScrollContainer/VBoxContainer").AddChild(client2, true);
 

@@ -9,7 +9,6 @@ namespace CardGame.Tests.Scripts
 {
     public class ConnectedFixture: WAT.Test
     {
-	    private readonly PackedScene PackedServer = (PackedScene) ResourceLoader.Load("res://Server/Server.tscn");
  	    protected ServerConn Server;
 	    protected readonly Array<ClientConn> Clients = new Array<ClientConn>();
 	    private readonly Array<SetCodes> DeckList = new Array<SetCodes>();
@@ -39,7 +38,7 @@ namespace CardGame.Tests.Scripts
 		    // Most of our actions are coming via card-catalog so we may only need those
 		    // but what if we wanted to check the state of the game?
 		    // We could always
-		    Server = PackedServer.Instance() as ServerConn;
+		    Server = new ServerConn();
 		    Clients.Add(new ClientConn());
 		    Clients.Add(new ClientConn());
 		    AddChild(Server);
