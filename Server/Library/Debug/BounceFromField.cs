@@ -22,10 +22,10 @@ namespace CardGame.Server
                 Card = card;
                 AreaOfEffects.Add(Controller.Support);
             }
-            protected override void _SetUp()
+            protected override bool _SetUp()
             {
                 AddTargets(Opponent.Field);
-                CanBeUsed = ValidTargets.Count > 0;
+                return ValidTargets.Count > 0;
             }
 
             protected override void _Resolve()

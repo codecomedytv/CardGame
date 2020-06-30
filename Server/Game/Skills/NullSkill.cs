@@ -2,9 +2,9 @@
 {
     public class NullSkill: Manual
     {
-        protected override void _SetUp()
+        protected override bool _SetUp()
         {
-            CanBeUsed = false;
+            return false;
         }
     }
 }

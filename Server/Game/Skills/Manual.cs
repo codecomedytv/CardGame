@@ -7,7 +7,7 @@ namespace CardGame.Server.Game.Skills
 {
     public class Manual: Skill, IResolvable
     {
-        public bool CanBeUsed;
+        public bool CanBeUsed { get; private set; }
         public int PositionInLink { get; private set; }
 
         public void SetUp(Event gameEvent)
@@ -22,16 +22,16 @@ namespace CardGame.Server.Game.Skills
                 return;
             }
 
-            _SetUp();
+            CanBeUsed = _SetUp();
             if(CanBeUsed && Card is Support)
             {
                 Card.State = Card.States.CanBeActivated;
             }
         }
 
-        protected virtual void _SetUp()
+        protected virtual bool _SetUp()
         {
-            CanBeUsed = true;
+            return true;
         }
         
         public void Activate(Card? target, int positionInLink)
