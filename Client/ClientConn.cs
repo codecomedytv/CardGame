@@ -13,21 +13,9 @@ namespace CardGame.Client {
 		public NetworkedMultiplayerENet Client;
 		public Array<SetCodes> DeckList;
 
-		public ClientConn()
-		{
-			GD.Print("Default Constructor");
-		}
-
-		public ClientConn(PackedScene room)
-		{
-			GD.Print("Room Constructor");
-			Room = room;
-		}
-
-		public override void _Ready()
-		{
-			DeckList = DefaultDeck();
-		}
+		public ClientConn() { }
+		public ClientConn(PackedScene room) => Room = room;
+		public override void _Ready() => DeckList = DefaultDeck();
 
 		// Debug
 		private Array<SetCodes> DefaultDeck()
@@ -66,8 +54,8 @@ namespace CardGame.Client {
 
 		[Puppet]
 		public void CreateRoom(string gameId, int seatPosition){
-			var gameScene = (PackedScene) ResourceLoader.Load("res://Client/Room/Game.tscn");
-			var room = (Game) gameScene.Instance();
+			//var gameScene = (PackedScene) ResourceLoader.Load("res://Client/Room/Game.tscn");
+			var room = (Game) Room.Instance();
 			room.Name = gameId;
 			AddChild(room);
 			room.SetUp();

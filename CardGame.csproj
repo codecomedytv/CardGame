@@ -145,6 +145,7 @@
     <Compile Include="Tests\ConnectedFixture.cs" />
     <Compile Include="Tests\GameFixture.cs" />
     <Compile Include="Tests\MockMessenger.cs" />
+    <Compile Include="Tests\MockRoom.cs" />
     <Compile Include="Tests\Scripts\Connected\ActionTest.cs" />
     <Compile Include="Tests\Scripts\Connected\ConnectionTest.cs" />
     <Compile Include="Tests\Scripts\Serverside\BattleTest.cs" />

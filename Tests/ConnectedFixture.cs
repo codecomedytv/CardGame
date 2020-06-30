@@ -9,6 +9,7 @@ namespace CardGame.Tests.Scripts
 {
     public class ConnectedFixture: WAT.Test
     {
+	    private PackedScene MainGame = (PackedScene) ResourceLoader.Load("res://Client/Room/Game.tscn");
  	    protected ServerConn Server;
 	    protected readonly Array<ClientConn> Clients = new Array<ClientConn>();
 	    private readonly Array<SetCodes> DeckList = new Array<SetCodes>();

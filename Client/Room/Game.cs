@@ -18,7 +18,6 @@ namespace CardGame.Client.Room {
 		
 		private readonly Messenger Messenger = new Messenger();
 		private readonly CardCatalog CardCatalog = new CardCatalog();
-		private readonly Tween Gfx = new Tween();
 		private Player.Player Player;
 		private Player.Player Opponent;
 		private CardViewer CardViewer;
@@ -30,7 +29,6 @@ namespace CardGame.Client.Room {
 		private States StateAfterExecution;
 		public override void _Ready()
 		{
-			AddChild(Gfx);
 			Player = new Player.Player(GetNode<View>("Player"), true);
 			Opponent = new Player.Player(GetNode<View>("Opponent"), false);
 			CardCatalog.User = Player;
