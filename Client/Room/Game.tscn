@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=2]
+[gd_scene load_steps=65 format=2]
 
 [ext_resource path="res://assets/UI/CardBack_Wooden.png" type="Texture" id=1]
 [ext_resource path="res://assets/fonts/LemonMilkbolditalic.otf" type="DynamicFontData" id=2]
@@ -11,7 +11,6 @@
 [ext_resource path="res://assets/UI/Table.png" type="Texture" id=10]
 [ext_resource path="res://assets/UI/Label_WoodPlank.png" type="Texture" id=11]
 [ext_resource path="res://Assets/UI/CardBack_Wooden.png" type="Texture" id=12]
-[ext_resource path="res://Client/Room/Game.cs" type="Script" id=15]
 [ext_resource path="res://assets/UI/passbutton.png" type="Texture" id=21]
 [ext_resource path="res://Assets/spritesheets/ovalorange/13.png" type="Texture" id=46]
 
@@ -236,13 +235,13 @@ use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="Theme" id=51]
+[sub_resource type="Theme" id=45]
 
-[sub_resource type="StyleBoxTexture" id=52]
+[sub_resource type="StyleBoxTexture" id=46]
 texture = ExtResource( 12 )
 region_rect = Rect2( 0, 0, 1422, 2000 )
 
-[sub_resource type="DynamicFont" id=45]
+[sub_resource type="DynamicFont" id=47]
 size = 128
 outline_size = 4
 outline_color = Color( 1, 0, 0, 1 )
@@ -251,11 +250,11 @@ use_filter = true
 extra_spacing_char = 4
 font_data = ExtResource( 2 )
 
-[sub_resource type="StyleBoxTexture" id=46]
+[sub_resource type="StyleBoxTexture" id=48]
 texture = ExtResource( 11 )
 region_rect = Rect2( 0, 0, 342, 135 )
 
-[sub_resource type="DynamicFont" id=47]
+[sub_resource type="DynamicFont" id=49]
 size = 11
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
@@ -264,28 +263,25 @@ use_filter = true
 extra_spacing_char = 1
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFontData" id=49]
+[sub_resource type="DynamicFontData" id=50]
 font_path = "res://Assets/fonts/LemonMilkbolditalic.otf"
 
-[sub_resource type="DynamicFont" id=50]
+[sub_resource type="DynamicFont" id=51]
 size = 50
 outline_size = 6
 outline_color = Color( 0, 0, 0, 1 )
 use_mipmaps = true
 use_filter = true
 extra_spacing_char = 10
-font_data = SubResource( 49 )
+font_data = SubResource( 50 )
 
-[node name="Playmat" type="Control" groups=[
-"playmat",
-]]
+[node name="Playmat" type="Control"]
 self_modulate = Color( 1, 0.772549, 0.701961, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 1920, 1080 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource( 15 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -323,9 +319,7 @@ rect_min_size = Vector2( 0, 20 )
 rect_clip_content = true
 custom_styles/separator = SubResource( 1 )
 
-[node name="CardViewer" parent="Background" groups=[
-"viewer",
-] instance=ExtResource( 6 )]
+[node name="CardViewer" parent="Background" instance=ExtResource( 6 )]
 margin_right = 371.0
 margin_bottom = 603.0
 
@@ -395,8 +389,8 @@ margin_left = 1360.0
 margin_top = 530.0
 margin_right = 1460.0
 margin_bottom = 680.0
-theme = SubResource( 51 )
-custom_styles/panel = SubResource( 52 )
+theme = SubResource( 45 )
+custom_styles/panel = SubResource( 46 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -467,7 +461,7 @@ margin_right = 1345.0
 margin_bottom = 692.0
 size_flags_horizontal = 3
 size_flags_vertical = 6
-custom_fonts/font = SubResource( 45 )
+custom_fonts/font = SubResource( 47 )
 text = "-8000"
 align = 1
 valign = 1
@@ -480,8 +474,8 @@ margin_left = 1566.16
 margin_top = 520.684
 margin_right = 1716.16
 margin_bottom = 570.684
-custom_styles/normal = SubResource( 46 )
-custom_fonts/font = SubResource( 47 )
+custom_styles/normal = SubResource( 48 )
+custom_fonts/font = SubResource( 49 )
 align = 1
 valign = 1
 __meta__ = {
@@ -517,8 +511,8 @@ margin_left = 1360.0
 margin_top = 305.0
 margin_right = 1460.0
 margin_bottom = 455.0
-theme = SubResource( 51 )
-custom_styles/panel = SubResource( 52 )
+theme = SubResource( 45 )
+custom_styles/panel = SubResource( 46 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -580,7 +574,7 @@ margin_right = 1345.0
 margin_bottom = 470.0
 size_flags_horizontal = 3
 size_flags_vertical = 6
-custom_fonts/font = SubResource( 45 )
+custom_fonts/font = SubResource( 47 )
 text = "-8000"
 align = 1
 valign = 1
@@ -594,7 +588,7 @@ margin_left = 424.0
 margin_top = 490.0
 margin_right = 1497.0
 margin_bottom = 886.0
-custom_fonts/font = SubResource( 50 )
+custom_fonts/font = SubResource( 51 )
 text = "Disqualified"
 align = 1
 valign = 1

@@ -15,7 +15,8 @@ namespace CardGame.Client.Room {
 	{
 		[Signal]
 		public delegate void EndedTurn();
-		
+
+		private readonly PackedScene PlayMat = (PackedScene) ResourceLoader.Load("res://Client/Room/Game.tscn");
 		private readonly Messenger Messenger = new Messenger();
 		private readonly CardCatalog CardCatalog = new CardCatalog();
 		private Player.Player Player;
@@ -29,14 +30,17 @@ namespace CardGame.Client.Room {
 		private States StateAfterExecution;
 		public override void _Ready()
 		{
-			Player = new Player.Player(GetNode<View>("Player"), true);
-			Opponent = new Player.Player(GetNode<View>("Opponent"), false);
+			var playMat = PlayMat.Instance();
+			playMat.Name = "PlayMat";
+			AddChild(playMat, true);
+			Player = new Player.Player(GetNode<View>("PlayMat/Player"), true);
+			Opponent = new Player.Player(GetNode<View>("PlayMat/Opponent"), false);
 			CardCatalog.User = Player;
-			CardViewer = GetNode<CardViewer>("Background/CardViewer");
-			ActionButton = GetNode<Button>("Background/ActionButton");
+			CardViewer = GetNode<CardViewer>("PlayMat/Background/CardViewer");
+			ActionButton = GetNode<Button>("PlayMat/Background/ActionButton");
 			ActionButtonAnimation = ActionButton.GetNode<AnimatedSprite>("Glow");
-			EndTurn = GetNode<Button>("Background/EndTurn");
-			DisqualificationNotice = GetNode<Label>("Disqualified");
+			EndTurn = GetNode<Button>("PlayMat/Background/EndTurn");
+			DisqualificationNotice = GetNode<Label>("PlayMat/Disqualified");
 			ActionButton.Connect("pressed", this, nameof(OnActionButtonPressed));
 			Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
 			Messenger.Connect(nameof(Messenger.Disqualified), this, nameof(OnDisqualified));

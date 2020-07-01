@@ -9,12 +9,12 @@ namespace CardGame.Client {
 	{
 		private const string Ip = "127.0.0.1";
 		private const int Port = 5000;
-		private readonly PackedScene Room = (PackedScene) ResourceLoader.Load("res://Client/Room/Game.tscn");
-		public NetworkedMultiplayerENet Client;
+		private readonly CSharpScript Room = (CSharpScript) ResourceLoader.Load("res://Client/Room/Game.cs");
 		public Array<SetCodes> DeckList;
+		public NetworkedMultiplayerENet Client;
 
 		public ClientConn() { }
-		public ClientConn(PackedScene room) => Room = room;
+		public ClientConn(CSharpScript room) => Room = room;
 		public override void _Ready() => DeckList = DefaultDeck();
 
 		// Debug
@@ -54,8 +54,7 @@ namespace CardGame.Client {
 
 		[Puppet]
 		public void CreateRoom(string gameId, int seatPosition){
-			//var gameScene = (PackedScene) ResourceLoader.Load("res://Client/Room/Game.tscn");
-			var room = (Game) Room.Instance();
+			var room = (Game) Room.New();
 			room.Name = gameId;
 			AddChild(room);
 			room.SetUp();

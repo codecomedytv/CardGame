@@ -1,16 +1,16 @@
 <?xml version="1.0" ?>
-<testsuites failures="1" name="TestXML" tests="2" time="1.174">
-<testsuite failures="1" name="ActionTest" tests="1" time="0.01">
+<testsuites failures="1" name="TestXML" tests="2" time="1.121">
+<testsuite failures="1" name="ActionTest" tests="1" time="0.009">
 <testcase name="OnCardDeployed" time="0.001">
 <failure message="EXPECTED: N/A but GOT N/A"></failure>
 </testcase>
 </testsuite>
 <testsuite failures="0" name="Given A Server and Two Clients" tests="3" time="0.001">
-<testcase name="RoomSharesNameAcrossNetwork" time="5.009">
+<testcase name="RoomSharesNameAcrossNetwork" time="4.915">
 </testcase>
-<testcase name="GameRoomIsSetup" time="3.182">
+<testcase name="GameRoomIsSetup" time="3.208">
 </testcase>
-<testcase name="AllAreConnected" time="2.993">
+<testcase name="AllAreConnected" time="3.011">
 </testcase>
 </testsuite>
 </testsuites>

@@ -5,4 +5,98 @@
 [resource]
 script = ExtResource( 1 )
 failures = [ "res://Tests/Scripts/Connected/ActionTest.cs" ]
-_list = [  ]
+_list = [ {
+"context": "ActionTest",
+"methods": [ {
+"assertions": [ {
+"actual": "N/A",
+"context": "Unfinished Test",
+"expected": "N/A",
+"success": false
+} ],
+"context": "OnCardDeployed",
+"passed": 0,
+"success": false,
+"time": 0.001,
+"total": 1
+} ],
+"passed": 0,
+"path": "res://Tests/Scripts/Connected/ActionTest.cs",
+"success": false,
+"time_taken": 0.009,
+"total": 1
+}, {
+"context": "Given A Server and Two Clients",
+"methods": [ {
+"assertions": [ {
+"actual": "|String| 1 is equal to |String| 1",
+"context": "",
+"expected": "|String| 1 is equal to |String| 1",
+"success": true
+}, {
+"actual": "|String| 1 is equal to |String| 1",
+"context": "",
+"expected": "|String| 1 is equal to |String| 1",
+"success": true
+}, {
+"actual": "|String| 1 is equal to |String| 1",
+"context": "",
+"expected": "|String| 1 is equal to |String| 1",
+"success": true
+} ],
+"context": "RoomSharesNameAcrossNetwork",
+"passed": 3,
+"success": true,
+"time": 4.915,
+"total": 3
+}, {
+"assertions": [ {
+"actual": "|int| 1 is equal to |int| 1",
+"context": "",
+"expected": "|int| 1 is equal to |int| 1",
+"success": true
+}, {
+"actual": "|int| 1 is equal to |int| 1",
+"context": "",
+"expected": "|int| 1 is equal to |int| 1",
+"success": true
+}, {
+"actual": "|int| 1 is equal to |int| 1",
+"context": "",
+"expected": "|int| 1 is equal to |int| 1",
+"success": true
+} ],
+"context": "GameRoomIsSetup",
+"passed": 3,
+"success": true,
+"time": 3.208,
+"total": 3
+}, {
+"assertions": [ {
+"actual": "|int| 2 is equal to |int| 2",
+"context": "",
+"expected": "|int| 2 is equal to |int| 2",
+"success": true
+}, {
+"actual": "|int| 2 is equal to |int| 2",
+"context": "",
+"expected": "|int| 2 is equal to |int| 2",
+"success": true
+}, {
+"actual": "|int| 2 is equal to |int| 2",
+"context": "",
+"expected": "|int| 2 is equal to |int| 2",
+"success": true
+} ],
+"context": "AllAreConnected",
+"passed": 3,
+"success": true,
+"time": 3.011,
+"total": 3
+} ],
+"passed": 3,
+"path": "res://Tests/Scripts/Connected/ConnectionTest.cs",
+"success": true,
+"time_taken": 0.001,
+"total": 3
+} ]
