@@ -50,11 +50,27 @@ namespace CardGame.Tests.Scripts
 		    OpponentMockGame = Clients[0].GetNode<MockGame>("1");
 		    Player = PlayerMockGame.GetPlayerView();
 		    Opponent = PlayerMockGame.GetPlayerView();
+		    var oppViewFromPlayer = PlayerMockGame.GetOpponentView();
+		    var playerViewFromOpp = OpponentMockGame.GetOpponentView();
+
+		    // Player.Connect(nameof(View.AnimationFinished), this, nameof(OnExecution));
+		    // Opponent.Connect(nameof(View.AnimationFinished), this, nameof(OnExecution));
+		    // oppViewFromPlayer.Connect(nameof(View.AnimationFinished), this, nameof(OnExecution));
+		    // playerViewFromOpp.Connect(nameof(View.AnimationFinished), this, nameof(OnExecution));
 
 	    }
-	    
-	    
 
+	    [Signal]
+	    public delegate void AllExecuted();
+	    private int ExecutionCount = 0;
+
+	    public void OnExecution()
+	    {
+		    ExecutionCount += 1;
+		    if (ExecutionCount != 4) { return; }
+		    EmitSignal(nameof(AllExecuted));
+	    }
+	    
 	    protected void RemoveGame()
 	    {
 		    RemoveChild(Server);

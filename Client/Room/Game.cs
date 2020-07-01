@@ -20,7 +20,7 @@ namespace CardGame.Client.Room {
 		private readonly Messenger Messenger = new Messenger();
 		private readonly CardCatalog CardCatalog = new CardCatalog();
 		protected Player.Player Player;
-		private Player.Player Opponent;
+		protected Player.Player Opponent;
 		private CardViewer CardViewer;
 		private Button ActionButton;
 		private AnimatedSprite ActionButtonAnimation;

@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using CardGame.Client;
 using CardGame.Client.Library.Cards;
+using CardGame.Client.Player;
 using Godot;
 
 namespace CardGame.Tests.Scripts.Connected
@@ -25,7 +26,10 @@ namespace CardGame.Tests.Scripts.Connected
             Assert.IsNotNull(PlayerMockGame);
             Assert.IsNotNull(OpponentMockGame);
             var toDeploy = (Card) Player.Hand.GetChild(0);
-            //Assert.Fail("Unfinished Test");
+            toDeploy.DoubleClick();
+            await ToSignal(UntilSignal(Player, nameof(View.AnimationFinished), 5), YIELD);
+            //await ToSignal(UntilTimeout(1), YIELD);
+            Assert.Has(toDeploy, Player.Units.GetChildren(), $"{toDeploy} was Deployed");
         }
     }
 }

@@ -131,9 +131,11 @@ namespace CardGame.Client.Library.Cards
 		{
 			if (inputEvent is InputEventMouseButton mouseButton && mouseButton.Doubleclick && GetGlobalRect().HasPoint(mouseButton.Position))
 			{
-				EmitSignal(nameof(DoubleClicked));
+				DoubleClick();
 			}
 		}
+
+		public void DoubleClick() => EmitSignal(nameof(DoubleClicked));
 	}
 }
 

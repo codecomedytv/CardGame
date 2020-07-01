@@ -7,5 +7,6 @@ namespace CardGame.Tests
     public class MockGame: Game
     {
         public View GetPlayerView() => Player.View;
+        public View GetOpponentView() => Opponent.View;
     }
 }
