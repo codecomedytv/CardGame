@@ -19,7 +19,7 @@ namespace CardGame.Client.Room {
 		private readonly PackedScene PlayMat = (PackedScene) ResourceLoader.Load("res://Client/Room/Game.tscn");
 		private readonly Messenger Messenger = new Messenger();
 		private readonly CardCatalog CardCatalog = new CardCatalog();
-		private Player.Player Player;
+		protected Player.Player Player;
 		private Player.Player Opponent;
 		private CardViewer CardViewer;
 		private Button ActionButton;

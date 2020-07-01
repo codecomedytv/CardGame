@@ -1,5 +1,6 @@
 using CardGame;
 using CardGame.Client;
+using CardGame.Client.Player;
 using CardGame.Client.Room;
 using CardGame.Server;
 using Godot;
@@ -12,7 +13,11 @@ namespace CardGame.Tests.Scripts
 	    private readonly CSharpScript MockGame = (CSharpScript) ResourceLoader.Load("res://Tests/MockGame.cs");
  	    protected ServerConn Server;
 	    protected readonly Array<ClientConn> Clients = new Array<ClientConn>();
-	    private readonly DeckList DeckList = new DeckList();
+	    protected readonly DeckList DeckList = new DeckList();
+	    protected MockGame PlayerMockGame;
+	    protected MockGame OpponentMockGame;
+	    protected View Player;
+	    protected View Opponent;
 	    
 	    protected async void AddGame()
 	    {
@@ -40,10 +45,11 @@ namespace CardGame.Tests.Scripts
 		    await ToSignal(UntilSignal(Server.Server, "connection_succeeded", 1.0), YIELD);
 		    await ToSignal(UntilSignal(Clients[0].Multiplayer, "connected_to_server", 1.0), YIELD);
 		    await ToSignal(UntilSignal(Clients[1].Multiplayer, "connected_to_server", 1.0), YIELD);
-		    
-		    // We access the Mock Game Nodes via Tree
-		    // Clients[0].GetNode<MockGame>("1");
-		    // Clients[1].GetNode<MockGame>("1");
+		    GD.Print("Hello?");
+		    PlayerMockGame = Clients[1].GetNode<MockGame>("1");
+		    OpponentMockGame = Clients[0].GetNode<MockGame>("1");
+		    Player = PlayerMockGame.GetPlayerView();
+		    Opponent = PlayerMockGame.GetPlayerView();
 
 	    }
 	    

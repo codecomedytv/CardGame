@@ -10,9 +10,11 @@ func _init() -> void:
 
 func until_timeout(time: float) -> Timer:
 	# Oneshot doesn't disconnect properly without also being deferred
+	var timer = Timer.new();
 	connect("timeout", self, "_on_resume", [], CONNECT_DEFERRED)
 	wait_time = time
 	paused = false
+	add_child(timer)
 	start()
 	return self
 	
@@ -31,11 +33,13 @@ func _on_resume(a = null, b = null, c = null, d = null, e = null, f = null) -> v
 	disconnect("timeout", self, "_on_resume")
 	if is_instance_valid(_emitter) and _emitter.is_connected(_event, self, "_on_resume"):
 		_emitter.disconnect(_event, self, "_on_resume")
+		
 	# Our adapter is connected to this. When this is emitted our adapter
 	# ..will call "_next" which call defers _change_state. Since it is a deferred
 	# ..call the test will resume first. Therefore if a new yield gets constructed
 	# ..in the interim we will be able to check if we have restarted the yield clock
-	emit_signal("finished", [a, b, c, d, e, f])
+	call_deferred("emit_signal", "finished", [a, b, c, d, e, f])
 
 func is_active() -> bool:
 	return not paused and time_left > 0
+
