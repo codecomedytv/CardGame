@@ -2,7 +2,7 @@
 using CardGame.Client.Library.Cards;
 using Godot;
 using Godot.Collections;
-using States = CardGame.Client.Player.States;
+using States = CardGame.Client.Players.States;
 
 namespace CardGame.Client.Room
 {

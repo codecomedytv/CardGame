@@ -1,6 +1,6 @@
 using System.Linq;
 using CardGame.Client.Library.Cards;
-using CardGame.Client.Player;
+using CardGame.Client.Players;
 using Godot;
 using Godot.Collections;
 
@@ -24,7 +24,7 @@ namespace CardGame.Client.Room
         public delegate void Attack();
         
         private readonly System.Collections.Generic.Dictionary<int, Card> CardsById = new System.Collections.Generic.Dictionary<int, Card>();
-        public Player.Player User;
+        public Player User;
         private bool Targeting = false;
         private bool Attacking = false;
         private Card TargetingCard;

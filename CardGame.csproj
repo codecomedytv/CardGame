@@ -59,9 +59,9 @@
     <Compile Include="addons\WAT\core\test\Test.cs" />
     <Compile Include="Client\ClientConn.cs" />
     <Compile Include="Client\DeckList.cs" />
-    <Compile Include="Client\Player\Player.cs" />
-    <Compile Include="Client\Player\States.cs" />
-    <Compile Include="Client\Player\View.cs" />
+    <Compile Include="Client\Players\Player.cs" />
+    <Compile Include="Client\Players\States.cs" />
+    <Compile Include="Client\Players\View.cs" />
     <Compile Include="Client\Room\CardCatalog.cs" />
     <Compile Include="Client\Room\CardViewer.cs" />
     <Compile Include="Client\Room\Game.cs" />

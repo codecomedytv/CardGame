@@ -2,7 +2,7 @@
 using CardGame.Client.Library.Cards;
 using Godot;
 
-namespace CardGame.Client.Player
+namespace CardGame.Client.Players
 {
     public class Player: Godot.Object
     

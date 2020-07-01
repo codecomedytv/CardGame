@@ -1,6 +1,6 @@
 using CardGame;
 using CardGame.Client;
-using CardGame.Client.Player;
+using CardGame.Client.Players;
 using CardGame.Client.Room;
 using CardGame.Server;
 using Godot;
@@ -60,7 +60,7 @@ namespace CardGame.Tests.Scripts
 		    }
 
 		    Clients.Clear();
-		    DeckList.Clear();
+		    //DeckList.Clear();
 		    Server.Free();
 	    }
 	    

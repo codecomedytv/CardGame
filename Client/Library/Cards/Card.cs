@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CardGame.Client.Library.Alpha;
+using CardGame.Client.Players;
 using Godot;
 
 namespace CardGame.Client.Library.Cards
@@ -14,7 +15,7 @@ namespace CardGame.Client.Library.Cards
 		public string Effect;
 		public CardTypes CardType;
 		public CardStates State = CardStates.CanBeDeployed;
-		public Player.Player Player;
+		public Player Player;
 		private Label Identifier;
 		private Label AttackLabel;
 		private Label DefenseLabel;

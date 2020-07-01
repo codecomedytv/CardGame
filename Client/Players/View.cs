@@ -1,10 +1,8 @@
-﻿using System;
-using System.Linq;
-using CardGame.Client.Library;
+﻿using CardGame.Client.Library;
 using CardGame.Client.Library.Cards;
 using Godot;
 
-namespace CardGame.Client.Player
+namespace CardGame.Client.Players
 {
     public class View: Control
     {

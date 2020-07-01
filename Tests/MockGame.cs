@@ -1,4 +1,4 @@
-﻿using CardGame.Client.Player;
+﻿using CardGame.Client.Players;
 using CardGame.Client.Room;
 using Godot;
 
@@ -8,5 +8,10 @@ namespace CardGame.Tests
     {
         public View GetPlayerView() => Player.View;
         public View GetOpponentView() => Opponent.View;
+
+        public void EndTurn()
+        {
+            //EmitSignal(nameof(EndedTurn));
+        }
     }
 }

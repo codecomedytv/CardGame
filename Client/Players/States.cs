@@ -1,4 +1,4 @@
-﻿namespace CardGame.Client.Player
+﻿namespace CardGame.Client.Players
 {
     public enum States
     {

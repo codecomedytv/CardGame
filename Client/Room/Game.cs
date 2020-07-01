@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CardGame.Client.Library;
 using CardGame.Client.Library.Cards;
-using CardGame.Client.Player;
+using CardGame.Client.Players;
 using Godot;
 using Godot.Collections;
 using Card = CardGame.Server.Game.Cards.Card;
@@ -13,14 +13,11 @@ namespace CardGame.Client.Room {
 	// ReSharper disable once ClassNeverInstantiated.Global
 	public class Game : Control
 	{
-		[Signal]
-		public delegate void EndedTurn();
-
 		private readonly PackedScene PlayMat = (PackedScene) ResourceLoader.Load("res://Client/Room/Game.tscn");
 		private readonly Messenger Messenger = new Messenger();
 		private readonly CardCatalog CardCatalog = new CardCatalog();
-		protected Player.Player Player;
-		protected Player.Player Opponent;
+		protected Player Player;
+		protected Player Opponent;
 		private CardViewer CardViewer;
 		private Button ActionButton;
 		private AnimatedSprite ActionButtonAnimation;
@@ -33,8 +30,8 @@ namespace CardGame.Client.Room {
 			var playMat = (Control) PlayMat.Instance();
 			playMat.Name = "PlayMat";
 			AddChild(playMat, true);
-			Player = new Player.Player(GetNode<View>("PlayMat/Player"), true);
-			Opponent = new Player.Player(GetNode<View>("PlayMat/Opponent"), false);
+			Player = new Player(GetNode<View>("PlayMat/Player"), true);
+			Opponent = new Player(GetNode<View>("PlayMat/Opponent"), false);
 			CardCatalog.User = Player;
 			CardViewer = GetNode<CardViewer>("PlayMat/Background/CardViewer");
 			ActionButton = GetNode<Button>("PlayMat/Background/ActionButton");
@@ -61,11 +58,11 @@ namespace CardGame.Client.Room {
 			CardCatalog.Connect(nameof(CardCatalog.Attack), Messenger, nameof(Messenger.Attack));
 			
 			// See Execute()
-			Player.Connect(nameof(Client.Player.Player.Executed), this, nameof(SetState));
-			Opponent.Connect(nameof(Client.Player.Player.Executed), this, nameof(SetState));
+			Player.Connect(nameof(Player.Executed), this, nameof(SetState));
+			Opponent.Connect(nameof(Player.Executed), this, nameof(SetState));
 			
-			EndTurn.Connect("pressed", this, nameof(OnEndTurn));
-			Connect(nameof(EndedTurn), Messenger, nameof(Messenger.EndTurn));
+			EndTurn.Connect("pressed", Messenger, nameof(Messenger.EndTurn));
+			//Connect(nameof(EndedTurn), Messenger, nameof(Messenger.EndTurn));
 		}
 
 		public void SetUp()
@@ -224,7 +221,7 @@ namespace CardGame.Client.Room {
 
 		private void OnEndTurn()
 		{
-			EmitSignal(nameof(EndedTurn));
+			//EmitSignal(nameof(EndedTurn));
 		}
 		
 		public void _Connect(Godot.Object emitter, string signal, Godot.Object receiver, string method)
