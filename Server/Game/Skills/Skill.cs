@@ -72,7 +72,6 @@ namespace CardGame.Server.Game.Skills {
         }
         protected void AddTargets(IEnumerable<Card> cards)
         {
-            // TODO: Implement A Way To Send This Information To Messenger (ModifyCard?)
             ValidTargets.AddRange(cards.Where(card => !card.HasTag(TagIds.CannotBeTargeted)));
         }
 

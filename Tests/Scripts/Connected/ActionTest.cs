@@ -9,6 +9,10 @@ namespace CardGame.Tests.Scripts.Connected
 {
     public class ActionTest: ConnectedFixture
     {
+        // TODO: Implement Battle Test
+        // TODO: Implement Direct Attack Test
+        // TODO: Implement Attack Test
+        // TODO: Implement EndTurnTest
         public override void Start()
         {
             DeckList.Add(SetCodes.AlphaDungeonGuide, 39);
