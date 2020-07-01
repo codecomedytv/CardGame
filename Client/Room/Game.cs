@@ -30,7 +30,7 @@ namespace CardGame.Client.Room {
 		private States StateAfterExecution;
 		public override void _Ready()
 		{
-			var playMat = PlayMat.Instance();
+			var playMat = (Control) PlayMat.Instance();
 			playMat.Name = "PlayMat";
 			AddChild(playMat, true);
 			Player = new Player.Player(GetNode<View>("PlayMat/Player"), true);
