@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CardGame.Client;
 using CardGame.Server;
 using CardGame.Server.Game.Tags;
 using Godot;
@@ -10,7 +11,7 @@ namespace CardGame.Tests.Scripts.Serverside
     public class SkillTest: GameFixture
     {
         private List<SetCodes> DeckList = new List<SetCodes>();
-
+        
         public override string Title()
         {
             return "When using a Skill";

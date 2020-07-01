@@ -10,31 +10,13 @@ namespace CardGame.Client {
 		private const string Ip = "127.0.0.1";
 		private const int Port = 5000;
 		private readonly CSharpScript Room = (CSharpScript) ResourceLoader.Load("res://Client/Room/Game.cs");
-		public Array<SetCodes> DeckList;
+		public DeckList DeckList = new DeckList();
 		public NetworkedMultiplayerENet Client;
 
 		public ClientConn() { }
 		public ClientConn(CSharpScript room) => Room = room;
-		public override void _Ready() => DeckList = DefaultDeck();
-
-		// Debug
-		private Array<SetCodes> DefaultDeck()
-		{
-			var deckList = new Array<SetCodes>();
-			for (var i = 0; i < 34; i++)
-			{
-				deckList.Add(SetCodes.AlphaDungeonGuide);
-			}
-
-			deckList.Add(SetCodes.AlphaGuardPuppy);
-			deckList.Add(SetCodes.AlphaWrongWay);
-			deckList.Add(SetCodes.AlphaCounterAttack);
-			deckList.Add(SetCodes.AlphaQuestReward);
-			deckList.Add(SetCodes.AlphaNoviceArcher);
-			deckList.Add(SetCodes.AlphaTrainingTrainer);
-			return deckList;
-		}
-
+		public override void _Ready() {}
+		
 		public void Join() {
 			
 			Client = new NetworkedMultiplayerENet();

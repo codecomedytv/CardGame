@@ -12,7 +12,7 @@ namespace CardGame.Tests.Scripts
 	    private readonly CSharpScript MockGame = (CSharpScript) ResourceLoader.Load("res://Tests/MockGame.cs");
  	    protected ServerConn Server;
 	    protected readonly Array<ClientConn> Clients = new Array<ClientConn>();
-	    private readonly Array<SetCodes> DeckList = new Array<SetCodes>();
+	    private readonly DeckList DeckList = new DeckList();
 	    
 	    protected async void AddGame()
 	    {
