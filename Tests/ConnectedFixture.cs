@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using CardGame;
 using CardGame.Client;
 using CardGame.Client.Players;
@@ -5,10 +6,12 @@ using CardGame.Client.Room;
 using CardGame.Server;
 using Godot;
 using Godot.Collections;
+using Player = CardGame.Server.Player;
 
 namespace CardGame.Tests.Scripts
 {
-    public class ConnectedFixture: WAT.Test
+
+	public class ConnectedFixture: WAT.Test
     {
 	    private readonly CSharpScript MockGame = (CSharpScript) ResourceLoader.Load("res://Tests/MockGame.cs");
  	    protected ServerConn Server;
@@ -50,6 +53,13 @@ namespace CardGame.Tests.Scripts
 		    PlayerViewFromOpp = OpponentMockGame.GetOpponentView();
 	    }
 
+	    protected Task<object[]> PlayerState => WaitOnState(PlayerMockGame);
+	    protected Task<object[]> OpponentState => WaitOnState(OpponentMockGame);
+	    private async Task<object[]> WaitOnState(MockGame game)
+	    {
+		    return await ToSignal(UntilSignal(game, nameof(Game.StateSet), 5), YIELD);
+	    }
+	    
 	    protected void RemoveGame()
 	    {
 		    RemoveChild(Server);

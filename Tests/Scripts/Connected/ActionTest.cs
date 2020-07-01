@@ -51,7 +51,7 @@ namespace CardGame.Tests.Scripts.Connected
             await ToSignal(UntilTimeout(0.2), YIELD);
             PlayerMockGame.End();
             PlayerMockGame.Visible = false;
-            await ToSignal(UntilSignal(OpponentMockGame, nameof(Game.StateSet), 5), YIELD);
+            await OpponentState;
             Assert.IsEqual(8, Opponent.Hand.GetChildCount(), "Opponent Drew A Card");
         }
 
@@ -61,31 +61,31 @@ namespace CardGame.Tests.Scripts.Connected
             await ToSignal(UntilTimeout(0.2), YIELD);
             var attacker = (Card) Player.Hand.GetChild(2);
             attacker.DoubleClick();
-            await ToSignal(UntilSignal(OpponentMockGame, nameof(Game.StateSet), 5), YIELD);
+            await PlayerState;
             OpponentMockGame.Pass();
-            await ToSignal(UntilSignal(PlayerMockGame, nameof(Game.StateSet), 5), YIELD);
+            await PlayerState;
             PlayerMockGame.Pass();
-            await ToSignal(UntilSignal(PlayerMockGame, nameof(Game.StateSet), 5), YIELD);
+            await PlayerState;
             PlayerMockGame.End();
-            await ToSignal(UntilSignal(OpponentMockGame, nameof(Game.StateSet), 5), YIELD);
+            await OpponentState;
             var defending = (Card) Opponent.Hand.GetChild(0);
             defending.DoubleClick();
-            await ToSignal(UntilSignal(PlayerMockGame, nameof(Game.StateSet), 5), YIELD);
+            await PlayerState;
             PlayerMockGame.Pass();
             await ToSignal(UntilTimeout(0.2F), YIELD);
-            await ToSignal(UntilSignal(OpponentMockGame, nameof(Game.StateSet), 5), YIELD);
+            await OpponentState;
             OpponentMockGame.Pass();
             await ToSignal(UntilTimeout(0.2F), YIELD);
-            await ToSignal(UntilSignal(OpponentMockGame, nameof(Game.StateSet), 5), YIELD);
+            await OpponentState;
             OpponentMockGame.End();
-            await ToSignal(UntilSignal(PlayerMockGame, nameof(Game.StateSet), 5), YIELD);
+            await PlayerState;
             attacker.DoubleClick();
             OppViewFromPlayer.Units.GetChild<Card>(0).DoubleClick(); // Make sure to click the Attacker's copy
-            await ToSignal(UntilSignal(OpponentMockGame, nameof(Game.StateSet), 5), YIELD);
+            await OpponentState;
             OpponentMockGame.Pass();
-            await ToSignal(UntilSignal(PlayerMockGame, nameof(Game.StateSet), 5), YIELD);
+            await PlayerState;
             PlayerMockGame.Pass();
-            await ToSignal(UntilSignal(PlayerMockGame, nameof(Game.StateSet), 5), YIELD);
+            await PlayerState;
 
             Assert.Has(defending, Opponent.Discard.GetChildren(), $"{defending} is in Opponent's Graveyard");
 
