@@ -52,7 +52,6 @@ namespace CardGame.Client.Room
 
         private void OnMouseEnterCard(Card card)
         {
-            GD.Print(User.View.Hand.GetChildCount());
             if (Targeting || Attacking) { return; }
             EmitSignal(nameof(MouseEnteredCard), card);
             var playingState = User.State == States.Idle || User.State == States.Active;

@@ -30,7 +30,7 @@ Test_Directory="res://Tests/Scripts"
 Results_Directory="res://Tests/Results/WAT"
 Minimize_Window_When_Running_Tests=false
 TestStrategy={
-"method": "OnEndTurn",
+"method": "OnUnitOnFieldDoubleClicked",
 "repeat": 1,
 "script": "res://Tests/Scripts/Connected/ActionTest.cs",
 "strategy": "RunMethod"

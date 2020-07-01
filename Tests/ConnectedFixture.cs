@@ -18,6 +18,8 @@ namespace CardGame.Tests.Scripts
 	    protected MockGame OpponentMockGame;
 	    protected View Player;
 	    protected View Opponent;
+	    protected View OppViewFromPlayer;
+	    protected View PlayerViewFromOpp;
 	    
 	    protected async void AddGame()
 	    {
@@ -44,8 +46,8 @@ namespace CardGame.Tests.Scripts
 		    OpponentMockGame = Clients[0].GetNode<MockGame>("1");
 		    Player = PlayerMockGame.GetPlayerView();
 		    Opponent = OpponentMockGame.GetPlayerView();
-		    var oppViewFromPlayer = PlayerMockGame.GetOpponentView();
-		    var playerViewFromOpp = OpponentMockGame.GetOpponentView();
+		    OppViewFromPlayer = PlayerMockGame.GetOpponentView();
+		    PlayerViewFromOpp = OpponentMockGame.GetOpponentView();
 	    }
 
 	    protected void RemoveGame()
