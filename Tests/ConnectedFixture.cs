@@ -34,14 +34,9 @@ namespace CardGame.Tests.Scripts
 		    AddChild(Server);
 		    AddChild(Clients[0]);
 		    AddChild(Clients[1]);
-		    if (DeckList.Count != 0)
-		    {
-			    Clients[0].DeckList = DeckList;
-			    Clients[1].DeckList = DeckList;
-		    }
 		    Server.Host();
-		    Clients[0].Join();
-		    Clients[1].Join();
+		    Clients[0].Join(DeckList);
+		    Clients[1].Join(DeckList);
 		    await ToSignal(UntilSignal(Server.Server, "connection_succeeded", 1.0), YIELD);
 		    await ToSignal(UntilSignal(Clients[0].Multiplayer, "connected_to_server", 1.0), YIELD);
 		    await ToSignal(UntilSignal(Clients[1].Multiplayer, "connected_to_server", 1.0), YIELD);
@@ -52,25 +47,8 @@ namespace CardGame.Tests.Scripts
 		    Opponent = PlayerMockGame.GetPlayerView();
 		    var oppViewFromPlayer = PlayerMockGame.GetOpponentView();
 		    var playerViewFromOpp = OpponentMockGame.GetOpponentView();
-
-		    // Player.Connect(nameof(View.AnimationFinished), this, nameof(OnExecution));
-		    // Opponent.Connect(nameof(View.AnimationFinished), this, nameof(OnExecution));
-		    // oppViewFromPlayer.Connect(nameof(View.AnimationFinished), this, nameof(OnExecution));
-		    // playerViewFromOpp.Connect(nameof(View.AnimationFinished), this, nameof(OnExecution));
-
 	    }
 
-	    [Signal]
-	    public delegate void AllExecuted();
-	    private int ExecutionCount = 0;
-
-	    public void OnExecution()
-	    {
-		    ExecutionCount += 1;
-		    if (ExecutionCount != 4) { return; }
-		    EmitSignal(nameof(AllExecuted));
-	    }
-	    
 	    protected void RemoveGame()
 	    {
 		    RemoveChild(Server);

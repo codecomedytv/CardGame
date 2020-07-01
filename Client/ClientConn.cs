@@ -10,15 +10,17 @@ namespace CardGame.Client {
 		private const string Ip = "127.0.0.1";
 		private const int Port = 5000;
 		private readonly CSharpScript Room = (CSharpScript) ResourceLoader.Load("res://Client/Room/Game.cs");
-		public DeckList DeckList = new DeckList();
+		private DeckList DeckList = new DeckList();
 		public NetworkedMultiplayerENet Client;
 
 		public ClientConn() { }
 		public ClientConn(CSharpScript room) => Room = room;
 		public override void _Ready() {}
 		
-		public void Join() {
+		public void Join(DeckList deckList = null)
+		{
 			
+			DeckList = deckList ?? DeckList;
 			Client = new NetworkedMultiplayerENet();
 			var err = Client.CreateClient(Ip, Port);
 			if(err != Error.Ok) { GD.PushWarning(err.ToString()); }

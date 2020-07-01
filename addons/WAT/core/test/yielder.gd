@@ -30,7 +30,8 @@ func until_signal(time: float, emitter: Object, event: String) -> Timer:
 
 func _on_resume(a = null, b = null, c = null, d = null, e = null, f = null) -> void:
 	paused = true
-	disconnect("timeout", self, "_on_resume")
+	if(is_connected("timeout", self, "_on_resume")):
+	    disconnect("timeout", self, "_on_resume")
 	if is_instance_valid(_emitter) and _emitter.is_connected(_event, self, "_on_resume"):
 		_emitter.disconnect(_event, self, "_on_resume")
 		
