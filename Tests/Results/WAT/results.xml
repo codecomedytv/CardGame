@@ -1,12 +1,7 @@
 <?xml version="1.0" ?>
-<testsuites failures="1" name="TestXML" tests="1" time="1.179">
-<testsuite failures="1" name="ActionTest" tests="3" time="0.011">
-<testcase name="OnEndTurn" time="4.472">
-<failure message="EXPECTED: |int| 8 is equal to |int| 7 but GOT |int| 8 is not equal to |int| 7"></failure>
-</testcase>
-<testcase name="OnSupportInHandDoubleClicked" time="3.525">
-</testcase>
-<testcase name="OnUnitInHandDoubleClicked" time="3.542">
+<testsuites failures="0" name="TestXML" tests="1" time="1.474">
+<testsuite failures="0" name="ActionTest" tests="1" time="0.02">
+<testcase name="OnEndTurn" time="9.789">
 </testcase>
 </testsuite>
 </testsuites>

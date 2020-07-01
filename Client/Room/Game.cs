@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using CardGame.Client.Library;
 using CardGame.Client.Library.Cards;
@@ -13,6 +14,12 @@ namespace CardGame.Client.Room {
 	// ReSharper disable once ClassNeverInstantiated.Global
 	public class Game : Control
 	{
+		[Signal] 
+		public delegate void EndedTurn();
+
+		[Signal]
+		public delegate void StateSet();
+		
 		private readonly PackedScene PlayMat = (PackedScene) ResourceLoader.Load("res://Client/Room/Game.tscn");
 		private readonly Messenger Messenger = new Messenger();
 		private readonly CardCatalog CardCatalog = new CardCatalog();
@@ -61,8 +68,8 @@ namespace CardGame.Client.Room {
 			Player.Connect(nameof(Player.Executed), this, nameof(SetState));
 			Opponent.Connect(nameof(Player.Executed), this, nameof(SetState));
 			
-			EndTurn.Connect("pressed", Messenger, nameof(Messenger.EndTurn));
-			//Connect(nameof(EndedTurn), Messenger, nameof(Messenger.EndTurn));
+			EndTurn.Connect("pressed", this, nameof(OnEndTurn));
+			Connect(nameof(EndedTurn), Messenger, nameof(Messenger.EndTurn));
 		}
 
 		public void SetUp()
@@ -83,7 +90,7 @@ namespace CardGame.Client.Room {
 			Opponent.Execute();
 		}
 
-		private void OnActionButtonPressed()
+		protected void OnActionButtonPressed()
 		{
 			if (Player.State != States.Active)
 			{
@@ -110,6 +117,7 @@ namespace CardGame.Client.Room {
 				ActionButton.Text = "Pass";
 			}
 			ExecutionCount = 0;
+			EmitSignal(nameof(StateSet));
 		}
 
 		private void OnDisqualified()
@@ -219,9 +227,9 @@ namespace CardGame.Client.Room {
 			if(card.Player == Player) { Player.Destroy(card); } else { Opponent.Destroy(card); }
 		}
 
-		private void OnEndTurn()
+		protected void OnEndTurn()
 		{
-			//EmitSignal(nameof(EndedTurn));
+			EmitSignal(nameof(EndedTurn));
 		}
 		
 		public void _Connect(Godot.Object emitter, string signal, Godot.Object receiver, string method)

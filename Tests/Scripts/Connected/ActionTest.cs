@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using CardGame.Client;
 using CardGame.Client.Library.Cards;
 using CardGame.Client.Players;
+using CardGame.Client.Room;
 using Godot;
 
 namespace CardGame.Tests.Scripts.Connected
@@ -47,8 +49,9 @@ namespace CardGame.Tests.Scripts.Connected
         public async void OnEndTurn()
         {
             await ToSignal(UntilTimeout(0.2), YIELD);
-            PlayerMockGame.EndTurn();
-            await ToSignal(UntilSignal(Opponent, nameof(View.AnimationFinished), 5), YIELD);
+            PlayerMockGame.End();
+            PlayerMockGame.Visible = false;
+            await ToSignal(UntilSignal(OpponentMockGame, nameof(Game.StateSet), 5), YIELD);
             Assert.IsEqual(8, Opponent.Hand.GetChildCount(), "Opponent Drew A Card");
         }
 
@@ -58,7 +61,18 @@ namespace CardGame.Tests.Scripts.Connected
             await ToSignal(UntilTimeout(0.2), YIELD);
             var attacker = (Card) Player.Hand.GetChild(2);
             attacker.DoubleClick();
-            await ToSignal(UntilSignal(Player, nameof(View.AnimationFinished), 5), YIELD);
+            await ToSignal(UntilSignal(PlayerMockGame, nameof(Game.StateSet), 5), YIELD);
+            OpponentMockGame.Pass();
+            await ToSignal(UntilSignal(OpponentMockGame, nameof(Game.StateSet), 5), YIELD);
+            PlayerMockGame.Pass();
+            await ToSignal(UntilSignal(PlayerMockGame, nameof(Game.StateSet), 5), YIELD);
+            /*
+            PlayerMockGame.End();
+            await ToSignal(UntilSignal(OpponentMockGame, nameof(Game.StateSet), 5), YIELD);
+            var defending = (Card) Opponent.Hand.GetChild(0);
+            defending.DoubleClick();
+            await ToSignal(UntilSignal(OpponentMockGame, nameof(Game.StateSet), 5), YIELD);
+            */
         }
     }
 }

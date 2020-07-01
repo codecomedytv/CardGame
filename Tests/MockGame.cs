@@ -9,9 +9,14 @@ namespace CardGame.Tests
         public View GetPlayerView() => Player.View;
         public View GetOpponentView() => Opponent.View;
 
-        public void EndTurn()
+        public void End()
         {
-            //EmitSignal(nameof(EndedTurn));
+            OnEndTurn();
+        }
+
+        public void Pass()
+        {
+            OnActionButtonPressed();
         }
     }
 }

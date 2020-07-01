@@ -40,11 +40,10 @@ namespace CardGame.Tests.Scripts
 		    await ToSignal(UntilSignal(Server.Server, "connection_succeeded", 1.0), YIELD);
 		    await ToSignal(UntilSignal(Clients[0].Multiplayer, "connected_to_server", 1.0), YIELD);
 		    await ToSignal(UntilSignal(Clients[1].Multiplayer, "connected_to_server", 1.0), YIELD);
-		    GD.Print("Hello?");
 		    PlayerMockGame = Clients[1].GetNode<MockGame>("1");
 		    OpponentMockGame = Clients[0].GetNode<MockGame>("1");
 		    Player = PlayerMockGame.GetPlayerView();
-		    Opponent = PlayerMockGame.GetPlayerView();
+		    Opponent = OpponentMockGame.GetPlayerView();
 		    var oppViewFromPlayer = PlayerMockGame.GetOpponentView();
 		    var playerViewFromOpp = OpponentMockGame.GetOpponentView();
 	    }
