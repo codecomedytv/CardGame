@@ -48,6 +48,9 @@ namespace CardGame.Client.Room
         public delegate void CardDestroyed();
 
         [Signal]
+        public delegate void CardSentToGraveyard();
+
+        [Signal]
         public delegate void ExecutedEvents();
 
         [Signal]
@@ -166,6 +169,12 @@ namespace CardGame.Client.Room
         public void DestroyCard(int id)
         {
             EmitSignal(nameof(CardDestroyed), id);
+        }
+
+        [Puppet]
+        public void SentToGraveyard(int cardId)
+        {
+            EmitSignal(nameof(CardSentToGraveyard), cardId);
         }
 
         [Puppet]

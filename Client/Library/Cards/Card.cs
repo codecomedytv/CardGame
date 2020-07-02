@@ -28,7 +28,7 @@ namespace CardGame.Client.Library.Cards
 		public Sprite AttackIcon;
 		public Sprite DefenseIcon;
 		private AnimatedSprite ChainLink;
-		private Label ChainIndexDisplay;
+		public Label ChainIndexDisplay;
 		public int ChainIndex;
 		public readonly List<int> ValidTargets = new List<int>();
 		public readonly List<int> ValidAttackTargets = new List<int>();
@@ -78,6 +78,12 @@ namespace CardGame.Client.Library.Cards
 			ChainLink.Visible = true;
 			ChainIndexDisplay.Text = ChainIndex.ToString();
 			ChainLink.Play();
+		}
+		
+		public void RemoveFromChain()
+		{
+			ChainLink.Stop();
+			ChainLink.Visible = false;
 		}
 		
 		public void SetData(BaseCard card)

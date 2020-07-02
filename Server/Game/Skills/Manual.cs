@@ -50,6 +50,7 @@ namespace CardGame.Server.Game.Skills
             Card.State = Card.States.Passive;
             Controller.Support.Remove(Card);
             Owner.Graveyard.Add(Card);
+            History.Add(new SentToGraveyard(Controller, Card));
             EmitSignal(nameof(Resolved));
             PositionInLink = 0;
         }

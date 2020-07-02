@@ -100,6 +100,7 @@
     <Compile Include="Server\Game\Events\Mill.cs" />
     <Compile Include="Server\Game\Events\ModifyCard.cs" />
     <Compile Include="Server\Game\Events\ModifyPlayer.cs" />
+    <Compile Include="Server\Game\Events\SentToGraveyard.cs" />
     <Compile Include="Server\Game\Events\SetFaceDown.cs" />
     <Compile Include="Server\Game\Events\TopDeck.cs" />
     <Compile Include="Server\Game\Events\Trigger.cs" />

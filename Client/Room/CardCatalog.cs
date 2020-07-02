@@ -163,7 +163,8 @@ namespace CardGame.Client.Room
                     EmitSignal(nameof(SetFaceDown), card.Id);
                     break;
                 case CardStates.CanBeActivated:
-                    if (User.State != States.Idle || User.State != States.Active) { return; }
+                    //var validState = User.State == States.Idle || User.S
+                    if (User.State != States.Idle && User.State != States.Active) { return; }
                     if (card.Targets())
                     {
                         card.FlipFaceUp();

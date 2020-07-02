@@ -125,7 +125,7 @@ namespace CardGame.Client.Players
             QueueCallback(DiscardCount, Delay, "set_text", (DiscardCount.Text.ToInt() + 1).ToString());
             QueueProperty(card.SelectedTarget, "visible", true, false, Delay, Delay);
             QueueProperty(card.DefenseIcon, "visible", true, false, Delay, Delay);
-
+            QueueCallback(card, Delay, nameof(card.RemoveFromChain));
         }
         
         private float AddDelay(float delay)

@@ -86,6 +86,14 @@ namespace CardGame.Client.Players
             Graveyard.Add(card);
             View.Destroy(card);
         }
+
+        public void SendCardToGraveyard(Card card)
+        {
+            // We're assuming support for now
+            Support.Remove(card);
+            Graveyard.Add(card);
+            View.Destroy(card);
+        }
     }
     
     
