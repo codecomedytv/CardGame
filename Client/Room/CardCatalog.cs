@@ -1,8 +1,10 @@
+using System;
 using System.Linq;
 using CardGame.Client.Library.Cards;
 using CardGame.Client.Players;
 using Godot;
-using Godot.Collections;
+using Array = Godot.Collections.Array;
+using Object = Godot.Object;
 
 namespace CardGame.Client.Room
 {
@@ -45,8 +47,7 @@ namespace CardGame.Client.Room
         {
             card.Connect(nameof(Card.MouseEnteredCard), this, nameof(OnMouseEnterCard), new Array {card});
             card.Connect(nameof(Card.MouseExitedCard), this, nameof(OnMouseExitCard), new Array {card});
-            //card.Connect(nameof(Card.Clicked), this, nameof(OnCardClicked), new Array {card});
-            card.Connect(nameof(Card.DoubleClicked), this, nameof(this.OnCardDoubleClicked), new Array {card});
+            card.Connect(nameof(Card.DoubleClicked), this, nameof(OnCardDoubleClicked), new Array {card});
             return card;
         }
 
@@ -114,7 +115,8 @@ namespace CardGame.Client.Room
                 }
 
                 AttackingCard.Legal.Visible = false;
-                card.SelectedTarget.Visible = false;
+                card.SelectedTarget.Visible = true;
+                card.DefenseIcon.Visible = true;
                 EmitSignal(nameof(Attack), AttackingCard.Id, card.Id);
                 Attacking = false;
                 AttackingCard = null;
@@ -155,6 +157,8 @@ namespace CardGame.Client.Room
                     break;
                 case CardStates.Activated:
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }
