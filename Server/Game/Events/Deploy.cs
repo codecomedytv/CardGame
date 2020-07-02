@@ -1,4 +1,5 @@
 ﻿using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Network;
 
 namespace CardGame.Server.Game.Events
 {
@@ -14,6 +15,12 @@ namespace CardGame.Server.Game.Events
             Source = source;
             Card = card;
             Controller = controller;
+        }
+
+        public override void SendMessage(Message message)
+        {
+            message(Controller.Id, "QueueDeploy", Card.Id);
+            message(Controller.Opponent.Id, "QueueDeploy", Card.Id, Card.SetCode);
         }
     }
 }

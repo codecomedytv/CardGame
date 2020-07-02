@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CardGame.Server.Game.Cards;
@@ -5,6 +6,8 @@ using CardGame.Server.Game.Events;
 using Godot;
 
 namespace CardGame.Server.Game.Network {
+	
+	public delegate object Message(int id, string method, params object[] arguments);
 
 	public class Messenger : Node
 	{
@@ -35,65 +38,18 @@ namespace CardGame.Server.Game.Network {
 		[Signal]
 		public delegate void PlayerSeated(int player);
 		
-		public Messenger() => Name = "Messenger";
-		
-		public virtual void OnPlayExecuted(Event gameEvent)
+		private readonly Message Message; 
+
+		public Messenger()
 		{
-			switch (gameEvent)
-			{
-				case LoadDeck loadDeck:
-				{
-					RpcId(loadDeck.Player.Id, "LoadDeck", loadDeck.Deck.ToDictionary(c => c.Id, c => c.SetCode));
-					break;
-				}
-				case Draw draw:
-				{
-					RpcId(draw.Controller.Id, "QueueDraw", draw.Card.Id, draw.Card.SetCode);
-					RpcId(draw.Controller.Opponent.Id, "QueueDraw");
-					break;
-				}
-				case Deploy deploy:
-				{
-					RpcId(deploy.Controller.Id, "QueueDeploy", deploy.Card.Id);
-					RpcId(deploy.Controller.Opponent.Id, "QueueDeploy", deploy.Card.Id, deploy.Card.SetCode);
-					break;
-				}
-				case SetFaceDown setFaceDown:
-				{
-					RpcId(setFaceDown.Controller.Id, "QueueSetFaceDown", setFaceDown.Card.Id);
-					RpcId(setFaceDown.Controller.Opponent.Id, "QueueSetFaceDown");
-					break;
-				}
-				case Activate activation:
-				{
-					RpcId(activation.Player.Id, "QueueActivation", activation.Card.Id, activation.PositionInLink);
-					RpcId(activation.Player.Opponent.Id, "QueueActivation", activation.Card.Id, activation.Card.SetCode,
-						activation.PositionInLink);
-					break;
-				}
-				case Trigger trigger:
-				{
-					RpcId(trigger.Player.Id, "QueueTrigger", trigger.Card.Id, trigger.PositionInLink);
-					RpcId(trigger.Player.Opponent.Id, "QueueTrigger", trigger.Card.Id, trigger.PositionInLink);
-					break;
-				}
-				case DestroyByEffect destroyByEffect:
-				{
-					RpcId(destroyByEffect.Owner.Id, "DestroyCard", destroyByEffect.Card.Id);
-					RpcId(destroyByEffect.Owner.Opponent.Id, "DestroyCard", destroyByEffect.Card.Id);
-					break;
-				}
-				case DestroyByBattle destroyByBattle:
-				{
-					RpcId(destroyByBattle.Owner.Id, "DestroyCard", destroyByBattle.Card.Id);
-					RpcId(destroyByBattle.Owner.Opponent.Id, "DestroyCard", destroyByBattle.Card.Id);
-					break;
-				}
-			}
+			Name = "Messenger";
+			Message = RpcId;
 		}
+		public virtual void OnPlayExecuted(Event gameEvent) => gameEvent.SendMessage(Message);
 
 		public virtual void Update(IEnumerable<Player> players)
 		{
+			// We could possibly pass the message to the players for this?
 			foreach (var player in players)
 			{
 				var clientViewableCards = new List<Card>();

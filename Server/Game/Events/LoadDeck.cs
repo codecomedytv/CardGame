@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Network;
 
 namespace CardGame.Server.Game.Events
 {
@@ -20,6 +22,11 @@ namespace CardGame.Server.Game.Events
 	        Source = player;
 	        Player = player;
 	        Deck = deck;
+        }
+
+        public override void SendMessage(Message message)
+        {
+	        message(Player.Id, "LoadDeck", Deck.ToDictionary(c => c.Id, c => c.SetCode));
         }
 
 

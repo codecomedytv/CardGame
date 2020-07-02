@@ -1,4 +1,5 @@
 ﻿using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Network;
 
 namespace CardGame.Server.Game.Events
 {
@@ -14,6 +15,12 @@ namespace CardGame.Server.Game.Events
             Source = source;
             Owner = owner;
             Card = card;
+        }
+
+        public override void SendMessage(Message message)
+        {
+            message(Owner.Id, "DestroyCard", Card.Id);
+            message(Owner.Opponent.Id, "DestroyCard", Card.Id);
         }
     }
 }

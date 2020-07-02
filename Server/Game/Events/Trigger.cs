@@ -1,4 +1,5 @@
 ﻿using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Network;
 using CardGame.Server.Game.Skills;
 
 namespace CardGame.Server.Game.Events
@@ -19,6 +20,12 @@ namespace CardGame.Server.Game.Events
             Card = card;
             Skill = skill;
             PositionInLink = skill.PositionInLink;
+        }
+
+        public override void SendMessage(Message message)
+        {
+            message(Player.Id, "QueueTrigger", Card.Id, PositionInLink);
+            message(Player.Opponent.Id, "QueueTrigger", Card.Id, PositionInLink);
         }
     }
 }

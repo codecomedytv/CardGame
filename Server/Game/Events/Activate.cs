@@ -1,5 +1,6 @@
 ﻿#nullable enable
 using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Network;
 using CardGame.Server.Game.Skills;
 
 namespace CardGame.Server.Game.Events
@@ -25,5 +26,10 @@ namespace CardGame.Server.Game.Events
             PositionInLink = skill.PositionInLink;
         }
 
+        public override void SendMessage(Message message)
+        {
+            message(Player.Id, "QueueActivation", Card.Id, PositionInLink);
+            message(Player.Opponent.Id, "QueueActivation", Card.Id, Card.SetCode, PositionInLink);
+        }
     }
 }

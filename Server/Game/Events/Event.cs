@@ -1,4 +1,5 @@
 ﻿using System;
+using CardGame.Server.Game.Network;
 using Godot;
 
 namespace CardGame.Server.Game.Events
@@ -10,6 +11,10 @@ namespace CardGame.Server.Game.Events
         protected Event()
         {
             
+        }
+
+        public virtual void SendMessage(Message message)
+        {
         }
 
     }
