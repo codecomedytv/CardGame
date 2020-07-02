@@ -10,6 +10,8 @@ using Player = CardGame.Server.Player;
 
 namespace CardGame.Tests.Scripts
 {
+	// All tests using the connected fixture must await playerState before taking action otherwise they will be
+	// moving too quickly for the server
 
 	public class ConnectedFixture: WAT.Test
     {

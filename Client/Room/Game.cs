@@ -30,15 +30,14 @@ namespace CardGame.Client.Room {
 		private AnimatedSprite ActionButtonAnimation;
 		private Button EndTurn;
 		private Label DisqualificationNotice;
-		private int ExecutionCount = 0;
-		private States StateAfterExecution;
+
 		public override void _Ready()
 		{
 			var playMat = (Control) PlayMat.Instance();
 			playMat.Name = "PlayMat";
 			AddChild(playMat, true);
-			Player = new Player(GetNode<View>("PlayMat/Player"), true);
-			Opponent = new Player(GetNode<View>("PlayMat/Opponent"), false);
+			Player = new Player(GetNode<View>("PlayMat/Player"));
+			Opponent = new Player(GetNode<View>("PlayMat/Opponent"));
 			CardCatalog.User = Player;
 			CardViewer = GetNode<CardViewer>("PlayMat/Background/CardViewer");
 			ActionButton = GetNode<Button>("PlayMat/Background/ActionButton");
@@ -63,11 +62,6 @@ namespace CardGame.Client.Room {
 			CardCatalog.Connect(nameof(CardCatalog.SetFaceDown), Messenger, nameof(Messenger.SetFaceDown));
 			CardCatalog.Connect(nameof(CardCatalog.Activate), Messenger, nameof(Messenger.Activate));
 			CardCatalog.Connect(nameof(CardCatalog.Attack), Messenger, nameof(Messenger.Attack));
-			
-			// See Execute()
-			Player.Connect(nameof(Player.Executed), this, nameof(SetState));
-			Opponent.Connect(nameof(Player.Executed), this, nameof(SetState));
-			
 			EndTurn.Connect("pressed", this, nameof(OnEndTurn));
 			Connect(nameof(EndedTurn), Messenger, nameof(Messenger.EndTurn));
 		}
@@ -81,13 +75,14 @@ namespace CardGame.Client.Room {
 			Messenger.CallDeferred("SetReady");
 		}
 
-		private void Execute(States stateAfterExecution)
+		private async void Execute(States stateAfterExecution)
 		{
-			// We need to make sure all of our animations are finished (for both players) before allowing actions to happen
-			// but I didn't want to deal with async/await/threads and all that nonsense, so instead we track it via this execution count
-			StateAfterExecution = stateAfterExecution;
-			Player.Execute();
-			Opponent.Execute();
+			await Task.WhenAll(new List<Task> {Player.View.Execute(), Opponent.View.Execute()});
+			Player.SetState(stateAfterExecution);
+			Player.View.Reset();
+			Opponent.View.Reset();
+			SetState(stateAfterExecution);
+			EmitSignal(nameof(StateSet));
 		}
 
 		protected void OnActionButtonPressed()
@@ -104,20 +99,13 @@ namespace CardGame.Client.Room {
 			Messenger.PassPriority();
 		}
 
-		private void SetState()
+		private void SetState(States state)
 		{
 			ActionButton.Text = "";
-			ExecutionCount += 1;
-			if (ExecutionCount != 2) return;
-			Player.SetState(StateAfterExecution);
-			if (StateAfterExecution == States.Active)
-			{
-				ActionButtonAnimation.Show();
-				ActionButtonAnimation.Play();
-				ActionButton.Text = "Pass";
-			}
-			ExecutionCount = 0;
-			EmitSignal(nameof(StateSet));
+			if (state != States.Active) return;
+			ActionButtonAnimation.Show();
+			ActionButtonAnimation.Play();
+			ActionButton.Text = "Pass";
 		}
 
 		private void OnDisqualified()

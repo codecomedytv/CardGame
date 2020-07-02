@@ -1,5 +1,6 @@
 ﻿using CardGame.Client.Players;
 using CardGame.Client.Room;
+using CardGame.Server.Game;
 using Godot;
 
 namespace CardGame.Tests

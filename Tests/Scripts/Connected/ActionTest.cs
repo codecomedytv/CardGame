@@ -11,10 +11,8 @@ namespace CardGame.Tests.Scripts.Connected
 {
     public class ActionTest: ConnectedFixture
     {
-        // TODO: Implement Battle Test
         // TODO: Implement Direct Attack Test
         // TODO: Implement Attack Test
-        // TODO: Implement EndTurnTest
         public override void Start()
         {
             // Last card added is card 0 in hand
@@ -28,7 +26,7 @@ namespace CardGame.Tests.Scripts.Connected
         [Test]
         public async void OnUnitInHandDoubleClicked()
         {
-            await ToSignal(UntilTimeout(0.2), YIELD);
+            await PlayerState;
             var toDeploy = (Card) Player.Hand.GetChild(0);
             toDeploy.DoubleClick();
             await ToSignal(UntilSignal(Player, nameof(View.AnimationFinished), 5), YIELD);
@@ -38,7 +36,7 @@ namespace CardGame.Tests.Scripts.Connected
         [Test]
         public async void OnSupportInHandDoubleClicked()
         {
-            await ToSignal(UntilTimeout(0.2), YIELD);
+            await PlayerState;
             var toSet = (Card) Player.Hand.GetChild(1);
             toSet.DoubleClick();
             await ToSignal(UntilSignal(Player, nameof(View.AnimationFinished), 5), YIELD);
@@ -48,7 +46,7 @@ namespace CardGame.Tests.Scripts.Connected
         [Test]
         public async void OnEndTurn()
         {
-            await ToSignal(UntilTimeout(0.2), YIELD);
+            await PlayerState;
             PlayerMockGame.End();
             PlayerMockGame.Visible = false;
             await OpponentState;
@@ -58,10 +56,10 @@ namespace CardGame.Tests.Scripts.Connected
         [Test]
         public async void OnUnitOnFieldDoubleClicked()
         {
-            await ToSignal(UntilTimeout(0.2), YIELD);
+            await PlayerState;
             var attacker = (Card) Player.Hand.GetChild(2);
             attacker.DoubleClick();
-            await PlayerState;
+            await OpponentState;
             OpponentMockGame.Pass();
             await PlayerState;
             PlayerMockGame.Pass();
@@ -72,10 +70,8 @@ namespace CardGame.Tests.Scripts.Connected
             defending.DoubleClick();
             await PlayerState;
             PlayerMockGame.Pass();
-            await ToSignal(UntilTimeout(0.2F), YIELD);
             await OpponentState;
             OpponentMockGame.Pass();
-            await ToSignal(UntilTimeout(0.2F), YIELD);
             await OpponentState;
             OpponentMockGame.End();
             await PlayerState;
@@ -86,9 +82,8 @@ namespace CardGame.Tests.Scripts.Connected
             await PlayerState;
             PlayerMockGame.Pass();
             await PlayerState;
-
+        
             Assert.Has(defending, Opponent.Discard.GetChildren(), $"{defending} is in Opponent's Graveyard");
-
 
         }
     }

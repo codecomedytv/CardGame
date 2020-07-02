@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using CardGame.Client.Library.Cards;
 using Godot;
 
@@ -14,35 +15,19 @@ namespace CardGame.Client.Players
         public IList<Card> Support = new List<Card>();
         public IList<Card> Hand = new List<Card>();
         public IList<Card> Graveyard = new List<Card>();
-        
-        //public readonly Model Model;
         public readonly View View;
-        public readonly bool IsUser;
         public Player Opponent;
 
         [Signal]
         public delegate void Executed();
 
-        public Player(View view, bool isUser)
+        public Player(View view)
         {
-            IsUser = isUser;
             View = view;
         }
-
-        public async void Execute()
-        {
-            View.Execute();
-            await ToSignal(View, nameof(View.AnimationFinished));
-            EmitSignal(nameof(Executed));
-        }
-
+        
         public void SetState(States state)
         {
-            if (!IsUser)
-            {
-                return;
-            }
-            // We may need to queue or block this to avoid interrupting animations.
             State = state;
             View.SetState(state);
         }

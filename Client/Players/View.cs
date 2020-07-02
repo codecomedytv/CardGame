@@ -1,4 +1,5 @@
-﻿using CardGame.Client.Library;
+﻿using System.Threading.Tasks;
+using CardGame.Client.Library;
 using CardGame.Client.Library.Cards;
 using Godot;
 
@@ -34,6 +35,12 @@ namespace CardGame.Client.Players
             Hand = GetNode<HBoxContainer>("Hand");
         }
 
+        public void Reset()
+        {
+            Delay = 0.0F;
+            Gfx.RemoveAll();
+        }
+
         public void SetState(States state)
         {
             if (state == States.Active || state == States.Idle)
@@ -50,13 +57,10 @@ namespace CardGame.Client.Players
             }
         }
 
-        public async void Execute()
+        public async Task<object[]> Execute()
         {
             Gfx.Start();
-            await ToSignal(Gfx, "tween_all_completed");
-            Delay = 0.0F;
-            Gfx.RemoveAll();
-            EmitSignal(nameof(AnimationFinished));
+            return await ToSignal(Gfx, "tween_all_completed");
         }
 
         public void Draw(Card card, string deckSize)
