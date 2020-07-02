@@ -62,6 +62,7 @@ namespace CardGame.Client.Room {
 			CardCatalog.Connect(nameof(CardCatalog.SetFaceDown), Messenger, nameof(Messenger.SetFaceDown));
 			CardCatalog.Connect(nameof(CardCatalog.Activate), Messenger, nameof(Messenger.Activate));
 			CardCatalog.Connect(nameof(CardCatalog.Attack), Messenger, nameof(Messenger.Attack));
+			Connect(nameof(StateSet), CardCatalog, nameof(CardCatalog.OnStateSet));
 			EndTurn.Connect("pressed", this, nameof(OnEndTurn));
 			Connect(nameof(EndedTurn), Messenger, nameof(Messenger.EndTurn));
 		}

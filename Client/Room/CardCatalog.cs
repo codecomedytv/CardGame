@@ -29,9 +29,16 @@ namespace CardGame.Client.Room
         public Player User;
         private bool Targeting = false;
         private bool Attacking = false;
+        private bool IsActing;
         private Card TargetingCard;
         private Card AttackingCard;
-        
+
+        // We could possibly set the state directly?
+        public void OnStateSet()
+        {
+           IsActing = false;
+        }
+
         public void RegisterCard(Card card)
         {
             CardsById[card.Id] = card;
@@ -97,27 +104,45 @@ namespace CardGame.Client.Room
         
         private void OnCardDoubleClicked(Card card)
         {
-            if (Targeting && TargetingCard.ValidTargets.Contains(card.Id))
+            if (IsActing)
+            {
+                // We want to prevent sending the same action to the server twice
+                // So we have a callback boolean we check to exit early
+                return;
+                
+            }
+            if (Targeting && User.State == States.Active)
             {
                 foreach (var id in TargetingCard.ValidTargets)
                 {
                     CardsById[id].ValidTarget.Visible = false;
+                }
+
+                if (TargetingCard.ValidTargets.Contains(card.Id))
+                {
                     EmitSignal(nameof(Activate), TargetingCard, card.Id);
+                    IsActing = true;
                     return;
                 }
             }
 
-            if (Attacking && AttackingCard.ValidAttackTargets.Contains(card.Id))
+            if (Attacking && User.State == States.Idle)
             {
+                AttackingCard.Legal.Visible = false;
+                AttackingCard.SelectedTarget.Visible = false;
+                AttackingCard.AttackIcon.Visible = false;
                 foreach (var id in AttackingCard.ValidAttackTargets)
                 {
                     CardsById[id].DefenseIcon.Visible = false;
                 }
 
-                AttackingCard.Legal.Visible = false;
-                card.SelectedTarget.Visible = true;
-                card.DefenseIcon.Visible = true;
-                EmitSignal(nameof(Attack), AttackingCard.Id, card.Id);
+                if (AttackingCard.ValidAttackTargets.Contains(card.Id))
+                {
+                    card.SelectedTarget.Visible = true;
+                    card.DefenseIcon.Visible = true;
+                    IsActing = true;
+                    EmitSignal(nameof(Attack), AttackingCard.Id, card.Id);
+                }
                 Attacking = false;
                 AttackingCard = null;
                 return;
@@ -126,14 +151,19 @@ namespace CardGame.Client.Room
             switch (card.State)
             {
                 case CardStates.CanBeDeployed:
+                    if (User.State != States.Idle) { return; }
                     card.Legal.Visible = false;
+                    IsActing = true;
                     EmitSignal(nameof(Deploy), card.Id);
                     break;
                 case CardStates.CanBeSet:
+                    if (User.State != States.Idle) { return; }
                     card.Legal.Visible = false;
+                    IsActing = true;
                     EmitSignal(nameof(SetFaceDown), card.Id);
                     break;
                 case CardStates.CanBeActivated:
+                    if (User.State != States.Idle || User.State != States.Active) { return; }
                     if (card.Targets())
                     {
                         card.FlipFaceUp();
@@ -144,6 +174,7 @@ namespace CardGame.Client.Room
                     else
                     {
                         card.Legal.Visible = false;
+                        IsActing = true;
                         EmitSignal(nameof(Activate), card, new Array());
                     }
                     break;
@@ -152,6 +183,7 @@ namespace CardGame.Client.Room
                     Attacking = true;
                     AttackingCard = card;
                     card.AttackIcon.Visible = true;
+                    card.SelectedTarget.Visible = true;
                     break;
                 case CardStates.Passive:
                     break;
