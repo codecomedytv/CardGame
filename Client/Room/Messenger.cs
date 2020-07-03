@@ -62,173 +62,80 @@ namespace CardGame.Client.Room
         private const int ServerId = 1;
         public int Id = 0;
 
-        public Messenger()
-        {
-            Name = "Messenger";
-        }
-
-        public void SetReady()
-        {
-            RpcId(ServerId, "SetReady", Id); // Complains about no network peer being assigned?
-        }
+        public Messenger() =>Name = "Messenger";
+        
+        public void SetReady() => RpcId(ServerId, "SetReady", Id); // Complains about no network peer being assigned?
 
         [Puppet]
-        public void Disqualify()
-        {
-            EmitSignal(nameof(Disqualified));
-        }
+        public void Disqualify() => EmitSignal(nameof(Disqualified));
         
         [Puppet]
-        public void ExecuteEvents(States stateAfterExecution)
-        {
-            EmitSignal(nameof(ExecutedEvents), stateAfterExecution);
-        }
-        
-
-        [Puppet]
-        public void LoadDeck(Godot.Collections.Dictionary<int, SetCodes> deck)
-        {
-            EmitSignal(nameof(DeckLoaded), deck);
-        }
-
-        [Puppet]
-        public void QueueDraw(int id, SetCodes setCode)
-        {
-            EmitSignal(nameof(DrawQueued), id, setCode);
-        }
-
-        [Puppet]
-        public void QueueDraw()
-        {
-            EmitSignal(nameof(DrawQueued));
-        }
-
-        [Puppet]
-        public void QueueDeploy(int id)
-        {
-            EmitSignal(nameof(DeployQueued), id);
-        }
-
-        [Puppet]
-        public void QueueDeploy(int id, SetCodes setCode)
-        {
-            EmitSignal(nameof(DeployQueued), id, setCode);
-        }
-
-        [Puppet]
-        public void QueueSetFaceDown(int id)
-        {
-            EmitSignal(nameof(SetFaceDownQueued), id);
-        }
+        public void ExecuteEvents(States stateAfterExecution) => EmitSignal(nameof(ExecutedEvents), stateAfterExecution);
         
         [Puppet]
-        public void QueueSetFaceDown()
-        {
-            EmitSignal(nameof(SetFaceDownQueued));
-        }
+        public void LoadDeck(Godot.Collections.Dictionary<int, SetCodes> deck) => EmitSignal(nameof(DeckLoaded), deck);
+        
+        [Puppet]
+        public void QueueDraw(int id, SetCodes setCode) => EmitSignal(nameof(DrawQueued), id, setCode);
 
         [Puppet]
-        public void QueueActivation(int id, int positionInLink)
-        {
-            EmitSignal(nameof(ActivationQueued), id, positionInLink);
-        }
+        public void QueueDraw() =>EmitSignal(nameof(DrawQueued));
+        
+        [Puppet]
+        public void QueueDeploy(int id) => EmitSignal(nameof(DeployQueued), id);
 
         [Puppet]
-        public void QueueActivation(int id, SetCodes setCode, int positionInLink)
-        {
-            EmitSignal(nameof(ActivationQueued), id, setCode, positionInLink);
-        }
+        public void QueueDeploy(int id, SetCodes setCode) => EmitSignal(nameof(DeployQueued), id, setCode);
 
         [Puppet]
-        public void QueueTrigger(int id, int positionInLink)
-        {
-            EmitSignal(nameof(TriggerQueued), id, positionInLink);
-        }
+        public void QueueSetFaceDown(int id) => EmitSignal(nameof(SetFaceDownQueued), id);
+        
+        [Puppet]
+        public void QueueSetFaceDown() => EmitSignal(nameof(SetFaceDownQueued));
 
         [Puppet]
-        public void SetCardState(int id, CardStates states)
-        {
-            EmitSignal(nameof(CardStateSet), id, states);
-        }
+        public void QueueActivation(int id, int positionInLink) => EmitSignal(nameof(ActivationQueued), id, positionInLink);
 
         [Puppet]
-        public void SetValidTargets(int id, List<int> validTargets)
-        {
-            EmitSignal(nameof(ValidTargetsSet), id, validTargets);
-        }
+        public void QueueActivation(int id, SetCodes setCode, int positionInLink) => EmitSignal(nameof(ActivationQueued), id, setCode, positionInLink);
 
         [Puppet]
-        public void SetValidAttackTargets(int id, List<int> validAttackTargets)
-        {
-            EmitSignal(nameof(ValidAttackTargetsSet), id, validAttackTargets);
-        }
+        public void QueueTrigger(int id, int positionInLink) => EmitSignal(nameof(TriggerQueued), id, positionInLink);
+        
+        [Puppet]
+        public void SetCardState(int id, CardStates states) => EmitSignal(nameof(CardStateSet), id, states);
 
         [Puppet]
-        public void DestroyCard(int id)
-        {
-            EmitSignal(nameof(CardDestroyed), id);
-        }
+        public void SetValidTargets(int id, List<int> validTargets) => EmitSignal(nameof(ValidTargetsSet), id, validTargets);
 
         [Puppet]
-        public void SentToGraveyard(int cardId)
-        {
-            EmitSignal(nameof(CardSentToGraveyard), cardId);
-        }
+        public void SetValidAttackTargets(int id, List<int> validAttackTargets) => EmitSignal(nameof(ValidAttackTargetsSet), id, validAttackTargets); 
 
         [Puppet]
-        public void QueueBattleUnit(int attackerId, int defenderId, bool isOpponentAttacking)
-        {
-            EmitSignal(nameof(UnitBattled), attackerId, defenderId, isOpponentAttacking);
-        }
+        public void DestroyCard(int id) => EmitSignal(nameof(CardDestroyed), id);
+        
+        [Puppet]
+        public void QueueBattleUnit(int attackerId, int defenderId, bool isOpponentAttacking) => EmitSignal(nameof(UnitBattled), attackerId, defenderId, isOpponentAttacking);
 
         [Puppet]
-        public void ForceDisconnected(int reason)
-        {
-            EmitSignal(nameof(DisconnectPlayer), reason);
-        }
+        public void ForceDisconnected(int reason) => EmitSignal(nameof(DisconnectPlayer), reason);
 
         [Puppet]
-        public void SentToZone(int cardId, ZoneIds zoneId)
-        {
-            EmitSignal(nameof(CardSentToZone), cardId, zoneId);
-        }
+        public void SentToZone(int cardId, ZoneIds zoneId) =>EmitSignal(nameof(CardSentToZone), cardId, zoneId);
 
-        public void Deploy(int cardId)
-        {
-            RpcId(ServerId, "Deploy", Id, cardId);
-        }
+        public void Deploy(int cardId) => RpcId(ServerId, "Deploy", Id, cardId);
 
-        public void Attack(int attackerId, int cardId)
-        {
-            RpcId(ServerId, "Attack", Id, attackerId, cardId);
-        }
+        public void Attack(int attackerId, int cardId) => RpcId(ServerId, "Attack", Id, attackerId, cardId);
+        
+        public void SetFaceDown(int cardId) => RpcId(ServerId, "SetFaceDown", Id, cardId);
 
-
-        public void SetFaceDown(int cardId)
-        {
-            RpcId(ServerId, "SetFaceDown", Id, cardId);
-        }
-
-        public void Activate(Card card, int targetId)
-        {
-             RpcId(ServerId, "Activate", Id, card.Id, targetId);
-        }
-
-        public void Target(int cardId)
-        {
-            RpcId(ServerId, "Target", Id, cardId);
-        }
-
-
-        public void PassPriority()
-        {
-            RpcId(ServerId, "PassPlay", Id);
-        }
-
-        public void EndTurn()
-        {
-            RpcId(ServerId, "EndTurn", Id);
-        }
+        public void Activate(Card card, int targetId) => RpcId(ServerId, "Activate", Id, card.Id, targetId);
+        
+        public void Target(int cardId) => RpcId(ServerId, "Target", Id, cardId);
+        
+        public void PassPriority() => RpcId(ServerId, "PassPlay", Id);
+        
+        public void EndTurn() => RpcId(ServerId, "EndTurn", Id);
         
     }
 }
