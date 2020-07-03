@@ -1,6 +1,7 @@
 ﻿#nullable enable
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Events;
+using CardGame.Server.Game.Zones;
 using Godot;
 
 namespace CardGame.Server.Game.Skills
@@ -50,7 +51,7 @@ namespace CardGame.Server.Game.Skills
             Card.State = Card.States.Passive;
             Controller.Support.Remove(Card);
             Owner.Graveyard.Add(Card);
-            History.Add(new SentToGraveyard(Controller, Card));
+            History.Add(new SentToZone(Controller, Card, ZoneIds.Graveyard));
             EmitSignal(nameof(Resolved));
             PositionInLink = 0;
         }

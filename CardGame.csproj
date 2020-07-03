@@ -77,6 +77,7 @@
     <Compile Include="Client\Library\Cards\BaseCard.cs" />
     <Compile Include="Client\Library\Cards\Card.cs" />
     <Compile Include="Client\Library\CheckOut.cs" />
+    <Compile Include="Client\Room\ZoneIds.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="GameEvents.cs" />
     <Compile Include="Main.cs" />
@@ -101,7 +102,7 @@
     <Compile Include="Server\Game\Events\Mill.cs" />
     <Compile Include="Server\Game\Events\ModifyCard.cs" />
     <Compile Include="Server\Game\Events\ModifyPlayer.cs" />
-    <Compile Include="Server\Game\Events\SentToGraveyard.cs" />
+    <Compile Include="Server\Game\Events\SentToZone.cs" />
     <Compile Include="Server\Game\Events\SetFaceDown.cs" />
     <Compile Include="Server\Game\Events\TopDeck.cs" />
     <Compile Include="Server\Game\Events\Trigger.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Server\Game\States.cs" />
     <Compile Include="Server\Game\Tags\Tags.cs" />
     <Compile Include="Server\Game\Zones\Zone.cs" />
+    <Compile Include="Server\Game\Zones\ZoneIds.cs" />
     <Compile Include="Server\Library\Alpha\CounterAttack.cs" />
     <Compile Include="Server\Library\Alpha\DungeonGuide.cs" />
     <Compile Include="Server\Library\Alpha\GuardPuppy.cs" />

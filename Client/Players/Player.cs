@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CardGame.Client.Library.Cards;
+using CardGame.Client.Room;
 using Godot;
 
 namespace CardGame.Client.Players
@@ -98,6 +99,13 @@ namespace CardGame.Client.Players
         public void Battle(Card attacker, Card defender, bool isOpponent)
         {
             View.Battle(attacker, defender, isOpponent);
+        }
+
+        public void SendCardToZone(Card card, ZoneIds zoneId)
+        {
+            // Implement A Way To Move From Arrays
+            // (Do we even need these this information anyway?)
+            View.SendCardToZone(card, zoneId);
         }
     }
     

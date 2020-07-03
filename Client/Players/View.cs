@@ -1,6 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Security.Policy;
+using System.Threading.Tasks;
 using CardGame.Client.Library;
 using CardGame.Client.Library.Cards;
+using CardGame.Client.Room;
 using Godot;
 
 namespace CardGame.Client.Players
@@ -174,6 +177,34 @@ namespace CardGame.Client.Players
             QueueProperty(attacker, "RectPosition", attackerDestination, attackerLocation, Delay, AddDelay(0.3F));
             QueueProperty(defender, "RectPosition", attackerLocation, attackerDestination, Delay, Delay);
 
+        }
+
+        public void SendCardToZone(Card card, ZoneIds zoneId)
+        {
+            // Some of this information could be a callback in the card object
+            // We could even pass in the zoneId to handle awkward information (like if they card should be face/down
+            // etc)
+            var zone = GetZone(zoneId);
+            QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, zone.RectGlobalPosition, 0.3F, AddDelay(0.3F));
+            QueueCallback(card.GetParent(), AddDelay(0.3F), "remove_child", card);
+            QueueCallback(zone, Delay, "add_child", card);
+            QueueCallback(card, Delay, "ShowBelowParent");
+            QueueProperty(card.SelectedTarget, "visible", true, false, Delay, Delay);
+            QueueProperty(card.DefenseIcon, "visible", true, false, Delay, Delay);
+            QueueCallback(card, Delay, nameof(card.RemoveFromChain));
+        }
+
+        private Control GetZone(ZoneIds zoneId)
+        {
+            return zoneId switch
+            {
+                ZoneIds.Deck => Deck,
+                ZoneIds.Graveyard => Discard,
+                ZoneIds.Field => Units,
+                ZoneIds.Support => Support,
+                ZoneIds.Hand => Hand,
+                _ => throw new ArgumentOutOfRangeException(nameof(zoneId), zoneId, null)
+            };
         }
     }
 }

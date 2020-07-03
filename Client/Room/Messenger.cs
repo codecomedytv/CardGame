@@ -59,6 +59,9 @@ namespace CardGame.Client.Room
         [Signal]
         public delegate void DisconnectPlayer();
 
+        [Signal]
+        public delegate void CardSentToZone();
+
         private const int ServerId = 1;
         public int Id = 0;
 
@@ -191,6 +194,13 @@ namespace CardGame.Client.Room
         {
             EmitSignal(nameof(DisconnectPlayer), reason);
         }
+
+        [Puppet]
+        public void SentToZone(int cardId, ZoneIds zoneId)
+        {
+            EmitSignal(nameof(CardSentToZone), cardId, zoneId);
+        }
+
         public void Deploy(int cardId)
         {
             RpcId(ServerId, "Deploy", Id, cardId);

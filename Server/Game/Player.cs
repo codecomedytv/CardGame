@@ -69,11 +69,11 @@ namespace CardGame.Server {
 			DeckList = deckList;
 			Id = id;
 			// Shuffle = shuffle;
-			Deck = new Zone(this);
-			Graveyard = new Zone(this);
-			Hand = new Zone(this);
-			Support = new Zone(this);
-			Field = new Zone(this);
+			Deck = new Zone(this, ZoneIds.Deck);
+			Graveyard = new Zone(this, ZoneIds.Graveyard);
+			Hand = new Zone(this, ZoneIds.Hand);
+			Support = new Zone(this, ZoneIds.Support);
+			Field = new Zone(this, ZoneIds.Field);
 		}
 
 		public void LoadDeck(CardCatalog cards)
