@@ -12,9 +12,6 @@ namespace CardGame.Client.Room
         public delegate void Retry();
 
         [Signal]
-        public delegate void QueuedEvent();
-
-        [Signal]
         public delegate void DeckLoaded();
         
         [Signal]
@@ -86,12 +83,7 @@ namespace CardGame.Client.Room
         {
             EmitSignal(nameof(ExecutedEvents), stateAfterExecution);
         }
-
-        [Puppet]
-        public void QueueEvent(Godot.Collections.Dictionary<string, int> message)
-        {
-            EmitSignal(nameof(QueuedEvent), message);
-        }
+        
 
         [Puppet]
         public void LoadDeck(Godot.Collections.Dictionary<int, SetCodes> deck)
