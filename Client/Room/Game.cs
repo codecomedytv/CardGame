@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Policy;
@@ -29,7 +30,7 @@ namespace CardGame.Client.Room {
 		private AnimatedSprite ActionButtonAnimation;
 		private Button EndTurn;
 		private Label DisqualificationNotice;
-
+		public readonly Action<int> Test;
 		public override void _Ready()
 		{
 			var playMat = (Control) PlayMat.Instance();
@@ -55,7 +56,6 @@ namespace CardGame.Client.Room {
 			Messenger.Connect(nameof(Messenger.TriggerQueued), this, nameof(OnTriggeredQueued));
 			Messenger.Connect(nameof(Messenger.ValidTargetsSet), this, nameof(OnValidTargetsSet));
 			Messenger.Connect(nameof(Messenger.ValidAttackTargetsSet), this, nameof(OnValidAttackTargetsSet));
-			Messenger.Connect(nameof(Messenger.CardDestroyed), this, nameof(OnCardDestroyed));
 			Messenger.Connect(nameof(Messenger.UnitBattled), this, nameof(OnUnitBattled));
 			Messenger.Connect(nameof(Messenger.CardSentToZone), this, nameof(OnCardSentToZone));
 			CardCatalog.Connect(nameof(CardCatalog.MouseEnteredCard), CardViewer, nameof(CardViewer.OnCardClicked));

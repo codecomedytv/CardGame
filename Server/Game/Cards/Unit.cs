@@ -4,6 +4,7 @@ using System.Linq;
 using CardGame.Server.Game.Events;
 using CardGame.Server.Game.Skills;
 using CardGame.Server.Game.Tags;
+using CardGame.Server.Game.Zones;
 using Godot;
 
 namespace CardGame.Server.Game.Cards
@@ -113,6 +114,7 @@ namespace CardGame.Server.Game.Cards
                 defending.Graveyard.Add(Defender);
                 Defender.Zone = Defender.Owner.Graveyard;
                 History.Add(new DestroyByBattle(Attacker, defending, Defender));
+                History.Add(new SentToZone(attacking, Defender, ZoneIds.Graveyard));
             }
 
             private void CounterAttack()
@@ -132,6 +134,7 @@ namespace CardGame.Server.Game.Cards
                 attacking.Graveyard.Add(Attacker);
                 Attacker.Zone = Attacker.Owner.Graveyard;
                 History.Add(new DestroyByBattle(Defender, attacking, Attacker));
+                History.Add(new SentToZone(attacking, Attacker, ZoneIds.Graveyard));
                 if (attacking.Health <= 0)
                 {
                     defending.Win();

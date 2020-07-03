@@ -24,8 +24,8 @@ namespace CardGame.Server.Game.Events
 
         public override void SendMessage(Message message)
         {
-            message(Player.Id, "QueueTrigger", Card.Id, PositionInLink);
-            message(Player.Opponent.Id, "QueueTrigger", Card.Id, PositionInLink);
+            message(Player.Id, "Trigger", Card.Id, PositionInLink);
+            message(Player.Opponent.Id, "Trigger", Card.Id, PositionInLink);
         }
     }
 }

@@ -20,8 +20,8 @@ namespace CardGame.Server.Game.Events
 
         public override void SendMessage(Message message)
         {
-            message(Player.Id, "QueueBattleUnit", Attacker.Id, Defender.Id, false);
-            message(Player.Opponent.Id, "QueueBattleUnit", Attacker.Id, Defender.Id, true);
+            message(Player.Id, "BattleUnit", Attacker.Id, Defender.Id, false);
+            message(Player.Opponent.Id, "BattleUnit", Attacker.Id, Defender.Id, true);
         }
     }
 }

@@ -20,8 +20,8 @@ namespace CardGame.Server.Game.Events
 
         public override void SendMessage(Message message)
         {
-            message(Controller.Opponent.Id, "QueueDraw");
-            message(Controller.Id, "QueueDraw", Card.Id, Card.SetCode);
+            message(Controller.Opponent.Id, "Draw");
+            message(Controller.Id, "Draw", Card.Id, Card.SetCode);
         }
     }
 }
