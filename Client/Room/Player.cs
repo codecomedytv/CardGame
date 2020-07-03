@@ -137,19 +137,6 @@ namespace CardGame.Client.Room
         {
             QueueCallback(card, AddDelay(0.1F), nameof(card.AddToChain));
         }
-
-        public void Destroy(Card card)
-        {
-            // Merge Into Generic Move Method?
-            QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, Discard.RectGlobalPosition, 0.3F, AddDelay(0.3F));
-            QueueCallback(card.GetParent(), AddDelay(0.3F), "remove_child", card);
-            QueueCallback(Discard, Delay, "add_child", card);
-            QueueCallback(card, Delay, "ShowBelowParent");
-            QueueCallback(DiscardCount, Delay, "set_text", (DiscardCount.Text.ToInt() + 1).ToString());
-            QueueProperty(card.SelectedTarget, "visible", true, false, Delay, Delay);
-            QueueProperty(card.DefenseIcon, "visible", true, false, Delay, Delay);
-            QueueCallback(card, Delay, nameof(card.RemoveFromChain));
-        }
         
         private float AddDelay(float delay)
         {
@@ -186,31 +173,37 @@ namespace CardGame.Client.Room
 
         public void Battle(Card attacker, Card defender, bool isOpponent)
         { 
+            // This is imperfect because it is a synchronization based
             var attackerLocation = attacker.RectPosition;
             var defenderLocation = defender.RectPosition;
-            var attackerDestination = new Vector2(attacker.RectPosition.x, attacker.RectPosition.y - 150);
-            var defenderDestination = new Vector2(defender.RectPosition.x, defender.RectPosition.y + 150);
+            var attackerDestination = new Vector2(attacker.RectPosition.x, attacker.RectPosition.y - 50);
+            var defenderDestination = new Vector2(defender.RectPosition.x, defender.RectPosition.y + 50);
             
             QueueProperty(attacker, "RectPosition", attackerLocation, attackerDestination, Delay, Delay);
             QueueProperty(defender, "RectPosition", defenderLocation, defenderDestination, Delay, Delay);
-            QueueProperty(attacker, "RectPosition", attackerDestination, attackerLocation, Delay, AddDelay(0.3F));
-            QueueProperty(defender, "RectPosition", attackerLocation, attackerDestination, Delay, Delay);
-
+            AddDelay(0.53F);
+            Opponent.AddDelay(0.5F);
+            QueueProperty(attacker, "RectPosition", attackerDestination, attackerLocation, Delay, Delay);
+            QueueProperty(defender, "RectPosition", defenderDestination, defenderLocation, Delay, Delay);
+            Opponent.AddDelay(0.5F);
+            AddDelay(0.5F);
         }
 
         public void SendCardToZone(Card card, ZoneIds zoneId)
         {
             // Some of this information could be a callback in the card object
             // We could even pass in the zoneId to handle awkward information (like if they card should be face/down
-            // etc)
+            AddDelay(0.3F);
             var zone = GetZone(zoneId);
-            QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, zone.RectGlobalPosition, 0.3F, AddDelay(0.3F));
-            QueueCallback(card.GetParent(), AddDelay(0.3F), "remove_child", card);
-            QueueCallback(zone, Delay, "add_child", card);
+            var oldZone = (Container) card.GetParent();
+            QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, zone.RectGlobalPosition, Delay, Delay);
+            QueueCallback(this, Delay, nameof(Sort), oldZone);
             QueueCallback(card, Delay, "ShowBelowParent");
             QueueProperty(card.SelectedTarget, "visible", true, false, Delay, Delay);
             QueueProperty(card.DefenseIcon, "visible", true, false, Delay, Delay);
             QueueCallback(card, Delay, nameof(card.RemoveFromChain));
+            QueueCallback(oldZone, Delay, "remove_child", card);
+            QueueCallback(zone, Delay, "add_child", card);
         }
 
         private Control GetZone(ZoneIds zoneId)

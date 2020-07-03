@@ -38,6 +38,8 @@ namespace CardGame.Client.Room {
 			AddChild(playMat, true);
 			Player = GetNode<Player>("PlayMat/Player");
 			Opponent = GetNode<Player>("PlayMat/Opponent");
+			Player.Opponent = Opponent;
+			Opponent.Opponent = Player;
 			CardCatalog.User = Player;
 			CardViewer = GetNode<CardViewer>("PlayMat/Background/CardViewer");
 			ActionButton = GetNode<Button>("PlayMat/Background/ActionButton");
@@ -210,13 +212,7 @@ namespace CardGame.Client.Room {
 			card.ValidAttackTargets.Clear();
 			card.ValidAttackTargets.AddRange(validAttackTargets);
 		}
-
-		public void OnCardDestroyed(int id)
-		{
-			var card = CardCatalog[id];
-			if(card.Player == Player) { Player.Destroy(card); } else { Opponent.Destroy(card); }
-		}
-
+		
 		public void OnUnitBattled(int attackerId, int defenderId, bool isOpponent)
 		{
 			var attacker = CardCatalog[attackerId];
