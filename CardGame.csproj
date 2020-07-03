@@ -86,6 +86,7 @@
     <Compile Include="Server\Game\Events\Activate.cs" />
     <Compile Include="Server\Game\Events\BattleUnit.cs" />
     <Compile Include="Server\Game\Events\Bounce.cs" />
+    <Compile Include="Server\Game\Events\BattleDamage.cs" />
     <Compile Include="Server\Game\Events\DeclareDirectAttack.cs" />
     <Compile Include="Server\Game\Events\DeclareAttack.cs" />
     <Compile Include="Server\Game\Events\Deploy.cs" />

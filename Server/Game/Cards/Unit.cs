@@ -107,8 +107,7 @@ namespace CardGame.Server.Game.Cards
                     var oldLife = defending.Health;
                     defending.Health -= overflow;
                     var newLife = defending.Health;
-                    History.Add(new ModifyPlayer(GameEvents.BattleDamage, Attacker, defending,
-                        nameof(Player.Health), oldLife, newLife));
+                    History.Add(new BattleDamage(Attacker, defending, overflow));
                 }
                 defending.Field.Remove(Defender);
                 defending.Graveyard.Add(Defender);
@@ -126,8 +125,9 @@ namespace CardGame.Server.Game.Cards
                     var oldLife = attacking.Health;
                     attacking.Health -= overflow;
                     var newLife = attacking.Health;
-                    History.Add(new ModifyPlayer(GameEvents.BattleDamage, Defender, attacking,
-                        nameof(Player.Health), oldLife, newLife));
+                    // History.Add(new ModifyPlayer(GameEvents.BattleDamage, Defender, attacking,
+                    //     nameof(Player.Health), oldLife, newLife));
+                    History.Add(new BattleDamage(Defender, attacking, overflow));
                 }
 
                 attacking.Field.Remove(Attacker);

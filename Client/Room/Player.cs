@@ -181,12 +181,26 @@ namespace CardGame.Client.Room
             
             QueueProperty(attacker, "RectPosition", attackerLocation, attackerDestination, Delay, Delay);
             QueueProperty(defender, "RectPosition", defenderLocation, defenderDestination, Delay, Delay);
-            AddDelay(0.53F);
+            AddDelay(0.5F);
             Opponent.AddDelay(0.5F);
             QueueProperty(attacker, "RectPosition", attackerDestination, attackerLocation, Delay, Delay);
             QueueProperty(defender, "RectPosition", defenderDestination, defenderLocation, Delay, Delay);
             Opponent.AddDelay(0.5F);
-            AddDelay(0.5F);
+           // AddDelay(0.5F);
+        }
+
+        public void LoseLife(int lifeLost)
+        {
+            // In future, maybe change to modify Life?
+            Damage.Text = $"-{lifeLost}";
+            // We reduce by 1 so we can slot in via battle
+            QueueCallback(this, Delay - 0.8F, nameof(ShowDamage), true);
+            QueueCallback(this, Delay, nameof(ShowDamage), false);
+        }
+
+        public void ShowDamage(bool show)
+        {
+            Damage.Visible = show;
         }
 
         public void SendCardToZone(Card card, ZoneIds zoneId)

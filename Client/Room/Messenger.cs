@@ -38,6 +38,8 @@ namespace CardGame.Client.Room
 
         [Signal] public delegate void CardSentToZone();
 
+        [Signal] public delegate void LifeLost();
+
         private const int ServerId = 1;
         public int Id = 0;
 
@@ -79,6 +81,8 @@ namespace CardGame.Client.Room
         [Puppet] public void ForceDisconnected(int reason) => EmitSignal(nameof(DisconnectPlayer), reason);
 
         [Puppet] public void SentToZone(int cardId, ZoneIds zoneId) =>EmitSignal(nameof(CardSentToZone), cardId, zoneId);
+
+        [Puppet] public void LoseLife(int lifeLost, bool isOpponent) => EmitSignal(nameof(LifeLost), lifeLost, isOpponent);
 
         public void Deploy(int cardId) => RpcId(ServerId, "Deploy", Id, cardId);
 

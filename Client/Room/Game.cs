@@ -60,6 +60,7 @@ namespace CardGame.Client.Room {
 			Messenger.Connect(nameof(Messenger.ValidAttackTargetsSet), this, nameof(OnValidAttackTargetsSet));
 			Messenger.Connect(nameof(Messenger.UnitBattled), this, nameof(OnUnitBattled));
 			Messenger.Connect(nameof(Messenger.CardSentToZone), this, nameof(OnCardSentToZone));
+			Messenger.Connect(nameof(Messenger.LifeLost), this, nameof(OnLifeLost));
 			CardCatalog.Connect(nameof(CardCatalog.MouseEnteredCard), CardViewer, nameof(CardViewer.OnCardClicked));
 			CardCatalog.Connect(nameof(CardCatalog.Deploy), Messenger, nameof(Messenger.Deploy));
 			CardCatalog.Connect(nameof(CardCatalog.SetFaceDown), Messenger, nameof(Messenger.SetFaceDown));
@@ -237,6 +238,18 @@ namespace CardGame.Client.Room {
 			else
 			{
 				Opponent.SendCardToZone(card, zoneId);
+			}
+		}
+
+		public void OnLifeLost(int lifeLost, bool isOpponent)
+		{
+			if (isOpponent)
+			{
+				Opponent.LoseLife(lifeLost);
+			}
+			else
+			{
+				Player.LoseLife(lifeLost);
 			}
 		}
 
