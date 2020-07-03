@@ -4,7 +4,6 @@ using System.Security.Policy;
 using System.Threading.Tasks;
 using CardGame.Client.Library;
 using CardGame.Client.Library.Cards;
-using CardGame.Client.Players;
 using Godot;
 using Godot.Collections;
 using Card = CardGame.Server.Game.Cards.Card;
@@ -36,8 +35,8 @@ namespace CardGame.Client.Room {
 			var playMat = (Control) PlayMat.Instance();
 			playMat.Name = "PlayMat";
 			AddChild(playMat, true);
-			Player = new Player(GetNode<View>("PlayMat/Player"));
-			Opponent = new Player(GetNode<View>("PlayMat/Opponent"));
+			Player = GetNode<Player>("PlayMat/Player");
+			Opponent = GetNode<Player>("PlayMat/Opponent");
 			CardCatalog.User = Player;
 			CardViewer = GetNode<CardViewer>("PlayMat/Background/CardViewer");
 			ActionButton = GetNode<Button>("PlayMat/Background/ActionButton");
@@ -57,7 +56,6 @@ namespace CardGame.Client.Room {
 			Messenger.Connect(nameof(Messenger.ValidTargetsSet), this, nameof(OnValidTargetsSet));
 			Messenger.Connect(nameof(Messenger.ValidAttackTargetsSet), this, nameof(OnValidAttackTargetsSet));
 			Messenger.Connect(nameof(Messenger.CardDestroyed), this, nameof(OnCardDestroyed));
-			Messenger.Connect(nameof(Messenger.CardSentToGraveyard), this, nameof(OnCardSentToGraveyard));
 			Messenger.Connect(nameof(Messenger.UnitBattled), this, nameof(OnUnitBattled));
 			Messenger.Connect(nameof(Messenger.CardSentToZone), this, nameof(OnCardSentToZone));
 			CardCatalog.Connect(nameof(CardCatalog.MouseEnteredCard), CardViewer, nameof(CardViewer.OnCardClicked));
@@ -81,10 +79,10 @@ namespace CardGame.Client.Room {
 
 		private async void Execute(States stateAfterExecution)
 		{
-			await Task.WhenAll(new List<Task> {Player.View.Execute(), Opponent.View.Execute()});
+			await Task.WhenAll(new List<Task> {Player.Execute(), Opponent.Execute()});
 			Player.SetState(stateAfterExecution);
-			Player.View.Reset();
-			Opponent.View.Reset();
+			Player.Reset();
+			Opponent.Reset();
 			SetState(stateAfterExecution);
 			EmitSignal(nameof(StateSet));
 		}
@@ -147,7 +145,7 @@ namespace CardGame.Client.Room {
 		public void OnDeployQueued(int id)
 		{
 			var card = CardCatalog[id];
-			Player.Deploy(card);
+			Player.Deploy(card, false);
 		}
 
 		public void OnDeployQueued(int id, SetCodes setCode)
@@ -217,13 +215,6 @@ namespace CardGame.Client.Room {
 		{
 			var card = CardCatalog[id];
 			if(card.Player == Player) { Player.Destroy(card); } else { Opponent.Destroy(card); }
-		}
-
-		public void OnCardSentToGraveyard(int id)
-		{
-			var card = CardCatalog[id];
-			if (card.Player == Player) { Player.SendCardToGraveyard(card); }
-			else { Opponent.SendCardToGraveyard(card); }
 		}
 
 		public void OnUnitBattled(int attackerId, int defenderId, bool isOpponent)

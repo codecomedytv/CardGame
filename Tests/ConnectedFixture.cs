@@ -1,12 +1,11 @@
 using System.Threading.Tasks;
 using CardGame;
 using CardGame.Client;
-using CardGame.Client.Players;
 using CardGame.Client.Room;
 using CardGame.Server;
 using Godot;
 using Godot.Collections;
-using Player = CardGame.Server.Player;
+using Player = CardGame.Client.Room.Player;
 
 namespace CardGame.Tests.Scripts
 {
@@ -21,10 +20,10 @@ namespace CardGame.Tests.Scripts
 	    protected readonly DeckList DeckList = new DeckList();
 	    protected MockGame PlayerMockGame;
 	    protected MockGame OpponentMockGame;
-	    protected View Player;
-	    protected View Opponent;
-	    protected View OppViewFromPlayer;
-	    protected View PlayerViewFromOpp;
+	    protected Player Player;
+	    protected Player Opponent;
+	    protected Player OppPlayerFromPlayer;
+	    protected Player PlayerPlayerFromOpp;
 	    
 	    protected async void AddGame()
 	    {
@@ -51,8 +50,8 @@ namespace CardGame.Tests.Scripts
 		    OpponentMockGame = Clients[0].GetNode<MockGame>("1");
 		    Player = PlayerMockGame.GetPlayerView();
 		    Opponent = OpponentMockGame.GetPlayerView();
-		    OppViewFromPlayer = PlayerMockGame.GetOpponentView();
-		    PlayerViewFromOpp = OpponentMockGame.GetOpponentView();
+		    OppPlayerFromPlayer = PlayerMockGame.GetOpponentView();
+		    PlayerPlayerFromOpp = OpponentMockGame.GetOpponentView();
 	    }
 
 	    protected Task<object[]> PlayerState => WaitOnState(PlayerMockGame);

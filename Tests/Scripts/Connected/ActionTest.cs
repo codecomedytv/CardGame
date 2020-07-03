@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CardGame.Client;
 using CardGame.Client.Library.Cards;
-using CardGame.Client.Players;
 using CardGame.Client.Room;
 using Godot;
 
@@ -29,7 +28,7 @@ namespace CardGame.Tests.Scripts.Connected
             await PlayerState;
             var toDeploy = (Card) Player.Hand.GetChild(0);
             toDeploy.DoubleClick();
-            await ToSignal(UntilSignal(Player, nameof(View.AnimationFinished), 5), YIELD);
+            await ToSignal(UntilSignal(Player, nameof(Player.AnimationFinished), 5), YIELD);
             Assert.Has(toDeploy, Player.Units.GetChildren(), $"{toDeploy} was Deployed");
         }
         
@@ -39,7 +38,7 @@ namespace CardGame.Tests.Scripts.Connected
             await PlayerState;
             var toSet = (Card) Player.Hand.GetChild(1);
             toSet.DoubleClick();
-            await ToSignal(UntilSignal(Player, nameof(View.AnimationFinished), 5), YIELD);
+            await ToSignal(UntilSignal(Player, nameof(Player.AnimationFinished), 5), YIELD);
             Assert.Has(toSet, Player.Support.GetChildren(), $"{toSet} was Set");
         }
 
@@ -76,7 +75,7 @@ namespace CardGame.Tests.Scripts.Connected
             OpponentMockGame.End();
             await PlayerState;
             attacker.DoubleClick();
-            OppViewFromPlayer.Units.GetChild<Card>(0).DoubleClick(); // Make sure to click the Attacker's copy
+            OppPlayerFromPlayer.Units.GetChild<Card>(0).DoubleClick(); // Make sure to click the Attacker's copy
             await OpponentState;
             OpponentMockGame.Pass();
             await PlayerState;

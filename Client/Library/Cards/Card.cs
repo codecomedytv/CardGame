@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using CardGame.Client.Library.Alpha;
-using CardGame.Client.Players;
+using CardGame.Client.Room;
 using Godot;
 
 namespace CardGame.Client.Library.Cards

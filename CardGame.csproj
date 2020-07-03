@@ -59,9 +59,6 @@
     <Compile Include="addons\WAT\core\test\Test.cs" />
     <Compile Include="Client\ClientConn.cs" />
     <Compile Include="Client\DeckList.cs" />
-    <Compile Include="Client\Players\Player.cs" />
-    <Compile Include="Client\Players\States.cs" />
-    <Compile Include="Client\Players\View.cs" />
     <Compile Include="Client\Room\CardCatalog.cs" />
     <Compile Include="Client\Room\CardViewer.cs" />
     <Compile Include="Client\Room\Game.cs" />
@@ -77,6 +74,7 @@
     <Compile Include="Client\Library\Cards\BaseCard.cs" />
     <Compile Include="Client\Library\Cards\Card.cs" />
     <Compile Include="Client\Library\CheckOut.cs" />
+    <Compile Include="Client\Room\Player.cs" />
     <Compile Include="Client\Room\ZoneIds.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="GameEvents.cs" />

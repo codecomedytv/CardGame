@@ -1,26 +1,37 @@
 ﻿using System;
-using System.Security.Policy;
 using System.Threading.Tasks;
 using CardGame.Client.Library;
 using CardGame.Client.Library.Cards;
-using CardGame.Client.Room;
 using Godot;
 
-namespace CardGame.Client.Players
+namespace CardGame.Client.Room
 {
-    public class View: Control
+    public enum States
     {
+        Acting,
+        Active,
+        Idle,
+        Passing,
+        Passive,
+    }
+    // ReSharper disable once ClassNeverInstantiated.Global
+    public class Player: Control
+    
+    {
+        public States State;
+        private int DeckCount = 40;
         public int Health = 8000;
-        public Label Damage;
-        public Label Deck;
+        private Label Damage;
+        private Label Deck;
         public PanelContainer Discard;
-        public Label DiscardCount;
+        private Label DiscardCount;
         public HBoxContainer Units;
         public HBoxContainer Support;
         public HBoxContainer Hand;
         private readonly Tween Gfx = new Tween();
         private float Delay = 0.0F;
-        public AnimatedSprite PlayingState;
+        private AnimatedSprite PlayingState;
+        public Player Opponent;
 
         [Signal]
         public delegate void AnimationFinished();
@@ -46,6 +57,7 @@ namespace CardGame.Client.Players
 
         public void SetState(States state)
         {
+            State = state;
             if (state == States.Active || state == States.Idle)
             {
                 PlayingState.Visible = true;
@@ -66,16 +78,18 @@ namespace CardGame.Client.Players
             return await ToSignal(Gfx, "tween_all_completed");
         }
 
-        public void Draw(Card card, string deckSize)
+        public void Draw(Card card)
         {
 
+            card.Player = this;
+            DeckCount -= 1;
             Hand.AddChild(card);
             Sort(Hand);
             var destination = card.RectGlobalPosition;
             card.RectGlobalPosition = Deck.RectGlobalPosition;
             var originalColor = card.Modulate;
             card.Modulate = Colors.Transparent;
-            QueueCallback(Deck, Delay, "set_text", deckSize);
+            QueueCallback(Deck, Delay, "set_text", DeckCount.ToString());
             QueueProperty(card, "RectGlobalPosition", Deck.RectGlobalPosition, destination, 0.2F, AddDelay(0.2F));
             QueueProperty(card, nameof(Modulate), Colors.Transparent, originalColor, 0.1F, Delay);
             QueueCallback(this, AddDelay(0.2F),"Sort", Hand);
@@ -100,6 +114,11 @@ namespace CardGame.Client.Players
             QueueCallback(card, Delay, nameof(card.FlipFaceDown));
             QueueCallback(card.GetParent(), AddDelay(0.3F), "remove_child", card);
             QueueCallback(Support, Delay, "add_child", card);
+        }
+        
+        public void SetFaceDown()
+        {
+            SetFaceDown((Card) Hand.GetChild(0));
         }
 
         public void Activate(Card card, bool isOpponent = false)
