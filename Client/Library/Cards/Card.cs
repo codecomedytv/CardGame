@@ -34,6 +34,19 @@ namespace CardGame.Client.Library.Cards
 		public readonly List<int> ValidAttackTargets = new List<int>();
 		public bool IsTargeting = false;
 
+		public void MoveZone(Container oldZone, Container newZone)
+		{
+			SelectedTarget.Visible = false;
+			DefenseIcon.Visible = false;
+			AttackIcon.Visible = false;
+			ChainLink.Stop();
+			ChainLink.Visible = false;
+			oldZone.RemoveChild(this);
+			ShowBehindParent = true;
+			oldZone.Notification(Container.NotificationSortChildren);
+			newZone.AddChild(this);
+		}
+		
 		public bool Targets()
 		{
 			return ValidTargets.Count > 0;
@@ -68,22 +81,13 @@ namespace CardGame.Client.Library.Cards
 		public void FlipFaceDown() => Back.Visible = true;
 
 		public void FlipFaceUp() => Back.Visible = false;
-
-		public void ShowAboveParent() => ShowBehindParent = false;
-		public void ShowBelowParent() => ShowBehindParent = true;
-
+		
 		public void AddToChain()
 		{
 			ChainLink.Frame = 0;
 			ChainLink.Visible = true;
 			ChainIndexDisplay.Text = ChainIndex.ToString();
 			ChainLink.Play();
-		}
-		
-		public void RemoveFromChain()
-		{
-			ChainLink.Stop();
-			ChainLink.Visible = false;
 		}
 		
 		public void SetData(BaseCard card)

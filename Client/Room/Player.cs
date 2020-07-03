@@ -186,14 +186,13 @@ namespace CardGame.Client.Room
             QueueProperty(attacker, "RectPosition", attackerDestination, attackerLocation, Delay, Delay);
             QueueProperty(defender, "RectPosition", defenderDestination, defenderLocation, Delay, Delay);
             Opponent.AddDelay(0.5F);
-           // AddDelay(0.5F);
+            AddDelay(0.5F);
         }
 
         public void LoseLife(int lifeLost)
         {
-            // In future, maybe change to modify Life?
             Damage.Text = $"-{lifeLost}";
-            // We reduce by 1 so we can slot in via battle
+            // We reduce values here so we can slot it inside of battle
             QueueCallback(this, Delay - 0.8F, nameof(ShowDamage), true);
             QueueCallback(this, Delay, nameof(ShowDamage), false);
         }
@@ -205,19 +204,9 @@ namespace CardGame.Client.Room
 
         public void SendCardToZone(Card card, ZoneIds zoneId)
         {
-            // Some of this information could be a callback in the card object
-            // We could even pass in the zoneId to handle awkward information (like if they card should be face/down
-            AddDelay(0.3F);
             var zone = GetZone(zoneId);
-            var oldZone = (Container) card.GetParent();
+            QueueCallback(card, Delay, nameof(Card.MoveZone), card.GetParent(), zone);
             QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, zone.RectGlobalPosition, Delay, Delay);
-            QueueCallback(this, Delay, nameof(Sort), oldZone);
-            QueueCallback(card, Delay, "ShowBelowParent");
-            QueueProperty(card.SelectedTarget, "visible", true, false, Delay, Delay);
-            QueueProperty(card.DefenseIcon, "visible", true, false, Delay, Delay);
-            QueueCallback(card, Delay, nameof(card.RemoveFromChain));
-            QueueCallback(oldZone, Delay, "remove_child", card);
-            QueueCallback(zone, Delay, "add_child", card);
         }
 
         private Control GetZone(ZoneIds zoneId)
