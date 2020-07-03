@@ -94,6 +94,11 @@ namespace CardGame.Client.Players
             Graveyard.Add(card);
             View.Destroy(card);
         }
+
+        public void Battle(Card attacker, Card defender, bool isOpponent)
+        {
+            View.Battle(attacker, defender, isOpponent);
+        }
     }
     
     

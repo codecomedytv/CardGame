@@ -117,6 +117,7 @@ namespace CardGame.Server.Game.Cards
 
             private void CounterAttack()
             {
+                History.Add(new BattleUnit(defending, Defender, Attacker));
                 var overflow = Defender.Attack - Attacker.Defense;
                 if (!attacking.HasTag(TagIds.CannotTakeBattleDamage))
                 {
@@ -145,6 +146,7 @@ namespace CardGame.Server.Game.Cards
                     return;
                 }
 
+                History.Add(new BattleUnit(attacking, Attacker, Defender));
                 if (Attacker.Attack > Defender.Defense)
                 {
                     Attack();

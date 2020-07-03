@@ -51,6 +51,9 @@ namespace CardGame.Client.Room
         public delegate void CardSentToGraveyard();
 
         [Signal]
+        public delegate void UnitBattled();
+
+        [Signal]
         public delegate void ExecutedEvents();
 
         [Signal]
@@ -175,6 +178,12 @@ namespace CardGame.Client.Room
         public void SentToGraveyard(int cardId)
         {
             EmitSignal(nameof(CardSentToGraveyard), cardId);
+        }
+
+        [Puppet]
+        public void QueueBattleUnit(int attackerId, int defenderId, bool isOpponentAttacking)
+        {
+            EmitSignal(nameof(UnitBattled), attackerId, defenderId, isOpponentAttacking);
         }
 
         [Puppet]

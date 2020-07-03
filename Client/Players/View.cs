@@ -118,7 +118,8 @@ namespace CardGame.Client.Players
 
         public void Destroy(Card card)
         {
-            QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, Discard.RectGlobalPosition, 0.3F, Delay);
+            // Merge Into Generic Move Method?
+            QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, Discard.RectGlobalPosition, 0.3F, AddDelay(0.3F));
             QueueCallback(card.GetParent(), AddDelay(0.3F), "remove_child", card);
             QueueCallback(Discard, Delay, "add_child", card);
             QueueCallback(card, Delay, "ShowBelowParent");
@@ -159,6 +160,20 @@ namespace CardGame.Client.Players
             var nextPosition = blank.RectGlobalPosition;
             zone.RemoveChild(blank);
             return nextPosition;
+        }
+
+        public void Battle(Card attacker, Card defender, bool isOpponent)
+        { 
+            var attackerLocation = attacker.RectPosition;
+            var defenderLocation = defender.RectPosition;
+            var attackerDestination = new Vector2(attacker.RectPosition.x, attacker.RectPosition.y - 150);
+            var defenderDestination = new Vector2(defender.RectPosition.x, defender.RectPosition.y + 150);
+            
+            QueueProperty(attacker, "RectPosition", attackerLocation, attackerDestination, Delay, Delay);
+            QueueProperty(defender, "RectPosition", defenderLocation, defenderDestination, Delay, Delay);
+            QueueProperty(attacker, "RectPosition", attackerDestination, attackerLocation, Delay, AddDelay(0.3F));
+            QueueProperty(defender, "RectPosition", attackerLocation, attackerDestination, Delay, Delay);
+
         }
     }
 }

@@ -85,6 +85,7 @@
     <Compile Include="Server\Game\Cards\Support.cs" />
     <Compile Include="Server\Game\Cards\Unit.cs" />
     <Compile Include="Server\Game\Events\Activate.cs" />
+    <Compile Include="Server\Game\Events\BattleUnit.cs" />
     <Compile Include="Server\Game\Events\Bounce.cs" />
     <Compile Include="Server\Game\Events\DeclareDirectAttack.cs" />
     <Compile Include="Server\Game\Events\DeclareAttack.cs" />

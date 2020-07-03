@@ -58,6 +58,7 @@ namespace CardGame.Client.Room {
 			Messenger.Connect(nameof(Messenger.ValidAttackTargetsSet), this, nameof(OnValidAttackTargetsSet));
 			Messenger.Connect(nameof(Messenger.CardDestroyed), this, nameof(OnCardDestroyed));
 			Messenger.Connect(nameof(Messenger.CardSentToGraveyard), this, nameof(OnCardSentToGraveyard));
+			Messenger.Connect(nameof(Messenger.UnitBattled), this, nameof(OnUnitBattled));
 			CardCatalog.Connect(nameof(CardCatalog.MouseEnteredCard), CardViewer, nameof(CardViewer.OnCardClicked));
 			CardCatalog.Connect(nameof(CardCatalog.Deploy), Messenger, nameof(Messenger.Deploy));
 			CardCatalog.Connect(nameof(CardCatalog.SetFaceDown), Messenger, nameof(Messenger.SetFaceDown));
@@ -222,6 +223,20 @@ namespace CardGame.Client.Room {
 			var card = CardCatalog[id];
 			if (card.Player == Player) { Player.SendCardToGraveyard(card); }
 			else { Opponent.SendCardToGraveyard(card); }
+		}
+
+		public void OnUnitBattled(int attackerId, int defenderId, bool isOpponent)
+		{
+			var attacker = CardCatalog[attackerId];
+			var defender = CardCatalog[defenderId];
+			if (isOpponent)
+			{
+				Opponent.Battle(attacker, defender, true);
+			}
+			else
+			{
+				Player.Battle(attacker, defender, false);
+			}
 		}
 
 		protected void OnEndTurn()
