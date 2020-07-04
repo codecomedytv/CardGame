@@ -40,13 +40,6 @@ namespace CardGame.Server {
 		{
 			
 		}
-
-		public void OnTargetSelected(Card card) => EmitSignal(nameof(TargetSelected), card);
-		
-		public void SetState(States newState)
-		{
-			State = newState;
-		}
 		
 		public Player(int id, List<SetCodes> deckList)
 		{
@@ -60,6 +53,8 @@ namespace CardGame.Server {
 			Field = new Zone(this, ZoneIds.Field);
 		}
 
+		public void OnTargetSelected(Card card) => EmitSignal(nameof(TargetSelected), card);
+		
 		public void LoadDeck(CardCatalog cards)
 		{
 			foreach (var card in DeckList.Select(setCode => Library.Create(setCode, this)))

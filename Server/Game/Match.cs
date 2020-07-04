@@ -61,8 +61,8 @@ namespace CardGame.Server.Game {
 			}
 			
 			// Turn Player is (Currently) Choosen When Player Object is created
-			TurnPlayer.SetState(States.Idle);
-			TurnPlayer.Opponent.SetState(States.Passive);
+			TurnPlayer.State = States.Idle;
+			TurnPlayer.Opponent.State = States.Passive;
 			Update();
 		}
 		
@@ -77,8 +77,8 @@ namespace CardGame.Server.Game {
 			}
 
 			player.Deploy(card);
-			player.SetState(States.Acting);
-			player.Opponent.SetState(States.Active);
+			player.State = States.Acting;
+			player.Opponent.State = States.Active;
 			Update();
 			
 		}
@@ -95,8 +95,8 @@ namespace CardGame.Server.Game {
 			}
 			
 			attacker.AttackTarget(defender);
-			player.SetState(States.Acting);
-			player.Opponent.SetState(States.Active);
+			player.State = States.Acting;
+			player.Opponent.State = States.Active;
 			Update();
 		}
 
@@ -111,8 +111,8 @@ namespace CardGame.Server.Game {
 			}
 			
 			attacker.AttackDirectly();
-			player.SetState(States.Acting);
-			player.Opponent.SetState(States.Active);
+			player.State = States.Acting;
+			player.Opponent.State = States.Active;
 			Update();
 		}
 		
@@ -127,7 +127,7 @@ namespace CardGame.Server.Game {
 			}
 
 			player.SetFaceDown(card);
-			player.SetState(States.Idle);
+			player.State = States.Idle;
 			Update();
 		}
 		
@@ -144,8 +144,8 @@ namespace CardGame.Server.Game {
 				return;
 			}
 			skill.Activate(target, Link.NextPositionInLink);
-			player.SetState(States.Acting);
-			player.Opponent.SetState(States.Active);
+			player.State = States.Acting;
+			player.Opponent.State = States.Active;
 			Update();
 			
 		}
@@ -169,13 +169,13 @@ namespace CardGame.Server.Game {
 			if (player.Opponent.State == States.Passing)
 			{
 				Link.Resolve();
-				TurnPlayer.SetState(States.Idle);
-				TurnPlayer.Opponent.SetState(States.Passive);
+				TurnPlayer.State = States.Idle;
+				TurnPlayer.Opponent.State = States.Passive;
 			}
 			else
 			{
-				player.Opponent.SetState(States.Active);
-				player.SetState(States.Passing);
+				player.Opponent.State = States.Active;
+				player.State = States.Passing;
 			}
 			Update();
 			
@@ -196,8 +196,8 @@ namespace CardGame.Server.Game {
 			foreach (var unit in player.Opponent.Field) { unit.Ready(); };
 			foreach (var support in player.Support) { support.Ready(); }
 			TurnPlayer.Draw();
-			TurnPlayer.Opponent.SetState(States.Passive);
-			TurnPlayer.SetState(States.Idle);
+			TurnPlayer.Opponent.State = States.Passive;
+			TurnPlayer.State = States.Idle;
 			Update();
 		}
 
