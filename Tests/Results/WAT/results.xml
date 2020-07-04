@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
-<testsuites failures="0" name="TestXML" tests="1" time="1.022">
+<testsuites failures="0" name="TestXML" tests="1" time="1.198">
 <testsuite failures="0" name="ActionTest" tests="1" time="0.019">
-<testcase name="OnUnitOnFieldDoubleClicked" time="8.159">
+<testcase name="OnSupportInHandDoubleClicked" time="9.437">
 </testcase>
 </testsuite>
 </testsuites>

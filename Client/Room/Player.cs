@@ -107,19 +107,19 @@ namespace CardGame.Client.Room
             QueueCallback(Units, Delay, "add_child", card);
         }
 
-        public void SetFaceDown(Card card)
+        public void SetFaceDown(Card card, bool isOpponent)
         {
+            if (isOpponent)
+            {
+                card.Free();
+                card = (Card) Hand.GetChild(0);
+            }
             QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Support), 0.3F, Delay);
             QueueCallback(card, Delay, nameof(card.FlipFaceDown));
             QueueCallback(card.GetParent(), AddDelay(0.3F), "remove_child", card);
             QueueCallback(Support, Delay, "add_child", card);
         }
         
-        public void SetFaceDown()
-        {
-            SetFaceDown((Card) Hand.GetChild(0));
-        }
-
         public void Activate(Card card, bool isOpponent = false)
         {
             if (isOpponent)

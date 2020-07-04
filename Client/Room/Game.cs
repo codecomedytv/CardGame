@@ -145,17 +145,11 @@ namespace CardGame.Client.Room {
 			Opponent.Deploy(card, true);
 		}
 
-		public void OnSetFaceDownQueued(int id)
+		public void OnSetFaceDownQueued(int id, bool isOpponent)
 		{
-			var card = CardCatalog[id];
-			Player.SetFaceDown(card);
+			if(isOpponent) {Opponent.SetFaceDown(CardCatalog[id], true);} else Player.SetFaceDown(CardCatalog[id], false);
 		}
-
-		public void OnSetFaceDownQueued()
-		{
-			Opponent.SetFaceDown();
-		}
-
+		
 		public void OnActivationQueued(int id, int positionInLink)
 		{
 			var card = CardCatalog[id];
