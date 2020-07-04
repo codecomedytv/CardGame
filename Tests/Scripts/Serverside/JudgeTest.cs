@@ -82,7 +82,6 @@ namespace CardGame.Tests.Scripts.Serverside
 	        Assert.IsEqual(Player.Hand.Count, 7);
 	        Assert.IsEqual(Opponent.Hand.Count, 7);
 	        Play.EndTurn(Player.Id);
-	        GD.Print(Player.IsTurnPlayer);
 	        var ids = Opponent.Hand.Select(card => card.Id).ToList();
 	        Assert.IsEqual(ids.Count, 8);
 	        foreach (var id in ids)

@@ -82,8 +82,6 @@ namespace CardGame.Tests.Scripts.Serverside
 			Assert.IsTrue(Opponent.State == States.Passive, "Player 0 is PASSIVE");
 			Play.DirectAttack(Player.Id, attacker.Id);
 			
-			Console.WriteLine(Player.State + "|" + Player.State.ToString());
-			Console.WriteLine(Opponent.State + "|" + Opponent.State.ToString());
 			Assert.IsTrue(Player.State == States.Acting, "Player 1 is ACTING");
 			Assert.IsTrue(Opponent.State == States.Active, "Player 0 is ACTIVE");
 			
