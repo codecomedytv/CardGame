@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using CardGame.Server.Game.Network;
 using CardGame.Server.Game.Skills;
 using CardGame.Server.Game.Tags;
 using CardGame.Server.Game.Zones;
@@ -61,6 +62,11 @@ namespace CardGame.Server.Game.Cards {
 
 		public Dictionary<string, int> Serialize() => new Dictionary<string, int>{{"Id", Id}, {"setCode", (int)SetCode}};
 
+		public void Update(Message message)
+		{
+			message(Controller.Id, "UpdateCard", Id, State, GetValidAttackTargets(),
+				GetValidAttackTargets());
+		}
 		public override string ToString() => $"{Id.ToString()}: {Title}";
 
 	}

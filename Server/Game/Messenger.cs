@@ -35,20 +35,12 @@ namespace CardGame.Server.Game.Network {
 
 		public virtual void Update(IEnumerable<Card> cards, IEnumerable<Player> players)
 		{
-			// We could possibly pass the message to the players for this?
-			// Alternatively we could pass it to the card catalog?
+			foreach (var card in cards)
+			{
+				card.Update(Message);
+			}
 			foreach (var player in players)
 			{
-				var clientViewableCards = new List<Card>();
-				clientViewableCards.AddRange(player.Hand);
-				clientViewableCards.AddRange(player.Field);
-				clientViewableCards.AddRange(player.Support);
-				foreach (var card in clientViewableCards)
-				{
-					RpcId(player.Id, "UpdateCard", card.Id, card.State, card.GetValidAttackTargets(),
-						card.GetValidAttackTargets());
-				}
-				clientViewableCards.Clear();
 				RpcId(player.Id, "ExecuteEvents", player.State);
 			}
 		}
