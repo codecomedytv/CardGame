@@ -64,8 +64,7 @@ namespace CardGame.Server.Game.Cards {
 
 		public void Update(Message message)
 		{
-			message(Controller.Id, "UpdateCard", Id, State, GetValidAttackTargets(),
-				GetValidAttackTargets());
+			message(Controller.Id, "UpdateCard", Id, State, GetValidAttackTargets(), GetValidTargets());
 		}
 		public override string ToString() => $"{Id.ToString()}: {Title}";
 
