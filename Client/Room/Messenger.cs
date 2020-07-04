@@ -75,19 +75,19 @@ namespace CardGame.Client.Room
 
         [Puppet] public void LoseLife(int lifeLost, bool isOpponent) => EmitSignal(nameof(LifeLost), lifeLost, isOpponent);
 
-        public void OnDeployDeclared(int cardId) => RpcId(ServerId, "Deploy", Id, cardId);
+        public void DeclareDeploy(int cardId) => RpcId(ServerId, "OnDeployDeclared", Id, cardId);
 
-        public void OnAttackDeclared(int attackerId, int cardId) => RpcId(ServerId, "Attack", Id, attackerId, cardId);
+        public void DeclareAttack(int attackerId, int cardId) => RpcId(ServerId, "OnAttackDeclared", Id, attackerId, cardId);
         
-        public void OnSetFaceDownDeclared(int cardId) => RpcId(ServerId, "SetFaceDown", Id, cardId);
+        public void DeclareSetFaceDown(int cardId) => RpcId(ServerId, "OnSetFaceDownDeclared", Id, cardId);
 
-        public void OnActivationDeclared(Card card, int targetId) => RpcId(ServerId, "Activate", Id, card.Id, targetId);
+        public void DeclareActivation(Card card, int targetId) => RpcId(ServerId, "OnActivationDeclared", Id, card.Id, targetId);
         
-        public void Target(int cardId) => RpcId(ServerId, "Target", Id, cardId);
+        public void DeclareTarget(int cardId) => RpcId(ServerId, "OnTargetDeclared", Id, cardId);
         
-        public void OnPassPriorityDeclared() => RpcId(ServerId, "PassPlay", Id);
+        public void DeclarePassPlay() => RpcId(ServerId, "OnPassPlayDeclared", Id);
         
-        public void OnEndTurnDeclared() => RpcId(ServerId, "EndTurn", Id);
+        public void DeclareEndTurn() => RpcId(ServerId, "OnEndTurnDeclared", Id);
         
     }
 }

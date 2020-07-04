@@ -55,12 +55,12 @@ namespace CardGame.Client.Room {
 			Messenger.Connect(nameof(Messenger.CardSentToZone), this, nameof(OnCardSentToZone));
 			Messenger.Connect(nameof(Messenger.LifeLost), this, nameof(OnLifeLost));
 			Input.Connect(nameof(Input.MouseEnteredCard), CardViewer, nameof(CardViewer.OnCardClicked));
-			Input.Connect(nameof(Input.Deploy), Messenger, nameof(Messenger.OnDeployDeclared));
-			Input.Connect(nameof(Input.SetFaceDown), Messenger, nameof(Messenger.OnSetFaceDownDeclared));
-			Input.Connect(nameof(Input.Activate), Messenger, nameof(Messenger.OnActivationDeclared));
-			Input.Connect(nameof(Input.Attack), Messenger, nameof(Messenger.OnAttackDeclared));
+			Input.Connect(nameof(Input.Deploy), Messenger, nameof(Messenger.DeclareDeploy));
+			Input.Connect(nameof(Input.SetFaceDown), Messenger, nameof(Messenger.DeclareSetFaceDown));
+			Input.Connect(nameof(Input.Activate), Messenger, nameof(Messenger.DeclareActivation));
+			Input.Connect(nameof(Input.Attack), Messenger, nameof(Messenger.DeclareAttack));
 			CardCatalog.Connect(nameof(CardCatalog.CardCreated), Input, nameof(Input.OnCardCreated));
-			EndTurn.Connect("pressed", Messenger, nameof(Messenger.OnEndTurnDeclared));
+			EndTurn.Connect("pressed", Messenger, nameof(Messenger.DeclareEndTurn));
 		}
 
 		public void SetUp()
@@ -103,7 +103,7 @@ namespace CardGame.Client.Room {
 			ActionButtonAnimation.Hide();
 			ActionButtonAnimation.Frame = 0;
 			PassPriority.Text = "";
-			Messenger.OnPassPriorityDeclared();
+			Messenger.DeclarePassPlay();
 		}
 
 		private void SetState(States state)
