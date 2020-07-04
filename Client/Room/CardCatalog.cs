@@ -128,8 +128,6 @@ namespace CardGame.Client.Room
             if (Attacking && User.State == States.Idle)
             {
                 AttackingCard.Legal.Visible = false;
-                AttackingCard.SelectedTarget.Visible = false;
-                AttackingCard.AttackIcon.Visible = false;
                 foreach (var id in AttackingCard.ValidAttackTargets)
                 {
                     CardsById[id].DefenseIcon.Visible = false;
@@ -137,10 +135,17 @@ namespace CardGame.Client.Room
 
                 if (AttackingCard.ValidAttackTargets.Contains(card.Id))
                 {
+                    AttackingCard.SelectedTarget.Visible = true;
+                    AttackingCard.AttackIcon.Visible = true;
                     card.SelectedTarget.Visible = true;
                     card.DefenseIcon.Visible = true;
                     IsActing = true;
                     EmitSignal(nameof(Attack), AttackingCard.Id, card.Id);
+                }
+                else
+                {
+                    AttackingCard.AttackIcon.Visible = false;
+                    AttackingCard.SelectedTarget.Visible = false;
                 }
                 Attacking = false;
                 AttackingCard = null;
