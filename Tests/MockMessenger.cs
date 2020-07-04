@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CardGame.Server;
+using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Events;
 using CardGame.Server.Game.Network;
 
@@ -12,7 +13,7 @@ namespace CardGame.Tests
         // ..with server-side only tests
         public override void OnPlayExecuted(Event Event) { /* Empty Test Implementation */ }
 
-        public override void Update(IEnumerable<Player> enumerable) { /* Empty Test Implementation */ }
+        public override void Update(IEnumerable<Card> cards, IEnumerable<Player> enumerable) { /* Empty Test Implementation */ }
 
         public override void DisqualifyPlayer(int player) { /* Empty Test Implementation */}
 

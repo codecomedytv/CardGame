@@ -33,7 +33,7 @@ namespace CardGame.Server.Game.Network {
 		}
 		public virtual void OnPlayExecuted(Event gameEvent) => gameEvent.SendMessage(Message);
 
-		public virtual void Update(IEnumerable<Player> players)
+		public virtual void Update(IEnumerable<Card> cards, IEnumerable<Player> players)
 		{
 			// We could possibly pass the message to the players for this?
 			// Alternatively we could pass it to the card catalog?

@@ -212,7 +212,7 @@ namespace CardGame.Server.Game {
 
 		private void Update()
 		{
-			Messenger.Update(Players);
+			Messenger.Update(CardCatalog, Players);
 		}
 		
 		private static void ConnectSignals(Object emitter, string signal, Object receiver, string method)
