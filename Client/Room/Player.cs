@@ -80,7 +80,6 @@ namespace CardGame.Client.Room
 
         public void Draw(Card card)
         {
-
             card.Player = this;
             DeckCount -= 1;
             Hand.AddChild(card);

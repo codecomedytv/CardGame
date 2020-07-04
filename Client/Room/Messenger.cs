@@ -52,9 +52,7 @@ namespace CardGame.Client.Room
         
         [Puppet] public void LoadDeck(Godot.Collections.Dictionary<int, SetCodes> deck) => EmitSignal(nameof(DeckLoaded), deck);
         
-        [Puppet] public void Draw(int id, SetCodes setCode) => EmitSignal(nameof(DrawQueued), id, setCode);
-
-        [Puppet] public void Draw() =>EmitSignal(nameof(DrawQueued));
+        [Puppet] public void Draw(int id, bool isOpponent) => EmitSignal(nameof(DrawQueued), id, isOpponent);
         
         [Puppet] public void QueueDeploy(int id) => EmitSignal(nameof(DeployQueued), id);
 
@@ -84,19 +82,19 @@ namespace CardGame.Client.Room
 
         [Puppet] public void LoseLife(int lifeLost, bool isOpponent) => EmitSignal(nameof(LifeLost), lifeLost, isOpponent);
 
-        public void Deploy(int cardId) => RpcId(ServerId, "Deploy", Id, cardId);
+        public void OnDeployDeclared(int cardId) => RpcId(ServerId, "Deploy", Id, cardId);
 
-        public void Attack(int attackerId, int cardId) => RpcId(ServerId, "Attack", Id, attackerId, cardId);
+        public void OnAttackDeclared(int attackerId, int cardId) => RpcId(ServerId, "Attack", Id, attackerId, cardId);
         
-        public void SetFaceDown(int cardId) => RpcId(ServerId, "SetFaceDown", Id, cardId);
+        public void OnSetFaceDownDeclared(int cardId) => RpcId(ServerId, "SetFaceDown", Id, cardId);
 
-        public void Activate(Card card, int targetId) => RpcId(ServerId, "Activate", Id, card.Id, targetId);
+        public void OnActivationDeclared(Card card, int targetId) => RpcId(ServerId, "Activate", Id, card.Id, targetId);
         
         public void Target(int cardId) => RpcId(ServerId, "Target", Id, cardId);
         
-        public void PassPriority() => RpcId(ServerId, "PassPlay", Id);
+        public void OnPassPriorityDeclared() => RpcId(ServerId, "PassPlay", Id);
         
-        public void EndTurn() => RpcId(ServerId, "EndTurn", Id);
+        public void OnEndTurnDeclared() => RpcId(ServerId, "EndTurn", Id);
         
     }
 }

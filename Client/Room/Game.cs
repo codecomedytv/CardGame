@@ -1,22 +1,16 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using CardGame.Client.Library;
 using CardGame.Client.Library.Cards;
 using Godot;
-using Godot.Collections;
-using Card = CardGame.Server.Game.Cards.Card;
 
 namespace CardGame.Client.Room {
 
 	// ReSharper disable once ClassNeverInstantiated.Global
 	public class Game : Control
 	{
-		[Signal] 
-		public delegate void EndedTurn();
-
 		[Signal]
 		public delegate void StateSet();
 		
@@ -26,9 +20,9 @@ namespace CardGame.Client.Room {
 		protected Player Player;
 		protected Player Opponent;
 		private CardViewer CardViewer;
-		private Button ActionButton;
+		protected Button PassPriority; // Really Just A Pass Button
 		private AnimatedSprite ActionButtonAnimation;
-		private Button EndTurn;
+		protected Button EndTurn;
 		private Label DisqualificationNotice;
 		
 		public override void _Ready()
@@ -42,11 +36,11 @@ namespace CardGame.Client.Room {
 			Opponent.Opponent = Player;
 			CardCatalog.User = Player;
 			CardViewer = GetNode<CardViewer>("PlayMat/Background/CardViewer");
-			ActionButton = GetNode<Button>("PlayMat/Background/ActionButton");
-			ActionButtonAnimation = ActionButton.GetNode<AnimatedSprite>("Glow");
+			PassPriority = GetNode<Button>("PlayMat/Background/ActionButton");
+			ActionButtonAnimation = PassPriority.GetNode<AnimatedSprite>("Glow");
 			EndTurn = GetNode<Button>("PlayMat/Background/EndTurn");
 			DisqualificationNotice = GetNode<Label>("PlayMat/Disqualified");
-			ActionButton.Connect("pressed", this, nameof(OnActionButtonPressed));
+			PassPriority.Connect("pressed", Messenger, nameof(OnActionButtonPressed));
 			Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
 			Messenger.Connect(nameof(Messenger.Disqualified), this, nameof(OnDisqualified));
 			Messenger.Connect(nameof(Messenger.DeckLoaded), this, nameof(OnDeckLoaded));
@@ -62,13 +56,12 @@ namespace CardGame.Client.Room {
 			Messenger.Connect(nameof(Messenger.CardSentToZone), this, nameof(OnCardSentToZone));
 			Messenger.Connect(nameof(Messenger.LifeLost), this, nameof(OnLifeLost));
 			CardCatalog.Connect(nameof(CardCatalog.MouseEnteredCard), CardViewer, nameof(CardViewer.OnCardClicked));
-			CardCatalog.Connect(nameof(CardCatalog.Deploy), Messenger, nameof(Messenger.Deploy));
-			CardCatalog.Connect(nameof(CardCatalog.SetFaceDown), Messenger, nameof(Messenger.SetFaceDown));
-			CardCatalog.Connect(nameof(CardCatalog.Activate), Messenger, nameof(Messenger.Activate));
-			CardCatalog.Connect(nameof(CardCatalog.Attack), Messenger, nameof(Messenger.Attack));
+			CardCatalog.Connect(nameof(CardCatalog.Deploy), Messenger, nameof(Messenger.OnDeployDeclared));
+			CardCatalog.Connect(nameof(CardCatalog.SetFaceDown), Messenger, nameof(Messenger.OnSetFaceDownDeclared));
+			CardCatalog.Connect(nameof(CardCatalog.Activate), Messenger, nameof(Messenger.OnActivationDeclared));
+			CardCatalog.Connect(nameof(CardCatalog.Attack), Messenger, nameof(Messenger.OnAttackDeclared));
 			Connect(nameof(StateSet), CardCatalog, nameof(CardCatalog.OnStateSet));
-			EndTurn.Connect("pressed", this, nameof(OnEndTurn));
-			Connect(nameof(EndedTurn), Messenger, nameof(Messenger.EndTurn));
+			EndTurn.Connect("pressed", Messenger, nameof(Messenger.OnEndTurnDeclared));
 		}
 
 		public void SetUp()
@@ -100,17 +93,17 @@ namespace CardGame.Client.Room {
 			ActionButtonAnimation.Stop();
 			ActionButtonAnimation.Hide();
 			ActionButtonAnimation.Frame = 0;
-			ActionButton.Text = "";
-			Messenger.PassPriority();
+			PassPriority.Text = "";
+			Messenger.OnPassPriorityDeclared();
 		}
 
 		private void SetState(States state)
 		{
-			ActionButton.Text = "";
+			PassPriority.Text = "";
 			if (state != States.Active) return;
 			ActionButtonAnimation.Show();
 			ActionButtonAnimation.Play();
-			ActionButton.Text = "Pass";
+			PassPriority.Text = "Pass";
 		}
 
 		private void OnDisqualified()
@@ -118,7 +111,7 @@ namespace CardGame.Client.Room {
 			DisqualificationNotice.Visible = true;
 		}
 
-		public void OnDeckLoaded(System.Collections.Generic.Dictionary<int, SetCodes> deck)
+		public void OnDeckLoaded(Dictionary<int, SetCodes> deck)
 		{
 			foreach (var card in deck.Select(serial => CheckOut.Fetch(serial.Key, serial.Value)))
 			{
@@ -133,18 +126,11 @@ namespace CardGame.Client.Room {
 			CardCatalog[id].State = state;
 		}
 
-		private void OnDrawQueued(int id, SetCodes setCode)
+		private void OnDrawQueued(int id = 0, bool isOpponent = false)
 		{
-			var card = CardCatalog[id];
-			Player.Draw(card);
+			if(isOpponent) {Opponent.Draw(CardCatalog[id]);} else {Player.Draw(CardCatalog[id]);} 
 		}
-
-		private void OnDrawQueued()
-		{
-			var card = CheckOut.Fetch(0, SetCodes.NullCard);
-			Opponent.Draw(card);
-		}
-
+		
 		public void OnDeployQueued(int id)
 		{
 			var card = CardCatalog[id];
@@ -253,11 +239,6 @@ namespace CardGame.Client.Room {
 			}
 		}
 
-		protected void OnEndTurn()
-		{
-			EmitSignal(nameof(EndedTurn));
-		}
-		
 		public void _Connect(Godot.Object emitter, string signal, Godot.Object receiver, string method)
 		{
 			var err = emitter.Connect(signal, receiver, method);

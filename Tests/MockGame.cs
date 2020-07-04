@@ -1,6 +1,7 @@
 ﻿using CardGame.Client.Room;
 using CardGame.Server.Game;
 using Godot;
+using Messenger = CardGame.Server.Game.Network.Messenger;
 
 namespace CardGame.Tests
 {
@@ -11,7 +12,7 @@ namespace CardGame.Tests
 
         public void End()
         {
-            OnEndTurn();
+            EndTurn.EmitSignal("pressed");
         }
 
         public void Pass()

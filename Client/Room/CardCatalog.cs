@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using CardGame.Client.Library;
 using CardGame.Client.Library.Cards;
 using Godot;
 using Array = Godot.Collections.Array;
@@ -31,6 +33,7 @@ namespace CardGame.Client.Room
         private bool IsActing;
         private Card TargetingCard;
         private Card AttackingCard;
+        private List<Card> HiddenCards = new List<Card>();
 
         // We could possibly set the state directly?
         public void OnStateSet()
@@ -45,8 +48,16 @@ namespace CardGame.Client.Room
 
         public Card this[int id]
         {
-            get => CardsById[id];
+            get => CardsById[id] = GetCard(id);
             set => CardsById[id] = AddCard(value);
+        }
+
+        private Card GetCard(int id)
+        {
+            if (id != 0) return CardsById[id];
+            var hidden = CheckOut.Fetch(0, SetCodes.NullCard);
+            HiddenCards.Add(hidden);
+            return hidden;
         }
         
         private Card AddCard(Card card)
