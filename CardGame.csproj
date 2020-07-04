@@ -62,6 +62,7 @@
     <Compile Include="Client\Room\CardCatalog.cs" />
     <Compile Include="Client\Room\CardViewer.cs" />
     <Compile Include="Client\Room\Game.cs" />
+    <Compile Include="Client\Room\Input.cs" />
     <Compile Include="Client\Room\Messenger.cs" />
     <Compile Include="Client\Library\Alpha\CounterAttack.cs" />
     <Compile Include="Client\Library\Alpha\DungeonGuide.cs" />

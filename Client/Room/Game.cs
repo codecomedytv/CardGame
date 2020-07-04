@@ -17,6 +17,7 @@ namespace CardGame.Client.Room {
 		private readonly PackedScene PlayMat = (PackedScene) ResourceLoader.Load("res://Client/Room/Game.tscn");
 		private readonly Messenger Messenger = new Messenger();
 		private readonly CardCatalog CardCatalog = new CardCatalog();
+		private Input Input;
 		protected Player Player;
 		protected Player Opponent;
 		private CardViewer CardViewer;
@@ -34,7 +35,7 @@ namespace CardGame.Client.Room {
 			Opponent = GetNode<Player>("PlayMat/Opponent");
 			Player.Opponent = Opponent;
 			Opponent.Opponent = Player;
-			CardCatalog.User = Player;
+			Input = new Input(CardCatalog, Player);
 			CardViewer = GetNode<CardViewer>("PlayMat/Background/CardViewer");
 			PassPriority = GetNode<Button>("PlayMat/Background/ActionButton");
 			ActionButtonAnimation = PassPriority.GetNode<AnimatedSprite>("Glow");
@@ -55,12 +56,13 @@ namespace CardGame.Client.Room {
 			Messenger.Connect(nameof(Messenger.UnitBattled), this, nameof(OnUnitBattled));
 			Messenger.Connect(nameof(Messenger.CardSentToZone), this, nameof(OnCardSentToZone));
 			Messenger.Connect(nameof(Messenger.LifeLost), this, nameof(OnLifeLost));
-			CardCatalog.Connect(nameof(CardCatalog.MouseEnteredCard), CardViewer, nameof(CardViewer.OnCardClicked));
-			CardCatalog.Connect(nameof(CardCatalog.Deploy), Messenger, nameof(Messenger.OnDeployDeclared));
-			CardCatalog.Connect(nameof(CardCatalog.SetFaceDown), Messenger, nameof(Messenger.OnSetFaceDownDeclared));
-			CardCatalog.Connect(nameof(CardCatalog.Activate), Messenger, nameof(Messenger.OnActivationDeclared));
-			CardCatalog.Connect(nameof(CardCatalog.Attack), Messenger, nameof(Messenger.OnAttackDeclared));
-			Connect(nameof(StateSet), CardCatalog, nameof(CardCatalog.OnStateSet));
+			Input.Connect(nameof(Input.MouseEnteredCard), CardViewer, nameof(CardViewer.OnCardClicked));
+			Input.Connect(nameof(Input.Deploy), Messenger, nameof(Messenger.OnDeployDeclared));
+			Input.Connect(nameof(Input.SetFaceDown), Messenger, nameof(Messenger.OnSetFaceDownDeclared));
+			Input.Connect(nameof(Input.Activate), Messenger, nameof(Messenger.OnActivationDeclared));
+			Input.Connect(nameof(Input.Attack), Messenger, nameof(Messenger.OnAttackDeclared));
+			CardCatalog.Connect(nameof(CardCatalog.CardCreated), Input, nameof(Input.OnCardCreated));
+			Connect(nameof(StateSet), Input, nameof(Input.OnStateSet));
 			EndTurn.Connect("pressed", Messenger, nameof(Messenger.OnEndTurnDeclared));
 		}
 
@@ -223,14 +225,7 @@ namespace CardGame.Client.Room {
 
 		public void OnLifeLost(int lifeLost, bool isOpponent)
 		{
-			if (isOpponent)
-			{
-				Opponent.LoseLife(lifeLost);
-			}
-			else
-			{
-				Player.LoseLife(lifeLost);
-			}
+			if (isOpponent) { Opponent.LoseLife(lifeLost); } else { Player.LoseLife(lifeLost); }
 		}
 
 		public void _Connect(Godot.Object emitter, string signal, Godot.Object receiver, string method)
