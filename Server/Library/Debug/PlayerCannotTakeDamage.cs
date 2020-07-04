@@ -1,31 +1,40 @@
-﻿using CardGame.Server.Game;
-using CardGame.Server.Game.Cards;
+﻿using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Skills;
+using CardGame.Server.Game.Tags;
 
 namespace CardGame.Server
 {
     public class PlayerCannotTakeDamage : Unit
     {
-        public PlayerCannotTakeDamage()
+        public PlayerCannotTakeDamage(Player owner)
         {
+            Owner = owner;
+            Controller = owner;
             Title = "Debug.PlayerCannotTakeDamage";
             Attack = 1000;
             Defense = 1000;
             SetCode = SetCodes.DebugPlayerCannotTakeDamage;
-            AddSkill(new CannotTakeDamage());
+            Skill = new PlayerCannotTakeBattleDamage(this);
         }
 
-        private class CannotTakeDamage : Skill
+        private class PlayerCannotTakeBattleDamage: Constant
         {
-            public CannotTakeDamage()
+        private readonly Tag Tag = new Tag(TagIds.CannotTakeBattleDamage);
+            public PlayerCannotTakeBattleDamage(Card card)
             {
-                GameEvent = "deploy";
-                Type = Types.Constant;
+                Card = card;
+                AreaOfEffects.Add(Controller.Field);
             }
 
-            protected override void _Resolve()
+            protected override void _Apply()
             {
-                AddTagToController(Tag.CannotTakeDamage);
+                Tag.UnTagAll();
+                if (Controller.Field.Contains(Card))
+                {
+                    Tag.Add(Controller);
+                }
             }
         }
     }
 }
+

@@ -1,4 +1,4 @@
-﻿using CardGame.Client.Library.Card;
+﻿using CardGame.Client.Library.Cards;
 
 namespace CardGame.Client.Library.Alpha
 {
@@ -7,7 +7,7 @@ namespace CardGame.Client.Library.Alpha
         public NoviceArcher()
         {
             Title = "Novice Archer";
-            SetCode = SetCodes.Alpha_NoviceArcher;
+            SetCode = SetCodes.AlphaNoviceArcher;
             Attack = 1000;
             Defense = 1000;
             Text = "When this card is played: Destroy target unit with 1000 or less attack";

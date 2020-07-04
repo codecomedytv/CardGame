@@ -1,28 +1,37 @@
-﻿using CardGame.Server.Game.Cards;
-using CardGame.Server.Game.Commands;
+﻿using System.Linq;
+using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Skills;
 
 namespace CardGame.Server
 {
     public class DiscardYourCard : Support
     {
-        public DiscardYourCard()
+        public DiscardYourCard(Player owner)
         {
+            Owner = owner;
+            Controller = owner;
             Title = "Debug.DiscardYourCard";
             SetCode = SetCodes.DebugDiscardYourCard;
-            AddSkill(new DiscardCard());
+            Skill = new DiscardCard(this);
         }
 
-        private class DiscardCard : Skill
+        private class DiscardCard : Manual
         {
-            public override void _SetUp()
+            public DiscardCard(Card card)
             {
-                SetTargets(Controller.Hand);
-                CanBeUsed = Controller.Hand.Count > 0;
+                Card = card;
+                AreaOfEffects.Add(Controller.Support);
+
+            }
+            protected override bool _SetUp()
+            {
+                AddTargets(Controller.Hand);
+                return ValidTargets.Count > 0;
             }
 
             protected override void _Resolve()
             {
-                Controller.DeclarePlay(new Discard(Card, Controller, Target));
+                Discard(Target);
             }
         }
     }

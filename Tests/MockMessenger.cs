@@ -1,73 +1,20 @@
 ﻿using System.Collections.Generic;
 using CardGame.Server;
-using CardGame.Server.Game;
-using CardGame.Server.Game.Network.Messenger;
-using Godot;
-using static Godot.Collections.Array;
+using CardGame.Server.Game.Events;
+using CardGame.Server.Game.Network;
 
 namespace CardGame.Tests
 {
-    public class MockMessenger: BaseMessenger
+    public class MockMessenger: Messenger
     {
         
-        public MockMessenger()
-        {
-            Name = "Messenger";
-        }
-        
-        public override void OnPlayExecuted(Player player, GameEvent @event)
-        {
-            // Warning: Dummy Method
-        }
+        // These functions will complain about an inactive network if not overridden when dealing..
+        // ..with server-side only tests
+        public override void OnPlayExecuted(Event Event) { /* Empty Test Implementation */ }
 
-        public override void Update(IEnumerable<Player> enumerable)
-        {
-            // Warning: Dummy Method 
-        }
+        public override void Update(IEnumerable<Player> enumerable) { /* Empty Test Implementation */ }
 
-        public override void DisqualifyPlayer(int player, int reason)
-        {
-            // Warning: Dummy Method
-        }
+        public override void DisqualifyPlayer(int player) { /* Empty Test Implementation */}
 
-        public override void Deploy(int player, int card)
-        {
-            EmitSignal(nameof(Deployed), player, card);
-        }
-
-        public override void Attack(int player, int attacker, int defender)
-        {
-            EmitSignal(nameof(Attacked), player, attacker, defender);
-        }
-
-        public override void Activate(int player, int card, Godot.Collections.Array<int> targets)
-        {
-            EmitSignal(nameof(Activated), player, card, targets);
-        }
-
-        public override void SetFaceDown(int player, int card)
-        {
-            EmitSignal(nameof(FaceDownSet), player, card);
-        }
-
-        public override void Target(int player, int target)
-        {
-            EmitSignal(nameof(Targeted), player, target);
-        }
-
-        public override void PassPlay(int player)
-        {
-            EmitSignal(nameof(PassedPriority), player);
-        }
-
-        public override void EndTurn(int player)
-        {
-            EmitSignal(nameof(EndedTurn), player);
-        }
-
-        public override void SetReady(int player)
-        {
-            EmitSignal("PlayerSeated", player);
-        }
     }
 }

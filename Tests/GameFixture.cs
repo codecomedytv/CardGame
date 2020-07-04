@@ -1,34 +1,40 @@
 using System.Collections.Generic;
 using System.Linq;
+using CardGame.Client;
 using CardGame.Server;
 using CardGame.Server.Game;
+using CardGame.Server.Game.Network;
 
 namespace CardGame.Tests.Scripts
 {
     public class GameFixture: WAT.Test
     {
-
-    public List<Player> Players = new List<Player>();
-    // public Gamestate GameState = new Gamestate();
-    public MockMessenger Play;// Replace with test focused
-    public Room Game;
+        private List<Player> Players = new List<Player>();
+        protected MockMessenger Play;// Replace with test focused
+        private Match Match;
+        protected Player Player;
+        protected Player Opponent;
 
     protected void StartGame(List<SetCodes> deckList, List<SetCodes> deckList2 = null)
     {
-        deckList2 = deckList2 != null ? deckList2 : deckList.ToList();
-        Players.Add(new Player(1, deckList.ToList()));
-        Players.Add(new Player(2, deckList2.ToList()));
+        deckList2 ??= deckList;
+        Players.Add(new Player(1, deckList));
+        Players.Add(new Player(2, deckList2));
         Play = new MockMessenger();
-        Game = new Room(Players, Play);
-        AddChild(Game);
+        Match = new Match(new Players(Players[0], Players[1]), Play);
+        AddChild(Match);
         foreach(var player in Players){ Play.SetReady(player.Id); }
+
+        var turnPlayer = Match.TurnPlayer;
+        Player = turnPlayer;
+        Opponent = turnPlayer.Opponent;
     }
 
     public override void Post()
     {
         Players.Clear();
         Play.Free();
-        Game.Free();
+        Match.Free();
     }
     }
     

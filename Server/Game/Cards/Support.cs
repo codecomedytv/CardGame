@@ -1,21 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using CardGame.Server.Game.Skills;
+using Godot;
 
 namespace CardGame.Server.Game.Cards
 {
     public class Support: Card
     {
-        public Support() { }
+        protected Support() { }
 
         public override void SetCanBeSet()
         {
-            CanBeSet = Zone == Controller.Hand && Controller.Support.Count < 7;
-            if (CanBeSet) { Controller.DeclarePlay(new SetAsSettable(this)); }
+            State = Zone == Controller.Hand && Controller.Support.Count < 7 ? States.CanBeSet : States.Passive;
         }
 
         public override void SetCanBeActivated()
         {
-            CanBeActivated = Skill.CanBeUsed;
-            if (CanBeActivated) {Controller.DeclarePlay(new SetAsActivatable(this));}
+            State = Skill is Manual skill && skill.CanBeUsed && IsReady ? States.CanBeActivated : States.Passive;
         }
 
     }

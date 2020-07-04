@@ -1,4 +1,4 @@
-﻿using CardGame.Client.Library.Card;
+﻿using CardGame.Client.Library.Cards;
 
 namespace CardGame.Client.Library.Alpha
 {
@@ -7,7 +7,7 @@ namespace CardGame.Client.Library.Alpha
         public DungeonGuide()
         {
             Title = "Dungeon Guide";
-            SetCode = SetCodes.Alpha_DungeonGuide;
+            SetCode = SetCodes.AlphaDungeonGuide;
             Attack = 2000;
             Defense = 1500;
             Illustration = "res://Assets/CardArt/Adventurer.png";

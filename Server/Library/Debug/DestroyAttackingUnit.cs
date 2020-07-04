@@ -1,27 +1,33 @@
 ﻿using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Skills;
 using Godot;
 
 namespace CardGame.Server
 {
     public class DestroyAttackingUnit : Support
     {
-        public DestroyAttackingUnit()
+        public DestroyAttackingUnit(Player owner)
         {
+            Owner = owner;
+            Controller = owner;
             Title = "Debug.DestroyAttackingUnit";
             SetCode = SetCodes.DebugDestroyAttackingUnit;
-            AddSkill(new DestroyAttacking());
+            Skill = new DestroyAttacking(this);
         }
 
-        private class DestroyAttacking : Skill
+        private class DestroyAttacking : Manual
         {
-            public DestroyAttacking()
+            public DestroyAttacking(Card card)
             {
-                GameEvent = "attack";
+                Card = card;
+                AreaOfEffects.Add(Controller.Support);
+                Triggers.Add(GameEvents.DeclareAttack);
+                Triggers.Add(GameEvents.DeclareDirectAttack);
             }
 
             protected override void _Resolve()
             {
-                Controller.DestroyUnit(GameState.Attacking);
+                Destroy(GetAttackingUnit());
             }
         }
         

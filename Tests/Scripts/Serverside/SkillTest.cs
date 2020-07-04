@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CardGame.Client;
 using CardGame.Server;
-using CardGame.Server.Game;
+using CardGame.Server.Game.Tags;
 using Godot;
 using Godot.Collections;
 
@@ -10,7 +11,7 @@ namespace CardGame.Tests.Scripts.Serverside
     public class SkillTest: GameFixture
     {
         private List<SetCodes> DeckList = new List<SetCodes>();
-
+        
         public override string Title()
         {
             return "When using a Skill";
@@ -19,15 +20,15 @@ namespace CardGame.Tests.Scripts.Serverside
         public override void Pre()
         {
             DeckList.Clear();
-            DeckList.Add(SetCodes.Debug1000_1000);
-            DeckList.Add(SetCodes.Debug1000_1000);
-            DeckList.Add(SetCodes.Debug1000_1000);
-            DeckList.Add(SetCodes.Debug500_500);
-            DeckList.Add(SetCodes.Debug500_500);
-            DeckList.Add(SetCodes.Debug500_500);
-            DeckList.Add(SetCodes.Debug1500_1000);
-            DeckList.Add(SetCodes.Debug1500_1000);
-            DeckList.Add(SetCodes.Debug1500_1000);
+            DeckList.Add(SetCodes.Debug10001000);
+            DeckList.Add(SetCodes.Debug10001000);
+            DeckList.Add(SetCodes.Debug10001000);
+            DeckList.Add(SetCodes.Debug500500);
+            DeckList.Add(SetCodes.Debug500500);
+            DeckList.Add(SetCodes.Debug500500);
+            DeckList.Add(SetCodes.Debug15001000);
+            DeckList.Add(SetCodes.Debug15001000);
+            DeckList.Add(SetCodes.Debug15001000);
  
         }
 
@@ -37,23 +38,23 @@ namespace CardGame.Tests.Scripts.Serverside
             DeckList.Add(SetCodes.DebugDestroyOpponentUnit);
             StartGame(DeckList);
             
-            var support = Players[1].Hand[0].Id;
-            Play.SetFaceDown(Players[1].Id, support);
-            Play.EndTurn(Players[1].Id);
-            var unitA = Players[0].Hand[1];
-            var unitB = Players[0].Hand[6];
-            Play.Deploy(Players[0].Id, unitA.Id);
-            Play.PassPlay(Players[1].Id);
-            Play.PassPlay(Players[0].Id);
-            Play.Deploy(Players[0].Id, unitB.Id);
-            Play.PassPlay(Players[1].Id);
-            Play.PassPlay(Players[0].Id);
-            Play.EndTurn(Players[0].Id);
-            Play.Activate(Players[1].Id, support, new Array<int>{unitA.Id});
-            Play.PassPlay(Players[0].Id);
-            Play.PassPlay(Players[1].Id);
+            var support = Player.Hand[0].Id;
+            Play.SetFaceDown(Player.Id, support);
+            Play.EndTurn(Player.Id);
+            var unitA = Opponent.Hand[1];
+            var unitB = Opponent.Hand[6];
+            Play.Deploy(Opponent.Id, unitA.Id);
+            Play.PassPlay(Player.Id);
+            Play.PassPlay(Opponent.Id);
+            Play.Deploy(Opponent.Id, unitB.Id);
+            Play.PassPlay(Player.Id);
+            Play.PassPlay(Opponent.Id);
+            Play.EndTurn(Opponent.Id);
+            Play.Activate(Player.Id, support, unitA.Id);
+            Play.PassPlay(Opponent.Id);
+            Play.PassPlay(Player.Id);
             
-            Assert.Has(unitA, Players[0].Graveyard, "Then That Unit Is Destroyed");
+            Assert.Has(unitA, Opponent.Graveyard, "Then That Unit Is Destroyed");
 
         }
 
@@ -62,16 +63,16 @@ namespace CardGame.Tests.Scripts.Serverside
         {
 	        DeckList.Add(SetCodes.DebugDiscardYourCard);
 	        StartGame(DeckList);
-	        var discarding = Players[1].Hand[1];
-	        var discarder = Players[1].Hand[0].Id;
-	        Play.SetFaceDown(Players[1].Id, discarder);
-	        Play.EndTurn(Players[1].Id);
-	        Play.EndTurn(Players[0].Id);
-	        Play.Activate(Players[1].Id, discarder, new Array<int> {discarding.Id} );
-	        Play.PassPlay(Players[0].Id);
-	        Play.PassPlay(Players[1].Id);
+	        var discarding = Player.Hand[1];
+	        var discarder = Player.Hand[0].Id;
+	        Play.SetFaceDown(Player.Id, discarder);
+	        Play.EndTurn(Player.Id);
+	        Play.EndTurn(Opponent.Id);
+	        Play.Activate(Player.Id, discarder, discarding.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.PassPlay(Player.Id);
 	        
-	        Assert.Has(discarding, Players[1].Graveyard, "Then that card is in that Player's Discard");
+	        Assert.Has(discarding, Player.Graveyard, "Then that card is in that Player's Discard");
         }
 
         [Test]
@@ -79,21 +80,21 @@ namespace CardGame.Tests.Scripts.Serverside
         {
 	        DeckList.Add(SetCodes.DebugBounceFromField);
 	        StartGame(DeckList);
-	        var bouncer = Players[1].Hand[0].Id;
-	        var bounce = Players[0].Hand[1];
-	        Play.SetFaceDown(Players[1].Id, bouncer);
-	        Play.EndTurn(Players[1].Id);
-	        Play.Deploy(Players[0].Id, bounce.Id);
-	        Play.PassPlay(Players[1].Id);
-	        Play.PassPlay(Players[0].Id);
-	        Play.EndTurn(Players[0].Id);
-	        var bounceIsOnField = Players[0].Field.Contains(bounce);
-	        Play.Activate(Players[1].Id, bouncer, new Array<int>{ bounce.Id });
-	        Play.PassPlay(Players[0].Id);
-	        Play.PassPlay(Players[1].Id);
+	        var bouncer = Player.Hand[0].Id;
+	        var bounce = Opponent.Hand[1];
+	        Play.SetFaceDown(Player.Id, bouncer);
+	        Play.EndTurn(Player.Id);
+	        Play.Deploy(Opponent.Id, bounce.Id);
+	        Play.PassPlay(Player.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.EndTurn(Opponent.Id);
+	        var bounceIsOnField = Opponent.Field.Contains(bounce);
+	        Play.Activate(Player.Id, bouncer, bounce.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.PassPlay(Player.Id);
 
 	        Assert.IsTrue(bounceIsOnField, "Bounced Card Was On Field");
-	        Assert.Has(bounce, Players[0].Hand, "Bounce is in Owners Hand");
+	        Assert.Has(bounce, Opponent.Hand, "Bounce is in Owners Hand");
 
         }
 
@@ -104,16 +105,16 @@ namespace CardGame.Tests.Scripts.Serverside
 	        DeckList.Add(SetCodes.MillOneFromDeck);
 
 	        StartGame(DeckList);
-	        var millCard = Players[1].Hand[0].Id;
-	        Play.SetFaceDown(Players[1].Id, millCard);
-	        Play.EndTurn(Players[1].Id);
-	        Play.EndTurn(Players[0].Id);
-	        var cardToMill = Players[1].Deck[Players[1].Deck.Count - 1];
-	        Play.Activate(Players[1].Id, millCard, new Array<int>());
-	        Play.PassPlay(Players[0].Id);
-	        Play.PassPlay(Players[1].Id);
+	        var millCard = Player.Hand[0].Id;
+	        Play.SetFaceDown(Player.Id, millCard);
+	        Play.EndTurn(Player.Id);
+	        Play.EndTurn(Opponent.Id);
+	        var cardToMill = Player.Deck[Player.Deck.Count - 1];
+	        Play.Activate(Player.Id, millCard);
+	        Play.PassPlay(Opponent.Id);
+	        Play.PassPlay(Player.Id);
 
-	        Assert.Has(cardToMill, Players[1].Graveyard, "Then that card is in the Player's discard");
+	        Assert.Has(cardToMill, Player.Graveyard, "Then that card is in the Player's discard");
         }
 
         [Test]
@@ -123,19 +124,19 @@ namespace CardGame.Tests.Scripts.Serverside
 	        DeckList.Add(SetCodes.DebugReturnToDeck);
 
 	        StartGame(DeckList);
-	        var returnToDeckCard = Players[1].Hand[0].Id;
-	        Play.SetFaceDown(Players[1].Id, returnToDeckCard);
-	        Play.EndTurn(Players[1].Id);
-	        Play.EndTurn(Players[0].Id);
+	        var returnToDeckCard = Player.Hand[0].Id;
+	        Play.SetFaceDown(Player.Id, returnToDeckCard);
+	        Play.EndTurn(Player.Id);
+	        Play.EndTurn(Opponent.Id);
 
-	        var cardToReturn = Players[1].Hand[0];
-	        Play.Activate(Players[1].Id, returnToDeckCard, new Array<int> {cardToReturn.Id});
-	        Play.PassPlay(Players[0].Id);
-	        Play.PassPlay(Players[1].Id);
+	        var cardToReturn = Player.Hand[0];
+	        Play.Activate(Player.Id, returnToDeckCard, cardToReturn.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.PassPlay(Player.Id);
 
-	        Assert.Has(cardToReturn, Players[1].Deck, "Then that card is in the Player's Deck");
+	        Assert.Has(cardToReturn, Player.Deck, "Then that card is in the Player's Deck");
         }
-
+        
         [Test]
         public void That_Tries_To_Destroy_An_Indestructible_Card()
         {
@@ -143,95 +144,87 @@ namespace CardGame.Tests.Scripts.Serverside
 	        DeckList.Add(SetCodes.DebugDestroyOpponentUnit);
 	        DeckList.Add(SetCodes.DebugCannotBeDestoyedByEffect);
 	        StartGame(DeckList);
-	        var invincibleCard = Players[0].Hand[0];
-	        var destroyUnitCard = Players[1].Hand[1];
-	        Play.SetFaceDown(Players[1].Id, destroyUnitCard.Id);
-	        Play.EndTurn(Players[1].Id);
-	        Play.Deploy(Players[0].Id, invincibleCard.Id);
-	        Play.PassPlay(Players[1].Id);
-	        Play.PassPlay(Players[0].Id);
-	        Play.EndTurn(Players[0].Id);
-	        Play.Activate(Players[1].Id, destroyUnitCard.Id, new Array<int>{invincibleCard.Id});
-	        Play.PassPlay(Players[0].Id);
-	        Play.PassPlay(Players[1].Id);
+	        var invincibleCard = Opponent.Hand[0];
+	        var destroyUnitCard = Player.Hand[1];
+	        Play.SetFaceDown(Player.Id, destroyUnitCard.Id);
+	        Play.EndTurn(Player.Id);
+	        Play.Deploy(Opponent.Id, invincibleCard.Id);
+	        Play.PassPlay(Player.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.EndTurn(Opponent.Id);
+	        Play.Activate(Player.Id, destroyUnitCard.Id, invincibleCard.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.PassPlay(Player.Id);
 
-	        Assert.Has(destroyUnitCard, Players[1].Graveyard, "Then that skill's card is in the discard");
+	        Assert.Has(destroyUnitCard, Player.Graveyard, "Then that skill's card is in the discard");
 
-	        Assert.DoesNotHave(invincibleCard, Players[0].Graveyard,
+	        Assert.DoesNotHave(invincibleCard, Opponent.Graveyard,
 		        "But the invincible card is not in its owner discard");
         }
-        
         
         [Test]
         public void That_Adds_A_Tag_To_Players_When_Unit_Card_Is_Played()
         {
 	        
-			// Battle is not implemented currently so this fails
+	        // Battle is not implemented currently so this fails
 	        DeckList.Add(SetCodes.DebugPlayerCannotTakeDamage);
 	        StartGame(DeckList);
 
-	        var preventDamage = Players[0].Hand[0];
-	        var debug500500 = Players[0].Hand[4];
-	        var debug15001000 = Players[1].Hand[1];
+	        var preventDamage = Opponent.Hand[0];
+	        var debug500500 = Opponent.Hand[4];
+	        var debug15001000 = Player.Hand[1];
 
-	        Play.Deploy(Players[1].Id, debug15001000.Id);
-	        Play.PassPlay(Players[0].Id);
-	        Play.PassPlay(Players[1].Id);
-	        Play.EndTurn(Players[1].Id);
-	        Play.Deploy(Players[0].Id, debug500500.Id);
-	        Play.PassPlay(Players[1].Id);
-	        Play.PassPlay(Players[0].Id);
-	        Play.Deploy(Players[0].Id, preventDamage.Id);
-	        Play.PassPlay(Players[1].Id);
-	        Play.PassPlay(Players[0].Id);
-	        Play.EndTurn(Players[0].Id);
-	        var life = Players[0].Health;
-	        Play.Attack(Players[1].Id, debug15001000.Id, debug500500.Id);
-	        Play.PassPlay(Players[0].Id);
-	        Play.PassPlay(Players[1].Id);
+	        Play.Deploy(Player.Id, debug15001000.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.PassPlay(Player.Id);
+	        Play.EndTurn(Player.Id);
+	        Play.Deploy(Opponent.Id, debug500500.Id);
+	        Play.PassPlay(Player.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.Deploy(Opponent.Id, preventDamage.Id);
+	        Play.PassPlay(Player.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.EndTurn(Opponent.Id);
+	        var life = Opponent.Health;
+	        Play.Attack(Player.Id, debug15001000.Id, debug500500.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.PassPlay(Player.Id);
 
-	        Assert.IsTrue(Players[0].HasTag(Tag.CannotTakeDamage), "Defending Player has Tag.CannotTakeDamage");
-	        Assert.IsEqual(life, Players[0].Health, "Player's life did not change");
-	        Assert.Has(debug500500, Players[0].Graveyard, "But the defending unit was still destroyed");
+	        Assert.IsTrue(Opponent.HasTag(TagIds.CannotTakeBattleDamage), "Defending Player has Tag.CannotTakeDamage");
+	        Assert.IsEqual(life, Opponent.Health, "Player's life did not change");
+	        Assert.Has(debug500500, Opponent.Graveyard, "But the defending unit was still destroyed");
         }
         
         [Test]
         public void That_Targets_A_Unit_When_Only_One_Nontargetable_Target_Exists()
         {
-	        DeckList.Add(SetCodes.DebugUntargetableUnit);
+	        // This requires restructing our targeting based systems.
+	        DeckList.Add(SetCodes.DebugCannotBeTargeted);
 	        DeckList.Add(SetCodes.DebugDestroyOpponentUnit);
 	        StartGame(DeckList);
 
-	        var cannotBeTargeted  = Players[0].Hand[1];
+	        var cannotBeTargeted  = Opponent.Hand[1];
 	        
-	        var destroyUnit  = Players[1].Hand[0];
+	        var destroyUnit  = Player.Hand[0];
 
-	        Play.SetFaceDown(Players[1].Id, destroyUnit.Id);
-	        Play.EndTurn(Players[1].Id);
-	        Play.Deploy(Players[0].Id, cannotBeTargeted.Id);
-	        Play.PassPlay(Players[1].Id);
-	        Play.PassPlay(Players[0].Id);
-	        Play.EndTurn(Players[0].Id);
+	        Play.SetFaceDown(Player.Id, destroyUnit.Id);
+	        Play.EndTurn(Player.Id);
+	        Play.Deploy(Opponent.Id, cannotBeTargeted.Id);
+	        Play.PassPlay(Player.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.EndTurn(Opponent.Id);
 
-	        Play.Activate(Players[1].Id, destroyUnit.Id, new Array<int>{cannotBeTargeted.Id});
-	        Play.PassPlay(Players[0].Id);
-	        Play.PassPlay(Players[1].Id);
+	        Play.Activate(Player.Id, destroyUnit.Id, cannotBeTargeted.Id);
+	        Play.PassPlay(Opponent.Id);
+	        Play.PassPlay(Player.Id);
 
-	        Assert.DoesNotHave(destroyUnit, Players[1].Graveyard, "DestroyUnit was not sent to Player's discard");
-	        Assert.DoesNotHave(cannotBeTargeted, Players[0].Graveyard, "Untargetable Card was not destroyed");
+	        Assert.DoesNotHave(destroyUnit, Player.Graveyard, "DestroyUnit was not sent to Player's discard");
+	        Assert.DoesNotHave(cannotBeTargeted, Opponent.Graveyard, "Untargetable Card was not destroyed");
         }		
+
+
+        
+        
 
     }
 }
-
-/*
-
-#
-
-
-
-
-
-#
-	
-*/

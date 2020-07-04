@@ -1,32 +1,38 @@
 ﻿using System.Diagnostics.Tracing;
 using System.Linq;
-using CardGame.Server.Game;
 using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Skills;
 using Godot;
 
 namespace CardGame.Server
 {
     public class DestroyOpponentUnit : Support
     {
-        public DestroyOpponentUnit()
+        public DestroyOpponentUnit(Player owner)
         {
+            Owner = owner;
+            Controller = owner;
             Title = "Debug.DestroyOpponentUnit";
             SetCode = SetCodes.DebugDestroyOpponentUnit;
-            AddSkill(new DestroyUnit());
+            Skill = new DestroyUnit(this);
         }
 
-        private class DestroyUnit : Skill
+        private class DestroyUnit : Manual
         {
-            public override void _SetUp()
+            public DestroyUnit(Card card)
             {
-                var units = Opponent.Field.Where(u => !u.HasTag(Tag.CannotBeTargeted)).ToList();
-                SetTargets(units);
-                CanBeUsed = units.Count > 0;
+                Card = card;
+                AreaOfEffects.Add(Controller.Support);
+            }
+            protected override bool _SetUp()
+            {
+                AddTargets(Opponent.Field);
+                return ValidTargets.Count > 0;
             }
 
             protected override void _Resolve()
             {
-                Controller.DestroyUnit(Target);
+                Destroy(Target);
             }
         }
     }

@@ -1,65 +1,66 @@
 using System.Collections.Generic;
+using System.Linq;
+using CardGame.Server.Game.Skills;
+using CardGame.Server.Game.Tags;
+using CardGame.Server.Game.Zones;
 using Godot;
 
 namespace CardGame.Server.Game.Cards {
 
 	public abstract class Card : Reference, ISource
 	{
-		[Signal]
-		public delegate void Exit();
-		
-		
-		public string Title = "Card";
+		protected string Title = "Card";
 		public SetCodes SetCode = 0;
 		public int Id;
 		public Player Owner;
 		public Player Controller;
 		public Player Opponent => Controller.Opponent;
 		public Skill Skill;
-		public List<Card> Zone; //= new List<Card> // Might be worth updating
-		public List<Decorator> Tags = new List<Decorator>();
-		public bool Activated = false;
-		public bool Ready = false;
-		// public bool Attacked = false;
+		public Zone Zone;
 
 		// When a player enters an active state (idle or active) then it iterates on all
 		// owned cards to see if these can be used or not.
-		public bool CanBeDeployed = false;
-		public bool CanBeSet = false;
-		public bool CanBeActivated = false;
-		public bool CanAttack = false;
+		public History History;
+		public bool IsReady = false;
+		public States State = States.Passive;
+		public enum States
+		{
+			Passive,
+			CanBeDeployed,
+			CanBeSet,
+			CanBeActivated,
+			CanAttack,
+			Activated
+		}
+
+		public readonly List<Tag> Tags = new List<Tag>();
 
 		protected Card()
 		{
-			AddSkill(new NullSkill());
+			Skill = new NullSkill {Card = this};
 		}
 
-		public virtual void SetCanBeDeployed() => CanBeDeployed = false;
-
-		public virtual void SetCanBeSet() => CanBeSet = false;
-
-		public virtual void SetCanAttack() => CanAttack = false;
-
-		public virtual void SetCanBeActivated() => CanBeActivated = false;
-
-		public bool HasTag(Tag tag) => Tags.Exists(decorator => decorator.Tag == tag);
+		// Maybe this should default to int?
+		public List<int> GetValidTargets() => Skill.ValidTargets.Select(target => target.Id).ToList();
 		
-		
+		public virtual List<int> GetValidAttackTargets() => new List<int>();
+
+		public virtual void SetCanBeDeployed() => State = States.Passive;
+
+		public virtual void SetCanBeSet() => State = States.Passive;
+
+		public virtual void SetCanAttack() => State = States.Passive;
+
+		public virtual void SetCanBeActivated() => State = States.Passive;
+
+		public void Ready() => IsReady = true;
+
+		public void Exhaust() => IsReady = false;
+
+		public bool HasTag(TagIds tagId) => Tags.Any(tag => tag.TagId == tagId);
+
 		public Dictionary<string, int> Serialize() => new Dictionary<string, int>{{"Id", Id}, {"setCode", (int)SetCode}};
 
-		public void SetZone(List<Card> newZone)
-		{
-			// Zone = newZone;
-			// EmitSignal(nameof(Exit));
-		}
-		
-
-		protected void AddSkill(Skill skill)
-		{
-			Skill = skill;
-			skill.Card = this;
-		}
-		
 		public override string ToString() => $"{Id.ToString()}: {Title}";
 
 	}

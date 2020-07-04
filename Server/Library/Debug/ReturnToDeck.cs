@@ -1,28 +1,37 @@
-﻿using CardGame.Server.Game.Cards;
-using CardGame.Server.Game.Commands;
+﻿using System.Linq;
+using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Skills;
 
 namespace CardGame.Server
 {
     public class ReturnCardToDeck: Support
     {
-        public ReturnCardToDeck()
+        public ReturnCardToDeck(Player owner)
         {
+            Owner = owner;
+            Controller = owner;
             Title = "Debug.ReturnToDeck";
             SetCode = SetCodes.DebugReturnToDeck;
-            AddSkill(new ReturnCard());
+            Skill = new ReturnCard(this);
         }
 
-        private class ReturnCard : Skill
+        private class ReturnCard : Manual
         {
-            public override void _SetUp()
+            public ReturnCard(Card card)
             {
-                SetTargets(Controller.Hand);
-                CanBeUsed = Controller.Hand.Count > 0;
+                Card = card;
+                AreaOfEffects.Add(Controller.Support);
+
+            }
+            protected override bool _SetUp()
+            {
+                AddTargets(Controller.Hand);
+                return ValidTargets.Count > 0;
             }
 
             protected override void _Resolve()
             {
-                Controller.DeclarePlay( new ReturnToDeck(Card, Controller, Target));
+                TopDeck(Target);
             }
         }
         

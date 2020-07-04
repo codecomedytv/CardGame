@@ -32,6 +32,7 @@ namespace WAT {
 			assertions.Call("is_equal", a, b, Context);
 		}
 		
+		
 		public void IsNotEqual(System.Object a, System.Object b, String Context = "")
 		{
 			assertions.Call("is_not_equal", a, b, Context);

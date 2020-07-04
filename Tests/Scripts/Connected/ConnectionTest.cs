@@ -20,10 +20,10 @@ namespace CardGame.Tests.Scripts.Connected
 			Assert.IsEqual(Server.Server.GetConnectionStatus(),
 				NetworkedMultiplayerPeer.ConnectionStatus.Connected);
 				
-			Assert.IsEqual(Clients[0].client.GetConnectionStatus(),
+			Assert.IsEqual(Clients[0].Client.GetConnectionStatus(),
 				NetworkedMultiplayerPeer.ConnectionStatus.Connected);
 				
-			Assert.IsEqual(Clients[1].client.GetConnectionStatus(),
+			Assert.IsEqual(Clients[1].Client.GetConnectionStatus(),
 				NetworkedMultiplayerPeer.ConnectionStatus.Connected);
 		}
 		
@@ -45,36 +45,10 @@ namespace CardGame.Tests.Scripts.Connected
 			Assert.IsEqual(Clients[1].GetChild(0).Name, "1");
 		}
 		
-	
-		
 	    public override void Post()
 	    {
 		    RemoveGame();
 	    }
     }
 }
-/*
- * func title() -> String:
-	return "Given a Server and two Clients"
 
-func pre() -> void:
-	add_game()
-	
-func post() -> void:
-	remove_game()
-	
-func test_when_setup() -> void:
-	describe("When setup")
-
-	asserts.is_equal(server._server.get_connection_status(), \
-			  NetworkedMultiplayerPeer.CONNECTION_CONNECTED, \
-			 "Then the Server is connected to itself")
-
-	asserts.is_equal(clients[0]._client.get_connection_status(), \
-			 NetworkedMultiplayerENet.CONNECTION_CONNECTED, \
-			"Then Client 0 is connected to the server")
-
-	asserts.is_equal(clients[1]._client.get_connection_status(), \
-			 NetworkedMultiplayerENet.CONNECTION_CONNECTED, \
-			"Then Client 1 is connected to the Server")
-*/

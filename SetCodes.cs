@@ -2,9 +2,10 @@
 {
     public enum SetCodes
     {
-        Debug1000_1000,
-        Debug500_500,
-        Debug1500_1000,
+        NullCard,
+        Debug10001000,
+        Debug500500,
+        Debug15001000,
         DebugBounceFromField,
         DebugCannotBeDestoyedByEffect,
         DebugDestroyAttackingUnit,
@@ -14,13 +15,13 @@
         MillOneFromDeck,
         DebugPlayerCannotTakeDamage,
         DebugReturnToDeck,
-        DebugUntargetableUnit,
-        Alpha_CounterAttack,
-        Alpha_DungeonGuide,
-        Alpha_GuardPuppy,
-        Alpha_NoviceArcher,
-        Alpha_QuestReward,
-        Alpha_TrainingTrainer,
-        Alpha_WrongWay
+        DebugCannotBeTargeted,
+        AlphaCounterAttack,
+        AlphaDungeonGuide,
+        AlphaGuardPuppy,
+        AlphaNoviceArcher,
+        AlphaQuestReward,
+        AlphaTrainingTrainer,
+        AlphaWrongWay,
     }
 }

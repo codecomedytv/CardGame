@@ -1,4 +1,4 @@
-﻿using CardGame.Client.Library.Card;
+﻿using CardGame.Client.Library.Cards;
 
 namespace CardGame.Client.Library.Alpha
 {
@@ -7,7 +7,7 @@ namespace CardGame.Client.Library.Alpha
         public WrongWay()
         {
             Title = "Wrong Way";
-            SetCode = SetCodes.Alpha_WrongWay;
+            SetCode = SetCodes.AlphaWrongWay;
             Illustration = "res://Assets/CardArt/sign.png";
             Text = "Return Target Unit To Its Owners Hand";
         }

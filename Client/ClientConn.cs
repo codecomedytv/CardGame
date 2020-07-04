@@ -1,49 +1,33 @@
+using CardGame.Client.Room;
 using Godot;
-using CardGame.Client.Match;
 using Godot.Collections;
 
 namespace CardGame.Client {
 	
+	// ReSharper disable once ClassNeverInstantiated.Global
 	public class ClientConn : Connection
 	{
-		const string Ip = "127.0.0.1";
-		const int Port = 5000;
-		//private List<SetCodes> Decklist = new List<SetCodes>(); // How do we send this info online?
-		public NetworkedMultiplayerENet client;
-		public Array<SetCodes> DeckList;
+		private const string Ip = "127.0.0.1";
+		private const int Port = 5000;
+		private readonly CSharpScript Room = (CSharpScript) ResourceLoader.Load("res://Client/Room/Game.cs");
+		private DeckList DeckList = new DeckList();
+		public NetworkedMultiplayerENet Client;
 
-		public override void _Ready()
+		public ClientConn() { }
+		public ClientConn(CSharpScript room) => Room = room;
+		public override void _Ready() {}
+		
+		public void Join(DeckList deckList = null)
 		{
-			DeckList = DefaultDeck();
-		}
-
-		// Debug
-		public Array<SetCodes> DefaultDeck()
-		{
-			var deckList = new Array<SetCodes>();
-			for (var i = 0; i < 34; i++)
-			{
-				deckList.Add(SetCodes.Alpha_DungeonGuide);
-			}
-
-			deckList.Add(SetCodes.Alpha_GuardPuppy);
-			deckList.Add(SetCodes.Alpha_WrongWay);
-			deckList.Add(SetCodes.Alpha_CounterAttack);
-			deckList.Add(SetCodes.Alpha_QuestReward);
-			deckList.Add(SetCodes.Alpha_NoviceArcher);
-			deckList.Add(SetCodes.Alpha_TrainingTrainer);
-			return deckList;
-		}
-
-		public void Join() {
 			
-			client = new NetworkedMultiplayerENet();
-			Godot.Error err = client.CreateClient(Ip, Port);
+			DeckList = deckList ?? DeckList;
+			Client = new NetworkedMultiplayerENet();
+			var err = Client.CreateClient(Ip, Port);
 			if(err != Error.Ok) { GD.PushWarning(err.ToString()); }
 			err = CustomMultiplayer.Connect("connected_to_server", this, "OnConnected");
 			if(err != Error.Ok) { GD.PushWarning(err.ToString()); }
 			CustomMultiplayer.Connect("connection_failed", this, "OnFailed");
-			CustomMultiplayer.NetworkPeer = client;
+			CustomMultiplayer.NetworkPeer = Client;
 		}
 		
 		public void OnConnected() {
@@ -53,13 +37,11 @@ namespace CardGame.Client {
 		public void OnFailed() { GD.Print("Connection Failed"); }
 
 		[Puppet]
-		public void CreateRoom(string GameID){
-			GD.Print("Creating Rooms");
-			var gameScene = ResourceLoader.Load("res://Client/Game/Game.tscn") as PackedScene;
-			var Room = gameScene.Instance() as Game;
-			Room.Name = GameID;
-			AddChild(Room);
-			Room.SetUp(true);
+		public void CreateRoom(string gameId, int seatPosition){
+			var room = (Game) Room.New();
+			room.Name = gameId;
+			AddChild(room);
+			room.SetUp();
 		}
 
 	}

@@ -1,40 +1,40 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using CardGame.Server.Game.Cards;
-using CardGame.Server.Game.Commands;
+using CardGame.Server.Game.Skills;
 
 namespace CardGame.Server
 {
     public class WrongWay : Support
     {
-        public WrongWay()
+        public WrongWay(Player owner)
         {
+            Owner = owner;
+            Controller = owner;
             Title = "WrongWay";
-            SetCode = SetCodes.Alpha_WrongWay;
-            AddSkill(new ReturnTarget());
+            SetCode = SetCodes.AlphaWrongWay;
+            Skill = new ReturnTarget(this);
         }
 
-        private class ReturnTarget : Skill
+        private class ReturnTarget : Manual
         {
-            public override void _SetUp()
+            public ReturnTarget(Card card)
             {
-                var targets = new List<Card>();
-                foreach (var card in Opponent.Field)
-                {
-                    targets.Add(card);
-                }
-
-                foreach (var card in Controller.Field)
-                {
-                    targets.Add(card);
-                }
-
-                SetTargets(targets);
+                Card = card;
+                AreaOfEffects.Add(Controller.Support);
+            }
+            
+            protected override bool _SetUp()
+            {
+                AddTargets(Opponent.Field);
+                AddTargets(Controller.Field);
+                return ValidTargets.Count > 0;
             }
 
             protected override void _Resolve()
             {
-                Controller.DeclarePlay(new Bounce(Card, Controller, Target));
+                Bounce(Target);
             }
         }
     }

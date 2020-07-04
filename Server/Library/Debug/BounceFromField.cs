@@ -1,30 +1,36 @@
 ﻿using System.Linq;
 using CardGame.Server.Game.Cards;
-using CardGame.Server.Game.Commands;
+using CardGame.Server.Game.Skills;
 
 namespace CardGame.Server
 {
     public class BounceFromField : Support
     {
-        public BounceFromField()
+        public BounceFromField(Player owner)
         {
+            Owner = owner;
+            Controller = owner;
             Title = "Debug.BounceFromField";
             SetCode = SetCodes.DebugBounceFromField;
-            AddSkill(new BounceSkill());
+            Skill = new BounceSkill(this);
         }
 
-        private class BounceSkill : Skill
+        private class BounceSkill : Manual
         {
-
-            public override void _SetUp()
+            public BounceSkill(Card card)
             {
-                SetTargets(Opponent.Field.ToList());
-                CanBeUsed = Opponent.Field.Count > 0;
+                Card = card;
+                AreaOfEffects.Add(Controller.Support);
+            }
+            protected override bool _SetUp()
+            {
+                AddTargets(Opponent.Field);
+                return ValidTargets.Count > 0;
             }
 
             protected override void _Resolve()
             {
-                Controller.DeclarePlay(new Bounce(Card, Controller, Target));
+                Bounce(Target);
             }
         }
     }

@@ -18,25 +18,26 @@ namespace CardGame.Tests.Scripts.Serverside
             var deckList = new List<SetCodes>();
             for (var i = 0; i < 11; i++)
             {
-                deckList.Add(SetCodes.Alpha_DungeonGuide);
+                deckList.Add(SetCodes.AlphaDungeonGuide);
             }
             
-            deckList.Add(SetCodes.Debug500_500);
-            deckList.Add(SetCodes.Alpha_NoviceArcher);
+            deckList.Add(SetCodes.Debug500500);
+            deckList.Add(SetCodes.AlphaNoviceArcher);
 
             StartGame(deckList);
 
-            var weakling = Players[1].Hand[1];
-            Play.Deploy(Players[1].Id, weakling.Id);
-            Play.PassPlay(Players[0].Id);
-            Play.PassPlay(Players[1].Id);
-            Play.EndTurn(Players[1].Id);
-            var noviceArcher = Players[0].Hand[0];
-            Play.Deploy(Players[0].Id, noviceArcher.Id);
-            // Game gets paused here
-            Play.Target(Players[0].Id, weakling.Id);
+            var weakling = Player.Hand[1];
+            Play.Deploy(Player.Id, weakling.Id);
+            Play.PassPlay(Opponent.Id);
+            Play.PassPlay(Player.Id);
+            Play.EndTurn(Player.Id);
+            var noviceArcher = Opponent.Hand[0];
+            Play.Deploy(Opponent.Id, noviceArcher.Id);
+            Play.PassPlay(Player.Id);
+            Play.PassPlay(Opponent.Id);
+            Play.Target(Opponent.Id, weakling.Id);
             
-            Assert.Has(weakling, Players[1].Graveyard, "Then it destroys a 500/500 Unit");
+            Assert.Has(weakling, Player.Graveyard, "Then it destroys a 500/500 Unit");
         }
 
     }

@@ -1,26 +1,31 @@
 ﻿using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Skills;
 
 namespace CardGame.Server
 {
     public class CounterAttack: Support
     {
-        public CounterAttack()
+        public CounterAttack(Player owner)
         {
+            Owner = owner;
+            Controller = owner;
             Title = "CounterAttack";
-            SetCode = SetCodes.Alpha_CounterAttack;
-            AddSkill(new DestroyAttacker());
+            SetCode = SetCodes.AlphaCounterAttack;
+            Skill = new DestroyAttacker(this);
         }
 
-        private class DestroyAttacker: Skill
+        private class DestroyAttacker: Manual
         {
-            public DestroyAttacker()
+            public DestroyAttacker(Card card)
             {
-                GameEvent = "attack";
+                Card = card;
+                AreaOfEffects.Add(Controller.Support);
+                Triggers.Add(GameEvents.DeclareAttack);
             }
 
             protected override void _Resolve()
             {
-                Controller.DestroyUnit(GameState.Attacking);
+                Destroy(GetAttackingUnit());
             }
         }
     }

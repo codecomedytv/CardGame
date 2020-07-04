@@ -22,18 +22,18 @@ namespace CardGame.Tests.Scripts.Serverside
 
         public override void Start()
         {
-            DeckList.Add(SetCodes.Debug500_500);
-            DeckList.Add(SetCodes.Debug500_500);
-            DeckList.Add(SetCodes.Debug500_500);
-            DeckList.Add(SetCodes.Debug1500_1000);
-            DeckList.Add(SetCodes.Debug1500_1000);
-            DeckList.Add(SetCodes.Debug1500_1000);
+            DeckList.Add(SetCodes.Debug500500);
+            DeckList.Add(SetCodes.Debug500500);
+            DeckList.Add(SetCodes.Debug500500);
+            DeckList.Add(SetCodes.Debug15001000);
+            DeckList.Add(SetCodes.Debug15001000);
+            DeckList.Add(SetCodes.Debug15001000);
             DeckList.Add(SetCodes.DebugDraw2Cards);
             DeckList.Add(SetCodes.DebugDraw2Cards);
             DeckList.Add(SetCodes.DebugDraw2Cards);
             DeckList.Add(SetCodes.DebugDraw2Cards);
-            DeckList.Add(SetCodes.Debug1000_1000);
-            DeckList.Add(SetCodes.Debug1000_1000);
+            DeckList.Add(SetCodes.Debug10001000);
+            DeckList.Add(SetCodes.Debug10001000);
         }
 
         [Test]
@@ -41,24 +41,24 @@ namespace CardGame.Tests.Scripts.Serverside
         {
             StartGame(DeckList);
 
-            var debug15001000 = (Unit)Players[1].Hand[Players[1].Hand.Count - 1];
-            Play.Deploy(Players[1].Id, debug15001000.Id);
-            Play.PassPlay(Players[0].Id);
-            Play.PassPlay(Players[1].Id);
-            Play.EndTurn(Players[1].Id);
-            var debug10001000 = (Unit) Players[0].Hand[1];
-            Play.Deploy(Players[0].Id, debug10001000.Id);
-            Play.PassPlay(Players[1].Id);
-            Play.PassPlay(Players[0].Id);
-            Play.EndTurn(Players[0].Id);
-            Play.Attack(Players[1].Id, debug15001000.Id, debug10001000.Id);
-            Play.PassPlay(Players[0].Id);
-            Play.PassPlay(Players[1].Id);
+            var debug15001000 = (Unit)Player.Hand[Player.Hand.Count - 1];
+            Play.Deploy(Player.Id, debug15001000.Id);
+            Play.PassPlay(Opponent.Id);
+            Play.PassPlay(Player.Id);
+            Play.EndTurn(Player.Id);
+            var debug10001000 = (Unit) Opponent.Hand[1];
+            Play.Deploy(Opponent.Id, debug10001000.Id);
+            Play.PassPlay(Player.Id);
+            Play.PassPlay(Opponent.Id);
+            Play.EndTurn(Opponent.Id);
+            Play.Attack(Player.Id, debug15001000.Id, debug10001000.Id);
+            Play.PassPlay(Opponent.Id);
+            Play.PassPlay(Player.Id);
             var difference = debug15001000.Attack - debug10001000.Defense;
-            var expectedLife = Players[1].Health - difference;
+            var expectedLife = Player.Health - difference;
 	
-            Assert.Has(debug10001000, Players[0].Graveyard, "Then the defending unit is destroyed");
-            Assert.IsEqual(expectedLife, Players[0].Health,
+            Assert.Has(debug10001000, Opponent.Graveyard, "Then the defending unit is destroyed");
+            Assert.IsEqual(expectedLife, Opponent.Health,
              "Then the defending Players loses life equal to the difference");
 
         }
@@ -68,19 +68,18 @@ namespace CardGame.Tests.Scripts.Serverside
         {
             StartGame(DeckList);
 
-            var debug15001000 = (Unit)Players[1].Hand[Players[1].Hand.Count - 1];
-            Play.Deploy(Players[1].Id, debug15001000.Id);
-            Play.PassPlay(Players[0].Id);
-            Play.PassPlay(Players[1].Id);
-            Play.EndTurn(Players[1].Id);
-            Play.EndTurn(Players[0].Id);
-            const int directAttack = -1;
-            var expectedLife = Players[0].Health - debug15001000.Attack;
-            Play.Attack(Players[1].Id, debug15001000.Id, directAttack);
-            Play.PassPlay(Players[0].Id);
-            Play.PassPlay(Players[1].Id);
+            var debug15001000 = (Unit)Player.Hand[Player.Hand.Count - 1];
+            Play.Deploy(Player.Id, debug15001000.Id);
+            Play.PassPlay(Opponent.Id);
+            Play.PassPlay(Player.Id);
+            Play.EndTurn(Player.Id);
+            Play.EndTurn(Opponent.Id);
+            var expectedLife = Opponent.Health - debug15001000.Attack;
+            Play.DirectAttack(Player.Id, debug15001000.Id);
+            Play.PassPlay(Opponent.Id);
+            Play.PassPlay(Player.Id);
             
-            Assert.IsEqual(expectedLife, Players[0].Health, "Then the defending Player loses life equal to its attack");
+            Assert.IsEqual(expectedLife, Opponent.Health, "Then the defending Player loses life equal to its attack");
 
         }
 
@@ -88,26 +87,26 @@ namespace CardGame.Tests.Scripts.Serverside
         public void When_It_Is_CounterAttack_By_A_Unit_With_Attack_Greater_Than_Its_Defense()
         {
             StartGame(DeckList);
-            var debug10001000 = (Unit) Players[1].Hand[1];
-            Play.Deploy(Players[1].Id, debug10001000.Id);
-            Play.PassPlay(Players[0].Id);
-            Play.PassPlay(Players[1].Id);
-            Assert.IsTrue(Players[1].Field.Contains(debug10001000), "Weaking Deployed");
-            Play.EndTurn(Players[1].Id);
-			var debug15001000 = (Unit)Players[0].Hand[Players[0].Hand.Count - 1];
-			Play.Deploy(Players[0].Id, debug15001000.Id);
-			Play.PassPlay(Players[1].Id);
-			Play.PassPlay(Players[0].Id);
-			Assert.IsTrue(Players[0].Field.Contains(debug15001000), "Defender Deployed");
-			Play.EndTurn(Players[0].Id);
+            var debug10001000 = (Unit) Player.Hand[1];
+            Play.Deploy(Player.Id, debug10001000.Id);
+            Play.PassPlay(Opponent.Id);
+            Play.PassPlay(Player.Id);
+            Assert.IsTrue(Player.Field.Contains(debug10001000), "Weaking Deployed");
+            Play.EndTurn(Player.Id);
+			var debug15001000 = (Unit)Opponent.Hand[Opponent.Hand.Count - 1];
+			Play.Deploy(Opponent.Id, debug15001000.Id);
+			Play.PassPlay(Player.Id);
+			Play.PassPlay(Opponent.Id);
+			Assert.IsTrue(Opponent.Field.Contains(debug15001000), "Defender Deployed");
+			Play.EndTurn(Opponent.Id);
 			var difference = debug15001000.Attack - debug10001000.Defense;
-			var expectedLife = Players[1].Health - difference;
-			Play.Attack(Players[1].Id, debug10001000.Id, debug15001000.Id);
-			Play.PassPlay(Players[0].Id);
-			Play.PassPlay(Players[1].Id);
+			var expectedLife = Player.Health - difference;
+			Play.Attack(Player.Id, debug10001000.Id, debug15001000.Id);
+			Play.PassPlay(Opponent.Id);
+			Play.PassPlay(Player.Id);
 				
-	        Assert.Has(debug10001000, Players[1].Graveyard, "Then it is destroyed");
-	        Assert.IsEqual(expectedLife, Players[1].Health,
+	        Assert.Has(debug10001000, Player.Graveyard, "Then it is destroyed");
+	        Assert.IsEqual(expectedLife, Player.Health,
 					"Then the attacking Player loses life equal to the difference");
         }
     }
