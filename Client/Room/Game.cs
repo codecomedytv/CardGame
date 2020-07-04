@@ -43,16 +43,14 @@ namespace CardGame.Client.Room {
 			DisqualificationNotice = GetNode<Label>("PlayMat/Disqualified");
 			PassPriority.Connect("pressed", this, nameof(OnActionButtonPressed));
 			Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
+			Messenger.Connect(nameof(Messenger.CardUpdated), this, nameof(OnCardUpdated));
 			Messenger.Connect(nameof(Messenger.Disqualified), this, nameof(OnDisqualified));
 			Messenger.Connect(nameof(Messenger.DeckLoaded), this, nameof(OnDeckLoaded));
-			Messenger.Connect(nameof(Messenger.CardStateSet), this, nameof(OnCardStateSet));
 			Messenger.Connect(nameof(Messenger.DrawQueued), this, nameof(OnDrawQueued));
 			Messenger.Connect(nameof(Messenger.DeployQueued), this, nameof(OnDeployQueued));
 			Messenger.Connect(nameof(Messenger.SetFaceDownQueued), this, nameof(OnSetFaceDownQueued));
 			Messenger.Connect(nameof(Messenger.ActivationQueued), this, nameof(OnActivationQueued));
 			Messenger.Connect(nameof(Messenger.TriggerQueued), this, nameof(OnTriggeredQueued));
-			Messenger.Connect(nameof(Messenger.ValidTargetsSet), this, nameof(OnValidTargetsSet));
-			Messenger.Connect(nameof(Messenger.ValidAttackTargetsSet), this, nameof(OnValidAttackTargetsSet));
 			Messenger.Connect(nameof(Messenger.UnitBattled), this, nameof(OnUnitBattled));
 			Messenger.Connect(nameof(Messenger.CardSentToZone), this, nameof(OnCardSentToZone));
 			Messenger.Connect(nameof(Messenger.LifeLost), this, nameof(OnLifeLost));
@@ -72,6 +70,16 @@ namespace CardGame.Client.Room {
 			var networkId = CustomMultiplayer.GetNetworkUniqueId();
 			Messenger.Id = networkId;
 			Messenger.CallDeferred("SetReady");
+		}
+
+		public void OnCardUpdated(int id, CardStates state, IEnumerable<int> attackTargets, IEnumerable<int> targets)
+		{
+			var card = CardCatalog[id];
+			card.State = state;
+			card.ValidTargets.Clear();
+			card.ValidTargets.AddRange(targets);
+			card.ValidAttackTargets.Clear();
+			card.ValidAttackTargets.AddRange(attackTargets);
 		}
 
 		private async void Execute(States stateAfterExecution)

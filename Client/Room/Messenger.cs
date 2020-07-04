@@ -8,6 +8,7 @@ namespace CardGame.Client.Room
 {
     public class Messenger: Control
     {
+        [Signal] public delegate void CardUpdated();
         [Signal] public delegate void DeckLoaded();
         
         [Signal] public delegate void Disqualified();
@@ -21,13 +22,7 @@ namespace CardGame.Client.Room
         [Signal] public delegate void ActivationQueued();
 
         [Signal] public delegate void TriggerQueued();
-
-        [Signal] public delegate void CardStateSet();
-
-        [Signal] public delegate void ValidTargetsSet();
-
-        [Signal] public delegate void ValidAttackTargetsSet();
-
+        
         [Signal] public delegate void CardDestroyed();
         
         [Signal] public delegate void UnitBattled();
@@ -43,12 +38,18 @@ namespace CardGame.Client.Room
         private const int ServerId = 1;
         public int Id = 0;
 
-        public Messenger() =>Name = "Messenger";
+        public Messenger() => Name = "Messenger";
         
         public void SetReady() => RpcId(ServerId, "SetReady", Id); // Complains about no network peer being assigned?
 
         [Puppet] public void Disqualify() => EmitSignal(nameof(Disqualified));
         [Puppet] public void ExecuteEvents(States stateAfterExecution) => EmitSignal(nameof(ExecutedEvents), stateAfterExecution);
+
+        [Puppet]
+        public void UpdateCard(int id, CardStates state, IEnumerable<int> attackTargets, IEnumerable<int> targets)
+        {
+            EmitSignal(nameof(CardUpdated), id, state, attackTargets, targets);
+        }
         
         [Puppet] public void LoadDeck(Godot.Collections.Dictionary<int, SetCodes> deck) => EmitSignal(nameof(DeckLoaded), deck);
         
@@ -65,12 +66,6 @@ namespace CardGame.Client.Room
         [Puppet] public void Activation(int id, SetCodes setCode, int positionInLink) => EmitSignal(nameof(ActivationQueued), id, setCode, positionInLink);
 
         [Puppet] public void Trigger(int id, int positionInLink) => EmitSignal(nameof(TriggerQueued), id, positionInLink);
-        
-        [Puppet] public void SetCardState(int id, CardStates states) => EmitSignal(nameof(CardStateSet), id, states);
-
-        [Puppet] public void SetValidTargets(int id, List<int> validTargets) => EmitSignal(nameof(ValidTargetsSet), id, validTargets);
-
-        [Puppet] public void SetValidAttackTargets(int id, List<int> validAttackTargets) => EmitSignal(nameof(ValidAttackTargetsSet), id, validAttackTargets); 
         
         [Puppet] public void BattleUnit(int attackerId, int defenderId, bool isOpponentAttacking) => EmitSignal(nameof(UnitBattled), attackerId, defenderId, isOpponentAttacking);
 
