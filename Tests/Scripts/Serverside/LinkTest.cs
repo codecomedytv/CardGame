@@ -37,7 +37,7 @@ namespace CardGame.Tests.Scripts.Serverside
             Play.EndTurn(Player.Id);
             Play.SetFaceDown(Opponent.Id, chainMine.Id);
             Play.EndTurn(Opponent.Id);
-            Play.DirectAttack(Player.Id, attacker.Id);
+            Play.AttackDirectly(Player.Id, attacker.Id);
             Play.Activate(Opponent.Id, chainMine.Id);
             Play.PassPlay(Player.Id);
             Play.PassPlay(Opponent.Id);

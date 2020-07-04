@@ -136,7 +136,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        Play.EndTurn(Player.Id);
 	        Play.EndTurn(Opponent.Id);
 	        Play.EndTurn(Player.Id);
-	        Play.DirectAttack(Player.Id, unit);
+	        Play.AttackDirectly(Player.Id, unit);
 
 	        Assert.IsTrue(Player.IsDisqualified);
 
@@ -148,7 +148,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        StartGame(DeckList);
 	        var unit = Player.Hand[0].Id;
 	        Play.Deploy(Player.Id, unit);
-	        Play.DirectAttack(Player.Id, unit);
+	        Play.AttackDirectly(Player.Id, unit);
 
 	        Assert.IsTrue(Player.IsDisqualified);
         }
@@ -157,7 +157,7 @@ namespace CardGame.Tests.Scripts.Serverside
         {
 	        StartGame(DeckList);
 	        var unit = Player.Hand[0].Id;
-	        Play.DirectAttack(Player.Id, unit);
+	        Play.AttackDirectly(Player.Id, unit);
 
 	        Assert.IsTrue(Player.IsDisqualified);
         }

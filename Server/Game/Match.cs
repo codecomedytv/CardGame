@@ -30,14 +30,14 @@ namespace CardGame.Server.Game {
 		public override void _Ready()
 		{
 			AddChild(Messenger);
-			Messenger.Targeted = OnTarget;
-			Messenger.EndedTurn = OnEndTurn;
-			Messenger.Deployed = OnDeploy;
-			Messenger.Attacked = OnAttack;
-			Messenger.AttackedDirectly = OnDirectAttack;
-			Messenger.FaceDownSet = OnSetFaceDown;
-			Messenger.Activated = OnActivation;
-			Messenger.PassedPriority = OnPriorityPassed;
+			Messenger.Deploy = Deploy;
+			Messenger.SetFaceDown = SetFaceDown;
+			Messenger.Attack = Attack;
+			Messenger.AttackDirectly = DirectAttack;
+			Messenger.Activate = Activate;
+			Messenger.Target = Target;
+			Messenger.PassPlay = PassPlay;
+			Messenger.EndTurn = EndTurn;
 			ConnectSignals(Messenger, nameof(Messenger.PlayerSeated), this, nameof(OnPlayerSeated));
 			foreach (var player in Players) { player.History = History; }
 		}
@@ -66,7 +66,7 @@ namespace CardGame.Server.Game {
 			Update();
 		}
 		
-		private void OnDeploy(int playerId, int cardId)
+		private void Deploy(int playerId, int cardId)
 		{
 			var player = Players[playerId];
 			var card = (Unit)CardCatalog[cardId];
@@ -83,7 +83,7 @@ namespace CardGame.Server.Game {
 			
 		}
 
-		private void OnAttack(int playerId, int attackerId, int defenderId)
+		private void Attack(int playerId, int attackerId, int defenderId)
 		{
 			var player = Players[playerId];
 			var attacker = (Unit) CardCatalog[attackerId];
@@ -100,7 +100,7 @@ namespace CardGame.Server.Game {
 			Update();
 		}
 
-		private void OnDirectAttack(int playerId, int attackerId)
+		private void DirectAttack(int playerId, int attackerId)
 		{
 			var player = Players[playerId];
 			var attacker = (Unit) CardCatalog[attackerId];
@@ -116,7 +116,7 @@ namespace CardGame.Server.Game {
 			Update();
 		}
 		
-		private void OnSetFaceDown(int playerId, int faceDownId)
+		private void SetFaceDown(int playerId, int faceDownId)
 		{
 			var player = Players[playerId];
 			var card = (Support)CardCatalog[faceDownId];
@@ -131,7 +131,7 @@ namespace CardGame.Server.Game {
 			Update();
 		}
 		
-		private void OnActivation(int playerId, int cardId, int targetId = 0)
+		private void Activate(int playerId, int cardId, int targetId = 0)
 		{
 			var player = Players[playerId];
 			var card = (Support) CardCatalog[cardId];
@@ -150,7 +150,7 @@ namespace CardGame.Server.Game {
 			
 		}
 
-		private void OnTarget(int playerId, int targetId)
+		private void Target(int playerId, int targetId)
 		{
 			// TODO: Refactor Into State
 			var player = Players[playerId];
@@ -158,7 +158,7 @@ namespace CardGame.Server.Game {
 			player.OnTargetSelected(target);
 		}
 
-		private void OnPriorityPassed(int playerId)
+		private void PassPlay(int playerId)
 		{
 			var player = Players[playerId];
 			if (player.State != States.Active)
@@ -182,7 +182,7 @@ namespace CardGame.Server.Game {
 		}
 
 
-		private void OnEndTurn(int playerId)
+		private void EndTurn(int playerId)
 		{
 			var player = Players[playerId];
 			if (player.State != States.Idle)

@@ -80,7 +80,7 @@ namespace CardGame.Tests.Scripts.Serverside
 			
 			Assert.IsTrue(Player.State == States.Idle, "Player 1 is IDLE");
 			Assert.IsTrue(Opponent.State == States.Passive, "Player 0 is PASSIVE");
-			Play.DirectAttack(Player.Id, attacker.Id);
+			Play.AttackDirectly(Player.Id, attacker.Id);
 			
 			Assert.IsTrue(Player.State == States.Acting, "Player 1 is ACTING");
 			Assert.IsTrue(Opponent.State == States.Active, "Player 0 is ACTIVE");

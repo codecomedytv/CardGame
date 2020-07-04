@@ -11,14 +11,14 @@ namespace CardGame.Server.Game.Network {
 
 	public class Messenger : Node
 	{
-		public Action<int, int> Deployed;
-		public Action<int, int, int> Attacked;
-		public Action<int, int> AttackedDirectly;
-		public Action<int, int, int> Activated;
-		public Action<int, int> FaceDownSet;
-		public Action<int, int> Targeted;
-		public Action<int> PassedPriority;
-		public Action<int> EndedTurn;
+		public Action<int, int> Deploy;
+		public Action<int, int, int> Attack;
+		public Action<int, int> AttackDirectly;
+		public Action<int, int, int> Activate;
+		public Action<int, int> SetFaceDown;
+		public Action<int, int> Target;
+		public Action<int> PassPlay;
+		public Action<int> EndTurn;
 		
 		
 		[Signal]
@@ -51,40 +51,40 @@ namespace CardGame.Server.Game.Network {
 		}
 
 		[Master]
-		public void Deploy(int player, int card) => Deployed(player, card);
+		public void OnDeployDeclared(int player, int card) => Deploy(player, card);
 		
 		[Master]
-		public void Attack(int player, int attacker, int defender)
+		public void OnAttackDeclared(int player, int attacker, int defender)
 		{
-			Attacked(player, attacker, defender);
+			Attack(player, attacker, defender);
 		}
 
 		[Master]
-		public void DirectAttack(int player, int attacker)
+		public void OnDirectAttackDeclared(int player, int attacker)
 		{
-			AttackedDirectly(player, attacker);
+			AttackDirectly(player, attacker);
 		}
 
 		[Master]
-		public void Activate(int player, int card, int targetId = 0)
+		public void OnActivationDeclared(int player, int card, int targetId = 0)
 		{
-			Activated(player, card, targetId);
+			Activate(player, card, targetId);
 		}
 
 		[Master]
-		public void SetFaceDown(int player, int faceDown)
+		public void OnSetFaceDownDeclared(int player, int faceDown)
 		{
-			FaceDownSet(player, faceDown);
+			SetFaceDown(player, faceDown);
 		}
 
 		[Master]
-		public void Target(int player, int target) => Targeted(player, target);
+		public void OnTargetDeclared(int player, int target) => Target(player, target);
 		
 		[Master]
-		public void PassPlay(int player) => PassedPriority(player);
+		public void OnPassPlayDeclared(int player) => PassPlay(player);
 		
 		[Master]
-		public void EndTurn(int player) => EndedTurn(player);
+		public void OnEndTurnDeclared(int player) => EndTurn(player);
 
 		[Master]
 		public void SetReady(int player) => EmitSignal(nameof(PlayerSeated), player);

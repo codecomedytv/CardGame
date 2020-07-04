@@ -17,5 +17,7 @@ namespace CardGame.Tests
 
         public override void DisqualifyPlayer(int player) { /* Empty Test Implementation */}
 
+        public new void Activate(int id, int card, int target = 0) => base.Activate(id, card, target);
+
     }
 }
