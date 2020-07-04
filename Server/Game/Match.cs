@@ -30,15 +30,15 @@ namespace CardGame.Server.Game {
 		public override void _Ready()
 		{
 			AddChild(Messenger);
-			ConnectSignals(Messenger, nameof(Messenger.Targeted), this, nameof(OnTarget));
+			Messenger.Targeted = OnTarget;
+			Messenger.EndedTurn = OnEndTurn;
+			Messenger.Deployed = OnDeploy;
+			Messenger.Attacked = OnAttack;
+			Messenger.AttackedDirectly = OnDirectAttack;
+			Messenger.FaceDownSet = OnSetFaceDown;
+			Messenger.Activated = OnActivation;
+			Messenger.PassedPriority = OnPriorityPassed;
 			ConnectSignals(Messenger, nameof(Messenger.PlayerSeated), this, nameof(OnPlayerSeated));
-			ConnectSignals(Messenger, nameof(Messenger.EndedTurn), this, nameof(OnEndTurn));
-			ConnectSignals(Messenger, nameof(Messenger.Deployed), this, nameof(OnDeploy));
-			ConnectSignals(Messenger, nameof(Messenger.Attacked), this, nameof(OnAttack));
-			ConnectSignals(Messenger, nameof(Messenger.AttackedDirectly), this, nameof(OnDirectAttack));
-			ConnectSignals(Messenger, nameof(Messenger.FaceDownSet),this, nameof(OnSetFaceDown));
-			ConnectSignals(Messenger, nameof(Messenger.Activated), this, nameof(OnActivation));
-			ConnectSignals(Messenger, nameof(Messenger.PassedPriority), this, nameof(OnPriorityPassed));
 			foreach (var player in Players) { player.History = History; }
 		}
 		
