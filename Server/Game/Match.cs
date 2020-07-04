@@ -208,8 +208,6 @@ namespace CardGame.Server.Game {
 			Messenger.DisqualifyPlayer(player.Opponent.Id);
 		}
 		
-		public void RegisterCard(Card card) => CardCatalog.RegisterCard(card);
-
 		private void Update()
 		{
 			foreach (var card in CardCatalog)

@@ -75,7 +75,7 @@ namespace CardGame.Server {
 			card.Zone = destination;
 		}
 
-		public void Shuffle() { /* TODO: Implement Shuffle */ }
+		public void Shuffle() { /* TODO: Implement Shuffle (Probably via an Action) */ }
 
 		public void Draw()
 		{
