@@ -46,22 +46,6 @@ namespace CardGame.Server {
 		public void SetState(States newState)
 		{
 			State = newState;
-			switch (State)
-			{
-				case States.Idle:
-				{
-					foreach(var card in Hand.Where(c => c is Unit)) {card.SetCanBeDeployed();}
-					foreach(var card in Hand.Where(c => c is Support)) {card.SetCanBeSet();}
-					foreach(var card in Field) {card.SetCanAttack();}
-					foreach(var card in Support) {card.SetCanBeActivated();}
-					break;
-				}
-				case States.Active:
-				{
-					foreach(var card in Support) {card.SetCanBeActivated();}
-					break;
-				}
-			}
 		}
 		
 		public Player(int id, List<SetCodes> deckList)

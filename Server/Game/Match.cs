@@ -212,6 +212,10 @@ namespace CardGame.Server.Game {
 
 		private void Update()
 		{
+			foreach (var card in CardCatalog)
+			{
+				card.SetState();
+			}
 			Messenger.Update(CardCatalog, Players);
 		}
 		

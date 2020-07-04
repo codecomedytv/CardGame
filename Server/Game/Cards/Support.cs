@@ -7,15 +7,20 @@ namespace CardGame.Server.Game.Cards
     {
         protected Support() { }
 
-        public override void SetCanBeSet()
+        public override void SetState()
         {
-            State = Zone == Controller.Hand && Controller.Support.Count < 7 ? States.CanBeSet : States.Passive;
-        }
+            State = States.Passive;
+            if (Zone == Controller.Hand && Controller.Support.Count < 7)
+            {
+                State = States.CanBeSet;
+            }
 
-        public override void SetCanBeActivated()
-        {
-            State = Skill is Manual skill && skill.CanBeUsed && IsReady ? States.CanBeActivated : States.Passive;
+            if (Skill is Manual skill && skill.CanBeUsed && IsReady)
+            {
+                State = States.CanBeActivated;
+            }
         }
+        
 
     }
 }

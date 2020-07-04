@@ -46,13 +46,7 @@ namespace CardGame.Server.Game.Cards {
 		
 		public virtual List<int> GetValidAttackTargets() => new List<int>();
 
-		public virtual void SetCanBeDeployed() => State = States.Passive;
-
-		public virtual void SetCanBeSet() => State = States.Passive;
-
-		public virtual void SetCanAttack() => State = States.Passive;
-
-		public virtual void SetCanBeActivated() => State = States.Passive;
+		public virtual void SetState() => State = States.Passive;
 
 		public void Ready() => IsReady = true;
 

@@ -22,19 +22,21 @@ namespace CardGame.Server.Game.Cards
 
         public override List<int> GetValidAttackTargets() => ValidAttackTargets.Select(c => c.Id).ToList();
 
-        public override void SetCanBeDeployed()
-        {
-            State = Zone == Controller.Hand && Controller.Field.Count < 7 ? States.CanBeDeployed : States.Passive;
-        }
-
-        public override void SetCanAttack()
+        public override void SetState()
         {
             State = States.Passive;
-            if (Zone != Controller.Field || !IsReady || Attacked) return;
-            ValidAttackTargets = Opponent.Field.AsEnumerable();
-            State = States.CanAttack;
-        }
+            if (Zone == Controller.Hand && Controller.Field.Count < 7)
+            {
+                State = States.CanBeDeployed;
+            }
 
+            if (Zone == Controller.Field && IsReady && !Attacked)
+            {
+                ValidAttackTargets = Opponent.Field.AsEnumerable();
+                State = States.CanAttack;
+            }
+        }
+        
         public void AttackDirectly()
         {
             Controller.AttackingWith = this;
