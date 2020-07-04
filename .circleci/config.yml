@@ -14,6 +14,9 @@ jobs:
             name: "Build Solution"
             command: timeout 5 godot --build-solutions || true
         - run:
+            name: "Run Server Side Tests"
+            command: godot addons/WAT/cli.tscn -run_dir=res://Tests/Scripts/Serverside
+        - run:
             name: "Run All Tests"
             command: godot addons/WAT/cli.tscn -run_all
         - store_test_results:
