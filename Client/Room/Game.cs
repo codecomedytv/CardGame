@@ -30,7 +30,7 @@ namespace CardGame.Client.Room {
 		private AnimatedSprite ActionButtonAnimation;
 		private Button EndTurn;
 		private Label DisqualificationNotice;
-		public readonly Action<int> Test;
+		
 		public override void _Ready()
 		{
 			var playMat = (Control) PlayMat.Instance();

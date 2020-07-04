@@ -26,22 +26,20 @@ namespace CardGame.Server {
 		
 		public override void _Notification(int notification)
 		{
-			if(notification == NotificationExitTree) 
+			switch (notification)
 			{
-				Server?.CloseConnection(); 
+				case NotificationExitTree:
+					Server?.CloseConnection();
+					break;
+				case NotificationEnterTree:
+					GetTree().Connect(NodeAdded, this, nameof(OnNodeAdded));
+					CustomizeChildren();
+					break;
 			}
-			
-			// Have to add this here because Mono doesn't seem to process through all versions
-			if(notification == NotificationEnterTree)
-			{
-				GetTree().Connect("node_added", this, "OnNodeAdded");
-				CustomizeChildren();
-			}
-			
 		}
 		
 		[Master]
-		public void RegisterPlayer(int player, List<int> deckList)
+		public void RegisterPlayer(int player, IEnumerable<int> deckList)
 		{
 			Queue.Enqueue(new Player(player, deckList.Select(c => (SetCodes) c).ToList()));
 		}

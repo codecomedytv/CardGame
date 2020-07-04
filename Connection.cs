@@ -6,6 +6,8 @@ namespace CardGame
 	public class Connection : Control
 	{
 	
+		protected const string NodeAdded = "node_added";
+		
 		protected Connection() 
 		{ 
 			CustomMultiplayer = new MultiplayerAPI();
@@ -19,32 +21,23 @@ namespace CardGame
 	
 		public override void _Notification(int notification)
 		{
-			if(notification == NotificationEnterTree)
-			{
-				GetTree().Connect("node_added", this, "OnNodeAdded");
-				CustomizeChildren();
-			}
+			if (notification != NotificationEnterTree) return;
+			GetTree().Connect(NodeAdded, this, nameof(OnNodeAdded));
+			CustomizeChildren();
 		}
-	
-		public void OnNodeAdded(Godot.Node N)
+
+		protected void OnNodeAdded(Node node)
 		{
-			var treePath = (string)N.GetPath();
-			var ourPath = (string)GetPath();
+			var treePath = (string) node.GetPath();
+			var ourPath = (string) GetPath();
 			var substr = treePath.Substr(0, ourPath.Length());
-			if(substr != ourPath) 
-			{
-				return; 
-			}
-			var relativePath = (string)treePath.Substr(ourPath.Length(), treePath.Length());
-			if(relativePath.Length() > 0 && !relativePath.BeginsWith("/")) 
-			{  
-				return; 
-			}
-		
-			N.CustomMultiplayer = CustomMultiplayer;
+			if(substr != ourPath) { return; }
+			var relativePath = treePath.Substr(ourPath.Length(), treePath.Length());
+			if(relativePath.Length() > 0 && !relativePath.BeginsWith("/")) { return; }
+			node.CustomMultiplayer = CustomMultiplayer;
 		}
-	
-		public void CustomizeChildren()
+
+		protected void CustomizeChildren()
 		{
 			var frontier = new Array<Node>();
 			foreach(Node child in GetChildren()){

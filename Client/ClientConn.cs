@@ -9,7 +9,7 @@ namespace CardGame.Client {
 	{
 		private const string Ip = "127.0.0.1";
 		private const int Port = 5000;
-		private readonly CSharpScript Room = (CSharpScript) ResourceLoader.Load("res://Client/Room/Game.cs");
+		private readonly CSharpScript Room = (CSharpScript) GD.Load("res://Client/Room/Game.cs");
 		private DeckList DeckList = new DeckList();
 		public NetworkedMultiplayerENet Client;
 
@@ -24,9 +24,9 @@ namespace CardGame.Client {
 			Client = new NetworkedMultiplayerENet();
 			var err = Client.CreateClient(Ip, Port);
 			if(err != Error.Ok) { GD.PushWarning(err.ToString()); }
-			err = CustomMultiplayer.Connect("connected_to_server", this, "OnConnected");
+			err = CustomMultiplayer.Connect("connected_to_server", this, nameof(OnConnected));
 			if(err != Error.Ok) { GD.PushWarning(err.ToString()); }
-			CustomMultiplayer.Connect("connection_failed", this, "OnFailed");
+			CustomMultiplayer.Connect("connection_failed", this, nameof(OnFailed));
 			CustomMultiplayer.NetworkPeer = Client;
 		}
 		
