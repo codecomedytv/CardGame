@@ -41,7 +41,7 @@ namespace CardGame.Client.Room {
 			ActionButtonAnimation = PassPriority.GetNode<AnimatedSprite>("Glow");
 			EndTurn = GetNode<Button>("PlayMat/Background/EndTurn");
 			DisqualificationNotice = GetNode<Label>("PlayMat/Disqualified");
-			PassPriority.Connect("pressed", Messenger, nameof(OnActionButtonPressed));
+			PassPriority.Connect("pressed", this, nameof(OnActionButtonPressed));
 			Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
 			Messenger.Connect(nameof(Messenger.Disqualified), this, nameof(OnDisqualified));
 			Messenger.Connect(nameof(Messenger.DeckLoaded), this, nameof(OnDeckLoaded));
@@ -62,7 +62,6 @@ namespace CardGame.Client.Room {
 			Input.Connect(nameof(Input.Activate), Messenger, nameof(Messenger.OnActivationDeclared));
 			Input.Connect(nameof(Input.Attack), Messenger, nameof(Messenger.OnAttackDeclared));
 			CardCatalog.Connect(nameof(CardCatalog.CardCreated), Input, nameof(Input.OnCardCreated));
-			Connect(nameof(StateSet), Input, nameof(Input.OnStateSet));
 			EndTurn.Connect("pressed", Messenger, nameof(Messenger.OnEndTurnDeclared));
 		}
 

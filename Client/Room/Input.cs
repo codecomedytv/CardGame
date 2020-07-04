@@ -25,7 +25,6 @@ namespace CardGame.Client.Room
         private readonly Player User;
         private bool Targeting;
         private bool Attacking;
-        private bool IsActing;
         private Card TargetingCard;
         private Card AttackingCard;
 
@@ -35,11 +34,6 @@ namespace CardGame.Client.Room
             CardCatalog = cardCatalog;
         }
         
-        public void OnStateSet()
-        {
-            IsActing = false;
-        }
-
         public void OnCardCreated(Card card)
         {
             card.Connect(nameof(Card.MouseEnteredCard), this, nameof(OnMouseEnterCard), new Array {card});
@@ -93,12 +87,9 @@ namespace CardGame.Client.Room
         
         private void OnCardDoubleClicked(Card card)
         {
-            if (IsActing)
+            if (User.State == States.Processing)
             {
-                // We want to prevent sending the same action to the server twice
-                // So we have a callback boolean we check to exit early
                 return;
-                
             }
             if (Targeting && User.State == States.Active)
             {
@@ -110,7 +101,7 @@ namespace CardGame.Client.Room
                 if (TargetingCard.ValidTargets.Contains(card.Id))
                 {
                     EmitSignal(nameof(Activate), TargetingCard, card.Id);
-                    IsActing = true;
+                    User.State = States.Processing;
                     return;
                 }
             }
@@ -129,7 +120,7 @@ namespace CardGame.Client.Room
                     AttackingCard.AttackIcon.Visible = true;
                     card.SelectedTarget.Visible = true;
                     card.DefenseIcon.Visible = true;
-                    IsActing = true;
+                    User.State = States.Processing;
                     EmitSignal(nameof(Attack), AttackingCard.Id, card.Id);
                 }
                 else
@@ -147,17 +138,16 @@ namespace CardGame.Client.Room
                 case CardStates.CanBeDeployed:
                     if (User.State != States.Idle) { return; }
                     card.Legal.Visible = false;
-                    IsActing = true;
+                    User.State = States.Processing;
                     EmitSignal(nameof(Deploy), card.Id);
                     break;
                 case CardStates.CanBeSet:
                     if (User.State != States.Idle) { return; }
                     card.Legal.Visible = false;
-                    IsActing = true;
+                    User.State = States.Processing;
                     EmitSignal(nameof(SetFaceDown), card.Id);
                     break;
                 case CardStates.CanBeActivated:
-                    //var validState = User.State == States.Idle || User.S
                     if (User.State != States.Idle && User.State != States.Active) { return; }
                     if (card.Targets())
                     {
@@ -169,7 +159,7 @@ namespace CardGame.Client.Room
                     else
                     {
                         card.Legal.Visible = false;
-                        IsActing = true;
+                        User.State = States.Processing;
                         EmitSignal(nameof(Activate), card, new Array());
                     }
                     break;
