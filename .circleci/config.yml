@@ -1,0 +1,22 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: codedarigan/godotsharp:latest
+
+    steps:
+        - checkout
+        - run:
+            name: "Remove All Import Files"
+            command: find . -name "*.import" -type f -delete
+        - run:
+            name: "Build Solution"
+            command: timeout 5 godot --build-solutions || true
+        - run:
+            name: "Run All Tests"
+            command: godot addons/WAT/cli.tscn -run_all
+        - store_test_results:
+            path: tests/results
+        - store_artifacts:
+            path: tests/results
