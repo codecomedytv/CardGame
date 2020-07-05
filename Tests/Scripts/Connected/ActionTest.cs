@@ -28,7 +28,8 @@ namespace CardGame.Tests.Scripts.Connected
             await PlayerState;
             var toDeploy = (Card) Player.Hand.GetChild(0);
             toDeploy.DoubleClick();
-            await ToSignal(UntilSignal(Player, nameof(Player.AnimationFinished), 5), YIELD);
+            //await ToSignal(UntilSignal(Player, nameof(Player.AnimationFinished), 5), YIELD);
+            await PlayerState;
             Assert.Has(toDeploy, Player.Units.GetChildren(), $"{toDeploy} was Deployed");
         }
         
@@ -38,7 +39,8 @@ namespace CardGame.Tests.Scripts.Connected
             await PlayerState;
             var toSet = (Card) Player.Hand.GetChild(1);
             toSet.DoubleClick();
-            await ToSignal(UntilSignal(Player, nameof(Player.AnimationFinished), 5), YIELD);
+            //await ToSignal(UntilSignal(Player, nameof(Player.AnimationFinished), 5), YIELD);
+            await PlayerState;
             Assert.Has(toSet, Player.Support.GetChildren(), $"{toSet} was Set");
         }
 

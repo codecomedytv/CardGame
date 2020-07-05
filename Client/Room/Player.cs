@@ -34,9 +34,6 @@ namespace CardGame.Client.Room
         private AnimatedSprite PlayingState;
         public Player Opponent;
 
-        [Signal]
-        public delegate void AnimationFinished();
-        
         public override void _Ready()
         {
             AddChild(Gfx);
@@ -81,7 +78,6 @@ namespace CardGame.Client.Room
 
         public void Draw(Card card)
         {
-            card.Player = this;
             DeckCount -= 1;
             Hand.AddChild(card);
             Sort(Hand);
