@@ -34,10 +34,9 @@ namespace CardGame.Server.Game.Network {
 			Message = SendMessage;
 		}
 
-		public object SendMessage(int id, string signal, params object[] args)
+		private object SendMessage(int id, string signal, params object[] args)
 		{
-			var arguments = args.ToList();
-			return RpcId(id, "Queue", signal, arguments);
+			return RpcId(id, "Queue", signal, args.ToList());
 		}
 		
 		public virtual void OnPlayExecuted(Event gameEvent) => gameEvent.SendMessage(Message);
