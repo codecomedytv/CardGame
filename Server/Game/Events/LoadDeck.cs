@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using CardGame.Server.Game.Cards;
-using CardGame.Server.Game.Network;
 
 namespace CardGame.Server.Game.Events
 {

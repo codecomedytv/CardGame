@@ -1,5 +1,4 @@
 ﻿using System;
-using CardGame.Server.Game.Network;
 using Godot;
 
 namespace CardGame.Server.Game.Events

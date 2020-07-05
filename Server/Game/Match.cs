@@ -1,7 +1,6 @@
 using System.Linq;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Events;
-using CardGame.Server.Game.Network;
 using CardGame.Server.Game.Skills;
 using Godot;
 

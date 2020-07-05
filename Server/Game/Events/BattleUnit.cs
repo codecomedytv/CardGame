@@ -1,5 +1,4 @@
 ﻿using CardGame.Server.Game.Cards;
-using CardGame.Server.Game.Network;
 
 namespace CardGame.Server.Game.Events
 {

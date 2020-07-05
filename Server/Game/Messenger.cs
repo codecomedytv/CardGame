@@ -5,7 +5,7 @@ using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Events;
 using Godot;
 
-namespace CardGame.Server.Game.Network {
+namespace CardGame.Server.Game {
 	
 	public delegate object Message(int id, string method, params object[] arguments);
 

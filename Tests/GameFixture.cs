@@ -3,7 +3,6 @@ using System.Linq;
 using CardGame.Client;
 using CardGame.Server;
 using CardGame.Server.Game;
-using CardGame.Server.Game.Network;
 
 namespace CardGame.Tests.Scripts
 {

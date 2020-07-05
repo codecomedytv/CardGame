@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using CardGame.Server.Game.Network;
 using CardGame.Server.Game.Skills;
 using CardGame.Server.Game.Tags;
 using CardGame.Server.Game.Zones;

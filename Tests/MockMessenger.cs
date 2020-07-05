@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using CardGame.Server;
+using CardGame.Server.Game;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Events;
-using CardGame.Server.Game.Network;
 
 namespace CardGame.Tests
 {

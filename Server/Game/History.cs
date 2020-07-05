@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using CardGame.Server.Game.Events;
-using CardGame.Server.Game.Network;
 using Godot;
 
 namespace CardGame.Server.Game

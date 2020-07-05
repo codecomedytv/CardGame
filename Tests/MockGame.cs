@@ -1,7 +1,7 @@
 ﻿using CardGame.Client.Room;
 using CardGame.Server.Game;
 using Godot;
-using Messenger = CardGame.Server.Game.Network.Messenger;
+using Messenger = CardGame.Server.Game.Messenger;
 
 namespace CardGame.Tests
 {

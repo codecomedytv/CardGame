@@ -1,6 +1,4 @@
-﻿using CardGame.Server.Game.Network;
-
-namespace CardGame.Server.Game.Events
+﻿namespace CardGame.Server.Game.Events
 {
     public class BattleDamage: Event
     {
