@@ -74,7 +74,7 @@ namespace CardGame.Client.Room {
 
 		public void OnCardUpdated(int id, CardStates state, IEnumerable<int> attackTargets, IEnumerable<int> targets)
 		{
-			var card = CardCatalog[id];
+			var card = CardCatalog.Fetch(id);
 			card.State = state;
 			card.ValidTargets.Clear();
 			card.ValidTargets.AddRange(targets);
@@ -122,62 +122,58 @@ namespace CardGame.Client.Room {
 
 		public void OnDeckLoaded(Dictionary<int, SetCodes> deck)
 		{
-			foreach (var card in deck.Select(serial => CheckOut.Fetch(serial.Key, serial.Value)))
+			foreach (var card in deck.Select(serial => CardCatalog.Fetch(serial.Key, serial.Value)))
 			{
-				CardCatalog[card.Id] = card;
 				card.Player = Player;
-				// Set Zone
 			}
 		}
 		
 		public void OnCardStateSet(int id, CardStates state)
 		{
-			CardCatalog[id].State = state;
+			CardCatalog.Fetch(id).State = state;
 		}
 
 		private void OnDrawQueued(int id = 0, bool isOpponent = false)
 		{
-			if(isOpponent) {Opponent.Draw(CardCatalog[id]);} else {Player.Draw(CardCatalog[id]);} 
+			if(isOpponent) {Opponent.Draw(CardCatalog.Fetch(id));} else {Player.Draw(CardCatalog.Fetch(id));} 
 		}
 		
 		public void OnDeployQueued(int id)
 		{
-			var card = CardCatalog[id];
+			var card = CardCatalog.Fetch(id);
 			Player.Deploy(card, false);
 		}
 
 		public void OnDeployQueued(int id, SetCodes setCode)
 		{
-			var card = CheckOut.Fetch(id, setCode);
+			var card = CardCatalog.Fetch(id, setCode);
 			card.Player = Opponent;
-			CardCatalog[id] = card;
 			Opponent.Deploy(card, true);
 		}
 
 		public void OnSetFaceDownQueued(int id, bool isOpponent)
 		{
-			if(isOpponent) {Opponent.SetFaceDown(CardCatalog[id], true);} else Player.SetFaceDown(CardCatalog[id], false);
+			if(isOpponent) {Opponent.SetFaceDown(CardCatalog.Fetch(id), true);} else Player.SetFaceDown(CardCatalog.Fetch(id), false);
 		}
 		
 		public void OnActivationQueued(int id, int positionInLink)
 		{
-			var card = CardCatalog[id];
+			var card = CardCatalog.Fetch(id);
 			card.ChainIndex = positionInLink;
 			Player.Activate(card);
 		}
 
 		public void OnActivationQueued(int id, SetCodes setCode, int positionInLink)
 		{
-			var card = CheckOut.Fetch(id, setCode);
+			var card = CardCatalog.Fetch(id, setCode);
 			card.Player = Opponent;
-			CardCatalog[id] = card;
 			card.ChainIndex = positionInLink;
 			Opponent.Activate(card, true);
 		}
 
 		public void OnTriggeredQueued(int id, int positionInLink)
 		{
-			var card = CardCatalog[id];
+			var card = CardCatalog.Fetch(id);
 			card.ChainIndex = positionInLink;
 			if (card.Player == Player)
 			{
@@ -191,22 +187,22 @@ namespace CardGame.Client.Room {
 
 		private void OnValidTargetsSet(int id, IEnumerable<int> validTargets)
 		{
-			var card = CardCatalog[id];
+			var card = CardCatalog.Fetch(id);
 			card.ValidTargets.Clear();
 			card.ValidTargets.AddRange(validTargets);
 		}
 
 		public void OnValidAttackTargetsSet(int id, IEnumerable<int> validAttackTargets)
 		{
-			var card = CardCatalog[id];
+			var card = CardCatalog.Fetch(id);
 			card.ValidAttackTargets.Clear();
 			card.ValidAttackTargets.AddRange(validAttackTargets);
 		}
 		
 		public void OnUnitBattled(int attackerId, int defenderId, bool isOpponent)
 		{
-			var attacker = CardCatalog[attackerId];
-			var defender = CardCatalog[defenderId];
+			var attacker = CardCatalog.Fetch(attackerId);
+			var defender = CardCatalog.Fetch(defenderId);
 			if (isOpponent)
 			{
 				Opponent.Battle(attacker, defender, true);
@@ -219,7 +215,7 @@ namespace CardGame.Client.Room {
 
 		public void OnCardSentToZone(int cardId, ZoneIds zoneId)
 		{
-			var card = CardCatalog[cardId];
+			var card = CardCatalog.Fetch(cardId);
 			if (card.Player == Player)
 			{
 				Player.SendCardToZone(card, zoneId);

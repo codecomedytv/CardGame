@@ -55,7 +55,7 @@ namespace CardGame.Client.Room
             {
                 foreach (var id in card.ValidTargets)
                 {
-                    CardCatalog[id].ValidTarget.Visible = true;
+                    CardCatalog.Fetch(id).ValidTarget.Visible = true;
                 }
             }
 
@@ -64,7 +64,7 @@ namespace CardGame.Client.Room
                 card.AttackIcon.Visible = true;
                 foreach (var id in card.ValidAttackTargets)
                 {
-                    CardCatalog[id].DefenseIcon.Visible = true;
+                    CardCatalog.Fetch(id).DefenseIcon.Visible = true;
                 }
             }
         }
@@ -76,12 +76,12 @@ namespace CardGame.Client.Room
             card.AttackIcon.Visible = false;
             foreach (var id in card.ValidTargets)
             {
-                CardCatalog[id].ValidTarget.Visible = false;
+                CardCatalog.Fetch(id).ValidTarget.Visible = false;
             }
 
             foreach (var id in card.ValidAttackTargets)
             {
-                CardCatalog[id].DefenseIcon.Visible = false;
+                CardCatalog.Fetch(id).DefenseIcon.Visible = false;
             }
         }
         
@@ -95,7 +95,7 @@ namespace CardGame.Client.Room
             {
                 foreach (var id in TargetingCard.ValidTargets)
                 {
-                    CardCatalog[id].ValidTarget.Visible = false;
+                    CardCatalog.Fetch(id).ValidTarget.Visible = false;
                 }
 
                 if (TargetingCard.ValidTargets.Contains(card.Id))
@@ -111,7 +111,7 @@ namespace CardGame.Client.Room
                 AttackingCard.Legal.Visible = false;
                 foreach (var id in AttackingCard.ValidAttackTargets)
                 {
-                    CardCatalog[id].DefenseIcon.Visible = false;
+                    CardCatalog.Fetch(id).DefenseIcon.Visible = false;
                 }
 
                 if (AttackingCard.ValidAttackTargets.Contains(card.Id))
