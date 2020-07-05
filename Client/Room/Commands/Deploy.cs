@@ -1,4 +1,5 @@
-﻿using CardGame.Client.Library.Cards;
+﻿using System.Threading.Tasks;
+using CardGame.Client.Library.Cards;
 using Godot;
 
 namespace CardGame.Client.Room.Commands
@@ -13,7 +14,7 @@ namespace CardGame.Client.Room.Commands
             Player = player;
             Card = card;
         }
-        protected override void Execute()
+        protected override Task<object[]> Execute()
         {
             throw new System.NotImplementedException();
         }

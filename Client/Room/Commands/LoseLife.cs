@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using System.Threading.Tasks;
+using Godot;
 
 namespace CardGame.Client.Room.Commands
 {
@@ -12,7 +13,7 @@ namespace CardGame.Client.Room.Commands
             LifeLost = lifeLost;
         }
 
-        protected override void Execute()
+        protected override Task<object[]> Execute()
         {
             throw new System.NotImplementedException();
         }

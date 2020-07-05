@@ -20,10 +20,10 @@ namespace CardGame.Client.Room
     
     {
         public States State;
-        private int DeckCount = 40;
+        public int DeckCount = 40;
         public int Health = 8000;
         private Label Damage;
-        private Label Deck;
+        public Label Deck;
         public PanelContainer Discard;
         private Label DiscardCount;
         public HBoxContainer Units;
@@ -69,28 +69,7 @@ namespace CardGame.Client.Room
                 PlayingState.Stop();
             }
         }
-
-        public async Task<object[]> Execute()
-        {
-            Gfx.Start();
-            return await ToSignal(Gfx, "tween_all_completed");
-        }
-
-        public void Draw(Card card)
-        {
-            DeckCount -= 1;
-            Hand.AddChild(card);
-            Sort(Hand);
-            var destination = card.RectGlobalPosition;
-            card.RectGlobalPosition = Deck.RectGlobalPosition;
-            var originalColor = card.Modulate;
-            card.Modulate = Colors.Transparent;
-            QueueCallback(Deck, Delay, "set_text", DeckCount.ToString());
-            QueueProperty(card, "RectGlobalPosition", Deck.RectGlobalPosition, destination, 0.2F, AddDelay(0.2F));
-            QueueProperty(card, nameof(Modulate), Colors.Transparent, originalColor, 0.1F, Delay);
-            QueueCallback(this, AddDelay(0.2F),"Sort", Hand);
-        }
-
+        
         public void Deploy(Card card)
         {
             QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Units), 0.3F, Delay);

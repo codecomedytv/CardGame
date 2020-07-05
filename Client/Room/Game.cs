@@ -126,7 +126,7 @@ namespace CardGame.Client.Room {
 			//await Task.WhenAll(new List<Task> {Player.Execute(), Opponent.Execute()});
 			foreach (var command in Commands)
 			{
-				await Task.Run(() => command.Execute(Gfx));
+				await command.Execute(Gfx);
 			}
 			Player.SetState(stateAfterExecution);
 			Player.Reset();

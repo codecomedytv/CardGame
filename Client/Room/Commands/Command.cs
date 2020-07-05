@@ -1,9 +1,10 @@
-﻿using CardGame.Client.Library;
+﻿using System.Threading.Tasks;
+using CardGame.Client.Library;
 using Godot;
 
 namespace CardGame.Client.Room.Commands
 {
-    public abstract class Command
+    public abstract class Command: Object
     {
         protected Tween Gfx;
         protected Command()
@@ -11,13 +12,13 @@ namespace CardGame.Client.Room.Commands
             
         }
 
-        public void Execute(Tween gfx)
+        public async Task<object[]> Execute(Tween gfx)
         {
             Gfx = gfx;
-            Execute();   
+            return await Execute();   
         }
 
-        protected abstract void Execute();
+        protected abstract Task<object[]> Execute();
         
         protected void QueueProperty(Object obj, string property, object start, object end, float duration, float delay)
         {
