@@ -76,11 +76,8 @@ namespace CardGame.Client.Room {
 			Messenger.CallDeferred("SetReady");
 		}
 		
-		// A Revealed Card Is Always An Opponent Card
 		public void RevealCard(int id, SetCodes setCode, ZoneIds zoneId)
 		{
-			// This may need to be tracked (so we don't end up doing something like replacing a card that hasn't been
-			// drawn yet?
 			var card = CardCatalog.Fetch(id, setCode);
 			Commands.Add(new RevealCard(Opponent, card, zoneId));
 		}
@@ -97,7 +94,6 @@ namespace CardGame.Client.Room {
 
 		private async void Execute(States stateAfterExecution)
 		{
-			//await Task.WhenAll(new List<Task> {Player.Execute(), Opponent.Execute()});
 			foreach (var command in Commands)
 			{
 				await command.Execute(Gfx);
@@ -105,8 +101,6 @@ namespace CardGame.Client.Room {
 			}
 			Commands.Clear();
 			Player.SetState(stateAfterExecution);
-			Player.Reset();
-			Opponent.Reset();
 			SetState(stateAfterExecution);
 			EmitSignal(nameof(StateSet));
 		}
@@ -176,7 +170,7 @@ namespace CardGame.Client.Room {
 		{
 			var attacker = CardCatalog.Fetch(attackerId);
 			var defender = CardCatalog.Fetch(defenderId);
-			GetPlayer(isOpponent).Battle(attacker, defender, isOpponent);
+			Commands.Add(new Battle(attacker, defender, isOpponent));
 		}
 
 		public void OnCardSentToZone(int cardId, ZoneIds zoneId)

@@ -27,7 +27,7 @@ namespace CardGame.Client.Room.Commands
                     var old = Player.Hand.GetChild(0);
                     Player.Hand.RemoveChild(old);
                     Player.Hand.AddChild(Card);
-                    Player.Sort(Player.Hand);
+                    Sort(Player.Hand);
                     break;
                 }
                 case ZoneIds.Support:
@@ -42,7 +42,7 @@ namespace CardGame.Client.Room.Commands
                         Player.Support.RemoveChild(oldCard);
                         Player.Support.AddChild(Card);
                         Player.Support.MoveChild(Card, index);
-                        Player.Sort(Player.Support);
+                        Sort(Player.Support);
                         oldCard.Free();
                         break;
                     }

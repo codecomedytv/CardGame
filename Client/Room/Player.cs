@@ -22,7 +22,7 @@ namespace CardGame.Client.Room
         public States State;
         public int DeckCount = 40;
         public int Health = 8000;
-        private Label Damage;
+        public Label Damage;
         public Label Deck;
         public PanelContainer Discard;
         private Label DiscardCount;
@@ -46,13 +46,7 @@ namespace CardGame.Client.Room
             Support = GetNode<HBoxContainer>("Support");
             Hand = GetNode<HBoxContainer>("Hand");
         }
-
-        public void Reset()
-        {
-            Delay = 0.0F;
-            Gfx.RemoveAll();
-        }
-
+        
         public void SetState(States state)
         {
             State = state;
@@ -69,60 +63,7 @@ namespace CardGame.Client.Room
                 PlayingState.Stop();
             }
         }
-        
-        private float AddDelay(float delay)
-        {
-            Delay += delay;
-            return Delay;
-        }
 
-        private void QueueProperty(Godot.Object obj, string property, object start, object end, float duration,
-            float delay)
-        {
-            Gfx.InterpolateProperty(obj, property, start, end, duration, Tween.TransitionType.Linear,
-                Tween.EaseType.In, delay);
-        }
-
-        private void QueueCallback(Godot.Object obj, float delay, string callback, object args1 = null, object args2 = null, object args3 = null, object args4 = null, object args5 = null)
-        {
-            Gfx.InterpolateCallback(obj, delay, callback, args1, args2, args3, args4, args5);
-        }
-
-        public void Sort(Container zone)
-        {
-            zone.Notification(Container.NotificationSortChildren);
-        }
-
-        public void Battle(Card attacker, Card defender, bool isOpponent)
-        { 
-            // This is imperfect because it is a synchronization based
-            var attackerLocation = attacker.RectPosition;
-            var defenderLocation = defender.RectPosition;
-            var attackerDestination = new Vector2(attacker.RectPosition.x, attacker.RectPosition.y - 50);
-            var defenderDestination = new Vector2(defender.RectPosition.x, defender.RectPosition.y + 50);
-            
-            QueueProperty(attacker, "RectPosition", attackerLocation, attackerDestination, Delay, Delay);
-            QueueProperty(defender, "RectPosition", defenderLocation, defenderDestination, Delay, Delay);
-            AddDelay(0.5F);
-            Opponent.AddDelay(0.5F);
-            QueueProperty(attacker, "RectPosition", attackerDestination, attackerLocation, Delay, Delay);
-            QueueProperty(defender, "RectPosition", defenderDestination, defenderLocation, Delay, Delay);
-            Opponent.AddDelay(0.5F);
-            AddDelay(0.5F);
-        }
-
-        public void LoseLife(int lifeLost)
-        {
-            Damage.Text = $"-{lifeLost}";
-            // We reduce values here so we can slot it inside of battle
-            QueueCallback(this, Delay - 0.8F, nameof(ShowDamage), true);
-            QueueCallback(this, Delay, nameof(ShowDamage), false);
-        }
-
-        public void ShowDamage(bool show)
-        {
-            Damage.Visible = show;
-        }
     }
 
         

@@ -92,16 +92,6 @@ namespace CardGame.Client.Library.Cards
 			ChainLink.Play();
 		}
 
-		public override void _ExitTree()
-		{
-			GD.Print($"{this} is exiting the tree");
-		}
-
-		public override void _EnterTree()
-		{
-			GD.Print($"{this} is Entering The Tree");
-		}
-
 		public void SetData(BaseCard card)
 		{
 			Title = card.Title;

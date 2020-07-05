@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using Godot;
 
 namespace CardGame.Client.Room.Commands
@@ -13,9 +13,18 @@ namespace CardGame.Client.Room.Commands
             LifeLost = lifeLost;
         }
 
-        protected override Task<object[]> Execute()
+        protected override async Task<object[]> Execute()
         {
-            throw new System.NotImplementedException();
+            Player.Damage.Text = $"-{LifeLost}";
+            QueueCallback(this, 0, nameof(ShowDamage), true);
+            QueueCallback(this, 0.2F, nameof(ShowDamage), false);
+            Gfx.Start();
+            return await ToSignal(Gfx, "tween_all_completed");
+        }
+        
+        private void ShowDamage(bool show)
+        {
+            Player.Damage.Visible = show;
         }
     }
 }
