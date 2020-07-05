@@ -28,8 +28,7 @@ namespace CardGame.Client.Room
         public Messenger() => Name = "Messenger";
         public void SetReady() => RpcId(ServerId, "SetReady", Id);
         [Puppet] public void Disqualify() => EmitSignal(nameof(Disqualified));
-        [Puppet] public void ForceDisconnected(int reason) => EmitSignal(nameof(DisconnectPlayer), reason);
-        [Puppet] public void ExecuteEvents(States stateAfterExecution) => EmitSignal(nameof(ExecutedEvents), stateAfterExecution);
+        [Puppet] public void Execute(States stateAfterExecution) => EmitSignal(nameof(ExecutedEvents), stateAfterExecution);
         [Puppet] public void Queue(string signal, params object[] args) => EmitSignal(signal, args);
 
         public void DeclareDeploy(int cardId) => RpcId(ServerId, "OnDeployDeclared", Id, cardId);

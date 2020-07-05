@@ -50,7 +50,7 @@ namespace CardGame.Server.Game.Network {
 			}
 			foreach (var player in players)
 			{
-				RpcId(player.Id, "ExecuteEvents", player.State);
+				RpcId(player.Id, "Execute", player.State);
 			}
 		}
 
