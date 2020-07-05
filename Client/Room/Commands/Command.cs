@@ -11,7 +11,13 @@ namespace CardGame.Client.Room.Commands
             
         }
 
-        public abstract void Execute(Tween gfx);
+        public void Execute(Tween gfx)
+        {
+            Gfx = gfx;
+            Execute();   
+        }
+
+        protected abstract void Execute();
         
         protected void QueueProperty(Object obj, string property, object start, object end, float duration, float delay)
         {

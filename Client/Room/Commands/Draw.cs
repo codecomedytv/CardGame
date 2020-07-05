@@ -13,7 +13,7 @@ namespace CardGame.Client.Room.Commands
             Player = player;
             Card = card;
         }
-        public override void Execute(Tween gfx)
+        protected override void Execute()
         {
             throw new System.NotImplementedException();
         }

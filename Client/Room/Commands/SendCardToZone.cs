@@ -15,7 +15,7 @@ namespace CardGame.Client.Room.Commands
             ZoneId = zoneId;
         }
 
-        public override void Execute(Tween gfx)
+        protected override void Execute()
         {
             throw new System.NotImplementedException();
         }

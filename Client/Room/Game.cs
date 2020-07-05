@@ -26,9 +26,11 @@ namespace CardGame.Client.Room {
 		protected Button EndTurn;
 		private Label DisqualificationNotice;
 		private List<Command> Commands = new List<Command>();
+		private Tween Gfx = new Tween();
 		
 		public override void _Ready()
 		{
+			AddChild(Gfx);
 			var playMat = (Control) PlayMat.Instance();
 			playMat.Name = "PlayMat";
 			AddChild(playMat, true);
@@ -121,7 +123,11 @@ namespace CardGame.Client.Room {
 
 		private async void Execute(States stateAfterExecution)
 		{
-			await Task.WhenAll(new List<Task> {Player.Execute(), Opponent.Execute()});
+			//await Task.WhenAll(new List<Task> {Player.Execute(), Opponent.Execute()});
+			foreach (var command in Commands)
+			{
+				await Task.Run(() => command.Execute(Gfx));
+			}
 			Player.SetState(stateAfterExecution);
 			Player.Reset();
 			Opponent.Reset();

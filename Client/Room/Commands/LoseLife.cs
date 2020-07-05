@@ -12,7 +12,7 @@ namespace CardGame.Client.Room.Commands
             LifeLost = lifeLost;
         }
 
-        public override void Execute(Tween gfx)
+        protected override void Execute()
         {
             throw new System.NotImplementedException();
         }
