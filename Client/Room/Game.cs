@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CardGame.Client.Library;
 using CardGame.Client.Library.Cards;
+using CardGame.Client.Room.Commands;
+using CardGame.Server.Game.Events;
 using Godot;
 
 namespace CardGame.Client.Room {
@@ -25,6 +27,7 @@ namespace CardGame.Client.Room {
 		private AnimatedSprite ActionButtonAnimation;
 		protected Button EndTurn;
 		private Label DisqualificationNotice;
+		private List<Command> Commands = new List<Command>();
 		
 		public override void _Ready()
 		{
@@ -168,14 +171,7 @@ namespace CardGame.Client.Room {
 			}
 		}
 
-		public void OnActivationQueued(int id, SetCodes setCode, int positionInLink)
-		{
-			var card = CardCatalog.Fetch(id, setCode);
-			card.Player = Opponent;
-			card.ChainIndex = positionInLink;
-			Opponent.Activate(card, true);
-		}
-
+		
 		public void OnTriggeredQueued(int id, int positionInLink)
 		{
 			var card = CardCatalog.Fetch(id);
@@ -188,20 +184,6 @@ namespace CardGame.Client.Room {
 			{
 				Opponent.Trigger(card);
 			}
-		}
-
-		private void OnValidTargetsSet(int id, IEnumerable<int> validTargets)
-		{
-			var card = CardCatalog.Fetch(id);
-			card.ValidTargets.Clear();
-			card.ValidTargets.AddRange(validTargets);
-		}
-
-		public void OnValidAttackTargetsSet(int id, IEnumerable<int> validAttackTargets)
-		{
-			var card = CardCatalog.Fetch(id);
-			card.ValidAttackTargets.Clear();
-			card.ValidAttackTargets.AddRange(validAttackTargets);
 		}
 		
 		public void OnUnitBattled(int attackerId, int defenderId, bool isOpponent)

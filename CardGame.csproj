@@ -61,6 +61,15 @@
     <Compile Include="Client\DeckList.cs" />
     <Compile Include="Client\Room\CardCatalog.cs" />
     <Compile Include="Client\Room\CardViewer.cs" />
+    <Compile Include="Client\Room\Commands\Activate.cs" />
+    <Compile Include="Client\Room\Commands\Battle.cs" />
+    <Compile Include="Client\Room\Commands\Command.cs" />
+    <Compile Include="Client\Room\Commands\Deploy.cs" />
+    <Compile Include="Client\Room\Commands\Draw.cs" />
+    <Compile Include="Client\Room\Commands\LoseLife.cs" />
+    <Compile Include="Client\Room\Commands\SendCardToZone.cs" />
+    <Compile Include="Client\Room\Commands\SetFaceDown.cs" />
+    <Compile Include="Client\Room\Commands\Trigger.cs" />
     <Compile Include="Client\Room\Game.cs" />
     <Compile Include="Client\Room\Input.cs" />
     <Compile Include="Client\Room\Messenger.cs" />
