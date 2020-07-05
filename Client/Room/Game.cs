@@ -129,6 +129,7 @@ namespace CardGame.Client.Room {
 				await command.Execute(Gfx);
 				Gfx.RemoveAll();
 			}
+			Commands.Clear();
 			Player.SetState(stateAfterExecution);
 			Player.Reset();
 			Opponent.Reset();
