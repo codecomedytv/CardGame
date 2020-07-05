@@ -127,6 +127,7 @@ namespace CardGame.Client.Room {
 			foreach (var command in Commands)
 			{
 				await command.Execute(Gfx);
+				Gfx.RemoveAll();
 			}
 			Player.SetState(stateAfterExecution);
 			Player.Reset();
