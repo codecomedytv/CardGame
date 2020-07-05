@@ -6,7 +6,8 @@ namespace CardGame.Server.Game
 {
     public class CardCatalog : IEnumerable<Card>
     {
-        private int NextCardId = 0;
+        // We keep 0 as an identifier for null card clientside
+        private int NextCardId = 1;
         private readonly Godot.Collections.Dictionary<int, Card> CardsById = new Godot.Collections.Dictionary<int, Card>();
         
         public void RegisterCard(Card card)
