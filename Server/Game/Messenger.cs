@@ -18,6 +18,8 @@ namespace CardGame.Server.Game.Network {
 		public Action<int, int> SetFaceDown;
 		public Action<int, int> Target;
 		public Action<int> PassPlay;
+		
+		[Master]
 		public Action<int> EndTurn;
 		
 		

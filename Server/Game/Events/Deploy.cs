@@ -19,8 +19,8 @@ namespace CardGame.Server.Game.Events
 
         public override void SendMessage(Message message)
         {
-            message(Controller.Id, "QueueDeploy", Card.Id);
-            message(Controller.Opponent.Id, "QueueDeploy", Card.Id, Card.SetCode);
+            message(Controller.Id, "QueueDeploy", Card.Id, Card.SetCode, !IsOpponent);
+            message(Controller.Opponent.Id, "QueueDeploy", Card.Id, Card.SetCode, IsOpponent);
         }
     }
 }

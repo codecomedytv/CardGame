@@ -137,19 +137,27 @@ namespace CardGame.Client.Room {
 		{
 			if(isOpponent) {Opponent.Draw(CardCatalog.Fetch(id));} else {Player.Draw(CardCatalog.Fetch(id));} 
 		}
-		
-		public void OnDeployQueued(int id)
-		{
-			var card = CardCatalog.Fetch(id);
-			Player.Deploy(card, false);
-		}
 
-		public void OnDeployQueued(int id, SetCodes setCode)
+		public void OnDeployQueued(int id, SetCodes setCode, bool isOpponent)
 		{
 			var card = CardCatalog.Fetch(id, setCode);
-			card.Player = Opponent;
-			Opponent.Deploy(card, true);
+			if (isOpponent)
+			{
+				card.Player = Opponent;
+				Opponent.Deploy(card, true);
+			}
+			else
+			{
+				Player.Deploy(card, false);
+			}
 		}
+
+		// public void OnDeployQueued(int id, SetCodes setCode)
+		// {
+		// 	var card = CardCatalog.Fetch(id, setCode);
+		// 	card.Player = Opponent;
+		// 	Opponent.Deploy(card, true);
+		// }
 
 		public void OnSetFaceDownQueued(int id, bool isOpponent)
 		{
