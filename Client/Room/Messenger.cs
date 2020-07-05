@@ -18,7 +18,6 @@ namespace CardGame.Client.Room
         [Signal] public delegate void Trigger();
         [Signal] public delegate void BattleUnit();
         [Signal] public delegate void ExecutedEvents();
-        [Signal] public delegate void DisconnectPlayer();
         [Signal] public delegate void SendCardToZone();
         [Signal] public delegate void LoseLife();
 
