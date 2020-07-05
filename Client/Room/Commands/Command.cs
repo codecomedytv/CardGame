@@ -1,6 +1,8 @@
+using System;
 using System.Threading.Tasks;
 using CardGame.Client.Library;
 using Godot;
+using Object = Godot.Object;
 
 namespace CardGame.Client.Room.Commands
 {
@@ -44,6 +46,19 @@ namespace CardGame.Client.Room.Commands
             var nextPosition = blank.RectGlobalPosition;
             zone.RemoveChild(blank);
             return nextPosition;
+        }
+        
+        protected Control GetZone(Player player, ZoneIds zoneId)
+        {
+            return zoneId switch
+            {
+                ZoneIds.Deck => player.Deck,
+                ZoneIds.Graveyard => player.Discard,
+                ZoneIds.Field => player.Units,
+                ZoneIds.Support => player.Support,
+                ZoneIds.Hand => player.Hand,
+                _ => throw new ArgumentOutOfRangeException(nameof(zoneId), zoneId, null)
+            };
         }
     }
 }

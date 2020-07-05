@@ -93,16 +93,6 @@ namespace CardGame.Client.Room
             zone.Notification(Container.NotificationSortChildren);
         }
 
-        private Vector2 FuturePosition(Container zone)
-        {
-            var blank = CheckOut.Fetch(0, SetCodes.NullCard);
-            zone.AddChild(blank);
-            Sort(zone);
-            var nextPosition = blank.RectGlobalPosition;
-            zone.RemoveChild(blank);
-            return nextPosition;
-        }
-
         public void Battle(Card attacker, Card defender, bool isOpponent)
         { 
             // This is imperfect because it is a synchronization based
@@ -133,25 +123,7 @@ namespace CardGame.Client.Room
         {
             Damage.Visible = show;
         }
-
-        public void SendCardToZone(Card card, ZoneIds zoneId)
-        {
-            var zone = GetZone(zoneId);
-            QueueCallback(card, Delay, nameof(Card.MoveZone), card.GetParent(), zone);
-            QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, zone.RectGlobalPosition, Delay, Delay);
-        }
-
-        private Control GetZone(ZoneIds zoneId)
-        {
-            return zoneId switch
-            {
-                ZoneIds.Deck => Deck,
-                ZoneIds.Graveyard => Discard,
-                ZoneIds.Field => Units,
-                ZoneIds.Support => Support,
-                ZoneIds.Hand => Hand,
-                _ => throw new ArgumentOutOfRangeException(nameof(zoneId), zoneId, null)
-            };
-        }
     }
+
+        
 }
