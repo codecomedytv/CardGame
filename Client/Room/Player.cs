@@ -117,12 +117,6 @@ namespace CardGame.Client.Room
         
         public void Activate(Card card, bool isOpponent = false)
         {
-            // if (isOpponent)
-            // {
-            //     Support.RemoveChild(Support.GetChild(Support.GetChildCount() - 1));
-            //     Support.AddChild(card);
-            //     card.FlipFaceDown();
-            // }
             QueueCallback(card, Delay, nameof(card.FlipFaceUp));
             QueueCallback(card, Delay, nameof(card.AddToChain));
         }

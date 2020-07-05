@@ -167,42 +167,26 @@ namespace CardGame.Client.Room {
 			}
 		}
 		
-		
 		private void OnDrawQueued(int id = 0, bool isOpponent = false)
 		{
-			if(isOpponent) {Opponent.Draw(CardCatalog.Fetch(id));} else {Player.Draw(CardCatalog.Fetch(id));} 
+			GetPlayer(isOpponent).Draw(CardCatalog.Fetch(id));
 		}
 
 		public void OnDeployQueued(int id, SetCodes setCode, bool isOpponent)
 		{
-			var card = CardCatalog.Fetch(id); //, setCode);
-			if (isOpponent)
-			{
-				Opponent.Deploy(card);
-			}
-			else
-			{
-				Player.Deploy(card);
-			}
+			GetPlayer(isOpponent).Deploy(CardCatalog.Fetch(id));
 		}
 		
 		public void OnSetFaceDownQueued(int id, bool isOpponent)
 		{
-			if(isOpponent) {Opponent.SetFaceDown(CardCatalog.Fetch(id), true);} else Player.SetFaceDown(CardCatalog.Fetch(id), false);
+			GetPlayer(isOpponent).SetFaceDown(CardCatalog.Fetch(id), isOpponent);
 		}
 		
 		public void OnActivationQueued(int id, SetCodes setCode, int positionInLink, bool isOpponent)
 		{
 			var card = CardCatalog.Fetch(id, setCode);
 			card.ChainIndex = positionInLink;
-			if (isOpponent)
-			{
-				Opponent.Activate(card);
-			}
-			else
-			{
-				Player.Activate(card);
-			}
+			GetPlayer(isOpponent).Activate(card);
 		}
 
 		
@@ -210,28 +194,14 @@ namespace CardGame.Client.Room {
 		{
 			var card = CardCatalog.Fetch(id);
 			card.ChainIndex = positionInLink;
-			if (card.Player == Player)
-			{
-				Player.Trigger(card);
-			}
-			else
-			{
-				Opponent.Trigger(card);
-			}
+			Player.Trigger(card); // It doesn't really matter who triggers this
 		}
 		
 		public void OnUnitBattled(int attackerId, int defenderId, bool isOpponent)
 		{
 			var attacker = CardCatalog.Fetch(attackerId);
 			var defender = CardCatalog.Fetch(defenderId);
-			if (isOpponent)
-			{
-				Opponent.Battle(attacker, defender, true);
-			}
-			else
-			{
-				Player.Battle(attacker, defender, false);
-			}
+			GetPlayer(isOpponent).Battle(attacker, defender, isOpponent);
 		}
 
 		public void OnCardSentToZone(int cardId, ZoneIds zoneId)
@@ -249,7 +219,7 @@ namespace CardGame.Client.Room {
 
 		public void OnLifeLost(int lifeLost, bool isOpponent)
 		{
-			if (isOpponent) { Opponent.LoseLife(lifeLost); } else { Player.LoseLife(lifeLost); }
+			GetPlayer(isOpponent).LoseLife(lifeLost);
 		}
 
 		public void _Connect(Godot.Object emitter, string signal, Godot.Object receiver, string method)
@@ -260,6 +230,8 @@ namespace CardGame.Client.Room {
 				GD.PushWarning(err.ToString());
 			}
 		}
+
+		private Player GetPlayer(bool isOpponent = false) => isOpponent ? Opponent : Player;
 
 	}
 	
