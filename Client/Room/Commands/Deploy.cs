@@ -14,9 +14,15 @@ namespace CardGame.Client.Room.Commands
             Player = player;
             Card = card;
         }
-        protected override Task<object[]> Execute()
+        protected override async Task<object[]> Execute()
         {
-            throw new System.NotImplementedException();
+            QueueProperty(Card, "RectGlobalPosition", Card.RectGlobalPosition, FuturePosition(Player.Units), 0.2F, 0);
+            
+            // This really doesn't need to be a callback does it?
+            QueueCallback(Card.GetParent(), 0.2F, "remove_child", Card);
+            QueueCallback(Player.Units, 0.2F, "add_child", Card);
+            Gfx.Start();
+            return await ToSignal(Gfx, "tween_all_completed");
         }
     }
 }

@@ -85,12 +85,23 @@ namespace CardGame.Client.Library.Cards
 		
 		public void AddToChain()
 		{
+			GD.Print("Add To Chain");
 			ChainLink.Frame = 0;
 			ChainLink.Visible = true;
 			ChainIndexDisplay.Text = ChainIndex.ToString();
 			ChainLink.Play();
 		}
-		
+
+		public override void _ExitTree()
+		{
+			GD.Print($"{this} is exiting the tree");
+		}
+
+		public override void _EnterTree()
+		{
+			GD.Print($"{this} is Entering The Tree");
+		}
+
 		public void SetData(BaseCard card)
 		{
 			Title = card.Title;

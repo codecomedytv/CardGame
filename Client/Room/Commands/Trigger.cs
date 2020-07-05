@@ -14,9 +14,11 @@ namespace CardGame.Client.Room.Commands
             PositionInLink = positionInLink;
         }
         
-        protected override Task<object[]> Execute()
+        protected override async Task<object[]> Execute()
         {
-            throw new System.NotImplementedException();
+            QueueCallback(Card, 0.1F, nameof(Card.AddToChain));
+            Gfx.Start();
+            return await ToSignal(Gfx, "tween_all_completed");
         }
     }
 }

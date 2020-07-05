@@ -82,33 +82,7 @@ namespace CardGame.Client.Room {
 			// This may need to be tracked (so we don't end up doing something like replacing a card that hasn't been
 			// drawn yet?
 			var card = CardCatalog.Fetch(id, setCode);
-			card.Player = Opponent;
-			switch (zoneId)
-			{
-				case ZoneIds.Hand:
-				{
-					var old = Opponent.Hand.GetChild(0);
-					Opponent.Hand.RemoveChild(old);
-					Opponent.Hand.AddChild(card);
-					Opponent.Sort(Opponent.Hand);
-					break;
-				}
-				case ZoneIds.Support:
-				{
-					foreach (Card oldCard in Opponent.Support.GetChildren())
-					{
-						if (!oldCard.IsFaceUp) continue;
-						var index = oldCard.GetPositionInParent();
-						Opponent.Support.RemoveChild(oldCard);
-						Opponent.Support.AddChild(card);
-						Opponent.Support.MoveChild(card, index);
-						Opponent.Sort(Opponent.Support);
-						oldCard.Free();
-						return;
-					}
-					break;
-				}
-			}
+			Commands.Add(new RevealCard(Opponent, card, zoneId));
 		}
 
 		public void OnCardUpdated(int id, CardStates state, IEnumerable<int> attackTargets, IEnumerable<int> targets)

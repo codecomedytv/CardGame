@@ -70,37 +70,6 @@ namespace CardGame.Client.Room
             }
         }
         
-        public void Deploy(Card card)
-        {
-            QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Units), 0.3F, Delay);
-            QueueCallback(card.GetParent(), AddDelay(0.3F), "remove_child", card);
-            QueueCallback(Units, Delay, "add_child", card);
-        }
-
-        public void SetFaceDown(Card card, bool isOpponent)
-        {
-            if (isOpponent)
-            {
-                card.Free();
-                card = (Card) Hand.GetChild(0);
-            }
-            QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Support), 0.3F, Delay);
-            QueueCallback(card, Delay, nameof(card.FlipFaceDown));
-            QueueCallback(card.GetParent(), AddDelay(0.3F), "remove_child", card);
-            QueueCallback(Support, Delay, "add_child", card);
-        }
-        
-        public void Activate(Card card, bool isOpponent = false)
-        {
-            QueueCallback(card, Delay, nameof(card.FlipFaceUp));
-            QueueCallback(card, Delay, nameof(card.AddToChain));
-        }
-
-        public void Trigger(Card card)
-        {
-            QueueCallback(card, AddDelay(0.1F), nameof(card.AddToChain));
-        }
-        
         private float AddDelay(float delay)
         {
             Delay += delay;

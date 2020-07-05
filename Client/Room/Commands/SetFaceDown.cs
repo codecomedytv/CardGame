@@ -16,9 +16,22 @@ namespace CardGame.Client.Room.Commands
             IsOpponent = isOpponent;
         }
 
-        protected override Task<object[]> Execute()
+        protected override async Task<object[]> Execute()
         {
-            throw new System.NotImplementedException();
+            if (IsOpponent)
+            {
+                var toBeReplaced = Player.Hand.GetChild(Player.Hand.GetChildCount() - 1);
+                Player.Hand.RemoveChild(toBeReplaced);
+                toBeReplaced.Free(); // This may cause problems if we implement undo
+                Player.Hand.AddChild(Card);
+                Sort(Player.Hand);
+            }
+            QueueProperty(Card, "RectGlobalPosition", Card.RectGlobalPosition, FuturePosition(Player.Support), 0.2F, 0);
+            QueueCallback(Card, 0, nameof(Card.FlipFaceDown));
+            QueueCallback(Card.GetParent(), 0.2F, "remove_child", Card);
+            QueueCallback(Player.Support, 0.2F, "add_child", Card);
+            Gfx.Start();
+            return await ToSignal(Gfx, "tween_all_completed");
         }
     }
 }
