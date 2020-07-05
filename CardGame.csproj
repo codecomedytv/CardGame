@@ -82,6 +82,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\Game\CardCatalog.cs" />
+    <Compile Include="Server\Game\Cards\NullCard.cs" />
     <Compile Include="Server\Game\Cards\Support.cs" />
     <Compile Include="Server\Game\Cards\Unit.cs" />
     <Compile Include="Server\Game\Events\Activate.cs" />

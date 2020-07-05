@@ -31,8 +31,15 @@ namespace CardGame.Server.Game.Network {
 		public Messenger()
 		{
 			Name = "Messenger";
-			Message = RpcId;
+			Message = SendMessage;
 		}
+
+		public object SendMessage(int id, string method, params object[] args)
+		{
+			var arguments = args.ToList();
+			return RpcId(id, method, arguments);
+		}
+		
 		public virtual void OnPlayExecuted(Event gameEvent) => gameEvent.SendMessage(Message);
 
 		public virtual void Update(IEnumerable<Card> cards, IEnumerable<Player> players)

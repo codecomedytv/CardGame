@@ -44,36 +44,17 @@ namespace CardGame.Client.Room
 
         [Puppet] public void Disqualify() => EmitSignal(nameof(Disqualified));
         [Puppet] public void ExecuteEvents(States stateAfterExecution) => EmitSignal(nameof(ExecutedEvents), stateAfterExecution);
-
-        [Puppet]
-        public void UpdateCard(int id, CardStates state, IEnumerable<int> attackTargets, IEnumerable<int> targets)
-        {
-            EmitSignal(nameof(CardUpdated), id, state, attackTargets, targets);
-        }
-        
-        [Puppet] public void LoadDeck(Godot.Collections.Dictionary<int, SetCodes> deck) => EmitSignal(nameof(DeckLoaded), deck);
-        
-        [Puppet] public void Draw(int id, bool isOpponent) => EmitSignal(nameof(DrawQueued), id, isOpponent);
-        
-        [Puppet] public void QueueDeploy(int id, SetCodes setCode, bool isOpponent) => EmitSignal(nameof(DeployQueued), id, setCode, isOpponent);
-        
-        [Puppet] public void QueueSetFaceDown(int id, bool isOpponent) => EmitSignal(nameof(SetFaceDownQueued), id, isOpponent);
-
-        [Puppet]
-        public void Activation(int id, SetCodes setCode, int positionInLink, bool isOpponent)
-        {
-            EmitSignal(nameof(ActivationQueued), id, setCode, positionInLink, isOpponent);
-        }
-
-        [Puppet] public void Trigger(int id, int positionInLink) => EmitSignal(nameof(TriggerQueued), id, positionInLink);
-        
-        [Puppet] public void BattleUnit(int attackerId, int defenderId, bool isOpponentAttacking) => EmitSignal(nameof(UnitBattled), attackerId, defenderId, isOpponentAttacking);
-
+        [Puppet] public void UpdateCard(params object[] args) => EmitSignal(nameof(CardUpdated), args);
+        [Puppet] public void LoadDeck(params object[] args) => EmitSignal(nameof(DeckLoaded), args);
+        [Puppet] public void Draw(params object[] args) => EmitSignal(nameof(DrawQueued), args);
+        [Puppet] public void QueueDeploy(params object[] args) => EmitSignal(nameof(DeployQueued), args);
+        [Puppet] public void QueueSetFaceDown(params object[] args) => EmitSignal(nameof(SetFaceDownQueued), args);
+        [Puppet] public void Activation(params object[] args) { EmitSignal(nameof(ActivationQueued), args); }
+        [Puppet] public void Trigger(params object[] args) => EmitSignal(nameof(TriggerQueued), args);
+        [Puppet] public void BattleUnit(params object[] args) => EmitSignal(nameof(UnitBattled), args);
         [Puppet] public void ForceDisconnected(int reason) => EmitSignal(nameof(DisconnectPlayer), reason);
-
-        [Puppet] public void SentToZone(int cardId, ZoneIds zoneId) =>EmitSignal(nameof(CardSentToZone), cardId, zoneId);
-
-        [Puppet] public void LoseLife(int lifeLost, bool isOpponent) => EmitSignal(nameof(LifeLost), lifeLost, isOpponent);
+        [Puppet] public void SentToZone(params object[] args) =>EmitSignal(nameof(CardSentToZone), args);
+        [Puppet] public void LoseLife(params object[] args) => EmitSignal(nameof(LifeLost), args);
 
         public void DeclareDeploy(int cardId) => RpcId(ServerId, "OnDeployDeclared", Id, cardId);
 

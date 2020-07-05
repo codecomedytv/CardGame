@@ -184,8 +184,6 @@ namespace CardGame.Tests.Scripts.Serverside
 	        var support = Player.Hand[0].Id;
 	        Assert.IsFalse(s.IsReady, "Card is not ready in hand");
 	        Play.SetFaceDown(Player.Id, support);
-	        //Play.PassPlay(Opponent.Id);
-	        //Play.PassPlay(Player.Id);
 	        Assert.IsFalse(s.IsReady, "Card is not ready when set");
 	        Play.Activate(Player.Id, support);
 	        Assert.IsFalse(s.IsReady, "Card is not ready when activated");
