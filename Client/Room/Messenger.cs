@@ -8,53 +8,29 @@ namespace CardGame.Client.Room
 {
     public class Messenger: Control
     {
-        [Signal] public delegate void CardUpdated();
-        [Signal] public delegate void DeckLoaded();
-        
+        [Signal] public delegate void UpdateCard();
+        [Signal] public delegate void LoadDeck();
         [Signal] public delegate void Disqualified();
-
-        [Signal] public delegate void DrawQueued();
-
-        [Signal] public delegate void DeployQueued();
-
-        [Signal] public delegate void SetFaceDownQueued();
-
-        [Signal] public delegate void ActivationQueued();
-
-        [Signal] public delegate void TriggerQueued();
-        
-        [Signal] public delegate void CardDestroyed();
-        
-        [Signal] public delegate void UnitBattled();
-
+        [Signal] public delegate void Draw();
+        [Signal] public delegate void Deploy();
+        [Signal] public delegate void SetFaceDown();
+        [Signal] public delegate void Activate();
+        [Signal] public delegate void Trigger();
+        [Signal] public delegate void BattleUnit();
         [Signal] public delegate void ExecutedEvents();
-
         [Signal] public delegate void DisconnectPlayer();
-
-        [Signal] public delegate void CardSentToZone();
-
-        [Signal] public delegate void LifeLost();
+        [Signal] public delegate void SendCardToZone();
+        [Signal] public delegate void LoseLife();
 
         private const int ServerId = 1;
         public int Id = 0;
 
         public Messenger() => Name = "Messenger";
-        
-        public void SetReady() => RpcId(ServerId, "SetReady", Id); // Complains about no network peer being assigned?
-
+        public void SetReady() => RpcId(ServerId, "SetReady", Id);
         [Puppet] public void Disqualify() => EmitSignal(nameof(Disqualified));
-        [Puppet] public void ExecuteEvents(States stateAfterExecution) => EmitSignal(nameof(ExecutedEvents), stateAfterExecution);
-        [Puppet] public void UpdateCard(params object[] args) => EmitSignal(nameof(CardUpdated), args);
-        [Puppet] public void LoadDeck(params object[] args) => EmitSignal(nameof(DeckLoaded), args);
-        [Puppet] public void Draw(params object[] args) => EmitSignal(nameof(DrawQueued), args);
-        [Puppet] public void Deploy(params object[] args) => EmitSignal(nameof(DeployQueued), args);
-        [Puppet] public void SetFaceDown(params object[] args) => EmitSignal(nameof(SetFaceDownQueued), args);
-        [Puppet] public void Activate(params object[] args) { EmitSignal(nameof(ActivationQueued), args); }
-        [Puppet] public void Trigger(params object[] args) => EmitSignal(nameof(TriggerQueued), args);
-        [Puppet] public void BattleUnit(params object[] args) => EmitSignal(nameof(UnitBattled), args);
         [Puppet] public void ForceDisconnected(int reason) => EmitSignal(nameof(DisconnectPlayer), reason);
-        [Puppet] public void SentToZone(params object[] args) =>EmitSignal(nameof(CardSentToZone), args);
-        [Puppet] public void LoseLife(params object[] args) => EmitSignal(nameof(LifeLost), args);
+        [Puppet] public void ExecuteEvents(States stateAfterExecution) => EmitSignal(nameof(ExecutedEvents), stateAfterExecution);
+        [Puppet] public void Queue(string signal, params object[] args) => EmitSignal(signal, args);
 
         public void DeclareDeploy(int cardId) => RpcId(ServerId, "OnDeployDeclared", Id, cardId);
 
