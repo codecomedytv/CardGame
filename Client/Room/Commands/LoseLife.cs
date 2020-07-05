@@ -1,8 +1,18 @@
-﻿namespace CardGame.Client.Room.Commands
+﻿using Godot;
+
+namespace CardGame.Client.Room.Commands
 {
     public class LoseLife: Command
     {
-        public override void Execute()
+        private readonly Player Player;
+        private readonly int LifeLost;
+        public LoseLife(Player player, int lifeLost)
+        {
+            Player = player;
+            LifeLost = lifeLost;
+        }
+
+        public override void Execute(Tween gfx)
         {
             throw new System.NotImplementedException();
         }

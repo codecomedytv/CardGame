@@ -1,13 +1,9 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO.Ports;
 using System.Threading.Tasks;
-using CardGame.Client.Library;
 using CardGame.Client.Library.Cards;
 using CardGame.Client.Room.Commands;
-using CardGame.Server.Game.Events;
 using Godot;
 
 namespace CardGame.Client.Room {
@@ -81,6 +77,8 @@ namespace CardGame.Client.Room {
 		// A Revealed Card Is Always An Opponent Card
 		public void RevealCard(int id, SetCodes setCode, ZoneIds zoneId)
 		{
+			// This may need to be tracked (so we don't end up doing something like replacing a card that hasn't been
+			// drawn yet?
 			var card = CardCatalog.Fetch(id, setCode);
 			card.Player = Opponent;
 			switch (zoneId)
@@ -169,32 +167,27 @@ namespace CardGame.Client.Room {
 		
 		private void OnDrawQueued(int id = 0, bool isOpponent = false)
 		{
-			GetPlayer(isOpponent).Draw(CardCatalog.Fetch(id));
+			Commands.Add(new Draw(GetPlayer(isOpponent), CardCatalog.Fetch(id)));
 		}
 
 		public void OnDeployQueued(int id, SetCodes setCode, bool isOpponent)
 		{
-			GetPlayer(isOpponent).Deploy(CardCatalog.Fetch(id));
+			Commands.Add(new Deploy(GetPlayer(isOpponent), CardCatalog.Fetch(id)));
 		}
 		
 		public void OnSetFaceDownQueued(int id, bool isOpponent)
 		{
-			GetPlayer(isOpponent).SetFaceDown(CardCatalog.Fetch(id), isOpponent);
+			Commands.Add(new SetFaceDown(GetPlayer(isOpponent), CardCatalog.Fetch(id), isOpponent));
 		}
 		
 		public void OnActivationQueued(int id, SetCodes setCode, int positionInLink, bool isOpponent)
 		{
-			var card = CardCatalog.Fetch(id, setCode);
-			card.ChainIndex = positionInLink;
-			GetPlayer(isOpponent).Activate(card);
+			Commands.Add(new Activate(CardCatalog.Fetch(id), positionInLink));
 		}
-
 		
 		public void OnTriggeredQueued(int id, int positionInLink)
 		{
-			var card = CardCatalog.Fetch(id);
-			card.ChainIndex = positionInLink;
-			Player.Trigger(card); // It doesn't really matter who triggers this
+			Commands.Add(new Trigger(CardCatalog.Fetch(id), positionInLink));
 		}
 		
 		public void OnUnitBattled(int attackerId, int defenderId, bool isOpponent)
@@ -209,17 +202,17 @@ namespace CardGame.Client.Room {
 			var card = CardCatalog.Fetch(cardId);
 			if (card.Player == Player)
 			{
-				Player.SendCardToZone(card, zoneId);
+				Commands.Add(new SendCardToZone(Player, card, zoneId));
 			}
 			else
 			{
-				Opponent.SendCardToZone(card, zoneId);
+				Commands.Add(new SendCardToZone(Opponent, card, zoneId));
 			}
 		}
 
 		public void OnLifeLost(int lifeLost, bool isOpponent)
 		{
-			GetPlayer(isOpponent).LoseLife(lifeLost);
+			Commands.Add(new LoseLife(GetPlayer(isOpponent), lifeLost));
 		}
 
 		public void _Connect(Godot.Object emitter, string signal, Godot.Object receiver, string method)
