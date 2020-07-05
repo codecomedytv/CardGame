@@ -21,7 +21,7 @@ namespace CardGame.Client.Room {
 		protected Player Player;
 		protected Player Opponent;
 		private CardViewer CardViewer;
-		protected Button PassPriority; // Really Just A Pass Button
+		private Button PassPriority; // Really Just A Pass Button
 		private AnimatedSprite ActionButtonAnimation;
 		protected Button EndTurn;
 		private Label DisqualificationNotice;
@@ -36,8 +36,6 @@ namespace CardGame.Client.Room {
 			AddChild(playMat, true);
 			Player = GetNode<Player>("PlayMat/Player");
 			Opponent = GetNode<Player>("PlayMat/Opponent");
-			Player.Opponent = Opponent;
-			Opponent.Opponent = Player;
 			Input = new Input(CardCatalog, Player);
 			CardViewer = GetNode<CardViewer>("PlayMat/Background/CardViewer");
 			PassPriority = GetNode<Button>("PlayMat/Background/ActionButton");
@@ -173,17 +171,10 @@ namespace CardGame.Client.Room {
 			Commands.Add(new Battle(attacker, defender, isOpponent));
 		}
 
-		public void OnCardSentToZone(int cardId, ZoneIds zoneId)
+		public void OnCardSentToZone(int cardId, ZoneIds zoneId, bool isOpponent)
 		{
 			var card = CardCatalog.Fetch(cardId);
-			if (card.Player == Player)
-			{
-				Commands.Add(new SendCardToZone(Player, card, zoneId));
-			}
-			else
-			{
-				Commands.Add(new SendCardToZone(Opponent, card, zoneId));
-			}
+			Commands.Add(new SendCardToZone(GetPlayer(isOpponent), card, zoneId));
 		}
 
 		public void OnLifeLost(int lifeLost, bool isOpponent)

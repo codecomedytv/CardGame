@@ -21,27 +21,20 @@ namespace CardGame.Client.Room
     {
         public States State;
         public int DeckCount = 40;
-        public int Health = 8000;
         public Label Damage;
         public Label Deck;
         public PanelContainer Discard;
-        private Label DiscardCount;
         public HBoxContainer Units;
         public HBoxContainer Support;
         public HBoxContainer Hand;
-        private readonly Tween Gfx = new Tween();
-        private float Delay = 0.0F;
         private AnimatedSprite PlayingState;
-        public Player Opponent;
 
         public override void _Ready()
         {
-            AddChild(Gfx);
             PlayingState = GetNode<AnimatedSprite>("View/PlayingState");
             Damage = GetNode<Label>("Damage");
             Deck = GetNode<Label>("Deck");
             Discard = GetNode<PanelContainer>("Discard");
-            DiscardCount = GetNode<Label>("Discard/Count");
             Units = GetNode<HBoxContainer>("Units");
             Support = GetNode<HBoxContainer>("Support");
             Hand = GetNode<HBoxContainer>("Hand");
