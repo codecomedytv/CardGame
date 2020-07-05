@@ -56,14 +56,14 @@ namespace CardGame.Client.Room
         [Puppet] public void Draw(int id, bool isOpponent) => EmitSignal(nameof(DrawQueued), id, isOpponent);
         
         [Puppet] public void QueueDeploy(int id, SetCodes setCode, bool isOpponent) => EmitSignal(nameof(DeployQueued), id, setCode, isOpponent);
-
-       // [Puppet] public void QueueDeploy(int id, SetCodes setCode) => EmitSignal(nameof(DeployQueued), id, setCode);
-
-        [Puppet] public void QueueSetFaceDown(int id, bool isOpponent) => EmitSignal(nameof(SetFaceDownQueued), id, isOpponent);
         
-        [Puppet] public void Activation(int id, int positionInLink) => EmitSignal(nameof(ActivationQueued), id, positionInLink);
+        [Puppet] public void QueueSetFaceDown(int id, bool isOpponent) => EmitSignal(nameof(SetFaceDownQueued), id, isOpponent);
 
-        [Puppet] public void Activation(int id, SetCodes setCode, int positionInLink) => EmitSignal(nameof(ActivationQueued), id, setCode, positionInLink);
+        [Puppet]
+        public void Activation(int id, SetCodes setCode, int positionInLink, bool isOpponent)
+        {
+            EmitSignal(nameof(ActivationQueued), id, setCode, positionInLink, isOpponent);
+        }
 
         [Puppet] public void Trigger(int id, int positionInLink) => EmitSignal(nameof(TriggerQueued), id, positionInLink);
         

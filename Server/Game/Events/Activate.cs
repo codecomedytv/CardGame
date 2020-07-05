@@ -28,8 +28,8 @@ namespace CardGame.Server.Game.Events
 
         public override void SendMessage(Message message)
         {
-            message(Player.Id, "Activation", Card.Id, PositionInLink);
-            message(Player.Opponent.Id, "Activation", Card.Id, Card.SetCode, PositionInLink);
+            message(Player.Id, "Activation", Card.Id, Card.SetCode, PositionInLink, !IsOpponent);
+            message(Player.Opponent.Id, "Activation", Card.Id, Card.SetCode, PositionInLink, IsOpponent);
         }
     }
 }

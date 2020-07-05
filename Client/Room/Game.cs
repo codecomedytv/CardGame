@@ -151,24 +151,25 @@ namespace CardGame.Client.Room {
 				Player.Deploy(card, false);
 			}
 		}
-
-		// public void OnDeployQueued(int id, SetCodes setCode)
-		// {
-		// 	var card = CardCatalog.Fetch(id, setCode);
-		// 	card.Player = Opponent;
-		// 	Opponent.Deploy(card, true);
-		// }
-
+		
 		public void OnSetFaceDownQueued(int id, bool isOpponent)
 		{
 			if(isOpponent) {Opponent.SetFaceDown(CardCatalog.Fetch(id), true);} else Player.SetFaceDown(CardCatalog.Fetch(id), false);
 		}
 		
-		public void OnActivationQueued(int id, int positionInLink)
+		public void OnActivationQueued(int id, SetCodes setCode, int positionInLink, bool isOpponent)
 		{
-			var card = CardCatalog.Fetch(id);
+			var card = CardCatalog.Fetch(id, setCode);
 			card.ChainIndex = positionInLink;
-			Player.Activate(card);
+			if (isOpponent)
+			{
+				card.Player = Opponent;
+				Opponent.Activate(card, true);
+			}
+			else
+			{
+				Player.Activate(card);
+			}
 		}
 
 		public void OnActivationQueued(int id, SetCodes setCode, int positionInLink)
