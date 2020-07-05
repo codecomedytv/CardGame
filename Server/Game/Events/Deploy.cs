@@ -1,4 +1,5 @@
-﻿using CardGame.Server.Game.Cards;
+﻿using CardGame.Client.Room;
+using CardGame.Server.Game.Cards;
 
 namespace CardGame.Server.Game.Events
 {
@@ -19,6 +20,7 @@ namespace CardGame.Server.Game.Events
         public override void SendMessage(Message message)
         {
             message(Controller.Id, "Deploy", Card.Id, Card.SetCode, !IsOpponent);
+            message(Controller.Opponent.Id, "RevealCard", Card.Id, Card.SetCode, ZoneIds.Hand);
             message(Controller.Opponent.Id, "Deploy", Card.Id, Card.SetCode, IsOpponent);
         }
     }

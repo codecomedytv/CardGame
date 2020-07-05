@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO.Ports;
 using System.Threading.Tasks;
 using CardGame.Client.Library;
 using CardGame.Client.Library.Cards;
@@ -46,6 +48,7 @@ namespace CardGame.Client.Room {
 			DisqualificationNotice = GetNode<Label>("PlayMat/Disqualified");
 			PassPriority.Connect("pressed", this, nameof(OnActionButtonPressed));
 			Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
+			Messenger.Connect(nameof(Messenger.RevealCard), this, nameof(RevealCard));
 			Messenger.Connect(nameof(Messenger.UpdateCard), this, nameof(OnCardUpdated));
 			Messenger.Connect(nameof(Messenger.Disqualified), this, nameof(OnDisqualified));
 			Messenger.Connect(nameof(Messenger.LoadDeck), this, nameof(OnDeckLoaded));
@@ -73,6 +76,39 @@ namespace CardGame.Client.Room {
 			var networkId = CustomMultiplayer.GetNetworkUniqueId();
 			Messenger.Id = networkId;
 			Messenger.CallDeferred("SetReady");
+		}
+		
+		// A Revealed Card Is Always An Opponent Card
+		public void RevealCard(int id, SetCodes setCode, ZoneIds zoneId)
+		{
+			var card = CardCatalog.Fetch(id, setCode);
+			card.Player = Opponent;
+			switch (zoneId)
+			{
+				case ZoneIds.Hand:
+				{
+					var old = Opponent.Hand.GetChild(0);
+					Opponent.Hand.RemoveChild(old);
+					Opponent.Hand.AddChild(card);
+					Opponent.Sort(Opponent.Hand);
+					break;
+				}
+				case ZoneIds.Support:
+				{
+					foreach (Card oldCard in Opponent.Support.GetChildren())
+					{
+						if (!oldCard.IsFaceUp) continue;
+						var index = oldCard.GetPositionInParent();
+						Opponent.Support.RemoveChild(oldCard);
+						Opponent.Support.AddChild(card);
+						Opponent.Support.MoveChild(card, index);
+						Opponent.Sort(Opponent.Support);
+						oldCard.Free();
+						return;
+					}
+					break;
+				}
+			}
 		}
 
 		public void OnCardUpdated(int id, CardStates state, IEnumerable<int> attackTargets, IEnumerable<int> targets)
@@ -139,15 +175,14 @@ namespace CardGame.Client.Room {
 
 		public void OnDeployQueued(int id, SetCodes setCode, bool isOpponent)
 		{
-			var card = CardCatalog.Fetch(id, setCode);
+			var card = CardCatalog.Fetch(id); //, setCode);
 			if (isOpponent)
 			{
-				card.Player = Opponent;
-				Opponent.Deploy(card, true);
+				Opponent.Deploy(card);
 			}
 			else
 			{
-				Player.Deploy(card, false);
+				Player.Deploy(card);
 			}
 		}
 		
@@ -162,8 +197,7 @@ namespace CardGame.Client.Room {
 			card.ChainIndex = positionInLink;
 			if (isOpponent)
 			{
-				card.Player = Opponent;
-				Opponent.Activate(card, true);
+				Opponent.Activate(card);
 			}
 			else
 			{

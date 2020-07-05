@@ -95,14 +95,8 @@ namespace CardGame.Client.Room
             QueueCallback(this, AddDelay(0.2F),"Sort", Hand);
         }
 
-        public void Deploy(Card card, bool isOpponent)
+        public void Deploy(Card card)
         {
-            if (isOpponent)
-            {
-                Hand.RemoveChild(Hand.GetChild(0));
-                Hand.AddChild(card);
-                Sort(Hand);
-            }
             QueueProperty(card, "RectGlobalPosition", card.RectGlobalPosition, FuturePosition(Units), 0.3F, Delay);
             QueueCallback(card.GetParent(), AddDelay(0.3F), "remove_child", card);
             QueueCallback(Units, Delay, "add_child", card);
@@ -123,12 +117,12 @@ namespace CardGame.Client.Room
         
         public void Activate(Card card, bool isOpponent = false)
         {
-            if (isOpponent)
-            {
-                Support.RemoveChild(Support.GetChild(Support.GetChildCount() - 1));
-                Support.AddChild(card);
-                card.FlipFaceDown();
-            }
+            // if (isOpponent)
+            // {
+            //     Support.RemoveChild(Support.GetChild(Support.GetChildCount() - 1));
+            //     Support.AddChild(card);
+            //     card.FlipFaceDown();
+            // }
             QueueCallback(card, Delay, nameof(card.FlipFaceUp));
             QueueCallback(card, Delay, nameof(card.AddToChain));
         }
@@ -155,13 +149,13 @@ namespace CardGame.Client.Room
         {
             Gfx.InterpolateCallback(obj, delay, callback, args1, args2, args3, args4, args5);
         }
-        
-        private static void Sort(Container zone)
+
+        public void Sort(Container zone)
         {
             zone.Notification(Container.NotificationSortChildren);
         }
 
-        private static Vector2 FuturePosition(Container zone)
+        private Vector2 FuturePosition(Container zone)
         {
             var blank = CheckOut.Fetch(0, SetCodes.NullCard);
             zone.AddChild(blank);

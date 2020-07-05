@@ -1,6 +1,7 @@
 ﻿#nullable enable
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Skills;
+using CardGame.Server.Game.Zones;
 
 namespace CardGame.Server.Game.Events
 {
@@ -28,6 +29,7 @@ namespace CardGame.Server.Game.Events
         public override void SendMessage(Message message)
         {
             message(Player.Id, "Activate", Card.Id, Card.SetCode, PositionInLink, !IsOpponent);
+            message(Player.Opponent.Id, "RevealCard", Card.Id, Card.SetCode, ZoneIds.Support);
             message(Player.Opponent.Id, "Activate", Card.Id, Card.SetCode, PositionInLink, IsOpponent);
         }
     }

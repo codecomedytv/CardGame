@@ -33,6 +33,7 @@ namespace CardGame.Client.Library.Cards
 		public readonly List<int> ValidTargets = new List<int>();
 		public readonly List<int> ValidAttackTargets = new List<int>();
 		public bool IsTargeting = false;
+		public bool IsFaceUp => !Back.Visible;
 
 		public void MoveZone(Container oldZone, Container newZone)
 		{
