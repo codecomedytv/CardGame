@@ -47,9 +47,9 @@ namespace CardGame.Client.Room
         [Puppet] public void UpdateCard(params object[] args) => EmitSignal(nameof(CardUpdated), args);
         [Puppet] public void LoadDeck(params object[] args) => EmitSignal(nameof(DeckLoaded), args);
         [Puppet] public void Draw(params object[] args) => EmitSignal(nameof(DrawQueued), args);
-        [Puppet] public void QueueDeploy(params object[] args) => EmitSignal(nameof(DeployQueued), args);
-        [Puppet] public void QueueSetFaceDown(params object[] args) => EmitSignal(nameof(SetFaceDownQueued), args);
-        [Puppet] public void Activation(params object[] args) { EmitSignal(nameof(ActivationQueued), args); }
+        [Puppet] public void Deploy(params object[] args) => EmitSignal(nameof(DeployQueued), args);
+        [Puppet] public void SetFaceDown(params object[] args) => EmitSignal(nameof(SetFaceDownQueued), args);
+        [Puppet] public void Activate(params object[] args) { EmitSignal(nameof(ActivationQueued), args); }
         [Puppet] public void Trigger(params object[] args) => EmitSignal(nameof(TriggerQueued), args);
         [Puppet] public void BattleUnit(params object[] args) => EmitSignal(nameof(UnitBattled), args);
         [Puppet] public void ForceDisconnected(int reason) => EmitSignal(nameof(DisconnectPlayer), reason);

@@ -128,11 +128,7 @@ namespace CardGame.Client.Room {
 			}
 		}
 		
-		public void OnCardStateSet(int id, CardStates state)
-		{
-			CardCatalog.Fetch(id).State = state;
-		}
-
+		
 		private void OnDrawQueued(int id = 0, bool isOpponent = false)
 		{
 			if(isOpponent) {Opponent.Draw(CardCatalog.Fetch(id));} else {Player.Draw(CardCatalog.Fetch(id));} 
