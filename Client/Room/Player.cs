@@ -22,23 +22,27 @@ namespace CardGame.Client.Room
     {
         public States State;
         public int DeckCount { get; set; }
-        public Label Damage;
-        public Zone Deck;
-        public Zone Discard;
-        public Zone Units;
-        public Zone Support;
-        public Zone Hand;
+        public readonly Label Damage;
+        public readonly Zone Deck;
+        public readonly Zone Discard;
+        public readonly Zone Units;
+        public readonly Zone Support;
+        public readonly Zone Hand;
         private AnimatedSprite PlayingState;
         public  void Initialize(Control view)
         {
-            PlayingState = view.GetNode<AnimatedSprite>("View/PlayingState");
+        }
+
+        public Player(View.Player view)
+        {
             DeckCount = 40;
-            Damage = view.GetNode<Label>("Damage");
-            Deck = new Zone(view.GetNode<Container>("Deck"));
-            Discard = new Zone(view.GetNode<Container>("Discard"));
-            Units = new Zone(view.GetNode<Container>("Units"));
-            Support = new Zone(view.GetNode<Container>("Support"));;
-            Hand = new Zone(view.GetNode<Container>("Hand"));
+            Damage = view.Damage;
+            Deck = new Zone(view.Deck);
+            Discard = new Zone(view.Discard);
+            Units = new Zone(view.Units);
+            Support = new Zone(view.Support);
+            Hand = new Zone(view.Hand);
+            PlayingState = view.PlayingState;
         }
         
         public void SetState(States state)

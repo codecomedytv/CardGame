@@ -1,16 +1,20 @@
-﻿using Godot;
+﻿using System;
+using Godot;
+using Godot.Collections;
 
 namespace CardGame.Client.Room.View
 {
+    // ReSharper disable once ClassNeverInstantiated.Global
     public class PlayMat: Control
     {
-        public Control Player;
-        public Control Opponent;
+        public Player Player;
+        public Player Opponent;
 
         public override void _Ready()
         {
-            Player = GetNode<Control>("Player");
-            Opponent = GetNode<Control>("Opponent");
+            Player = GetNode<Player>("Player");
+            Opponent = GetNode<Player>("Opponent");
         }
+        
     }
 }

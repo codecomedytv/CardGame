@@ -1,3 +1,5 @@
+using System;
+using System.Reflection;
 using CardGame.Client.Room;
 using CardGame.Client.Room.View;
 using Godot;
@@ -10,14 +12,16 @@ namespace CardGame.Client {
 	{
 		private const string Ip = "127.0.0.1";
 		private const int Port = 5000;
-		private readonly Game Game = new Game();
+		private readonly PackedScene PlayMat = (PackedScene) GD.Load("res://Client/Room/View/PlayMat.tscn");
+		private readonly CSharpScript GameType = (CSharpScript) GD.Load("res://Client/Room/Game.cs");
+		private readonly Type GameX = typeof(Game);
 		private DeckList DeckList = new DeckList();
 		public NetworkedMultiplayerENet Client;
 
 		public ClientConn() { }
-		public ClientConn(Game game)
+		public ClientConn(CSharpScript gameType)
 		{
-			Game = game;
+			GameType = gameType;
 		}
 
 		public override void _Ready() {}
@@ -42,11 +46,14 @@ namespace CardGame.Client {
 		public void OnFailed() { GD.Print("Connection Failed"); }
 
 		[Puppet]
-		public void CreateRoom(string gameId, int seatPosition){
-			var room = new Game();
-			Game.Name = gameId;
-			AddChild(Game);
-			Game.SetUp();
+		public void CreateRoom(string gameId, int seatPosition)
+		{
+			var playMat = (PlayMat) PlayMat.Instance();
+			AddChild(playMat);
+			var game = (Game) GameType.New(playMat);
+			game.Name = gameId;
+			AddChild(game);
+			game.SetUp();
 		}
 
 	}

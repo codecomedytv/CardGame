@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CardGame.Client.Library.Cards;
 using CardGame.Client.Room.Commands;
+using CardGame.Client.Room.View;
 using Godot;
 
 namespace CardGame.Client.Room {
@@ -13,7 +14,8 @@ namespace CardGame.Client.Room {
 	{
 		[Signal]
 		public delegate void StateSet();
-		
+
+		private readonly PlayMat PlayMat;
 		private readonly CommandQueue CommandQueue;
 		private readonly CardCatalog CardCatalog;
 		private readonly Messenger Messenger;
@@ -28,11 +30,12 @@ namespace CardGame.Client.Room {
 		private CardViewer CardViewer;
 		protected Button EndTurn;
 
-		public Game()
+		public Game(PlayMat playMat)
 		{
+			PlayMat = playMat;
 			Gfx = new Tween();
-			Player = new Player();
-			Opponent = new Player();
+			Player = new Player(playMat.Player);
+			Opponent = new Player(playMat.Opponent);
 			CardCatalog = new CardCatalog();
 			Messenger = new Messenger();
 			CommandQueue = new CommandQueue(CardCatalog, Player, Opponent, Gfx);
@@ -47,18 +50,14 @@ namespace CardGame.Client.Room {
 		public override void _Ready()
 		{
 			AddChild(Gfx);
-			var playMat = (Control) PlayMat.Instance();
-			playMat.Name = "PlayMat";
-			AddChild(playMat, true);
-			Player.Initialize(playMat.GetNode<Control>("Player"));
-			Opponent.Initialize(playMat.GetNode<Control>("Opponent"));
-			
-			CardViewer = playMat.GetNode<CardViewer>("Background/CardViewer");
+			//Player.Initialize(PlayMat.GetNode<Control>("Player"));
+			//Opponent.Initialize(PlayMat.GetNode<Control>("Opponent"));
+			CardViewer = PlayMat.GetNode<CardViewer>("Background/CardViewer");
 			Input.Connect(nameof(Input.MouseEnteredCard), CardViewer, nameof(CardViewer.OnCardClicked));
-			PassPriority = playMat.GetNode<Button>("Background/ActionButton");
+			PassPriority = PlayMat.GetNode<Button>("Background/ActionButton");
 			ActionButtonAnimation = PassPriority.GetNode<AnimatedSprite>("Glow");
-			EndTurn = playMat.GetNode<Button>("Background/EndTurn");
-			DisqualificationNotice = playMat.GetNode<Label>("Disqualified");
+			EndTurn = PlayMat.GetNode<Button>("Background/EndTurn");
+			DisqualificationNotice = PlayMat.GetNode<Label>("Disqualified");
 			
 			PassPriority.Connect("pressed", this, nameof(OnActionButtonPressed));
 			EndTurn.Connect("pressed", Messenger, nameof(Messenger.DeclareEndTurn));
