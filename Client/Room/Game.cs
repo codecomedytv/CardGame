@@ -32,7 +32,6 @@ namespace CardGame.Client.Room {
 
 		public Game()
 		{
-			// This constructor is protected because we instance it via a Script Resource using script.new()
 			Gfx = new Tween();
 			Player = new Player();
 			Opponent = new Player();
@@ -53,15 +52,15 @@ namespace CardGame.Client.Room {
 			var playMat = (Control) PlayMat.Instance();
 			playMat.Name = "PlayMat";
 			AddChild(playMat, true);
-			Player.Initialize(GetNode<Control>("PlayMat/Player"));
-			Opponent.Initialize(GetNode<Control>("PlayMat/Opponent"));
+			Player.Initialize(playMat.GetNode<Control>("Player"));
+			Opponent.Initialize(playMat.GetNode<Control>("Opponent"));
 			
-			CardViewer = GetNode<CardViewer>("PlayMat/Background/CardViewer");
+			CardViewer = playMat.GetNode<CardViewer>("Background/CardViewer");
 			Input.Connect(nameof(Input.MouseEnteredCard), CardViewer, nameof(CardViewer.OnCardClicked));
-			PassPriority = GetNode<Button>("PlayMat/Background/ActionButton");
+			PassPriority = playMat.GetNode<Button>("Background/ActionButton");
 			ActionButtonAnimation = PassPriority.GetNode<AnimatedSprite>("Glow");
-			EndTurn = GetNode<Button>("PlayMat/Background/EndTurn");
-			DisqualificationNotice = GetNode<Label>("PlayMat/Disqualified");
+			EndTurn = playMat.GetNode<Button>("Background/EndTurn");
+			DisqualificationNotice = playMat.GetNode<Label>("Disqualified");
 			
 			PassPriority.Connect("pressed", this, nameof(OnActionButtonPressed));
 			EndTurn.Connect("pressed", Messenger, nameof(Messenger.DeclareEndTurn));
