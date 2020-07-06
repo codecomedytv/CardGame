@@ -35,11 +35,7 @@ namespace CardGame.Client.Room {
 			Messenger = new Messenger();
 			CommandQueue = new CommandQueue(CardCatalog, Player, Opponent, Gfx);
 			Input = new Input(CardCatalog, Player);
-			CommandQueue.SubscribeTo(Messenger);
-			Messenger.SubscribeTo(Input);
-			Messenger.Connect(nameof(Messenger.Disqualified), this, nameof(OnDisqualified));
-			Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
-			CardCatalog.Connect(nameof(CardCatalog.CardCreated), Input, nameof(Input.OnCardCreated));
+			
 		}
 		
 		public override void _Ready()
@@ -49,9 +45,16 @@ namespace CardGame.Client.Room {
 			Messenger.CustomMultiplayer = GetParent().Multiplayer;
 			var networkId = CustomMultiplayer.GetNetworkUniqueId();
 			Messenger.Id = networkId;
+			
+			CommandQueue.SubscribeTo(Messenger);
+			Messenger.SubscribeTo(Input);
+			Messenger.Connect(nameof(Messenger.Disqualified), this, nameof(OnDisqualified));
+			Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
+			CardCatalog.Connect(nameof(CardCatalog.CardCreated), Input, nameof(Input.OnCardCreated));
 			Input.Connect(nameof(Input.MouseEnteredCard), PlayMat.CardViewer, nameof(CardViewer.OnCardClicked));
 			PlayMat.PassPriority.Connect("pressed", this, nameof(OnActionButtonPressed));
 			PlayMat.EndTurn.Connect("pressed", Messenger, nameof(Messenger.DeclareEndTurn));
+			
 			Messenger.CallDeferred("SetReady");
 		}
 		
