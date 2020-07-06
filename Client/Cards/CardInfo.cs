@@ -1,8 +1,4 @@
-﻿using CardGame.Client.Cards;
-using Godot.Collections;
-using Newtonsoft.Json.Linq;
-
-namespace CardGame.Client
+﻿namespace CardGame.Client.Cards
 {
     public enum CardTypes { Null, Unit, Support };
     public enum CardStates { Passive, CanBeDeployed, CanBeSet, CanBeActivated, CanAttack, Activated }

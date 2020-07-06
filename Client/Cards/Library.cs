@@ -1,15 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.IO;
-using CardGame.Client.Cards;
 using Godot;
-//using Godot.Collections;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq; //using Godot.Collections;
 using File = System.IO.File;
 
-namespace CardGame.Client
+namespace CardGame.Client.Cards
 {
     
     public static class Library
@@ -33,7 +28,7 @@ namespace CardGame.Client
 
         private static ReadOnlyDictionary<SetCodes, CardInfo> Load()
         {
-            var cards = JObject.Parse(File.ReadAllText(@"Client\Library.json"));
+            var cards = JObject.Parse(File.ReadAllText(@"Client/Cards/Library.json"));
             var temp = new Dictionary<SetCodes, CardInfo>();
             foreach (var card in cards)
             {

@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using CardGame.Client.Cards;
 using Godot;
 using Object = Godot.Object;
 
