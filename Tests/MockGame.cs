@@ -12,13 +12,13 @@ namespace CardGame.Tests
         public Player GetPlayerView() => Player;
         public Player GetOpponentView() => Opponent;
         
-        public MockGame(PlayMat playMat) : base(playMat)
+        public MockGame(PlayMat playMat, string id) : base(playMat, id)
         {
         }
 
         public void End()
         {
-            EndTurn.EmitSignal("pressed");
+            PlayMat.EndTurn.EmitSignal("pressed");
         }
 
         public void Pass()

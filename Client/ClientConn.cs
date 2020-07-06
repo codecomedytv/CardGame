@@ -50,10 +50,8 @@ namespace CardGame.Client {
 		{
 			var playMat = (PlayMat) PlayMat.Instance();
 			AddChild(playMat);
-			var game = (Game) GameType.New(playMat);
-			game.Name = gameId;
+			var game = (Game) GameType.New(playMat, gameId);
 			AddChild(game);
-			game.SetUp();
 		}
 
 	}
