@@ -1,4 +1,5 @@
 using CardGame.Client.Room;
+using CardGame.Client.Room.View;
 using Godot;
 using Godot.Collections;
 
@@ -42,7 +43,7 @@ namespace CardGame.Client {
 
 		[Puppet]
 		public void CreateRoom(string gameId, int seatPosition){
-			//var room = new Game();
+			var room = new Game();
 			Game.Name = gameId;
 			AddChild(Game);
 			Game.SetUp();

@@ -14,13 +14,11 @@ namespace CardGame.Client.Room {
 		[Signal]
 		public delegate void StateSet();
 		
-		private readonly PackedScene PlayMat = (PackedScene) ResourceLoader.Load("res://Client/Room/Game.tscn");
 		private readonly CommandQueue CommandQueue;
 		private readonly CardCatalog CardCatalog;
 		private readonly Messenger Messenger;
 		private readonly Input Input;
 		private readonly Tween Gfx;
-
 		protected readonly Player Opponent;
 		protected readonly Player Player;
 		
