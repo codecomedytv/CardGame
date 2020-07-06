@@ -101,9 +101,7 @@
     <Compile Include="addons\WAT\core\test\Recorder.cs" />
     <Compile Include="addons\WAT\core\test\Test.cs" />
     <Compile Include="Client\CardInfo.cs" />
-    <Compile Include="Client\Cards\BaseCard.cs" />
     <Compile Include="Client\Cards\Card.cs" />
-    <Compile Include="Client\Cards\NullCard.cs" />
     <Compile Include="Client\Library.cs" />
     <Compile Include="Client\ClientConn.cs" />
     <Compile Include="Client\DeckList.cs" />

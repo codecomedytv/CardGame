@@ -1,4 +1,0 @@
-﻿namespace CardGame.Client.Cards
-{
-    
-}
