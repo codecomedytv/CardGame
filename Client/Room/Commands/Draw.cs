@@ -20,12 +20,11 @@ namespace CardGame.Client.Room.Commands
             Player.DeckCount -= 1;
             var originalColor = Card.Modulate;
             Card.Modulate = Colors.Transparent;
-            Player.Hand.AddChild(Card);
-            Sort(Player.Hand);
+            Player.Hand.Add(Card);
+            Player.Hand.Sort();
             var destination = Card.RectGlobalPosition;
-            Card.RectGlobalPosition = Player.Deck.RectGlobalPosition;
-            QueueCallback(Player.Deck, 0, "set_text", Player.DeckCount.ToString());
-            QueueProperty(Card, "RectGlobalPosition", Player.Deck.RectGlobalPosition, destination, 0.1F, 0.1F);
+            Card.RectGlobalPosition = Player.Deck.Position;
+            QueueProperty(Card, "RectGlobalPosition", Player.Deck.Position, destination, 0.1F, 0.1F);
             QueueProperty(Card, nameof(Control.Modulate), Colors.Transparent, originalColor, 0.1F, 0.1F);
             Gfx.Start();
             return await ToSignal(Gfx, "tween_all_completed");

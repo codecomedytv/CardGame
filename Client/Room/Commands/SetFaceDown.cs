@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using CardGame.Client.Library.Cards;
 using Godot;
 
@@ -20,16 +21,16 @@ namespace CardGame.Client.Room.Commands
         {
             if (IsOpponent)
             {
-                var toBeReplaced = Player.Hand.GetChild(Player.Hand.GetChildCount() - 1);
-                Player.Hand.RemoveChild(toBeReplaced);
+                var toBeReplaced = Player.Hand.Last();
+                Player.Hand.Remove(toBeReplaced);
                 toBeReplaced.Free(); // This may cause problems if we implement undo
-                Player.Hand.AddChild(Card);
-                Sort(Player.Hand);
+                Player.Hand.Add(Card);
+                Player.Hand.Sort();
             }
             QueueProperty(Card, "RectGlobalPosition", Card.RectGlobalPosition, FuturePosition(Player.Support), 0.2F, 0);
             QueueCallback(Card, 0, nameof(Card.FlipFaceDown));
-            QueueCallback(Card.GetParent(), 0.2F, "remove_child", Card);
-            QueueCallback(Player.Support, 0.2F, "add_child", Card);
+            QueueCallback(Player.Hand, 0.2F, nameof(Zone.Remove), Card);
+            QueueCallback(Player.Support, 0.2F, nameof(Zone.Add), Card);
             Gfx.Start();
             return await ToSignal(Gfx, "tween_all_completed");
         }

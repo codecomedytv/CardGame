@@ -38,17 +38,17 @@ namespace CardGame.Client.Room.Commands
             zone.Notification(Container.NotificationSortChildren);
         }
 
-        protected Vector2 FuturePosition(Container zone)
+        protected Vector2 FuturePosition(Zone zone)
         {
             var blank = CheckOut.Fetch(0, SetCodes.NullCard);
-            zone.AddChild(blank);
-            Sort(zone);
+            zone.Add(blank);
+            zone.Sort();
             var nextPosition = blank.RectGlobalPosition;
-            zone.RemoveChild(blank);
+            zone.Remove(blank);
             return nextPosition;
         }
         
-        protected Control GetZone(Player player, ZoneIds zoneId)
+        protected Zone GetZone(Player player, ZoneIds zoneId)
         {
             return zoneId switch
             {

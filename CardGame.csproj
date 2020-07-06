@@ -87,6 +87,7 @@
     <Compile Include="Client\Library\Cards\Card.cs" />
     <Compile Include="Client\Library\CheckOut.cs" />
     <Compile Include="Client\Room\Player.cs" />
+    <Compile Include="Client\Room\Zone.cs" />
     <Compile Include="Client\Room\ZoneIds.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="GameEvents.cs" />

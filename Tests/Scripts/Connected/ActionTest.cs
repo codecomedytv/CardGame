@@ -26,22 +26,22 @@ namespace CardGame.Tests.Scripts.Connected
         public async void OnUnitInHandDoubleClicked()
         {
             await PlayerState;
-            var toDeploy = (Card) Player.Hand.GetChild(0);
+            var toDeploy = (Card) Player.Hand[0];
             toDeploy.DoubleClick();
             //await ToSignal(UntilSignal(Player, nameof(Player.AnimationFinished), 5), YIELD);
             await PlayerState;
-            Assert.Has(toDeploy, Player.Units.GetChildren(), $"{toDeploy} was Deployed");
+            Assert.Has(toDeploy, Player.Units, $"{toDeploy} was Deployed");
         }
         
         [Test]
         public async void OnSupportInHandDoubleClicked()
         {
             await PlayerState;
-            var toSet = (Card) Player.Hand.GetChild(1);
+            var toSet = (Card) Player.Hand[1];
             toSet.DoubleClick();
             //await ToSignal(UntilSignal(Player, nameof(Player.AnimationFinished), 5), YIELD);
             await PlayerState;
-            Assert.Has(toSet, Player.Support.GetChildren(), $"{toSet} was Set");
+            Assert.Has(toSet, Player.Support, $"{toSet} was Set");
         }
 
         [Test]
@@ -51,14 +51,14 @@ namespace CardGame.Tests.Scripts.Connected
             PlayerMockGame.End();
             PlayerMockGame.Visible = false;
             await OpponentState;
-            Assert.IsEqual(8, Opponent.Hand.GetChildCount(), "Opponent Drew A Card");
+            Assert.IsEqual(8, Opponent.Hand.Count, "Opponent Drew A Card");
         }
 
         [Test]
         public async void OnUnitOnFieldDoubleClicked()
         {
             await PlayerState;
-            var attacker = (Card) Player.Hand.GetChild(2);
+            var attacker = (Card) Player.Hand[2];
             attacker.DoubleClick();
             await OpponentState;
             OpponentMockGame.Pass();
@@ -67,7 +67,7 @@ namespace CardGame.Tests.Scripts.Connected
             await PlayerState;
             PlayerMockGame.End();
             await OpponentState;
-            var defending = (Card) Opponent.Hand.GetChild(0);
+            var defending = (Card) Opponent.Hand[0];
             defending.DoubleClick();
             await PlayerState;
             PlayerMockGame.Pass();
@@ -77,14 +77,14 @@ namespace CardGame.Tests.Scripts.Connected
             OpponentMockGame.End();
             await PlayerState;
             attacker.DoubleClick();
-            OppPlayerFromPlayer.Units.GetChild<Card>(0).DoubleClick(); // Make sure to click the Attacker's copy
+            OppPlayerFromPlayer.Units[0].DoubleClick(); // Make sure to click the Attacker's copy
             await OpponentState;
             OpponentMockGame.Pass();
             await PlayerState;
             PlayerMockGame.Pass();
             await PlayerState;
         
-            Assert.Has(defending, Opponent.Discard.GetChildren(), $"{defending} is in Opponent's Graveyard");
+            Assert.Has(defending, Opponent.Discard, $"{defending} is in Opponent's Graveyard");
 
         }
     }

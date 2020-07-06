@@ -40,11 +40,11 @@ namespace CardGame.Client.Room {
 			Messenger = new Messenger();
 			CommandQueue = new CommandQueue(CardCatalog, Player, Opponent, Gfx);
 			Input = new Input(CardCatalog, Player);
+			CommandQueue.SubscribeTo(Messenger);
+			Messenger.SubscribeTo(Input);
 			Messenger.Connect(nameof(Messenger.Disqualified), this, nameof(OnDisqualified));
 			Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
-			CommandQueue.SubscribeTo(Messenger);
 			Input.Connect(nameof(Input.MouseEnteredCard), CardViewer, nameof(CardViewer.OnCardClicked));
-			Messenger.SubscribeTo(Input);
 			CardCatalog.Connect(nameof(CardCatalog.CardCreated), Input, nameof(Input.OnCardCreated));
 		}
 		
@@ -54,7 +54,6 @@ namespace CardGame.Client.Room {
 			var playMat = (Control) PlayMat.Instance();
 			playMat.Name = "PlayMat";
 			AddChild(playMat, true);
-			
 			Player.Initialize(GetNode<Control>("PlayMat/Player"));
 			Opponent.Initialize(GetNode<Control>("PlayMat/Opponent"));
 			

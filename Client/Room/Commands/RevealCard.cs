@@ -24,25 +24,25 @@ namespace CardGame.Client.Room.Commands
             {
                 case ZoneIds.Hand:
                 {
-                    var old = Player.Hand.GetChild(0);
-                    Player.Hand.RemoveChild(old);
-                    Player.Hand.AddChild(Card);
-                    Sort(Player.Hand);
+                    var old = Player.Hand[0];
+                    Player.Hand.Remove(old);
+                    Player.Hand.Add(Card);
+                    Player.Hand.Sort();
                     break;
                 }
                 case ZoneIds.Support:
                 {
-                    foreach (Card oldCard in Player.Support.GetChildren())
+                    foreach (Card oldCard in Player.Support)
                     {
                         if (oldCard.IsFaceUp)
                         {
                             continue;
                         }
                         var index = oldCard.GetPositionInParent();
-                        Player.Support.RemoveChild(oldCard);
-                        Player.Support.AddChild(Card);
-                        Player.Support.MoveChild(Card, index);
-                        Sort(Player.Support);
+                        Player.Support.Remove(oldCard);
+                        Player.Support.Add(Card);
+                        Player.Support.Move(Card, index);
+                        Player.Support.Sort();
                         oldCard.Free();
                         break;
                     }
