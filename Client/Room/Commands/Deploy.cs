@@ -19,7 +19,7 @@ namespace CardGame.Client.Room.Commands
             QueueProperty(Card, "RectGlobalPosition", Card.RectGlobalPosition, FuturePosition(Player.Units), 0.2F, 0);
             
             // This really doesn't need to be a callback does it?
-            QueueCallback(Card.GetParent(), 0.2F, nameof(Zone.Remove), Card);
+            QueueCallback(Player.Hand, 0.2F, nameof(Zone.Remove), Card);
             QueueCallback(Player.Units, 0.2F, nameof(Zone.Add), Card);
             Gfx.Start();
             return await ToSignal(Gfx, "tween_all_completed");
