@@ -39,8 +39,7 @@ namespace CardGame.Client.Room.Commands
 
         protected Vector2 FuturePosition(Zone zone)
         {
-            var l = new Library();
-            var blank = l.Fetch(0, SetCodes.NullCard);
+            var blank = Library.Fetch(0, SetCodes.NullCard);
             zone.Add(blank);
             zone.Sort();
             var nextPosition = blank.RectGlobalPosition;

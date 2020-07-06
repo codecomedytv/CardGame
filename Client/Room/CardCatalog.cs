@@ -10,7 +10,6 @@ namespace CardGame.Client.Room
     {
         [Signal]
         public delegate void CardCreated();
-        private readonly Library Library = new Library();
         private readonly Dictionary<int, Card> CardsById = new Dictionary<int, Card>();
 
         public Card Fetch(int id, SetCodes setCode = SetCodes.NullCard)

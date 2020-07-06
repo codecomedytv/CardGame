@@ -12,21 +12,17 @@ using File = System.IO.File;
 namespace CardGame.Client
 {
     
-    public class Library
+    public static class Library
     {
-        private readonly ReadOnlyDictionary<SetCodes, CardInfo> Cards; // = Load();
-
-        public Library()
-        {
-            Cards = Load();
-        }
-        public Card Fetch(int id, SetCodes setCode)
+        private static readonly ReadOnlyDictionary<SetCodes, CardInfo> Cards = Load();
+        
+        public static Card Fetch(int id, SetCodes setCode)
         {
             return Create(id, Cards[setCode]);
         }
 
         
-        private Card Create(int id, CardInfo data)
+        private static Card Create(int id, CardInfo data)
         {
             var cardScene = (PackedScene) ResourceLoader.Load("res://Client/Cards/Card.tscn");
             var card = (Card) cardScene.Instance();
@@ -35,7 +31,7 @@ namespace CardGame.Client
             return card;
         }
 
-        private ReadOnlyDictionary<SetCodes, CardInfo> Load()
+        private static ReadOnlyDictionary<SetCodes, CardInfo> Load()
         {
             var cards = JObject.Parse(File.ReadAllText(@"Client\Library.json"));
             var temp = new Dictionary<SetCodes, CardInfo>();
