@@ -49,10 +49,7 @@ namespace CardGame.Client.Room {
 			Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
 			CommandQueue.SubscribeTo(Messenger);
 			Input.Connect(nameof(Input.MouseEnteredCard), CardViewer, nameof(CardViewer.OnCardClicked));
-			Input.Connect(nameof(Input.Deploy), Messenger, nameof(Messenger.DeclareDeploy));
-			Input.Connect(nameof(Input.SetFaceDown), Messenger, nameof(Messenger.DeclareSetFaceDown));
-			Input.Connect(nameof(Input.Activate), Messenger, nameof(Messenger.DeclareActivation));
-			Input.Connect(nameof(Input.Attack), Messenger, nameof(Messenger.DeclareAttack));
+			Messenger.SubscribeTo(Input);
 			CardCatalog.Connect(nameof(CardCatalog.CardCreated), Input, nameof(Input.OnCardCreated));
 			EndTurn.Connect("pressed", Messenger, nameof(Messenger.DeclareEndTurn));
 		}

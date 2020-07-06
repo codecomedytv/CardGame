@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CardGame.Client.Library.Cards;
 using Godot;
 using Godot.Collections;
@@ -26,6 +27,15 @@ namespace CardGame.Client.Room
         public int Id = 0;
 
         public Messenger() => Name = "Messenger";
+
+        public void SubscribeTo(Input input)
+        {
+            object Subscribe(string signal, string method) => (input.Connect(signal, this, method));
+            Subscribe(nameof(Input.Deploy), nameof(DeclareDeploy));
+            Subscribe(nameof(Input.SetFaceDown), nameof(DeclareSetFaceDown));
+            Subscribe(nameof(Input.Activate), nameof(DeclareActivation));
+            Subscribe(nameof(Input.Attack),  nameof(DeclareAttack));
+        }
         public void SetReady() => RpcId(ServerId, "SetReady", Id);
         [Puppet] public void Disqualify() => EmitSignal(nameof(Disqualified));
         [Puppet] public void Execute(States stateAfterExecution) => EmitSignal(nameof(ExecutedEvents), stateAfterExecution);
