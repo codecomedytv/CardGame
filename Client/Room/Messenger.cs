@@ -24,9 +24,9 @@ namespace CardGame.Client.Room
         [Signal] public delegate void LoseLife();
 
         private const int ServerId = 1;
-        public int Id = 0;
+        private int Id => Multiplayer.GetNetworkUniqueId();
 
-        public Messenger() => Name = "Messenger";
+        public Messenger() { Name = "Messenger"; }
 
         public void SubscribeTo(Input input)
         {

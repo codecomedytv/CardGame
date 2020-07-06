@@ -41,11 +41,7 @@ namespace CardGame.Client.Room {
 		public override void _Ready()
 		{
 			AddChild(Gfx);
-			AddChild(Messenger, true);
-			Messenger.CustomMultiplayer = GetParent().Multiplayer;
-			var networkId = CustomMultiplayer.GetNetworkUniqueId();
-			Messenger.Id = networkId;
-			
+			AddChild(Messenger);
 			CommandQueue.SubscribeTo(Messenger);
 			Messenger.SubscribeTo(Input);
 			Messenger.Connect(nameof(Messenger.Disqualified), this, nameof(OnDisqualified));
