@@ -1,4 +1,5 @@
-﻿using CardGame.Client.Library.Cards;
+﻿using System.Linq;
+using CardGame.Client.Library.Cards;
 using Godot;
 using Godot.Collections;
 
@@ -36,9 +37,10 @@ namespace CardGame.Client.Room
         
         public void OnCardCreated(Card card)
         {
-            card.Connect(nameof(Card.MouseEnteredCard), this, nameof(OnMouseEnterCard), new Array {card});
-            card.Connect(nameof(Card.MouseExitedCard), this, nameof(OnMouseExitCard), new Array {card});
-            card.Connect(nameof(Card.DoubleClicked), this, nameof(OnCardDoubleClicked), new Array {card});
+            object Subscribe(string signal, string method, Card c) => (card.Connect(signal, this, method, new Array {c}));
+            Subscribe(nameof(Card.MouseEnteredCard), nameof(OnMouseEnterCard), card);
+            Subscribe(nameof(Card.MouseExitedCard), nameof(OnMouseExitCard), card);
+            Subscribe(nameof(Card.DoubleClicked), nameof(OnCardDoubleClicked), card);
         }
         
         private void OnMouseEnterCard(Card card)
