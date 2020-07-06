@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using CardGame.Client.Library;
 using Godot;
 using Object = Godot.Object;
 
@@ -40,7 +39,8 @@ namespace CardGame.Client.Room.Commands
 
         protected Vector2 FuturePosition(Zone zone)
         {
-            var blank = CheckOut.Fetch(0, SetCodes.NullCard);
+            var l = new Library();
+            var blank = l.Fetch(0, SetCodes.NullCard);
             zone.Add(blank);
             zone.Sort();
             var nextPosition = blank.RectGlobalPosition;

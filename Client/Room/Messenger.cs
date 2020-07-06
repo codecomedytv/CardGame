@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using CardGame.Client.Library.Cards;
+using CardGame.Client.Cards;
 using Godot;
 using Godot.Collections;
 using States = CardGame.Client.Room.States;

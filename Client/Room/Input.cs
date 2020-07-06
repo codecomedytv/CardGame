@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using CardGame.Client.Library.Cards;
+using CardGame.Client.Cards;
 using Godot;
 using Array = Godot.Collections.Array;
 

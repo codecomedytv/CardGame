@@ -51,12 +51,60 @@
       <Private>False</Private>
       <HintPath>$(ProjectDir)/.mono/assemblies/$(ApiConfiguration)/GodotSharpEditor.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.1.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.5.0.0-preview.6.20305.6\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>packages\System.Text.Encodings.Web.5.0.0-preview.6.20305.6\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>packages\System.Text.Json.5.0.0-preview.6.20305.6\lib\net461\System.Text.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="addons\WAT\core\assertions\Assertions.cs" />
     <Compile Include="addons\WAT\core\test\Recorder.cs" />
     <Compile Include="addons\WAT\core\test\Test.cs" />
+    <Compile Include="Client\CardInfo.cs" />
+    <Compile Include="Client\Cards\BaseCard.cs" />
+    <Compile Include="Client\Cards\Card.cs" />
+    <Compile Include="Client\Cards\NullCard.cs" />
+    <Compile Include="Client\Library.cs" />
     <Compile Include="Client\ClientConn.cs" />
     <Compile Include="Client\DeckList.cs" />
     <Compile Include="Client\Room\CardCatalog.cs" />
@@ -74,17 +122,6 @@
     <Compile Include="Client\Room\Game.cs" />
     <Compile Include="Client\Room\Input.cs" />
     <Compile Include="Client\Room\Messenger.cs" />
-    <Compile Include="Client\Library\Alpha\CounterAttack.cs" />
-    <Compile Include="Client\Library\Alpha\DungeonGuide.cs" />
-    <Compile Include="Client\Library\Alpha\GuardPuppy.cs" />
-    <Compile Include="Client\Library\Alpha\NoviceArcher.cs" />
-    <Compile Include="Client\Library\Alpha\NullCard.cs" />
-    <Compile Include="Client\Library\Alpha\QuestReward.cs" />
-    <Compile Include="Client\Library\Alpha\TrainingTrainer.cs" />
-    <Compile Include="Client\Library\Alpha\WrongWay.cs" />
-    <Compile Include="Client\Library\Cards\BaseCard.cs" />
-    <Compile Include="Client\Library\Cards\Card.cs" />
-    <Compile Include="Client\Library\CheckOut.cs" />
     <Compile Include="Client\Room\Player.cs" />
     <Compile Include="Client\Room\View\CardViewer.cs" />
     <Compile Include="Client\Room\View\Player.cs" />
@@ -723,9 +760,13 @@
     <Content Include="Assets\UI\Table.png.import" />
     <Content Include="Assets\UI\test.png" />
     <Content Include="Assets\UI\test.png.import" />
-    <Content Include="Client\Library\Cards\Card.tscn" />
+    <Content Include="Client\Cards\Card.tscn" />
+    <Content Include="Client\Library.json" />
     <Content Include="Client\Room\View\CardViewer.tscn" />
     <Content Include="Client\Room\View\PlayerViewer.tscn" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

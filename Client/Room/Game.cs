@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CardGame.Client.Library.Cards;
 using CardGame.Client.Room.Commands;
 using CardGame.Client.Room.View;
 using Godot;

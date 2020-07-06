@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CardGame.Client.Library.Cards;
+using CardGame.Client.Cards;
 using CardGame.Tests.Scripts;
 using Godot;
 using Object = Godot.Object;

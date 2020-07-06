@@ -1,7 +1,7 @@
-﻿using CardGame.Client.Library.Cards;
+﻿using CardGame.Client.Cards;
 using Godot;
 
-namespace CardGame.Client.Room
+namespace CardGame.Client.Room.View
 {
     public class CardViewer: TextureRect
     {
