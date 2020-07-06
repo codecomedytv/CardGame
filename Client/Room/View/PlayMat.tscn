@@ -9,8 +9,8 @@
 [ext_resource path="res://assets/UI/passbutton.png" type="Texture" id=7]
 [ext_resource path="res://assets/UI/Table.png" type="Texture" id=8]
 [ext_resource path="res://Assets/spritesheets/ovalorange/13.png" type="Texture" id=9]
-[ext_resource path="res://Client/Room/CardViewer.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Client/Room/PlayerViewer.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Client/Room/View/CardViewer.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Client/Room/View/PlayerViewer.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Client/Room/View/PlayMat.cs" type="Script" id=12]
 [ext_resource path="res://Client/Room/View/Player.cs" type="Script" id=13]
 
