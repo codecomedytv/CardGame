@@ -15,19 +15,38 @@ namespace CardGame.Client.Room {
 		public delegate void StateSet();
 		
 		private readonly PackedScene PlayMat = (PackedScene) ResourceLoader.Load("res://Client/Room/Game.tscn");
-		private readonly Messenger Messenger = new Messenger();
-		private readonly CardCatalog CardCatalog = new CardCatalog();
-		private Input Input;
-		private CommandQueue CommandQueue;
-		protected Player Player;
-		protected Player Opponent;
-		private CardViewer CardViewer;
-		private Button PassPriority; // Really Just A Pass Button
-		private AnimatedSprite ActionButtonAnimation;
-		protected Button EndTurn;
+		private readonly CommandQueue CommandQueue;
+		private readonly CardCatalog CardCatalog;
+		private readonly Messenger Messenger;
+		private readonly Input Input;
+		private readonly Tween Gfx;
+
+		protected readonly Player Opponent;
+		protected readonly Player Player;
+		
 		private Label DisqualificationNotice;
-		private Queue<Command> Commands = new Queue<Command>();
-		private Tween Gfx = new Tween();
+		private AnimatedSprite ActionButtonAnimation;
+		private Button PassPriority; // Really Just A Pass Button
+		private CardViewer CardViewer;
+		protected Button EndTurn;
+
+		protected Game()
+		{
+			// This constructor is protected because we instance it via a Script Resource using script.new()
+			Gfx = new Tween();
+			Player = new Player();
+			Opponent = new Player();
+			CardCatalog = new CardCatalog();
+			Messenger = new Messenger();
+			CommandQueue = new CommandQueue(CardCatalog, Player, Opponent, Gfx);
+			Input = new Input(CardCatalog, Player);
+			Messenger.Connect(nameof(Messenger.Disqualified), this, nameof(OnDisqualified));
+			Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
+			CommandQueue.SubscribeTo(Messenger);
+			Input.Connect(nameof(Input.MouseEnteredCard), CardViewer, nameof(CardViewer.OnCardClicked));
+			Messenger.SubscribeTo(Input);
+			CardCatalog.Connect(nameof(CardCatalog.CardCreated), Input, nameof(Input.OnCardCreated));
+		}
 		
 		public override void _Ready()
 		{
@@ -35,22 +54,17 @@ namespace CardGame.Client.Room {
 			var playMat = (Control) PlayMat.Instance();
 			playMat.Name = "PlayMat";
 			AddChild(playMat, true);
-			Player = GetNode<Player>("PlayMat/Player");
-			Opponent = GetNode<Player>("PlayMat/Opponent");
-			CommandQueue = new CommandQueue(CardCatalog, Player, Opponent, Gfx);
-			Input = new Input(CardCatalog, Player);
+			
+			Player.Initialize(GetNode<Control>("PlayMat/Player"));
+			Opponent.Initialize(GetNode<Control>("PlayMat/Opponent"));
+			
 			CardViewer = GetNode<CardViewer>("PlayMat/Background/CardViewer");
 			PassPriority = GetNode<Button>("PlayMat/Background/ActionButton");
 			ActionButtonAnimation = PassPriority.GetNode<AnimatedSprite>("Glow");
 			EndTurn = GetNode<Button>("PlayMat/Background/EndTurn");
 			DisqualificationNotice = GetNode<Label>("PlayMat/Disqualified");
+			
 			PassPriority.Connect("pressed", this, nameof(OnActionButtonPressed));
-			Messenger.Connect(nameof(Messenger.Disqualified), this, nameof(OnDisqualified));
-			Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
-			CommandQueue.SubscribeTo(Messenger);
-			Input.Connect(nameof(Input.MouseEnteredCard), CardViewer, nameof(CardViewer.OnCardClicked));
-			Messenger.SubscribeTo(Input);
-			CardCatalog.Connect(nameof(CardCatalog.CardCreated), Input, nameof(Input.OnCardCreated));
 			EndTurn.Connect("pressed", Messenger, nameof(Messenger.DeclareEndTurn));
 		}
 		

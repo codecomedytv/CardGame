@@ -1,7 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using CardGame.Client.Library.Cards;
 using Godot;
-using Godot.Collections;
+using Array = Godot.Collections.Array;
 
 namespace CardGame.Client.Room
 {

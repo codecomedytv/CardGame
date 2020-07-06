@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using CardGame.Client.Library;
 using CardGame.Client.Library.Cards;
 using Godot;
+using Object = Godot.Object;
 
 namespace CardGame.Client.Room
 {
@@ -20,7 +21,7 @@ namespace CardGame.Client.Room
     
     {
         public States State;
-        public int DeckCount = 40;
+        public int DeckCount { get; set; }
         public Label Damage;
         public Label Deck;
         public PanelContainer Discard;
@@ -28,16 +29,16 @@ namespace CardGame.Client.Room
         public HBoxContainer Support;
         public HBoxContainer Hand;
         private AnimatedSprite PlayingState;
-
-        public override void _Ready()
+        public  void Initialize(Control view)
         {
-            PlayingState = GetNode<AnimatedSprite>("View/PlayingState");
-            Damage = GetNode<Label>("Damage");
-            Deck = GetNode<Label>("Deck");
-            Discard = GetNode<PanelContainer>("Discard");
-            Units = GetNode<HBoxContainer>("Units");
-            Support = GetNode<HBoxContainer>("Support");
-            Hand = GetNode<HBoxContainer>("Hand");
+            PlayingState = view.GetNode<AnimatedSprite>("View/PlayingState");
+            DeckCount = 40;
+            Damage = view.GetNode<Label>("Damage");
+            Deck = view.GetNode<Label>("Deck");
+            Discard = view.GetNode<PanelContainer>("Discard");
+            Units = view.GetNode<HBoxContainer>("Units");
+            Support = view.GetNode<HBoxContainer>("Support");
+            Hand = view.GetNode<HBoxContainer>("Hand");
         }
         
         public void SetState(States state)

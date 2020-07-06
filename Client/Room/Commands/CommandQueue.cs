@@ -1,23 +1,28 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CardGame.Client.Library.Cards;
 using CardGame.Tests.Scripts;
 using Godot;
+using Object = Godot.Object;
 
 namespace CardGame.Client.Room.Commands
 {
     public class CommandQueue: Object
     {
-        private readonly CardCatalog CardCatalog;
+	    private delegate Card Fetch(int id = 0, SetCodes setCode = SetCodes.NullCard);
+	    private readonly Fetch GetCard;
         private readonly Player Player;
         private readonly Player Opponent;
-        private readonly Queue<Command> Commands = new Queue<Command>();
         private readonly Tween Gfx;
+
+        private readonly Queue<Command> Commands = new Queue<Command>();
+
 
         public CommandQueue(CardCatalog cardCatalog, Player player, Player opponent, Tween gfx)
         {
-            CardCatalog = cardCatalog;
+	        GetCard = cardCatalog.Fetch;
             Player = player;
             Opponent = opponent;
             Gfx = gfx;
@@ -53,13 +58,13 @@ namespace CardGame.Client.Room.Commands
         
         private void RevealCard(int id, SetCodes setCode, ZoneIds zoneId)
         {
-            var card = CardCatalog.Fetch(id, setCode);
+            var card = GetCard(id, setCode);
             Commands.Enqueue(new RevealCard(Opponent, card, zoneId));
         }
 
         private void OnCardUpdated(int id, CardStates state, IEnumerable<int> attackTargets, IEnumerable<int> targets)
         {
-            var card = CardCatalog.Fetch(id);
+            var card = GetCard(id);
             card.State = state;
             card.ValidTargets.Clear();
             card.ValidTargets.AddRange(targets);
@@ -69,7 +74,7 @@ namespace CardGame.Client.Room.Commands
         
         private void OnDeckLoaded(Dictionary<int, SetCodes> deck)
         {
-        	foreach (var card in deck.Select(serial => CardCatalog.Fetch(serial.Key, serial.Value)))
+        	foreach (var card in deck.Select(serial => GetCard(serial.Key, serial.Value)))
         	{
         		card.Player = Player;
         	}
@@ -77,39 +82,39 @@ namespace CardGame.Client.Room.Commands
 
         private void OnDrawQueued(int id = 0, bool isOpponent = false)
         {
-        	Commands.Enqueue(new Draw(GetPlayer(isOpponent), CardCatalog.Fetch(id)));
+        	Commands.Enqueue(new Draw(GetPlayer(isOpponent), GetCard(id)));
         }
 
         private void OnDeployQueued(int id, SetCodes setCode, bool isOpponent)
         {
-        	Commands.Enqueue(new Deploy(GetPlayer(isOpponent), CardCatalog.Fetch(id)));
+        	Commands.Enqueue(new Deploy(GetPlayer(isOpponent), GetCard(id)));
         }
         
         private void OnSetFaceDownQueued(int id, bool isOpponent)
         {
-        	Commands.Enqueue(new SetFaceDown(GetPlayer(isOpponent), CardCatalog.Fetch(id), isOpponent));
+        	Commands.Enqueue(new SetFaceDown(GetPlayer(isOpponent), GetCard(id), isOpponent));
         }
         
         private void OnActivationQueued(int id, SetCodes setCode, int positionInLink, bool isOpponent)
         {
-        	Commands.Enqueue(new Activate(CardCatalog.Fetch(id), positionInLink));
+        	Commands.Enqueue(new Activate(GetCard(id), positionInLink));
         }
         
         private void OnTriggeredQueued(int id, int positionInLink)
         {
-        	Commands.Enqueue(new Trigger(CardCatalog.Fetch(id), positionInLink));
+        	Commands.Enqueue(new Trigger(GetCard(id), positionInLink));
         }
         
         private void OnUnitBattled(int attackerId, int defenderId, bool isOpponent)
         {
-        	var attacker = CardCatalog.Fetch(attackerId);
-        	var defender = CardCatalog.Fetch(defenderId);
+        	var attacker = GetCard(attackerId);
+        	var defender = GetCard(defenderId);
         	Commands.Enqueue(new Battle(attacker, defender, isOpponent));
         }
 
         private void OnCardSentToZone(int cardId, ZoneIds zoneId, bool isOpponent)
         {
-        	var card = CardCatalog.Fetch(cardId);
+        	var card = GetCard(cardId);
         	Commands.Enqueue(new SendCardToZone(GetPlayer(isOpponent), card, zoneId));
         }
 
