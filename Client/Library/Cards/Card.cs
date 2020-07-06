@@ -85,7 +85,6 @@ namespace CardGame.Client.Library.Cards
 		
 		public void AddToChain()
 		{
-			GD.Print("Add To Chain");
 			ChainLink.Frame = 0;
 			ChainLink.Visible = true;
 			ChainIndexDisplay.Text = ChainIndex.ToString();
