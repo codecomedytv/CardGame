@@ -1,0 +1,123 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using CardGame.Client.Library.Cards;
+using CardGame.Tests.Scripts;
+using Godot;
+
+namespace CardGame.Client.Room.Commands
+{
+    public class CommandQueue: Object
+    {
+        private readonly CardCatalog CardCatalog;
+        private readonly Player Player;
+        private readonly Player Opponent;
+        private readonly Queue<Command> Commands = new Queue<Command>();
+        private readonly Tween Gfx;
+
+        public CommandQueue(CardCatalog cardCatalog, Player player, Player opponent, Tween gfx)
+        {
+            CardCatalog = cardCatalog;
+            Player = player;
+            Opponent = opponent;
+            Gfx = gfx;
+        }
+
+        public void SubscribeTo(Messenger messenger)
+        {
+	        // We have to subscribe directly like this otherwise params don't unpack for some reason
+	        messenger.Connect(nameof(Messenger.RevealCard), this, nameof(RevealCard));
+	        messenger.Connect(nameof(Messenger.UpdateCard), this, nameof(OnCardUpdated));
+	        messenger.Connect(nameof(Messenger.LoadDeck), this, nameof(OnDeckLoaded));
+	        messenger.Connect(nameof(Messenger.Draw), this, nameof(OnDrawQueued));
+	        messenger.Connect(nameof(Messenger.Deploy), this, nameof(OnDeployQueued));
+	        messenger.Connect(nameof(Messenger.SetFaceDown), this, nameof(OnSetFaceDownQueued));
+	        messenger.Connect(nameof(Messenger.Activate), this, nameof(OnActivationQueued));
+	        messenger.Connect(nameof(Messenger.Trigger), this, nameof(OnTriggeredQueued));
+	        messenger.Connect(nameof(Messenger.BattleUnit), this, nameof(OnUnitBattled));
+	        messenger.Connect(nameof(Messenger.SendCardToZone), this, nameof(OnCardSentToZone));
+	        messenger.Connect(nameof(Messenger.LoseLife), this, nameof(OnLifeLost));
+        }
+
+        public async Task Execute()
+        {
+            foreach (var command in Commands)
+            {
+                await command.Execute(Gfx);
+                Gfx.RemoveAll();
+            }
+            
+            Commands.Clear();
+            
+        }
+        
+        private void RevealCard(int id, SetCodes setCode, ZoneIds zoneId)
+        {
+            var card = CardCatalog.Fetch(id, setCode);
+            Commands.Enqueue(new RevealCard(Opponent, card, zoneId));
+        }
+
+        private void OnCardUpdated(int id, CardStates state, IEnumerable<int> attackTargets, IEnumerable<int> targets)
+        {
+            var card = CardCatalog.Fetch(id);
+            card.State = state;
+            card.ValidTargets.Clear();
+            card.ValidTargets.AddRange(targets);
+            card.ValidAttackTargets.Clear();
+            card.ValidAttackTargets.AddRange(attackTargets);
+        }
+        
+        private void OnDeckLoaded(Dictionary<int, SetCodes> deck)
+        {
+        	foreach (var card in deck.Select(serial => CardCatalog.Fetch(serial.Key, serial.Value)))
+        	{
+        		card.Player = Player;
+        	}
+        }
+
+        private void OnDrawQueued(int id = 0, bool isOpponent = false)
+        {
+        	Commands.Enqueue(new Draw(GetPlayer(isOpponent), CardCatalog.Fetch(id)));
+        }
+
+        private void OnDeployQueued(int id, SetCodes setCode, bool isOpponent)
+        {
+        	Commands.Enqueue(new Deploy(GetPlayer(isOpponent), CardCatalog.Fetch(id)));
+        }
+        
+        private void OnSetFaceDownQueued(int id, bool isOpponent)
+        {
+        	Commands.Enqueue(new SetFaceDown(GetPlayer(isOpponent), CardCatalog.Fetch(id), isOpponent));
+        }
+        
+        private void OnActivationQueued(int id, SetCodes setCode, int positionInLink, bool isOpponent)
+        {
+        	Commands.Enqueue(new Activate(CardCatalog.Fetch(id), positionInLink));
+        }
+        
+        private void OnTriggeredQueued(int id, int positionInLink)
+        {
+        	Commands.Enqueue(new Trigger(CardCatalog.Fetch(id), positionInLink));
+        }
+        
+        private void OnUnitBattled(int attackerId, int defenderId, bool isOpponent)
+        {
+        	var attacker = CardCatalog.Fetch(attackerId);
+        	var defender = CardCatalog.Fetch(defenderId);
+        	Commands.Enqueue(new Battle(attacker, defender, isOpponent));
+        }
+
+        private void OnCardSentToZone(int cardId, ZoneIds zoneId, bool isOpponent)
+        {
+        	var card = CardCatalog.Fetch(cardId);
+        	Commands.Enqueue(new SendCardToZone(GetPlayer(isOpponent), card, zoneId));
+        }
+
+        private void OnLifeLost(int lifeLost, bool isOpponent)
+        {
+        	Commands.Enqueue(new LoseLife(GetPlayer(isOpponent), lifeLost));
+        }
+
+        private Player GetPlayer(bool isOpponent = false) => isOpponent ? Opponent : Player;
+    }
+}

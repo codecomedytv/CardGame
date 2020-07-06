@@ -18,6 +18,7 @@ namespace CardGame.Client.Room {
 		private readonly Messenger Messenger = new Messenger();
 		private readonly CardCatalog CardCatalog = new CardCatalog();
 		private Input Input;
+		private CommandQueue CommandQueue;
 		protected Player Player;
 		protected Player Opponent;
 		private CardViewer CardViewer;
@@ -25,7 +26,7 @@ namespace CardGame.Client.Room {
 		private AnimatedSprite ActionButtonAnimation;
 		protected Button EndTurn;
 		private Label DisqualificationNotice;
-		private List<Command> Commands = new List<Command>();
+		private Queue<Command> Commands = new Queue<Command>();
 		private Tween Gfx = new Tween();
 		
 		public override void _Ready()
@@ -36,6 +37,7 @@ namespace CardGame.Client.Room {
 			AddChild(playMat, true);
 			Player = GetNode<Player>("PlayMat/Player");
 			Opponent = GetNode<Player>("PlayMat/Opponent");
+			CommandQueue = new CommandQueue(CardCatalog, Player, Opponent, Gfx);
 			Input = new Input(CardCatalog, Player);
 			CardViewer = GetNode<CardViewer>("PlayMat/Background/CardViewer");
 			PassPriority = GetNode<Button>("PlayMat/Background/ActionButton");
@@ -43,19 +45,9 @@ namespace CardGame.Client.Room {
 			EndTurn = GetNode<Button>("PlayMat/Background/EndTurn");
 			DisqualificationNotice = GetNode<Label>("PlayMat/Disqualified");
 			PassPriority.Connect("pressed", this, nameof(OnActionButtonPressed));
-			Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
-			Messenger.Connect(nameof(Messenger.RevealCard), this, nameof(RevealCard));
-			Messenger.Connect(nameof(Messenger.UpdateCard), this, nameof(OnCardUpdated));
 			Messenger.Connect(nameof(Messenger.Disqualified), this, nameof(OnDisqualified));
-			Messenger.Connect(nameof(Messenger.LoadDeck), this, nameof(OnDeckLoaded));
-			Messenger.Connect(nameof(Messenger.Draw), this, nameof(OnDrawQueued));
-			Messenger.Connect(nameof(Messenger.Deploy), this, nameof(OnDeployQueued));
-			Messenger.Connect(nameof(Messenger.SetFaceDown), this, nameof(OnSetFaceDownQueued));
-			Messenger.Connect(nameof(Messenger.Activate), this, nameof(OnActivationQueued));
-			Messenger.Connect(nameof(Messenger.Trigger), this, nameof(OnTriggeredQueued));
-			Messenger.Connect(nameof(Messenger.BattleUnit), this, nameof(OnUnitBattled));
-			Messenger.Connect(nameof(Messenger.SendCardToZone), this, nameof(OnCardSentToZone));
-			Messenger.Connect(nameof(Messenger.LoseLife), this, nameof(OnLifeLost));
+			Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
+			CommandQueue.SubscribeTo(Messenger);
 			Input.Connect(nameof(Input.MouseEnteredCard), CardViewer, nameof(CardViewer.OnCardClicked));
 			Input.Connect(nameof(Input.Deploy), Messenger, nameof(Messenger.DeclareDeploy));
 			Input.Connect(nameof(Input.SetFaceDown), Messenger, nameof(Messenger.DeclareSetFaceDown));
@@ -64,7 +56,7 @@ namespace CardGame.Client.Room {
 			CardCatalog.Connect(nameof(CardCatalog.CardCreated), Input, nameof(Input.OnCardCreated));
 			EndTurn.Connect("pressed", Messenger, nameof(Messenger.DeclareEndTurn));
 		}
-
+		
 		public void SetUp()
 		{
 			AddChild(Messenger, true);
@@ -73,36 +65,15 @@ namespace CardGame.Client.Room {
 			Messenger.Id = networkId;
 			Messenger.CallDeferred("SetReady");
 		}
-		
-		public void RevealCard(int id, SetCodes setCode, ZoneIds zoneId)
-		{
-			var card = CardCatalog.Fetch(id, setCode);
-			Commands.Add(new RevealCard(Opponent, card, zoneId));
-		}
 
-		public void OnCardUpdated(int id, CardStates state, IEnumerable<int> attackTargets, IEnumerable<int> targets)
+		public async void Execute(States stateAfterExecution)
 		{
-			var card = CardCatalog.Fetch(id);
-			card.State = state;
-			card.ValidTargets.Clear();
-			card.ValidTargets.AddRange(targets);
-			card.ValidAttackTargets.Clear();
-			card.ValidAttackTargets.AddRange(attackTargets);
-		}
-
-		private async void Execute(States stateAfterExecution)
-		{
-			foreach (var command in Commands)
-			{
-				await command.Execute(Gfx);
-				Gfx.RemoveAll();
-			}
-			Commands.Clear();
+			await CommandQueue.Execute();
 			Player.SetState(stateAfterExecution);
 			SetState(stateAfterExecution);
 			EmitSignal(nameof(StateSet));
 		}
-
+		
 		protected void OnActionButtonPressed()
 		{
 			if (Player.State != States.Active)
@@ -130,58 +101,7 @@ namespace CardGame.Client.Room {
 		{
 			DisqualificationNotice.Visible = true;
 		}
-
-		public void OnDeckLoaded(Dictionary<int, SetCodes> deck)
-		{
-			foreach (var card in deck.Select(serial => CardCatalog.Fetch(serial.Key, serial.Value)))
-			{
-				card.Player = Player;
-			}
-		}
 		
-		private void OnDrawQueued(int id = 0, bool isOpponent = false)
-		{
-			Commands.Add(new Draw(GetPlayer(isOpponent), CardCatalog.Fetch(id)));
-		}
-
-		public void OnDeployQueued(int id, SetCodes setCode, bool isOpponent)
-		{
-			Commands.Add(new Deploy(GetPlayer(isOpponent), CardCatalog.Fetch(id)));
-		}
-		
-		public void OnSetFaceDownQueued(int id, bool isOpponent)
-		{
-			Commands.Add(new SetFaceDown(GetPlayer(isOpponent), CardCatalog.Fetch(id), isOpponent));
-		}
-		
-		public void OnActivationQueued(int id, SetCodes setCode, int positionInLink, bool isOpponent)
-		{
-			Commands.Add(new Activate(CardCatalog.Fetch(id), positionInLink));
-		}
-		
-		public void OnTriggeredQueued(int id, int positionInLink)
-		{
-			Commands.Add(new Trigger(CardCatalog.Fetch(id), positionInLink));
-		}
-		
-		public void OnUnitBattled(int attackerId, int defenderId, bool isOpponent)
-		{
-			var attacker = CardCatalog.Fetch(attackerId);
-			var defender = CardCatalog.Fetch(defenderId);
-			Commands.Add(new Battle(attacker, defender, isOpponent));
-		}
-
-		public void OnCardSentToZone(int cardId, ZoneIds zoneId, bool isOpponent)
-		{
-			var card = CardCatalog.Fetch(cardId);
-			Commands.Add(new SendCardToZone(GetPlayer(isOpponent), card, zoneId));
-		}
-
-		public void OnLifeLost(int lifeLost, bool isOpponent)
-		{
-			Commands.Add(new LoseLife(GetPlayer(isOpponent), lifeLost));
-		}
-
 		public void _Connect(Godot.Object emitter, string signal, Godot.Object receiver, string method)
 		{
 			var err = emitter.Connect(signal, receiver, method);
@@ -191,7 +111,6 @@ namespace CardGame.Client.Room {
 			}
 		}
 
-		private Player GetPlayer(bool isOpponent = false) => isOpponent ? Opponent : Player;
 
 	}
 	

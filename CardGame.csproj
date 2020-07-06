@@ -64,6 +64,7 @@
     <Compile Include="Client\Room\Commands\Activate.cs" />
     <Compile Include="Client\Room\Commands\Battle.cs" />
     <Compile Include="Client\Room\Commands\Command.cs" />
+    <Compile Include="Client\Room\Commands\CommandQueue.cs" />
     <Compile Include="Client\Room\Commands\Deploy.cs" />
     <Compile Include="Client\Room\Commands\Draw.cs" />
     <Compile Include="Client\Room\Commands\LoseLife.cs" />
