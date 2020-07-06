@@ -34,18 +34,19 @@ namespace CardGame.Client.Library.Cards
 		public readonly List<int> ValidAttackTargets = new List<int>();
 		public bool IsTargeting = false;
 		public bool IsFaceUp => !Back.Visible;
-
-		public void MoveZone(Container oldZone, Container newZone)
+		public Zone Zone;
+		
+		public void MoveZone(Zone oldZone, Zone newZone)
 		{
 			SelectedTarget.Visible = false;
 			DefenseIcon.Visible = false;
 			AttackIcon.Visible = false;
 			ChainLink.Stop();
 			ChainLink.Visible = false;
-			oldZone.RemoveChild(this);
+			oldZone.Remove(this);
 			ShowBehindParent = true;
-			oldZone.Notification(Container.NotificationSortChildren);
-			newZone.AddChild(this);
+			oldZone.Sort();
+			newZone.Add(this);
 		}
 		
 		public bool Targets()

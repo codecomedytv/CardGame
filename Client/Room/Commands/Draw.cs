@@ -26,6 +26,7 @@ namespace CardGame.Client.Room.Commands
             Card.RectGlobalPosition = Player.Deck.Position;
             QueueProperty(Card, "RectGlobalPosition", Player.Deck.Position, destination, 0.1F, 0.1F);
             QueueProperty(Card, nameof(Control.Modulate), Colors.Transparent, originalColor, 0.1F, 0.1F);
+            QueueCallback(Player.Hand, 0.2F, nameof(Zone.Sort));
             Gfx.Start();
             return await ToSignal(Gfx, "tween_all_completed");
         }
