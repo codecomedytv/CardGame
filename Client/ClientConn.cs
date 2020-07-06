@@ -9,12 +9,16 @@ namespace CardGame.Client {
 	{
 		private const string Ip = "127.0.0.1";
 		private const int Port = 5000;
-		private readonly CSharpScript Room = (CSharpScript) GD.Load("res://Client/Room/Game.cs");
+		private readonly Game Game = new Game();
 		private DeckList DeckList = new DeckList();
 		public NetworkedMultiplayerENet Client;
 
 		public ClientConn() { }
-		public ClientConn(CSharpScript room) => Room = room;
+		public ClientConn(Game game)
+		{
+			Game = game;
+		}
+
 		public override void _Ready() {}
 		
 		public void Join(DeckList deckList = null)
@@ -38,10 +42,10 @@ namespace CardGame.Client {
 
 		[Puppet]
 		public void CreateRoom(string gameId, int seatPosition){
-			var room = (Game) Room.New();
-			room.Name = gameId;
-			AddChild(room);
-			room.SetUp();
+			//var room = new Game();
+			Game.Name = gameId;
+			AddChild(Game);
+			Game.SetUp();
 		}
 
 	}

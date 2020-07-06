@@ -35,8 +35,8 @@ namespace CardGame.Tests.Scripts
 		    
 		    // We also need to be able to access PassPlay/EndTurn Buttons
 		    Server = new ServerConn();
-		    Clients.Add(new ClientConn(MockGame));
-		    Clients.Add(new ClientConn(MockGame));
+		    Clients.Add(new ClientConn(new MockGame()));
+		    Clients.Add(new ClientConn(new MockGame()));
 		    AddChild(Server);
 		    AddChild(Clients[0]);
 		    AddChild(Clients[1]);

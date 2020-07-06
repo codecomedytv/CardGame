@@ -30,7 +30,7 @@ namespace CardGame.Client.Room {
 		private CardViewer CardViewer;
 		protected Button EndTurn;
 
-		protected Game()
+		public Game()
 		{
 			// This constructor is protected because we instance it via a Script Resource using script.new()
 			Gfx = new Tween();
@@ -44,7 +44,6 @@ namespace CardGame.Client.Room {
 			Messenger.SubscribeTo(Input);
 			Messenger.Connect(nameof(Messenger.Disqualified), this, nameof(OnDisqualified));
 			Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
-			Input.Connect(nameof(Input.MouseEnteredCard), CardViewer, nameof(CardViewer.OnCardClicked));
 			CardCatalog.Connect(nameof(CardCatalog.CardCreated), Input, nameof(Input.OnCardCreated));
 		}
 		
@@ -58,6 +57,7 @@ namespace CardGame.Client.Room {
 			Opponent.Initialize(GetNode<Control>("PlayMat/Opponent"));
 			
 			CardViewer = GetNode<CardViewer>("PlayMat/Background/CardViewer");
+			Input.Connect(nameof(Input.MouseEnteredCard), CardViewer, nameof(CardViewer.OnCardClicked));
 			PassPriority = GetNode<Button>("PlayMat/Background/ActionButton");
 			ActionButtonAnimation = PassPriority.GetNode<AnimatedSprite>("Glow");
 			EndTurn = GetNode<Button>("PlayMat/Background/EndTurn");
