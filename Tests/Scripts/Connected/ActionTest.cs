@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CardGame.Client;
 using CardGame.Client.Cards;
@@ -30,7 +31,7 @@ namespace CardGame.Tests.Scripts.Connected
             toDeploy.View.DoubleClick();
             //await ToSignal(UntilSignal(Player, nameof(Player.AnimationFinished), 5), YIELD);
             await PlayerState;
-            Assert.Has(toDeploy, Player.Units, $"{toDeploy} was Deployed");
+            Assert.IsTrue(Player.Units.Contains(toDeploy), $"{toDeploy} was Deployed");
         }
         
         [Test]
@@ -41,7 +42,7 @@ namespace CardGame.Tests.Scripts.Connected
             toSet.View.DoubleClick();
             //await ToSignal(UntilSignal(Player, nameof(Player.AnimationFinished), 5), YIELD);
             await PlayerState;
-            Assert.Has(toSet, Player.Support, $"{toSet} was Set");
+            Assert.IsTrue(Player.Support.Contains(toSet), $"{toSet} was Set");
         }
 
         [Test]
@@ -58,7 +59,7 @@ namespace CardGame.Tests.Scripts.Connected
         public async void OnUnitOnFieldDoubleClicked()
         {
             await PlayerState;
-            var attacker = (Card) Player.Hand[2];
+            var attacker = Player.Hand[2];
             attacker.View.DoubleClick();
             await OpponentState;
             OpponentMockGame.Pass();
@@ -67,7 +68,7 @@ namespace CardGame.Tests.Scripts.Connected
             await PlayerState;
             PlayerMockGame.End();
             await OpponentState;
-            var defending = (Card) Opponent.Hand[0];
+            var defending = Opponent.Hand[0];
             defending.View.DoubleClick();
             await PlayerState;
             PlayerMockGame.Pass();
@@ -82,9 +83,9 @@ namespace CardGame.Tests.Scripts.Connected
             OpponentMockGame.Pass();
             await PlayerState;
             PlayerMockGame.Pass();
-            await PlayerState;
+            await OpponentState;
         
-            Assert.Has(defending, Opponent.Discard, $"{defending} is in Opponent's Graveyard");
+            Assert.IsTrue(Opponent.Discard.Contains(defending), $"{defending} is in Opponent's Graveyard");
 
         }
     }

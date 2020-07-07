@@ -1,21 +1,14 @@
 <?xml version="1.0" ?>
-<testsuites failures="0" name="TestXML" tests="2" time="1.236">
-<testsuite failures="0" name="ActionTest" tests="4" time="0.01">
-<testcase name="OnUnitOnFieldDoubleClicked" time="8.148">
+<testsuites failures="1" name="TestXML" tests="1" time="1.158">
+<testsuite failures="1" name="ActionTest" tests="4" time="0.01">
+<testcase name="OnUnitOnFieldDoubleClicked" time="6.414">
+<failure message="EXPECTED: |bool| False == true but GOT |bool| False != true"></failure>
 </testcase>
-<testcase name="OnEndTurn" time="8.424">
+<testcase name="OnEndTurn" time="3.568">
 </testcase>
-<testcase name="OnSupportInHandDoubleClicked" time="8.31">
+<testcase name="OnSupportInHandDoubleClicked" time="3.556">
 </testcase>
-<testcase name="OnUnitInHandDoubleClicked" time="8.321">
-</testcase>
-</testsuite>
-<testsuite failures="0" name="Given A Server and Two Clients" tests="3" time="0.001">
-<testcase name="RoomSharesNameAcrossNetwork" time="3.754">
-</testcase>
-<testcase name="GameRoomIsSetup" time="3.194">
-</testcase>
-<testcase name="AllAreConnected" time="2.992">
+<testcase name="OnUnitInHandDoubleClicked" time="3.566">
 </testcase>
 </testsuite>
 </testsuites>

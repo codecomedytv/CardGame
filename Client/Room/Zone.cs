@@ -23,6 +23,7 @@ namespace CardGame.Client.Room
         public void Remove(Card card) => Container.RemoveChild(card);
         public void Move(Card card, int index) => Container.MoveChild(card, index);
         public void Sort() => Container.Notification(Container.NotificationSortChildren);
+        public bool Contains(Card card) => Container.GetChildren().Contains(card);
 
         public IEnumerator<Card> GetEnumerator()
         {

@@ -59,15 +59,9 @@ namespace CardGame.Client.Cards
 
         public override void _Ready()
         {
-            GD.Print("Entering Tree");
             AddChild(View);
             RectSize = View.RectSize;
             RectMinSize = View.RectMinSize;
-            Visualize();
-            // View.Id.Text = Id.ToString();
-            // View.Attack.Text = Attack.ToString();
-            // View.Defense.Text = Defense.ToString();
-            // View.Art.Texture = GD.Load(Art) as Texture;
             Visualize();
         }
 
