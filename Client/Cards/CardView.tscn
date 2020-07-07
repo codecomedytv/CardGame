@@ -1,6 +1,6 @@
 [gd_scene load_steps=50 format=2]
 
-[ext_resource path="res://Client/Cards/Card.cs" type="Script" id=1]
+[ext_resource path="res://Client/Cards/CardView.cs" type="Script" id=1]
 [ext_resource path="res://assets/CardArt/cultist.png" type="Texture" id=2]
 [ext_resource path="res://assets/UI/CardFrame_Lava.png" type="Texture" id=3]
 [ext_resource path="res://assets/fonts/LemonMilkbolditalic.otf" type="DynamicFontData" id=4]
@@ -12,7 +12,6 @@
 [ext_resource path="res://Assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=10]
 [ext_resource path="res://Assets/UI/sword_02.png" type="Texture" id=11]
 [ext_resource path="res://Assets/UI/shield_t_04.png" type="Texture" id=12]
-
 
 [sub_resource type="DynamicFont" id=1]
 size = 11

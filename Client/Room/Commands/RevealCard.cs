@@ -34,7 +34,7 @@ namespace CardGame.Client.Room.Commands
                 {
                     foreach (Card oldCard in Player.Support)
                     {
-                        if (oldCard.IsFaceUp)
+                        if (oldCard.View.IsFaceUp)
                         {
                             continue;
                         }

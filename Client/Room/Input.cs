@@ -38,10 +38,10 @@ namespace CardGame.Client.Room
         
         public void OnCardCreated(Card card)
         {
-            object Subscribe(string signal, string method, Card c) => (card.Connect(signal, this, method, new Array {c}));
-            Subscribe(nameof(Card.MouseEnteredCard), nameof(OnMouseEnterCard), card);
-            Subscribe(nameof(Card.MouseExitedCard), nameof(OnMouseExitCard), card);
-            Subscribe(nameof(Card.DoubleClicked), nameof(OnCardDoubleClicked), card);
+            object Subscribe(string signal, string method, Card c) => (card.View.Connect(signal, this, method, new Array {c}));
+            Subscribe(nameof(CardView.MouseEnteredCard), nameof(OnMouseEnterCard), card);
+            Subscribe(nameof(CardView.MouseExitedCard), nameof(OnMouseExitCard), card);
+            Subscribe(nameof(CardView.DoubleClicked), nameof(OnCardDoubleClicked), card);
         }
         
         private void OnMouseEnterCard(Card card)
@@ -53,21 +53,21 @@ namespace CardGame.Client.Room
             {
                 return;
             }
-            card.Legal.Visible = true;
+            card.View.Legal.Visible = true;
             if (card.Targets())
             {
                 foreach (var id in card.ValidTargets)
                 {
-                    CardCatalog.Fetch(id).ValidTarget.Visible = true;
+                    CardCatalog.Fetch(id).View.ValidTarget.Visible = true;
                 }
             }
 
             else if (card.Attacks() && User.State == States.Idle)
             {
-                card.AttackIcon.Visible = true;
+                card.View.AttackIcon.Visible = true;
                 foreach (var id in card.ValidAttackTargets)
                 {
-                    CardCatalog.Fetch(id).DefenseIcon.Visible = true;
+                    CardCatalog.Fetch(id).View.DefenseIcon.Visible = true;
                 }
             }
         }
@@ -75,16 +75,16 @@ namespace CardGame.Client.Room
         private void OnMouseExitCard(Card card)
         {
             if (Targeting || Attacking) { return; }
-            card.Legal.Visible = false;
-            card.AttackIcon.Visible = false;
+            card.View.Legal.Visible = false;
+            card.View.AttackIcon.Visible = false;
             foreach (var id in card.ValidTargets)
             {
-                CardCatalog.Fetch(id).ValidTarget.Visible = false;
+                CardCatalog.Fetch(id).View.ValidTarget.Visible = false;
             }
 
             foreach (var id in card.ValidAttackTargets)
             {
-                CardCatalog.Fetch(id).DefenseIcon.Visible = false;
+                CardCatalog.Fetch(id).View.DefenseIcon.Visible = false;
             }
         }
         
@@ -98,7 +98,7 @@ namespace CardGame.Client.Room
             {
                 foreach (var id in TargetingCard.ValidTargets)
                 {
-                    CardCatalog.Fetch(id).ValidTarget.Visible = false;
+                    CardCatalog.Fetch(id).View.ValidTarget.Visible = false;
                 }
 
                 if (TargetingCard.ValidTargets.Contains(card.Id))
@@ -111,25 +111,25 @@ namespace CardGame.Client.Room
 
             if (Attacking && User.State == States.Idle)
             {
-                AttackingCard.Legal.Visible = false;
+                AttackingCard.View.Legal.Visible = false;
                 foreach (var id in AttackingCard.ValidAttackTargets)
                 {
-                    CardCatalog.Fetch(id).DefenseIcon.Visible = false;
+                    CardCatalog.Fetch(id).View.DefenseIcon.Visible = false;
                 }
 
                 if (AttackingCard.ValidAttackTargets.Contains(card.Id))
                 {
-                    AttackingCard.SelectedTarget.Visible = true;
-                    AttackingCard.AttackIcon.Visible = true;
-                    card.SelectedTarget.Visible = true;
-                    card.DefenseIcon.Visible = true;
+                    AttackingCard.View.SelectedTarget.Visible = true;
+                    AttackingCard.View.AttackIcon.Visible = true;
+                    card.View.SelectedTarget.Visible = true;
+                    card.View.DefenseIcon.Visible = true;
                     User.State = States.Processing;
                     EmitSignal(nameof(Attack), AttackingCard.Id, card.Id);
                 }
                 else
                 {
-                    AttackingCard.AttackIcon.Visible = false;
-                    AttackingCard.SelectedTarget.Visible = false;
+                    AttackingCard.View.AttackIcon.Visible = false;
+                    AttackingCard.View.SelectedTarget.Visible = false;
                 }
                 Attacking = false;
                 AttackingCard = null;
@@ -140,13 +140,13 @@ namespace CardGame.Client.Room
             {
                 case CardStates.CanBeDeployed:
                     if (User.State != States.Idle) { return; }
-                    card.Legal.Visible = false;
+                    card.View.Legal.Visible = false;
                     User.State = States.Processing;
                     EmitSignal(nameof(Deploy), card.Id);
                     break;
                 case CardStates.CanBeSet:
                     if (User.State != States.Idle) { return; }
-                    card.Legal.Visible = false;
+                    card.View.Legal.Visible = false;
                     User.State = States.Processing;
                     EmitSignal(nameof(SetFaceDown), card.Id);
                     break;
@@ -157,11 +157,11 @@ namespace CardGame.Client.Room
                         card.FlipFaceUp();
                         Targeting = true;
                         TargetingCard = card;
-                        card.Legal.Visible = false;
+                        card.View.Legal.Visible = false;
                     }
                     else
                     {
-                        card.Legal.Visible = false;
+                        card.View.Legal.Visible = false;
                         User.State = States.Processing;
                         EmitSignal(nameof(Activate), card, new Array());
                     }
@@ -170,8 +170,8 @@ namespace CardGame.Client.Room
                     if (User.State != States.Idle) { return; }
                     Attacking = true;
                     AttackingCard = card;
-                    card.AttackIcon.Visible = true;
-                    card.SelectedTarget.Visible = true;
+                    card.View.AttackIcon.Visible = true;
+                    card.View.SelectedTarget.Visible = true;
                     break;
                 case CardStates.Passive:
                     break;

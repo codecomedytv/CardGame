@@ -1,6 +1,5 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using CardGame.Client.Cards;
-using CardGame.Tests.Scripts;
 using Godot;
 
 namespace CardGame.Client.Room.Commands
@@ -23,9 +22,8 @@ namespace CardGame.Client.Room.Commands
             Player.Hand.Add(Card);
             Player.Hand.Sort();
             var destination = Card.RectGlobalPosition;
-            Card.RectGlobalPosition = Player.Deck.Position;
-            QueueProperty(Card, "RectGlobalPosition", Player.Deck.Position, destination, 0.1F, 0.1F);
-            QueueProperty(Card, nameof(Control.Modulate), Colors.Transparent, originalColor, 0.1F, 0.1F);
+            QueueProperty(Card, "rect_global_position", Player.Deck.Position, destination, 0.1F, 0.1F);
+            QueueProperty(Card, "modulate", Colors.Transparent, originalColor, 0.1F, 0.1F);
             QueueCallback(Player.Hand, 0.2F, nameof(Zone.Sort));
             Gfx.Start();
             return await ToSignal(Gfx, "tween_all_completed");

@@ -25,7 +25,7 @@ namespace CardGame.Client.Room.View
                 return;
             }
             Title.Text = card.Title;
-            Art.Texture = ResourceLoader.Load(card.Illustration) as Texture;
+            Art.Texture = ResourceLoader.Load(card.Art) as Texture;
             Battle.Text = card.CardType == CardTypes.Unit ? $"Warrior / ATK {card.Attack} / DEF {card.Defense}" : "";
             Effect.Text = card.Effect;
         }

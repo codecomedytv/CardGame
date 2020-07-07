@@ -27,7 +27,7 @@ namespace CardGame.Tests.Scripts.Connected
         {
             await PlayerState;
             var toDeploy = (Card) Player.Hand[0];
-            toDeploy.DoubleClick();
+            toDeploy.View.DoubleClick();
             //await ToSignal(UntilSignal(Player, nameof(Player.AnimationFinished), 5), YIELD);
             await PlayerState;
             Assert.Has(toDeploy, Player.Units, $"{toDeploy} was Deployed");
@@ -38,7 +38,7 @@ namespace CardGame.Tests.Scripts.Connected
         {
             await PlayerState;
             var toSet = (Card) Player.Hand[1];
-            toSet.DoubleClick();
+            toSet.View.DoubleClick();
             //await ToSignal(UntilSignal(Player, nameof(Player.AnimationFinished), 5), YIELD);
             await PlayerState;
             Assert.Has(toSet, Player.Support, $"{toSet} was Set");
@@ -59,7 +59,7 @@ namespace CardGame.Tests.Scripts.Connected
         {
             await PlayerState;
             var attacker = (Card) Player.Hand[2];
-            attacker.DoubleClick();
+            attacker.View.DoubleClick();
             await OpponentState;
             OpponentMockGame.Pass();
             await PlayerState;
@@ -68,7 +68,7 @@ namespace CardGame.Tests.Scripts.Connected
             PlayerMockGame.End();
             await OpponentState;
             var defending = (Card) Opponent.Hand[0];
-            defending.DoubleClick();
+            defending.View.DoubleClick();
             await PlayerState;
             PlayerMockGame.Pass();
             await OpponentState;
@@ -76,8 +76,8 @@ namespace CardGame.Tests.Scripts.Connected
             await OpponentState;
             OpponentMockGame.End();
             await PlayerState;
-            attacker.DoubleClick();
-            OppPlayerFromPlayer.Units[0].DoubleClick(); // Make sure to click the Attacker's copy
+            attacker.View.DoubleClick();
+            OppPlayerFromPlayer.Units[0].View.DoubleClick(); // Make sure to click the Attacker's copy
             await OpponentState;
             OpponentMockGame.Pass();
             await PlayerState;

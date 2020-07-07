@@ -22,7 +22,7 @@ namespace CardGame.Client.Room.Commands
 
         protected abstract Task<object[]> Execute();
         
-        protected void QueueProperty(Object obj, string property, object start, object end, float duration, float delay)
+        protected void QueueProperty(Card obj, string property, object start, object end, float duration, float delay)
         {
             Gfx.InterpolateProperty(obj, property, start, end, duration, Tween.TransitionType.Linear,
                 Tween.EaseType.In, delay);

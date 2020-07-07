@@ -20,7 +20,7 @@ namespace CardGame.Client.Room.Commands
         {
             var zone = GetZone(Player, ZoneId);
             QueueCallback(Card, 0, nameof(Card.MoveZone), Card.Zone, zone);
-            QueueProperty(Card, "RectGlobalPosition", Card.RectGlobalPosition, zone.Position, 0.1F, 0);
+            QueueProperty(Card, "rect_global_position", Card.RectGlobalPosition, zone.Position, 0.1F, 0);
             QueueCallback(zone, 0.1F, nameof(Zone.Sort));
             Gfx.Start();
             return await ToSignal(Gfx, "tween_all_completed");

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Godot;
-using Newtonsoft.Json.Linq; //using Godot.Collections;
+using Newtonsoft.Json.Linq;
 using File = System.IO.File;
 
 namespace CardGame.Client.Cards
@@ -13,19 +13,9 @@ namespace CardGame.Client.Cards
         
         public static Card Fetch(int id, SetCodes setCode)
         {
-            return Create(id, Cards[setCode]);
+            return new Card(id, Cards[setCode]);
         }
-
         
-        private static Card Create(int id, CardInfo data)
-        {
-            var cardScene = (PackedScene) ResourceLoader.Load("res://Client/Cards/Card.tscn");
-            var card = (Card) cardScene.Instance();
-            card.Id = id;
-            card.SetData(data);
-            return card;
-        }
-
         private static ReadOnlyDictionary<SetCodes, CardInfo> Load()
         {
             var cards = JObject.Parse(File.ReadAllText(@"Client/Cards/Library.json"));

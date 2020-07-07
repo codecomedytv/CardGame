@@ -13,6 +13,20 @@ namespace CardGame
             GetNode<Button>("Options/HostJoin").Connect("pressed", this, "HostJoin");
             GetNode<Button>("Options/Join").Connect("pressed", this, "Join");
             AddClients();
+            var card = CardGame.Client.Cards.Library.Fetch(1, SetCodes.AlphaDungeonGuide);
+            AddChild(card);
+            var t = new Tween();
+            AddChild(t);
+            var c = new Control();
+            // var c = new TextureRect();
+            // c.RectMinSize = new Vector2(200, 200);
+            // c.StretchMode = TextureRect.StretchModeEnum.ScaleOnExpand;
+            // c.RectSize = new Vector2(200, 200);
+            // c.Texture = (Texture) GD.Load("res://Assets/CardArt/coin.png");
+            AddChild(c);
+            t.InterpolateProperty(c, "rect_global_position", card.RectGlobalPosition, new Vector2(500, 500), 10.0F);
+            t.Start();
+            //card.RectGlobalPosition = new Vector2(500, 500);
         }
 
         private void AddClients(int count = 1)

@@ -100,9 +100,10 @@
     <Compile Include="addons\WAT\core\assertions\Assertions.cs" />
     <Compile Include="addons\WAT\core\test\Recorder.cs" />
     <Compile Include="addons\WAT\core\test\Test.cs" />
-    <Compile Include="Client\Cards\Card.cs" />
+    <Compile Include="Client\Cards\CardView.cs" />
     <Compile Include="Client\Cards\CardInfo.cs" />
     <Compile Include="Client\Cards\Library.cs" />
+    <Compile Include="Client\Cards\Card.cs" />
     <Compile Include="Client\ClientConn.cs" />
     <Compile Include="Client\DeckList.cs" />
     <Compile Include="Client\Room\CardCatalog.cs" />
@@ -758,7 +759,7 @@
     <Content Include="Assets\UI\Table.png.import" />
     <Content Include="Assets\UI\test.png" />
     <Content Include="Assets\UI\test.png.import" />
-    <Content Include="Client\Cards\Card.tscn" />
+    <Content Include="Client\Cards\CardView.tscn" />
     <Content Include="Client\Cards\Library.json" />
     <Content Include="Client\Room\View\CardViewer.tscn" />
     <Content Include="Client\Room\View\PlayerViewer.tscn" />
