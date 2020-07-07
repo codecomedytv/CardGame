@@ -115,7 +115,7 @@ namespace CardGame.Client.Room.Commands
         private void OnCardSentToZone(int cardId, ZoneIds zoneId, bool isOpponent)
         {
         	var card = GetCard(cardId);
-        	Commands.Enqueue(new SendCardToZone(GetPlayer(isOpponent), card, zoneId));
+            Commands.Enqueue(new SendCardToZone(GetPlayer(isOpponent), card, zoneId));
         }
 
         private void OnLifeLost(int lifeLost, bool isOpponent)
