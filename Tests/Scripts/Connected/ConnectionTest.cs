@@ -32,8 +32,8 @@ namespace CardGame.Tests.Scripts.Connected
 		{
 			await ToSignal(UntilTimeout(0.2), YIELD);
 			Assert.IsEqual(Server.GetChildCount(), 1);
-			Assert.IsEqual(Clients[0].GetChildCount(), 1);
-			Assert.IsEqual(Clients[1].GetChildCount(), 1);
+			Assert.IsEqualOrGreaterThan(Clients[0].GetChildCount(), 1);
+			Assert.IsEqualOrGreaterThan(Clients[1].GetChildCount(), 1);
 		}
 		
 		[Test]
@@ -41,8 +41,8 @@ namespace CardGame.Tests.Scripts.Connected
 		{
 			await ToSignal(UntilTimeout(0.2), YIELD);
 			Assert.IsEqual(Server.GetChild(0).Name, "1");
-			Assert.IsEqual(Clients[0].GetChild(0).Name, "1");
-			Assert.IsEqual(Clients[1].GetChild(0).Name, "1");
+			Assert.IsNotNull(Clients[0].GetNodeOrNull("1"));
+			Assert.IsNotNull(Clients[1].GetNodeOrNull("1"));
 		}
 		
 	    public override void Post()
