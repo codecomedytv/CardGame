@@ -28,11 +28,10 @@ namespace CardGame.Client.Room.Commands
                 attackerDestination.y += 100;
                 defenderDestination.y -= 100;
             }
-            QueueProperty(Attacker, "RectPosition", attackerLocation, attackerDestination, 0.1F, 0.1F);
-            QueueProperty(Defender, "RectPosition", defenderLocation, defenderDestination, 0.1F, 0.1F);
-            QueueProperty(Attacker, "RectPosition", attackerDestination, attackerLocation, 0.1F, 0.2F);
-            QueueProperty(Defender, "RectPosition", defenderDestination, defenderLocation, 0.1F, 0.2F);
-
+            QueueProperty(Attacker, "rect_position", attackerLocation, attackerDestination, 0.1F, 0.1F);
+            QueueProperty(Defender, "rect_position", defenderLocation, defenderDestination, 0.1F, 0.1F);
+            QueueProperty(Attacker, "rect_position", attackerDestination, attackerLocation, 0.1F, 0.2F);
+            QueueProperty(Defender, "rect_position", defenderDestination, defenderLocation, 0.1F, 0.2F);
             Gfx.Start();
             return await ToSignal(Gfx, "tween_all_completed");
         }

@@ -16,7 +16,7 @@ namespace CardGame.Client.Room.Commands
         }
         protected override async Task<object[]> Execute()
         {
-            QueueProperty(Card, "RectGlobalPosition", Card.RectGlobalPosition, FuturePosition(Player.Units), 0.2F, 0);
+            QueueProperty(Card, "rect_global_position", Card.RectGlobalPosition, FuturePosition(Player.Units), 0.2F, 0);
             
             // This really doesn't need to be a callback does it?
             QueueCallback(Player.Hand, 0.2F, nameof(Zone.Remove), Card);
