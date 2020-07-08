@@ -93,30 +93,29 @@ namespace CardGame.Client.Room
                 }
                 else
                 {
-                    AttackingCard.View.AttackIcon.Visible = false;
-                    AttackingCard.View.SelectedTarget.Visible = false;
+                    AttackingCard.CancelAttack();
                 }
                 Attacking = false;
                 AttackingCard = null;
                 return;
-
             }
 
-            if (card.State == CardStates.CanBeDeployed && User.State == States.Idle)
+            if (card.CanBeDeployed)
             {
                 User.State = States.Processing;
                 EmitSignal(nameof(Deploy), card.Id);
             }
-            else if (card.State == CardStates.CanBeSet && User.State == States.Idle)
+            else if (card.CanBeSet)
             {
                 User.State = States.Processing;
                 EmitSignal(nameof(SetFaceDown), card.Id);
             }
-            else if (card.State == CardStates.CanBeActivated && !User.IsInActive)
+            else if (card.CanBeActivated)
             {
+                // We're checking if it can target, but it seems our fallback (the else) is to activate it without
+                // selecting a target which should (in most cases at least) be an illegal play.
                 if (card.CanTarget)
                 {
-                    // We need a required check as well as a viablity check
                     card.FlipFaceUp();
                     Targeting = true;
                     TargetingCard = card;
@@ -127,7 +126,7 @@ namespace CardGame.Client.Room
                     EmitSignal(nameof(Activate), card, new Array());
                 }
             }
-            else if (card.State == CardStates.CanAttack && User.State == States.Idle)
+            else if (card.CanAttack)
             {
                 Attacking = true;
                 AttackingCard = card;
