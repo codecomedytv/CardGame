@@ -62,6 +62,7 @@ namespace CardGame.Client.Room
         {
             if (Targeting || Attacking) { return; }
             card.StopHighlightingTargets();
+            card.StopHighlightingAttackTargets();
         }
         
         private void OnCardDoubleClicked(Card card)
@@ -70,6 +71,8 @@ namespace CardGame.Client.Room
             {
                 return;
             }
+            
+            // Begin Method?
             if (Targeting && User.State == States.Active)
             {
                 TargetingCard.StopHighlightingTargets();
@@ -81,6 +84,7 @@ namespace CardGame.Client.Room
                 }
             }
 
+            // Begin Method?
             if (Attacking && User.State == States.Idle)
             {
                 card.StopHighlightingAttackTargets();
@@ -100,6 +104,7 @@ namespace CardGame.Client.Room
                 return;
             }
 
+            // Begin Method?
             if (card.CanBeDeployed)
             {
                 User.State = States.Processing;
@@ -112,11 +117,16 @@ namespace CardGame.Client.Room
             }
             else if (card.CanBeActivated)
             {
+                card.FlipFaceUp();
+
                 // We're checking if it can target, but it seems our fallback (the else) is to activate it without
                 // selecting a target which should (in most cases at least) be an illegal play.
+                
+                // In retrospect this is okay because if the card required targets but had none valid, it wouldn't
+                // be able to satisfy this condition since its state wouldn't be CanBeActivated.
                 if (card.CanTarget)
                 {
-                    card.FlipFaceUp();
+                    // We return our of this so players have a chance to select the target before activation
                     Targeting = true;
                     TargetingCard = card;
                 }
@@ -130,8 +140,7 @@ namespace CardGame.Client.Room
             {
                 Attacking = true;
                 AttackingCard = card;
-                card.View.AttackIcon.Visible = true;
-                card.View.SelectedTarget.Visible = true;
+                card.Select();
             }
         }
     }

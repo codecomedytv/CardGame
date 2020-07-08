@@ -57,7 +57,9 @@ namespace CardGame.Client.Cards
         public void HighlightTargets() { foreach (var target in ValidTargets) { target.HighlightAsTarget(); } }
         public void HighlightAttackTargets() { foreach (var target in ValidAttackTargets) { target.HighlightAsTarget(); } }
         public void StopHighlightingTargets() { foreach (var target in ValidTargets) { target.StopHighlightingAsTarget(); } }
-        public void StopHighlightingAttackTargets() { foreach (var target in ValidTargets) { target.StopHighlightingAsTarget(); } }
+        public void StopHighlightingAttackTargets() { foreach (var target in ValidAttackTargets) { target.StopHighlightingAsTarget(); } }
+        public void Select() => View.SelectedTarget.Visible = true;
+        public void Deselect() => View.SelectedTarget.Visible = false;
 
         public void AttackUnit(Card defending)
         {
