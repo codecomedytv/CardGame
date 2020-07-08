@@ -1,13 +1,21 @@
 <?xml version="1.0" ?>
-<testsuites failures="0" name="TestXML" tests="1" time="1.006">
-<testsuite failures="0" name="ActionTest" tests="4" time="0.01">
-<testcase name="OnUnitOnFieldDoubleClicked" time="6.637">
+<testsuites failures="0" name="TestXML" tests="2" time="1.046">
+<testsuite failures="0" name="ActionTest" tests="4" time="0.011">
+<testcase name="OnUnitOnFieldDoubleClicked" time="6.608">
 </testcase>
-<testcase name="OnEndTurn" time="3.559">
+<testcase name="OnEndTurn" time="3.585">
 </testcase>
-<testcase name="OnSupportInHandDoubleClicked" time="3.572">
+<testcase name="OnSupportInHandDoubleClicked" time="3.574">
 </testcase>
-<testcase name="OnUnitInHandDoubleClicked" time="3.573">
+<testcase name="OnUnitInHandDoubleClicked" time="3.57">
+</testcase>
+</testsuite>
+<testsuite failures="0" name="Given A Server and Two Clients" tests="3" time="0.001">
+<testcase name="RoomSharesNameAcrossNetwork" time="3.314">
+</testcase>
+<testcase name="GameRoomIsSetup" time="3.456">
+</testcase>
+<testcase name="AllAreConnected" time="2.991">
 </testcase>
 </testsuite>
 </testsuites>

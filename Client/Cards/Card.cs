@@ -10,7 +10,12 @@ namespace CardGame.Client.Cards
         public readonly CardView View;
         public readonly int Id;
         public readonly CardTypes CardType;
-        public CardStates State = CardStates.CanBeDeployed;
+        private CardStates _State = CardStates.Passive;
+        public CardStates State
+        {
+            get => _State;
+            set => _State = SetState(value);
+        }
         public Player Player;
         public string Title;
         public string Art;
@@ -34,26 +39,24 @@ namespace CardGame.Client.Cards
         {
             Id = id;
             View = (CardView) Scene.Instance();
-            (Title, Effect, Art, CardType, Attack, Defense) = (c.Title, c.Text, c.Art, (CardTypes) c.Type, c.Attack, c.Defense);
+            (Title, Effect, Art, CardType, Attack, Defense) = (c.Title, c.Text, c.Art, c.Type, c.Attack, c.Defense);
+        }
+
+        private CardStates SetState(CardStates state)
+        {
+            DisplayState(state);
+            return state;
+        }
+
+        private void DisplayState(CardStates state)
+        { 
+            if (IsInsideTree()) { View.Legal.Visible = (state != CardStates.Activated && state != CardStates.Passive);}
         }
         
         public void FlipFaceUp() => View.FlipFaceUp();
         public void FlipFaceDown() => View.FlipFaceDown();
         public void AddToChain() => View.AddToChain(ChainIndex.ToString());
         public void RemoveFromChain() => View.RemoveFromChain();
-
-        public void MoveZone(Zone oldZone, Zone newZone)
-        {
-            // View.SelectedTarget.Visible = false;
-            // View.DefenseIcon.Visible = false;
-            // View.AttackIcon.Visible = false;
-            // View.ChainLink.Stop();
-            // View.ChainLink.Visible = false;
-            oldZone.Remove(this);
-            ShowBehindParent = true;
-            oldZone.Sort();
-            newZone.Add(this);
-        }
         
         public override string ToString() => $"{Id} : {Title}";
         
@@ -71,6 +74,7 @@ namespace CardGame.Client.Cards
         public override void _Ready()
         {
             AddChild(View);
+            DisplayState(State);
             RectSize = View.RectSize;
             RectMinSize = View.RectMinSize;
             View.Display(this);

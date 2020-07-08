@@ -11,7 +11,6 @@ namespace CardGame.Client.Cards
 		private Label Defense;
 		private Sprite Art;
 		private TextureRect Back;
-		private Sprite Frame;
 		public Sprite Legal;
 		public Sprite ValidTarget;
 		public Sprite SelectedTarget;
@@ -33,11 +32,10 @@ namespace CardGame.Client.Cards
 			DefenseIcon = GetNode("DefenseIcon") as Sprite;
 			Attack = GetNode("Battle/Attack") as Label;
 			Defense = GetNode("Battle/Defense") as Label;
-			Frame = GetNode("Frame") as Sprite;
 			Art = GetNode("Frame/Illustration") as Sprite;
 			Back = GetNode("Back") as TextureRect;
 		}
-
+		
 		public void FlipFaceDown() => Back.Visible = true;
 		public void FlipFaceUp() => Back.Visible = false;
 		
@@ -73,22 +71,10 @@ namespace CardGame.Client.Cards
 		public delegate void MouseExitedCard();
 		[Signal]
 		public delegate void DoubleClicked();
-		public void OnMouseEnter()
-		{
-			var p = GetParent() as Card;
-			if (p.State == CardStates.CanAttack)
-			{
-				AttackIcon.Visible = true;
-			}
-			EmitSignal(nameof(MouseEnteredCard));
-		}
+		public void OnMouseEnter() => EmitSignal(nameof(MouseEnteredCard));
+		
 
-		public void OnMouseExit()
-		{
-			Legal.Visible = false;
-			AttackIcon.Visible = false;
-			EmitSignal(nameof(MouseExitedCard));
-		}
+		public void OnMouseExit() => EmitSignal(nameof(MouseExitedCard));
 
 		public override void _Input(InputEvent inputEvent)
 		{

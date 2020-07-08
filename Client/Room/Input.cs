@@ -51,7 +51,6 @@ namespace CardGame.Client.Room
             {
                 return;
             }
-            card.View.Legal.Visible = true;
             if (card.Targets())
             {
                 foreach (var target in card.ValidTargets)
@@ -106,7 +105,6 @@ namespace CardGame.Client.Room
 
             if (Attacking && User.State == States.Idle)
             {
-                AttackingCard.View.Legal.Visible = false;
                 foreach (var id in AttackingCard.ValidAttackTargets)
                 {
                     card.View.DefenseIcon.Visible = false;
@@ -135,13 +133,11 @@ namespace CardGame.Client.Room
             {
                 case CardStates.CanBeDeployed:
                     if (User.State != States.Idle) { return; }
-                    card.View.Legal.Visible = false;
                     User.State = States.Processing;
                     EmitSignal(nameof(Deploy), card.Id);
                     break;
                 case CardStates.CanBeSet:
                     if (User.State != States.Idle) { return; }
-                    card.View.Legal.Visible = false;
                     User.State = States.Processing;
                     EmitSignal(nameof(SetFaceDown), card.Id);
                     break;
@@ -152,11 +148,9 @@ namespace CardGame.Client.Room
                         card.FlipFaceUp();
                         Targeting = true;
                         TargetingCard = card;
-                        card.View.Legal.Visible = false;
                     }
                     else
                     {
-                        card.View.Legal.Visible = false;
                         User.State = States.Processing;
                         EmitSignal(nameof(Activate), card, new Array());
                     }
