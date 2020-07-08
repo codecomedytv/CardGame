@@ -21,8 +21,14 @@ namespace CardGame.Client.Room.Commands
         }
 
         protected abstract Task<object[]> Execute();
+        
+        protected async Task<object[]> Start()
+        {
+            Gfx.Start();
+            return await ToSignal(Gfx,"tween_all_completed");
+        }
 
-        protected void MoveCard(Card card, Zone destination)
+            protected void MoveCard(Card card, Zone destination)
         {
             QueueProperty(card, nameof(Card.Position), card.Position, FuturePosition(destination), 0.1F, 0.1F);
             QueueCallback(card.Zone, 0.2F, nameof(Zone.Remove), card);

@@ -19,8 +19,7 @@ namespace CardGame.Client.Room.Commands
             Card.ChainIndex = PositionInLink;
             QueueCallback(Card, 0, nameof(Card.FlipFaceUp));
             QueueCallback(Card, 0, nameof(Card.AddToChain));
-            Gfx.Start();
-            return await ToSignal(Gfx, "tween_all_completed");
+            return await Start();
         }
     }
 }

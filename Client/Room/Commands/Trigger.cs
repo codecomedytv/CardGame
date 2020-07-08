@@ -17,8 +17,7 @@ namespace CardGame.Client.Room.Commands
         protected override async Task<object[]> Execute()
         {
             QueueCallback(Card, 0.1F, nameof(Card.AddToChain));
-            Gfx.Start();
-            return await ToSignal(Gfx, "tween_all_completed");
+            return await Start();
         }
     }
 }

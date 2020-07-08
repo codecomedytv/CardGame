@@ -21,6 +21,7 @@ namespace CardGame.Client.Room.Commands
         {
             if (IsOpponent)
             {
+                // If we use indexes server-side, we could probably do the same here
                 var toBeReplaced = Player.Hand.Last();
                 Player.Hand.Remove(toBeReplaced);
                 toBeReplaced.Free(); // This may cause problems if we implement undo
@@ -29,8 +30,8 @@ namespace CardGame.Client.Room.Commands
             }
             QueueCallback(Card, 0, nameof(Card.FlipFaceDown));
             MoveCard(Card, Player.Support);
-            Gfx.Start();
-            return await ToSignal(Gfx, "tween_all_completed");
+            return await Start();
+
         }
     }
 }

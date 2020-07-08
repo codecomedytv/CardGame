@@ -17,8 +17,8 @@ namespace CardGame.Client.Room.Commands
         protected override async Task<object[]> Execute()
         {
             MoveCard(Card, Player.Units);
-            Gfx.Start();
-            return await ToSignal(Gfx, "tween_all_completed");
+            return await Start();
+
         }
     }
 }

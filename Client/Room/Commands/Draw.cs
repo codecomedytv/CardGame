@@ -23,9 +23,8 @@ namespace CardGame.Client.Room.Commands
             Card.Position = Player.Deck.Position;
             MoveCard(Card, Player.Hand);
             QueueProperty(Card, "modulate", Colors.Transparent, originalColor, 0.1F, 0.1F);
-            QueueCallback(Player.Hand, 0.2F, nameof(Zone.Sort));
-            Gfx.Start();
-            return await ToSignal(Gfx, "tween_all_completed");
+            return await Start();
+
         }
     }
 }

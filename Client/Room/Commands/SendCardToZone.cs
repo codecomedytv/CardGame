@@ -18,11 +18,9 @@ namespace CardGame.Client.Room.Commands
 
         protected override async Task<object[]> Execute()
         {
-            var zone = GetZone(Player, ZoneId);
-            MoveCard(Card, zone);
-            QueueCallback(zone, 0.1F, nameof(Zone.Sort));
-            Gfx.Start();
-            return await ToSignal(Gfx, "tween_all_completed");
+            MoveCard(Card, GetZone(Player, ZoneId));
+            return await Start();
+
         }
     }
 }

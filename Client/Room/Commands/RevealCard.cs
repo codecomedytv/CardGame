@@ -51,8 +51,8 @@ namespace CardGame.Client.Room.Commands
                 }
             }
 
-            Gfx.Start();
-            return await ToSignal(Gfx, "tween_all_completed");
+            return await Start();
+
         }
     }
 }
