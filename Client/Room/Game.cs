@@ -33,8 +33,7 @@ namespace CardGame.Client.Room {
 			CardCatalog = new CardCatalog();
 			Messenger = new Messenger();
 			CommandQueue = new CommandQueue(CardCatalog, Player, Opponent, Gfx);
-			Input = new Input(CardCatalog, Player);
-			
+			Input = new Input(Player);
 		}
 		
 		public override void _Ready()

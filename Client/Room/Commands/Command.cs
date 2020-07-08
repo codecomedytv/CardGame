@@ -17,7 +17,7 @@ namespace CardGame.Client.Room.Commands
         public async Task<object[]> Execute(Tween gfx)
         {
             Gfx = gfx;
-            return await Execute();   
+            return await Execute();
         }
 
         protected abstract Task<object[]> Execute();

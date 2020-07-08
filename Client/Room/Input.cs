@@ -23,17 +23,15 @@ namespace CardGame.Client.Room
         [Signal]
         public delegate void Attack();
         
-//        private readonly CardCatalog CardCatalog;
         private readonly Player User;
         private bool Targeting;
         private bool Attacking;
         private Card TargetingCard;
         private Card AttackingCard;
 
-        public Input(CardCatalog cardCatalog, Player player)
+        public Input(Player player)
         {
             User = player;
-           // CardCatalog = cardCatalog;
         }
         
         public void OnCardCreated(Card card)
