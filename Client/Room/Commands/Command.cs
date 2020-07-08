@@ -21,6 +21,13 @@ namespace CardGame.Client.Room.Commands
         }
 
         protected abstract Task<object[]> Execute();
+
+        protected void MoveCard(Card card, Zone destination)
+        {
+            QueueProperty(card, nameof(Card.Position), card.Position, FuturePosition(destination), 0.1F, 0.1F);
+            QueueCallback(card.Zone, 0.2F, nameof(Zone.Remove), card);
+            QueueCallback(destination, 0.2F, nameof(Zone.Add), card);
+        }
         
         protected void QueueProperty(Card obj, string property, object start, object end, float duration, float delay)
         {

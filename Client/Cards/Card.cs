@@ -17,6 +17,11 @@ namespace CardGame.Client.Cards
         public string Effect;
         public int Attack = 0;
         public int Defense = 0;
+        public Vector2 Position 
+        { 
+            get => RectGlobalPosition;
+            set => RectGlobalPosition = value;
+        }
 
         public bool IsFaceUp => View.IsFaceUp;
         public int ChainIndex;

@@ -27,10 +27,8 @@ namespace CardGame.Client.Room.Commands
                 Player.Hand.Add(Card);
                 Player.Hand.Sort();
             }
-            QueueProperty(Card, "rect_global_position", Card.RectGlobalPosition, FuturePosition(Player.Support), 0.2F, 0);
             QueueCallback(Card, 0, nameof(Card.FlipFaceDown));
-            QueueCallback(Player.Hand, 0.2F, nameof(Zone.Remove), Card);
-            QueueCallback(Player.Support, 0.2F, nameof(Zone.Add), Card);
+            MoveCard(Card, Player.Support);
             Gfx.Start();
             return await ToSignal(Gfx, "tween_all_completed");
         }
