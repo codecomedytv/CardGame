@@ -29,7 +29,7 @@ namespace CardGame.Client.Cards
         {
             Id = id;
             View = (CardView) Scene.Instance();
-            (Title, Effect, Art, CardType, Attack, Defense) = (c.Title, c.Text, c.Art, c.CardType, c.Attack, c.Defense);
+            (Title, Effect, Art, CardType, Attack, Defense) = (c.Title, c.Text, c.Art, (CardTypes) c.Type, c.Attack, c.Defense);
         }
         
         public void FlipFaceUp() => View.FlipFaceUp();
@@ -83,7 +83,7 @@ namespace CardGame.Client.Cards
             if (CardType == CardTypes.Null) { return; }
             View.FlipFaceUp();
             View.Id.Text = Id.ToString();
-            View.Art.Texture = ResourceLoader.Load(Art) as Texture;
+            View.Art.Texture = ResourceLoader.Load($"res://Assets/CardArt/{Art}.png") as Texture;
             if (CardType != CardTypes.Unit) return;
             View.Attack.Text = Attack.ToString();
             View.Defense.Text = Defense.ToString();
