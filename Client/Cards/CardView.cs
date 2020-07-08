@@ -10,7 +10,7 @@ namespace CardGame.Client.Cards
 		public Label Attack;
 		public Label Defense;
 		public Sprite Art;
-		public TextureRect Back;
+		private TextureRect Back;
 		public Sprite Frame;
 		public Sprite Legal;
 		public Sprite ValidTarget;
@@ -37,6 +37,9 @@ namespace CardGame.Client.Cards
 			Art = GetNode("Frame/Illustration") as Sprite;
 			Back = GetNode("Back") as TextureRect;
 		}
+
+		public void FlipFaceDown() => Back.Visible = true;
+		public void FlipFaceUp() => Back.Visible = false;
 		
 		[Signal]
 		public delegate void MouseEnteredCard();

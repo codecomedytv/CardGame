@@ -17,7 +17,8 @@ namespace CardGame.Client.Cards
         public string Effect;
         public int Attack = 0;
         public int Defense = 0;
-        
+
+        public bool IsFaceUp => View.IsFaceUp;
         public int ChainIndex;
         public readonly List<int> ValidTargets = new List<int>();
         public readonly List<int> ValidAttackTargets = new List<int>();
@@ -31,6 +32,9 @@ namespace CardGame.Client.Cards
             (Title, Effect, Art, CardType, Attack, Defense) = (c.Title, c.Text, c.Art, c.CardType, c.Attack, c.Defense);
         }
         
+        public void FlipFaceUp() => View.FlipFaceUp();
+        public void FlipFaceDown() => View.FlipFaceDown();
+
         public void MoveZone(Zone oldZone, Zone newZone)
         {
             View.SelectedTarget.Visible = false;
@@ -64,11 +68,7 @@ namespace CardGame.Client.Cards
             RectMinSize = View.RectMinSize;
             Visualize();
         }
-
-        public void FlipFaceDown() => View.Back.Visible = true;
-
-        public void FlipFaceUp() => View.Back.Visible = false;
-		
+        
         public void AddToChain()
         {
             View.ChainLink.Frame = 0;
@@ -79,11 +79,9 @@ namespace CardGame.Client.Cards
 
         private void Visualize()
         {
-            if (CardType == CardTypes.Null)
-            {
-                View.Back.Visible = true;
-                return;
-            }
+            View.FlipFaceDown();
+            if (CardType == CardTypes.Null) { return; }
+            View.FlipFaceUp();
             View.Id.Text = Id.ToString();
             View.Art.Texture = ResourceLoader.Load(Art) as Texture;
             if (CardType != CardTypes.Unit) return;
