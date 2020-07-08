@@ -1,28 +1,19 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using Godot;
+﻿using System.Collections.ObjectModel;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using File = System.IO.File;
+using System.IO;
 
 namespace CardGame.Client.Cards
 {
     
     public static class Library
     {
-        private static readonly ReadOnlyDictionary<SetCodes, CardInfo> Cards = Load();
+        private const string JsonFilePath = @"Client/Cards/Library.json";
+        private static readonly ReadOnlyDictionary<SetCodes, CardInfo> Cards = 
+            JsonConvert.DeserializeObject<ReadOnlyDictionary<SetCodes, CardInfo>>(File.ReadAllText(JsonFilePath));
         
         public static Card Fetch(int id, SetCodes setCode)
         {
             return new Card(id, Cards[setCode]);
         }
-        
-        private static ReadOnlyDictionary<SetCodes, CardInfo> Load()
-        {
-            //var cards = File.ReadAllText(@"Client/Cards/Library.json");
-            var temp = JsonConvert.DeserializeObject<Dictionary<SetCodes, CardInfo>>(File.ReadAllText(@"Client/Cards/Library.json"));
-            return new ReadOnlyDictionary<SetCodes, CardInfo>(temp);
-        }
-
     }
 }
