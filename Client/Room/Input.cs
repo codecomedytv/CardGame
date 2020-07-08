@@ -101,45 +101,38 @@ namespace CardGame.Client.Room
                 return;
 
             }
-            switch (card.State)
+
+            if (card.State == CardStates.CanBeDeployed && User.State == States.Idle)
             {
-                case CardStates.CanBeDeployed:
-                    if (User.State != States.Idle) { return; }
+                User.State = States.Processing;
+                EmitSignal(nameof(Deploy), card.Id);
+            }
+            else if (card.State == CardStates.CanBeSet && User.State == States.Idle)
+            {
+                User.State = States.Processing;
+                EmitSignal(nameof(SetFaceDown), card.Id);
+            }
+            else if (card.State == CardStates.CanBeActivated && !User.IsInActive)
+            {
+                if (card.CanTarget)
+                {
+                    // We need a required check as well as a viablity check
+                    card.FlipFaceUp();
+                    Targeting = true;
+                    TargetingCard = card;
+                }
+                else
+                {
                     User.State = States.Processing;
-                    EmitSignal(nameof(Deploy), card.Id);
-                    break;
-                case CardStates.CanBeSet:
-                    if (User.State != States.Idle) { return; }
-                    User.State = States.Processing;
-                    EmitSignal(nameof(SetFaceDown), card.Id);
-                    break;
-                case CardStates.CanBeActivated:
-                    if (User.State != States.Idle && User.State != States.Active) { return; }
-                    if (card.CanTarget)
-                    {
-                        card.FlipFaceUp();
-                        Targeting = true;
-                        TargetingCard = card;
-                    }
-                    else
-                    {
-                        User.State = States.Processing;
-                        EmitSignal(nameof(Activate), card, new Array());
-                    }
-                    break;
-                case CardStates.CanAttack:
-                    if (User.State != States.Idle) { return; }
-                    Attacking = true;
-                    AttackingCard = card;
-                    card.View.AttackIcon.Visible = true;
-                    card.View.SelectedTarget.Visible = true;
-                    break;
-                case CardStates.Passive:
-                    break;
-                case CardStates.Activated:
-                    break;
-                default:
-                    throw new System.ArgumentOutOfRangeException();
+                    EmitSignal(nameof(Activate), card, new Array());
+                }
+            }
+            else if (card.State == CardStates.CanAttack && User.State == States.Idle)
+            {
+                Attacking = true;
+                AttackingCard = card;
+                card.View.AttackIcon.Visible = true;
+                card.View.SelectedTarget.Visible = true;
             }
         }
     }
