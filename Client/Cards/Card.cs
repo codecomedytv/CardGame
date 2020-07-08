@@ -20,8 +20,8 @@ namespace CardGame.Client.Cards
 
         public bool IsFaceUp => View.IsFaceUp;
         public int ChainIndex;
-        public readonly List<int> ValidTargets = new List<int>();
-        public readonly List<int> ValidAttackTargets = new List<int>();
+        public readonly List<Card> ValidTargets = new List<Card>();
+        public readonly List<Card> ValidAttackTargets = new List<Card>();
         public bool IsTargeting = false;
         public Zone Zone;
 
@@ -34,14 +34,16 @@ namespace CardGame.Client.Cards
         
         public void FlipFaceUp() => View.FlipFaceUp();
         public void FlipFaceDown() => View.FlipFaceDown();
+        public void AddToChain() => View.AddToChain(ChainIndex.ToString());
+        public void RemoveFromChain() => View.RemoveFromChain();
 
         public void MoveZone(Zone oldZone, Zone newZone)
         {
-            View.SelectedTarget.Visible = false;
-            View.DefenseIcon.Visible = false;
-            View.AttackIcon.Visible = false;
-            View.ChainLink.Stop();
-            View.ChainLink.Visible = false;
+            // View.SelectedTarget.Visible = false;
+            // View.DefenseIcon.Visible = false;
+            // View.AttackIcon.Visible = false;
+            // View.ChainLink.Stop();
+            // View.ChainLink.Visible = false;
             oldZone.Remove(this);
             ShowBehindParent = true;
             oldZone.Sort();
@@ -66,29 +68,7 @@ namespace CardGame.Client.Cards
             AddChild(View);
             RectSize = View.RectSize;
             RectMinSize = View.RectMinSize;
-            Visualize();
-        }
-        
-        public void AddToChain()
-        {
-            View.ChainLink.Frame = 0;
-            View.ChainLink.Visible = true;
-            View.ChainIndexDisplay.Text = ChainIndex.ToString();
-            View.ChainLink.Play();
-        }
-
-        private void Visualize()
-        {
-            View.FlipFaceDown();
-            if (CardType == CardTypes.Null) { return; }
-            View.FlipFaceUp();
-            View.Id.Text = Id.ToString();
-            View.Art.Texture = ResourceLoader.Load($"res://Assets/CardArt/{Art}.png") as Texture;
-            if (CardType != CardTypes.Unit) return;
-            View.Attack.Text = Attack.ToString();
-            View.Defense.Text = Defense.ToString();
+            View.Display(this);
         }
     }
-    
-    
 }

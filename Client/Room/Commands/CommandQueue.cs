@@ -67,9 +67,17 @@ namespace CardGame.Client.Room.Commands
             var card = GetCard(id);
             card.State = state;
             card.ValidTargets.Clear();
-            card.ValidTargets.AddRange(targets);
+            foreach (var target in targets)
+            {
+	            card.ValidTargets.Add(GetCard(target));
+            }
+
             card.ValidAttackTargets.Clear();
-            card.ValidAttackTargets.AddRange(attackTargets);
+
+            foreach (var defender in attackTargets)
+            {
+	            card.ValidAttackTargets.Add(GetCard(defender));
+            }
         }
         
         private void OnDeckLoaded(Dictionary<int, SetCodes> deck)

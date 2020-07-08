@@ -6,26 +6,26 @@ namespace CardGame.Client.Cards
 {
 	public class CardView : Control
 	{
-		public Label Id;
-		public Label Attack;
-		public Label Defense;
-		public Sprite Art;
+		private Label Id;
+		private Label Attack;
+		private Label Defense;
+		private Sprite Art;
 		private TextureRect Back;
-		public Sprite Frame;
+		private Sprite Frame;
 		public Sprite Legal;
 		public Sprite ValidTarget;
 		public Sprite SelectedTarget;
 		public Sprite AttackIcon;
 		public Sprite DefenseIcon;
-		public AnimatedSprite ChainLink;
-		public Label ChainIndexDisplay;
+		private AnimatedSprite ChainLink;
+		private Label ChainIndex;
 		public bool IsFaceUp => !Back.Visible;
 		
 		public override void _Ready()
 		{
 			Id = GetNode("ID") as Label;
 			ChainLink = GetNode("Frame/ChainLink") as AnimatedSprite;
-			ChainIndexDisplay = GetNode("Frame/ChainLink/Index") as Label;
+			ChainIndex = GetNode("Frame/ChainLink/Index") as Label;
 			Legal = GetNode("Legal") as Sprite;
 			ValidTarget = GetNode("ValidTarget") as Sprite;
 			SelectedTarget = GetNode("SelectedTarget") as Sprite;
@@ -41,14 +41,55 @@ namespace CardGame.Client.Cards
 		public void FlipFaceDown() => Back.Visible = true;
 		public void FlipFaceUp() => Back.Visible = false;
 		
+		public void AddToChain(string chainIndex)
+		{
+			ChainLink.Frame = 0;
+			ChainLink.Visible = true;
+			ChainIndex.Text = chainIndex; 
+			ChainLink.Play();
+		}
+
+		public void RemoveFromChain()
+		{
+			ChainLink.Visible = false;
+			ChainLink.Stop();
+		}
+		
+		public void Display(Card card)
+		{
+			FlipFaceDown(); // Is this unnecessary?
+			if(card.CardType == CardTypes.Null) {return;}
+			FlipFaceUp();
+			Id.Text = card.Id.ToString();
+			Art.Texture = ResourceLoader.Load($"res://Assets/CardArt/{card.Art}.png") as Texture;
+			if(card.CardType != CardTypes.Unit) {return;}
+			Attack.Text = card.Attack.ToString();
+			Defense.Text = card.Defense.ToString();
+		}
+		
 		[Signal]
 		public delegate void MouseEnteredCard();
 		[Signal]
 		public delegate void MouseExitedCard();
 		[Signal]
 		public delegate void DoubleClicked();
-		public void OnMouseEnter() => EmitSignal(nameof(MouseEnteredCard));
-		public void OnMouseExit() => EmitSignal(nameof(MouseExitedCard));
+		public void OnMouseEnter()
+		{
+			var p = GetParent() as Card;
+			if (p.State == CardStates.CanAttack)
+			{
+				AttackIcon.Visible = true;
+			}
+			EmitSignal(nameof(MouseEnteredCard));
+		}
+
+		public void OnMouseExit()
+		{
+			Legal.Visible = false;
+			AttackIcon.Visible = false;
+			EmitSignal(nameof(MouseExitedCard));
+		}
+
 		public override void _Input(InputEvent inputEvent)
 		{
 			if (inputEvent is InputEventMouseButton mouseButton && mouseButton.Doubleclick && GetGlobalRect().HasPoint(mouseButton.Position))
