@@ -72,8 +72,8 @@ namespace CardGame.Client.Room
             }
             if (Targeting && User.State == States.Active)
             {
-                card.StopHighlightingTargets();
-                if (TargetingCard.ValidTargets.Contains(card))
+                TargetingCard.StopHighlightingTargets();
+                if (TargetingCard.HasTarget(card))
                 {
                     EmitSignal(nameof(Activate), TargetingCard, card.Id);
                     User.State = States.Processing;
@@ -85,7 +85,7 @@ namespace CardGame.Client.Room
             {
                 card.StopHighlightingAttackTargets();
 
-                if (AttackingCard.ValidAttackTargets.Contains(card))
+                if (AttackingCard.HasAttackTarget(card))
                 {
                     AttackingCard.AttackUnit(card);
                     User.State = States.Processing;

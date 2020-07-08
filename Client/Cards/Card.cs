@@ -32,6 +32,8 @@ namespace CardGame.Client.Cards
         public bool IsInActive => State == CardStates.Passive || State == CardStates.Activated;
         public bool CanAttack => State == CardStates.CanAttack && Player.State == States.Idle && ValidAttackTargets.Count > 0;
         public bool CanTarget => State == CardStates.CanBeActivated && ValidTargets.Count > 0 && !Player.IsInActive;
+        public bool HasTarget(Card target) => ValidTargets.Contains(target);
+        public bool HasAttackTarget(Card defender) => ValidAttackTargets.Contains(defender);
         public int ChainIndex;
         public readonly List<Card> ValidTargets = new List<Card>();
         public readonly List<Card> ValidAttackTargets = new List<Card>();
