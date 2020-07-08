@@ -29,6 +29,9 @@ namespace CardGame.Client.Cards
         }
 
         public bool IsFaceUp => View.IsFaceUp;
+        public bool IsInActive => State == CardStates.Passive || State == CardStates.Activated;
+        public bool CanAttack => State == CardStates.CanAttack && Player.State == States.Idle && ValidAttackTargets.Count > 0;
+        public bool CanTarget => State == CardStates.CanBeActivated && ValidTargets.Count > 0 && !Player.IsInActive;
         public int ChainIndex;
         public readonly List<Card> ValidTargets = new List<Card>();
         public readonly List<Card> ValidAttackTargets = new List<Card>();
@@ -57,19 +60,38 @@ namespace CardGame.Client.Cards
         public void FlipFaceDown() => View.FlipFaceDown();
         public void AddToChain() => View.AddToChain(ChainIndex.ToString());
         public void RemoveFromChain() => View.RemoveFromChain();
-        
+        public void HighlightAsTarget() => View.ValidTarget.Visible = true;
+        public void StopHighlightingAsTarget() => View.ValidTarget.Visible = false;
+
+        public void HighlightTargets()
+        {
+            foreach (var target in ValidTargets) { target.HighlightAsTarget(); }
+        }
+
+        public void HighlightAttackTargets()
+        {
+            foreach (var target in ValidAttackTargets) { target.HighlightAsTarget(); }
+        }
+
+        public void StopHighlightingTargets()
+        {
+            foreach (var target in ValidTargets) { target.StopHighlightingAsTarget(); }
+        }
+
+        public void StopHighlightingAttackTargets()
+        {
+            foreach (var target in ValidTargets) { target.StopHighlightingAsTarget(); }
+        }
+
+        public void AttackUnit(Card defending)
+        {
+            View.SelectedTarget.Visible = true;
+            View.AttackIcon.Visible = true;
+            defending.View.SelectedTarget.Visible = true;
+            defending.View.DefenseIcon.Visible = true;
+        }
+
         public override string ToString() => $"{Id} : {Title}";
-        
-        public bool Targets()
-        {
-            return ValidTargets.Count > 0;
-        }
-
-        public bool Attacks()
-        {
-            return ValidAttackTargets.Count > 0;
-        }
-
 
         public override void _Ready()
         {

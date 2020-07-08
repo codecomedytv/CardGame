@@ -24,6 +24,7 @@ namespace CardGame.Client.Room
         public readonly Zone Support;
         public readonly Zone Hand;
         private AnimatedSprite PlayingState;
+        public bool IsInActive => State != States.Active && State != States.Idle;
         public  void Initialize(Control view)
         {
         }

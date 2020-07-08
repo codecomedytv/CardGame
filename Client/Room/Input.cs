@@ -46,40 +46,22 @@ namespace CardGame.Client.Room
         {
             if (Targeting || Attacking) { return; }
             EmitSignal(nameof(MouseEnteredCard), card);
-            var playingState = User.State == States.Idle || User.State == States.Active;
-            if (card.State == CardStates.Passive || card.State == CardStates.Activated || !playingState)
+            if (card.IsInActive || User.IsInActive) { return; }
+            if (card.CanTarget)
             {
-                return;
-            }
-            if (card.Targets())
-            {
-                foreach (var target in card.ValidTargets)
-                {
-                    target.View.ValidTarget.Visible = true;
-                }
+                card.HighlightTargets();
             }
 
-            else if (card.Attacks() && User.State == States.Idle)
+            else if (card.CanAttack)
             {
-                foreach (var defender in card.ValidAttackTargets)
-                {
-                    defender.View.DefenseIcon.Visible = true;
-                }
+                card.HighlightAttackTargets();
             }
         }
 
         private void OnMouseExitCard(Card card)
         {
             if (Targeting || Attacking) { return; }
-            foreach (var target in card.ValidTargets)
-            {
-                target.View.ValidTarget.Visible = false;
-            }
-
-            foreach (var defender in card.ValidAttackTargets)
-            {
-                defender.View.DefenseIcon.Visible = false;
-            }
+            card.StopHighlightingTargets();
         }
         
         private void OnCardDoubleClicked(Card card)
@@ -90,11 +72,7 @@ namespace CardGame.Client.Room
             }
             if (Targeting && User.State == States.Active)
             {
-                foreach (var target in TargetingCard.ValidTargets)
-                {
-                    target.View.ValidTarget.Visible = false;
-                }
-
+                card.StopHighlightingTargets();
                 if (TargetingCard.ValidTargets.Contains(card))
                 {
                     EmitSignal(nameof(Activate), TargetingCard, card.Id);
@@ -105,17 +83,11 @@ namespace CardGame.Client.Room
 
             if (Attacking && User.State == States.Idle)
             {
-                foreach (var id in AttackingCard.ValidAttackTargets)
-                {
-                    card.View.DefenseIcon.Visible = false;
-                }
+                card.StopHighlightingAttackTargets();
 
                 if (AttackingCard.ValidAttackTargets.Contains(card))
                 {
-                    AttackingCard.View.SelectedTarget.Visible = true;
-                    AttackingCard.View.AttackIcon.Visible = true;
-                    card.View.SelectedTarget.Visible = true;
-                    card.View.DefenseIcon.Visible = true;
+                    AttackingCard.AttackUnit(card);
                     User.State = States.Processing;
                     EmitSignal(nameof(Attack), AttackingCard.Id, card.Id);
                 }
@@ -143,7 +115,7 @@ namespace CardGame.Client.Room
                     break;
                 case CardStates.CanBeActivated:
                     if (User.State != States.Idle && User.State != States.Active) { return; }
-                    if (card.Targets())
+                    if (card.CanTarget)
                     {
                         card.FlipFaceUp();
                         Targeting = true;
