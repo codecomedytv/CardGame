@@ -33,8 +33,6 @@ namespace CardGame.Client.Cards
         public bool HasTarget(Card target) => ValidTargets.Contains(target);
         public bool HasAttackTarget(Card defender) => ValidAttackTargets.Contains(defender);
         
-        public bool IsTargeting = false;
-
         public Card(int id, CardInfo c)
         {
             Id = id;
