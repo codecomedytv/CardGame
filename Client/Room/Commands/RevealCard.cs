@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using CardGame.Client.Cards;
 using Godot;
@@ -32,21 +33,13 @@ namespace CardGame.Client.Room.Commands
                 }
                 case ZoneIds.Support:
                 {
-                    foreach (Card oldCard in Player.Support)
-                    {
-                        if (oldCard.View.IsFaceUp)
-                        {
-                            continue;
-                        }
-                        var index = oldCard.GetPositionInParent();
-                        Player.Support.Remove(oldCard);
-                        Player.Support.Add(Card);
-                        Player.Support.Move(Card, index);
-                        Player.Support.Sort();
-                        oldCard.Free();
-                        break;
-                    }
-
+                    var oldCard = Player.Support.First(c => !c.IsFaceUp);
+                    var index = oldCard.GetPositionInParent();
+                    Player.Support.Remove(oldCard);
+                    Player.Support.Add(Card);
+                    Player.Support.Move(Card, index);
+                    Player.Support.Sort();
+                    oldCard.Free();
                     break;
                 }
             }
