@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CardGame.Client.Room;
+using CardGame.Client.Room.View;
 using Godot;
 
 namespace CardGame.Client.Cards
@@ -71,17 +72,14 @@ namespace CardGame.Client.Cards
 		public void StopHighlightingAsTarget() => ValidTarget.Visible = false;
 		public void Select() => SelectedTarget.Visible = true;
 		public void Deselect() => SelectedTarget.Visible = false;
-		
-		[Signal]
-		public delegate void MouseEnteredCard();
-		[Signal]
-		public delegate void MouseExitedCard();
+
 		[Signal]
 		public delegate void DoubleClicked();
-		public void OnMouseEnter() => EmitSignal(nameof(MouseEnteredCard));
+		public void OnMouseEnter()
+		{
+			CardViewer.View(GetParent() as Card);
+		}
 		
-		public void OnMouseExit() => EmitSignal(nameof(MouseExitedCard));
-
 		public override void _Input(InputEvent inputEvent)
 		{
 			if (inputEvent is InputEventMouseButton mouseButton && mouseButton.Doubleclick && GetGlobalRect().HasPoint(mouseButton.Position))

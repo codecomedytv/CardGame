@@ -360,4 +360,3 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="mouse_entered" from="." to="." method="OnMouseEnter"]
-[connection signal="mouse_exited" from="." to="." method="OnMouseExit"]

@@ -63,10 +63,6 @@ namespace CardGame.Client.Cards
                 ShowAsLegal();
             }
             
-            // if (!Player.Attacking && Player.AttackingCard == this)
-            // {
-            //     HighlightAttackTargets();
-            // }
             if(CanAttack && GetGlobalRect().HasPoint(GetGlobalMousePosition()))
             {
                 HighlightAttackTargets();

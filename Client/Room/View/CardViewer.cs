@@ -9,7 +9,12 @@ namespace CardGame.Client.Room.View
         private TextureRect Art;
         private Label Effect;
         private Label Battle;
+        private static Card Viewing;
 
+        public static void View(Card card)
+        {
+            Viewing = card;
+        }
         public override void _Ready()
         {
             Title = GetNode("Title") as Label;
@@ -17,17 +22,29 @@ namespace CardGame.Client.Room.View
             Effect = GetNode("Text/Effect") as Label;
             Battle = GetNode("Text/Unit") as Label;
         }
-        
-        public void OnCardClicked(Card card)
+
+        public override void _Process(float delta)
         {
-            if (card.CardType == CardTypes.Null)
+            if (Viewing == null || Viewing.CardType == CardTypes.Null)
             {
                 return;
             }
-            Title.Text = card.Title;
-            Art.Texture = ResourceLoader.Load($"res://Assets/CardArt/{card.Art}.png") as Texture;
-            Battle.Text = card.CardType == CardTypes.Unit ? $"Warrior / ATK {card.Attack} / DEF {card.Defense}" : "";
-            Effect.Text = card.Effect;
+            Title.Text = Viewing.Title;
+            Art.Texture = ResourceLoader.Load($"res://Assets/CardArt/{Viewing.Art}.png") as Texture;
+            Battle.Text = Viewing.CardType == CardTypes.Unit ? $"Warrior / ATK {Viewing.Attack} / DEF {Viewing.Defense}" : "";
+            Effect.Text = Viewing.Effect;
         }
+
+        // public void OnCardClicked(Card card)
+        // {
+        //     if (card.CardType == CardTypes.Null)
+        //     {
+        //         return;
+        //     }
+        //     Title.Text = card.Title;
+        //     Art.Texture = ResourceLoader.Load($"res://Assets/CardArt/{card.Art}.png") as Texture;
+        //     Battle.Text = card.CardType == CardTypes.Unit ? $"Warrior / ATK {card.Attack} / DEF {card.Defense}" : "";
+        //     Effect.Text = card.Effect;
+        // }
     }
 }

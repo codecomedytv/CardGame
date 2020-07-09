@@ -33,22 +33,7 @@ namespace CardGame.Client.Room
         
         public void OnCardCreated(Card card)
         {
-            object Subscribe(string signal, string method, Card c) => (card.View.Connect(signal, this, method, new Array {c}));
-            Subscribe(nameof(CardView.MouseEnteredCard), nameof(OnMouseEnterCard), card);
-            Subscribe(nameof(CardView.MouseExitedCard), nameof(OnMouseExitCard), card);
-            Subscribe(nameof(CardView.DoubleClicked), nameof(OnCardDoubleClicked), card);
-        }
-        
-        private void OnMouseEnterCard(Card card)
-        {
-            if (User.Targeting || User.Attacking) { return; }
-            EmitSignal(nameof(MouseEnteredCard), card);
-            if (card.IsInActive || User.IsInActive) { return; }
-        }
-
-        private void OnMouseExitCard(Card card)
-        {
-            if (User.Targeting || User.Attacking) { return; }
+            card.View.Connect(nameof(CardView.DoubleClicked), this, nameof(OnCardDoubleClicked), new Array {card});
         }
         
         private void OnCardDoubleClicked(Card card)
@@ -69,11 +54,8 @@ namespace CardGame.Client.Room
                 }
             }
 
-            // Begin Method?
             if (User.Attacking && User.State == States.Idle)
             {
-                card.StopHighlightingAttackTargets();
-
                 if (User.AttackingCard.HasAttackTarget(card))
                 {
                     User.AttackingCard.AttackUnit(card);

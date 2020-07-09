@@ -45,7 +45,7 @@ namespace CardGame.Client.Room {
 			Messenger.Connect(nameof(Messenger.Disqualified), this, nameof(OnDisqualified));
 			Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
 			CardCatalog.Connect(nameof(CardCatalog.CardCreated), Input, nameof(Input.OnCardCreated));
-			Input.Connect(nameof(Input.MouseEnteredCard), PlayMat.CardViewer, nameof(CardViewer.OnCardClicked));
+			//Input.Connect(nameof(Input.MouseEnteredCard), PlayMat.CardViewer, nameof(CardViewer.OnCardClicked));
 			PlayMat.PassPriority.Connect("pressed", this, nameof(OnActionButtonPressed));
 			PlayMat.EndTurn.Connect("pressed", Messenger, nameof(Messenger.DeclareEndTurn));
 			
