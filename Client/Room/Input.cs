@@ -24,10 +24,7 @@ namespace CardGame.Client.Room
         public delegate void Attack();
         
         private readonly Player User;
-        private bool Targeting;
-        private bool Attacking;
-        private Card TargetingCard;
-        private Card AttackingCard;
+        
 
         public Input(Player player)
         {
@@ -44,7 +41,7 @@ namespace CardGame.Client.Room
         
         private void OnMouseEnterCard(Card card)
         {
-            if (Targeting || Attacking) { return; }
+            if (User.Targeting || User.Attacking) { return; }
             EmitSignal(nameof(MouseEnteredCard), card);
             if (card.IsInActive || User.IsInActive) { return; }
             if (card.CanTarget)
@@ -60,7 +57,7 @@ namespace CardGame.Client.Room
 
         private void OnMouseExitCard(Card card)
         {
-            if (Targeting || Attacking) { return; }
+            if (User.Targeting || User.Attacking) { return; }
             card.StopHighlightingTargets();
             card.StopHighlightingAttackTargets();
         }
@@ -73,34 +70,34 @@ namespace CardGame.Client.Room
             }
             
             // Begin Method?
-            if (Targeting && User.State == States.Active)
+            if (User.Targeting && User.State == States.Active)
             {
-                TargetingCard.StopHighlightingTargets();
-                if (TargetingCard.HasTarget(card))
+                User.TargetingCard.StopHighlightingTargets();
+                if (User.TargetingCard.HasTarget(card))
                 {
-                    EmitSignal(nameof(Activate), TargetingCard, card.Id);
+                    EmitSignal(nameof(Activate), User.TargetingCard, card.Id);
                     User.State = States.Processing;
                     return;
                 }
             }
 
             // Begin Method?
-            if (Attacking && User.State == States.Idle)
+            if (User.Attacking && User.State == States.Idle)
             {
                 card.StopHighlightingAttackTargets();
 
-                if (AttackingCard.HasAttackTarget(card))
+                if (User.AttackingCard.HasAttackTarget(card))
                 {
-                    AttackingCard.AttackUnit(card);
+                    User.AttackingCard.AttackUnit(card);
                     User.State = States.Processing;
-                    EmitSignal(nameof(Attack), AttackingCard.Id, card.Id);
+                    EmitSignal(nameof(Attack), User.AttackingCard.Id, card.Id);
                 }
                 else
                 {
-                    AttackingCard.CancelAttack();
+                    User.AttackingCard.CancelAttack();
                 }
-                Attacking = false;
-                AttackingCard = null;
+                User.Attacking = false;
+                User.AttackingCard = null;
                 return;
             }
 
@@ -127,8 +124,8 @@ namespace CardGame.Client.Room
                 if (card.CanTarget)
                 {
                     // We return our of this so players have a chance to select the target before activation
-                    Targeting = true;
-                    TargetingCard = card;
+                    User.Targeting = true;
+                    User.TargetingCard = card;
                 }
                 else
                 {
@@ -138,8 +135,8 @@ namespace CardGame.Client.Room
             }
             else if (card.CanAttack)
             {
-                Attacking = true;
-                AttackingCard = card;
+                User.Attacking = true;
+                User.AttackingCard = card;
                 card.Select();
             }
         }

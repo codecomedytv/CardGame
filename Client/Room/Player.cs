@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using CardGame.Client.Cards;
+using Godot;
 
 namespace CardGame.Client.Room
 {
@@ -25,6 +26,10 @@ namespace CardGame.Client.Room
         public readonly Zone Hand;
         private AnimatedSprite PlayingState;
         public bool IsInActive => State != States.Active && State != States.Idle;
+        public bool Targeting;
+        public bool Attacking;
+        public Card TargetingCard;
+        public Card AttackingCard;
         public  void Initialize(Control view)
         {
         }
