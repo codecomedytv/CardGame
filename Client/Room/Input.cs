@@ -44,22 +44,11 @@ namespace CardGame.Client.Room
             if (User.Targeting || User.Attacking) { return; }
             EmitSignal(nameof(MouseEnteredCard), card);
             if (card.IsInActive || User.IsInActive) { return; }
-            if (card.CanTarget)
-            {
-                card.HighlightTargets();
-            }
-
-            else if (card.CanAttack)
-            {
-                card.HighlightAttackTargets();
-            }
         }
 
         private void OnMouseExitCard(Card card)
         {
             if (User.Targeting || User.Attacking) { return; }
-            card.StopHighlightingTargets();
-            card.StopHighlightingAttackTargets();
         }
         
         private void OnCardDoubleClicked(Card card)
@@ -72,7 +61,6 @@ namespace CardGame.Client.Room
             // Begin Method?
             if (User.Targeting && User.State == States.Active)
             {
-                User.TargetingCard.StopHighlightingTargets();
                 if (User.TargetingCard.HasTarget(card))
                 {
                     EmitSignal(nameof(Activate), User.TargetingCard, card.Id);

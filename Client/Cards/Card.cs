@@ -30,6 +30,7 @@ namespace CardGame.Client.Cards
         public bool CanBeActivated => State == CardStates.CanBeActivated && !Player.IsInActive;
         public bool CanAttack => State == CardStates.CanAttack && ValidAttackTargets.Count > 0 && Player.State == States.Idle;
         public bool CanTarget => State == CardStates.CanBeActivated && ValidTargets.Count > 0 && !Player.IsInActive;
+        public bool CanBePlayed => CanBeDeployed || CanBeSet || CanBeActivated; // can attack?
         public bool HasTarget(Card target) => ValidTargets.Contains(target);
         public bool HasAttackTarget(Card defender) => ValidAttackTargets.Contains(defender);
         
@@ -47,7 +48,38 @@ namespace CardGame.Client.Cards
             RectMinSize = View.RectMinSize;
             View.Display(this);
         }
-        
+
+        public override void _Process(float delta)
+        {
+            if (!IsInsideTree() || Player == null || !Player.IsUser)
+            {
+                return;
+            }
+            if (!Player.Targeting && !Player.Attacking && !Player.IsInActive && CanBePlayed)
+            {
+                View.Legal.Visible = true;
+            }
+            else
+            {
+                View.Legal.Visible = false;
+            }
+
+            if (!Player.Attacking && Player.AttackingCard == this)
+            {
+                HighlightAttackTargets();
+            }
+            else if(CanAttack && GetGlobalRect().HasPoint(GetGlobalMousePosition()))
+            {
+                HighlightAttackTargets();
+            }
+            else
+            {
+                StopHighlightingAttackTargets();
+            }
+            
+            // ActivationTargets????? // Resolution Targets?
+        }
+
         public void FlipFaceUp() => View.FlipFaceUp();
         public void FlipFaceDown() => View.FlipFaceDown();
         public void AddToChain() => View.AddToChain(ChainIndex.ToString());

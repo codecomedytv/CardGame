@@ -28,7 +28,7 @@ namespace CardGame.Client.Room {
 			Name = gameId;
 			PlayMat = playMat;
 			Gfx = new Tween();
-			Player = new Player(playMat.Player);
+			Player = new Player(playMat.Player, true);
 			Opponent = new Player(playMat.Opponent);
 			CardCatalog = new CardCatalog();
 			Messenger = new Messenger();
