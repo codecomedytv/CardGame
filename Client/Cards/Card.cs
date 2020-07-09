@@ -70,7 +70,7 @@ namespace CardGame.Client.Cards
         public void FlipFaceDown() => View.FlipFaceDown();
         public void ShowAsLegal() => View.ShowAsLegal();
         public void StopShowingAsLegal() => View.StopShowingAsLegal();
-        public void AddToChain() => View.AddToChain(ChainIndex.ToString());
+        public void AddToChain() => View.AddToChain(ChainIndex);
         public void RemoveFromChain() => View.RemoveFromChain();
         public void HighlightAsTarget() => View.HighlightAsTarget();
         public void StopHighlightingAsTarget() => View.StopHighlightingAsTarget(); 

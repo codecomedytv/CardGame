@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CardGame.Assets;
 using CardGame.Client.Room;
 using CardGame.Client.Room.View;
 using Godot;
@@ -12,30 +13,30 @@ namespace CardGame.Client.Cards
 		private Label Attack;
 		private Label Defense;
 		private Sprite Art;
-		private TextureRect Back;
+		private Sprite Back;
 		private Sprite Legal;
 		private Sprite ValidTarget;
 		private Sprite SelectedTarget;
 		public Sprite AttackIcon;
 		public Sprite DefenseIcon;
 		private AnimatedSprite ChainLink;
-		private Label ChainIndex;
+		private Sprite ChainIndex;
 		public bool IsFaceUp => !Back.Visible;
 		
 		public override void _Ready()
 		{
 			Id = GetNode("ID") as Label;
 			ChainLink = GetNode("Frame/ChainLink") as AnimatedSprite;
-			ChainIndex = GetNode("Frame/ChainLink/Index") as Label;
-			Legal = GetNode("Legal") as Sprite;
-			ValidTarget = GetNode("ValidTarget") as Sprite;
-			SelectedTarget = GetNode("SelectedTarget") as Sprite;
-			AttackIcon = GetNode("AttackIcon") as Sprite;
-			DefenseIcon = GetNode("DefenseIcon") as Sprite;
+			ChainIndex = GetNode("Frame/ChainIndex") as Sprite;
+			Legal = GetNode("Frame/Legal") as Sprite;
+			ValidTarget = GetNode("Frame/ValidTarget") as Sprite;
+			SelectedTarget = GetNode("Frame/SelectedTarget") as Sprite;
+			AttackIcon = GetNode("Frame/AttackIcon") as Sprite;
+			DefenseIcon = GetNode("Frame/DefenseIcon") as Sprite;
 			Attack = GetNode("Battle/Attack") as Label;
 			Defense = GetNode("Battle/Defense") as Label;
 			Art = GetNode("Frame/Illustration") as Sprite;
-			Back = GetNode("Back") as TextureRect;
+			Back = GetNode("Frame/Back") as Sprite;
 		}
 		
 		public void Display(Card card)
@@ -53,16 +54,19 @@ namespace CardGame.Client.Cards
 		public void FlipFaceDown() => Back.Visible = true;
 		public void FlipFaceUp() => Back.Visible = false;
 		
-		public void AddToChain(string chainIndex)
+		public void AddToChain(int chainIndex)
 		{
+			GD.Print($"Adding To Chain with Chain of {chainIndex}");
 			ChainLink.Frame = 0;
 			ChainLink.Visible = true;
-			ChainIndex.Text = chainIndex; 
+			ChainIndex.Texture = Icons.Numbers[chainIndex];
+			ChainIndex.Visible = true;
 			ChainLink.Play();
 		}
 
 		public void RemoveFromChain()
 		{
+			ChainIndex.Visible = false;
 			ChainLink.Visible = false;
 			ChainLink.Stop();
 		}
