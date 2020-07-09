@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using CardGame.Client;
 using CardGame.Client.Room;
 using CardGame.Server;
@@ -13,7 +14,7 @@ namespace CardGame.ManualTestStates
     // I don't want to have to do manually each time, so instead I'm going to choose from a set of options here.
     // (We just imported most from Tests.ConnectedFixture)
     
-    public class ManualStates
+    public class ManualStates: Node
     {
         private readonly CSharpScript MockGame = (CSharpScript) ResourceLoader.Load("res://Tests/MockGame.cs");
         protected ServerConn Server;
@@ -35,27 +36,34 @@ namespace CardGame.ManualTestStates
             container.AddChild(Clients[0]);
             container.AddChild(Clients[1]);
             Server.Visible = false;
-            Server.Host();
-            Clients[0].Join(DeckList);
-            Clients[1].Join(DeckList);
             Clients[0].RectMinSize = new Vector2(1920, 1080);
             Clients[1].RectMinSize = new Vector2(1920, 1080);
             Clients[0].SizeFlagsHorizontal = (int) Control.SizeFlags.Fill;
             Clients[0].SizeFlagsVertical = (int) Control.SizeFlags.Fill;
             Clients[1].SizeFlagsHorizontal = (int) Control.SizeFlags.Fill;
             Clients[1].SizeFlagsVertical = (int) Control.SizeFlags.Fill;
-            Server.Visible = false;
-            await container.ToSignal(Server.Server, "connection_succeeded");
-            await container.ToSignal(Clients[0].Multiplayer, "connected_to_server");
-            await container.ToSignal(Clients[1].Multiplayer, "connected_to_server");
+            Server.Host();
+            Clients[0].Join(DeckList);
+            Clients[1].Join(DeckList);
+            await ToSignal(Clients[0], nameof(ClientConn.GameBegan));
+            await ToSignal(Clients[1], nameof(ClientConn.GameBegan));
             PlayerMockGame = Clients[1].GetNode<MockGame>("1");
             OpponentMockGame = Clients[0].GetNode<MockGame>("1");
             Player = PlayerMockGame.GetPlayerView();
             Opponent = OpponentMockGame.GetPlayerView();
+            GD.Print("Manual State Entered?");
         }
 
         protected Task<object[]> PlayerState => WaitOnState(PlayerMockGame);
         protected Task<object[]> OpponentState => WaitOnState(OpponentMockGame);
+
+        protected Task<object[]> Update => GameState();
+
+        protected async Task<object[]> GameState()
+        {
+            return await Task.WhenAll(PlayerState, OpponentState);
+        }
+
         private async Task<object[]> WaitOnState(MockGame game)
         {
             return await Container.ToSignal(game, nameof(Game.StateSet));
@@ -63,25 +71,25 @@ namespace CardGame.ManualTestStates
 
         public async void BattleState()
         {
-            //await PlayerState;
+            await Update;
             var attacker = Player.Hand[6];
             attacker.View.DoubleClick();
-            await OpponentState;
+            await Update;
             OpponentMockGame.Pass();
-            await PlayerState;
+            await Update;
             PlayerMockGame.Pass();
-            await PlayerState;
+            await Update;
             PlayerMockGame.End();
-            await OpponentState;
+            await Update;
             var defending = Opponent.Hand[0];
             defending.View.DoubleClick();
-            await PlayerState;
+            await Update;
             PlayerMockGame.Pass();
-            await OpponentState;
+            await Update;
             OpponentMockGame.Pass();
-            await OpponentState;
+            await Update;
             OpponentMockGame.End();
-            await PlayerState;
+            await Update;
             // Our Chance Now
         }
 

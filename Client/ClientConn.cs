@@ -45,6 +45,9 @@ namespace CardGame.Client {
 		
 		public void OnFailed() { GD.Print("Connection Failed"); }
 
+		[Signal]
+		public delegate void GameBegan();
+		
 		[Puppet]
 		public void CreateRoom(string gameId, int seatPosition)
 		{
@@ -52,6 +55,7 @@ namespace CardGame.Client {
 			AddChild(playMat);
 			var game = (Game) GameType.New(playMat, gameId);
 			AddChild(game);
+			EmitSignal(nameof(GameBegan));
 		}
 
 	}
