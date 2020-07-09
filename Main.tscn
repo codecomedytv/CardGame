@@ -48,7 +48,7 @@ __meta__ = {
 
 [node name="Play" type="Button" parent="Options"]
 margin_right = 321.0
-margin_bottom = 126.0
+margin_bottom = 94.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Play"
@@ -57,17 +57,25 @@ __meta__ = {
 }
 
 [node name="HostJoin" type="Button" parent="Options"]
-margin_top = 126.0
+margin_top = 94.0
 margin_right = 321.0
-margin_bottom = 252.0
+margin_bottom = 188.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Host & Join"
 
 [node name="Join" type="Button" parent="Options"]
-margin_top = 252.0
+margin_top = 188.0
+margin_right = 321.0
+margin_bottom = 282.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Join"
+
+[node name="BattleState" type="Button" parent="Options"]
+margin_top = 282.0
 margin_right = 321.0
 margin_bottom = 379.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Join"
+text = "Battle State"

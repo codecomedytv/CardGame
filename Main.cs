@@ -1,5 +1,6 @@
-using System;
+﻿using System;
 using CardGame.Client;
+using CardGame.ManualTestStates;
 using CardGame.Server;
 using Godot;
 
@@ -7,12 +8,15 @@ namespace CardGame
 {
     public class Main : Control
     {
+        public ManualStates ManualTestStates;
         public override void _Ready()
         {
+            ManualTestStates = new ManualStates();
             GetNode<Button>("Options/Play").Connect("pressed", this, "Start");
             GetNode<Button>("Options/HostJoin").Connect("pressed", this, "HostJoin");
             GetNode<Button>("Options/Join").Connect("pressed", this, "Join");
-            AddClients();
+            GetNode<Button>("Options/BattleState").Connect("pressed", this, "BattleState");
+            
         }
 
         private void AddClients(int count = 1)
@@ -34,12 +38,11 @@ namespace CardGame
             GetNode<VBoxContainer>("ScrollContainer/VBoxContainer").AddChild(server, true);
             GetNode<VBoxContainer>("ScrollContainer/VBoxContainer").AddChild(client, true);
             GetNode<VBoxContainer>("ScrollContainer/VBoxContainer").AddChild(client2, true);
-
-            
         }
 
         public void Start()
         {
+            AddClients();
             OS.WindowFullscreen = true;
             GetNode<VBoxContainer>("Options").Hide();
             GetNode<ServerConn>("ScrollContainer/VBoxContainer/Server").Host();
@@ -49,31 +52,39 @@ namespace CardGame
 
         public void HostJoin()
         {
+            AddClients();
             GetNode<ServerConn>("ScrollContainer/VBoxContainer/Server").Host();
             GetNode<ClientConn>("ScrollContainer/VBoxContainer/Client").Join();
         }
 
         public void Join()
         {
+            AddClients();
             GetNode<ClientConn>("ScrollContainer/VBoxContainer/Client").Join();
         }
 
+        public async void BattleState()
+        {
+            OS.WindowFullscreen = true;
+            GetNode<VBoxContainer>("Options").Visible = false;
+            await ManualTestStates.AddGame(GetNode<VBoxContainer>("ScrollContainer/VBoxContainer"));
+            ManualTestStates.BattleState();
+        }
+        
         public override void _Input(InputEvent inputEvent)
         {
-            if (inputEvent is InputEventKey key && key.Pressed)
+            if (!(inputEvent is InputEventKey key) || !key.Pressed) return;
+            switch (key.Scancode)
             {
-                switch (key.Scancode)
+                case (uint) KeyList.Q:
                 {
-                    case (uint) KeyList.Q:
-                    {
-                        GetTree().Quit();
-                        break;
-                    }
-                    case (uint) KeyList.F:
-                    {
-                        OS.WindowFullscreen = !OS.WindowFullscreen;
-                        break;
-                    }
+                    GetTree().Quit();
+                    break;
+                }
+                case (uint) KeyList.F:
+                {
+                    OS.WindowFullscreen = !OS.WindowFullscreen;
+                    break;
                 }
             }
         }
