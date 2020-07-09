@@ -9,9 +9,6 @@ namespace CardGame.Client.Room
     public class Input: Godot.Node
     {
         [Signal]
-        public delegate void MouseEnteredCard();
-        
-        [Signal]
         public delegate void Deploy();
 
         [Signal]
@@ -25,7 +22,6 @@ namespace CardGame.Client.Room
         
         private readonly Player User;
         
-
         public Input(Player player) => User = player;
 
         public void OnCardCreated(Card card)
@@ -44,9 +40,9 @@ namespace CardGame.Client.Room
             // User State Checks May Be Pointless? Sure we only only be targeting at this point?
             if (User.Targeting && User.State == States.Active)
             {
-                if (User.TargetingCard.HasTarget(card))
+                if (User.CardInUse.HasTarget(card))
                 {
-                    EmitSignal(nameof(Activate), User.TargetingCard, card.Id);
+                    EmitSignal(nameof(Activate), User.CardInUse, card.Id);
                     User.State = States.Processing;
                     return;
                 }
@@ -54,18 +50,18 @@ namespace CardGame.Client.Room
 
             if (User.Attacking && User.State == States.Idle)
             {
-                if (User.AttackingCard.HasAttackTarget(card))
+                if (User.CardInUse.HasAttackTarget(card))
                 {
-                    User.AttackingCard.AttackUnit(card);
+                    User.CardInUse.AttackUnit(card);
                     User.State = States.Processing;
-                    EmitSignal(nameof(Attack), User.AttackingCard.Id, card.Id);
+                    EmitSignal(nameof(Attack), User.CardInUse.Id, card.Id);
                 }
                 else
                 {
-                    User.AttackingCard.CancelAttack();
+                    User.CardInUse.CancelAttack();
                 }
                 User.Attacking = false;
-                User.AttackingCard = null;
+                User.CardInUse = null;
                 return;
             }
 
@@ -80,6 +76,12 @@ namespace CardGame.Client.Room
                 User.State = States.Processing;
                 EmitSignal(nameof(SetFaceDown), card.Id);
             }
+            else if (card.CanAttack)
+            {
+                User.Attacking = true;
+                User.CardInUse = card;
+                card.Select();
+            }
             else if (card.CanBeActivated)
             {
                 card.FlipFaceUp();
@@ -93,7 +95,7 @@ namespace CardGame.Client.Room
                 {
                     // We return our of this so players have a chance to select the target before activation
                     User.Targeting = true;
-                    User.TargetingCard = card;
+                    User.CardInUse = card;
                 }
                 else
                 {
@@ -101,12 +103,7 @@ namespace CardGame.Client.Room
                     EmitSignal(nameof(Activate), card, new Array());
                 }
             }
-            else if (card.CanAttack)
-            {
-                User.Attacking = true;
-                User.AttackingCard = card;
-                card.Select();
-            }
+           
         }
     }
 }

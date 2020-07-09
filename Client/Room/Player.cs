@@ -28,8 +28,7 @@ namespace CardGame.Client.Room
         public bool IsInActive => State != States.Active && State != States.Idle;
         public bool Targeting;
         public bool Attacking;
-        public Card TargetingCard;
-        public Card AttackingCard;
+        public Card CardInUse;
 
         public Player(View.Player view)
         {
