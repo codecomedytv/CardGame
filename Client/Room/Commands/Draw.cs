@@ -16,6 +16,7 @@ namespace CardGame.Client.Room.Commands
         }
         protected override async Task<object[]> Execute()
         {
+            Card.Player = Player;
             Player.DeckCount -= 1;
             var originalColor = Card.Modulate;
             Card.Modulate = Colors.Transparent;

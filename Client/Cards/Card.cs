@@ -54,10 +54,7 @@ namespace CardGame.Client.Cards
             StopShowingAsLegal();
             StopHighlightingTargets();
             StopHighlightingAttackTargets();
-            if (!IsInsideTree() || Player == null || !Player.IsUser)
-            {
-                return;
-            }
+            
             if (Player.CanPlay(this))
             {
                 ShowAsLegal();
@@ -77,12 +74,12 @@ namespace CardGame.Client.Cards
         public void RemoveFromChain() => View.RemoveFromChain();
         public void HighlightAsTarget() => View.HighlightAsTarget();
         public void StopHighlightingAsTarget() => View.StopHighlightingAsTarget(); 
-        public void HighlightTargets() => ValidTargets.ForEach(t => t.HighlightAsTarget()); 
-        public void HighlightAttackTargets() => ValidAttackTargets.ForEach(t => t.HighlightAsTarget());
-        public void StopHighlightingTargets() => ValidTargets.ForEach(t => t.StopHighlightingAsTarget());
-        public void StopHighlightingAttackTargets() => ValidAttackTargets.ForEach(t => t.StopHighlightingAsTarget());
+        private void HighlightTargets() => ValidTargets.ForEach(t => t.HighlightAsTarget());
+        private void HighlightAttackTargets() => ValidAttackTargets.ForEach(t => t.HighlightAsTarget());
+        private void StopHighlightingTargets() => ValidTargets.ForEach(t => t.StopHighlightingAsTarget());
+        private void StopHighlightingAttackTargets() => ValidAttackTargets.ForEach(t => t.StopHighlightingAsTarget());
         public void Select() => View.Select();
-        public void Deselect() => View.Deselect();
+        private void Deselect() => View.Deselect();
 
         public void AttackUnit(Card defending)
         {

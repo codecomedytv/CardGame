@@ -19,6 +19,7 @@ namespace CardGame.Client.Room.Commands
 
         protected override async Task<object[]> Execute()
         {
+            Card.Player = Player;
             if (IsOpponent)
             {
                 // If we use indexes server-side, we could probably do the same here

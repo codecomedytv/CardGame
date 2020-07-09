@@ -30,11 +30,9 @@ namespace CardGame.Client.Room
         public bool Attacking;
         public Card TargetingCard;
         public Card AttackingCard;
-        public readonly bool IsUser;
 
-        public Player(View.Player view, bool isUser = false)
+        public Player(View.Player view)
         {
-            IsUser = isUser;
             DeckCount = 40;
             Damage = view.Damage;
             Deck = new Zone(view.Deck);

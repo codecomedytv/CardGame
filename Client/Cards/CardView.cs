@@ -5,6 +5,7 @@ using Godot;
 
 namespace CardGame.Client.Cards
 {
+	// ReSharper disable once ClassNeverInstantiated.Global
 	public class CardView : Control
 	{
 		private Label Id;
@@ -66,7 +67,7 @@ namespace CardGame.Client.Cards
 			ChainLink.Stop();
 		}
 
-		public void ShowAsLegal() => Legal.Visible = false;
+		public void ShowAsLegal() => Legal.Visible = true;
 		public void StopShowingAsLegal() => Legal.Visible = false;
 		public void HighlightAsTarget() => ValidTarget.Visible = true;
 		public void StopHighlightingAsTarget() => ValidTarget.Visible = false;
@@ -82,9 +83,14 @@ namespace CardGame.Client.Cards
 		
 		public override void _Input(InputEvent inputEvent)
 		{
-			if (inputEvent is InputEventMouseButton mouseButton && mouseButton.Doubleclick && GetGlobalRect().HasPoint(mouseButton.Position))
+			if (inputEvent is InputEventMouseButton mouseButton && mouseButton.Doubleclick)
 			{
-				DoubleClick();
+				// We need to check against player attacking/targeting sub-client states
+				// Deselect(); 
+				if (GetGlobalRect().HasPoint(mouseButton.Position))
+				{
+					DoubleClick();
+				}
 			}
 		}
 

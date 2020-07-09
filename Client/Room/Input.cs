@@ -26,11 +26,8 @@ namespace CardGame.Client.Room
         private readonly Player User;
         
 
-        public Input(Player player)
-        {
-            User = player;
-        }
-        
+        public Input(Player player) => User = player;
+
         public void OnCardCreated(Card card)
         {
             card.View.Connect(nameof(CardView.DoubleClicked), this, nameof(OnCardDoubleClicked), new Array {card});
@@ -44,6 +41,7 @@ namespace CardGame.Client.Room
             }
             
             // Begin Method?
+            // User State Checks May Be Pointless? Sure we only only be targeting at this point?
             if (User.Targeting && User.State == States.Active)
             {
                 if (User.TargetingCard.HasTarget(card))

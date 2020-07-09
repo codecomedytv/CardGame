@@ -28,7 +28,7 @@ namespace CardGame.Client.Room {
 			Name = gameId;
 			PlayMat = playMat;
 			Gfx = new Tween();
-			Player = new Player(playMat.Player, true);
+			Player = new Player(playMat.Player);
 			Opponent = new Player(playMat.Opponent);
 			CardCatalog = new CardCatalog();
 			Messenger = new Messenger();
@@ -45,7 +45,6 @@ namespace CardGame.Client.Room {
 			Messenger.Connect(nameof(Messenger.Disqualified), this, nameof(OnDisqualified));
 			Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
 			CardCatalog.Connect(nameof(CardCatalog.CardCreated), Input, nameof(Input.OnCardCreated));
-			//Input.Connect(nameof(Input.MouseEnteredCard), PlayMat.CardViewer, nameof(CardViewer.OnCardClicked));
 			PlayMat.PassPriority.Connect("pressed", this, nameof(OnActionButtonPressed));
 			PlayMat.EndTurn.Connect("pressed", Messenger, nameof(Messenger.DeclareEndTurn));
 			

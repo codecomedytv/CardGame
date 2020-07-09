@@ -51,7 +51,6 @@ namespace CardGame.ManualTestStates
             OpponentMockGame = Clients[0].GetNode<MockGame>("1");
             Player = PlayerMockGame.GetPlayerView();
             Opponent = OpponentMockGame.GetPlayerView();
-            GD.Print("Manual State Entered?");
         }
 
         protected Task<object[]> PlayerState => WaitOnState(PlayerMockGame);
