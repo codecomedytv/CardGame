@@ -30,7 +30,7 @@ namespace CardGame.Client.Cards
         public bool CanBeActivated => State == CardStates.CanBeActivated && !Player.IsInActive;
         public bool CanAttack => State == CardStates.CanAttack && ValidAttackTargets.Count > 0 && Player.State == States.Idle;
         public bool CanTarget => State == CardStates.CanBeActivated && ValidTargets.Count > 0 && !Player.IsInActive;
-        public bool CanBePlayed => CanBeDeployed || CanBeSet || CanBeActivated; // can attack?
+        public bool CanBePlayed => CanBeDeployed || CanBeSet || CanBeActivated || CanAttack; // can attack?
         public bool HasTarget(Card target) => ValidTargets.Contains(target);
         public bool HasAttackTarget(Card defender) => ValidAttackTargets.Contains(defender);
         
@@ -51,59 +51,54 @@ namespace CardGame.Client.Cards
 
         public override void _Process(float delta)
         {
+            StopShowingAsLegal();
+            StopHighlightingTargets();
+            StopHighlightingAttackTargets();
             if (!IsInsideTree() || Player == null || !Player.IsUser)
             {
                 return;
             }
-            if (!Player.Targeting && !Player.Attacking && !Player.IsInActive && CanBePlayed)
+            if (Player.CanPlay(this))
             {
-                View.Legal.Visible = true;
-            }
-            else
-            {
-                View.Legal.Visible = false;
-            }
-
-            if (!Player.Attacking && Player.AttackingCard == this)
-            {
-                HighlightAttackTargets();
-            }
-            else if(CanAttack && GetGlobalRect().HasPoint(GetGlobalMousePosition()))
-            {
-                HighlightAttackTargets();
-            }
-            else
-            {
-                StopHighlightingAttackTargets();
+                ShowAsLegal();
             }
             
-            // ActivationTargets????? // Resolution Targets?
+            // if (!Player.Attacking && Player.AttackingCard == this)
+            // {
+            //     HighlightAttackTargets();
+            // }
+            if(CanAttack && GetGlobalRect().HasPoint(GetGlobalMousePosition()))
+            {
+                HighlightAttackTargets();
+            }
         }
 
         public void FlipFaceUp() => View.FlipFaceUp();
         public void FlipFaceDown() => View.FlipFaceDown();
+        public void ShowAsLegal() => View.ShowAsLegal();
+        public void StopShowingAsLegal() => View.StopShowingAsLegal();
         public void AddToChain() => View.AddToChain(ChainIndex.ToString());
         public void RemoveFromChain() => View.RemoveFromChain();
-        public void HighlightAsTarget() => View.ValidTarget.Visible = true;
-        public void StopHighlightingAsTarget() => View.ValidTarget.Visible = false;
-        public void HighlightTargets() { foreach (var target in ValidTargets) { target.HighlightAsTarget(); } }
-        public void HighlightAttackTargets() { foreach (var target in ValidAttackTargets) { target.HighlightAsTarget(); } }
-        public void StopHighlightingTargets() { foreach (var target in ValidTargets) { target.StopHighlightingAsTarget(); } }
-        public void StopHighlightingAttackTargets() { foreach (var target in ValidAttackTargets) { target.StopHighlightingAsTarget(); } }
-        public void Select() => View.SelectedTarget.Visible = true;
-        public void Deselect() => View.SelectedTarget.Visible = false;
+        public void HighlightAsTarget() => View.HighlightAsTarget();
+        public void StopHighlightingAsTarget() => View.StopHighlightingAsTarget(); 
+        public void HighlightTargets() => ValidTargets.ForEach(t => t.HighlightAsTarget()); 
+        public void HighlightAttackTargets() => ValidAttackTargets.ForEach(t => t.HighlightAsTarget());
+        public void StopHighlightingTargets() => ValidTargets.ForEach(t => t.StopHighlightingAsTarget());
+        public void StopHighlightingAttackTargets() => ValidAttackTargets.ForEach(t => t.StopHighlightingAsTarget());
+        public void Select() => View.Select();
+        public void Deselect() => View.Deselect();
 
         public void AttackUnit(Card defending)
         {
-            View.SelectedTarget.Visible = true;
+            Select();
             View.AttackIcon.Visible = true;
-            defending.View.SelectedTarget.Visible = true;
+            defending.Select();
             defending.View.DefenseIcon.Visible = true;
         }
 
         public void CancelAttack()
         {
-            View.SelectedTarget.Visible = false;
+            Deselect();
             View.AttackIcon.Visible = false;
         }
 

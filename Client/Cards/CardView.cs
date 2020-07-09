@@ -11,9 +11,9 @@ namespace CardGame.Client.Cards
 		private Label Defense;
 		private Sprite Art;
 		private TextureRect Back;
-		public Sprite Legal;
-		public Sprite ValidTarget;
-		public Sprite SelectedTarget;
+		private Sprite Legal;
+		private Sprite ValidTarget;
+		private Sprite SelectedTarget;
 		public Sprite AttackIcon;
 		public Sprite DefenseIcon;
 		private AnimatedSprite ChainLink;
@@ -36,6 +36,18 @@ namespace CardGame.Client.Cards
 			Back = GetNode("Back") as TextureRect;
 		}
 		
+		public void Display(Card card)
+		{
+			FlipFaceDown();
+			if(card.CardType == CardTypes.Null) {return;}
+			FlipFaceUp();
+			Id.Text = card.Id.ToString();
+			Art.Texture = ResourceLoader.Load($"res://Assets/CardArt/{card.Art}.png") as Texture;
+			if(card.CardType != CardTypes.Unit) {return;}
+			Attack.Text = card.Attack.ToString();
+			Defense.Text = card.Defense.ToString();
+		}
+		
 		public void FlipFaceDown() => Back.Visible = true;
 		public void FlipFaceUp() => Back.Visible = false;
 		
@@ -52,18 +64,13 @@ namespace CardGame.Client.Cards
 			ChainLink.Visible = false;
 			ChainLink.Stop();
 		}
-		
-		public void Display(Card card)
-		{
-			FlipFaceDown(); // Is this unnecessary?
-			if(card.CardType == CardTypes.Null) {return;}
-			FlipFaceUp();
-			Id.Text = card.Id.ToString();
-			Art.Texture = ResourceLoader.Load($"res://Assets/CardArt/{card.Art}.png") as Texture;
-			if(card.CardType != CardTypes.Unit) {return;}
-			Attack.Text = card.Attack.ToString();
-			Defense.Text = card.Defense.ToString();
-		}
+
+		public void ShowAsLegal() => Legal.Visible = false;
+		public void StopShowingAsLegal() => Legal.Visible = false;
+		public void HighlightAsTarget() => ValidTarget.Visible = true;
+		public void StopHighlightingAsTarget() => ValidTarget.Visible = false;
+		public void Select() => SelectedTarget.Visible = true;
+		public void Deselect() => SelectedTarget.Visible = false;
 		
 		[Signal]
 		public delegate void MouseEnteredCard();
@@ -73,7 +80,6 @@ namespace CardGame.Client.Cards
 		public delegate void DoubleClicked();
 		public void OnMouseEnter() => EmitSignal(nameof(MouseEnteredCard));
 		
-
 		public void OnMouseExit() => EmitSignal(nameof(MouseExitedCard));
 
 		public override void _Input(InputEvent inputEvent)
