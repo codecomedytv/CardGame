@@ -6,7 +6,7 @@ using Array = Godot.Collections.Array;
 
 namespace CardGame.Client.Room
 {
-    public class Input: Godot.Node
+    public class Input : Godot.Node
     {
         [Signal]
         public delegate void Deploy();
@@ -19,16 +19,16 @@ namespace CardGame.Client.Room
 
         [Signal]
         public delegate void Attack();
-        
+
         private readonly Player User;
-        
+
         public Input(Player player) => User = player;
 
         public void OnCardCreated(Card card)
         {
             card.View.Connect(nameof(CardView.DoubleClicked), this, nameof(OnCardDoubleClicked), new Array {card});
         }
-        
+
         private void OnCardDoubleClicked(Card card)
         {
             if (User.State == States.Processing)
@@ -36,59 +36,73 @@ namespace CardGame.Client.Room
                 return;
             }
             
-            // Begin Method?
             // User State Checks May Be Pointless? Sure we only only be targeting at this point?
             if (User.Targeting && User.State == States.Active)
             {
-                if (User.CardInUse.HasTarget(card))
-                {
-                    EmitSignal(nameof(Activate), User.CardInUse, card.Id);
-                    User.State = States.Processing;
-                    return;
-                }
+                ChooseEffectTarget(card);
             }
 
             if (User.Attacking && User.State == States.Idle)
             {
-                if (User.CardInUse.HasAttackTarget(card))
-                {
-                    User.CardInUse.AttackUnit(card);
-                    User.State = States.Processing;
-                    EmitSignal(nameof(Attack), User.CardInUse.Id, card.Id);
-                }
-                else
-                {
-                    User.CardInUse.CancelAttack();
-                }
-                User.Attacking = false;
-                User.CardInUse = null;
+                ChooseAttackTarget(card);
                 return;
             }
 
-            // Begin Method?
+            TakeAction(card);
+        }
+
+        private void ChooseEffectTarget(Card card)
+        {
+            if (!User.CardInUse.HasTarget(card)) return;
+            EmitSignal(nameof(Activate), User.CardInUse, card.Id);
+            User.State = States.Processing;
+        }
+
+        private void ChooseAttackTarget(Card card)
+        {
+            if (User.CardInUse.HasAttackTarget(card))
+            {
+                User.CardInUse.AttackUnit(card);
+                User.State = States.Processing;
+                EmitSignal(nameof(Attack), User.CardInUse.Id, card.Id);
+            }
+            else
+            {
+                User.CardInUse.CancelAttack();
+            }
+
+            User.Attacking = false;
+            User.CardInUse = null;
+        }
+
+        private void TakeAction(Card card) 
+        {
             if (card.CanBeDeployed)
             {
                 User.State = States.Processing;
                 EmitSignal(nameof(Deploy), card.Id);
             }
+
             else if (card.CanBeSet)
             {
                 User.State = States.Processing;
                 EmitSignal(nameof(SetFaceDown), card.Id);
             }
+
             else if (card.CanAttack)
             {
                 User.Attacking = true;
                 User.CardInUse = card;
                 card.Select();
             }
+
             else if (card.CanBeActivated)
             {
                 card.FlipFaceUp();
 
                 // We're checking if it can target, but it seems our fallback (the else) is to activate it without
                 // selecting a target which should (in most cases at least) be an illegal play.
-                
+
                 // In retrospect this is okay because if the card required targets but had none valid, it wouldn't
                 // be able to satisfy this condition since its state wouldn't be CanBeActivated.
                 if (card.CanTarget)
@@ -101,9 +115,8 @@ namespace CardGame.Client.Room
                 {
                     User.State = States.Processing;
                     EmitSignal(nameof(Activate), card, new Array());
-                }
+                } 
             }
-           
         }
     }
 }

@@ -305,6 +305,7 @@ texture = ExtResource( 6 )
 centered = false
 
 [node name="Attack" type="Sprite" parent="Frame"]
+visible = false
 position = Vector2( 607.371, 2796.28 )
 scale = Vector2( 7, 3.5 )
 texture = ExtResource( 3 )
@@ -334,6 +335,7 @@ scale = Vector2( 0.3, 0.9 )
 texture = ExtResource( 13 )
 
 [node name="Defense" type="Sprite" parent="Frame"]
+visible = false
 position = Vector2( 1702, 2796.28 )
 scale = Vector2( 7, 3.5 )
 texture = ExtResource( 3 )
