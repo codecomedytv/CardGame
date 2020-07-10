@@ -47,7 +47,6 @@ namespace CardGame.Client.Cards
 			Id.Text = card.Id.ToString();
 			Art.Texture = ResourceLoader.Load($"res://Assets/CardArt/{card.Art}.png") as Texture;
 			if(card.CardType != CardTypes.Unit) {return;}
-			GD.Print(card.CardType);
 			SetAttack(card.Attack);
 			SetDefense(card.Defense);
 		}
