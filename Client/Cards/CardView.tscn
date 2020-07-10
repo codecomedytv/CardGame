@@ -1,8 +1,8 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://Client/Cards/CardView.cs" type="Script" id=1]
 [ext_resource path="res://assets/CardArt/cultist.png" type="Texture" id=2]
-[ext_resource path="res://assets/UI/CardFrame_Lava.png" type="Texture" id=3]
+[ext_resource path="res://Assets/UI/frame_c3_02.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Numbers/1.png" type="Texture" id=4]
 [ext_resource path="res://Assets/fonts/LemonMilkbolditalic.otf" type="DynamicFontData" id=5]
 [ext_resource path="res://assets/UI/CardBack_Wooden.png" type="Texture" id=6]
@@ -14,6 +14,8 @@
 [ext_resource path="res://Assets/UI/shield_t_04.png" type="Texture" id=12]
 [ext_resource path="res://Assets/Numbers/0.png" type="Texture" id=13]
 [ext_resource path="res://Assets/Numbers/2.png" type="Texture" id=14]
+[ext_resource path="res://Assets/UI/Label_WoodPlank.png" type="Texture" id=15]
+[ext_resource path="res://Assets/UI/BlankTexture.png" type="Texture" id=16]
 
 [sub_resource type="DynamicFont" id=1]
 size = 1000
@@ -213,7 +215,13 @@ __meta__ = {
 show_behind_parent = true
 scale = Vector2( 0.0438507, 0.0471875 )
 z_as_relative = false
-texture = ExtResource( 3 )
+centered = false
+
+[node name="Border" type="Sprite" parent="Frame"]
+self_modulate = Color( 0, 0, 0, 1 )
+show_behind_parent = true
+scale = Vector2( 2.14378, 4.48918 )
+texture = ExtResource( 16 )
 centered = false
 
 [node name="Legal" type="Sprite" parent="Frame"]
@@ -247,6 +255,12 @@ show_behind_parent = true
 position = Vector2( 49.064, 39.0809 )
 scale = Vector2( 0.958936, 0.967719 )
 texture = ExtResource( 2 )
+centered = false
+
+[node name="Label_WoodPlank" type="Sprite" parent="Frame"]
+position = Vector2( 0, 2438.74 )
+scale = Vector2( 6.68899, 5.23654 )
+texture = ExtResource( 15 )
 centered = false
 
 [node name="ChainIndex" type="Label" parent="Frame"]
@@ -290,60 +304,62 @@ scale = Vector2( 1.6117, 1.59903 )
 texture = ExtResource( 6 )
 centered = false
 
-[node name="Attack" type="Node2D" parent="Frame"]
-visible = false
-position = Vector2( 1198.59, 2521.89 )
+[node name="Attack" type="Sprite" parent="Frame"]
+position = Vector2( 607.371, 2796.28 )
+scale = Vector2( 7, 3.5 )
+texture = ExtResource( 3 )
 
 [node name="3" type="Sprite" parent="Frame/Attack"]
 self_modulate = Color( 0, 0, 0, 1 )
-position = Vector2( -3.18152, -108.445 )
-scale = Vector2( 3, 3 )
+position = Vector2( -48.8037, -0.66748 )
+scale = Vector2( 0.3, 0.9 )
 texture = ExtResource( 14 )
 
 [node name="2" type="Sprite" parent="Frame/Attack"]
 self_modulate = Color( 0, 0, 0, 1 )
-position = Vector2( 247.67, -108.445 )
-scale = Vector2( 3, 3 )
+position = Vector2( -17.1156, -0.66748 )
+scale = Vector2( 0.3, 0.9 )
 texture = ExtResource( 10 )
 
 [node name="1" type="Sprite" parent="Frame/Attack"]
 self_modulate = Color( 0, 0, 0, 1 )
-position = Vector2( 498.521, -108.445 )
-scale = Vector2( 3, 3 )
+position = Vector2( 14.5725, -0.66748 )
+scale = Vector2( 0.3, 0.9 )
 texture = ExtResource( 13 )
 
 [node name="0" type="Sprite" parent="Frame/Attack"]
 self_modulate = Color( 0, 0, 0, 1 )
-position = Vector2( 749.372, -108.445 )
-scale = Vector2( 3, 3 )
+position = Vector2( 50.3223, -0.66748 )
+scale = Vector2( 0.3, 0.9 )
 texture = ExtResource( 13 )
 
-[node name="Defense" type="Node2D" parent="Frame"]
-visible = false
-position = Vector2( 1175.79, 2945.72 )
+[node name="Defense" type="Sprite" parent="Frame"]
+position = Vector2( 1702, 2796.28 )
+scale = Vector2( 7, 3.5 )
+texture = ExtResource( 3 )
 
 [node name="3" type="Sprite" parent="Frame/Defense"]
 self_modulate = Color( 0, 0, 0, 1 )
-position = Vector2( -3.18152, -108.445 )
-scale = Vector2( 3, 3 )
+position = Vector2( -41.484, -0.678955 )
+scale = Vector2( 0.356197, 0.972454 )
 texture = ExtResource( 4 )
 
 [node name="2" type="Sprite" parent="Frame/Defense"]
 self_modulate = Color( 0, 0, 0, 1 )
-position = Vector2( 247.67, -108.445 )
-scale = Vector2( 3, 3 )
+position = Vector2( -17.1151, -0.678955 )
+scale = Vector2( 0.356197, 0.972454 )
 texture = ExtResource( 10 )
 
 [node name="1" type="Sprite" parent="Frame/Defense"]
 self_modulate = Color( 0, 0, 0, 1 )
-position = Vector2( 498.521, -108.445 )
-scale = Vector2( 3, 3 )
+position = Vector2( 15.3768, -0.678955 )
+scale = Vector2( 0.356197, 0.972454 )
 texture = ExtResource( 13 )
 
 [node name="0" type="Sprite" parent="Frame/Defense"]
 self_modulate = Color( 0, 0, 0, 1 )
-position = Vector2( 749.372, -108.445 )
-scale = Vector2( 3, 3 )
+position = Vector2( 43.807, -0.678955 )
+scale = Vector2( 0.356197, 0.972454 )
 texture = ExtResource( 13 )
 
 [node name="ID" type="Label" parent="."]
@@ -359,6 +375,4 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
 [connection signal="mouse_entered" from="." to="." method="OnMouseEnter"]
