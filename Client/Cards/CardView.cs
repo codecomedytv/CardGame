@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using CardGame.Client.Room;
 using CardGame.Client.Room.View;
 using Godot;
@@ -9,8 +10,8 @@ namespace CardGame.Client.Cards
 	public class CardView : Control
 	{
 		private Label Id;
-		private Label Attack;
-		private Label Defense;
+		private Node2D Attack;
+		private Node2D Defense;
 		private Sprite Art;
 		private Sprite Back;
 		private Sprite Legal;
@@ -32,8 +33,8 @@ namespace CardGame.Client.Cards
 			SelectedTarget = GetNode("Frame/SelectedTarget") as Sprite;
 			AttackIcon = GetNode("Frame/AttackIcon") as Sprite;
 			DefenseIcon = GetNode("Frame/DefenseIcon") as Sprite;
-			Attack = GetNode("Frame/Battle/Attack") as Label;
-			Defense = GetNode("Frame/Battle/Defense") as Label;
+			Attack = GetNode("Frame/Attack") as Node2D;
+			Defense = GetNode("Frame/Defense") as Node2D;
 			Art = GetNode("Frame/Illustration") as Sprite;
 			Back = GetNode("Frame/Back") as Sprite;
 		}
@@ -46,10 +47,41 @@ namespace CardGame.Client.Cards
 			Id.Text = card.Id.ToString();
 			Art.Texture = ResourceLoader.Load($"res://Assets/CardArt/{card.Art}.png") as Texture;
 			if(card.CardType != CardTypes.Unit) {return;}
-			Attack.Text = card.Attack.ToString();
-			Defense.Text = card.Defense.ToString();
+			GD.Print(card.CardType);
+			SetAttack(card.Attack);
+			SetDefense(card.Defense);
+		}
+
+		private void SetAttack(int value)
+		{
+
+			ClearBattle(Attack);
+			Attack.Visible = true;
+			var values = value.ToString().Reverse().ToList();
+			for (var i = 0; i < values.Count(); i++)
+			{
+				Attack.GetNode<Sprite>(i.ToString()).Visible = true;
+				Attack.GetNode<Sprite>(i.ToString()).Texture = Assets.Icons.Numbers.IconList[values[i].ToString()];
+			}
+		}
+
+		private void SetDefense(int value)
+		{
+			ClearBattle(Defense);
+			Defense.Visible = true;
+			var values = value.ToString().Reverse().ToList();
+			for (var i = 0; i < values.Count(); i++)
+			{
+				Defense.GetNode<Sprite>(i.ToString()).Visible = true;
+				Defense.GetNode<Sprite>(i.ToString()).Texture = Assets.Icons.Numbers.IconList[values[i].ToString()];
+			}
 		}
 		
+		private void ClearBattle(Node2D container)
+		{
+			foreach (Node2D child in container.GetChildren()) { child.Visible = false; }
+		}
+
 		public void FlipFaceDown() => Back.Visible = true;
 		public void FlipFaceUp() => Back.Visible = false;
 		
