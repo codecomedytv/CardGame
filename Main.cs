@@ -86,6 +86,11 @@ namespace CardGame
                     OS.WindowFullscreen = !OS.WindowFullscreen;
                     break;
                 }
+                case (uint) KeyList.Key7:
+                {
+                    OS.WindowSize = new Vector2(1280, 720);
+                    break;
+                }
             }
         }
     }
