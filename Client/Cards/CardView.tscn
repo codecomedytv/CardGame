@@ -4,39 +4,21 @@
 [ext_resource path="res://assets/CardArt/cultist.png" type="Texture" id=2]
 [ext_resource path="res://assets/UI/CardFrame_Lava.png" type="Texture" id=3]
 [ext_resource path="res://assets/fonts/LemonMilkbolditalic.otf" type="DynamicFontData" id=4]
-[ext_resource path="res://assets/fonts/LemonMilkitalic.otf" type="DynamicFontData" id=5]
+[ext_resource path="res://Assets/fonts/LemonMilkbolditalic.otf" type="DynamicFontData" id=5]
 [ext_resource path="res://assets/UI/CardBack_Wooden.png" type="Texture" id=6]
 [ext_resource path="res://assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://Assets/spritesheets/glow.png" type="Texture" id=8]
 [ext_resource path="res://Assets/16.png" type="Texture" id=9]
-[ext_resource path="res://Assets/Numbers/1.png" type="Texture" id=10]
 [ext_resource path="res://Assets/UI/sword_02.png" type="Texture" id=11]
 [ext_resource path="res://Assets/UI/shield_t_04.png" type="Texture" id=12]
 
-[sub_resource type="DynamicFont" id=1]
-size = 11
-outline_size = 1
+[sub_resource type="DynamicFont" id=37]
+size = 1000
+outline_size = 40
 outline_color = Color( 0, 0, 0, 1 )
 use_mipmaps = true
 use_filter = true
-extra_spacing_char = 3
 font_data = ExtResource( 5 )
-
-[sub_resource type="DynamicFont" id=2]
-size = 15
-outline_size = 1
-outline_color = Color( 0, 0, 0, 1 )
-use_mipmaps = true
-use_filter = true
-font_data = ExtResource( 4 )
-
-[sub_resource type="DynamicFont" id=3]
-size = 48
-outline_size = 2
-outline_color = Color( 0, 0, 0, 1 )
-use_mipmaps = true
-use_filter = true
-font_data = ExtResource( 7 )
 
 [sub_resource type="AtlasTexture" id=4]
 flags = 4
@@ -206,61 +188,37 @@ animations = [ {
 "speed": 31.0
 } ]
 
+[sub_resource type="DynamicFont" id=1]
+size = 240
+outline_size = 20
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+extra_spacing_char = 35
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 300
+outline_size = 20
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 48
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 7 )
+
 [node name="Visual" type="Control"]
 margin_right = 100.0
 margin_bottom = 150.0
 rect_min_size = Vector2( 100, 150 )
 focus_mode = 1
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Battle" type="HBoxContainer" parent="."]
-margin_top = 115.0
-margin_right = 100.0
-margin_bottom = 150.0
-rect_min_size = Vector2( 100, 25 )
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Attack" type="Label" parent="Battle"]
-margin_left = 6.0
-margin_top = 9.0
-margin_right = 42.0
-margin_bottom = 26.0
-rect_min_size = Vector2( 0, 12 )
-custom_fonts/font = SubResource( 1 )
-text = "2000"
-
-[node name="Label" type="Label" parent="Battle"]
-margin_left = 46.0
-margin_top = 6.0
-margin_right = 53.0
-margin_bottom = 28.0
-custom_fonts/font = SubResource( 2 )
-text = "/"
-
-[node name="Defense" type="Label" parent="Battle"]
-margin_left = 57.0
-margin_top = 9.0
-margin_right = 93.0
-margin_bottom = 26.0
-rect_min_size = Vector2( 0, 12 )
-custom_fonts/font = SubResource( 1 )
-text = "2000"
-
-[node name="ID" type="Label" parent="."]
-show_behind_parent = true
-margin_right = 100.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 100, 100 )
-custom_fonts/font = SubResource( 3 )
-text = "ID"
-align = 1
-valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -305,16 +263,24 @@ scale = Vector2( 0.958936, 0.967719 )
 texture = ExtResource( 2 )
 centered = false
 
+[node name="ChainIndex" type="Label" parent="Frame"]
+margin_left = 558.469
+margin_top = 898.613
+margin_right = 1535.47
+margin_bottom = 2316.61
+custom_fonts/font = SubResource( 37 )
+text = "1"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="ChainLink" type="AnimatedSprite" parent="Frame"]
 position = Vector2( 1127.68, 1594.95 )
 scale = Vector2( 15, 15 )
 frames = SubResource( 36 )
 animation = "Chain"
-
-[node name="ChainIndex" type="Sprite" parent="Frame"]
-position = Vector2( 1127.68, 1594.95 )
-scale = Vector2( 8, 8 )
-texture = ExtResource( 10 )
 
 [node name="AttackIcon" type="Sprite" parent="Frame"]
 visible = false
@@ -330,9 +296,65 @@ scale = Vector2( 5.70116, 5.29801 )
 texture = ExtResource( 12 )
 centered = false
 
+[node name="Battle" type="HBoxContainer" parent="Frame"]
+margin_left = 220.829
+margin_top = 2628.0
+margin_right = 2106.83
+margin_bottom = 3054.0
+rect_min_size = Vector2( 100, 25 )
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Attack" type="Label" parent="Frame/Battle"]
+margin_left = 2.0
+margin_top = 42.0
+margin_right = 748.0
+margin_bottom = 383.0
+rect_min_size = Vector2( 0, 12 )
+custom_fonts/font = SubResource( 1 )
+text = "2000"
+valign = 1
+
+[node name="Label" type="Label" parent="Frame/Battle"]
+margin_left = 752.0
+margin_right = 1138.0
+margin_bottom = 426.0
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 2 )
+text = " /  "
+valign = 1
+
+[node name="Defense" type="Label" parent="Frame/Battle"]
+margin_left = 1142.0
+margin_top = 42.0
+margin_right = 1888.0
+margin_bottom = 383.0
+rect_min_size = Vector2( 0, 12 )
+custom_fonts/font = SubResource( 1 )
+text = "2000"
+valign = 1
+
 [node name="Back" type="Sprite" parent="Frame"]
 visible = false
 scale = Vector2( 1.6117, 1.59903 )
 texture = ExtResource( 6 )
 centered = false
+
+[node name="ID" type="Label" parent="."]
+visible = false
+show_behind_parent = true
+margin_right = 100.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
+custom_fonts/font = SubResource( 3 )
+text = "ID"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 [connection signal="mouse_entered" from="." to="." method="OnMouseEnter"]

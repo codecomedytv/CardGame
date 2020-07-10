@@ -100,7 +100,6 @@
     <Compile Include="addons\WAT\core\assertions\Assertions.cs" />
     <Compile Include="addons\WAT\core\test\Recorder.cs" />
     <Compile Include="addons\WAT\core\test\Test.cs" />
-    <Compile Include="Assets\Assets.cs" />
     <Compile Include="Client\Cards\CardView.cs" />
     <Compile Include="Client\Cards\CardInfo.cs" />
     <Compile Include="Client\Cards\Library.cs" />

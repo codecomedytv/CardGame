@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using CardGame.Assets;
 using CardGame.Client.Room;
 using CardGame.Client.Room.View;
 using Godot;
@@ -20,21 +19,21 @@ namespace CardGame.Client.Cards
 		public Sprite AttackIcon;
 		public Sprite DefenseIcon;
 		private AnimatedSprite ChainLink;
-		private Sprite ChainIndex;
+		private Label ChainIndex;
 		public bool IsFaceUp => !Back.Visible;
 		
 		public override void _Ready()
 		{
 			Id = GetNode("ID") as Label;
 			ChainLink = GetNode("Frame/ChainLink") as AnimatedSprite;
-			ChainIndex = GetNode("Frame/ChainIndex") as Sprite;
+			ChainIndex = GetNode("Frame/ChainIndex") as Label;
 			Legal = GetNode("Frame/Legal") as Sprite;
 			ValidTarget = GetNode("Frame/ValidTarget") as Sprite;
 			SelectedTarget = GetNode("Frame/SelectedTarget") as Sprite;
 			AttackIcon = GetNode("Frame/AttackIcon") as Sprite;
 			DefenseIcon = GetNode("Frame/DefenseIcon") as Sprite;
-			Attack = GetNode("Battle/Attack") as Label;
-			Defense = GetNode("Battle/Defense") as Label;
+			Attack = GetNode("Frame/Battle/Attack") as Label;
+			Defense = GetNode("Frame/Battle/Defense") as Label;
 			Art = GetNode("Frame/Illustration") as Sprite;
 			Back = GetNode("Frame/Back") as Sprite;
 		}
@@ -59,7 +58,7 @@ namespace CardGame.Client.Cards
 			GD.Print($"Adding To Chain with Chain of {chainIndex}");
 			ChainLink.Frame = 0;
 			ChainLink.Visible = true;
-			ChainIndex.Texture = Icons.Numbers[chainIndex];
+			ChainIndex.Text = chainIndex.ToString();
 			ChainIndex.Visible = true;
 			ChainLink.Play();
 		}
