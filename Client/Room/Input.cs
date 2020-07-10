@@ -21,6 +21,12 @@ namespace CardGame.Client.Room
         public delegate void Attack();
 
         private readonly Player User;
+        public bool NoCardsWereClicked(Vector2 pos)
+        {
+            return !GetTree().GetNodesInGroup("cards").Cast<Card>().Any(c => WasClicked(c, pos));
+        }
+		
+        private bool WasClicked(Card card, Vector2 pos) => card.GetGlobalRect().HasPoint(pos);
 
         public Input(Player player) => User = player;
 
@@ -29,6 +35,19 @@ namespace CardGame.Client.Room
             card.View.Connect(nameof(CardView.DoubleClicked), this, nameof(OnCardDoubleClicked), new Array {card});
         }
 
+        public override void _Input(InputEvent inputEvent)
+        {
+            if (inputEvent is InputEventMouseButton mouseButton && mouseButton.Doubleclick)
+            {
+                if (NoCardsWereClicked(mouseButton.Position) && User.Attacking)
+                {
+                    User.CardInUse.Deselect();
+                    User.CardInUse = null;
+                    User.Attacking = false;
+                }
+            }
+        }
+        
         private void OnCardDoubleClicked(Card card)
         {
             if (User.State == States.Processing)

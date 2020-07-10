@@ -101,12 +101,16 @@ namespace CardGame.Client.Cards
 			ChainLink.Stop();
 		}
 
+		public bool IsCurrentlySelected() => SelectedTarget.Visible;
 		public void ShowAsLegal() => Legal.Visible = true;
 		public void StopShowingAsLegal() => Legal.Visible = false;
 		public void HighlightAsTarget() => ValidTarget.Visible = true;
 		public void StopHighlightingAsTarget() => ValidTarget.Visible = false;
 		public void Select() => SelectedTarget.Visible = true;
 		public void Deselect() => SelectedTarget.Visible = false;
+
+		public void StopAttacking() => AttackIcon.Visible = false;
+		public void StopDefending() => DefenseIcon.Visible = false;
 
 		[Signal]
 		public delegate void DoubleClicked();
@@ -127,7 +131,7 @@ namespace CardGame.Client.Cards
 				}
 			}
 		}
-
+		
 		public void DoubleClick() => EmitSignal(nameof(DoubleClicked));
 	}
 }

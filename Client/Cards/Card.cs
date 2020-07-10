@@ -43,6 +43,10 @@ namespace CardGame.Client.Cards
         
         public override void _Ready()
         {
+            if (!GetTree().GetNodesInGroup("cards").Contains(this))
+            {
+                AddToGroup("cards");
+            }
             AddChild(View);
             RectSize = View.RectSize;
             RectMinSize = View.RectMinSize;
@@ -60,12 +64,13 @@ namespace CardGame.Client.Cards
                 ShowAsLegal();
             }
             
-            if(CanAttack && GetGlobalRect().HasPoint(GetGlobalMousePosition()))
+            if(CanAttack && (GetGlobalRect().HasPoint(GetGlobalMousePosition()) || IsCurrentlySelected()))
             {
                 HighlightAttackTargets();
             }
         }
 
+        public bool IsCurrentlySelected() => View.IsCurrentlySelected();
         public void FlipFaceUp() => View.FlipFaceUp();
         public void FlipFaceDown() => View.FlipFaceDown();
         public void ShowAsLegal() => View.ShowAsLegal();
@@ -79,7 +84,9 @@ namespace CardGame.Client.Cards
         private void StopHighlightingTargets() => ValidTargets.ForEach(t => t.StopHighlightingAsTarget());
         private void StopHighlightingAttackTargets() => ValidAttackTargets.ForEach(t => t.StopHighlightingAsTarget());
         public void Select() => View.Select();
-        private void Deselect() => View.Deselect();
+        public void Deselect() => View.Deselect();
+        public void StopAttacking() => View.StopAttacking();
+        public void StopDefending() => View.StopDefending();
 
         public void AttackUnit(Card defending)
         {

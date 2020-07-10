@@ -40,6 +40,7 @@ namespace CardGame.Client.Room {
 		{
 			AddChild(Gfx);
 			AddChild(Messenger);
+			AddChild(Input);
 			CommandQueue.SubscribeTo(Messenger);
 			Messenger.SubscribeTo(Input);
 			Messenger.Connect(nameof(Messenger.Disqualified), this, nameof(OnDisqualified));
