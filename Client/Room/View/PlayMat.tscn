@@ -275,17 +275,9 @@ use_filter = true
 extra_spacing_char = 10
 font_data = SubResource( 50 )
 
-[node name="PlayMat" type="Control"]
+[node name="PlayMat" type="Sprite"]
 self_modulate = Color( 1, 0.772549, 0.701961, 1 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_min_size = Vector2( 1920, 1080 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
 script = ExtResource( 12 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Background" type="Control" parent="."]
 __meta__ = {
