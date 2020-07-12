@@ -16,7 +16,7 @@ extra_spacing_char = 2
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=2]
-size = 14
+size = 20
 outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
 use_mipmaps = true
@@ -77,7 +77,7 @@ show_behind_parent = true
 margin_left = 5.0
 margin_top = 5.0
 margin_right = 345.0
-margin_bottom = 495.0
+margin_bottom = 279.0
 expand = true
 stretch_mode = 1
 __meta__ = {

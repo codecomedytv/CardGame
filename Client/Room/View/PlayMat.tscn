@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/fonts/LemonMilkbolditalic.otf" type="DynamicFontData" id=3]
 [ext_resource path="res://Assets/New/ActionButton.png" type="Texture" id=4]
 [ext_resource path="res://Assets/New/back_sci-fi.png" type="Texture" id=5]
-[ext_resource path="res://assets/UI/Seperator.png" type="Texture" id=6]
+[ext_resource path="res://Assets/New/sepe.png" type="Texture" id=6]
 [ext_resource path="res://assets/UI/passbutton.png" type="Texture" id=7]
 [ext_resource path="res://assets/UI/Table.png" type="Texture" id=8]
 [ext_resource path="res://Assets/spritesheets/ovalorange/13.png" type="Texture" id=9]
@@ -19,7 +19,7 @@
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 6 )
-region_rect = Rect2( 0, 0, 1396, 156 )
+region_rect = Rect2( 12.1837, 10.224, 431.77, 45.776 )
 
 [sub_resource type="StyleBoxTexture" id=2]
 texture = ExtResource( 7 )
@@ -308,10 +308,10 @@ expand = true
 stretch_mode = 1
 
 [node name="Seperator" type="HSeparator" parent="Background"]
-margin_left = 455.0
-margin_top = 480.0
-margin_right = 1455.0
-margin_bottom = 500.0
+margin_left = 413.0
+margin_top = 463.0
+margin_right = 1343.0
+margin_bottom = 542.0
 rect_min_size = Vector2( 0, 20 )
 rect_clip_content = true
 custom_styles/separator = SubResource( 1 )
@@ -324,6 +324,7 @@ margin_right = 371.0
 margin_bottom = 603.0
 
 [node name="ActionButton" type="Button" parent="Background"]
+visible = false
 margin_left = 920.0
 margin_top = 455.698
 margin_right = 985.0
