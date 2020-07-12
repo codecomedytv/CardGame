@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=2]
+[gd_scene load_steps=66 format=2]
 
 [ext_resource path="res://assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/UI/Label_WoodPlank.png" type="Texture" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Client/Room/View/PlayerViewer.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Client/Room/View/PlayMat.cs" type="Script" id=12]
 [ext_resource path="res://Client/Room/View/Player.cs" type="Script" id=13]
+[ext_resource path="res://Assets/New/ZoneGroup.png" type="Texture" id=14]
 [ext_resource path="res://Assets/New/background_space.png" type="Texture" id=16]
 
 [sub_resource type="StyleBoxTexture" id=1]
@@ -251,6 +252,11 @@ use_filter = true
 extra_spacing_char = 4
 font_data = ExtResource( 3 )
 
+[sub_resource type="StyleBoxTexture" id=90]
+texture = ExtResource( 14 )
+region_rect = Rect2( 0, 0, 886, 176 )
+margin_top = 10.0
+
 [sub_resource type="DynamicFontData" id=88]
 font_path = "res://Assets/fonts/LemonMilkbolditalic.otf"
 
@@ -283,6 +289,7 @@ __meta__ = {
 }
 
 [node name="Board" type="TextureRect" parent="Background"]
+visible = false
 margin_left = 410.0
 margin_top = 90.0
 margin_right = 1510.0
@@ -299,12 +306,16 @@ margin_bottom = 500.0
 rect_min_size = Vector2( 0, 20 )
 rect_clip_content = true
 custom_styles/separator = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="CardViewer" parent="Background" instance=ExtResource( 10 )]
 margin_right = 371.0
 margin_bottom = 603.0
 
 [node name="ActionButton" type="Button" parent="Background"]
+visible = false
 margin_left = 920.0
 margin_top = 455.698
 margin_right = 985.0
@@ -381,36 +392,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Units" type="HBoxContainer" parent="Player" groups=[
-"player_units",
-]]
-margin_left = 460.0
-margin_top = 530.0
-margin_right = 1360.0
-margin_bottom = 680.0
-grow_horizontal = 2
-grow_vertical = 2
-rect_min_size = Vector2( 900, 150 )
-size_flags_horizontal = 3
-custom_constants/separation = 20
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Support" type="HBoxContainer" parent="Player"]
-margin_left = 460.0
-margin_top = 700.0
-margin_right = 1360.0
-margin_bottom = 850.0
-rect_min_size = Vector2( 900, 150 )
-size_flags_horizontal = 3
-custom_constants/separation = 20
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Hand" type="HBoxContainer" parent="Player"]
 margin_left = 467.0
 margin_top = 917.0
@@ -446,6 +427,58 @@ margin_left = 1546.0
 margin_top = 701.0
 margin_right = 1896.0
 margin_bottom = 1068.0
+
+[node name="Unit" type="PanelContainer" parent="Player"]
+margin_left = 430.0
+margin_top = 295.0
+margin_right = 1310.0
+margin_bottom = 465.0
+custom_styles/panel = SubResource( 90 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cards" type="HBoxContainer" parent="Player/Unit" groups=[
+"player_units",
+]]
+margin_top = 10.0
+margin_right = 880.0
+margin_bottom = 170.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 20
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Support" type="PanelContainer" parent="Player"]
+margin_left = 430.0
+margin_top = 730.0
+margin_right = 1310.0
+margin_bottom = 900.0
+custom_styles/panel = SubResource( 90 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cards" type="HBoxContainer" parent="Player/Support" groups=[
+"player_units",
+]]
+margin_top = 10.0
+margin_right = 880.0
+margin_bottom = 170.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 20
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Opponent" type="Control" parent="."]
 margin_right = 40.0
@@ -491,26 +524,52 @@ text = "0"
 align = 1
 valign = 1
 
-[node name="Units" type="HBoxContainer" parent="Opponent"]
-margin_left = 460.0
-margin_top = 295.0
-margin_right = 1360.0
-margin_bottom = 445.0
-rect_min_size = Vector2( 900, 150 )
+[node name="Unit" type="PanelContainer" parent="Opponent"]
+margin_left = 430.0
+margin_top = 540.0
+margin_right = 1310.0
+margin_bottom = 710.0
+custom_styles/panel = SubResource( 90 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cards" type="HBoxContainer" parent="Opponent/Unit" groups=[
+"player_units",
+]]
+margin_top = 10.0
+margin_right = 880.0
+margin_bottom = 170.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_constants/separation = 20
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Support" type="HBoxContainer" parent="Opponent"]
-margin_left = 460.0
-margin_top = 120.0
-margin_right = 1360.0
+[node name="Support" type="PanelContainer" parent="Opponent"]
+margin_left = 430.0
+margin_top = 100.0
+margin_right = 1310.0
 margin_bottom = 270.0
-rect_min_size = Vector2( 900, 150 )
+custom_styles/panel = SubResource( 90 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cards" type="HBoxContainer" parent="Opponent/Support" groups=[
+"player_units",
+]]
+margin_top = 10.0
+margin_right = 880.0
+margin_bottom = 170.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_constants/separation = 20
 alignment = 1
 __meta__ = {
