@@ -26,6 +26,7 @@ namespace CardGame.Client.Cards
 		
 		public override void _Ready()
 		{
+			GetNode<AnimationPlayer>("AnimationPlayer").Play("BounceGlow");
 			Legal = GetNode<Sprite>("Frame/Highlight");
 			Id = GetNode("ID") as Label;
 			ChainLink = GetNode("Frame/ChainLink") as AnimatedSprite;

@@ -1,4 +1,5 @@
-﻿using CardGame.Client.Room;
+﻿using System;
+using CardGame.Client.Room;
 using CardGame.Client.Room.View;
 using CardGame.Server.Game;
 using Godot;
@@ -18,7 +19,8 @@ namespace CardGame.Tests
 
         public void End()
         {
-            PlayMat.EndTurn.EmitSignal("pressed");
+            OnActionButtonPressed();
+            //PlayMat.EndTurn.EmitSignal("pressed");
         }
 
         public void Pass()

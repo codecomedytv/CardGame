@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://Client/Cards/CardView.cs" type="Script" id=1]
 [ext_resource path="res://Assets/New/Highlight.png" type="Texture" id=2]
@@ -206,6 +206,46 @@ use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 7 )
 
+[sub_resource type="Animation" id=37]
+resource_name = "BounceGlow"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Frame/Highlight:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Frame/SelectedTarget:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Frame/ValidTarget:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
 [node name="Visual" type="Control"]
 margin_right = 120.0
 margin_bottom = 150.0
@@ -222,15 +262,15 @@ centered = false
 
 [node name="Highlight" type="Sprite" parent="Frame"]
 visible = false
+self_modulate = Color( 1, 1, 1, 0.684502 )
 show_behind_parent = true
-position = Vector2( 1.99925, 2.35256 )
-scale = Vector2( 0.969666, 0.968633 )
 texture = ExtResource( 2 )
 centered = false
 offset = Vector2( -5, -5 )
 
 [node name="SelectedTarget" type="Sprite" parent="Frame"]
 visible = false
+self_modulate = Color( 1, 1, 1, 0.684502 )
 show_behind_parent = true
 position = Vector2( 1.99925, 2.35256 )
 scale = Vector2( 0.969666, 0.968633 )
@@ -240,6 +280,7 @@ offset = Vector2( -5, -5 )
 
 [node name="ValidTarget" type="Sprite" parent="Frame"]
 visible = false
+self_modulate = Color( 1, 1, 1, 0.684502 )
 show_behind_parent = true
 position = Vector2( 1.99925, 2.35256 )
 scale = Vector2( 0.969666, 0.968633 )
@@ -259,7 +300,7 @@ visible = false
 position = Vector2( -68, -60 )
 frames = SubResource( 33 )
 animation = "Chain"
-frame = 1
+frame = 5
 playing = true
 centered = false
 
@@ -285,6 +326,7 @@ margin_right = 112.0
 margin_bottom = 125.0
 custom_fonts/font = SubResource( 35 )
 text = "2000"
+align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -297,6 +339,7 @@ margin_right = 112.0
 margin_bottom = 143.0
 custom_fonts/font = SubResource( 35 )
 text = "1500"
+align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -332,4 +375,7 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/BounceGlow = SubResource( 37 )
 [connection signal="mouse_entered" from="." to="." method="OnMouseEnter"]

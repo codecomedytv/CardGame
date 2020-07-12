@@ -46,8 +46,9 @@ namespace CardGame.Client.Room {
 			Messenger.Connect(nameof(Messenger.Disqualified), this, nameof(OnDisqualified));
 			Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
 			CardCatalog.Connect(nameof(CardCatalog.CardCreated), Input, nameof(Input.OnCardCreated));
-			PlayMat.PassPriority.Connect("pressed", this, nameof(OnActionButtonPressed));
-			PlayMat.EndTurn.Connect("pressed", Messenger, nameof(Messenger.DeclareEndTurn));
+			PlayMat.ActionButton.Connect("pressed", this, nameof(OnActionButtonPressed));
+			//PlayMat.PassPriority.Connect("pressed", this, nameof(OnActionButtonPressed));
+			//PlayMat.EndTurn.Connect("pressed", Messenger, nameof(Messenger.DeclareEndTurn));
 			
 			Messenger.CallDeferred("SetReady");
 		}
@@ -62,25 +63,36 @@ namespace CardGame.Client.Room {
 		
 		protected void OnActionButtonPressed()
 		{
-			if (Player.State != States.Active)
+			// ReSharper disable once SwitchStatementMissingSomeEnumCasesNoDefault
+			switch (Player.State)
 			{
-				return;
+				case States.Idle when PlayMat.ActionButton.Text == "End Turn":
+					Messenger.DeclareEndTurn();
+					return;
+				case States.Active when PlayMat.ActionButton.Text == "Pass Play":
+					Messenger.DeclarePassPlay();
+					return;
 			}
 
-			PlayMat.ActionButtonAnimation.Stop();
-			PlayMat.ActionButtonAnimation.Hide();
-			PlayMat.ActionButtonAnimation.Frame = 0;
-			PlayMat.PassPriority.Text = "";
-			Messenger.DeclarePassPlay();
+			// PlayMat.ActionButtonAnimation.Stop();
+			// PlayMat.ActionButtonAnimation.Hide();
+			// PlayMat.ActionButtonAnimation.Frame = 0;
+			// PlayMat.PassPriority.Text = "";
 		}
 
 		private void SetState(States state)
 		{
-			PlayMat.PassPriority.Text = "";
-			if (state != States.Active) return;
-			PlayMat.ActionButtonAnimation.Show();
-			PlayMat.ActionButtonAnimation.Play();
-			PlayMat.PassPriority.Text = "Pass";
+			//PlayMat.PassPriority.Text = "";
+			PlayMat.ActionButton.Text = state switch
+			{
+				States.Idle => "End Turn",
+				States.Active => "Pass Play",
+				_ => ""
+			};
+			//if (state != States.Active) return;
+			//PlayMat.ActionButtonAnimation.Show();
+			//PlayMat.ActionButtonAnimation.Play();
+			//PlayMat.PassPriority.Text = "Pass";
 		}
 
 		private void OnDisqualified()
