@@ -51,37 +51,7 @@ namespace CardGame.Client.Cards
 			Attack.Text = card.Attack.ToString();
 			Defense.Text = card.Defense.ToString();
 		}
-
-		/*private void SetAttack(int value)
-		{
-
-			ClearBattle(Attack);
-			Attack.Visible = true;
-			var values = value.ToString().Reverse().ToList();
-			for (var i = 0; i < values.Count(); i++)
-			{
-				Attack.GetNode<Sprite>(i.ToString()).Visible = true;
-				Attack.GetNode<Sprite>(i.ToString()).Texture = Assets.Icons.Numbers.IconList[values[i].ToString()];
-			}
-		}
-
-		private void SetDefense(int value)
-		{
-			ClearBattle(Defense);
-			Defense.Visible = true;
-			var values = value.ToString().Reverse().ToList();
-			for (var i = 0; i < values.Count(); i++)
-			{
-				Defense.GetNode<Sprite>(i.ToString()).Visible = true;
-				Defense.GetNode<Sprite>(i.ToString()).Texture = Assets.Icons.Numbers.IconList[values[i].ToString()];
-			}
-		}*/
 		
-		private void ClearBattle(Node2D container)
-		{
-			foreach (Node2D child in container.GetChildren()) { child.Visible = false; }
-		}
-
 		public void FlipFaceDown() => Back.Visible = true;
 		public void FlipFaceUp() => Back.Visible = false;
 		
