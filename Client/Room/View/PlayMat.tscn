@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=2]
+[gd_scene load_steps=66 format=2]
 
 [ext_resource path="res://assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/UI/Label_WoodPlank.png" type="Texture" id=2]
@@ -14,7 +14,6 @@
 [ext_resource path="res://Client/Room/View/PlayMat.cs" type="Script" id=12]
 [ext_resource path="res://Client/Room/View/Player.cs" type="Script" id=13]
 [ext_resource path="res://Assets/New/ZoneGroup.png" type="Texture" id=14]
-[ext_resource path="res://Client/Cards/CardView.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Assets/New/background_space.png" type="Texture" id=16]
 
 [sub_resource type="StyleBoxTexture" id=1]
@@ -237,7 +236,7 @@ texture = ExtResource( 5 )
 region_rect = Rect2( 0, 0, 1422, 2000 )
 
 [sub_resource type="DynamicFont" id=46]
-size = 62
+size = 50
 outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
 use_mipmaps = true
@@ -316,7 +315,6 @@ margin_right = 371.0
 margin_bottom = 603.0
 
 [node name="ActionButton" type="Button" parent="Background"]
-visible = false
 margin_left = 920.0
 margin_top = 455.698
 margin_right = 985.0
@@ -363,7 +361,7 @@ __meta__ = {
 [node name="Deck" type="PanelContainer" parent="Player"]
 margin_left = 1360.0
 margin_top = 695.0
-margin_right = 1460.0
+margin_right = 1480.0
 margin_bottom = 845.0
 custom_styles/panel = SubResource( 43 )
 __meta__ = {
@@ -374,7 +372,7 @@ __meta__ = {
 self_modulate = Color( 1, 1, 1, 0.392157 )
 margin_left = 1360.0
 margin_top = 530.0
-margin_right = 1460.0
+margin_right = 1480.0
 margin_bottom = 680.0
 theme = SubResource( 44 )
 custom_styles/panel = SubResource( 45 )
@@ -384,7 +382,7 @@ __meta__ = {
 
 [node name="Count" type="Label" parent="Player/Discard"]
 self_modulate = Color( 1, 1, 1, 0.392157 )
-margin_right = 100.0
+margin_right = 120.0
 margin_bottom = 150.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -432,9 +430,9 @@ margin_bottom = 1068.0
 
 [node name="Unit" type="PanelContainer" parent="Player"]
 margin_left = 430.0
-margin_top = 295.0
+margin_top = 540.0
 margin_right = 1310.0
-margin_bottom = 465.0
+margin_bottom = 710.0
 custom_styles/panel = SubResource( 48 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -455,21 +453,6 @@ alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Visual" parent="Player/Unit/Cards" instance=ExtResource( 15 )]
-margin_left = 240.0
-margin_right = 360.0
-margin_bottom = 160.0
-
-[node name="Visual2" parent="Player/Unit/Cards" instance=ExtResource( 15 )]
-margin_left = 380.0
-margin_right = 500.0
-margin_bottom = 160.0
-
-[node name="Visual3" parent="Player/Unit/Cards" instance=ExtResource( 15 )]
-margin_left = 520.0
-margin_right = 640.0
-margin_bottom = 160.0
 
 [node name="Support" type="PanelContainer" parent="Player"]
 margin_left = 430.0
@@ -512,7 +495,7 @@ margin_bottom = 403.0
 [node name="Deck" type="PanelContainer" parent="Opponent"]
 margin_left = 1360.0
 margin_top = 140.0
-margin_right = 1460.0
+margin_right = 1480.0
 margin_bottom = 290.0
 custom_styles/panel = SubResource( 43 )
 
@@ -520,7 +503,7 @@ custom_styles/panel = SubResource( 43 )
 self_modulate = Color( 1, 1, 1, 0.392157 )
 margin_left = 1360.0
 margin_top = 305.0
-margin_right = 1460.0
+margin_right = 1480.0
 margin_bottom = 455.0
 theme = SubResource( 44 )
 custom_styles/panel = SubResource( 45 )
@@ -530,7 +513,7 @@ __meta__ = {
 
 [node name="Count" type="Label" parent="Opponent/Discard"]
 self_modulate = Color( 1, 1, 1, 0.392157 )
-margin_right = 100.0
+margin_right = 120.0
 margin_bottom = 150.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -541,9 +524,9 @@ valign = 1
 
 [node name="Unit" type="PanelContainer" parent="Opponent"]
 margin_left = 430.0
-margin_top = 540.0
+margin_top = 295.0
 margin_right = 1310.0
-margin_bottom = 710.0
+margin_bottom = 465.0
 custom_styles/panel = SubResource( 48 )
 __meta__ = {
 "_edit_use_anchors_": false

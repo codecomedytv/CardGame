@@ -14,6 +14,7 @@ namespace CardGame.Client.Cards
 		private Label Defense;
 		private Sprite Art;
 		private Sprite Back;
+		private Sprite Highlight;
 		private Sprite Legal;
 		private Sprite ValidTarget;
 		private Sprite SelectedTarget;
@@ -25,13 +26,14 @@ namespace CardGame.Client.Cards
 		
 		public override void _Ready()
 		{
-			GetNode<AnimationPlayer>("AnimationPlayer").Play("Legal");
+			//GetNode<AnimationPlayer>("AnimationPlayer").Play("Legal");
+			Legal = GetNode<Sprite>("Highlight");
 			Id = GetNode("ID") as Label;
 			ChainLink = GetNode("Frame/ChainLink") as AnimatedSprite;
 			ChainIndex = GetNode("Frame/ChainIndex") as Label;
-			Legal = GetNode("Frame/Legal") as Sprite;
-			ValidTarget = GetNode("Frame/ValidTarget") as Sprite;
-			SelectedTarget = GetNode("Frame/SelectedTarget") as Sprite;
+			//Legal = GetNode("Legal") as Sprite;
+			ValidTarget = GetNode("ValidTarget") as Sprite;
+			SelectedTarget = GetNode("SelectedTarget") as Sprite;
 			AttackIcon = GetNode("Frame/AttackIcon") as Sprite;
 			DefenseIcon = GetNode("Frame/DefenseIcon") as Sprite;
 			Attack = GetNode("Frame/Attack") as Label;

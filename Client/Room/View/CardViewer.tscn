@@ -10,6 +10,8 @@
 size = 22
 outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
 extra_spacing_char = 2
 font_data = ExtResource( 2 )
 
@@ -60,12 +62,15 @@ __meta__ = {
 
 [node name="Title" type="Label" parent="."]
 margin_left = 25.0
-margin_top = 295.0
+margin_top = 271.0
 margin_right = 325.0
-margin_bottom = 344.0
+margin_bottom = 303.0
 custom_fonts/font = SubResource( 1 )
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Illustration" type="TextureRect" parent="."]
 show_behind_parent = true
