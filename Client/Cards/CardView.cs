@@ -29,14 +29,14 @@ namespace CardGame.Client.Cards
 			Id = GetNode("ID") as Label;
 			ChainLink = GetNode("Frame/ChainLink") as AnimatedSprite;
 			ChainIndex = GetNode("Frame/ChainIndex") as Label;
-			Legal = GetNode("Frame/Legal") as Sprite;
-			ValidTarget = GetNode("Frame/ValidTarget") as Sprite;
-			SelectedTarget = GetNode("Frame/SelectedTarget") as Sprite;
+			//Legal = GetNode("Frame/Legal") as Sprite;
+			//ValidTarget = GetNode("Frame/ValidTarget") as Sprite;
+			//SelectedTarget = GetNode("Frame/SelectedTarget") as Sprite;
 			AttackIcon = GetNode("Frame/AttackIcon") as Sprite;
 			DefenseIcon = GetNode("Frame/DefenseIcon") as Sprite;
 			Attack = GetNode("Frame/Attack") as Node2D;
 			Defense = GetNode("Frame/Defense") as Node2D;
-			Art = GetNode("Frame/Illustration") as Sprite;
+			Art = GetNode("Frame/Art") as Sprite;
 			Back = GetNode("Frame/Back") as Sprite;
 		}
 		

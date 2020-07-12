@@ -196,14 +196,6 @@ use_filter = true
 extra_spacing_char = 2
 font_data = ExtResource( 19 )
 
-[sub_resource type="DynamicFont" id=86]
-size = 48
-outline_size = 2
-outline_color = Color( 0, 0, 0, 1 )
-use_mipmaps = true
-use_filter = true
-font_data = ExtResource( 7 )
-
 [sub_resource type="Animation" id=87]
 resource_name = "Legal"
 loop = true
@@ -220,6 +212,14 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="DynamicFont" id=86]
+size = 48
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 7 )
+
 [node name="Visual" type="Control"]
 margin_right = 120.0
 margin_bottom = 150.0
@@ -231,7 +231,6 @@ __meta__ = {
 }
 
 [node name="Highlight" type="Sprite" parent="."]
-self_modulate = Color( 1, 1, 1, 0.358966 )
 position = Vector2( 1.99925, 2.35256 )
 scale = Vector2( 0.969666, 0.968633 )
 texture = ExtResource( 2 )
@@ -254,7 +253,7 @@ visible = false
 position = Vector2( -68, -60 )
 frames = SubResource( 83 )
 animation = "Chain"
-frame = 9
+frame = 3
 playing = true
 centered = false
 
@@ -299,19 +298,6 @@ visible = false
 texture = ExtResource( 3 )
 centered = false
 
-[node name="ID" type="Label" parent="Frame"]
-visible = false
-margin_right = 120.0
-margin_bottom = 150.0
-rect_min_size = Vector2( 100, 100 )
-custom_fonts/font = SubResource( 86 )
-text = "ID"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="AttackIcon" type="Sprite" parent="Frame"]
 visible = false
 position = Vector2( 18.3723, 21.0741 )
@@ -328,4 +314,16 @@ centered = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Legal = SubResource( 87 )
+
+[node name="ID" type="Label" parent="."]
+margin_right = 120.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 100, 100 )
+custom_fonts/font = SubResource( 86 )
+text = "ID"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="mouse_entered" from="." to="." method="OnMouseEnter"]

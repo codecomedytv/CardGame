@@ -426,10 +426,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PlayerViewer" parent="Player" instance=ExtResource( 11 )]
-margin_left = 1546.0
+[node name="View" parent="Player" instance=ExtResource( 11 )]
 margin_top = 701.0
-margin_right = 1896.0
 margin_bottom = 1068.0
 
 [node name="Unit" type="PanelContainer" parent="Player"]
@@ -508,9 +506,7 @@ __meta__ = {
 }
 
 [node name="View" parent="Opponent" instance=ExtResource( 11 )]
-margin_left = 1546.0
 margin_top = 20.0
-margin_right = 1896.0
 margin_bottom = 403.0
 
 [node name="Deck" type="PanelContainer" parent="Opponent"]

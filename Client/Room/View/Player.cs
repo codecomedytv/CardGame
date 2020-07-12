@@ -18,8 +18,8 @@ namespace CardGame.Client.Room.View
             Deck = GetNode<Container>("Deck");
             Discard = GetNode<Container>("Discard");
             Hand = GetNode<Container>("Hand");
-            Units = GetNode<Container>("Units");
-            Support = GetNode<Container>("Support");
+            Units = GetNode<Container>("Unit/Cards");
+            Support = GetNode<Container>("Support/Cards");
             PlayingState = GetNode<AnimatedSprite>("View/PlayingState");
 
         }
