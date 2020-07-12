@@ -3,13 +3,13 @@
 [ext_resource path="res://Client/Cards/CardView.cs" type="Script" id=1]
 [ext_resource path="res://Assets/New/Highlight.png" type="Texture" id=2]
 [ext_resource path="res://Assets/New/CardBack.png" type="Texture" id=3]
+[ext_resource path="res://Assets/arttest.png" type="Texture" id=4]
 [ext_resource path="res://Assets/fonts/LemonMilkbolditalic.otf" type="DynamicFontData" id=5]
 [ext_resource path="res://assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://Assets/16.png" type="Texture" id=9]
 [ext_resource path="res://Assets/UI/sword_02.png" type="Texture" id=11]
 [ext_resource path="res://Assets/UI/shield_t_04.png" type="Texture" id=12]
 [ext_resource path="res://Assets/New/CardTemp.png" type="Texture" id=17]
-[ext_resource path="res://Assets/rage.jpg" type="Texture" id=18]
 [ext_resource path="res://Assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=19]
 
 [sub_resource type="AtlasTexture" id=51]
@@ -244,8 +244,7 @@ centered = false
 [node name="Art" type="Sprite" parent="Frame"]
 show_behind_parent = true
 position = Vector2( 4, 3.64101 )
-scale = Vector2( 0.11, 0.11 )
-texture = ExtResource( 18 )
+texture = ExtResource( 4 )
 centered = false
 
 [node name="ChainLink" type="AnimatedSprite" parent="Frame"]
@@ -253,7 +252,7 @@ visible = false
 position = Vector2( -68, -60 )
 frames = SubResource( 83 )
 animation = "Chain"
-frame = 3
+frame = 24
 playing = true
 centered = false
 
@@ -311,6 +310,26 @@ position = Vector2( 17.2916, 52.9552 )
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 12 )
 centered = false
+
+[node name="Selected" type="Sprite" parent="Frame"]
+position = Vector2( 34.0334, 121.638 )
+scale = Vector2( 0.330967, 0.243702 )
+texture = ExtResource( 2 )
+
+[node name="Legal" type="Sprite" parent="Frame"]
+position = Vector2( 34.0334, 121.638 )
+scale = Vector2( 0.330967, 0.243702 )
+texture = ExtResource( 2 )
+
+[node name="ValidTarget" type="Sprite" parent="Frame"]
+position = Vector2( 34.0334, 121.638 )
+scale = Vector2( 0.330967, 0.243702 )
+texture = ExtResource( 2 )
+
+[node name="SelectedTarget" type="Sprite" parent="Frame"]
+position = Vector2( 34.0334, 121.638 )
+scale = Vector2( 0.330967, 0.243702 )
+texture = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Legal = SubResource( 87 )

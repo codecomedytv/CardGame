@@ -10,8 +10,8 @@ namespace CardGame.Client.Cards
 	public class CardView : Control
 	{
 		private Label Id;
-		private Node2D Attack;
-		private Node2D Defense;
+		private Label Attack;
+		private Label Defense;
 		private Sprite Art;
 		private Sprite Back;
 		private Sprite Legal;
@@ -29,13 +29,13 @@ namespace CardGame.Client.Cards
 			Id = GetNode("ID") as Label;
 			ChainLink = GetNode("Frame/ChainLink") as AnimatedSprite;
 			ChainIndex = GetNode("Frame/ChainIndex") as Label;
-			//Legal = GetNode("Frame/Legal") as Sprite;
-			//ValidTarget = GetNode("Frame/ValidTarget") as Sprite;
-			//SelectedTarget = GetNode("Frame/SelectedTarget") as Sprite;
+			Legal = GetNode("Frame/Legal") as Sprite;
+			ValidTarget = GetNode("Frame/ValidTarget") as Sprite;
+			SelectedTarget = GetNode("Frame/SelectedTarget") as Sprite;
 			AttackIcon = GetNode("Frame/AttackIcon") as Sprite;
 			DefenseIcon = GetNode("Frame/DefenseIcon") as Sprite;
-			Attack = GetNode("Frame/Attack") as Node2D;
-			Defense = GetNode("Frame/Defense") as Node2D;
+			Attack = GetNode("Frame/Attack") as Label;
+			Defense = GetNode("Frame/Defense") as Label;
 			Art = GetNode("Frame/Art") as Sprite;
 			Back = GetNode("Frame/Back") as Sprite;
 		}
@@ -48,11 +48,11 @@ namespace CardGame.Client.Cards
 			Id.Text = card.Id.ToString();
 			Art.Texture = ResourceLoader.Load($"res://Assets/CardArt/{card.Art}.png") as Texture;
 			if(card.CardType != CardTypes.Unit) {return;}
-			SetAttack(card.Attack);
-			SetDefense(card.Defense);
+			Attack.Text = card.Attack.ToString();
+			Defense.Text = card.Defense.ToString();
 		}
 
-		private void SetAttack(int value)
+		/*private void SetAttack(int value)
 		{
 
 			ClearBattle(Attack);
@@ -75,7 +75,7 @@ namespace CardGame.Client.Cards
 				Defense.GetNode<Sprite>(i.ToString()).Visible = true;
 				Defense.GetNode<Sprite>(i.ToString()).Texture = Assets.Icons.Numbers.IconList[values[i].ToString()];
 			}
-		}
+		}*/
 		
 		private void ClearBattle(Node2D container)
 		{
