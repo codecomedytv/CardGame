@@ -25,6 +25,7 @@ namespace CardGame.Client.Cards
 		
 		public override void _Ready()
 		{
+			GetNode<AnimationPlayer>("AnimationPlayer").Play("Legal");
 			Id = GetNode("ID") as Label;
 			ChainLink = GetNode("Frame/ChainLink") as AnimatedSprite;
 			ChainIndex = GetNode("Frame/ChainIndex") as Label;

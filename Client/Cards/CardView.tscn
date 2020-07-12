@@ -1,26 +1,194 @@
-[gd_scene load_steps=56 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://Client/Cards/CardView.cs" type="Script" id=1]
-[ext_resource path="res://assets/CardArt/cultist.png" type="Texture" id=2]
-[ext_resource path="res://Assets/UI/frame_c3_02.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Numbers/1.png" type="Texture" id=4]
+[ext_resource path="res://Assets/New/Highlight.png" type="Texture" id=2]
+[ext_resource path="res://Assets/New/CardBack.png" type="Texture" id=3]
 [ext_resource path="res://Assets/fonts/LemonMilkbolditalic.otf" type="DynamicFontData" id=5]
-[ext_resource path="res://assets/UI/CardBack_Wooden.png" type="Texture" id=6]
 [ext_resource path="res://assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=7]
-[ext_resource path="res://Assets/spritesheets/glow.png" type="Texture" id=8]
 [ext_resource path="res://Assets/16.png" type="Texture" id=9]
-[ext_resource path="res://Assets/Numbers/4.png" type="Texture" id=10]
 [ext_resource path="res://Assets/UI/sword_02.png" type="Texture" id=11]
 [ext_resource path="res://Assets/UI/shield_t_04.png" type="Texture" id=12]
-[ext_resource path="res://Assets/Numbers/0.png" type="Texture" id=13]
-[ext_resource path="res://Assets/Numbers/2.png" type="Texture" id=14]
-[ext_resource path="res://Assets/UI/Label_WoodPlank.png" type="Texture" id=15]
-[ext_resource path="res://Assets/UI/BlankTexture.png" type="Texture" id=16]
 [ext_resource path="res://Assets/New/CardTemp.png" type="Texture" id=17]
 [ext_resource path="res://Assets/rage.jpg" type="Texture" id=18]
 [ext_resource path="res://Assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=19]
 
-[sub_resource type="DynamicFont" id=36]
+[sub_resource type="AtlasTexture" id=51]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=52]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 256, 0, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=53]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 512, 0, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=54]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 768, 0, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=55]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 1024, 0, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=56]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 1280, 0, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=57]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 1536, 0, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=58]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 1792, 0, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=59]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 0, 256, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=60]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 256, 256, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=61]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 512, 256, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=62]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 768, 256, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=63]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 1024, 256, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=64]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 1280, 256, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=65]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 1536, 256, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=66]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 1792, 256, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=67]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 0, 512, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=68]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 256, 512, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=69]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 512, 512, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=70]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 768, 512, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=71]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 1024, 512, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=72]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 1280, 512, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=73]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 1536, 512, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=74]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 1792, 512, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=75]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 0, 768, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=76]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 256, 768, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=77]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 512, 768, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=78]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 768, 768, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=79]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 1024, 768, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=80]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 1280, 768, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=81]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 1536, 768, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=82]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 1792, 768, 256, 256 )
+
+[sub_resource type="SpriteFrames" id=83]
+animations = [ {
+"frames": [ SubResource( 51 ), SubResource( 52 ), SubResource( 53 ), SubResource( 54 ), SubResource( 55 ), SubResource( 56 ), SubResource( 57 ), SubResource( 58 ), SubResource( 59 ), SubResource( 60 ), SubResource( 61 ), SubResource( 62 ), SubResource( 63 ), SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 68 ), SubResource( 69 ), SubResource( 70 ), SubResource( 71 ), SubResource( 72 ), SubResource( 73 ), SubResource( 74 ), SubResource( 75 ), SubResource( 76 ), SubResource( 77 ), SubResource( 78 ), SubResource( 79 ), SubResource( 80 ), SubResource( 81 ), SubResource( 82 ) ],
+"loop": true,
+"name": "Chain",
+"speed": 31.0
+} ]
+
+[sub_resource type="DynamicFont" id=84]
+size = 30
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=85]
 outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
 use_mipmaps = true
@@ -28,189 +196,29 @@ use_filter = true
 extra_spacing_char = 2
 font_data = ExtResource( 19 )
 
-[sub_resource type="DynamicFont" id=1]
-size = 1000
-outline_size = 40
-outline_color = Color( 0, 0, 0, 1 )
-use_mipmaps = true
-use_filter = true
-font_data = ExtResource( 5 )
-
-[sub_resource type="AtlasTexture" id=2]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 0, 0, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=3]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 256, 0, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=4]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 512, 0, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=5]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 768, 0, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=6]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 1024, 0, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=7]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 1280, 0, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=8]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 1536, 0, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=9]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 1792, 0, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=10]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 0, 256, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=11]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 256, 256, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=12]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 512, 256, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=13]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 768, 256, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=14]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 1024, 256, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=15]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 1280, 256, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=16]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 1536, 256, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=17]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 1792, 256, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=18]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 0, 512, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=19]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 256, 512, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=20]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 512, 512, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=21]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 768, 512, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=22]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 1024, 512, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=23]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 1280, 512, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=24]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 1536, 512, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=25]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 1792, 512, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=26]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 0, 768, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=27]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 256, 768, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=28]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 512, 768, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=29]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 768, 768, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=30]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 1024, 768, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=31]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 1280, 768, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=32]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 1536, 768, 256, 256 )
-
-[sub_resource type="AtlasTexture" id=33]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 1792, 768, 256, 256 )
-
-[sub_resource type="SpriteFrames" id=34]
-animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ) ],
-"loop": true,
-"name": "Chain",
-"speed": 31.0
-} ]
-
-[sub_resource type="DynamicFont" id=35]
+[sub_resource type="DynamicFont" id=86]
 size = 48
 outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
 use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 7 )
+
+[sub_resource type="Animation" id=87]
+resource_name = "Legal"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Highlight:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [node name="Visual" type="Control"]
 margin_right = 120.0
@@ -221,6 +229,14 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Highlight" type="Sprite" parent="."]
+self_modulate = Color( 1, 1, 1, 0.358966 )
+position = Vector2( 1.99925, 2.35256 )
+scale = Vector2( 0.969666, 0.968633 )
+texture = ExtResource( 2 )
+centered = false
+offset = Vector2( -5, -5 )
 
 [node name="Frame" type="Sprite" parent="."]
 texture = ExtResource( 17 )
@@ -233,12 +249,35 @@ scale = Vector2( 0.11, 0.11 )
 texture = ExtResource( 18 )
 centered = false
 
+[node name="ChainLink" type="AnimatedSprite" parent="Frame"]
+visible = false
+position = Vector2( -68, -60 )
+frames = SubResource( 83 )
+animation = "Chain"
+frame = 9
+playing = true
+centered = false
+
+[node name="ChainIndex" type="Label" parent="Frame"]
+visible = false
+margin_left = 45.0
+margin_top = 34.0
+margin_right = 84.0
+margin_bottom = 110.0
+custom_fonts/font = SubResource( 84 )
+text = "1"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Attack" type="Label" parent="Frame"]
 margin_left = 62.0
 margin_top = 105.0
 margin_right = 112.0
 margin_bottom = 125.0
-custom_fonts/font = SubResource( 36 )
+custom_fonts/font = SubResource( 85 )
 text = "2000"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -249,178 +288,44 @@ margin_left = 62.0
 margin_top = 123.0
 margin_right = 112.0
 margin_bottom = 143.0
-custom_fonts/font = SubResource( 36 )
+custom_fonts/font = SubResource( 85 )
 text = "1500"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Framexs" type="Sprite" parent="."]
+[node name="Back" type="Sprite" parent="Frame"]
 visible = false
-show_behind_parent = true
-scale = Vector2( 0.0438507, 0.0471875 )
-z_as_relative = false
-centered = false
-
-[node name="Border" type="Sprite" parent="Framexs"]
-visible = false
-self_modulate = Color( 0, 0, 0, 1 )
-show_behind_parent = true
-scale = Vector2( 2.14378, 4.48918 )
-texture = ExtResource( 16 )
-centered = false
-
-[node name="Legal" type="Sprite" parent="Framexs"]
-visible = false
-show_behind_parent = true
-position = Vector2( -860.543, -767.703 )
-scale = Vector2( 1.54431, 1.47574 )
-texture = ExtResource( 8 )
-centered = false
-
-[node name="ValidTarget" type="Sprite" parent="Framexs"]
-visible = false
-modulate = Color( 0.164706, 0.988235, 0.0470588, 1 )
-show_behind_parent = true
-position = Vector2( -860.543, -767.703 )
-scale = Vector2( 1.54431, 1.47574 )
-texture = ExtResource( 8 )
-centered = false
-
-[node name="SelectedTarget" type="Sprite" parent="Framexs"]
-visible = false
-modulate = Color( 0.94902, 0.0705882, 0.337255, 1 )
-show_behind_parent = true
-position = Vector2( -860.543, -767.703 )
-scale = Vector2( 1.54431, 1.47574 )
-texture = ExtResource( 8 )
-centered = false
-
-[node name="Illustration" type="Sprite" parent="Framexs"]
-show_behind_parent = true
-position = Vector2( 49.064, 39.0809 )
-scale = Vector2( 0.958936, 0.967719 )
-texture = ExtResource( 2 )
-centered = false
-
-[node name="Label_WoodPlank" type="Sprite" parent="Framexs"]
-position = Vector2( 0, 2438.74 )
-scale = Vector2( 6.68899, 5.23654 )
-texture = ExtResource( 15 )
-centered = false
-
-[node name="ChainIndex" type="Label" parent="Framexs"]
-visible = false
-margin_left = 558.469
-margin_top = 898.613
-margin_right = 1535.47
-margin_bottom = 2316.61
-custom_fonts/font = SubResource( 1 )
-text = "1"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ChainLink" type="AnimatedSprite" parent="Framexs"]
-visible = false
-position = Vector2( 1127.68, 1594.95 )
-scale = Vector2( 15, 15 )
-frames = SubResource( 34 )
-animation = "Chain"
-
-[node name="AttackIcon" type="Sprite" parent="Framexs"]
-visible = false
-position = Vector2( 418.974, 446.603 )
-scale = Vector2( 5.70116, 5.29801 )
-texture = ExtResource( 11 )
-centered = false
-
-[node name="DefenseIcon" type="Sprite" parent="Framexs"]
-visible = false
-position = Vector2( 394.329, 1122.23 )
-scale = Vector2( 5.70116, 5.29801 )
-texture = ExtResource( 12 )
-centered = false
-
-[node name="Back" type="Sprite" parent="Framexs"]
-visible = false
-scale = Vector2( 1.6117, 1.59903 )
-texture = ExtResource( 6 )
-centered = false
-
-[node name="Attack" type="Sprite" parent="Framexs"]
-visible = false
-position = Vector2( 607.371, 2796.28 )
-scale = Vector2( 7, 3.5 )
 texture = ExtResource( 3 )
+centered = false
 
-[node name="3" type="Sprite" parent="Framexs/Attack"]
-self_modulate = Color( 0, 0, 0, 1 )
-position = Vector2( -48.8037, -0.66748 )
-scale = Vector2( 0.3, 0.9 )
-texture = ExtResource( 14 )
-
-[node name="2" type="Sprite" parent="Framexs/Attack"]
-self_modulate = Color( 0, 0, 0, 1 )
-position = Vector2( -17.1156, -0.66748 )
-scale = Vector2( 0.3, 0.9 )
-texture = ExtResource( 10 )
-
-[node name="1" type="Sprite" parent="Framexs/Attack"]
-self_modulate = Color( 0, 0, 0, 1 )
-position = Vector2( 14.5725, -0.66748 )
-scale = Vector2( 0.3, 0.9 )
-texture = ExtResource( 13 )
-
-[node name="0" type="Sprite" parent="Framexs/Attack"]
-self_modulate = Color( 0, 0, 0, 1 )
-position = Vector2( 50.3223, -0.66748 )
-scale = Vector2( 0.3, 0.9 )
-texture = ExtResource( 13 )
-
-[node name="Defense" type="Sprite" parent="Framexs"]
+[node name="ID" type="Label" parent="Frame"]
 visible = false
-position = Vector2( 1702, 2796.28 )
-scale = Vector2( 7, 3.5 )
-texture = ExtResource( 3 )
-
-[node name="3" type="Sprite" parent="Framexs/Defense"]
-self_modulate = Color( 0, 0, 0, 1 )
-position = Vector2( -41.484, -0.678955 )
-scale = Vector2( 0.356197, 0.972454 )
-texture = ExtResource( 4 )
-
-[node name="2" type="Sprite" parent="Framexs/Defense"]
-self_modulate = Color( 0, 0, 0, 1 )
-position = Vector2( -17.1151, -0.678955 )
-scale = Vector2( 0.356197, 0.972454 )
-texture = ExtResource( 10 )
-
-[node name="1" type="Sprite" parent="Framexs/Defense"]
-self_modulate = Color( 0, 0, 0, 1 )
-position = Vector2( 15.3768, -0.678955 )
-scale = Vector2( 0.356197, 0.972454 )
-texture = ExtResource( 13 )
-
-[node name="0" type="Sprite" parent="Framexs/Defense"]
-self_modulate = Color( 0, 0, 0, 1 )
-position = Vector2( 43.807, -0.678955 )
-scale = Vector2( 0.356197, 0.972454 )
-texture = ExtResource( 13 )
-
-[node name="ID" type="Label" parent="."]
-visible = false
-show_behind_parent = true
-margin_right = 100.0
-margin_bottom = 100.0
+margin_right = 120.0
+margin_bottom = 150.0
 rect_min_size = Vector2( 100, 100 )
-custom_fonts/font = SubResource( 35 )
+custom_fonts/font = SubResource( 86 )
 text = "ID"
 align = 1
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AttackIcon" type="Sprite" parent="Frame"]
+visible = false
+position = Vector2( 18.3723, 21.0741 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 11 )
+centered = false
+
+[node name="DefenseIcon" type="Sprite" parent="Frame"]
+visible = false
+position = Vector2( 17.2916, 52.9552 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 12 )
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Legal = SubResource( 87 )
 [connection signal="mouse_entered" from="." to="." method="OnMouseEnter"]
