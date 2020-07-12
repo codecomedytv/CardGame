@@ -25,6 +25,6 @@ namespace CardGame.Client.Room.View
 			EndTurn = GetNode<Button>("Background/EndTurn");
 			DisqualificationNotice = GetNode<Label>("Disqualified");
 		}
-		
+	
 	}
 }

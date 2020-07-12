@@ -91,6 +91,11 @@ namespace CardGame
 					OS.WindowSize = new Vector2(1280, 720);
 					break;
 				}
+				case (uint) KeyList.M:
+					{
+						OS.WindowSize = new Vector2(640, 1136);
+						break;
+					}
 			}
 		}
 	}
