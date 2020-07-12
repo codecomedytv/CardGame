@@ -30,7 +30,7 @@ namespace CardGame.Client.Room.View
 				return;
 			}
 			Title.Text = _viewing.Title;
-			Art.Texture = ResourceLoader.Load($"res://Assets/CardArt/{_viewing.Art}.png") as Texture;
+			Art.Texture = ResourceLoader.Load($"res://Assets/CardArt/{_viewing.Art}.jpg") as Texture;
 			Battle.Text = _viewing.CardType == CardTypes.Unit ? $"Warrior / ATK {_viewing.Attack} / DEF {_viewing.Defense}" : "";
 			Effect.Text = _viewing.Effect;
 		}

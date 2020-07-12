@@ -15,7 +15,7 @@
   "13": {"Title":  "Debug.CannotBeTargeted", "Type": 1, "Text":  "", "Art": "cultist", "Attack":  0, "Defense": 0},
   "14": {"Title":  "Counter Attack", "Type": 2, "Text": "Destroy attacking unit.", "Art": "meat", "Attack": 0, "Defense": 0},
   "15": {"Title":  "Dungeon Guide", "Type": 1, "Text":  "", "Art":  "Adventurer", "Attack": 2000, "Defense":  1500},
-  "16": {"Title":  "Guard Puppy", "Type": 1, "Text": "Cannot Be Destroyed By Battle.\\nYour opponent cannot attack other units", "Art": "boar", "Attack": 500, "Defense": 500},
+  "16": {"Title":  "Guard Puppy", "Type": 1, "Text": "Cannot Be Destroyed By Battle.\n\nYour opponent cannot attack other units", "Art": "boar", "Attack": 500, "Defense": 500},
   "17": {"Title":  "Novice Archer", "Type": 1, "Text": "When this card is deployed: Destroy target unit with 1000 or less attack", "Art": "M_bot", "Attack": 1000, "Defense": 1000},
   "18": {"Title":  "Quest Reward", "Type": 2, "Text": "Draw 2 Cards", "Art": "coin", "Attack": 0, "Defense": 0},
   "19": {"Title":  "Training Trainer", "Type": 1, "Text": "When this card is played: You may play one [Pet] from your Deck", "Art":  "girl", "Attack": 1000, "Defense": 1000},

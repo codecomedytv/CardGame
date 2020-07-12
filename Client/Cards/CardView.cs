@@ -26,14 +26,13 @@ namespace CardGame.Client.Cards
 		
 		public override void _Ready()
 		{
-			//GetNode<AnimationPlayer>("AnimationPlayer").Play("Legal");
-			Legal = GetNode<Sprite>("Highlight");
+			Legal = GetNode<Sprite>("Frame/Highlight");
 			Id = GetNode("ID") as Label;
 			ChainLink = GetNode("Frame/ChainLink") as AnimatedSprite;
 			ChainIndex = GetNode("Frame/ChainIndex") as Label;
 			//Legal = GetNode("Legal") as Sprite;
-			ValidTarget = GetNode("ValidTarget") as Sprite;
-			SelectedTarget = GetNode("SelectedTarget") as Sprite;
+			ValidTarget = GetNode("Frame/ValidTarget") as Sprite;
+			SelectedTarget = GetNode("Frame/SelectedTarget") as Sprite;
 			AttackIcon = GetNode("Frame/AttackIcon") as Sprite;
 			DefenseIcon = GetNode("Frame/DefenseIcon") as Sprite;
 			Attack = GetNode("Frame/Attack") as Label;
@@ -48,8 +47,10 @@ namespace CardGame.Client.Cards
 			if(card.CardType == CardTypes.Null) {return;}
 			FlipFaceUp();
 			Id.Text = card.Id.ToString();
-			Art.Texture = ResourceLoader.Load($"res://Assets/CardArt/{card.Art}.png") as Texture;
+			Art.Texture = ResourceLoader.Load($"res://Assets/CardArt/{card.Art}.jpg") as Texture;
 			if(card.CardType != CardTypes.Unit) {return;}
+			Attack.Visible = true;
+			Defense.Visible = true;
 			Attack.Text = card.Attack.ToString();
 			Defense.Text = card.Defense.ToString();
 		}
