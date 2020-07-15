@@ -19,5 +19,11 @@ namespace CardGame.Server.Game.Events
             Attack = attack;
         }
         
+        public override void SendMessage(Message message)
+        {
+            message(Attacker.Opponent.Id, "OpponentAttackUnit", Attacker.Id, Defender.Id);
+        }
+
+        
     }
 }

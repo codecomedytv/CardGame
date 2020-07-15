@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CardGame.Client.Cards;
-using CardGame.Tests.Scripts;
 using Godot;
 using Object = Godot.Object;
 
@@ -42,6 +40,7 @@ namespace CardGame.Client.Room.Commands
 	        messenger.Connect(nameof(Messenger.BattleUnit), this, nameof(OnUnitBattled));
 	        messenger.Connect(nameof(Messenger.SendCardToZone), this, nameof(OnCardSentToZone));
 	        messenger.Connect(nameof(Messenger.LoseLife), this, nameof(OnLifeLost));
+	        messenger.Connect(nameof(Messenger.OpponentAttackUnit), this, nameof(OnOpponentAttackUnitQueued));
         }
 
         public async Task Execute()
@@ -86,6 +85,11 @@ namespace CardGame.Client.Room.Commands
         	{
         		card.Player = Player;
         	}
+        }
+
+        public void OnOpponentAttackUnitQueued(int attackerId, int defenderId)
+        {
+	        Commands.Enqueue(new AttackUnit(GetCard(attackerId), GetCard(defenderId)));
         }
 
         private void OnDrawQueued(int id = 0, bool isOpponent = false)

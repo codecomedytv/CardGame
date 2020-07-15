@@ -109,6 +109,7 @@
     <Compile Include="Client\DeckList.cs" />
     <Compile Include="Client\Room\CardCatalog.cs" />
     <Compile Include="Client\Room\Commands\Activate.cs" />
+    <Compile Include="Client\Room\Commands\AttackUnit.cs" />
     <Compile Include="Client\Room\Commands\Battle.cs" />
     <Compile Include="Client\Room\Commands\Command.cs" />
     <Compile Include="Client\Room\Commands\CommandQueue.cs" />
