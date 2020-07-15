@@ -5,4 +5,24 @@
 [resource]
 script = ExtResource( 1 )
 failures = [  ]
-_list = [  ]
+_list = [ {
+"context": "ActionTest",
+"methods": [ {
+"assertions": [ {
+"actual": "|bool| True == true",
+"context": "40 : Training Trainer is in Opponent's Graveyard",
+"expected": "|bool| True == true",
+"success": true
+} ],
+"context": "OnUnitOnFieldDoubleClicked",
+"passed": 1,
+"success": true,
+"time": 5.825,
+"total": 1
+} ],
+"passed": 1,
+"path": "res://Tests/Scripts/Connected/ActionTest.cs",
+"success": true,
+"time_taken": 0.017,
+"total": 1
+} ]
