@@ -129,6 +129,7 @@ namespace CardGame.Client.Room
                     // We return our of this so players have a chance to select the target before activation
                     User.Targeting = true;
                     User.CardInUse = card;
+                    card.HighlightTargets();
                 }
                 else
                 {

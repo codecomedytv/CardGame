@@ -16,5 +16,12 @@ namespace CardGame.Server.Game.Events
             Owner = owner;
             Card = card;
         }
+        
+        public override void SendMessage(Message message)
+        {
+            message(Owner.Id, "BounceCard", Card.Id, !IsOpponent);
+            message(Owner.Opponent.Id, "BounceCard", Card.Id, IsOpponent);
+        }
     }
 }
+

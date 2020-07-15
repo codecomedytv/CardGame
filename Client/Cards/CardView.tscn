@@ -300,16 +300,16 @@ visible = false
 position = Vector2( -68, -60 )
 frames = SubResource( 33 )
 animation = "Chain"
-frame = 2
+frame = 25
 playing = true
 centered = false
 
 [node name="ChainIndex" type="Label" parent="Frame"]
 visible = false
-margin_left = 45.0
-margin_top = 34.0
-margin_right = 84.0
-margin_bottom = 110.0
+margin_left = 39.6114
+margin_top = 32.8025
+margin_right = 78.6114
+margin_bottom = 108.803
 custom_fonts/font = SubResource( 34 )
 text = "1"
 align = 1

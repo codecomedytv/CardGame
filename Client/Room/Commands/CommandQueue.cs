@@ -41,6 +41,7 @@ namespace CardGame.Client.Room.Commands
 	        messenger.Connect(nameof(Messenger.SendCardToZone), this, nameof(OnCardSentToZone));
 	        messenger.Connect(nameof(Messenger.LoseLife), this, nameof(OnLifeLost));
 	        messenger.Connect(nameof(Messenger.OpponentAttackUnit), this, nameof(OnOpponentAttackUnitQueued));
+	        messenger.Connect(nameof(Messenger.BounceCard), this, nameof(OnCardBounceQueued));
         }
 
         public async Task Execute()
@@ -59,6 +60,13 @@ namespace CardGame.Client.Room.Commands
         {
             var card = GetCard(id, setCode);
             Commands.Enqueue(new RevealCard(Opponent, card, zoneId));
+        }
+
+        private void OnCardBounceQueued(int bouncedId, bool isOpponent)
+        {
+	        var bounced = GetCard(bouncedId);
+	        var player = GetPlayer(isOpponent);
+	        Commands.Enqueue(new BounceCard(player, bounced, isOpponent));
         }
 
         private void OnCardUpdated(int id, CardStates state, IEnumerable<int> attackTargets, IEnumerable<int> targets)

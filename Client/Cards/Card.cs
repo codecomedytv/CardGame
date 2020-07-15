@@ -24,12 +24,15 @@ namespace CardGame.Client.Cards
         public Zone Zone;
 
         public bool IsFaceUp => View.IsFaceUp;
-        public bool IsInActive => State == CardStates.Passive || State == CardStates.Activated;
-        public bool CanBeDeployed => State == CardStates.CanBeDeployed && Player.State == States.Idle;
-        public bool CanBeSet => State == CardStates.CanBeSet && Player.State == States.Idle;
-        public bool CanBeActivated => State == CardStates.CanBeActivated && !Player.IsInActive;
-        public bool CanAttack => State == CardStates.CanAttack && ValidAttackTargets.Count > 0 && Player.State == States.Idle;
-        public bool CanTarget => State == CardStates.CanBeActivated && ValidTargets.Count > 0 && !Player.IsInActive;
+
+        public bool IsInActive =>
+            State == CardStates.Passive || State == CardStates.Activated && !Player.ActionInProgress;
+        public bool CanBeDeployed => State == CardStates.CanBeDeployed && Player.State == States.Idle && !Player.ActionInProgress;
+        public bool CanBeSet => State == CardStates.CanBeSet && Player.State == States.Idle && !Player.ActionInProgress;
+        public bool CanBeActivated => State == CardStates.CanBeActivated && !Player.IsInActive && !Player.ActionInProgress;
+        public bool CanAttack => State == CardStates.CanAttack && ValidAttackTargets.Count > 0 && Player.State == States.Idle && !Player.ActionInProgress;
+
+        public bool CanTarget => State == CardStates.CanBeActivated && ValidTargets.Count > 0 && !Player.IsInActive && !Player.ActionInProgress;
         public bool CanBePlayed => CanBeDeployed || CanBeSet || CanBeActivated || CanAttack; // can attack?
         public bool HasTarget(Card target) => ValidTargets.Contains(target);
         public bool HasAttackTarget(Card defender) => ValidAttackTargets.Contains(defender);
@@ -55,18 +58,15 @@ namespace CardGame.Client.Cards
 
         public override void _Process(float delta)
         {
-            StopShowingAsLegal();
-            StopHighlightingTargets();
-            StopHighlightingAttackTargets();
-            
-            if (Player.CanPlay(this))
-            {
-                ShowAsLegal();
-            }
-            
+            //StopHighlightingTargets();
+            if (Player.CanPlay(this)) { ShowAsLegal(); } else { StopShowingAsLegal(); }
             if(CanAttack && (GetGlobalRect().HasPoint(GetGlobalMousePosition()) || IsCurrentlySelected()))
             {
                 HighlightAttackTargets();
+            }
+            else
+            {
+                StopHighlightingAttackTargets();
             }
         }
 
@@ -79,7 +79,7 @@ namespace CardGame.Client.Cards
         public void RemoveFromChain() => View.RemoveFromChain();
         public void HighlightAsTarget() => View.HighlightAsTarget();
         public void StopHighlightingAsTarget() => View.StopHighlightingAsTarget(); 
-        private void HighlightTargets() => ValidTargets.ForEach(t => t.HighlightAsTarget());
+        public void HighlightTargets() => ValidTargets.ForEach(t => t.HighlightAsTarget());
         private void HighlightAttackTargets() => ValidAttackTargets.ForEach(t => t.HighlightAsTarget());
         private void StopHighlightingTargets() => ValidTargets.ForEach(t => t.StopHighlightingAsTarget());
         private void StopHighlightingAttackTargets() => ValidAttackTargets.ForEach(t => t.StopHighlightingAsTarget());

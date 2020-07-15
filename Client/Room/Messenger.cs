@@ -15,6 +15,7 @@ namespace CardGame.Client.Room
         [Signal] public delegate void OpponentAttackUnit();
         [Signal] public delegate void Disqualified();
         [Signal] public delegate void Draw();
+        [Signal] public delegate void BounceCard();
         [Signal] public delegate void Deploy();
         [Signal] public delegate void SetFaceDown();
         [Signal] public delegate void Activate();

@@ -17,12 +17,927 @@ _list = [ {
 "context": "OnUnitOnFieldDoubleClicked",
 "passed": 1,
 "success": true,
-"time": 5.825,
+"time": 5.995,
+"total": 1
+}, {
+"assertions": [ {
+"actual": "|int| 8 is equal to |int| 8",
+"context": "Opponent Drew A Card",
+"expected": "|int| 8 is equal to |int| 8",
+"success": true
+} ],
+"context": "OnEndTurn",
+"passed": 1,
+"success": true,
+"time": 3.572,
+"total": 1
+}, {
+"assertions": [ {
+"actual": "|bool| True == true",
+"context": "79 : Quest Reward was Set",
+"expected": "|bool| True == true",
+"success": true
+} ],
+"context": "OnSupportInHandDoubleClicked",
+"passed": 1,
+"success": true,
+"time": 3.555,
+"total": 1
+}, {
+"assertions": [ {
+"actual": "|bool| True == true",
+"context": "80 : Training Trainer was Deployed",
+"expected": "|bool| True == true",
+"success": true
+} ],
+"context": "OnUnitInHandDoubleClicked",
+"passed": 1,
+"success": true,
+"time": 3.591,
+"total": 1
+} ],
+"passed": 4,
+"path": "res://Tests/Scripts/Connected/ActionTest.cs",
+"success": true,
+"time_taken": 0.011,
+"total": 4
+}, {
+"context": "Given A Server and Two Clients",
+"methods": [ {
+"assertions": [ {
+"actual": "|String| 1 is equal to |String| 1",
+"context": "",
+"expected": "|String| 1 is equal to |String| 1",
+"success": true
+}, {
+"actual": "|Object| [Control:20191] != null",
+"context": "",
+"expected": "|Object| [Control:20191] != null",
+"success": true
+}, {
+"actual": "|Object| [Control:20339] != null",
+"context": "",
+"expected": "|Object| [Control:20339] != null",
+"success": true
+} ],
+"context": "RoomSharesNameAcrossNetwork",
+"passed": 3,
+"success": true,
+"time": 3.222,
+"total": 3
+}, {
+"assertions": [ {
+"actual": "|int| 1 is equal to |int| 1",
+"context": "",
+"expected": "|int| 1 is equal to |int| 1",
+"success": true
+}, {
+"actual": "|int| 2 is equal or greater |int| 1",
+"context": "",
+"expected": "|int| 2 is equal or greater |int| 1",
+"success": true
+}, {
+"actual": "|int| 2 is equal or greater |int| 1",
+"context": "",
+"expected": "|int| 2 is equal or greater |int| 1",
+"success": true
+} ],
+"context": "GameRoomIsSetup",
+"passed": 3,
+"success": true,
+"time": 3.239,
+"total": 3
+}, {
+"assertions": [ {
+"actual": "|int| 2 is equal to |int| 2",
+"context": "",
+"expected": "|int| 2 is equal to |int| 2",
+"success": true
+}, {
+"actual": "|int| 2 is equal to |int| 2",
+"context": "",
+"expected": "|int| 2 is equal to |int| 2",
+"success": true
+}, {
+"actual": "|int| 2 is equal to |int| 2",
+"context": "",
+"expected": "|int| 2 is equal to |int| 2",
+"success": true
+} ],
+"context": "AllAreConnected",
+"passed": 3,
+"success": true,
+"time": 2.99,
+"total": 3
+} ],
+"passed": 3,
+"path": "res://Tests/Scripts/Connected/ConnectionTest.cs",
+"success": true,
+"time_taken": 0.0,
+"total": 3
+}, {
+"context": "Given An Attacking Unit",
+"methods": [ {
+"assertions": [ {
+"actual": "|bool| True == true",
+"context": "Weaking Deployed",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Defender Deployed",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "[23: Debug.1000ATK.1000DEF] has 23: Debug.1000ATK.1000DEF",
+"context": "Then it is destroyed",
+"expected": "[23: Debug.1000ATK.1000DEF] has 23: Debug.1000ATK.1000DEF",
+"success": true
+}, {
+"actual": "|int| 7500 is equal to |int| 7500",
+"context": "Then the attacking Player loses life equal to the difference",
+"expected": "|int| 7500 is equal to |int| 7500",
+"success": true
+} ],
+"context": "When It Is CounterAttack By A Unit With Attack Greater Than Its Defense",
+"passed": 4,
+"success": true,
+"time": 0.008,
+"total": 4
+}, {
+"assertions": [ {
+"actual": "|int| 6500 is equal to |int| 6500",
+"context": "Then the defending Player loses life equal to its attack",
+"expected": "|int| 6500 is equal to |int| 6500",
+"success": true
+} ],
+"context": "When It Attacks Directly",
+"passed": 1,
+"success": true,
+"time": 0.007,
+"total": 1
+}, {
+"assertions": [ {
+"actual": "[11: Debug.1000ATK.1000DEF] has 11: Debug.1000ATK.1000DEF",
+"context": "Then the defending unit is destroyed",
+"expected": "[11: Debug.1000ATK.1000DEF] has 11: Debug.1000ATK.1000DEF",
+"success": true
+}, {
+"actual": "|int| 7500 is equal to |int| 7500",
+"context": "Then the defending Players loses life equal to the difference",
+"expected": "|int| 7500 is equal to |int| 7500",
+"success": true
+} ],
+"context": "When Its Attack Is Greater Than The Defending Units Defense",
+"passed": 2,
+"success": true,
+"time": 0.005,
+"total": 2
+} ],
+"passed": 3,
+"path": "res://Tests/Scripts/Serverside/BattleTest.cs",
+"success": true,
+"time_taken": 0.0,
+"total": 3
+}, {
+"context": "Given Guard Puppy",
+"methods": [ {
+"assertions": [ {
+"actual": "[11: Dungeon Guide] has 11: Dungeon Guide",
+"context": "That Unit is in owner's discard",
+"expected": "[11: Dungeon Guide] has 11: Dungeon Guide",
+"success": true
+}, {
+"actual": "|bool| False == false",
+"context": "Then that Unit no longer has the tag",
+"expected": "|bool| False == false",
+"success": true
+} ],
+"context": " tag unit removed from field",
+"passed": 2,
+"success": true,
+"time": 0.011,
+"total": 2
+}, {
+"assertions": [ {
+"actual": "[13: Guard Puppy] has 13: Guard Puppy",
+"context": "GuardPuppy is in owner's discard",
+"expected": "[13: Guard Puppy] has 13: Guard Puppy",
+"success": true
+}, {
+"actual": "|bool| False == false",
+"context": "Then a Unit it tagged no longer has the tag",
+"expected": "|bool| False == false",
+"success": true
+} ],
+"context": " guard puppy removed from the field",
+"passed": 2,
+"success": true,
+"time": 0.005,
+"total": 2
+}, {
+"assertions": [ {
+"actual": "|bool| True == true",
+"context": "Then a Unit that was played before it has the tag 'Cannot Be Attacked'",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Then a Unit that was played after it has the tag 'Cannot Be Attacked'",
+"expected": "|bool| True == true",
+"success": true
+} ],
+"context": "guard puppy",
+"passed": 2,
+"success": true,
+"time": 0.006,
+"total": 2
+} ],
+"passed": 3,
+"path": "res://Tests/Scripts/Serverside/GuardPuppyTest.cs",
+"success": true,
+"time_taken": 0.0,
+"total": 3
+}, {
+"context": "A Player is Disqualified",
+"methods": [ {
+"assertions": [ {
+"actual": "|bool| True == true",
+"context": "",
+"expected": "|bool| True == true",
+"success": true
+} ],
+"context": "When They Activate A Support While InActive",
+"passed": 1,
+"success": true,
+"time": 0.004,
+"total": 1
+}, {
+"assertions": [ {
+"actual": "|bool| False == false",
+"context": "Card is not ready in hand",
+"expected": "|bool| False == false",
+"success": true
+}, {
+"actual": "|bool| False == false",
+"context": "Card is not ready when set",
+"expected": "|bool| False == false",
+"success": true
+}, {
+"actual": "|bool| False == false",
+"context": "Card is not ready when activated",
+"expected": "|bool| False == false",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player is disqualified",
+"expected": "|bool| True == true",
+"success": true
+} ],
+"context": "When They Activate An Unready Support",
+"passed": 4,
+"success": true,
+"time": 0.003,
+"total": 4
+}, {
+"assertions": [ {
+"actual": "|bool| True == true",
+"context": "",
+"expected": "|bool| True == true",
+"success": true
+} ],
+"context": "When They Declare An Attack With An Unready Unit",
+"passed": 1,
+"success": true,
+"time": 0.004,
+"total": 1
+}, {
+"assertions": [ {
+"actual": "|bool| True == true",
+"context": "",
+"expected": "|bool| True == true",
+"success": true
+} ],
+"context": "When A Player Declares An Attack During Their Opponents Turn",
+"passed": 1,
+"success": true,
+"time": 0.005,
+"total": 1
+}, {
+"assertions": [ {
+"actual": "|bool| True == true",
+"context": "",
+"expected": "|bool| True == true",
+"success": true
+} ],
+"context": "When They End Their Turn During Their Opponents Turn",
+"passed": 1,
+"success": true,
+"time": 0.003,
+"total": 1
+}, {
+"assertions": [ {
+"actual": "|bool| True == true",
+"context": "",
+"expected": "|bool| True == true",
+"success": true
+} ],
+"context": "When They Set Support During Their Opponents Turn",
+"passed": 1,
+"success": true,
+"time": 0.003,
+"total": 1
+}, {
+"assertions": [ {
+"actual": "|bool| True == true",
+"context": "",
+"expected": "|bool| True == true",
+"success": true
+} ],
+"context": "When They Try To Set A Card Not In Their Hand",
+"passed": 1,
+"success": true,
+"time": 0.004,
+"total": 1
+}, {
+"assertions": [ {
+"actual": "|int| 7 is equal to |int| 7",
+"context": "",
+"expected": "|int| 7 is equal to |int| 7",
+"success": true
+}, {
+"actual": "|int| 7 is equal to |int| 7",
+"context": "",
+"expected": "|int| 7 is equal to |int| 7",
+"success": true
+}, {
+"actual": "|int| 8 is equal to |int| 8",
+"context": "",
+"expected": "|int| 8 is equal to |int| 8",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "",
+"expected": "|bool| True == true",
+"success": true
+} ],
+"context": "When They Try To Set A Card To A Full Field",
+"passed": 4,
+"success": true,
+"time": 0.009,
+"total": 4
+}, {
+"assertions": [ {
+"actual": "|bool| True == true",
+"context": "",
+"expected": "|bool| True == true",
+"success": true
+} ],
+"context": "When They Try To Deploy A Unit Not In Their Hand",
+"passed": 1,
+"success": true,
+"time": 0.003,
+"total": 1
+}, {
+"assertions": [ {
+"actual": "|int| 7 is equal to |int| 7",
+"context": "",
+"expected": "|int| 7 is equal to |int| 7",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "",
+"expected": "|bool| True == true",
+"success": true
+} ],
+"context": "When They Try To Deploy A Unit When Their Field Is Full",
+"passed": 2,
+"success": true,
+"time": 0.004,
+"total": 2
+}, {
+"assertions": [ {
+"actual": "|bool| True == true",
+"context": "",
+"expected": "|bool| True == true",
+"success": true
+} ],
+"context": "When They Deploy A Unit During Their Opponents Turn",
+"passed": 1,
+"success": true,
+"time": 0.006,
+"total": 1
+} ],
+"passed": 11,
+"path": "res://Tests/Scripts/Serverside/JudgeTest.cs",
+"success": true,
+"time_taken": 0.001,
+"total": 11
+}, {
+"context": "Triggered Event Cards",
+"methods": [ {
+"assertions": [ {
+"actual": "[12: Debug.500ATK.500DEF] has 12: Debug.500ATK.500DEF",
+"context": "12: Debug.500ATK.500DEFis in Player 1's Discard",
+"expected": "[12: Debug.500ATK.500DEF] has 12: Debug.500ATK.500DEF",
+"success": true
+}, {
+"actual": "[6: Debug.DestroyAttackingUnit] has 6: Debug.DestroyAttackingUnit",
+"context": "6: Debug.DestroyAttackingUnit is in Player 0's Discard",
+"expected": "[6: Debug.DestroyAttackingUnit] has 6: Debug.DestroyAttackingUnit",
+"success": true
+} ],
+"context": "OnAttack",
+"passed": 2,
+"success": true,
+"time": 0.007,
+"total": 2
+} ],
+"passed": 1,
+"path": "res://Tests/Scripts/Serverside/LinkTest.cs",
+"success": true,
+"time_taken": 0.001,
+"total": 1
+}, {
+"context": "Given Novice Archer",
+"methods": [ {
+"assertions": [ {
+"actual": "[25: Debug.500ATK.500DEF] has 25: Debug.500ATK.500DEF",
+"context": "Then it destroys a 500/500 Unit",
+"expected": "[25: Debug.500ATK.500DEF] has 25: Debug.500ATK.500DEF",
+"success": true
+} ],
+"context": "When Played",
+"passed": 1,
+"success": true,
+"time": 0.011,
 "total": 1
 } ],
 "passed": 1,
-"path": "res://Tests/Scripts/Connected/ActionTest.cs",
+"path": "res://Tests/Scripts/Serverside/NoviceArcherTest.cs",
 "success": true,
-"time_taken": 0.017,
+"time_taken": 0.0,
 "total": 1
+}, {
+"context": "Triggered Event Cards Redux",
+"methods": [ {
+"assertions": [ {
+"actual": "|bool| True == true",
+"context": "Player 1 is IDLE",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player 0 is PASSIVE",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "[12: Debug.500ATK.500DEF] has 12: Debug.500ATK.500DEF",
+"context": "Attacker Has been Deployed",
+"expected": "[12: Debug.500ATK.500DEF] has 12: Debug.500ATK.500DEF",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player 1 is ACTING",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player 0 is ACTIVE",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player 0 is PASSING",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player 1 is ACTIVE",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player 1 is IDLE",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player 0 is PASSIVE",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player 1 is PASSIVE",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player 0 is IDLE",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "[6: Debug.DestroyAttackingUnit] has 6: Debug.DestroyAttackingUnit",
+"context": "Chain Mines Has been set",
+"expected": "[6: Debug.DestroyAttackingUnit] has 6: Debug.DestroyAttackingUnit",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player 1 is IDLE",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player 0 is PASSIVE",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player 1 is ACTING",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player 0 is ACTIVE",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "ChainMines Is Ready",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "ChainMine can be activated",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player 0 is ACTING",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player 1 is ACTIVE",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player 1 is PASSING",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player 0 is ACTIVE",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player 1 is IDLE",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player 0 is PASSIVE",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "[12: Debug.500ATK.500DEF] has 12: Debug.500ATK.500DEF",
+"context": "12: Debug.500ATK.500DEFUnit %s is in Player 1's discard",
+"expected": "[12: Debug.500ATK.500DEF] has 12: Debug.500ATK.500DEF",
+"success": true
+}, {
+"actual": "[6: Debug.DestroyAttackingUnit] has 6: Debug.DestroyAttackingUnit",
+"context": "6: Debug.DestroyAttackingUnitSupport %s is in Player 0's Discard",
+"expected": "[6: Debug.DestroyAttackingUnit] has 6: Debug.DestroyAttackingUnit",
+"success": true
+} ],
+"context": "OnAttack",
+"passed": 26,
+"success": true,
+"time": 0.005,
+"total": 26
+} ],
+"passed": 1,
+"path": "res://Tests/Scripts/Serverside/PlayerStateRedux.cs",
+"success": true,
+"time_taken": 0.0,
+"total": 1
+}, {
+"context": "PlayerStates",
+"methods": [ {
+"assertions": [ {
+"actual": "|bool| True == true",
+"context": "Player was Active",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player is Acting",
+"expected": "|bool| True == true",
+"success": true
+} ],
+"context": "ActivePlayer Becomes Active When They Take An Action",
+"passed": 2,
+"success": true,
+"time": 0.005,
+"total": 2
+}, {
+"assertions": [ {
+"actual": "|bool| True == true",
+"context": "Player was Passive",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player is Active",
+"expected": "|bool| True == true",
+"success": true
+} ],
+"context": "Passive Opponent Becomes Active When IdlePlayer Takes Action",
+"passed": 2,
+"success": true,
+"time": 0.005,
+"total": 2
+}, {
+"assertions": [ {
+"actual": "|bool| True == true",
+"context": "Player was Passive",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player is Idle",
+"expected": "|bool| True == true",
+"success": true
+} ],
+"context": "NonTurn Player Becomes Idle When TurnPlayer Ends Their Turn",
+"passed": 2,
+"success": true,
+"time": 0.004,
+"total": 2
+}, {
+"assertions": [ {
+"actual": "|bool| True == true",
+"context": "Player was Active",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player is Passive",
+"expected": "|bool| True == true",
+"success": true
+} ],
+"context": "NonTurn Player Becomes Passive When Both Players Pass",
+"passed": 2,
+"success": true,
+"time": 0.003,
+"total": 2
+}, {
+"assertions": [ {
+"actual": "|bool| True == true",
+"context": "Player was Acting",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player is Idle",
+"expected": "|bool| True == true",
+"success": true
+} ],
+"context": "Turn Player Becomes Idle When Both Players Pass",
+"passed": 2,
+"success": true,
+"time": 0.007,
+"total": 2
+}, {
+"assertions": [ {
+"actual": "|bool| True == true",
+"context": "Player was Active",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player is Passing",
+"expected": "|bool| True == true",
+"success": true
+} ],
+"context": "Active Player Becomes Passing When Passing",
+"passed": 2,
+"success": true,
+"time": 0.004,
+"total": 2
+}, {
+"assertions": [ {
+"actual": "|bool| True == true",
+"context": "Player Was Idle",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player is Acting",
+"expected": "|bool| True == true",
+"success": true
+} ],
+"context": "Idle Player Becomes Acting When Taking Action",
+"passed": 2,
+"success": true,
+"time": 0.004,
+"total": 2
+}, {
+"assertions": [ {
+"actual": "|bool| True == true",
+"context": "Player Was Idle",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|bool| True == true",
+"context": "Player Is Passive",
+"expected": "|bool| True == true",
+"success": true
+} ],
+"context": "Idle Player Becomes Passive When Ending Their Turn",
+"passed": 2,
+"success": true,
+"time": 0.003,
+"total": 2
+} ],
+"passed": 8,
+"path": "res://Tests/Scripts/Serverside/PlayerStates.cs",
+"success": true,
+"time_taken": 0.001,
+"total": 8
+}, {
+"context": "Given The Idle Turn Player",
+"methods": [ {
+"assertions": [ {
+"actual": "|bool| False == false",
+"context": "Then They Are Not The Turn Player",
+"expected": "|bool| False == false",
+"success": true
+} ],
+"context": "When They End Their Turn",
+"passed": 1,
+"success": true,
+"time": 0.01,
+"total": 1
+}, {
+"assertions": [ {
+"actual": "|int| 1 is equal to |int| 1",
+"context": "Then Their Support has 1 Support",
+"expected": "|int| 1 is equal to |int| 1",
+"success": true
+} ],
+"context": "When They Set A Support",
+"passed": 1,
+"success": true,
+"time": 0.007,
+"total": 1
+}, {
+"assertions": [ {
+"actual": "|int| 1 is equal to |int| 1",
+"context": "Then Their Field has 1 Unit",
+"expected": "|int| 1 is equal to |int| 1",
+"success": true
+} ],
+"context": "When They Deploy A Unit",
+"passed": 1,
+"success": true,
+"time": 0.006,
+"total": 1
+} ],
+"passed": 3,
+"path": "res://Tests/Scripts/Serverside/PlayTest.cs",
+"success": true,
+"time_taken": 0.001,
+"total": 3
+}, {
+"context": "When using a Skill",
+"methods": [ {
+"assertions": [ {
+"actual": "[] does not have 22: Debug.DestroyOpponentUnit",
+"context": "DestroyUnit was not sent to Player's discard",
+"expected": "[] does not have 22: Debug.DestroyOpponentUnit",
+"success": true
+}, {
+"actual": "[] does not have 10: Debug.Untargetable",
+"context": "Untargetable Card was not destroyed",
+"expected": "[] does not have 10: Debug.Untargetable",
+"success": true
+} ],
+"context": "That Targets A Unit When Only One Nontargetable Target Exists",
+"passed": 2,
+"success": true,
+"time": 0.006,
+"total": 2
+}, {
+"assertions": [ {
+"actual": "|bool| True == true",
+"context": "Defending Player has Tag.CannotTakeDamage",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "|int| 8000 is equal to |int| 8000",
+"context": "Player's life did not change",
+"expected": "|int| 8000 is equal to |int| 8000",
+"success": true
+}, {
+"actual": "[6: Debug.500ATK.500DEF] has 6: Debug.500ATK.500DEF",
+"context": "But the defending unit was still destroyed",
+"expected": "[6: Debug.500ATK.500DEF] has 6: Debug.500ATK.500DEF",
+"success": true
+} ],
+"context": "That Adds A Tag To Players When Unit Card Is Played",
+"passed": 3,
+"success": true,
+"time": 0.008,
+"total": 3
+}, {
+"assertions": [ {
+"actual": "[21: Debug.DestroyOpponentUnit] has 21: Debug.DestroyOpponentUnit",
+"context": "Then that skill's card is in the discard",
+"expected": "[21: Debug.DestroyOpponentUnit] has 21: Debug.DestroyOpponentUnit",
+"success": true
+}, {
+"actual": "[] does not have 11: Debug.CannotBeDestroyedByEffect",
+"context": "But the invincible card is not in its owner discard",
+"expected": "[] does not have 11: Debug.CannotBeDestroyedByEffect",
+"success": true
+} ],
+"context": "That Tries To Destroy An Indestructible Card",
+"passed": 2,
+"success": true,
+"time": 0.005,
+"total": 2
+}, {
+"assertions": [ {
+"actual": "[11: Debug.1000ATK.1000DEF, 12: Debug.1000ATK.1000DEF, 19: Debug.1500ATK.1000DEF] has 19: Debug.1500ATK.1000DEF",
+"context": "Then that card is in the Player's Deck",
+"expected": "[11: Debug.1000ATK.1000DEF, 12: Debug.1000ATK.1000DEF, 19: Debug.1500ATK.1000DEF] has 19: Debug.1500ATK.1000DEF",
+"success": true
+} ],
+"context": "That Returns A Card To The Players Deck",
+"passed": 1,
+"success": true,
+"time": 0.005,
+"total": 1
+}, {
+"assertions": [ {
+"actual": "[12: Debug.1000ATK.1000DEF, 20: Debug.MillOneFromCard] has 12: Debug.1000ATK.1000DEF",
+"context": "Then that card is in the Player's discard",
+"expected": "[12: Debug.1000ATK.1000DEF, 20: Debug.MillOneFromCard] has 12: Debug.1000ATK.1000DEF",
+"success": true
+} ],
+"context": "That Mills A Card",
+"passed": 1,
+"success": true,
+"time": 0.007,
+"total": 1
+}, {
+"assertions": [ {
+"actual": "|bool| True == true",
+"context": "Bounced Card Was On Field",
+"expected": "|bool| True == true",
+"success": true
+}, {
+"actual": "[10: Debug.BounceFromField, 8: Debug.1500ATK.1000DEF, 7: Debug.1500ATK.1000DEF, 6: Debug.500ATK.500DEF, 5: Debug.500ATK.500DEF, 4: Debug.500ATK.500DEF, 3: Debug.1000ATK.1000DEF, 9: Debug.1500ATK.1000DEF] has 9: Debug.1500ATK.1000DEF",
+"context": "Bounce is in Owners Hand",
+"expected": "[10: Debug.BounceFromField, 8: Debug.1500ATK.1000DEF, 7: Debug.1500ATK.1000DEF, 6: Debug.500ATK.500DEF, 5: Debug.500ATK.500DEF, 4: Debug.500ATK.500DEF, 3: Debug.1000ATK.1000DEF, 9: Debug.1500ATK.1000DEF] has 9: Debug.1500ATK.1000DEF",
+"success": true
+} ],
+"context": "That Returns A Unit To Opponents Hand",
+"passed": 2,
+"success": true,
+"time": 0.004,
+"total": 2
+}, {
+"assertions": [ {
+"actual": "[19: Debug.1500ATK.1000DEF, 20: Debug.DiscardYourCard] has 19: Debug.1500ATK.1000DEF",
+"context": "Then that card is in that Player's Discard",
+"expected": "[19: Debug.1500ATK.1000DEF, 20: Debug.DiscardYourCard] has 19: Debug.1500ATK.1000DEF",
+"success": true
+} ],
+"context": "That Discards Your Target Card",
+"passed": 1,
+"success": true,
+"time": 0.004,
+"total": 1
+}, {
+"assertions": [ {
+"actual": "[9: Debug.1500ATK.1000DEF] has 9: Debug.1500ATK.1000DEF",
+"context": "Then That Unit Is Destroyed",
+"expected": "[9: Debug.1500ATK.1000DEF] has 9: Debug.1500ATK.1000DEF",
+"success": true
+} ],
+"context": "That Destroys Target Opponent Unit",
+"passed": 1,
+"success": true,
+"time": 0.006,
+"total": 1
+} ],
+"passed": 8,
+"path": "res://Tests/Scripts/Serverside/SkillTest.cs",
+"success": true,
+"time_taken": 0.001,
+"total": 8
 } ]
