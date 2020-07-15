@@ -17,7 +17,7 @@ namespace CardGame.Client.Room.Commands
         {
             Player.Damage.Text = $"-{LifeLost}";
             QueueCallback(this, 0, nameof(ShowDamage), true);
-            QueueCallback(this, 0.2F, nameof(ShowDamage), false);
+            QueueCallback(this, 0.3F, nameof(ShowDamage), false);
             return await Start();
         }
         
