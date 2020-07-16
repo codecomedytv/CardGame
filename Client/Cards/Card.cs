@@ -58,7 +58,6 @@ namespace CardGame.Client.Cards
 
         public override void _Process(float delta)
         {
-            //StopHighlightingTargets();
             if (Player.CanPlay(this)) { ShowAsLegal(); } else { StopShowingAsLegal(); }
             if(CanAttack && (GetGlobalRect().HasPoint(GetGlobalMousePosition()) || IsCurrentlySelected()))
             {
@@ -66,7 +65,11 @@ namespace CardGame.Client.Cards
             }
             else
             {
-                StopHighlightingAttackTargets();
+                // TODO: Fix This System
+                // Process is probably not a good idea!
+                // Some Cards Were Sharing Targets
+                // This means that we would stop highlighting targets EVEN IF THE CARD IN USE HAD THOSE TARGETS
+               // StopHighlightingAttackTargets();
             }
         }
 
@@ -78,11 +81,19 @@ namespace CardGame.Client.Cards
         public void AddToChain() => View.AddToChain(ChainIndex);
         public void RemoveFromChain() => View.RemoveFromChain();
         public void HighlightAsTarget() => View.HighlightAsTarget();
-        public void StopHighlightingAsTarget() => View.StopHighlightingAsTarget(); 
+        public void StopHighlightingAsTarget()
+        {
+            //View.StopHighlightingAsTarget();
+        }
+
         public void HighlightTargets() => ValidTargets.ForEach(t => t.HighlightAsTarget());
         private void HighlightAttackTargets() => ValidAttackTargets.ForEach(t => t.HighlightAsTarget());
-        public void StopHighlightingTargets() => ValidTargets.ForEach(t => t.StopHighlightingAsTarget());
-        private void StopHighlightingAttackTargets() => ValidAttackTargets.ForEach(t => t.StopHighlightingAsTarget());
+
+        public void StopHighlightingTargets()
+        {
+            //ValidTargets.ForEach(t => t.StopHighlightingAsTarget());
+        }
+        private void StopHighlightingAttackTargets() {}// ValidAttackTargets.ForEach(t => t.StopHighlightingAsTarget());
         public void Select() => View.Select();
         public void Deselect() => View.Deselect();
         public void StopAttacking() => View.StopAttacking();
