@@ -56,12 +56,12 @@ namespace CardGame.Client.Room
             }
             
             // User State Checks May Be Pointless? Sure we only only be targeting at this point?
-            if (User.Targeting && !User.IsInActive)
+            if (User.IsChoosingTargets)
             {
                 ChooseEffectTarget(card);
             }
 
-            if (User.Attacking && User.State == States.Idle)
+            if (User.IsChoosingAttackTarget)
             {
                 ChooseAttackTarget(card);
                 return;

@@ -61,6 +61,8 @@ namespace CardGame.Client.Room
 
         public bool CanPlay(Card card) => !Targeting && !Attacking && !IsInActive && card.CanBePlayed;
         public bool ActionInProgress => Targeting || Attacking;
+        public bool IsChoosingTargets => Targeting && !IsInActive;
+        public bool IsChoosingAttackTarget => Attacking && State == States.Idle;
     }
 
         
