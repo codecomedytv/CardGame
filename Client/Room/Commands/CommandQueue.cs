@@ -42,6 +42,7 @@ namespace CardGame.Client.Room.Commands
 	        messenger.Connect(nameof(Messenger.LoseLife), this, nameof(OnLifeLost));
 	        messenger.Connect(nameof(Messenger.OpponentAttackUnit), this, nameof(OnOpponentAttackUnitQueued));
 	        messenger.Connect(nameof(Messenger.BounceCard), this, nameof(OnCardBounceQueued));
+	        messenger.Connect(nameof(Messenger.ResolveCard), this, nameof(OnResolveCardQueued));
         }
 
         public async Task Execute()
@@ -54,6 +55,11 @@ namespace CardGame.Client.Room.Commands
             
             Commands.Clear();
             
+        }
+
+        private void OnResolveCardQueued(int id)
+        {
+	        Commands.Enqueue(new ResolveCard(GetCard(id)));
         }
         
         private void RevealCard(int id, SetCodes setCode, ZoneIds zoneId)

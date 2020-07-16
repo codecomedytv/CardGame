@@ -117,6 +117,7 @@
     <Compile Include="Client\Room\Commands\Deploy.cs" />
     <Compile Include="Client\Room\Commands\Draw.cs" />
     <Compile Include="Client\Room\Commands\LoseLife.cs" />
+    <Compile Include="Client\Room\Commands\ResolveCard.cs" />
     <Compile Include="Client\Room\Commands\RevealCard.cs" />
     <Compile Include="Client\Room\Commands\SendCardToZone.cs" />
     <Compile Include="Client\Room\Commands\SetFaceDown.cs" />
@@ -156,6 +157,7 @@
     <Compile Include="Server\Game\Events\Mill.cs" />
     <Compile Include="Server\Game\Events\ModifyCard.cs" />
     <Compile Include="Server\Game\Events\ModifyPlayer.cs" />
+    <Compile Include="Server\Game\Events\Resolve.cs" />
     <Compile Include="Server\Game\Events\SentToZone.cs" />
     <Compile Include="Server\Game\Events\SetFaceDown.cs" />
     <Compile Include="Server\Game\Events\TopDeck.cs" />

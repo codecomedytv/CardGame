@@ -25,6 +25,8 @@ namespace CardGame.Client.Room
         [Signal] public delegate void SendCardToZone();
         [Signal] public delegate void LoseLife();
 
+        [Signal] public delegate void ResolveCard();
+
         private const int ServerId = 1;
         private int Id => Multiplayer.GetNetworkUniqueId();
 

@@ -86,7 +86,7 @@ namespace CardGame.Client.Cards
 
 		public void StopAttacking() => AttackIcon.Visible = false;
 		public void StopDefending() => DefenseIcon.Visible = false;
-
+		
 		[Signal]
 		public delegate void DoubleClicked();
 		public void OnMouseEnter()

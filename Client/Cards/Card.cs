@@ -87,7 +87,7 @@ namespace CardGame.Client.Cards
         public void Deselect() => View.Deselect();
         public void StopAttacking() => View.StopAttacking();
         public void StopDefending() => View.StopDefending();
-
+        
         public void AttackUnit(Card defending)
         {
             Select();

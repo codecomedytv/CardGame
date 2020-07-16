@@ -30,7 +30,7 @@ namespace CardGame.Server.Game {
 			}
 
 			ApplyConstants();
-			if (gameEvent is SetFaceDown || gameEvent is EndTurn || gameEvent is Trigger)
+			if (gameEvent is SetFaceDown || gameEvent is EndTurn || gameEvent is Trigger || gameEvent is ResolveCard)
 			{
 				return;
 			}

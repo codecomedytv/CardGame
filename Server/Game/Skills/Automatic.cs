@@ -33,6 +33,7 @@ namespace CardGame.Server.Game.Skills
         public void Resolve()
         {
             _Resolve();
+            History.Add(new ResolveCard(Card));
             EmitSignal(nameof(Resolved));
             PositionInLink = 0;
         }
