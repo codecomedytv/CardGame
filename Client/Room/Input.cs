@@ -73,6 +73,7 @@ namespace CardGame.Client.Room
         private void ChooseEffectTarget(Card card)
         {
             if (!User.CardInUse.HasTarget(card)) return;
+            User.CardInUse.StopHighlightingTargets();
             EmitSignal(nameof(Activate), User.CardInUse, card.Id);
             User.State = States.Processing;
         }

@@ -81,7 +81,7 @@ namespace CardGame.Client.Cards
         public void StopHighlightingAsTarget() => View.StopHighlightingAsTarget(); 
         public void HighlightTargets() => ValidTargets.ForEach(t => t.HighlightAsTarget());
         private void HighlightAttackTargets() => ValidAttackTargets.ForEach(t => t.HighlightAsTarget());
-        private void StopHighlightingTargets() => ValidTargets.ForEach(t => t.StopHighlightingAsTarget());
+        public void StopHighlightingTargets() => ValidTargets.ForEach(t => t.StopHighlightingAsTarget());
         private void StopHighlightingAttackTargets() => ValidAttackTargets.ForEach(t => t.StopHighlightingAsTarget());
         public void Select() => View.Select();
         public void Deselect() => View.Deselect();

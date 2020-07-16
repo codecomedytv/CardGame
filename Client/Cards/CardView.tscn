@@ -288,7 +288,7 @@ visible = false
 position = Vector2( -68, -60 )
 frames = SubResource( 33 )
 animation = "Chain"
-frame = 24
+frame = 1
 playing = true
 centered = false
 
