@@ -56,7 +56,7 @@ namespace CardGame.Client.Room
             }
             
             // User State Checks May Be Pointless? Sure we only only be targeting at this point?
-            if (User.Targeting && User.State == States.Active)
+            if (User.Targeting && !User.IsInActive)
             {
                 ChooseEffectTarget(card);
             }
@@ -130,6 +130,10 @@ namespace CardGame.Client.Room
                     User.Targeting = true;
                     User.CardInUse = card;
                     card.HighlightTargets();
+                    foreach (var c in card.ValidTargets)
+                    {
+                        GD.Print(c);
+                    }
                 }
                 else
                 {

@@ -32,7 +32,7 @@ namespace CardGame.Client.Cards
         public bool CanBeActivated => State == CardStates.CanBeActivated && !Player.IsInActive && !Player.ActionInProgress;
         public bool CanAttack => State == CardStates.CanAttack && ValidAttackTargets.Count > 0 && Player.State == States.Idle && !Player.ActionInProgress;
 
-        public bool CanTarget => State == CardStates.CanBeActivated && ValidTargets.Count > 0 && !Player.IsInActive && !Player.ActionInProgress;
+        public bool CanTarget => State == CardStates.CanBeActivated && ValidTargets.Count > 0 && !Player.IsInActive; // && !Player.ActionInProgress;
         public bool CanBePlayed => CanBeDeployed || CanBeSet || CanBeActivated || CanAttack; // can attack?
         public bool HasTarget(Card target) => ValidTargets.Contains(target);
         public bool HasAttackTarget(Card defender) => ValidAttackTargets.Contains(defender);
