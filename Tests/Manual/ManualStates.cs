@@ -72,7 +72,7 @@ namespace CardGame.ManualTestStates
         {
             await Update;
             var attacker = Player.Hand[6];
-            attacker.View.DoubleClick();
+            attacker.DoubleClick();
             await Update;
             OpponentMockGame.Pass();
             await Update;
@@ -81,7 +81,7 @@ namespace CardGame.ManualTestStates
             PlayerMockGame.End();
             await Update;
             var defending = Opponent.Hand[0];
-            defending.View.DoubleClick();
+            defending.DoubleClick();
             await Update;
             PlayerMockGame.Pass();
             await Update;

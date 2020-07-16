@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using CardGame.Client.Room;
+using CardGame.Client.Room.View;
 using Godot;
+using Player = CardGame.Client.Room.Player;
 
 namespace CardGame.Client.Cards
 {
@@ -42,6 +44,7 @@ namespace CardGame.Client.Cards
             Id = id;
             View = (CardView) Scene.Instance();
             (Title, Effect, Art, CardType, Attack, Defense) = (c.Title, c.Text, c.Art, c.Type, c.Attack, c.Defense);
+            Connect("mouse_entered", this, nameof(OnMouseEnter));
         }
         
         public override void _Ready()
@@ -67,6 +70,8 @@ namespace CardGame.Client.Cards
             {
                 // TODO: Fix This System
                 // Process is probably not a good idea!
+                // Should Probably reset everything on input and then update current card (probably less stressful
+                // than using process. Card Manager?)
                 // Some Cards Were Sharing Targets
                 // This means that we would stop highlighting targets EVEN IF THE CARD IN USE HAD THOSE TARGETS
                // StopHighlightingAttackTargets();
@@ -114,5 +119,27 @@ namespace CardGame.Client.Cards
         }
 
         public override string ToString() => $"{Id} : {Title}";
+        
+        [Signal]
+        public delegate void DoubleClicked();
+        public void OnMouseEnter()
+        {
+            CardViewer.View(this);
+        }
+		
+        public override void _Input(InputEvent inputEvent)
+        {
+            if (inputEvent is InputEventMouseButton mouseButton && mouseButton.Doubleclick)
+            {
+                // We need to check against player attacking/targeting sub-client states
+                // Deselect(); 
+                if (GetGlobalRect().HasPoint(mouseButton.Position))
+                {
+                    DoubleClick();
+                }
+            }
+        }
+		
+        public void DoubleClick() => EmitSignal(nameof(DoubleClicked));
     }
 }

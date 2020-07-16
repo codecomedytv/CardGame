@@ -23,7 +23,7 @@ namespace CardGame.Client.Cards
 		private AnimatedSprite ChainLink;
 		private Label ChainIndex;
 		public bool IsFaceUp => !Back.Visible;
-		
+
 		public override void _Ready()
 		{
 			GetNode<AnimationPlayer>("AnimationPlayer").Play("BounceGlow");
@@ -41,24 +41,32 @@ namespace CardGame.Client.Cards
 			Art = GetNode("Frame/Art") as Sprite;
 			Back = GetNode("Frame/Back") as Sprite;
 		}
-		
+
 		public void Display(Card card)
 		{
 			FlipFaceDown();
-			if(card.CardType == CardTypes.Null) {return;}
+			if (card.CardType == CardTypes.Null)
+			{
+				return;
+			}
+
 			FlipFaceUp();
 			Id.Text = card.Id.ToString();
 			Art.Texture = ResourceLoader.Load($"res://Assets/CardArt/{card.Art}.jpg") as Texture;
-			if(card.CardType != CardTypes.Unit) {return;}
+			if (card.CardType != CardTypes.Unit)
+			{
+				return;
+			}
+
 			Attack.Visible = true;
 			Defense.Visible = true;
 			Attack.Text = card.Attack.ToString();
 			Defense.Text = card.Defense.ToString();
 		}
-		
+
 		public void FlipFaceDown() => Back.Visible = true;
 		public void FlipFaceUp() => Back.Visible = false;
-		
+
 		public void AddToChain(int chainIndex)
 		{
 			GD.Print($"Adding To Chain with Chain of {chainIndex}");
@@ -83,31 +91,9 @@ namespace CardGame.Client.Cards
 		public void StopHighlightingAsTarget() => ValidTarget.Visible = false;
 		public void Select() => SelectedTarget.Visible = true;
 		public void Deselect() => SelectedTarget.Visible = false;
-
 		public void StopAttacking() => AttackIcon.Visible = false;
 		public void StopDefending() => DefenseIcon.Visible = false;
-		
-		[Signal]
-		public delegate void DoubleClicked();
-		public void OnMouseEnter()
-		{
-			CardViewer.View(GetParent() as Card);
-		}
-		
-		public override void _Input(InputEvent inputEvent)
-		{
-			if (inputEvent is InputEventMouseButton mouseButton && mouseButton.Doubleclick)
-			{
-				// We need to check against player attacking/targeting sub-client states
-				// Deselect(); 
-				if (GetGlobalRect().HasPoint(mouseButton.Position))
-				{
-					DoubleClick();
-				}
-			}
-		}
-		
-		public void DoubleClick() => EmitSignal(nameof(DoubleClicked));
+
 	}
 }
 
