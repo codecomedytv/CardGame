@@ -44,7 +44,6 @@ namespace CardGame.Client.Cards
             Id = id;
             View = (CardView) Scene.Instance();
             (Title, Effect, Art, CardType, Attack, Defense) = (c.Title, c.Text, c.Art, c.Type, c.Attack, c.Defense);
-            Connect("mouse_entered", this, nameof(OnMouseEnter));
         }
         
         public override void _Ready()
@@ -62,20 +61,6 @@ namespace CardGame.Client.Cards
         public override void _Process(float delta)
         {
             if (Player.CanPlay(this)) { ShowAsLegal(); } else { StopShowingAsLegal(); }
-            if(CanAttack && (GetGlobalRect().HasPoint(GetGlobalMousePosition()) || IsCurrentlySelected()))
-            {
-                HighlightAttackTargets();
-            }
-            else
-            {
-                // TODO: Fix This System
-                // Process is probably not a good idea!
-                // Should Probably reset everything on input and then update current card (probably less stressful
-                // than using process. Card Manager?)
-                // Some Cards Were Sharing Targets
-                // This means that we would stop highlighting targets EVEN IF THE CARD IN USE HAD THOSE TARGETS
-               // StopHighlightingAttackTargets();
-            }
         }
 
         public bool IsCurrentlySelected() => View.IsCurrentlySelected();
@@ -86,19 +71,11 @@ namespace CardGame.Client.Cards
         public void AddToChain() => View.AddToChain(ChainIndex);
         public void RemoveFromChain() => View.RemoveFromChain();
         public void HighlightAsTarget() => View.HighlightAsTarget();
-        public void StopHighlightingAsTarget()
-        {
-            //View.StopHighlightingAsTarget();
-        }
-
+        public void StopHighlightingAsTarget() => View.StopHighlightingAsTarget();
         public void HighlightTargets() => ValidTargets.ForEach(t => t.HighlightAsTarget());
-        private void HighlightAttackTargets() => ValidAttackTargets.ForEach(t => t.HighlightAsTarget());
-
-        public void StopHighlightingTargets()
-        {
-            //ValidTargets.ForEach(t => t.StopHighlightingAsTarget());
-        }
-        private void StopHighlightingAttackTargets() {}// ValidAttackTargets.ForEach(t => t.StopHighlightingAsTarget());
+        public void HighlightAttackTargets() => ValidAttackTargets.ForEach(t => t.HighlightAsTarget());
+        public void StopHighlightingTargets() { ValidTargets.ForEach(t => t.StopHighlightingAsTarget()); }
+        public void StopHighlightingAttackTargets() => ValidAttackTargets.ForEach(t => t.StopHighlightingAsTarget());
         public void Select() => View.Select();
         public void Deselect() => View.Deselect();
         public void StopAttacking() => View.StopAttacking();
@@ -119,45 +96,13 @@ namespace CardGame.Client.Cards
         }
 
         public override string ToString() => $"{Id} : {Title}";
-        
-        [Signal]
-        public delegate void DoubleClicked();
-        public void OnMouseEnter()
-        {
-            CardViewer.View(this);
-        }
-		
-        /*public override void _Input(InputEvent inputEvent)
-        {
-            if (inputEvent is InputEventMouseButton mouseButton && mouseButton.Doubleclick)
-            {
-                // We need to check against player attacking/targeting sub-client states
-                // Deselect(); 
-                if (GetGlobalRect().HasPoint(mouseButton.Position))
-                {
-                    DoubleClick();
-                }
-            }
-        }*/
-		
-        public void DoubleClick() => EmitSignal(nameof(DoubleClicked));
 
         public bool IsFocused(Vector2 mousePosition) => GetGlobalRect().HasPoint(mousePosition);
 
-        /*public void Clear()
+        public void DoubleClick()
         {
-            StopHighlightingTargets();
-            StopHighlightingAttackTargets();
+            // WARNING !!!
+            // Empty Method to satisfy test compilation for moment
         }
-
-        public void Fill()
-        {
-            if (Player.CanPlay(this)) { ShowAsLegal(); } else { StopShowingAsLegal(); }
-
-            if (CanAttack && (GetGlobalRect().HasPoint(GetGlobalMousePosition()) || IsCurrentlySelected()))
-            {
-                HighlightAttackTargets();
-            }
-        }*/
     }
 }

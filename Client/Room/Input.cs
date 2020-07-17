@@ -41,18 +41,32 @@ namespace CardGame.Client.Room
 
 		public override void _Input(InputEvent inputEvent)
 		{
+			var focusedCard = FocusedCard();
 			if (inputEvent is InputEventMouseMotion mouseMove)
 			{
-				var card = CardsInTree.Where(c => c.IsFocused(mouseMove.Position));
-				var enumerable = card.ToList();
-				if (enumerable.Any())
+				foreach (var c in CardsInTree)
 				{
-					CardViewer.View(enumerable.ElementAt(0));
+					c.StopHighlightingTargets();
+					c.StopHighlightingAttackTargets();
+				}
+				
+				if (focusedCard is Card viewingCard)
+				{
+					CardViewer.View(viewingCard);
+
+					if (viewingCard.CanAttack)
+					{
+						viewingCard.HighlightAttackTargets();
+					}
+
+					if (viewingCard.CanBeActivated)
+					{
+						viewingCard.HighlightTargets();
+					}
 				}
 			}
 			else if (inputEvent is InputEventMouseButton mouseButton && mouseButton.Doubleclick)
 			{
-				var focusedCard = FocusedCard();
 				if (User.IsChoosingAttackTarget)
 				{
 					if (focusedCard is Card attackTarget)
