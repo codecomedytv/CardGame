@@ -44,12 +44,16 @@ namespace CardGame.Client.Room
 			var focusedCard = FocusedCard();
 			if (inputEvent is InputEventMouseMotion mouseMove)
 			{
-				foreach (var c in CardsInTree)
+				// We don't want to stop highlighting if we're in the act of choosing cards
+				if (!User.IsChoosingTargets && !User.IsChoosingAttackTarget)
 				{
-					c.StopHighlightingTargets();
-					c.StopHighlightingAttackTargets();
+					foreach (var c in CardsInTree)
+					{
+						c.StopHighlightingTargets();
+						c.StopHighlightingAttackTargets();
+					}
 				}
-				
+
 				if (focusedCard is Card viewingCard)
 				{
 					CardViewer.View(viewingCard);
