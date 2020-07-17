@@ -28,7 +28,7 @@ namespace CardGame.Tests.Scripts.Connected
         {
             await PlayerState;
             var toDeploy = (Card) Player.Hand[0];
-            toDeploy.DoubleClick();
+            PlayerMockGame.DoubleClick(toDeploy);
             //await ToSignal(UntilSignal(Player, nameof(Player.AnimationFinished), 5), YIELD);
             await PlayerState;
             Assert.IsTrue(Player.Units.Contains(toDeploy), $"{toDeploy} was Deployed");
@@ -39,7 +39,7 @@ namespace CardGame.Tests.Scripts.Connected
         {
             await PlayerState;
             var toSet = (Card) Player.Hand[1];
-            toSet.DoubleClick();
+            PlayerMockGame.DoubleClick(toSet);
             //await ToSignal(UntilSignal(Player, nameof(Player.AnimationFinished), 5), YIELD);
             await PlayerState;
             Assert.IsTrue(Player.Support.Contains(toSet), $"{toSet} was Set");
@@ -60,7 +60,8 @@ namespace CardGame.Tests.Scripts.Connected
         {
             await PlayerState;
             var attacker = Player.Hand[2];
-            attacker.DoubleClick();
+           // attacker.DoubleClick();
+            PlayerMockGame.DoubleClick(attacker);
             await OpponentState;
             OpponentMockGame.Pass();
             await PlayerState;
@@ -69,7 +70,8 @@ namespace CardGame.Tests.Scripts.Connected
             PlayerMockGame.End();
             await OpponentState;
             var defending = Opponent.Hand[0];
-            defending.DoubleClick();
+            //defending.DoubleClick();
+            OpponentMockGame.DoubleClick(defending);
             await PlayerState;
             PlayerMockGame.Pass();
             await OpponentState;
@@ -77,8 +79,10 @@ namespace CardGame.Tests.Scripts.Connected
             await OpponentState;
             OpponentMockGame.End();
             await PlayerState;
-            attacker.DoubleClick();
-            OppPlayerFromPlayer.Units[0].DoubleClick(); // Make sure to click the Attacker's copy
+            //attacker.DoubleClick();
+            PlayerMockGame.DoubleClick(attacker);
+            //OppPlayerFromPlayer.Units[0].DoubleClick(); // Make sure to click the Attacker's copy
+            PlayerMockGame.DoubleClick(OppPlayerFromPlayer.Units[0]); // Make sure to click the Attacker's copy
             await OpponentState;
             OpponentMockGame.Pass();
             await PlayerState;

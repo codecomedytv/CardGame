@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using CardGame.Client.Cards;
 using CardGame.Client.Room.View;
 using Godot;
@@ -71,35 +72,41 @@ namespace CardGame.Client.Room
 			}
 			else if (inputEvent is InputEventMouseButton mouseButton && mouseButton.Doubleclick)
 			{
-				if (User.IsChoosingAttackTarget)
+				OnDoubleClick(focusedCard);
+			}
+		}
+		
+		public void OnDoubleClick(object focusedCard)
+		{
+			if (User.IsChoosingAttackTarget)
+			{
+				if (focusedCard is Card attackTarget)
 				{
-					if (focusedCard is Card attackTarget)
-					{
-						ChooseAttackTarget(attackTarget);
-					}
-					else
-					{
-						User.CardInUse.Deselect();
-						User.CardInUse = null;
-						User.Attacking = false;
-					}
+					ChooseAttackTarget(attackTarget);
 				}
-				else if (User.IsChoosingTargets)
+				else
 				{
-					if (focusedCard is Card effectTarget)
-					{
-						ChooseEffectTarget(effectTarget);
-					}
+					User.CardInUse.Deselect();
+					User.CardInUse = null;
+					User.Attacking = false;
 				}
-				else if (!User.IsInActive)
+			}
+			else if (User.IsChoosingTargets)
+			{
+				if (focusedCard is Card effectTarget)
 				{
-					if (focusedCard is Card card)
-					{
-						TakeAction(card);
-					}
+					ChooseEffectTarget(effectTarget);
+				}
+			}
+			else if (!User.IsInActive)
+			{
+				if (focusedCard is Card card)
+				{
+					TakeAction(card);
 				}
 			}
 		}
+	
 		
 		private void ChooseEffectTarget(Card card)
 		{

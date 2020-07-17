@@ -1,4 +1,5 @@
 ﻿using System;
+using CardGame.Client.Cards;
 using CardGame.Client.Room;
 using CardGame.Client.Room.View;
 using CardGame.Server.Game;
@@ -28,6 +29,8 @@ namespace CardGame.Tests
             OnActionButtonPressed();
         }
 
-        
+        public void DoubleClick(Card card) => Input.OnDoubleClick(card);
+
+
     }
 }

@@ -18,7 +18,7 @@ namespace CardGame.Client.Room {
 		private readonly CommandQueue CommandQueue;
 		private readonly CardCatalog CardCatalog;
 		private readonly Messenger Messenger;
-		private readonly Input Input;
+		protected readonly Input Input;
 		private readonly Tween Gfx;
 		protected readonly Player Opponent;
 		protected readonly Player Player;

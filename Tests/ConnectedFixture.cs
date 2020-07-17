@@ -1,10 +1,13 @@
+using System;
 using System.Threading.Tasks;
 using CardGame;
 using CardGame.Client;
+using CardGame.Client.Cards;
 using CardGame.Client.Room;
 using CardGame.Server;
 using Godot;
 using Godot.Collections;
+using Input = CardGame.Client.Room.Input;
 using Player = CardGame.Client.Room.Player;
 
 namespace CardGame.Tests.Scripts
@@ -24,7 +27,7 @@ namespace CardGame.Tests.Scripts
 	    protected Player Opponent;
 	    protected Player OppPlayerFromPlayer;
 	    protected Player PlayerPlayerFromOpp;
-	    
+
 	    protected async void AddGame()
 	    {
 		    // The Game Script handles loading its own Scene. This allows us to extend the top level script for

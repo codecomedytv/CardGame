@@ -98,11 +98,6 @@ namespace CardGame.Client.Cards
         public override string ToString() => $"{Id} : {Title}";
 
         public bool IsFocused(Vector2 mousePosition) => GetGlobalRect().HasPoint(mousePosition);
-
-        public void DoubleClick()
-        {
-            // WARNING !!!
-            // Empty Method to satisfy test compilation for moment
-        }
+        
     }
 }
