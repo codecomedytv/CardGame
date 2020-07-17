@@ -33,7 +33,7 @@ namespace CardGame.Client.Room {
 			CardCatalog = new CardCatalog();
 			Messenger = new Messenger();
 			CommandQueue = new CommandQueue(CardCatalog, Player, Opponent, Gfx);
-			Input = new Input(Player);
+			Input = new Input(Player, CardCatalog);
 		}
 		
 		public override void _Ready()
@@ -45,7 +45,7 @@ namespace CardGame.Client.Room {
 			Messenger.SubscribeTo(Input);
 			Messenger.Connect(nameof(Messenger.Disqualified), this, nameof(OnDisqualified));
 			Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
-			CardCatalog.Connect(nameof(CardCatalog.CardCreated), Input, nameof(Input.OnCardCreated));
+			//CardCatalog.Connect(nameof(CardCatalog.CardCreated), Input, nameof(Input.OnCardCreated));
 			PlayMat.ActionButton.Connect("pressed", this, nameof(OnActionButtonPressed));
 			//PlayMat.PassPriority.Connect("pressed", this, nameof(OnActionButtonPressed));
 			//PlayMat.EndTurn.Connect("pressed", Messenger, nameof(Messenger.DeclareEndTurn));

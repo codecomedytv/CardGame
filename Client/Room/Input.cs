@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using CardGame.Client.Cards;
+using CardGame.Client.Room.View;
 using Godot;
 using Array = Godot.Collections.Array;
 
@@ -21,55 +23,66 @@ namespace CardGame.Client.Room
 		public delegate void Attack();
 
 		private readonly Player User;
-		public bool NoCardsWereClicked(Vector2 pos)
+		private readonly CardCatalog CardCatalog;
+		
+		public Input(Player player, CardCatalog cardCatalog)
 		{
-			return !GetTree().GetNodesInGroup("cards").Cast<Card>().Any(c => WasClicked(c, pos));
+			CardCatalog = cardCatalog;
+			User = player;
 		}
 		
-		private bool WasClicked(Card card, Vector2 pos) => card.GetGlobalRect().HasPoint(pos);
+		private IEnumerable<Card> CardsInTree => CardCatalog.Where(c => c.IsInsideTree());
 
-		public Input(Player player) => User = player;
-
-		public void OnCardCreated(Card card)
+		private object FocusedCard()
 		{
-			card.Connect(nameof(Card.DoubleClicked), this, nameof(OnCardDoubleClicked), new Array {card});
+			var list = CardsInTree.Where(c => c.GetGlobalRect().HasPoint(c.GetGlobalMousePosition())).ToList();
+			return list.Any() ? list[0] : null;
 		}
 
 		public override void _Input(InputEvent inputEvent)
 		{
-			if (inputEvent is InputEventMouseButton mouseButton && mouseButton.Doubleclick)
+			if (inputEvent is InputEventMouseMotion mouseMove)
 			{
-				if (NoCardsWereClicked(mouseButton.Position) && User.Attacking)
+				var card = CardsInTree.Where(c => c.IsFocused(mouseMove.Position));
+				var enumerable = card.ToList();
+				if (enumerable.Any())
 				{
-					User.CardInUse.Deselect();
-					User.CardInUse = null;
-					User.Attacking = false;
+					CardViewer.View(enumerable.ElementAt(0));
+				}
+			}
+			else if (inputEvent is InputEventMouseButton mouseButton && mouseButton.Doubleclick)
+			{
+				var focusedCard = FocusedCard();
+				if (User.IsChoosingAttackTarget)
+				{
+					if (focusedCard is Card attackTarget)
+					{
+						ChooseAttackTarget(attackTarget);
+					}
+					else
+					{
+						User.CardInUse.Deselect();
+						User.CardInUse = null;
+						User.Attacking = false;
+					}
+				}
+				else if (User.IsChoosingTargets)
+				{
+					if (focusedCard is Card effectTarget)
+					{
+						ChooseEffectTarget(effectTarget);
+					}
+				}
+				else if (!User.IsInActive)
+				{
+					if (focusedCard is Card card)
+					{
+						TakeAction(card);
+					}
 				}
 			}
 		}
 		
-		private void OnCardDoubleClicked(Card card)
-		{
-			if (User.State == States.Processing)
-			{
-				return;
-			}
-			
-			// User State Checks May Be Pointless? Sure we only only be targeting at this point?
-			if (User.IsChoosingTargets)
-			{
-				ChooseEffectTarget(card);
-			}
-
-			if (User.IsChoosingAttackTarget)
-			{
-				ChooseAttackTarget(card);
-				return;
-			}
-
-			TakeAction(card);
-		}
-
 		private void ChooseEffectTarget(Card card)
 		{
 			if (!User.CardInUse.HasTarget(card)) return;
@@ -131,10 +144,6 @@ namespace CardGame.Client.Room
 					User.Targeting = true;
 					User.CardInUse = card;
 					card.HighlightTargets();
-					foreach (var c in card.ValidTargets)
-					{
-						GD.Print(c);
-					}
 				}
 				else
 				{

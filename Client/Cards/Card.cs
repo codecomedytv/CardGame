@@ -127,7 +127,7 @@ namespace CardGame.Client.Cards
             CardViewer.View(this);
         }
 		
-        public override void _Input(InputEvent inputEvent)
+        /*public override void _Input(InputEvent inputEvent)
         {
             if (inputEvent is InputEventMouseButton mouseButton && mouseButton.Doubleclick)
             {
@@ -138,8 +138,26 @@ namespace CardGame.Client.Cards
                     DoubleClick();
                 }
             }
-        }
+        }*/
 		
         public void DoubleClick() => EmitSignal(nameof(DoubleClicked));
+
+        public bool IsFocused(Vector2 mousePosition) => GetGlobalRect().HasPoint(mousePosition);
+
+        /*public void Clear()
+        {
+            StopHighlightingTargets();
+            StopHighlightingAttackTargets();
+        }
+
+        public void Fill()
+        {
+            if (Player.CanPlay(this)) { ShowAsLegal(); } else { StopShowingAsLegal(); }
+
+            if (CanAttack && (GetGlobalRect().HasPoint(GetGlobalMousePosition()) || IsCurrentlySelected()))
+            {
+                HighlightAttackTargets();
+            }
+        }*/
     }
 }
