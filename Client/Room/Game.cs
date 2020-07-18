@@ -34,7 +34,7 @@ namespace CardGame.Client.Room {
 			Opponent = new Player(playMat.Opponent);
 			CardCatalog = new CardCatalog();
 			Messenger = new Messenger();
-			CommandQueue = new CommandQueue(CardCatalog, Player, Opponent, Gfx, SoundFx);
+			CommandQueue = new CommandQueue(CardCatalog, Player, Opponent, Gfx, SoundFx, PlayMat.WinLoseNotice);
 			Input = new Input(Player, CardCatalog);
 		}
 		

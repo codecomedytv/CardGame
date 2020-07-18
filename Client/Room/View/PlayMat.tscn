@@ -81,12 +81,12 @@ margin_top = 10.0
 font_path = "res://Assets/fonts/LemonMilkbolditalic.otf"
 
 [sub_resource type="DynamicFont" id=15]
-size = 50
-outline_size = 6
+size = 200
+outline_size = 10
 outline_color = Color( 0, 0, 0, 1 )
 use_mipmaps = true
 use_filter = true
-extra_spacing_char = 10
+extra_spacing_char = 20
 font_data = SubResource( 14 )
 
 [node name="PlayMat" type="Sprite"]
@@ -411,6 +411,15 @@ margin_right = 1497.0
 margin_bottom = 886.0
 custom_fonts/font = SubResource( 15 )
 text = "Disqualified"
+align = 1
+valign = 1
+
+[node name="WinLoseNotice" type="Label" parent="."]
+visible = false
+margin_right = 1920.0
+margin_bottom = 1080.0
+custom_fonts/font = SubResource( 15 )
+text = "GAMEOVER?"
 align = 1
 valign = 1
 

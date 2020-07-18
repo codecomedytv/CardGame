@@ -15,17 +15,19 @@ namespace CardGame.Client.Room.Commands
         private readonly Player Opponent;
         private readonly Tween Gfx;
         private readonly SoundFx SoundFx;
+        private readonly Label WinLoseNote;
 
         private readonly Queue<Command> Commands = new Queue<Command>();
 
 
-        public CommandQueue(CardCatalog cardCatalog, Player player, Player opponent, Tween gfx, SoundFx soundFx)
+        public CommandQueue(CardCatalog cardCatalog, Player player, Player opponent, Tween gfx, SoundFx soundFx, Label note)
         {
 	        GetCard = cardCatalog.Fetch;
             Player = player;
             Opponent = opponent;
             Gfx = gfx;
             SoundFx = soundFx;
+            WinLoseNote = note;
         }
 
         public void SubscribeTo(Messenger messenger)
@@ -62,7 +64,7 @@ namespace CardGame.Client.Room.Commands
 
         private void OnGameOverQueued(bool wonGame)
         {
-	        GD.Print($"Won Game? {wonGame}");
+	        Commands.Enqueue(new GameOver(Player, wonGame, WinLoseNote));
         }
 
         private void OnResolveCardQueued(int id, int targetId = 0)

@@ -1,4 +1,5 @@
 using System;
+using System.Security.Policy;
 using Godot;
 using Godot.Collections;
 
@@ -12,6 +13,7 @@ namespace CardGame.Client.Room.View
 		public CardViewer CardViewer;
 		public Button ActionButton;
 		public Label DisqualificationNotice;
+		public Label WinLoseNotice;
 
 		public override void _Ready()
 		{
@@ -20,6 +22,7 @@ namespace CardGame.Client.Room.View
 			CardViewer = GetNode<CardViewer>("Background/CardViewer");
 			ActionButton = GetNode<Button>("Background/Action");
 			DisqualificationNotice = GetNode<Label>("Disqualified");
+			WinLoseNotice = GetNode<Label>("WinLoseNotice");
 		}
 	
 	}

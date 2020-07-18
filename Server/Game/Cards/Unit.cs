@@ -116,6 +116,10 @@ namespace CardGame.Server.Game.Cards
                 Defender.Zone = Defender.Owner.Graveyard;
                 History.Add(new DestroyByBattle(Attacker, defending, Defender));
                 History.Add(new SentToZone(defending, Defender, ZoneIds.Graveyard));
+                if (defending.Health <= 0)
+                {
+                    attacking.Win();
+                }
             }
 
             private void CounterAttack()

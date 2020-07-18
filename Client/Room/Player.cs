@@ -10,7 +10,8 @@ namespace CardGame.Client.Room
         Idle,
         Passing,
         Passive,
-        Processing
+        Processing,
+        GameOver
     }
     // ReSharper disable once ClassNeverInstantiated.Global
     public class Player: Control
