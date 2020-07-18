@@ -13,6 +13,10 @@ namespace CardGame.Client
         private readonly AudioStream ActivateFx = (AudioStream) GD.Load($"{Audio}/Card_Game_Action_Blow_Wind_02.wav");
         private readonly AudioStream SetFaceDownFx = (AudioStream) GD.Load($"{Audio}/Card_Game_Items_Potion_Dud_01.wav");
 
+        public SoundFx()
+        {
+            VolumeDb = -20;
+        }
         public void Draw()
         {
             Stream = DrawFx;

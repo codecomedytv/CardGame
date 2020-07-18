@@ -1,9 +1,10 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Assets/UI/CardBack.png" type="Texture" id=2]
 [ext_resource path="res://assets/fonts/LemonMilkbolditalic.otf" type="DynamicFontData" id=3]
 [ext_resource path="res://Assets/UI/ActionButton.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Sounds/car race - loop.ogg" type="AudioStream" id=5]
 [ext_resource path="res://Assets/UI/Seperator.png" type="Texture" id=6]
 [ext_resource path="res://Client/Room/View/CardViewer.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Client/Room/View/PlayerViewer.tscn" type="PackedScene" id=11]
@@ -411,3 +412,8 @@ custom_fonts/font = SubResource( 15 )
 text = "Disqualified"
 align = 1
 valign = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -20.0
+autoplay = true
