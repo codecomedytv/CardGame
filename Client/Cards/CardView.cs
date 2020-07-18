@@ -14,8 +14,8 @@ namespace CardGame.Client.Cards
 		private Label Defense;
 		private Sprite Art;
 		private Sprite Back;
-		private Sprite Highlight;
 		private Sprite Legal;
+		private Sprite Selected;
 		private Sprite ValidTarget;
 		private Sprite SelectedTarget;
 		public Sprite AttackIcon;
@@ -28,6 +28,7 @@ namespace CardGame.Client.Cards
 		{
 			GetNode<AnimationPlayer>("AnimationPlayer").Play("BounceGlow");
 			Legal = GetNode<Sprite>("Frame/Highlight");
+			Selected = GetNode<Sprite>("Frame/Selected");
 			Id = GetNode("ID") as Label;
 			ChainLink = GetNode("Frame/ChainLink") as AnimatedSprite;
 			ChainIndex = GetNode("Frame/ChainIndex") as Label;
@@ -84,13 +85,13 @@ namespace CardGame.Client.Cards
 			ChainLink.Stop();
 		}
 
-		public bool IsCurrentlySelected() => SelectedTarget.Visible;
+		public bool IsCurrentlySelected() => Selected.Visible;
 		public void ShowAsLegal() => Legal.Visible = true;
 		public void StopShowingAsLegal() => Legal.Visible = false;
 		public void HighlightAsTarget() => ValidTarget.Visible = true;
 		public void StopHighlightingAsTarget() => ValidTarget.Visible = false;
-		public void Select() => SelectedTarget.Visible = true;
-		public void Deselect() => SelectedTarget.Visible = false;
+		public void Select() => Selected.Visible = true;
+		public void Deselect() => Selected.Visible = false;
 		public void StopAttacking() => AttackIcon.Visible = false;
 		public void StopDefending() => DefenseIcon.Visible = false;
 		public void ShowAsTargeted() => SelectedTarget.Visible = true;

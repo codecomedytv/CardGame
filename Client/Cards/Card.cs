@@ -87,7 +87,7 @@ namespace CardGame.Client.Cards
         {
             Select();
             View.AttackIcon.Visible = true;
-            defending.Select();
+            defending.ShowAsTargeted();
             defending.View.DefenseIcon.Visible = true;
         }
 
