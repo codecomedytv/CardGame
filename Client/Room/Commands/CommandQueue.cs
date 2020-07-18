@@ -14,16 +14,18 @@ namespace CardGame.Client.Room.Commands
         private readonly Player Player;
         private readonly Player Opponent;
         private readonly Tween Gfx;
+        private readonly SoundFx SoundFx;
 
         private readonly Queue<Command> Commands = new Queue<Command>();
 
 
-        public CommandQueue(CardCatalog cardCatalog, Player player, Player opponent, Tween gfx)
+        public CommandQueue(CardCatalog cardCatalog, Player player, Player opponent, Tween gfx, SoundFx soundFx)
         {
 	        GetCard = cardCatalog.Fetch;
             Player = player;
             Opponent = opponent;
             Gfx = gfx;
+            SoundFx = soundFx;
         }
 
         public void SubscribeTo(Messenger messenger)
@@ -49,7 +51,7 @@ namespace CardGame.Client.Room.Commands
         {
             foreach (var command in Commands)
             {
-                await command.Execute(Gfx);
+                await command.Execute(Gfx, SoundFx);
                 Gfx.RemoveAll();
             }
             

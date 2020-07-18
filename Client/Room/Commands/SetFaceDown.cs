@@ -31,6 +31,7 @@ namespace CardGame.Client.Room.Commands
             }
             QueueCallback(Card, 0, nameof(Card.FlipFaceDown));
             MoveCard(Card, Player.Support);
+            QueueCallback(Sfx, 0.2F, nameof(SoundFx.SetFaceDown));
             return await Start();
 
         }

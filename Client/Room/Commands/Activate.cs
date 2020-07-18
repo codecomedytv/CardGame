@@ -22,6 +22,7 @@ namespace CardGame.Client.Room.Commands
             Card.ChainIndex = PositionInLink;
             QueueCallback(Card, 0, nameof(Card.FlipFaceUp));
             QueueCallback(Card, 0, nameof(Card.AddToChain));
+            QueueCallback(Sfx, 0, nameof(Activate));
             if (Target != null)
             {
                 QueueCallback(Target, 0, nameof(Card.ShowAsTargeted));

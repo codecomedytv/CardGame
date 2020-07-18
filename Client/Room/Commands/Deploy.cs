@@ -17,6 +17,7 @@ namespace CardGame.Client.Room.Commands
         protected override async Task<object[]> Execute()
         {
             MoveCard(Card, Player.Units);
+            QueueCallback(Sfx, 0F, nameof(SoundFx.Deploy));
             return await Start();
 
         }

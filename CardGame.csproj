@@ -131,6 +131,7 @@
     <Compile Include="Client\Room\View\PlayMat.cs" />
     <Compile Include="Client\Room\Zone.cs" />
     <Compile Include="Client\Room\ZoneIds.cs" />
+    <Compile Include="Client\SoundFX.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\Game\CardCatalog.cs" />

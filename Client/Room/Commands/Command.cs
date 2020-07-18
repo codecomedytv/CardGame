@@ -9,14 +9,16 @@ namespace CardGame.Client.Room.Commands
     public abstract class Command: Object
     {
         protected Tween Gfx;
+        protected SoundFx Sfx;
         protected Command()
         {
             
         }
 
-        public async Task<object[]> Execute(Tween gfx)
+        public async Task<object[]> Execute(Tween gfx, SoundFx sfx)
         {
             Gfx = gfx;
+            Sfx = sfx;
             return await Execute();
         }
 

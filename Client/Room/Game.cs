@@ -20,6 +20,7 @@ namespace CardGame.Client.Room {
 		private readonly Messenger Messenger;
 		protected readonly Input Input;
 		private readonly Tween Gfx;
+		private readonly SoundFx SoundFx;
 		protected readonly Player Opponent;
 		protected readonly Player Player;
 
@@ -28,17 +29,19 @@ namespace CardGame.Client.Room {
 			Name = gameId;
 			PlayMat = playMat;
 			Gfx = new Tween();
+			SoundFx = new SoundFx();
 			Player = new Player(playMat.Player);
 			Opponent = new Player(playMat.Opponent);
 			CardCatalog = new CardCatalog();
 			Messenger = new Messenger();
-			CommandQueue = new CommandQueue(CardCatalog, Player, Opponent, Gfx);
+			CommandQueue = new CommandQueue(CardCatalog, Player, Opponent, Gfx, SoundFx);
 			Input = new Input(Player, CardCatalog);
 		}
 		
 		public override void _Ready()
 		{
 			AddChild(Gfx);
+			AddChild(SoundFx);
 			AddChild(Messenger);
 			AddChild(Input);
 			CommandQueue.SubscribeTo(Messenger);
