@@ -11,8 +11,7 @@ namespace CardGame.Server.Game.Cards
 {
     public class Unit : Card
     {
-        public int Attack = 0;
-        public int Defense = 0;
+        public int Power = 0;
         public bool Attacked = false;
         public IEnumerable<Card> ValidAttackTargets = new List<Card>();
 
@@ -69,7 +68,7 @@ namespace CardGame.Server.Game.Cards
                 if (!Attacker.Opponent.HasTag(TagIds.CannotTakeBattleDamage))
                 {
                     var oldLife = Attacker.Opponent.Health;
-                    Attacker.Opponent.Health -= Attacker.Attack;
+                    Attacker.Opponent.Health -= Attacker.Power;
                     var newLife = Attacker.Opponent.Health;
                     History.Add(new ModifyPlayer(GameEvents.BattleDamage, Attacker, Attacker.Opponent,
                         nameof(Player.Health), oldLife, newLife));
@@ -105,7 +104,7 @@ namespace CardGame.Server.Game.Cards
             {
                 if (!defending.HasTag(TagIds.CannotTakeBattleDamage))
                 {
-                    var overflow = Attacker.Attack - Defender.Defense;
+                    var overflow = Attacker.Power - Defender.Power;
                     var oldLife = defending.Health;
                     defending.Health -= overflow;
                     var newLife = defending.Health;
@@ -125,7 +124,7 @@ namespace CardGame.Server.Game.Cards
             private void CounterAttack()
             {
                 History.Add(new BattleUnit(defending, Defender, Attacker));
-                var overflow = Defender.Attack - Attacker.Defense;
+                var overflow = Defender.Power - Attacker.Power;
                 if (!attacking.HasTag(TagIds.CannotTakeBattleDamage))
                 {
                     var oldLife = attacking.Health;
@@ -156,11 +155,11 @@ namespace CardGame.Server.Game.Cards
                 }
 
                 History.Add(new BattleUnit(attacking, Attacker, Defender));
-                if (Attacker.Attack > Defender.Defense)
+                if (Attacker.Power > Defender.Power)
                 {
                     Attack();
                 }
-                else if (Attacker.Attack <= Defender.Defense && Defender.Attack > Attacker.Defense)
+                else if (Attacker.Power < Defender.Power)
                 {
                     CounterAttack();
                 }

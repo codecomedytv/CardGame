@@ -72,7 +72,7 @@ namespace CardGame
 			ManualTestStates.BattleState();
 		}
 
-		public async void WinLose()
+		public void WinLose()
 		{
 			OS.WindowFullscreen = true;
 			GetNode<VBoxContainer>("Options").Visible = false;

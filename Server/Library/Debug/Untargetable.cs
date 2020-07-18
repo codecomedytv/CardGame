@@ -10,8 +10,7 @@ namespace CardGame.Server
             Owner = owner;
             Controller = owner;
             Title = "Debug.Untargetable";
-            Attack = 1000;
-            Defense = 1000;
+            Power = 1000;
             SetCode = SetCodes.DebugCannotBeTargeted;
             Tags.Add(new Tag(TagIds.CannotBeTargeted));
         }

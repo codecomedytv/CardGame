@@ -30,9 +30,8 @@ Test_Directory="res://Tests/Scripts"
 Results_Directory="res://Tests/Results/WAT"
 Minimize_Window_When_Running_Tests=false
 TestStrategy={
-"directory": "res://Tests/Scripts/Connected",
 "repeat": 1,
-"strategy": "RunDirectory"
+"strategy": "RunAll"
 }
 Tags=PoolStringArray(  )
 Display=8

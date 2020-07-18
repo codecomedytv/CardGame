@@ -17,8 +17,7 @@ namespace CardGame.Client.Cards
         public string Title;
         public string Art;
         public string Effect;
-        public int Attack = 0;
-        public int Defense = 0;
+        public int Power = 0;
         public int ChainIndex;
         public readonly List<Card> ValidTargets = new List<Card>();
         public readonly List<Card> ValidAttackTargets = new List<Card>();
@@ -43,7 +42,7 @@ namespace CardGame.Client.Cards
         {
             Id = id;
             View = (CardView) Scene.Instance();
-            (Title, Effect, Art, CardType, Attack, Defense) = (c.Title, c.Text, c.Art, c.Type, c.Attack, c.Defense);
+            (Title, Effect, Art, CardType, Power) = (c.Title, c.Text, c.Art, c.Type, c.Power);
         }
         
         public override void _Ready()

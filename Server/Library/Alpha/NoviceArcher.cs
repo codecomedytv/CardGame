@@ -16,8 +16,7 @@ namespace CardGame.Server
             Controller = owner;
             Title = "Novice Archer";
             SetCode = SetCodes.AlphaNoviceArcher;
-            Attack = 1000;
-            Defense = 1000;
+            Power = 1000;
             Skill = new OnSummonDestroy(this);
         }
 
@@ -37,7 +36,7 @@ namespace CardGame.Server
 
             protected override async void _Resolve()
             {
-                AddTargets(Opponent.Field.Cast<Unit>().Where(unit => unit.Attack < 1000));
+                AddTargets(Opponent.Field.Cast<Unit>().Where(unit => unit.Power < 1000));
                 if (ValidTargets.Count == 0)
                 {
                     return;

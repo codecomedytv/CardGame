@@ -54,7 +54,7 @@ namespace CardGame.Tests.Scripts.Serverside
             Play.Attack(Player.Id, debug15001000.Id, debug10001000.Id);
             Play.PassPlay(Opponent.Id);
             Play.PassPlay(Player.Id);
-            var difference = debug15001000.Attack - debug10001000.Defense;
+            var difference = debug15001000.Power - debug10001000.Power;
             var expectedLife = Player.Health - difference;
 	
             Assert.Has(debug10001000, Opponent.Graveyard, "Then the defending unit is destroyed");
@@ -74,7 +74,7 @@ namespace CardGame.Tests.Scripts.Serverside
             Play.PassPlay(Player.Id);
             Play.EndTurn(Player.Id);
             Play.EndTurn(Opponent.Id);
-            var expectedLife = Opponent.Health - debug15001000.Attack;
+            var expectedLife = Opponent.Health - debug15001000.Power;
             Play.AttackDirectly(Player.Id, debug15001000.Id);
             Play.PassPlay(Opponent.Id);
             Play.PassPlay(Player.Id);
@@ -99,7 +99,7 @@ namespace CardGame.Tests.Scripts.Serverside
 			Play.PassPlay(Opponent.Id);
 			Assert.IsTrue(Opponent.Field.Contains(debug15001000), "Defender Deployed");
 			Play.EndTurn(Opponent.Id);
-			var difference = debug15001000.Attack - debug10001000.Defense;
+			var difference = debug15001000.Power - debug10001000.Power;
 			var expectedLife = Player.Health - difference;
 			Play.Attack(Player.Id, debug10001000.Id, debug15001000.Id);
 			Play.PassPlay(Opponent.Id);

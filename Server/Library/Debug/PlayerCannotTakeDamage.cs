@@ -11,8 +11,7 @@ namespace CardGame.Server
             Owner = owner;
             Controller = owner;
             Title = "Debug.PlayerCannotTakeDamage";
-            Attack = 1000;
-            Defense = 1000;
+            Power = 1000;
             SetCode = SetCodes.DebugPlayerCannotTakeDamage;
             Skill = new PlayerCannotTakeBattleDamage(this);
         }

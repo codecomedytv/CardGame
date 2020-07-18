@@ -11,8 +11,7 @@ namespace CardGame.Server
             Controller = owner;
             Title = "Training Trainer";
             SetCode = SetCodes.AlphaTrainingTrainer;
-            Attack = 1000;
-            Defense = 1000;
+            Power = 1000;
         }
     }
 }

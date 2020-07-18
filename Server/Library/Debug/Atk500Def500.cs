@@ -10,8 +10,7 @@ namespace CardGame.Server
             Controller = owner;
             Title = "Debug.500ATK.500DEF";
             SetCode = SetCodes.Debug500500;
-            Attack = 500;
-            Defense = 500;
+            Power = 500;
         }
     }
 }

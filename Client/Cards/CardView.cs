@@ -10,8 +10,7 @@ namespace CardGame.Client.Cards
 	public class CardView : Control
 	{
 		private Label Id;
-		private Label Attack;
-		private Label Defense;
+		private Label Power;
 		private Sprite Art;
 		private Sprite Back;
 		private Sprite Legal;
@@ -32,13 +31,11 @@ namespace CardGame.Client.Cards
 			Id = GetNode("ID") as Label;
 			ChainLink = GetNode("Frame/ChainLink") as AnimatedSprite;
 			ChainIndex = GetNode("Frame/ChainIndex") as Label;
-			//Legal = GetNode("Legal") as Sprite;
 			ValidTarget = GetNode("Frame/ValidTarget") as Sprite;
 			SelectedTarget = GetNode("Frame/SelectedTarget") as Sprite;
 			AttackIcon = GetNode("Frame/AttackIcon") as Sprite;
 			DefenseIcon = GetNode("Frame/DefenseIcon") as Sprite;
-			Attack = GetNode("Frame/Attack") as Label;
-			Defense = GetNode("Frame/Defense") as Label;
+			Power = GetNode("Frame/Power") as Label;
 			Art = GetNode("Frame/Art") as Sprite;
 			Back = GetNode("Frame/Back") as Sprite;
 		}
@@ -59,10 +56,8 @@ namespace CardGame.Client.Cards
 				return;
 			}
 
-			Attack.Visible = true;
-			Defense.Visible = true;
-			Attack.Text = card.Attack.ToString();
-			Defense.Text = card.Defense.ToString();
+			Power.Visible = true;
+			Power.Text = card.Power.ToString();
 		}
 
 		public void FlipFaceDown() => Back.Visible = true;

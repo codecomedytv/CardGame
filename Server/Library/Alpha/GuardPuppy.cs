@@ -16,8 +16,7 @@ namespace CardGame.Server
             Controller = owner;
             Title = "Guard Puppy";
             SetCode = SetCodes.AlphaGuardPuppy;
-            Attack = 500;
-            Defense = 500;
+            Power = 500;
             Skill = new BattleImmunity(this);
         }
 
