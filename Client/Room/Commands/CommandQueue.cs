@@ -57,9 +57,10 @@ namespace CardGame.Client.Room.Commands
             
         }
 
-        private void OnResolveCardQueued(int id)
+        private void OnResolveCardQueued(int id, int targetId = 0)
         {
-	        Commands.Enqueue(new ResolveCard(GetCard(id)));
+	        var target = targetId == 0 ? null : GetCard(targetId);
+	        Commands.Enqueue(new ResolveCard(GetCard(id), target));
         }
         
         private void RevealCard(int id, SetCodes setCode, ZoneIds zoneId)

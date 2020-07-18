@@ -93,8 +93,9 @@ namespace CardGame.Client.Cards
 		public void Deselect() => SelectedTarget.Visible = false;
 		public void StopAttacking() => AttackIcon.Visible = false;
 		public void StopDefending() => DefenseIcon.Visible = false;
-
 		public void ShowAsTargeted() => SelectedTarget.Visible = true;
+		public void StopShowingAsTargeted() => SelectedTarget.Visible = false;
+		
 	}
 }
 

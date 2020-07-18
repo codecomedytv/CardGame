@@ -1,3 +1,4 @@
+#nullable enable
 using System.Collections.Generic;
 using System.Linq;
 using CardGame.Server.Game.Cards;
@@ -23,7 +24,7 @@ namespace CardGame.Server.Game.Skills {
 		protected readonly List<GameEvents> Triggers = new List<GameEvents>();
 		protected readonly List<Zone> AreaOfEffects = new List<Zone>();
 		public readonly List<Card> ValidTargets = new List<Card>();
-		public Card Target;
+		public Card? Target;
 		public bool Targeting = false;
 
 		protected void Bounce(Card bounced)

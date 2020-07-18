@@ -80,7 +80,9 @@ namespace CardGame.Client.Cards
         public void Deselect() => View.Deselect();
         public void StopAttacking() => View.StopAttacking();
         public void StopDefending() => View.StopDefending();
-        
+        public void ShowAsTargeted() => View.ShowAsTargeted();
+        public void StopShowingAsTargeted() => View.StopShowingAsTargeted();
+
         public void AttackUnit(Card defending)
         {
             Select();
@@ -99,6 +101,5 @@ namespace CardGame.Client.Cards
 
         public bool IsFocused(Vector2 mousePosition) => GetGlobalRect().HasPoint(mousePosition);
 
-        public void ShowAsTargeted() => View.ShowAsTargeted();
     }
 }
