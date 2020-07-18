@@ -149,6 +149,7 @@ __meta__ = {
 }
 
 [node name="CardViewer" parent="Background" instance=ExtResource( 10 )]
+rect_min_size = Vector2( 350, 500 )
 
 [node name="Player" type="Control" parent="."]
 margin_right = 40.0
