@@ -1,17 +1,17 @@
 [gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://Client/Cards/CardView.cs" type="Script" id=1]
-[ext_resource path="res://Assets/New/Highlight.png" type="Texture" id=2]
-[ext_resource path="res://Assets/New/CardBack.png" type="Texture" id=3]
+[ext_resource path="res://Assets/UI/Highlight.png" type="Texture" id=2]
+[ext_resource path="res://Assets/UI/CardBack.png" type="Texture" id=3]
 [ext_resource path="res://Assets/CardArt/Adventurer.jpg" type="Texture" id=4]
 [ext_resource path="res://Assets/fonts/LemonMilkbolditalic.otf" type="DynamicFontData" id=5]
-[ext_resource path="res://Assets/UI/targeting_reticule.png" type="Texture" id=6]
+[ext_resource path="res://Assets/UI/GreenTargetingReticule.png" type="Texture" id=6]
 [ext_resource path="res://assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=7]
-[ext_resource path="res://Assets/UI/targeted.png" type="Texture" id=8]
-[ext_resource path="res://Assets/16.png" type="Texture" id=9]
-[ext_resource path="res://Assets/UI/sword_02.png" type="Texture" id=11]
-[ext_resource path="res://Assets/UI/shield_t_04.png" type="Texture" id=12]
-[ext_resource path="res://Assets/New/CardTemp.png" type="Texture" id=17]
+[ext_resource path="res://Assets/UI/RedTargetingReticule.png" type="Texture" id=8]
+[ext_resource path="res://Assets/SpriteSheets/ChainLink.png" type="Texture" id=9]
+[ext_resource path="res://Assets/UI/Sword.png" type="Texture" id=11]
+[ext_resource path="res://Assets/UI/Shield.png" type="Texture" id=12]
+[ext_resource path="res://Assets/UI/CardFront.png" type="Texture" id=17]
 [ext_resource path="res://Assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=19]
 
 [sub_resource type="AtlasTexture" id=1]
@@ -221,30 +221,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("Frame/SelectedTarget:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = false
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Frame/ValidTarget:self_modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = false
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
-}
 
 [node name="Visual" type="Control"]
 margin_right = 120.0
@@ -279,7 +255,7 @@ visible = false
 position = Vector2( -68, -60 )
 frames = SubResource( 33 )
 animation = "Chain"
-frame = 11
+frame = 18
 playing = true
 centered = false
 

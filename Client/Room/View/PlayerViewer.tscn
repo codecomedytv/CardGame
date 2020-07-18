@@ -1,9 +1,13 @@
 [gd_scene load_steps=43 format=2]
 
-[ext_resource path="res://Assets/New/Avatar.tres" type="Texture" id=1]
-[ext_resource path="res://assets/Avatars512x512/human_male.png" type="Texture" id=2]
-[ext_resource path="res://Assets/spritesheets/25.png" type="Texture" id=4]
-[ext_resource path="res://Assets/New/HealthBar.png" type="Texture" id=5]
+[ext_resource path="res://Assets/UI/AvatarFrameTheme.tres" type="Texture" id=1]
+[ext_resource path="res://Assets/UI/TempPlayerAvatar.png" type="Texture" id=2]
+[ext_resource path="res://Assets/SpriteSheets/PlayerGlow.png" type="Texture" id=4]
+[ext_resource path="res://Assets/UI/HealthBar.png" type="Texture" id=5]
+
+
+
+
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 1 )
@@ -275,5 +279,5 @@ position = Vector2( 185.191, 144.637 )
 scale = Vector2( 2.60359, 2.13011 )
 frames = SubResource( 38 )
 animation = "PlayingState"
-frame = 31
+frame = 1
 playing = true

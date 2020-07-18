@@ -1,26 +1,24 @@
 [gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Assets/UI/CardBack.png" type="Texture" id=2]
 [ext_resource path="res://assets/fonts/LemonMilkbolditalic.otf" type="DynamicFontData" id=3]
-[ext_resource path="res://Assets/New/ActionButton.png" type="Texture" id=4]
-[ext_resource path="res://Assets/New/back_sci-fi.png" type="Texture" id=5]
-[ext_resource path="res://Assets/New/sepe.png" type="Texture" id=6]
-[ext_resource path="res://assets/UI/Table.png" type="Texture" id=8]
+[ext_resource path="res://Assets/UI/ActionButton.png" type="Texture" id=4]
+[ext_resource path="res://Assets/UI/Seperator.png" type="Texture" id=6]
 [ext_resource path="res://Client/Room/View/CardViewer.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Client/Room/View/PlayerViewer.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Client/Room/View/PlayMat.cs" type="Script" id=12]
 [ext_resource path="res://Client/Room/View/Player.cs" type="Script" id=13]
-[ext_resource path="res://Assets/New/ZoneGroup.png" type="Texture" id=14]
-[ext_resource path="res://Assets/New/Deck.png" type="Texture" id=15]
-[ext_resource path="res://Assets/New/background_space.png" type="Texture" id=16]
+[ext_resource path="res://Assets/UI/ZoneGroup.png" type="Texture" id=14]
+[ext_resource path="res://Assets/UI/Deck.png" type="Texture" id=15]
+[ext_resource path="res://Assets/UI/Background_Space.png" type="Texture" id=16]
 
-[sub_resource type="StyleBoxTexture" id=1]
-texture = ExtResource( 6 )
-region_rect = Rect2( 12.1837, 10.224, 431.77, 45.776 )
+[sub_resource type="StreamTexture" id=1]
+flags = 5
 
 [sub_resource type="StyleBoxTexture" id=2]
-texture = ExtResource( 4 )
-region_rect = Rect2( 0, 0, 138, 143 )
+texture = ExtResource( 6 )
+region_rect = Rect2( 12.1837, 10.224, 431.77, 45.776 )
 
 [sub_resource type="StyleBoxTexture" id=3]
 texture = ExtResource( 4 )
@@ -30,29 +28,33 @@ region_rect = Rect2( 0, 0, 138, 143 )
 texture = ExtResource( 4 )
 region_rect = Rect2( 0, 0, 138, 143 )
 
-[sub_resource type="DynamicFontData" id=5]
+[sub_resource type="StyleBoxTexture" id=5]
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 138, 143 )
+
+[sub_resource type="DynamicFontData" id=6]
 font_path = "res://assets/fonts/LemonMilkbolditalic.otf"
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=7]
 size = 26
 outline_size = 4
 outline_color = Color( 0, 0, 0, 1 )
 use_mipmaps = true
 use_filter = true
 extra_spacing_char = 4
-font_data = SubResource( 5 )
+font_data = SubResource( 6 )
 
-[sub_resource type="StyleBoxTexture" id=7]
+[sub_resource type="StyleBoxTexture" id=8]
 texture = ExtResource( 15 )
 region_rect = Rect2( 0, 0, 132, 160 )
 
-[sub_resource type="Theme" id=8]
+[sub_resource type="Theme" id=9]
 
-[sub_resource type="StyleBoxTexture" id=9]
-texture = ExtResource( 5 )
-region_rect = Rect2( 0, 0, 1422, 2000 )
+[sub_resource type="StyleBoxTexture" id=10]
+texture = ExtResource( 2 )
+region_rect = Rect2( 0, 0, 120, 150 )
 
-[sub_resource type="DynamicFont" id=10]
+[sub_resource type="DynamicFont" id=11]
 size = 50
 outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
@@ -60,7 +62,7 @@ use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=11]
+[sub_resource type="DynamicFont" id=12]
 size = 170
 outline_size = 4
 outline_color = Color( 1, 0, 0, 1 )
@@ -69,22 +71,22 @@ use_filter = true
 extra_spacing_char = 4
 font_data = ExtResource( 3 )
 
-[sub_resource type="StyleBoxTexture" id=12]
+[sub_resource type="StyleBoxTexture" id=13]
 texture = ExtResource( 14 )
 region_rect = Rect2( 0, 0, 886, 176 )
 margin_top = 10.0
 
-[sub_resource type="DynamicFontData" id=16]
+[sub_resource type="DynamicFontData" id=14]
 font_path = "res://Assets/fonts/LemonMilkbolditalic.otf"
 
-[sub_resource type="DynamicFont" id=17]
+[sub_resource type="DynamicFont" id=15]
 size = 50
 outline_size = 6
 outline_color = Color( 0, 0, 0, 1 )
 use_mipmaps = true
 use_filter = true
 extra_spacing_char = 10
-font_data = SubResource( 16 )
+font_data = SubResource( 14 )
 
 [node name="PlayMat" type="Sprite"]
 self_modulate = Color( 1, 0.772549, 0.701961, 1 )
@@ -111,7 +113,7 @@ margin_left = 410.0
 margin_top = 90.0
 margin_right = 1510.0
 margin_bottom = 890.0
-texture = ExtResource( 8 )
+texture = SubResource( 1 )
 expand = true
 stretch_mode = 1
 
@@ -122,14 +124,10 @@ margin_right = 1343.0
 margin_bottom = 542.0
 rect_min_size = Vector2( 0, 20 )
 rect_clip_content = true
-custom_styles/separator = SubResource( 1 )
+custom_styles/separator = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="CardViewer" parent="Background" instance=ExtResource( 10 )]
-margin_right = 371.0
-margin_bottom = 603.0
 
 [node name="Action" type="Button" parent="Background"]
 margin_left = 1569.0
@@ -138,16 +136,18 @@ margin_right = 1869.0
 margin_bottom = 696.0
 rect_min_size = Vector2( 150, 150 )
 focus_mode = 1
-custom_styles/hover = SubResource( 2 )
-custom_styles/pressed = SubResource( 3 )
-custom_styles/normal = SubResource( 4 )
-custom_fonts/font = SubResource( 6 )
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
+custom_fonts/font = SubResource( 7 )
 action_mode = 0
 enabled_focus_mode = 1
 text = "End Turn"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="CardViewer" parent="Background" instance=ExtResource( 10 )]
 
 [node name="Player" type="Control" parent="."]
 margin_right = 40.0
@@ -162,7 +162,7 @@ margin_left = 1360.0
 margin_top = 695.0
 margin_right = 1480.0
 margin_bottom = 845.0
-custom_styles/panel = SubResource( 7 )
+custom_styles/panel = SubResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -173,8 +173,8 @@ margin_left = 1360.0
 margin_top = 530.0
 margin_right = 1480.0
 margin_bottom = 680.0
-theme = SubResource( 8 )
-custom_styles/panel = SubResource( 9 )
+theme = SubResource( 9 )
+custom_styles/panel = SubResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -185,7 +185,7 @@ margin_right = 120.0
 margin_bottom = 150.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 11 )
 text = "0"
 align = 1
 valign = 1
@@ -215,7 +215,7 @@ margin_right = 1317.0
 margin_bottom = 752.0
 size_flags_horizontal = 3
 size_flags_vertical = 6
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 text = "8000"
 align = 1
 valign = 1
@@ -232,7 +232,7 @@ margin_left = 430.0
 margin_top = 540.0
 margin_right = 1310.0
 margin_bottom = 710.0
-custom_styles/panel = SubResource( 12 )
+custom_styles/panel = SubResource( 13 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -258,7 +258,7 @@ margin_left = 430.0
 margin_top = 730.0
 margin_right = 1310.0
 margin_bottom = 900.0
-custom_styles/panel = SubResource( 12 )
+custom_styles/panel = SubResource( 13 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -296,7 +296,7 @@ margin_left = 1360.0
 margin_top = 140.0
 margin_right = 1480.0
 margin_bottom = 290.0
-custom_styles/panel = SubResource( 7 )
+custom_styles/panel = SubResource( 8 )
 
 [node name="Discard" type="PanelContainer" parent="Opponent"]
 self_modulate = Color( 1, 1, 1, 0.392157 )
@@ -304,8 +304,8 @@ margin_left = 1360.0
 margin_top = 305.0
 margin_right = 1480.0
 margin_bottom = 455.0
-theme = SubResource( 8 )
-custom_styles/panel = SubResource( 9 )
+theme = SubResource( 9 )
+custom_styles/panel = SubResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -316,7 +316,7 @@ margin_right = 120.0
 margin_bottom = 150.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 11 )
 text = "0"
 align = 1
 valign = 1
@@ -326,7 +326,7 @@ margin_left = 430.0
 margin_top = 295.0
 margin_right = 1310.0
 margin_bottom = 465.0
-custom_styles/panel = SubResource( 12 )
+custom_styles/panel = SubResource( 13 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -352,7 +352,7 @@ margin_left = 430.0
 margin_top = 100.0
 margin_right = 1310.0
 margin_bottom = 270.0
-custom_styles/panel = SubResource( 12 )
+custom_styles/panel = SubResource( 13 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -393,7 +393,7 @@ margin_right = 1345.0
 margin_bottom = 454.0
 size_flags_horizontal = 3
 size_flags_vertical = 6
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 text = "-8000"
 align = 1
 valign = 1
@@ -407,7 +407,7 @@ margin_left = 424.0
 margin_top = 490.0
 margin_right = 1497.0
 margin_bottom = 886.0
-custom_fonts/font = SubResource( 17 )
+custom_fonts/font = SubResource( 15 )
 text = "Disqualified"
 align = 1
 valign = 1
