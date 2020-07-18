@@ -11,6 +11,8 @@ namespace CardGame.Client.Room.View
         public Container Units { get; private set; }
         public Container Support { get; private set; }
         public AnimatedSprite PlayingState { get; private set; }
+        
+        public Label Health { get; private set; }
 
         public override void _Ready()
         {
@@ -21,6 +23,7 @@ namespace CardGame.Client.Room.View
             Units = GetNode<Container>("Unit/Cards");
             Support = GetNode<Container>("Support/Cards");
             PlayingState = GetNode<AnimatedSprite>("View/PlayingState");
+            Health = GetNode<Label>("View/Health");
 
         }
     }

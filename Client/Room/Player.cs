@@ -24,11 +24,17 @@ namespace CardGame.Client.Room
         public readonly Zone Units;
         public readonly Zone Support;
         public readonly Zone Hand;
-        private AnimatedSprite PlayingState;
+        private readonly Label Health;
+        private readonly AnimatedSprite PlayingState;
         public bool IsInActive => State != States.Active && State != States.Idle;
         public bool Targeting;
         public bool Attacking;
         public Card CardInUse;
+
+        public void LoseLife(int lifeLost)
+        {
+            Health.Text = (Health.Text.ToInt() - lifeLost).ToString();
+        }
 
         public Player(View.Player view)
         {
@@ -40,6 +46,7 @@ namespace CardGame.Client.Room
             Support = new Zone(view.Support);
             Hand = new Zone(view.Hand);
             PlayingState = view.PlayingState;
+            Health = view.Health;
         }
         
         public void SetState(States state)

@@ -5,10 +5,6 @@
 [ext_resource path="res://Assets/SpriteSheets/PlayerGlow.png" type="Texture" id=4]
 [ext_resource path="res://Assets/UI/HealthBar.png" type="Texture" id=5]
 
-
-
-
-
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 1 )
 region_rect = Rect2( 14, 8, 366, 287 )
@@ -279,5 +275,5 @@ position = Vector2( 185.191, 144.637 )
 scale = Vector2( 2.60359, 2.13011 )
 frames = SubResource( 38 )
 animation = "PlayingState"
-frame = 1
+frame = 25
 playing = true
