@@ -121,9 +121,10 @@ namespace CardGame.Client.Room.Commands
         	Commands.Enqueue(new SetFaceDown(GetPlayer(isOpponent), GetCard(id), isOpponent));
         }
         
-        private void OnActivationQueued(int id, SetCodes setCode, int positionInLink, bool isOpponent)
+        private void OnActivationQueued(int id, SetCodes setCode, int positionInLink, bool isOpponent, int targetId = 0)
         {
-        	Commands.Enqueue(new Activate(GetCard(id), positionInLink));
+	        var target = targetId == 0 ? null : GetCard(targetId);
+	        Commands.Enqueue(new Activate(GetCard(id), positionInLink, target));
         }
         
         private void OnTriggeredQueued(int id, int positionInLink)

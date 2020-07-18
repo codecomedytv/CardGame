@@ -7,7 +7,7 @@
 [ext_resource path="res://Assets/fonts/LemonMilkbolditalic.otf" type="DynamicFontData" id=5]
 [ext_resource path="res://Assets/UI/targeting_reticule.png" type="Texture" id=6]
 [ext_resource path="res://assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=7]
-[ext_resource path="res://Assets/New/Selected.png" type="Texture" id=8]
+[ext_resource path="res://Assets/UI/targeted.png" type="Texture" id=8]
 [ext_resource path="res://Assets/16.png" type="Texture" id=9]
 [ext_resource path="res://Assets/UI/sword_02.png" type="Texture" id=11]
 [ext_resource path="res://Assets/UI/shield_t_04.png" type="Texture" id=12]
@@ -226,7 +226,7 @@ tracks/1/path = NodePath("Frame/SelectedTarget:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
-tracks/1/enabled = true
+tracks/1/enabled = false
 tracks/1/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
@@ -267,15 +267,6 @@ texture = ExtResource( 2 )
 centered = false
 offset = Vector2( -5, -5 )
 
-[node name="SelectedTarget" type="Sprite" parent="Frame"]
-visible = false
-show_behind_parent = true
-position = Vector2( 1.99925, 2.35256 )
-scale = Vector2( 0.969666, 0.968633 )
-texture = ExtResource( 8 )
-centered = false
-offset = Vector2( -5, -5 )
-
 [node name="Art" type="Sprite" parent="Frame"]
 show_behind_parent = true
 position = Vector2( 4, 3.64101 )
@@ -288,7 +279,7 @@ visible = false
 position = Vector2( -68, -60 )
 frames = SubResource( 33 )
 animation = "Chain"
-frame = 10
+frame = 30
 playing = true
 centered = false
 
@@ -353,10 +344,17 @@ centered = false
 
 [node name="ValidTarget" type="Sprite" parent="Frame"]
 visible = false
-modulate = Color( 0.00784314, 1, 0, 1 )
 position = Vector2( 16.5826, 4.10711 )
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 6 )
+centered = false
+offset = Vector2( -5, -5 )
+
+[node name="SelectedTarget" type="Sprite" parent="Frame"]
+visible = false
+position = Vector2( 15.9993, 3.35256 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 8 )
 centered = false
 offset = Vector2( -5, -5 )
 

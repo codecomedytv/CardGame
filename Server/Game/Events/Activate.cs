@@ -26,11 +26,14 @@ namespace CardGame.Server.Game.Events
             PositionInLink = skill.PositionInLink;
         }
 
+        private int TargetId() => Target?.Id ?? 0;
+
         public override void SendMessage(Message message)
         {
-            message(Player.Id, "Activate", Card.Id, Card.SetCode, PositionInLink, !IsOpponent);
+            var knownTarget = 0;
+            message(Player.Id, "Activate", Card.Id, Card.SetCode, PositionInLink, !IsOpponent, knownTarget);
             message(Player.Opponent.Id, "RevealCard", Card.Id, Card.SetCode, ZoneIds.Support);
-            message(Player.Opponent.Id, "Activate", Card.Id, Card.SetCode, PositionInLink, IsOpponent);
+            message(Player.Opponent.Id, "Activate", Card.Id, Card.SetCode, PositionInLink, IsOpponent, TargetId());
         }
     }
 }

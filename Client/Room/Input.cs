@@ -58,16 +58,8 @@ namespace CardGame.Client.Room
 				if (focusedCard is Card viewingCard)
 				{
 					CardViewer.View(viewingCard);
-
-					if (viewingCard.CanAttack)
-					{
-						viewingCard.HighlightAttackTargets();
-					}
-
-					if (viewingCard.CanBeActivated)
-					{
-						viewingCard.HighlightTargets();
-					}
+					if (viewingCard.CanAttack) { viewingCard.HighlightAttackTargets(); }
+					if (viewingCard.CanBeActivated) { viewingCard.HighlightTargets(); }
 				}
 			}
 			else if (inputEvent is InputEventMouseButton mouseButton && mouseButton.Doubleclick)
@@ -112,6 +104,7 @@ namespace CardGame.Client.Room
 		{
 			if (!User.CardInUse.HasTarget(card)) return;
 			User.CardInUse.StopHighlightingTargets();
+			card.ShowAsTargeted();
 			EmitSignal(nameof(Activate), User.CardInUse, card.Id);
 			User.State = States.Processing;
 		}
@@ -122,6 +115,7 @@ namespace CardGame.Client.Room
 			{
 				User.CardInUse.AttackUnit(card);
 				User.State = States.Processing;
+				card.ShowAsTargeted();
 				EmitSignal(nameof(Attack), User.CardInUse.Id, card.Id);
 			}
 			else
