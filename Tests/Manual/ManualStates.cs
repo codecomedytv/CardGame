@@ -94,5 +94,11 @@ namespace CardGame.ManualTestStates
 			// Our Chance Now
 		}
 
+		public async void WonGame()
+		{
+			DeckList.Clear();
+			DeckList.Add(SetCodes.AlphaDungeonGuide, 40);
+		}
+
 	}
 }

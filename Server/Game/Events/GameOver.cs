@@ -13,6 +13,13 @@
             Winner = winner;
             Loser = loser;
         }
-        
+
+        public override void SendMessage(Message message)
+        {
+            const bool won = true;
+            const bool lost = false;
+            message(Winner.Id, "GameOver", won);
+            message(Loser.Id, "GameOver", lost);
+        }
     }
 }

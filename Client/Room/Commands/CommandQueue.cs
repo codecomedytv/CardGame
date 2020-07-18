@@ -45,6 +45,7 @@ namespace CardGame.Client.Room.Commands
 	        messenger.Connect(nameof(Messenger.OpponentAttackUnit), this, nameof(OnOpponentAttackUnitQueued));
 	        messenger.Connect(nameof(Messenger.BounceCard), this, nameof(OnCardBounceQueued));
 	        messenger.Connect(nameof(Messenger.ResolveCard), this, nameof(OnResolveCardQueued));
+	        messenger.Connect(nameof(Messenger.GameOver), this, nameof(OnGameOverQueued));
         }
 
         public async Task Execute()
@@ -57,6 +58,11 @@ namespace CardGame.Client.Room.Commands
             
             Commands.Clear();
             
+        }
+
+        private void OnGameOverQueued(bool wonGame)
+        {
+	        GD.Print($"Won Game? {wonGame}");
         }
 
         private void OnResolveCardQueued(int id, int targetId = 0)

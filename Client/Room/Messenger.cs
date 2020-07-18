@@ -9,6 +9,7 @@ namespace CardGame.Client.Room
 {
     public class Messenger: Control
     {
+        [Signal] public delegate void GameOver();
         [Signal] public delegate void UpdateCard();
         [Signal] public delegate void RevealCard();
         [Signal] public delegate void LoadDeck();
