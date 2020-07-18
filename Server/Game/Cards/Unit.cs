@@ -105,14 +105,15 @@ namespace CardGame.Server.Game.Cards
                 if (!defending.HasTag(TagIds.CannotTakeBattleDamage))
                 {
                     var overflow = Attacker.Power - Defender.Power;
-                    var oldLife = defending.Health;
                     defending.Health -= overflow;
-                    var newLife = defending.Health;
                     History.Add(new BattleDamage(Attacker, defending, overflow));
                 }
+                
+                // MoveSkillHere?
                 defending.Field.Remove(Defender);
                 defending.Graveyard.Add(Defender);
                 Defender.Zone = Defender.Owner.Graveyard;
+                
                 History.Add(new DestroyByBattle(Attacker, defending, Defender));
                 History.Add(new SentToZone(defending, Defender, ZoneIds.Graveyard));
                 if (defending.Health <= 0)
@@ -123,23 +124,21 @@ namespace CardGame.Server.Game.Cards
 
             private void CounterAttack()
             {
-                History.Add(new BattleUnit(defending, Defender, Attacker));
-                var overflow = Defender.Power - Attacker.Power;
                 if (!attacking.HasTag(TagIds.CannotTakeBattleDamage))
                 {
-                    var oldLife = attacking.Health;
+                    var overflow = Defender.Power - Attacker.Power;
                     attacking.Health -= overflow;
-                    var newLife = attacking.Health;
-                    // History.Add(new ModifyPlayer(GameEvents.BattleDamage, Defender, attacking,
-                    //     nameof(Player.Health), oldLife, newLife));
                     History.Add(new BattleDamage(Defender, attacking, overflow));
                 }
 
+                // MoveSkillHere?
                 attacking.Field.Remove(Attacker);
                 attacking.Graveyard.Add(Attacker);
                 Attacker.Zone = Attacker.Owner.Graveyard;
+                
                 History.Add(new DestroyByBattle(Defender, attacking, Attacker));
                 History.Add(new SentToZone(attacking, Attacker, ZoneIds.Graveyard));
+                
                 if (attacking.Health <= 0)
                 {
                     defending.Win();
@@ -153,7 +152,7 @@ namespace CardGame.Server.Game.Cards
                 {
                     return;
                 }
-
+                
                 History.Add(new BattleUnit(attacking, Attacker, Defender));
                 if (Attacker.Power > Defender.Power)
                 {
