@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CardGame.Client;
+using CardGame.Client.Cards;
 using CardGame.Client.Room;
 using CardGame.Server;
 using CardGame.Tests;
@@ -94,10 +95,37 @@ namespace CardGame.ManualTestStates
 			// Our Chance Now
 		}
 
-		public async void WonGame()
+		public async void WonGame(Container container)
 		{
 			DeckList.Clear();
 			DeckList.Add(SetCodes.AlphaDungeonGuide, 40);
+			await AddGame(container);
+			
+			await Update;
+			
+			foreach (var card in Player.Hand)
+			{
+				PlayerMockGame.DoubleClick(card);
+				await Update;
+				OpponentMockGame.Pass();
+				await Update;
+				PlayerMockGame.Pass();
+				await Update;
+			}
+			
+			PlayerMockGame.End();
+			await Update;
+
+			foreach (var card in Opponent.Hand)
+			{
+				OpponentMockGame.DoubleClick(card);
+				await Update;
+				PlayerMockGame.Pass();
+				await Update;
+				OpponentMockGame.Pass();
+				await Update;
+			}
+
 		}
 
 	}

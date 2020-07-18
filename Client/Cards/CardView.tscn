@@ -262,7 +262,7 @@ visible = false
 position = Vector2( -68, -60 )
 frames = SubResource( 33 )
 animation = "Chain"
-frame = 28
+frame = 10
 playing = true
 centered = false
 
@@ -281,7 +281,6 @@ __meta__ = {
 }
 
 [node name="Attack" type="Label" parent="Frame"]
-visible = false
 margin_left = 62.0
 margin_top = 105.0
 margin_right = 112.0
@@ -294,7 +293,6 @@ __meta__ = {
 }
 
 [node name="Defense" type="Label" parent="Frame"]
-visible = false
 margin_left = 62.0
 margin_top = 123.0
 margin_right = 112.0

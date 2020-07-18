@@ -16,7 +16,8 @@ namespace CardGame
 			GetNode<Button>("Options/HostJoin").Connect("pressed", this, "HostJoin");
 			GetNode<Button>("Options/Join").Connect("pressed", this, "Join");
 			GetNode<Button>("Options/BattleState").Connect("pressed", this, "BattleState");
-			
+			GetNode<Button>("Options/WinLose").Connect("pressed", this, "WinLose");
+
 		}
 
 		private void AddClients(int count = 1)
@@ -69,6 +70,13 @@ namespace CardGame
 			GetNode<VBoxContainer>("Options").Visible = false;
 			await ManualTestStates.AddGame(GetNode<VBoxContainer>("ScrollContainer/VBoxContainer"));
 			ManualTestStates.BattleState();
+		}
+
+		public async void WinLose()
+		{
+			OS.WindowFullscreen = true;
+			GetNode<VBoxContainer>("Options").Visible = false;
+			ManualTestStates.WonGame(GetNode<VBoxContainer>("ScrollContainer/VBoxContainer"));
 		}
 		
 		public override void _Input(InputEvent inputEvent)
