@@ -70,8 +70,7 @@ namespace CardGame.Server.Game.Cards
                     var oldLife = Attacker.Opponent.Health;
                     Attacker.Opponent.Health -= Attacker.Power;
                     var newLife = Attacker.Opponent.Health;
-                    History.Add(new ModifyPlayer(GameEvents.BattleDamage, Attacker, Attacker.Opponent,
-                        nameof(Player.Health), oldLife, newLife));
+                    History.Add(new BattleDamage(Attacker, Attacker.Opponent, Attacker.Power));
                 }
 
                 if (Attacker.Opponent.Health <= 0)
