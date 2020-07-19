@@ -18,7 +18,7 @@ namespace CardGame.Client.Room.Commands
 		
 		protected override async Task<object[]> Execute()
 		{
-			var direction =  (float) (IsOpponent ? 0.0 : Gfx.GetTree().Root.GetVisibleRect().Size.y);
+			var direction =  (float) (IsOpponent? Gfx.GetTree().Root.GetVisibleRect().Size.y: 0.0);
 			var destination = new Vector2(Attacker.Position.x, direction);
 			QueueCallback(Attacker, 0F, nameof(Card.Deselect));
 			QueueCallback(Attacker.Player.Opponent, 0F, nameof(Player.StopShowingAsTargeted));
