@@ -32,6 +32,8 @@ namespace CardGame.Client.Room {
 			SoundFx = new SoundFx();
 			Player = new Player(playMat.Player);
 			Opponent = new Player(playMat.Opponent);
+			Player.Opponent = Opponent;
+			Opponent.Opponent = Player;
 			CardCatalog = new CardCatalog();
 			Messenger = new Messenger();
 			CommandQueue = new CommandQueue(CardCatalog, Player, Opponent, Gfx, SoundFx, PlayMat.WinLoseNotice);

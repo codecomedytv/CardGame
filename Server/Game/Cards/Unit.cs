@@ -32,8 +32,9 @@ namespace CardGame.Server.Game.Cards
             if (Zone == Controller.Field && IsReady && !Attacked)
             {
                 ValidAttackTargets = Opponent.Field.AsEnumerable();
-                State = States.CanAttack;
+                State = !ValidAttackTargets.ToList().Any()? States.CanAttackDirectly: States.CanAttack;
             }
+
         }
         
         public void AttackDirectly()

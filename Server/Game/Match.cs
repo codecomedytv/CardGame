@@ -103,7 +103,7 @@ namespace CardGame.Server.Game {
 		{
 			var player = Players[playerId];
 			var attacker = (Unit) CardCatalog[attackerId];
-			if (attacker.State != Card.States.CanAttack || player.Opponent.Field.Count != 0 || player.State != States.Idle)
+			if (attacker.State != Card.States.CanAttackDirectly || player.Opponent.Field.Count != 0 || player.State != States.Idle)
 			{
 				Disqualify(player);
 				return;

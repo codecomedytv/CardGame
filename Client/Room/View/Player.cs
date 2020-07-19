@@ -13,6 +13,10 @@ namespace CardGame.Client.Room.View
         public AnimatedSprite PlayingState { get; private set; }
         
         public Label Health { get; private set; }
+        
+        public Sprite ValidTarget { get; private set; }
+        
+        public Sprite SelectedTarget { get; private set; }
 
         public override void _Ready()
         {
@@ -24,6 +28,8 @@ namespace CardGame.Client.Room.View
             Support = GetNode<Container>("Support/Cards");
             PlayingState = GetNode<AnimatedSprite>("View/PlayingState");
             Health = GetNode<Label>("View/Health");
+            ValidTarget = GetNode<Sprite>("View/ValidTarget");
+            SelectedTarget = GetNode<Sprite>("View/SelectedTarget");
 
         }
     }

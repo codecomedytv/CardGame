@@ -32,8 +32,8 @@ namespace CardGame.Client.Cards
         public bool CanBeSet => State == CardStates.CanBeSet && Player.State == States.Idle && !Player.ActionInProgress;
         public bool CanBeActivated => State == CardStates.CanBeActivated && !Player.IsInActive && !Player.ActionInProgress;
         public bool CanAttack => State == CardStates.CanAttack && ValidAttackTargets.Count > 0 && Player.State == States.Idle && !Player.ActionInProgress;
+        public bool CanAttackDirectly => State == CardStates.CanAttackDirectly && Player.State == States.Idle && !Player.ActionInProgress;
         
-
         public bool CanTarget => State == CardStates.CanBeActivated && ValidTargets.Count > 0 && !Player.IsInActive; // && !Player.ActionInProgress;
         public bool CanBePlayed => CanBeDeployed || CanBeSet || CanBeActivated || CanAttack; // can attack?
         public bool HasTarget(Card target) => ValidTargets.Contains(target);
@@ -73,9 +73,22 @@ namespace CardGame.Client.Cards
         public void HighlightAsTarget() => View.HighlightAsTarget();
         public void StopHighlightingAsTarget() => View.StopHighlightingAsTarget();
         public void HighlightTargets() => ValidTargets.ForEach(t => t.HighlightAsTarget());
-        public void HighlightAttackTargets() => ValidAttackTargets.ForEach(t => t.HighlightAsTarget());
+        public void HighlightAttackTargets()
+        {
+            ValidAttackTargets.ForEach(t => t.HighlightAsTarget());
+            if (CanAttackDirectly)
+            {
+                Player.Opponent.HighlightAsTarget();
+            }
+        }
+
         public void StopHighlightingTargets() { ValidTargets.ForEach(t => t.StopHighlightingAsTarget()); }
-        public void StopHighlightingAttackTargets() => ValidAttackTargets.ForEach(t => t.StopHighlightingAsTarget());
+        public void StopHighlightingAttackTargets()
+        {
+            ValidAttackTargets.ForEach(t => t.StopHighlightingAsTarget());
+            Player.Opponent.StopHighlightingAsTarget();
+        }
+
         public void Select() => View.Select();
         public void Deselect() => View.Deselect();
         public void StopAttacking() => View.StopAttacking();

@@ -3,7 +3,7 @@
 namespace CardGame.Client.Cards
 {
     public enum CardTypes { Null, Unit, Support };
-    public enum CardStates { Passive, CanBeDeployed, CanBeSet, CanBeActivated, CanAttack, Activated }
+    public enum CardStates { Passive, CanBeDeployed, CanBeSet, CanBeActivated, CanAttack, CanAttackDirectly, Activated }
 
     public readonly struct CardInfo
     {

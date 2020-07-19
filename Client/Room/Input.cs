@@ -22,6 +22,9 @@ namespace CardGame.Client.Room
 
 		[Signal]
 		public delegate void Attack();
+		
+		[Signal]
+		public delegate void DirectAttack();
 
 		private readonly Player User;
 		private readonly CardCatalog CardCatalog;
@@ -52,6 +55,7 @@ namespace CardGame.Client.Room
 					{
 						c.StopHighlightingTargets();
 						c.StopHighlightingAttackTargets();
+						User.Opponent.StopHighlightingAsTarget();
 					}
 				}
 
@@ -59,6 +63,7 @@ namespace CardGame.Client.Room
 				{
 					CardViewer.View(viewingCard);
 					if (viewingCard.CanAttack) { viewingCard.HighlightAttackTargets(); }
+					if (viewingCard.CanAttackDirectly) {User.Opponent.HighlightAsTarget();}
 					if (viewingCard.CanBeActivated) { viewingCard.HighlightTargets(); }
 				}
 			}
@@ -146,6 +151,13 @@ namespace CardGame.Client.Room
 				User.Attacking = true;
 				User.CardInUse = card;
 				card.Select();
+			}
+			else if (card.CanAttackDirectly)
+			{
+				User.Opponent.StopHighlightingAsTarget();
+				User.Opponent.ShowAsTargeted();
+				card.Select();
+				EmitSignal(nameof(DirectAttack), card.Id);
 			}
 
 			else if (card.CanBeActivated)

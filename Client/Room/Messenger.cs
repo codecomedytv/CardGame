@@ -40,6 +40,7 @@ namespace CardGame.Client.Room
             Subscribe(nameof(Input.SetFaceDown), nameof(DeclareSetFaceDown));
             Subscribe(nameof(Input.Activate), nameof(DeclareActivation));
             Subscribe(nameof(Input.Attack),  nameof(DeclareAttack));
+            Subscribe(nameof(Input.DirectAttack), nameof(DeclareDirectAttack));
         }
         public void SetReady() => RpcId(ServerId, "SetReady", Id);
         [Puppet] public void Disqualify() => EmitSignal(nameof(Disqualified));
@@ -47,17 +48,12 @@ namespace CardGame.Client.Room
         [Puppet] public void Queue(string signal, params object[] args) => EmitSignal(signal, args);
 
         public void DeclareDeploy(int cardId) => RpcId(ServerId, "OnDeployDeclared", Id, cardId);
-
         public void DeclareAttack(int attackerId, int cardId) => RpcId(ServerId, "OnAttackDeclared", Id, attackerId, cardId);
-        
+        public void DeclareDirectAttack(int attackerId) => RpcId(ServerId, "OnDirectAttackDeclared", Id, attackerId);
         public void DeclareSetFaceDown(int cardId) => RpcId(ServerId, "OnSetFaceDownDeclared", Id, cardId);
-
         public void DeclareActivation(Card card, int targetId) => RpcId(ServerId, "OnActivationDeclared", Id, card.Id, targetId);
-        
         public void DeclareTarget(int cardId) => RpcId(ServerId, "OnTargetDeclared", Id, cardId);
-        
         public void DeclarePassPlay() => RpcId(ServerId, "OnPassPlayDeclared", Id);
-        
         public void DeclareEndTurn() => RpcId(ServerId, "OnEndTurnDeclared", Id);
         
     }

@@ -1,9 +1,11 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://Assets/UI/AvatarFrameTheme.tres" type="Texture" id=1]
 [ext_resource path="res://Assets/UI/TempPlayerAvatar.png" type="Texture" id=2]
+[ext_resource path="res://Assets/UI/GreenTargetingReticule.png" type="Texture" id=3]
 [ext_resource path="res://Assets/SpriteSheets/PlayerGlow.png" type="Texture" id=4]
 [ext_resource path="res://Assets/UI/HealthBar.png" type="Texture" id=5]
+[ext_resource path="res://Assets/UI/RedTargetingReticule.png" type="Texture" id=6]
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 1 )
@@ -275,5 +277,17 @@ position = Vector2( 185.191, 144.637 )
 scale = Vector2( 2.60359, 2.13011 )
 frames = SubResource( 38 )
 animation = "PlayingState"
-frame = 25
+frame = 11
 playing = true
+
+[node name="ValidTarget" type="Sprite" parent="."]
+visible = false
+position = Vector2( 176, 142 )
+scale = Vector2( 0.7, 0.7 )
+texture = ExtResource( 3 )
+
+[node name="SelectedTarget" type="Sprite" parent="."]
+visible = false
+position = Vector2( 176, 142 )
+scale = Vector2( 0.7, 0.7 )
+texture = ExtResource( 6 )

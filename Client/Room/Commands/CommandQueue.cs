@@ -97,6 +97,8 @@ namespace CardGame.Client.Room.Commands
         private void OnCardUpdated(int id, CardStates state, IEnumerable<int> attackTargets, IEnumerable<int> targets)
         {
             var card = GetCard(id);
+            //GD.Print($"Can Attack Directly? {canAttackDirectly}");
+            //card.CanAttackDirectly = canAttackDirectly;
             card.State = state;
             card.ValidTargets.Clear();
             foreach (var target in targets)

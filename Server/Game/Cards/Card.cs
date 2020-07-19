@@ -23,6 +23,7 @@ namespace CardGame.Server.Game.Cards {
 		public History History;
 		public bool IsReady = false;
 		public States State = States.Passive;
+		public bool CanAttackDirectly = false;
 		public enum States
 		{
 			Passive,
@@ -30,6 +31,7 @@ namespace CardGame.Server.Game.Cards {
 			CanBeSet,
 			CanBeActivated,
 			CanAttack,
+			CanAttackDirectly,
 			Activated
 		}
 

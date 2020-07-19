@@ -31,10 +31,33 @@ namespace CardGame.Client.Room
         public bool Targeting;
         public bool Attacking;
         public Card CardInUse;
+        public Player Opponent;
+        public Sprite SelectedTarget;
+        public Sprite ValidTarget;
 
         public void LoseLife(int lifeLost)
         {
             Health.Text = (Health.Text.ToInt() - lifeLost).ToString();
+        }
+
+        public void HighlightAsTarget()
+        {
+            ValidTarget.Visible = true;
+        }
+
+        public void StopHighlightingAsTarget()
+        {
+            ValidTarget.Visible = false;
+        }
+
+        public void ShowAsTargeted()
+        {
+            SelectedTarget.Visible = true;
+        }
+
+        public void StopShowingAsTargeted()
+        {
+            SelectedTarget.Visible = false;
         }
 
         public Player(View.Player view)
@@ -48,6 +71,8 @@ namespace CardGame.Client.Room
             Hand = new Zone(view.Hand);
             PlayingState = view.PlayingState;
             Health = view.Health;
+            ValidTarget = view.ValidTarget;
+            SelectedTarget = view.SelectedTarget;
         }
         
         public void SetState(States state)
