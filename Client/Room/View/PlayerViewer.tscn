@@ -277,7 +277,7 @@ position = Vector2( 185.191, 144.637 )
 scale = Vector2( 2.60359, 2.13011 )
 frames = SubResource( 38 )
 animation = "PlayingState"
-frame = 27
+frame = 28
 playing = true
 
 [node name="ValidTarget" type="Sprite" parent="."]

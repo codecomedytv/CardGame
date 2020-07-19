@@ -66,6 +66,7 @@ namespace CardGame.Server.Game.Cards
             public void Resolve()
             {
                 Attacker.Attacked = true;
+                History.Add(new BattleDirect(Attacker.Controller, Attacker.Controller, Attacker));
                 if (!Attacker.Opponent.HasTag(TagIds.CannotTakeBattleDamage))
                 {
                     var oldLife = Attacker.Opponent.Health;

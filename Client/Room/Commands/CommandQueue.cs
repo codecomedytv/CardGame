@@ -65,7 +65,7 @@ namespace CardGame.Client.Room.Commands
             Commands.Clear();
             
         }
-
+        
         private void OnDirectAttackQueued(int attackerId, bool isOpponent)
         {
 	        Commands.Enqueue(new DirectAttack(isOpponent, GetCard(attackerId)));
