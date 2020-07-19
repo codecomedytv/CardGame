@@ -47,6 +47,7 @@ namespace CardGame.Client.Room.Commands
 	        messenger.Connect(nameof(Messenger.SendCardToZone), this, nameof(OnCardSentToZone));
 	        messenger.Connect(nameof(Messenger.LoseLife), this, nameof(OnLifeLost));
 	        messenger.Connect(nameof(Messenger.OpponentAttackUnit), this, nameof(OnOpponentAttackUnitQueued));
+	        messenger.Connect(nameof(Messenger.OpponentAttackDirectly), this, nameof(OnOpponentAttackDirectlyQueued));
 	        messenger.Connect(nameof(Messenger.BounceCard), this, nameof(OnCardBounceQueued));
 	        messenger.Connect(nameof(Messenger.ResolveCard), this, nameof(OnResolveCardQueued));
 	        messenger.Connect(nameof(Messenger.GameOver), this, nameof(OnGameOverQueued));
@@ -68,6 +69,11 @@ namespace CardGame.Client.Room.Commands
         private void OnDirectAttackQueued(int attackerId, bool isOpponent)
         {
 	        Commands.Enqueue(new DirectAttack(isOpponent, GetCard(attackerId)));
+        }
+
+        private void OnOpponentAttackDirectlyQueued(int attackerId)
+        {
+	        Commands.Enqueue(new DirectAttackDeclared(Player, GetCard(attackerId)));
         }
 
         private void OnGameOverQueued(bool wonGame)

@@ -15,6 +15,10 @@ namespace CardGame.Server.Game.Events
             Source = attacker;
             Attacker = attacker;
         }
-        
+
+        public override void SendMessage(Message message)
+        {
+            message(Attacker.Opponent.Id, "OpponentAttackDirectly", Attacker.Id);
+        }
     }
 }

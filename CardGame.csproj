@@ -116,6 +116,7 @@
     <Compile Include="Client\Room\Commands\CommandQueue.cs" />
     <Compile Include="Client\Room\Commands\Deploy.cs" />
     <Compile Include="Client\Room\Commands\DirectAttack.cs" />
+    <Compile Include="Client\Room\Commands\DirectAttackDeclared.cs" />
     <Compile Include="Client\Room\Commands\Draw.cs" />
     <Compile Include="Client\Room\Commands\GameOver.cs" />
     <Compile Include="Client\Room\Commands\LoseLife.cs" />
