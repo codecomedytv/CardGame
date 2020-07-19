@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CardGame.Client.Cards;
+using CardGame.Server.Game.Cards;
 using Godot;
+using Card = CardGame.Client.Cards.Card;
 using Object = Godot.Object;
 
 namespace CardGame.Client.Room.Commands
@@ -48,6 +50,7 @@ namespace CardGame.Client.Room.Commands
 	        messenger.Connect(nameof(Messenger.BounceCard), this, nameof(OnCardBounceQueued));
 	        messenger.Connect(nameof(Messenger.ResolveCard), this, nameof(OnResolveCardQueued));
 	        messenger.Connect(nameof(Messenger.GameOver), this, nameof(OnGameOverQueued));
+	        messenger.Connect(nameof(Messenger.DirectAttack), this, nameof(OnDirectAttackQueued));
         }
 
         public async Task Execute()
@@ -60,6 +63,11 @@ namespace CardGame.Client.Room.Commands
             
             Commands.Clear();
             
+        }
+
+        private void OnDirectAttackQueued(int attackerId, bool isOpponent)
+        {
+	        Commands.Enqueue(new DirectAttack(isOpponent, GetCard(attackerId)));
         }
 
         private void OnGameOverQueued(bool wonGame)

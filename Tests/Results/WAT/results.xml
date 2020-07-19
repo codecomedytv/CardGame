@@ -1,117 +1,21 @@
 <?xml version="1.0" ?>
-<testsuites failures="0" name="TestXML" tests="11" time="1.025">
-<testsuite failures="0" name="ActionTest" tests="4" time="0.011">
-<testcase name="OnUnitOnFieldDoubleClicked" time="5.887">
+<testsuites failures="0" name="TestXML" tests="2" time="1.021">
+<testsuite failures="0" name="ActionTest" tests="4" time="0.009">
+<testcase name="OnUnitOnFieldDoubleClicked" time="5.915">
 </testcase>
-<testcase name="OnEndTurn" time="3.525">
+<testcase name="OnEndTurn" time="3.586">
 </testcase>
-<testcase name="OnSupportInHandDoubleClicked" time="3.557">
+<testcase name="OnSupportInHandDoubleClicked" time="3.553">
 </testcase>
-<testcase name="OnUnitInHandDoubleClicked" time="3.52">
-</testcase>
-</testsuite>
-<testsuite failures="0" name="Given A Server and Two Clients" tests="3" time="0.001">
-<testcase name="RoomSharesNameAcrossNetwork" time="3.187">
-</testcase>
-<testcase name="GameRoomIsSetup" time="3.278">
-</testcase>
-<testcase name="AllAreConnected" time="3.001">
+<testcase name="OnUnitInHandDoubleClicked" time="3.591">
 </testcase>
 </testsuite>
-<testsuite failures="0" name="Given An Attacking Unit" tests="3" time="0.002">
-<testcase name="When It Is CounterAttack By A Unit With Attack Greater Than Its Defense" time="0.008">
+<testsuite failures="0" name="Given A Server and Two Clients" tests="3" time="0">
+<testcase name="RoomSharesNameAcrossNetwork" time="3.265">
 </testcase>
-<testcase name="When It Attacks Directly" time="0.006">
+<testcase name="GameRoomIsSetup" time="3.175">
 </testcase>
-<testcase name="When Its Attack Is Greater Than The Defending Units Defense" time="0.005">
-</testcase>
-</testsuite>
-<testsuite failures="0" name="Given Guard Puppy" tests="3" time="0.001">
-<testcase name=" tag unit removed from field" time="0.01">
-</testcase>
-<testcase name=" guard puppy removed from the field" time="0.006">
-</testcase>
-<testcase name="guard puppy" time="0.004">
-</testcase>
-</testsuite>
-<testsuite failures="0" name="A Player is Disqualified" tests="11" time="0.001">
-<testcase name="When They Activate A Support While InActive" time="0.004">
-</testcase>
-<testcase name="When They Activate An Unready Support" time="0.003">
-</testcase>
-<testcase name="When They Declare An Attack With An Unready Unit" time="0.005">
-</testcase>
-<testcase name="When A Player Declares An Attack During Their Opponents Turn" time="0.004">
-</testcase>
-<testcase name="When They End Their Turn During Their Opponents Turn" time="0.003">
-</testcase>
-<testcase name="When They Set Support During Their Opponents Turn" time="0.003">
-</testcase>
-<testcase name="When They Try To Set A Card Not In Their Hand" time="0.004">
-</testcase>
-<testcase name="When They Try To Set A Card To A Full Field" time="0.006">
-</testcase>
-<testcase name="When They Try To Deploy A Unit Not In Their Hand" time="0.004">
-</testcase>
-<testcase name="When They Try To Deploy A Unit When Their Field Is Full" time="0.003">
-</testcase>
-<testcase name="When They Deploy A Unit During Their Opponents Turn" time="0.003">
-</testcase>
-</testsuite>
-<testsuite failures="0" name="Triggered Event Cards" tests="1" time="0.001">
-<testcase name="OnAttack" time="0.005">
-</testcase>
-</testsuite>
-<testsuite failures="0" name="Given Novice Archer" tests="1" time="0.001">
-<testcase name="When Played" time="0.006">
-</testcase>
-</testsuite>
-<testsuite failures="0" name="Triggered Event Cards Redux" tests="1" time="0.001">
-<testcase name="OnAttack" time="0.005">
-</testcase>
-</testsuite>
-<testsuite failures="0" name="PlayerStates" tests="8" time="0.001">
-<testcase name="ActivePlayer Becomes Active When They Take An Action" time="0.004">
-</testcase>
-<testcase name="Passive Opponent Becomes Active When IdlePlayer Takes Action" time="0.003">
-</testcase>
-<testcase name="NonTurn Player Becomes Idle When TurnPlayer Ends Their Turn" time="0.005">
-</testcase>
-<testcase name="NonTurn Player Becomes Passive When Both Players Pass" time="0.003">
-</testcase>
-<testcase name="Turn Player Becomes Idle When Both Players Pass" time="0.004">
-</testcase>
-<testcase name="Active Player Becomes Passing When Passing" time="0.003">
-</testcase>
-<testcase name="Idle Player Becomes Acting When Taking Action" time="0.004">
-</testcase>
-<testcase name="Idle Player Becomes Passive When Ending Their Turn" time="0.004">
-</testcase>
-</testsuite>
-<testsuite failures="0" name="Given The Idle Turn Player" tests="3" time="0">
-<testcase name="When They End Their Turn" time="0.009">
-</testcase>
-<testcase name="When They Set A Support" time="0.005">
-</testcase>
-<testcase name="When They Deploy A Unit" time="0.004">
-</testcase>
-</testsuite>
-<testsuite failures="0" name="When using a Skill" tests="8" time="0">
-<testcase name="That Targets A Unit When Only One Nontargetable Target Exists" time="0.005">
-</testcase>
-<testcase name="That Adds A Tag To Players When Unit Card Is Played" time="0.005">
-</testcase>
-<testcase name="That Tries To Destroy An Indestructible Card" time="0.004">
-</testcase>
-<testcase name="That Returns A Card To The Players Deck" time="0.006">
-</testcase>
-<testcase name="That Mills A Card" time="0.004">
-</testcase>
-<testcase name="That Returns A Unit To Opponents Hand" time="0.005">
-</testcase>
-<testcase name="That Discards Your Target Card" time="0.004">
-</testcase>
-<testcase name="That Destroys Target Opponent Unit" time="0.004">
+<testcase name="AllAreConnected" time="3.004">
 </testcase>
 </testsuite>
 </testsuites>

@@ -25,7 +25,7 @@ namespace CardGame.Client.Room
         [Signal] public delegate void ExecutedEvents();
         [Signal] public delegate void SendCardToZone();
         [Signal] public delegate void LoseLife();
-
+        [Signal] public delegate void DirectAttack();
         [Signal] public delegate void ResolveCard();
 
         private const int ServerId = 1;
