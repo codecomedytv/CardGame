@@ -37,11 +37,7 @@ namespace CardGame.Client.Room
         public Sprite SelectedTarget;
         public Sprite ValidTarget;
         public readonly List<Card> Targets = new List<Card>();
-
-        private void OnTargeting()
-        {
-            GD.Print("OnTargeting!");
-        }
+        
         public void LoseLife(int lifeLost)
         {
             Health.Text = (Health.Text.ToInt() - lifeLost).ToString();

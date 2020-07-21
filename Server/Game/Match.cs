@@ -152,18 +152,25 @@ namespace CardGame.Server.Game {
 		private void Target(int playerId, int targetId)
 		{
 			// TODO: Refactor Into State
+			GD.Print($"{playerId} is playerId");
+			GD.Print($"{targetId} is targetId");
 			var player = Players[playerId];
 			var targetingSkill = player.TargetingSkill;
 			var target = CardCatalog[targetId];
 			if (player.State != States.Targeting || !targetingSkill.ValidTargets.Contains(target))
 			{
+				GD.Print("Disqualified");
 				Disqualify(player);
 				return;
 			} 
+			GD.Print("Attempting To Resolve");
 			player.OnTargetSelected(target);
+			targetingSkill.Target = target;
+			targetingSkill.Resume();
 			Link.Resolve();
 			TurnPlayer.State = States.Idle;
 			TurnPlayer.Opponent.State = States.Passive;
+			Update();
 		}
 
 		private void PassPlay(int playerId)

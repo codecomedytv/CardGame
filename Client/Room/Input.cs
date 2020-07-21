@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Policy;
@@ -26,12 +27,17 @@ namespace CardGame.Client.Room
 		[Signal]
 		public delegate void DirectAttack();
 
+		[Signal]
+		public delegate void Targeted();
+
 		private readonly Player User;
 		private readonly CardCatalog CardCatalog;
+		private readonly TargetSelection TargetSelection;
 		
-		public Input(Player player, CardCatalog cardCatalog)
+		public Input(Player player, CardCatalog cardCatalog, TargetSelection targetSelection)
 		{
 			CardCatalog = cardCatalog;
+			TargetSelection = targetSelection;
 			User = player;
 		}
 		
@@ -72,9 +78,22 @@ namespace CardGame.Client.Room
 				OnDoubleClick(focusedCard);
 			}
 		}
+
+		public void OnTargetSelected(int id)
+		{
+			User.State = States.Processing;
+			GD.Print(id + " is focused Id");
+			EmitSignal(nameof(Targeted), id);
+			TargetSelection.Visible = false;
+		}
 		
 		public void OnDoubleClick(object focusedCard)
 		{
+			if (User.State == States.Targeting)
+			{
+				return;
+			}
+			
 			if (User.IsChoosingAttackTarget)
 			{
 				if (focusedCard is Card attackTarget)

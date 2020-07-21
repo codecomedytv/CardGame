@@ -35,21 +35,20 @@ namespace CardGame.Server
                 return gameEvent is Deploy deployed && deployed.Card == Card;
             }
 
-            protected override async Task<Task> _Resolve()
+            protected override async Task _Resolve()
             {
                 AddTargets(Opponent.Field.Cast<Unit>().Where(unit => unit.Power <= 1000));
                 if (ValidTargets.Count == 0)
                 {
-                    return Task.CompletedTask;
+                    return;
                 }
-                GD.PushWarning($"Valid Target Count is? -> {ValidTargets.Count}");
                 RequestTarget();
-                var results = await ToSignal(Controller, nameof(Player.TargetSelected));
-                Target = results[0] as Card;
+                await ToSignal(this, nameof(Resumed));
+                GD.Print("Resolving");
+                GD.Print(Target != null);
                 Destroy(Target);
-                
-                return Task.CompletedTask;
             }
+            
         }
     }
 }

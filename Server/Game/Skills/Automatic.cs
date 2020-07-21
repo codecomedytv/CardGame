@@ -39,9 +39,8 @@ namespace CardGame.Server.Game.Skills
             PositionInLink = 0;
         }
 		
-        protected virtual async Task<Task> _Resolve()
+        protected virtual async Task _Resolve()
         {
-            return Task.CompletedTask;
         }
     }
 }

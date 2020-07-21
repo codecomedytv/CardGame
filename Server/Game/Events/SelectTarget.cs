@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CardGame.Server.Game.Cards;
+using Godot;
 
 namespace CardGame.Server.Game.Events
 {
@@ -16,11 +17,15 @@ namespace CardGame.Server.Game.Events
             Source = source;
             Player = player;
             Targets = validTargets;
+            GD.Print($"Valid Targets Count is {validTargets.Count} (Source SelectTargetEvent)");
+
         }
 
         public override void SendMessage(Message message)
         {
-            message(Player.Id, "TargetRequested", Targets.Select(c => c.Id).ToList());
+            GD.Print($"Valid Targets Count is {Targets.Select(c => c.Id).ToList().Count} (Source SelectTargetMessage)");
+            List<int> targets = Targets.Select(c => c.Id).ToList();
+            message(Player.Id, "TargetRequested", targets);
         }
     }
 }

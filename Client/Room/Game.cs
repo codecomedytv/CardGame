@@ -33,7 +33,7 @@ namespace CardGame.Client.Room {
 			CardCatalog = new CardCatalog();
 			Messenger = new Messenger();
 			CommandQueue = new CommandQueue(CardCatalog, Player, Opponent, Gfx, SoundFx, PlayMat.WinLoseNotice);
-			Input = new Input(Player, CardCatalog);
+			Input = new Input(Player, CardCatalog, PlayMat.TargetSelection);
 		}
 		
 		public override void _Ready()
@@ -42,6 +42,7 @@ namespace CardGame.Client.Room {
 			AddChild(SoundFx);
 			AddChild(Messenger);
 			AddChild(Input);
+			PlayMat.TargetSelection.Connect(nameof(TargetSelection.TargetSelected), Input, nameof(Input.OnTargetSelected));
 			CommandQueue.SubscribeTo(Messenger);
 			Messenger.SubscribeTo(Input);
 			Messenger.Connect(nameof(Messenger.Disqualified), this, nameof(OnDisqualified));

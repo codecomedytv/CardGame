@@ -84,7 +84,12 @@ namespace CardGame.Server.Game {
 		}
 
 		[Master]
-		public void OnTargetDeclared(int player, int target) => Target(player, target);
+		public void OnTargetDeclared(int player, int target)
+		{
+			GD.Print($"player id is {player}");
+			GD.Print($"target id is {target}");
+			Target(player, target);
+		}
 		
 		[Master]
 		public void OnPassPlayDeclared(int player) => PassPlay(player);

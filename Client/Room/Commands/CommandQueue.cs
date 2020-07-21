@@ -67,11 +67,12 @@ namespace CardGame.Client.Room.Commands
             
         }
 
-        private void OnTargetsRequested(List<int> validTargets)
+        private void OnTargetsRequested(IEnumerable<int> validTargets)
         {
-	        GD.Print($"ValidTargets Count > 0? {validTargets.Count}");
+	        var enumerable = validTargets.ToList();
+	        GD.Print($"ValidTargets Count > 0? {enumerable.ToList().Count} (Source is OnTargetsRequested in CommandQueue)");
 	        Player.Targets.Clear();
-	        foreach (var id in validTargets)
+	        foreach (var id in enumerable)
 	        {
 		        Player.Targets.Add(GetCard(id));
 		        GD.Print("Added Target");

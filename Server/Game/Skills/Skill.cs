@@ -27,6 +27,13 @@ namespace CardGame.Server.Game.Skills {
 		public Card? Target;
 		public bool Targeting = false;
 
+		[Signal]
+		public delegate void Resumed();
+		public void Resume()
+		{
+			EmitSignal(nameof(Resumed));
+		}
+
 		protected void Bounce(Card bounced)
         {
 	        Move(bounced.Controller.Field, bounced, bounced.Owner.Hand);
@@ -79,6 +86,7 @@ namespace CardGame.Server.Game.Skills {
 
         protected void RequestTarget()
         {
+	        GD.Print($"Valid Targets Count is {ValidTargets.Count} (Source Base Skill)");
 	        Controller.State = States.Targeting;
 	        Controller.TargetingSkill = this;
 	        History.Add(new SelectTarget(Card, Controller, ValidTargets));

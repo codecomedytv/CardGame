@@ -43,6 +43,7 @@ namespace CardGame.Client.Room
             Subscribe(nameof(Input.Activate), nameof(DeclareActivation));
             Subscribe(nameof(Input.Attack),  nameof(DeclareAttack));
             Subscribe(nameof(Input.DirectAttack), nameof(DeclareDirectAttack));
+            Subscribe(nameof(Input.Targeted), nameof(DeclareTarget));
         }
         public void SetReady() => RpcId(ServerId, "SetReady", Id);
         [Puppet] public void Disqualify() => EmitSignal(nameof(Disqualified));
