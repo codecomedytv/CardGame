@@ -154,7 +154,15 @@ namespace CardGame.Server.Game {
 			// TODO: Refactor Into State
 			var player = Players[playerId];
 			var target = CardCatalog[targetId];
+			if (player.State != States.Targeting) // or target is not valid?
+			{
+				Disqualify(player);
+				return;
+			} 
 			player.OnTargetSelected(target);
+			Link.Resolve();
+			TurnPlayer.State = States.Idle;
+			TurnPlayer.Opponent.State = States.Passive;
 		}
 
 		private void PassPlay(int playerId)
@@ -168,8 +176,12 @@ namespace CardGame.Server.Game {
 			if (player.Opponent.State == States.Passing)
 			{
 				Link.Resolve();
-				TurnPlayer.State = States.Idle;
-				TurnPlayer.Opponent.State = States.Passive;
+				if (TurnPlayer.State != States.Targeting && TurnPlayer.Opponent.State != States.Targeting)
+				{
+					// We want to skip this if we're currently trying to target something
+					TurnPlayer.State = States.Idle;
+					TurnPlayer.Opponent.State = States.Passive;
+				}
 			}
 			else
 			{

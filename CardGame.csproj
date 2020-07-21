@@ -161,6 +161,7 @@
     <Compile Include="Server\Game\Events\ModifyCard.cs" />
     <Compile Include="Server\Game\Events\ModifyPlayer.cs" />
     <Compile Include="Server\Game\Events\Resolve.cs" />
+    <Compile Include="Server\Game\Events\SelectTarget.cs" />
     <Compile Include="Server\Game\Events\SentToZone.cs" />
     <Compile Include="Server\Game\Events\SetFaceDown.cs" />
     <Compile Include="Server\Game\Events\TopDeck.cs" />

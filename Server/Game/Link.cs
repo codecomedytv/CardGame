@@ -30,7 +30,7 @@ namespace CardGame.Server.Game {
 			}
 
 			ApplyConstants();
-			if (gameEvent is SetFaceDown || gameEvent is EndTurn || gameEvent is Trigger || gameEvent is ResolveCard)
+			if (gameEvent is SetFaceDown || gameEvent is EndTurn || gameEvent is Trigger || gameEvent is ResolveCard || gameEvent is SelectTarget)
 			{
 				return;
 			}
@@ -81,7 +81,7 @@ namespace CardGame.Server.Game {
 			{
 				var resolvable = Chain.Pop();
 				resolvable.Resolve();
-				if (resolvable is Skill skill && skill.Targeting)
+				if (resolvable is Skill skill && skill.Card.Controller.State == States.Targeting)
 				{
 					// I don't think we're continuing the resolve here in async methods
 					return;

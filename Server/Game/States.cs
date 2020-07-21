@@ -7,5 +7,6 @@
         Idle,
         Passing,
         Passive,
+        Targeting
     }
 }

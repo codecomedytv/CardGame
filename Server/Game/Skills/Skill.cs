@@ -79,8 +79,15 @@ namespace CardGame.Server.Game.Skills {
 
         protected void RequestTarget()
         {
-            Targeting = true;
-            // TODO: Re-implement This
+	        Controller.State = States.Targeting;
+	        History.Add(new SelectTarget(Card, Controller, ValidTargets));
+	        GD.PushWarning("Requires Resolve To Await");
+	        
+	        
+	        // At this point we need our cards resolve to await
+	        // Add Targets To Player
+	        // Game Event?
+	        // TODO: Re-implement This
             // The previous version of this was a GameEvent. It is likely that we could possibly hard-code this
             // Although that may cause problems with an animation sync (unless of course the targets don't become
             // valid until we change the client state to a valid state to target)
