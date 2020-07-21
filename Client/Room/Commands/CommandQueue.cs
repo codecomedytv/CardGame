@@ -69,10 +69,12 @@ namespace CardGame.Client.Room.Commands
 
         private void OnTargetsRequested(List<int> validTargets)
         {
+	        GD.Print($"ValidTargets Count > 0? {validTargets.Count}");
 	        Player.Targets.Clear();
 	        foreach (var id in validTargets)
 	        {
 		        Player.Targets.Add(GetCard(id));
+		        GD.Print("Added Target");
 	        }
         }
         

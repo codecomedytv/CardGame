@@ -153,8 +153,9 @@ namespace CardGame.Server.Game {
 		{
 			// TODO: Refactor Into State
 			var player = Players[playerId];
+			var targetingSkill = player.TargetingSkill;
 			var target = CardCatalog[targetId];
-			if (player.State != States.Targeting) // or target is not valid?
+			if (player.State != States.Targeting || !targetingSkill.ValidTargets.Contains(target))
 			{
 				Disqualify(player);
 				return;

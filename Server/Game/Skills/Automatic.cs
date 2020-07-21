@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using CardGame.Server.Game.Events;
 using Godot;
 
@@ -30,16 +31,17 @@ namespace CardGame.Server.Game.Skills
             return true;
         }
         
-        public void Resolve()
+        public async void Resolve()
         {
-            _Resolve();
+            await _Resolve();
             History.Add(new ResolveCard(Card, Target));
             EmitSignal(nameof(Resolved));
             PositionInLink = 0;
         }
 		
-        protected virtual void _Resolve()
+        protected virtual async Task<Task> _Resolve()
         {
+            return Task.CompletedTask;
         }
     }
 }

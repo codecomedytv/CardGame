@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Events;
 using CardGame.Server.Game.Skills;
@@ -34,17 +35,20 @@ namespace CardGame.Server
                 return gameEvent is Deploy deployed && deployed.Card == Card;
             }
 
-            protected override async void _Resolve()
+            protected override async Task<Task> _Resolve()
             {
-                AddTargets(Opponent.Field.Cast<Unit>().Where(unit => unit.Power < 1000));
+                AddTargets(Opponent.Field.Cast<Unit>().Where(unit => unit.Power <= 1000));
                 if (ValidTargets.Count == 0)
                 {
-                    return;
+                    return Task.CompletedTask;
                 }
+                GD.PushWarning($"Valid Target Count is? -> {ValidTargets.Count}");
                 RequestTarget();
                 var results = await ToSignal(Controller, nameof(Player.TargetSelected));
                 Target = results[0] as Card;
                 Destroy(Target);
+                
+                return Task.CompletedTask;
             }
         }
     }

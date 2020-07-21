@@ -20,7 +20,7 @@ namespace CardGame.Server.Game.Events
 
         public override void SendMessage(Message message)
         {
-            message(Player.Id, "TargetRequested", Targets.Select(c => c.Id));
+            message(Player.Id, "TargetRequested", Targets.Select(c => c.Id).ToList());
         }
     }
 }

@@ -60,6 +60,10 @@ namespace CardGame.Client.Cards
 
         public override void _Process(float delta)
         {
+            if (Player.State == States.Targeting)
+            {
+                return;
+            }
             if (Player.CanPlay(this)) { ShowAsLegal(); } else { StopShowingAsLegal(); }
         }
 

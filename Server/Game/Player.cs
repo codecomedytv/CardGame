@@ -6,6 +6,7 @@ using System.Linq;
 using CardGame.Server.Game;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Events;
+using CardGame.Server.Game.Skills;
 using CardGame.Server.Game.Tags;
 using CardGame.Server.Game.Zones;
 
@@ -32,6 +33,7 @@ namespace CardGame.Server {
 		public Func<bool> IsTurnPlayer;
 		public Unit AttackingWith;
 		public int Seat;
+		public Skill TargetingSkill;
 
 		[Signal]
 		public delegate void TargetSelected();
