@@ -1,4 +1,5 @@
-﻿using CardGame.Client.Cards;
+﻿using System.Collections.Generic;
+using CardGame.Client.Cards;
 using Godot;
 
 namespace CardGame.Client.Room
@@ -10,12 +11,13 @@ namespace CardGame.Client.Room
         Idle,
         Passing,
         Passive,
+        Targeting,
         Processing,
         GameOver
     }
     // ReSharper disable once ClassNeverInstantiated.Global
     public class Player: Control
-    
+
     {
         public States State;
         public int DeckCount { get; set; }
@@ -34,7 +36,12 @@ namespace CardGame.Client.Room
         public Player Opponent;
         public Sprite SelectedTarget;
         public Sprite ValidTarget;
+        public readonly List<Card> Targets = new List<Card>();
 
+        private void OnTargeting()
+        {
+            GD.Print("OnTargeting!");
+        }
         public void LoseLife(int lifeLost)
         {
             Health.Text = (Health.Text.ToInt() - lifeLost).ToString();

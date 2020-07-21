@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using CardGame.Server.Game.Cards;
 
 namespace CardGame.Server.Game.Events
@@ -15,6 +16,11 @@ namespace CardGame.Server.Game.Events
             Source = source;
             Player = player;
             Targets = validTargets;
+        }
+
+        public override void SendMessage(Message message)
+        {
+            message(Player.Id, "TargetRequested", Targets.Select(c => c.Id));
         }
     }
 }

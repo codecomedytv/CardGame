@@ -52,6 +52,7 @@ namespace CardGame.Client.Room.Commands
 	        messenger.Connect(nameof(Messenger.ResolveCard), this, nameof(OnResolveCardQueued));
 	        messenger.Connect(nameof(Messenger.GameOver), this, nameof(OnGameOverQueued));
 	        messenger.Connect(nameof(Messenger.DirectAttack), this, nameof(OnDirectAttackQueued));
+	        messenger.Connect(nameof(Messenger.TargetRequested), this, nameof(OnTargetsRequested));
         }
 
         public async Task Execute()
@@ -64,6 +65,15 @@ namespace CardGame.Client.Room.Commands
             
             Commands.Clear();
             
+        }
+
+        private void OnTargetsRequested(List<int> validTargets)
+        {
+	        Player.Targets.Clear();
+	        foreach (var id in validTargets)
+	        {
+		        Player.Targets.Add(GetCard(id));
+	        }
         }
         
         private void OnDirectAttackQueued(int attackerId, bool isOpponent)

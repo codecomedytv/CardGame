@@ -1,7 +1,3 @@
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using CardGame.Client.Room.Commands;
 using CardGame.Client.Room.View;
 using Godot;
@@ -14,7 +10,7 @@ namespace CardGame.Client.Room {
 		[Signal]
 		public delegate void StateSet();
 
-		protected readonly PlayMat PlayMat;
+		private readonly PlayMat PlayMat;
 		private readonly CommandQueue CommandQueue;
 		private readonly CardCatalog CardCatalog;
 		private readonly Messenger Messenger;
@@ -50,11 +46,7 @@ namespace CardGame.Client.Room {
 			Messenger.SubscribeTo(Input);
 			Messenger.Connect(nameof(Messenger.Disqualified), this, nameof(OnDisqualified));
 			Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
-			//CardCatalog.Connect(nameof(CardCatalog.CardCreated), Input, nameof(Input.OnCardCreated));
 			PlayMat.ActionButton.Connect("pressed", this, nameof(OnActionButtonPressed));
-			//PlayMat.PassPriority.Connect("pressed", this, nameof(OnActionButtonPressed));
-			//PlayMat.EndTurn.Connect("pressed", Messenger, nameof(Messenger.DeclareEndTurn));
-			
 			Messenger.CallDeferred("SetReady");
 		}
 		
@@ -63,6 +55,11 @@ namespace CardGame.Client.Room {
 			await CommandQueue.Execute();
 			Player.SetState(stateAfterExecution);
 			SetState(stateAfterExecution);
+			if (Player.State == States.Targeting)
+			{
+				GD.Print("Opening Targeting Box");
+			}
+			// Signal Only Used For Tests (so they can wait for things to be put in place)
 			EmitSignal(nameof(StateSet));
 		}
 		
@@ -78,26 +75,16 @@ namespace CardGame.Client.Room {
 					Messenger.DeclarePassPlay();
 					return;
 			}
-
-			// PlayMat.ActionButtonAnimation.Stop();
-			// PlayMat.ActionButtonAnimation.Hide();
-			// PlayMat.ActionButtonAnimation.Frame = 0;
-			// PlayMat.PassPriority.Text = "";
 		}
 
 		private void SetState(States state)
 		{
-			//PlayMat.PassPriority.Text = "";
 			PlayMat.ActionButton.Text = state switch
 			{
 				States.Idle => "End Turn",
 				States.Active => "Pass Play",
 				_ => ""
 			};
-			//if (state != States.Active) return;
-			//PlayMat.ActionButtonAnimation.Show();
-			//PlayMat.ActionButtonAnimation.Play();
-			//PlayMat.PassPriority.Text = "Pass";
 		}
 
 		private void OnDisqualified()
@@ -105,16 +92,6 @@ namespace CardGame.Client.Room {
 			PlayMat.DisqualificationNotice.Visible = true;
 		}
 		
-		public void _Connect(Godot.Object emitter, string signal, Godot.Object receiver, string method)
-		{
-			var err = emitter.Connect(signal, receiver, method);
-			if (err != Error.Ok)
-			{
-				GD.PushWarning(err.ToString());
-			}
-		}
-
-
 	}
 	
 }

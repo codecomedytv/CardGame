@@ -28,6 +28,7 @@ namespace CardGame.Client.Room
         [Signal] public delegate void LoseLife();
         [Signal] public delegate void DirectAttack();
         [Signal] public delegate void ResolveCard();
+        [Signal] public delegate void TargetRequested();
 
         private const int ServerId = 1;
         private int Id => Multiplayer.GetNetworkUniqueId();
