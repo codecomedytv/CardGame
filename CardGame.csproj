@@ -132,6 +132,7 @@
     <Compile Include="Client\Room\View\CardViewer.cs" />
     <Compile Include="Client\Room\View\Player.cs" />
     <Compile Include="Client\Room\View\PlayMat.cs" />
+    <Compile Include="Client\Room\View\TargetSelection.cs" />
     <Compile Include="Client\Room\Zone.cs" />
     <Compile Include="Client\Room\ZoneIds.cs" />
     <Compile Include="Client\SoundFX.cs" />

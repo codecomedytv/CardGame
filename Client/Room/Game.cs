@@ -58,6 +58,7 @@ namespace CardGame.Client.Room {
 			if (Player.State == States.Targeting)
 			{
 				GD.Print("Opening Targeting Box");
+				PlayMat.TargetSelection.Reveal(Player.Targets);
 			}
 			// Signal Only Used For Tests (so they can wait for things to be put in place)
 			EmitSignal(nameof(StateSet));

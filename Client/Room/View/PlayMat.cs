@@ -14,6 +14,7 @@ namespace CardGame.Client.Room.View
 		public Button ActionButton;
 		public Label DisqualificationNotice;
 		public Label WinLoseNotice;
+		public TargetSelection TargetSelection;
 
 		public override void _Ready()
 		{
@@ -23,6 +24,7 @@ namespace CardGame.Client.Room.View
 			ActionButton = GetNode<Button>("Background/Action");
 			DisqualificationNotice = GetNode<Label>("Disqualified");
 			WinLoseNotice = GetNode<Label>("WinLoseNotice");
+			TargetSelection = GetNode<TargetSelection>("TargetSelection");
 		}
 	
 	}
