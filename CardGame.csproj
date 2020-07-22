@@ -109,6 +109,7 @@
     <Compile Include="Client\ClientConn.cs" />
     <Compile Include="Client\DeckList.cs" />
     <Compile Include="Client\Login\Login.cs" />
+    <Compile Include="Client\MainMenu\MainMenu.cs" />
     <Compile Include="Client\Room\CardCatalog.cs" />
     <Compile Include="Client\Room\Commands\Activate.cs" />
     <Compile Include="Client\Room\Commands\AttackUnit.cs" />
@@ -797,6 +798,7 @@
     <Content Include="Assets\UI\test.png.import" />
     <Content Include="Client\Cards\CardView.tscn" />
     <Content Include="Client\Cards\Library.json" />
+    <Content Include="Client\MainMenu\MainMenu.tscn" />
     <Content Include="Client\Room\View\CardButton.tscn" />
     <Content Include="Client\Room\View\CardViewer.tscn" />
     <Content Include="Client\Room\View\PlayerViewer.tscn" />

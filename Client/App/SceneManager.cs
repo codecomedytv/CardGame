@@ -7,6 +7,8 @@ namespace CardGame.Client.App
         // SceneManager is always root and handles transition between scenes
         
         // Should we manager this via a constructor controller script that handles the scene itself instead of directly?
+        private static PackedScene MainMenu = (PackedScene) GD.Load("res://Client/MainMenu/MainMenu.tscn");
+        
         private Control CurrentScreen;
 
         public SceneManager()
@@ -21,7 +23,31 @@ namespace CardGame.Client.App
         
         private void OnLoggedIn()
         {
-            GD.Print("Logged In");
+            var newScreen = MainMenu.Instance();
+            RemoveChild(CurrentScreen);
+            CurrentScreen.QueueFree();
+            CurrentScreen = (Control) newScreen;
+            AddChild(newScreen);
+        }
+
+        private void OnPlayPressed()
+        {
+            
+        }
+
+        private void OnDeckPressed()
+        {
+            
+        }
+
+        private void OnUserPressed()
+        {
+            
+        }
+
+        private void OnQuitPressed()
+        {
+            GetTree().Quit();
         }
         
         public override void _Input(InputEvent inputEvent)
