@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 namespace CardGame.Client.App
@@ -7,7 +8,7 @@ namespace CardGame.Client.App
         // SceneManager is always root and handles transition between scenes
         
         // Should we manager this via a constructor controller script that handles the scene itself instead of directly?
-        private static PackedScene MainMenu = (PackedScene) GD.Load("res://Client/MainMenu/MainMenu.tscn");
+        private static PackedScene MainMenuScreen = (PackedScene) GD.Load("res://Client/MainMenu/MainMenu.tscn");
         
         private Control CurrentScreen;
 
@@ -23,26 +24,31 @@ namespace CardGame.Client.App
         
         private void OnLoggedIn()
         {
-            var newScreen = MainMenu.Instance();
+            var newScreen = MainMenuScreen.Instance();
             RemoveChild(CurrentScreen);
             CurrentScreen.QueueFree();
-            CurrentScreen = (Control) newScreen;
+            CurrentScreen = (MainMenu) newScreen;
             AddChild(newScreen);
+            newScreen.Connect(nameof(MainMenu.PlayPressed), this, nameof(OnPlayPressed));
+            newScreen.Connect(nameof(MainMenu.DeckPressed), this, nameof(OnDeckPressed));
+            newScreen.Connect(nameof(MainMenu.UserPressed), this, nameof(OnUserPressed));
+            newScreen.Connect(nameof(MainMenu.QuitPressed), this, nameof(OnQuitPressed));
         }
 
         private void OnPlayPressed()
         {
-            
+            throw new NotImplementedException();
         }
 
         private void OnDeckPressed()
         {
-            
+            throw new NotImplementedException();
+
         }
 
         private void OnUserPressed()
         {
-            
+            throw new NotImplementedException();
         }
 
         private void OnQuitPressed()
