@@ -18,6 +18,6 @@
   "16": {"Title":  "Guard Puppy", "Type": 1, "Text": "Cannot Be Destroyed By Battle.\n\nYour opponent cannot attack other units", "Art": "boar", "Power": 500},
   "17": {"Title":  "Novice Archer", "Type": 1, "Text": "When this card is deployed: Destroy target unit with 1000 or less attack", "Art": "M_bot", "Power": 1000},
   "18": {"Title":  "Quest Reward", "Type": 2, "Text": "Draw 2 Cards", "Art": "coin", "Power": 0},
-  "19": {"Title":  "Training Trainer", "Type": 1, "Text": "When this card is played: You may play one [Pet] from your Deck", "Art":  "girl", "Power": 1000},
+  "19": {"Title":  "Training Trainer", "Type": 1, "Text": "", "Art":  "girl", "Power": 1000},
   "20": {"Title":  "Wrong Way", "Type": 2, "Text": "Return target unit to its owner's hand.", "Art":  "sign", "Power": 0}
 }
