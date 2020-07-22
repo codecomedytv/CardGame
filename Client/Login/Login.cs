@@ -8,6 +8,9 @@ namespace CardGame.Client
         // In future iterations we will use HTTPRequests to communicate with
         // an online user database
 
+        [Signal]
+        public delegate void LoggedIn();
+
         private LineEdit UserName;
         private LineEdit Password;
 
@@ -20,8 +23,10 @@ namespace CardGame.Client
 
         private void OnLoginPressed()
         {
-            
+            // In future iterations we would send a HTTPRequest and await a reply
+            EmitSignal(nameof(LoggedIn));
         }
+
         
     }
 }
