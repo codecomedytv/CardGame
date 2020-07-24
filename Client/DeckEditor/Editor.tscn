@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Client/DeckEditor/Editor.cs" type="Script" id=1]
 [ext_resource path="res://Assets/UI/CardBack.png" type="Texture" id=2]
@@ -25,6 +25,14 @@ use_mipmaps = true
 use_filter = true
 extra_spacing_space = 10
 font_data = ExtResource( 5 )
+
+[sub_resource type="StyleBoxTexture" id=4]
+texture = ExtResource( 6 )
+region_rect = Rect2( 163.155, 150.803, 343.766, 271.177 )
+margin_left = 36.8321
+margin_right = 27.0102
+margin_top = 36.8321
+margin_bottom = 37.6834
 
 [node name="Editor" type="Control"]
 anchor_right = 1.0
@@ -56,378 +64,6 @@ margin_right = 375.0
 margin_bottom = 604.0
 rect_min_size = Vector2( 350, 500 )
 size_flags_vertical = 0
-
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
-margin_left = 431.0
-margin_top = 83.0
-margin_right = 1404.0
-margin_bottom = 1020.0
-scroll_horizontal_enabled = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CardList" type="GridContainer" parent="ScrollContainer"]
-margin_right = 940.0
-margin_bottom = 2105.0
-custom_constants/vseparation = 10
-custom_constants/hseparation = 10
-columns = 5
-
-[node name="Card" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_right = 180.0
-margin_bottom = 225.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card2" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 190.0
-margin_right = 370.0
-margin_bottom = 225.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card3" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 380.0
-margin_right = 560.0
-margin_bottom = 225.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card4" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 570.0
-margin_right = 750.0
-margin_bottom = 225.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card5" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 760.0
-margin_right = 940.0
-margin_bottom = 225.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card6" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_top = 235.0
-margin_right = 180.0
-margin_bottom = 460.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card7" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 190.0
-margin_top = 235.0
-margin_right = 370.0
-margin_bottom = 460.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card8" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 380.0
-margin_top = 235.0
-margin_right = 560.0
-margin_bottom = 460.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card9" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 570.0
-margin_top = 235.0
-margin_right = 750.0
-margin_bottom = 460.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card10" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 760.0
-margin_top = 235.0
-margin_right = 940.0
-margin_bottom = 460.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card11" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_top = 470.0
-margin_right = 180.0
-margin_bottom = 695.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card12" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 190.0
-margin_top = 470.0
-margin_right = 370.0
-margin_bottom = 695.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card13" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 380.0
-margin_top = 470.0
-margin_right = 560.0
-margin_bottom = 695.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card14" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 570.0
-margin_top = 470.0
-margin_right = 750.0
-margin_bottom = 695.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card15" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 760.0
-margin_top = 470.0
-margin_right = 940.0
-margin_bottom = 695.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card16" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_top = 705.0
-margin_right = 180.0
-margin_bottom = 930.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card17" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 190.0
-margin_top = 705.0
-margin_right = 370.0
-margin_bottom = 930.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card18" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 380.0
-margin_top = 705.0
-margin_right = 560.0
-margin_bottom = 930.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card19" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 570.0
-margin_top = 705.0
-margin_right = 750.0
-margin_bottom = 930.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card20" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 760.0
-margin_top = 705.0
-margin_right = 940.0
-margin_bottom = 930.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card21" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_top = 940.0
-margin_right = 180.0
-margin_bottom = 1165.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card22" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 190.0
-margin_top = 940.0
-margin_right = 370.0
-margin_bottom = 1165.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card23" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 380.0
-margin_top = 940.0
-margin_right = 560.0
-margin_bottom = 1165.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card24" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 570.0
-margin_top = 940.0
-margin_right = 750.0
-margin_bottom = 1165.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card25" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 760.0
-margin_top = 940.0
-margin_right = 940.0
-margin_bottom = 1165.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card26" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_top = 1175.0
-margin_right = 180.0
-margin_bottom = 1400.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card27" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 190.0
-margin_top = 1175.0
-margin_right = 370.0
-margin_bottom = 1400.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card28" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 380.0
-margin_top = 1175.0
-margin_right = 560.0
-margin_bottom = 1400.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card29" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 570.0
-margin_top = 1175.0
-margin_right = 750.0
-margin_bottom = 1400.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card30" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 760.0
-margin_top = 1175.0
-margin_right = 940.0
-margin_bottom = 1400.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card31" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_top = 1410.0
-margin_right = 180.0
-margin_bottom = 1635.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card32" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 190.0
-margin_top = 1410.0
-margin_right = 370.0
-margin_bottom = 1635.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card33" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 380.0
-margin_top = 1410.0
-margin_right = 560.0
-margin_bottom = 1635.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card34" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 570.0
-margin_top = 1410.0
-margin_right = 750.0
-margin_bottom = 1635.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card35" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 760.0
-margin_top = 1410.0
-margin_right = 940.0
-margin_bottom = 1635.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card36" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_top = 1645.0
-margin_right = 180.0
-margin_bottom = 1870.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card37" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 190.0
-margin_top = 1645.0
-margin_right = 370.0
-margin_bottom = 1870.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card38" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 380.0
-margin_top = 1645.0
-margin_right = 560.0
-margin_bottom = 1870.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card39" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 570.0
-margin_top = 1645.0
-margin_right = 750.0
-margin_bottom = 1870.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card40" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_left = 760.0
-margin_top = 1645.0
-margin_right = 940.0
-margin_bottom = 1870.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
-
-[node name="Card41" type="TextureRect" parent="ScrollContainer/CardList"]
-margin_top = 1880.0
-margin_right = 180.0
-margin_bottom = 2105.0
-rect_min_size = Vector2( 180, 225 )
-texture = ExtResource( 2 )
-stretch_mode = 1
 
 [node name="Panel" type="Panel" parent="."]
 margin_left = 1460.0
@@ -742,3 +378,387 @@ margin_bottom = 1800.0
 rect_min_size = Vector2( 300, 50 )
 custom_fonts/font = SubResource( 3 )
 text = "Training Trainer"
+
+[node name="Cards" type="PanelContainer" parent="."]
+margin_left = 418.0
+margin_top = 98.0
+margin_right = 1433.84
+margin_bottom = 908.0
+custom_styles/panel = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Cards"]
+margin_left = 36.8321
+margin_top = 36.8321
+margin_right = 988.832
+margin_bottom = 772.317
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CardList" type="GridContainer" parent="Cards/ScrollContainer"]
+margin_right = 940.0
+margin_bottom = 2105.0
+custom_constants/vseparation = 10
+custom_constants/hseparation = 10
+columns = 5
+
+[node name="Card" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_right = 180.0
+margin_bottom = 225.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card2" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 190.0
+margin_right = 370.0
+margin_bottom = 225.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card3" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 380.0
+margin_right = 560.0
+margin_bottom = 225.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card4" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 570.0
+margin_right = 750.0
+margin_bottom = 225.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card5" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 760.0
+margin_right = 940.0
+margin_bottom = 225.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card6" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_top = 235.0
+margin_right = 180.0
+margin_bottom = 460.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card7" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 190.0
+margin_top = 235.0
+margin_right = 370.0
+margin_bottom = 460.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card8" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 380.0
+margin_top = 235.0
+margin_right = 560.0
+margin_bottom = 460.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card9" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 570.0
+margin_top = 235.0
+margin_right = 750.0
+margin_bottom = 460.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card10" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 760.0
+margin_top = 235.0
+margin_right = 940.0
+margin_bottom = 460.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card11" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_top = 470.0
+margin_right = 180.0
+margin_bottom = 695.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card12" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 190.0
+margin_top = 470.0
+margin_right = 370.0
+margin_bottom = 695.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card13" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 380.0
+margin_top = 470.0
+margin_right = 560.0
+margin_bottom = 695.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card14" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 570.0
+margin_top = 470.0
+margin_right = 750.0
+margin_bottom = 695.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card15" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 760.0
+margin_top = 470.0
+margin_right = 940.0
+margin_bottom = 695.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card16" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_top = 705.0
+margin_right = 180.0
+margin_bottom = 930.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card17" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 190.0
+margin_top = 705.0
+margin_right = 370.0
+margin_bottom = 930.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card18" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 380.0
+margin_top = 705.0
+margin_right = 560.0
+margin_bottom = 930.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card19" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 570.0
+margin_top = 705.0
+margin_right = 750.0
+margin_bottom = 930.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card20" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 760.0
+margin_top = 705.0
+margin_right = 940.0
+margin_bottom = 930.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card21" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_top = 940.0
+margin_right = 180.0
+margin_bottom = 1165.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card22" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 190.0
+margin_top = 940.0
+margin_right = 370.0
+margin_bottom = 1165.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card23" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 380.0
+margin_top = 940.0
+margin_right = 560.0
+margin_bottom = 1165.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card24" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 570.0
+margin_top = 940.0
+margin_right = 750.0
+margin_bottom = 1165.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card25" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 760.0
+margin_top = 940.0
+margin_right = 940.0
+margin_bottom = 1165.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card26" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_top = 1175.0
+margin_right = 180.0
+margin_bottom = 1400.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card27" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 190.0
+margin_top = 1175.0
+margin_right = 370.0
+margin_bottom = 1400.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card28" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 380.0
+margin_top = 1175.0
+margin_right = 560.0
+margin_bottom = 1400.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card29" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 570.0
+margin_top = 1175.0
+margin_right = 750.0
+margin_bottom = 1400.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card30" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 760.0
+margin_top = 1175.0
+margin_right = 940.0
+margin_bottom = 1400.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card31" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_top = 1410.0
+margin_right = 180.0
+margin_bottom = 1635.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card32" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 190.0
+margin_top = 1410.0
+margin_right = 370.0
+margin_bottom = 1635.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card33" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 380.0
+margin_top = 1410.0
+margin_right = 560.0
+margin_bottom = 1635.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card34" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 570.0
+margin_top = 1410.0
+margin_right = 750.0
+margin_bottom = 1635.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card35" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 760.0
+margin_top = 1410.0
+margin_right = 940.0
+margin_bottom = 1635.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card36" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_top = 1645.0
+margin_right = 180.0
+margin_bottom = 1870.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card37" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 190.0
+margin_top = 1645.0
+margin_right = 370.0
+margin_bottom = 1870.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card38" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 380.0
+margin_top = 1645.0
+margin_right = 560.0
+margin_bottom = 1870.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card39" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 570.0
+margin_top = 1645.0
+margin_right = 750.0
+margin_bottom = 1870.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card40" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_left = 760.0
+margin_top = 1645.0
+margin_right = 940.0
+margin_bottom = 1870.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
+
+[node name="Card41" type="TextureRect" parent="Cards/ScrollContainer/CardList"]
+margin_top = 1880.0
+margin_right = 180.0
+margin_bottom = 2105.0
+rect_min_size = Vector2( 180, 225 )
+texture = ExtResource( 2 )
+stretch_mode = 1
