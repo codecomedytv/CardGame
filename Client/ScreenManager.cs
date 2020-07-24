@@ -1,4 +1,6 @@
 using System;
+using CardGame.Client.DeckEditor;
+using CardGame.Client.UserProfile;
 using Godot;
 
 namespace CardGame.Client
@@ -8,14 +10,17 @@ namespace CardGame.Client
         // SceneManager is always root and handles transition between scenes
         
         // Screen Scenes
-        // It may be better to seperate the scenes from the controllers?
+        // It may be better to separate the scenes from the controllers?
         private static readonly PackedScene LoginScreen = (PackedScene) GD.Load("res://Client/Login/Login.tscn");
         private static readonly PackedScene MainMenuScreen = (PackedScene) GD.Load("res://Client/MainMenu/MainMenu.tscn");
-        
+        private static readonly PackedScene DeckEditorScreen = (PackedScene) GD.Load("res://Client/DeckEditor/Editor.tscn");
+        private static readonly PackedScene UserProfileScreen = (PackedScene) GD.Load("res://Client/UserProfile/Profile.tscn");
         
         private readonly Login Login = LoginScreen.Instance() as Login;
         private readonly MainMenu MainMenu = MainMenuScreen.Instance() as MainMenu;
-        
+        private readonly Editor DeckEditor = DeckEditorScreen.Instance() as Editor;
+        private readonly Profile UserProfile = UserProfileScreen.Instance() as Profile;
+
         private Control CurrentScreen;
 
         public ScreenManager()
@@ -32,6 +37,8 @@ namespace CardGame.Client
             MainMenu.Connect(nameof(MainMenu.DeckPressed), this, nameof(OnDeckPressed));
             MainMenu.Connect(nameof(MainMenu.UserPressed), this, nameof(OnUserPressed));
             MainMenu.Connect(nameof(MainMenu.QuitPressed), this, nameof(OnQuitPressed));
+            DeckEditor.Connect(nameof(Editor.BackPressed), this, nameof(OnBackPressed));
+            UserProfile.Connect(nameof(Profile.BackPressed), this, nameof(OnBackPressed));
         }
         
         private void OnLoggedIn()
@@ -48,13 +55,23 @@ namespace CardGame.Client
 
         private void OnDeckPressed()
         {
-            throw new NotImplementedException();
-
+            RemoveChild(CurrentScreen);
+            CurrentScreen = DeckEditor;
+            AddChild(CurrentScreen);
         }
 
         private void OnUserPressed()
         {
-            throw new NotImplementedException();
+            RemoveChild(CurrentScreen);
+            CurrentScreen = UserProfile;
+            AddChild(CurrentScreen);
+        }
+
+        private void OnBackPressed()
+        {
+            RemoveChild(CurrentScreen);
+            CurrentScreen = MainMenu;
+            AddChild(CurrentScreen);
         }
 
         private void OnQuitPressed()
