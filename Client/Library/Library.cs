@@ -7,7 +7,7 @@ namespace CardGame.Client.Cards
     
     public static class Library
     {
-        private const string JsonFilePath = @"Client/Cards/Library.json";
+        private const string JsonFilePath = @"Client/Library/Library.json";
         private static readonly ReadOnlyDictionary<SetCodes, CardInfo> Cards = 
             JsonConvert.DeserializeObject<ReadOnlyDictionary<SetCodes, CardInfo>>(File.ReadAllText(JsonFilePath));
         
