@@ -1,38 +1,44 @@
 using System;
 using Godot;
 
-namespace CardGame.Client.App
+namespace CardGame.Client
 {
-    public class SceneManager : Control
+    public class ScreenManager : Control
     {
         // SceneManager is always root and handles transition between scenes
         
-        // Should we manager this via a constructor controller script that handles the scene itself instead of directly?
-        private static PackedScene MainMenuScreen = (PackedScene) GD.Load("res://Client/MainMenu/MainMenu.tscn");
+        // Screen Scenes
+        // It may be better to seperate the scenes from the controllers?
+        private static readonly PackedScene LoginScreen = (PackedScene) GD.Load("res://Client/Login/Login.tscn");
+        private static readonly PackedScene MainMenuScreen = (PackedScene) GD.Load("res://Client/MainMenu/MainMenu.tscn");
+        
+        
+        private readonly Login Login = LoginScreen.Instance() as Login;
+        private readonly MainMenu MainMenu = MainMenuScreen.Instance() as MainMenu;
         
         private Control CurrentScreen;
 
-        public SceneManager()
+        public ScreenManager()
         {
+            Subscribe();
+            CurrentScreen = Login;
+            AddChild(Login);
         }
-        
-        public override void _Ready()
+
+        private void Subscribe()
         {
-            CurrentScreen = GetNode<Control>("Login");
-            CurrentScreen.Connect(nameof(Login.LoggedIn), this, nameof(OnLoggedIn));
+            Login.Connect(nameof(Login.LoggedIn), this, nameof(OnLoggedIn));
+            MainMenu.Connect(nameof(MainMenu.PlayPressed), this, nameof(OnPlayPressed));
+            MainMenu.Connect(nameof(MainMenu.DeckPressed), this, nameof(OnDeckPressed));
+            MainMenu.Connect(nameof(MainMenu.UserPressed), this, nameof(OnUserPressed));
+            MainMenu.Connect(nameof(MainMenu.QuitPressed), this, nameof(OnQuitPressed));
         }
         
         private void OnLoggedIn()
         {
-            var newScreen = MainMenuScreen.Instance();
             RemoveChild(CurrentScreen);
-            CurrentScreen.QueueFree();
-            CurrentScreen = (MainMenu) newScreen;
-            AddChild(newScreen);
-            newScreen.Connect(nameof(MainMenu.PlayPressed), this, nameof(OnPlayPressed));
-            newScreen.Connect(nameof(MainMenu.DeckPressed), this, nameof(OnDeckPressed));
-            newScreen.Connect(nameof(MainMenu.UserPressed), this, nameof(OnUserPressed));
-            newScreen.Connect(nameof(MainMenu.QuitPressed), this, nameof(OnQuitPressed));
+            CurrentScreen = MainMenu;
+            AddChild(CurrentScreen);
         }
 
         private void OnPlayPressed()

@@ -101,7 +101,7 @@
     <Compile Include="addons\WAT\core\test\Recorder.cs" />
     <Compile Include="addons\WAT\core\test\Test.cs" />
     <Compile Include="Assets\Assets.cs" />
-    <Compile Include="Client\App\SceneManager.cs" />
+    <Compile Include="Client\App\ScreenManager.cs" />
     <Compile Include="Client\Cards\CardView.cs" />
     <Compile Include="Client\Cards\CardInfo.cs" />
     <Compile Include="Client\Cards\Library.cs" />
@@ -109,6 +109,7 @@
     <Compile Include="Client\ClientConn.cs" />
     <Compile Include="Client\DeckList.cs" />
     <Compile Include="Client\Login\Login.cs" />
+    <Compile Include="Client\Main.cs" />
     <Compile Include="Client\MainMenu\MainMenu.cs" />
     <Compile Include="Client\Room\CardCatalog.cs" />
     <Compile Include="Client\Room\Commands\Activate.cs" />
