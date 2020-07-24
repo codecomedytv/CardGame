@@ -39,7 +39,7 @@ Display=8
 [application]
 
 config/name="CardGame"
-run/main_scene="res://Client/App/SceneManager.tscn"
+run/main_scene="res://Client/ScreenManager.tscn"
 boot_splash/fullsize=false
 boot_splash/use_filter=false
 config/icon="res://icon.png"

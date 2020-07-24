@@ -101,7 +101,6 @@
     <Compile Include="addons\WAT\core\test\Recorder.cs" />
     <Compile Include="addons\WAT\core\test\Test.cs" />
     <Compile Include="Assets\Assets.cs" />
-    <Compile Include="Client\App\ScreenManager.cs" />
     <Compile Include="Client\Cards\CardView.cs" />
     <Compile Include="Client\Cards\CardInfo.cs" />
     <Compile Include="Client\Cards\Library.cs" />
@@ -109,7 +108,6 @@
     <Compile Include="Client\ClientConn.cs" />
     <Compile Include="Client\DeckList.cs" />
     <Compile Include="Client\Login\Login.cs" />
-    <Compile Include="Client\Main.cs" />
     <Compile Include="Client\MainMenu\MainMenu.cs" />
     <Compile Include="Client\Room\CardCatalog.cs" />
     <Compile Include="Client\Room\Commands\Activate.cs" />
@@ -140,6 +138,7 @@
     <Compile Include="Client\Room\View\TargetSelection.cs" />
     <Compile Include="Client\Room\Zone.cs" />
     <Compile Include="Client\Room\ZoneIds.cs" />
+    <Compile Include="Client\ScreenManager.cs" />
     <Compile Include="Client\SoundFX.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -808,7 +807,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Client\App" />
     <Folder Include="Client\Login" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
