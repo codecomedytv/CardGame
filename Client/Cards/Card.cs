@@ -8,8 +8,8 @@ namespace CardGame.Client.Cards
 {
     public class Card: Control
     {
-        private static readonly PackedScene Scene = (PackedScene) GD.Load("res://Client/Cards/CardView.tscn");
-        public readonly CardView View;
+        private static readonly PackedScene Scene = (PackedScene) GD.Load("res://Client/Cards/3D/Card.tscn");
+        public readonly Card3D View;
         public readonly int Id;
         public readonly CardTypes CardType;
         public CardStates State;
@@ -21,8 +21,19 @@ namespace CardGame.Client.Cards
         public int ChainIndex;
         public readonly List<Card> ValidTargets = new List<Card>();
         public readonly List<Card> ValidAttackTargets = new List<Card>();
-        public Vector2 Position { get => RectGlobalPosition; set => RectGlobalPosition = value; }
+        public Vector3 Position
+        {
+            get => GetPosition();
+            set => SetPosition(value);
+        }
         public Zone Zone;
+
+        private Vector3 GetPosition() => View.GlobalPosition;
+
+        private Vector3 SetPosition(Vector3 position)
+        {
+            return position;
+        }
 
         public bool IsFaceUp => View.IsFaceUp;
 
@@ -42,7 +53,7 @@ namespace CardGame.Client.Cards
         public Card(int id, CardInfo c)
         {
             Id = id;
-            View = (CardView) Scene.Instance();
+            View = (Card3D) Scene.Instance();
             (Title, Effect, Art, CardType, Power) = (c.Title, c.Text, c.Art, c.Type, c.Power);
         }
         
@@ -53,8 +64,8 @@ namespace CardGame.Client.Cards
                 AddToGroup("cards");
             }
             AddChild(View);
-            RectSize = View.RectSize;
-            RectMinSize = View.RectMinSize;
+           // RectSize = View.RectSize;
+           // RectMinSize = View.RectMinSize;
             View.Display(this);
         }
 
@@ -102,16 +113,16 @@ namespace CardGame.Client.Cards
 
         public void AttackUnit(Card defending)
         {
-            Select();
-            View.AttackIcon.Visible = true;
-            defending.ShowAsTargeted();
-            defending.View.DefenseIcon.Visible = true;
+            // Select();
+            // View.AttackIcon.Visible = true;
+            // defending.ShowAsTargeted();
+            // defending.View.DefenseIcon.Visible = true;
         }
 
         public void CancelAttack()
         {
-            Deselect();
-            View.AttackIcon.Visible = false;
+            //Deselect();
+            //View.AttackIcon.Visible = false;
         }
 
         public override string ToString() => $"{Id} : {Title}";

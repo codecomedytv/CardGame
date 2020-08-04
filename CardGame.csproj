@@ -801,6 +801,7 @@
     <Content Include="Assets\UI\Table.png.import" />
     <Content Include="Assets\UI\test.png" />
     <Content Include="Assets\UI\test.png.import" />
+    <Content Include="Client\Cards\3D\Card.tscn" />
     <Content Include="Client\Cards\CardView.tscn" />
     <Content Include="Client\Library\Library.json" />
     <Content Include="Client\MainMenu\MainMenu.tscn" />

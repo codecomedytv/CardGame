@@ -23,7 +23,7 @@ namespace CardGame.Client.Room {
 		protected Game(Table table, string gameId)
 		{
 			Name = gameId;
-			Table = Table;
+			Table = table;
 			Gfx = new Tween();
 			SoundFx = new SoundFx();
 			Player = new Player(Table.Player);

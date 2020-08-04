@@ -53,12 +53,12 @@ namespace CardGame.Client.Room.Commands
             zone.Notification(Container.NotificationSortChildren);
         }
 
-        protected Vector2 FuturePosition(Zone zone)
+        protected Vector3 FuturePosition(Zone zone)
         {
             var blank = Library.Fetch(0, SetCodes.NullCard);
             zone.Add(blank);
             zone.Sort();
-            var nextPosition = blank.RectGlobalPosition;
+            var nextPosition = blank.Position;
             zone.Remove(blank);
             return nextPosition;
         }
