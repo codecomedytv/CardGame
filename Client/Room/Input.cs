@@ -34,10 +34,10 @@ namespace CardGame.Client.Room
 		private readonly CardCatalog CardCatalog;
 		private readonly TargetSelection TargetSelection;
 		
-		public Input(Player player, CardCatalog cardCatalog, TargetSelection targetSelection)
+		public Input(Player player, CardCatalog cardCatalog)
 		{
 			CardCatalog = cardCatalog;
-			TargetSelection = targetSelection;
+			TargetSelection = new TargetSelection();
 			User = player;
 		}
 		

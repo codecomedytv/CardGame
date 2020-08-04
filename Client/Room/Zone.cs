@@ -8,10 +8,10 @@ namespace CardGame.Client.Room
 {
     public class Zone: Object, IEnumerable<Card>
     {
-        private readonly Container Container;
+        private readonly Spatial Container;
         public int Count => Container.GetChildCount();
-        public Vector2 Position => Container.RectGlobalPosition;
-        public Zone(Container container) => Container = container;
+        public Vector3 Position => Container.GlobalTransform.origin;
+        public Zone(Spatial container) => Container = container;
         public Card this[int index] => (Card) Container.GetChild(index);
 
         public void Add(Card card)
@@ -22,7 +22,8 @@ namespace CardGame.Client.Room
 
         public void Remove(Card card) => Container.RemoveChild(card);
         public void Move(Card card, int index) => Container.MoveChild(card, index);
-        public void Sort() => Container.Notification(Container.NotificationSortChildren);
+        public void Sort() { GD.PushWarning("Sorting Requires Reimplementation"); }
+
         public bool Contains(Card card) => Container.GetChildren().Contains(card);
 
         public IEnumerator<Card> GetEnumerator()

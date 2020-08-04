@@ -1,13 +1,25 @@
 using Godot;
-using System;
 
-public class Table : Node
+namespace CardGame.Client.Room.View
 {
-    public override void _Process(float delta)
+    public class Table : Node
     {
-        if (Input.IsActionJustPressed("ui_up"))
+        public Player Player;
+        public Player Opponent;
+
+        public override void _Ready()
         {
-            OS.WindowFullscreen = !OS.WindowFullscreen;
+            Player = GetNode<Player>("Player");
+            Opponent = GetNode<Player>("Opponent");
+        }
+
+        public override void _Process(float delta)
+        {
+            if (Godot.Input.IsActionJustPressed("ui_up"))
+            {
+                OS.WindowFullscreen = !OS.WindowFullscreen;
+            }
         }
     }
+    
 }

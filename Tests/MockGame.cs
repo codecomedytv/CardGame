@@ -14,7 +14,7 @@ namespace CardGame.Tests
         public Player GetPlayerView() => Player;
         public Player GetOpponentView() => Opponent;
         
-        public MockGame(PlayMat playMat, string id) : base(playMat, id)
+        public MockGame(Table table, string id) : base(table, id)
         {
         }
 

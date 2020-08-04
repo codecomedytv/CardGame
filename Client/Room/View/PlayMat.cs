@@ -1,7 +1,4 @@
-using System;
-using System.Security.Policy;
 using Godot;
-using Godot.Collections;
 
 namespace CardGame.Client.Room.View
 {

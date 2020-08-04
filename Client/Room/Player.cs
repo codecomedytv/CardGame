@@ -28,14 +28,11 @@ namespace CardGame.Client.Room
         public readonly Zone Support;
         public readonly Zone Hand;
         private readonly Label Health;
-        private readonly AnimatedSprite PlayingState;
         public bool IsInActive => State != States.Active && State != States.Idle;
         public bool Targeting;
         public bool Attacking;
         public Card CardInUse;
         public Player Opponent;
-        public Sprite SelectedTarget;
-        public Sprite ValidTarget;
         public readonly List<Card> Targets = new List<Card>();
         
         public void LoseLife(int lifeLost)
@@ -45,22 +42,18 @@ namespace CardGame.Client.Room
 
         public void HighlightAsTarget()
         {
-            ValidTarget.Visible = true;
         }
 
         public void StopHighlightingAsTarget()
         {
-            ValidTarget.Visible = false;
         }
 
         public void ShowAsTargeted()
         {
-            SelectedTarget.Visible = true;
         }
 
         public void StopShowingAsTargeted()
         {
-            SelectedTarget.Visible = false;
         }
 
         public Player(View.Player view)
@@ -72,10 +65,7 @@ namespace CardGame.Client.Room
             Units = new Zone(view.Units);
             Support = new Zone(view.Support);
             Hand = new Zone(view.Hand);
-            PlayingState = view.PlayingState;
             Health = view.Health;
-            ValidTarget = view.ValidTarget;
-            SelectedTarget = view.SelectedTarget;
         }
         
         public void SetState(States state)
@@ -83,15 +73,12 @@ namespace CardGame.Client.Room
             State = state;
             if (state == States.Active || state == States.Idle)
             {
-                PlayingState.Visible = true;
-                PlayingState.Play();
+
             }
 
             else
             {
-                PlayingState.Frame = 0;
-                PlayingState.Visible = false;
-                PlayingState.Stop();
+
             }
         }
 

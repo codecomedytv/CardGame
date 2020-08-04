@@ -1,9 +1,7 @@
 using System;
-using System.Reflection;
 using CardGame.Client.Room;
 using CardGame.Client.Room.View;
 using Godot;
-using Godot.Collections;
 
 namespace CardGame.Client {
 	
@@ -12,7 +10,8 @@ namespace CardGame.Client {
 	{
 		private const string Ip = "127.0.0.1";
 		private const int Port = 5000;
-		private readonly PackedScene PlayMat = (PackedScene) GD.Load("res://Client/Room/View/PlayMat.tscn");
+		//private readonly PackedScene PlayMat = (PackedScene) GD.Load("res://Client/Room/View/PlayMat.tscn");
+		private readonly PackedScene PlayMat = (PackedScene) GD.Load("res://Client/Room/View/3D/Table.tscn");
 		private readonly CSharpScript GameType = (CSharpScript) GD.Load("res://Client/Room/Game.cs");
 		private readonly Type GameX = typeof(Game);
 		private DeckList DeckList = new DeckList();
@@ -51,8 +50,8 @@ namespace CardGame.Client {
 		[Puppet]
 		public void CreateRoom(string gameId, int seatPosition)
 		{
-			var playMat = (PlayMat) PlayMat.Instance();
-			AddChild(playMat);
+			var playMat = (Table) PlayMat.Instance();
+			AddChild((Node) playMat);
 			var game = (Game) GameType.New(playMat, gameId);
 			AddChild(game);
 			EmitSignal(nameof(GameBegan));

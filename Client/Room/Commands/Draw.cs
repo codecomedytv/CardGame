@@ -21,7 +21,7 @@ namespace CardGame.Client.Room.Commands
             var originalColor = Card.Modulate;
             Card.Modulate = Colors.Transparent;
             Player.Deck.Add(Card);
-            Card.Position = Player.Deck.Position;
+            //Card.Position = Player.Deck.Position;
             MoveCard(Card, Player.Hand);
             // TODO: We need to add a modulate from the card back to the card front
             QueueProperty(Card, "modulate", Colors.Transparent, originalColor, 0.1F, 0.1F);
