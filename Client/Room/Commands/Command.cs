@@ -33,7 +33,7 @@ namespace CardGame.Client.Room.Commands
             protected void MoveCard(Card card, Zone destination)
         {
             QueueProperty(card, nameof(Card.Position), card.Position, FuturePosition(destination), 0.1F, 0.1F);
-            QueueCallback(card.Zone, 0.2F, nameof(Zone.Remove), card);
+            QueueCallback(card.Zone as Object, 0.2F, nameof(Zone.Remove), card);
             QueueCallback(destination, 0.2F, nameof(Zone.Add), card);
         }
         
@@ -53,7 +53,7 @@ namespace CardGame.Client.Room.Commands
             zone.Notification(Container.NotificationSortChildren);
         }
 
-        protected Vector3 FuturePosition(Zone zone)
+        private Vector3 FuturePosition(IZone zone)
         {
             var blank = Library.Fetch(0, SetCodes.NullCard);
             zone.Add(blank);

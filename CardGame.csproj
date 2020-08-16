@@ -108,7 +108,14 @@
     <Compile Include="Client\ClientConn.cs" />
     <Compile Include="Client\DeckEditor\Editor.cs" />
     <Compile Include="Client\Library\Library.cs" />
+    <Compile Include="Client\Room\Deck.cs" />
+    <Compile Include="Client\Room\IZone.cs" />
     <Compile Include="Client\Room\View\3D\Table.cs" />
+    <Compile Include="Client\Room\Zones\Deck.cs" />
+    <Compile Include="Client\Room\Zones\Discard.cs" />
+    <Compile Include="Client\Room\Zones\Hand.cs" />
+    <Compile Include="Client\Room\Zones\Support.cs" />
+    <Compile Include="Client\Room\Zones\Units.cs" />
     <Compile Include="Client\Screen.cs" />
     <Compile Include="Client\DeckList.cs" />
     <Compile Include="Client\Login\Login.cs" />

@@ -26,7 +26,7 @@ namespace CardGame.Client.Cards
             get => GetPosition();
             set => SetPosition(value);
         }
-        public Zone Zone;
+        public IZone Zone;
 
         private Vector3 GetPosition() => View.GlobalPosition;
 

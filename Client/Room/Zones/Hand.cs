@@ -4,14 +4,16 @@ using System.Linq;
 using CardGame.Client.Cards;
 using Godot;
 
-namespace CardGame.Client.Room
+namespace CardGame.Client.Room.Zones
 {
-    public class Zone: Object, IZone
+    public class Hand: Object, IZone
     {
-        public readonly Spatial Container;
+        private readonly Spatial Container;
         public int Count => Container.GetChildCount();
         public Vector3 Position => Container.GlobalTransform.origin;
-        public Zone(Spatial container) => Container = container;
+        
+        public Hand(Spatial container) => Container = container;
+        
         public Card this[int index] => (Card) Container.GetChild(index);
 
         public void Add(Card card)

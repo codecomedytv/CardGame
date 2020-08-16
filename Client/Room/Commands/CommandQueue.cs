@@ -59,7 +59,7 @@ namespace CardGame.Client.Room.Commands
         {
             foreach (var command in Commands)
             {
-                await command.Execute(Gfx, SoundFx);
+				//await command.Execute(Gfx, SoundFx);
                 Gfx.RemoveAll();
             }
             
@@ -135,10 +135,17 @@ namespace CardGame.Client.Room.Commands
         
         private void OnDeckLoaded(Dictionary<int, SetCodes> deck)
         {
+	        var i = 1;
         	foreach (var card in deck.Select(serial => GetCard(serial.Key, serial.Value)))
         	{
         		card.Player = Player;
-        	}
+                Player.Deck.Add(card);
+                card.View.GetParent().RemoveChild(card.View);
+                Player.Deck.Container.AddChild(card.View);
+                GD.Print(card.View.IsInsideTree());
+                card.View.Translate(new Vector3(card.View.Translation.x, card.View.Translation.y, (float) 0.1F * i));
+                i += 1;
+            }
         }
 
         public void OnOpponentAttackUnitQueued(int attackerId, int defenderId)
