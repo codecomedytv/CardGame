@@ -1,6 +1,3 @@
-using System;
-using CardGame.Client.Room;
-using CardGame.Client.Room.View;
 using Godot;
 
 namespace CardGame.Client {
@@ -13,7 +10,7 @@ namespace CardGame.Client {
 		//private readonly PackedScene PlayMat = (PackedScene) GD.Load("res://Client/Room/View/PlayMat.tscn");
 		private readonly PackedScene PlayMat = (PackedScene) GD.Load("res://Client/Room/View/3D/Table.tscn");
 		private readonly CSharpScript GameType = (CSharpScript) GD.Load("res://Client/Room/Game.cs");
-		private readonly Type GameX = typeof(Game);
+		//private readonly Type GameX = typeof(Game);
 		private DeckList DeckList = new DeckList();
 		public NetworkedMultiplayerENet Client;
 
@@ -46,17 +43,12 @@ namespace CardGame.Client {
 
 		[Signal]
 		public delegate void GameBegan();
-		
+
 		[Puppet]
 		public void CreateRoom(string gameId, int seatPosition)
 		{
-			var playMat = (Table) PlayMat.Instance();
-			AddChild((Node) playMat);
-			var game = (Game) GameType.New(playMat, gameId);
-			AddChild(game);
-			EmitSignal(nameof(GameBegan));
+			GD.Print("GameBegan");
 		}
-
 	}
 }
 

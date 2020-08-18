@@ -39,7 +39,6 @@ Display=8
 [application]
 
 config/name="CardGame"
-run/main_scene="res://Client/ScreenManager.tscn"
 boot_splash/fullsize=false
 boot_splash/use_filter=false
 config/icon="res://icon.png"
@@ -59,5 +58,4 @@ enabled=PoolStringArray( "WAT" )
 [rendering]
 
 quality/depth/hdr=false
-environment/default_environment="res://default_env.tres"
 quality/dynamic_fonts/use_oversampling=false

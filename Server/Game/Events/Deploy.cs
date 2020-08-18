@@ -1,5 +1,5 @@
-﻿using CardGame.Client.Room;
-using CardGame.Server.Game.Cards;
+﻿using CardGame.Server.Game.Cards;
+using CardGame.Server.Game.Zones;
 
 namespace CardGame.Server.Game.Events
 {

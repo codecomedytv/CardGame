@@ -1,10 +1,8 @@
 using System.Collections.Generic;
-using System.Linq;
-using CardGame.Client;
 using CardGame.Server;
 using CardGame.Server.Game;
 
-namespace CardGame.Tests.Scripts
+namespace CardGame.Tests
 {
     public class GameFixture: WAT.Test
     {

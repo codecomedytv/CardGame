@@ -11,7 +11,7 @@ namespace CardGame.Tests
         
         // These functions will complain about an inactive network if not overridden when dealing..
         // ..with server-side only tests
-        public override void OnPlayExecuted(Event Event) { /* Empty Test Implementation */ }
+        public override void OnPlayExecuted(Event gameEvent) { /* Empty Test Implementation */ }
 
         public override void Update(IEnumerable<Card> cards, IEnumerable<Player> enumerable) { /* Empty Test Implementation */ }
 
