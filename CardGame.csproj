@@ -368,10 +368,6 @@
     <Content Include="addons\WAT\ui\results\ResultTree.tscn" />
     <Content Include="addons\WAT\ui\results\result_forest.gd" />
     <Content Include="addons\WAT\ui\results\result_tree.gd" />
-    <Content Include="Assets\fonts\history.tres" />
-    <Content Include="Assets\fonts\LemonMilkbolditalic.otf" />
-    <Content Include="Assets\fonts\LemonMilkitalic.otf" />
-    <Content Include="Assets\fonts\Xolonium-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
