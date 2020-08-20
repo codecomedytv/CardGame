@@ -116,6 +116,8 @@
     <Compile Include="Client\Game\Players\IPlayer.cs" />
     <Compile Include="Client\Game\Players\IPlayerModel.cs" />
     <Compile Include="Client\Game\Players\IPlayerView.cs" />
+    <Compile Include="Client\Game\Players\Player3D\Opponent3DView.cs" />
+    <Compile Include="Client\Game\Players\Player3D\Player3DView.cs" />
     <Compile Include="Client\Game\Table\ITableView.cs" />
     <Compile Include="Client\Game\Table\Table2D.cs" />
     <Compile Include="Client\Game\Table\Table3D.cs" />
@@ -391,6 +393,7 @@
     <Content Include="addons\WAT\ui\results\ResultTree.tscn" />
     <Content Include="addons\WAT\ui\results\result_forest.gd" />
     <Content Include="addons\WAT\ui\results\result_tree.gd" />
+    <Content Include="Client\Game\Table\Table3D\Table.tscn" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
