@@ -6,19 +6,16 @@ namespace CardGame.Client.Game
 {
     public class Match: Node
     {
+        private readonly Catalog Cards = new Catalog();
+        private readonly CommandQueue CommandQueue = new CommandQueue();
+        private readonly Messenger Messenger = new Messenger();
         private readonly ITableView TableView;
         public IPlayer Player;
         public IPlayer Opponent;
-        public Catalog Cards;
-        public CommandQueue CommandQueue;
-        public Messenger Messenger;
-        
-        // Input is part of Player: IPlayerController. Remove this.
-        public Input Input;
 
         public Match()
         {
-            TableView = Table3D.CreateInstance();
+            TableView = new Table3D();
         }
 
         public Match(ITableView tableView)
@@ -28,8 +25,15 @@ namespace CardGame.Client.Game
 
         public override void _Ready()
         {
-            Name = "Match";
             AddChild((Node) TableView);
+            AddChild(Messenger);
+            Messenger.Connect(nameof(Messenger.Draw), this, nameof(OnDraw));
+            Messenger.CallDeferred("SetReady");
+        }
+
+        public void OnDraw(int cardId, bool isOpponent)
+        {
+            GD.Print($"Draw {cardId} by Opponent? {isOpponent}");
         }
     }
 }

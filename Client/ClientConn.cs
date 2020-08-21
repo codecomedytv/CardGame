@@ -37,13 +37,13 @@ namespace CardGame.Client {
 		public void OnFailed() { GD.Print("Connection Failed"); }
 
 		[Signal]
-		public delegate void GameBegan();
+		public delegate void GameBegan(); // I think this was a test-oriented signal?
 
 		[Puppet]
 		public void CreateRoom(string gameId)
 		{
+			Match.Name = gameId;
 			AddChild(Match);
-			GD.Print(gameId);
 		}
 	}
 }

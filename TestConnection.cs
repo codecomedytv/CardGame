@@ -23,7 +23,6 @@ namespace CardGame
             ServerConn.Host();
             Client1.Join();
             Client2.Join();
-            GD.Print("TestConnection Ready"); ;
         }
     }
 }

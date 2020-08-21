@@ -6,9 +6,12 @@ namespace CardGame.Client.Game
 {
     public class Catalog: IEnumerable<Card>
     {
+        private readonly List<Card> Cards = new List<Card>();
+        
+        
         public IEnumerator<Card> GetEnumerator()
         {
-            throw new System.NotImplementedException();
+            return Cards.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

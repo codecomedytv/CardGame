@@ -110,7 +110,6 @@
     <Compile Include="Client\Game\Catalog.cs" />
     <Compile Include="Client\Game\CommandQueue.cs" />
     <Compile Include="Client\Game\Commands\Command.cs" />
-    <Compile Include="Client\Game\Input.cs" />
     <Compile Include="Client\Game\Match.cs" />
     <Compile Include="Client\Game\Messenger.cs" />
     <Compile Include="Client\Game\Players\IPlayer.cs" />
