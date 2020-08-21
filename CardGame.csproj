@@ -111,6 +111,8 @@
     <Compile Include="Client\Game\CommandQueue.cs" />
     <Compile Include="Client\Game\Commands\Command.cs" />
     <Compile Include="Client\Game\Match.cs" />
+    <Compile Include="Client\Game\MessageSender.cs" />
+    <Compile Include="Client\Game\MessegeReceiver.cs" />
     <Compile Include="Client\Game\Messenger.cs" />
     <Compile Include="Client\Game\Players\IPlayer.cs" />
     <Compile Include="Client\Game\Players\IPlayerModel.cs" />

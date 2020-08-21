@@ -27,7 +27,7 @@ namespace CardGame.Client.Game
         {
             AddChild((Node) TableView);
             AddChild(Messenger);
-            Messenger.Connect(nameof(Messenger.Draw), this, nameof(OnDraw));
+            Messenger.Receiver.Connect(nameof(MessageReceiver.Draw), this, nameof(OnDraw));
             Messenger.CallDeferred("SetReady");
         }
 

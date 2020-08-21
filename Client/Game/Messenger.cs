@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using CardGame.Client.Game.Zones;
+using Godot;
 
 namespace CardGame.Client.Game
 {
@@ -6,16 +7,22 @@ namespace CardGame.Client.Game
     {
         private const int ServerId = 1;
         private int Id => Multiplayer.GetNetworkUniqueId();
+        public readonly MessageReceiver Receiver;
+        private readonly MessageSender Sender;
+
+        public Messenger()
+        {
+            Name = "Messenger";
+            Sender = new MessageSender(this);
+            Receiver = new MessageReceiver();
+        }
         
-        // Experiment With Signals Unpacking
-        // See if we can do it more directly or straightforward
-        [Signal] public delegate void ExecutedEvents();
-        [Signal] public delegate void Draw();
-        [Signal] public delegate void LoadDeck();
-        [Signal] public delegate void UpdateCard();
-        public Messenger() => Name = "Messenger";
         public void SetReady() => RpcId(ServerId, "SetReady", Id);
-        [Puppet] public void Execute(int stateAfterExecution) => EmitSignal(nameof(ExecutedEvents), stateAfterExecution);
-        [Puppet] public void Queue(string signal, params object[] args) => EmitSignal(signal, args);
+
+        [Puppet]
+        public void Execute(int stateAfterExecution) => Receiver.Execute(stateAfterExecution);
+
+        [Puppet]
+        public void Queue(string signal, params object[] args) => Receiver.Queue(signal, args);
     }
 }
