@@ -13,7 +13,7 @@ namespace CardGame
 			CustomMultiplayer = new MultiplayerAPI();
 			CustomMultiplayer.SetRootNode(this); 
 		}
-	
+		
 		public override void _Process(float delta)
 		{
 			if(CustomMultiplayer.HasNetworkPeer()) { CustomMultiplayer.Poll(); }

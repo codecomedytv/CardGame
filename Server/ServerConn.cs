@@ -60,7 +60,7 @@ namespace CardGame.Server {
 			room.Name = RoomCount.ToString();
 			AddChild(room);
 			// Add disqualification Method Here
-			foreach (var player in players) { RpcId(player.Id, "CreateRoom", room.Name, player.Seat);}
+			foreach (var player in players) { RpcId(player.Id, "CreateRoom", room.Name);}
 		}
 		
 		private Players GetPlayers(int count = 2)

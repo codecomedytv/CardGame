@@ -1,3 +1,4 @@
+using CardGame.Client.Game;
 using Godot;
 
 namespace CardGame.Client {
@@ -7,18 +8,12 @@ namespace CardGame.Client {
 	{
 		private const string Ip = "127.0.0.1";
 		private const int Port = 5000;
-		//private readonly PackedScene PlayMat = (PackedScene) GD.Load("res://Client/Room/View/PlayMat.tscn");
-		private readonly PackedScene PlayMat = (PackedScene) GD.Load("res://Client/Room/View/3D/Table.tscn");
-		private readonly CSharpScript GameType = (CSharpScript) GD.Load("res://Client/Room/Game.cs");
-		//private readonly Type GameX = typeof(Game);
 		private DeckList DeckList = new DeckList();
-		public NetworkedMultiplayerENet Client;
+		private NetworkedMultiplayerENet Client;
+		private readonly Match Match;
 
-		public ClientConn() { }
-		public ClientConn(CSharpScript gameType)
-		{
-			GameType = gameType;
-		}
+		public ClientConn() => Match = new Match();
+		public ClientConn(Match match) => Match = match; 
 
 		public override void _Ready() {}
 		
@@ -45,9 +40,10 @@ namespace CardGame.Client {
 		public delegate void GameBegan();
 
 		[Puppet]
-		public void CreateRoom(string gameId, int seatPosition)
+		public void CreateRoom(string gameId)
 		{
-			GD.Print("GameBegan");
+			AddChild(Match);
+			GD.Print(gameId);
 		}
 	}
 }

@@ -1,4 +1,5 @@
-﻿using CardGame.Client.Game.Cards;
+﻿using System;
+using CardGame.Client.Game.Cards;
 using Godot;
 
 namespace CardGame.Client.Game.Players.Player3D
@@ -35,7 +36,11 @@ namespace CardGame.Client.Game.Players.Player3D
 
         public void Draw(ICardView card)
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
+            Action x = async () =>
+            {
+                await ToSignal(_gfx, "tween_all_completed");
+            };
         }
 
         public void Discard(ICardView card)

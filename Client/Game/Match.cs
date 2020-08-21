@@ -6,13 +6,30 @@ namespace CardGame.Client.Game
 {
     public class Match: Node
     {
+        private readonly ITableView TableView;
         public IPlayer Player;
         public IPlayer Opponent;
         public Catalog Cards;
-
-        public ITableView TableView; // Not sure how to incorporate this correctly, just a means of building views?
         public CommandQueue CommandQueue;
         public Messenger Messenger;
-        public Input Input; // Not sure if Input is really necessary, though we do need to handle events from cards
+        
+        // Input is part of Player: IPlayerController. Remove this.
+        public Input Input;
+
+        public Match()
+        {
+            TableView = Table3D.CreateInstance();
+        }
+
+        public Match(ITableView tableView)
+        {
+            TableView = tableView;
+        }
+
+        public override void _Ready()
+        {
+            Name = "Match";
+            AddChild((Node) TableView);
+        }
     }
 }
