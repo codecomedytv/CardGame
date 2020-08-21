@@ -1,4 +1,5 @@
 ﻿using CardGame.Client.Game.Players;
+using Godot;
 
 namespace CardGame.Client.Game.Table
 {

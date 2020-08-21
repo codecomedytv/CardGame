@@ -6,7 +6,8 @@ namespace CardGame.Client.Game.Players
     {
         // There are some minor differences between player and opponent in certain actions
         // so an interface is likely more suitable than a class
-        
+
+        void ConnectCommands(CommandQueue commandQueue);
         void Draw(Card card);
         void Discard(Card card);
         void Deploy(Card card);
