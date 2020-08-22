@@ -1,38 +1,53 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Diagnostics;
 using CardGame.Client.Game.Cards;
+using Godot;
+using WAT;
 
 namespace CardGame.Client.Game.Players
 {
-    public class Player: IPlayer
-    {
-        public void ConnectCommands(CommandQueue commandQueue)
-        {
-            throw new System.NotImplementedException();
-        }
+	public class Player: IPlayer
+	{
+		private readonly IPlayerModel Model;
+		private readonly IPlayerView View;
 
-        public void LoadDeck(IEnumerable<Card> deck)
-        {
-            
-        }
+		public Player(IPlayerView view)
+		{
+			Model = new PlayerModel();
+			View = view;
+		}
+		public void ConnectCommands(CommandQueue commandQueue)
+		{
+			throw new System.NotImplementedException();
+		}
 
-        public void Draw(Card card)
-        {
-            throw new System.NotImplementedException();
-        }
+		public void LoadDeck(IEnumerable<Card> deck)
+		{
+			Debug.Assert(View == null, "View == null");
+			foreach (var card in deck)
+			{
+				View.AddCardToDeck(card.View);
+			}
+		}
 
-        public void Discard(Card card)
-        {
-            throw new System.NotImplementedException();
-        }
+		public void Draw(Card card)
+		{
+			throw new System.NotImplementedException();
+		}
 
-        public void Deploy(Card card)
-        {
-            throw new System.NotImplementedException();
-        }
+		public void Discard(Card card)
+		{
+			throw new System.NotImplementedException();
+		}
 
-        public void Set(Card card)
-        {
-            throw new System.NotImplementedException();
-        }
-    }
+		public void Deploy(Card card)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public void Set(Card card)
+		{
+			throw new System.NotImplementedException();
+		}
+	}
 }

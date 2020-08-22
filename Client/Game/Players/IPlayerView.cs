@@ -13,9 +13,10 @@ namespace CardGame.Client.Game.Players
         // Ideally we want to queue the animation by resetting the current tween, setting it up, and then returning
         // that setup
         
+        
         void DisplayName(string name);
         void DisplayHealth(int health);
-
+        void AddCardToDeck(ICardView cardView);
         void Draw(ICardView card);
         void Discard(ICardView card);
         void Deploy(ICardView card);

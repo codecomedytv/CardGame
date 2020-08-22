@@ -1,4 +1,5 @@
 ﻿using CardGame.Client.Game.Cards;
+using CardGame.Client.Game.Zones;
 using Godot;
 
 namespace CardGame.Client.Game.Players.Player3D
@@ -9,7 +10,7 @@ namespace CardGame.Client.Game.Players.Player3D
         private Spatial _support;
         private Spatial _hand;
         private Spatial _discard;
-        private Spatial _deck;
+        private IZoneView _deck;
         private Tween _gfx;
         private AudioStreamPlayer _sfx;
 
@@ -19,11 +20,16 @@ namespace CardGame.Client.Game.Players.Player3D
             _support = (Spatial) GetNode("Support");
             _hand = (Spatial) GetNode("Hand");
             _discard = (Spatial) GetNode("Discard");
-            _deck = (Spatial) GetNode("Deck");
+            _deck = (Deck) GetNode("Deck");
             _gfx = (Tween) GetNode("GFX");
             _sfx = (AudioStreamPlayer) GetNode("SFX");
         }
-        
+
+        public void AddCardToDeck(ICardView cardView)
+        {
+            _deck.Add(cardView);
+        }
+
         public void DisplayName(string name)
         {
             throw new System.NotImplementedException();

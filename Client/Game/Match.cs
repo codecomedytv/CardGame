@@ -14,14 +14,13 @@ namespace CardGame.Client.Game
         private readonly Messenger Messenger = new Messenger();
         private readonly CardFactory CardFactory;
         private readonly ITableView TableView;
-        private readonly IPlayer Player;
-        private readonly IPlayer Opponent;
+        private IPlayer Player;
+        private IPlayer Opponent;
 
         public Match()
         {
-            Player = new Player();
-            CardFactory = new CardFactory();
             TableView = new Table3D();
+            CardFactory = new CardFactory();
         }
 
         public Match(ITableView tableView)
@@ -32,18 +31,22 @@ namespace CardGame.Client.Game
         public override void _Ready()
         {
             AddChild((Node) TableView);
+            var view = TableView.PlayerView;
+            GD.Print(view);
+            Player = new Player(TableView.PlayerView); // Has To Come After Adding Table for view reference
+
             AddChild(Messenger);
             Messenger.Receiver.Connect(nameof(MessageReceiver.LoadDeck), this, nameof(OnLoadDeck));
             Messenger.Receiver.Connect(nameof(MessageReceiver.Draw), this, nameof(OnDraw));
             Messenger.CallDeferred("SetReady");
         }
-        
+
         private void OnLoadDeck(Dictionary<int, SetCodes> deckList)
         {
             var deck = new System.Collections.Generic.List<Card>();
             foreach (var kv in deckList)
             {
-                var card = CardFactory.Create(kv.Key, kv.Value); 
+                var card = CardFactory.Create(kv.Key, kv.Value);
                 Cards.Add(kv.Key, card);
                 deck.Add(card);
             }

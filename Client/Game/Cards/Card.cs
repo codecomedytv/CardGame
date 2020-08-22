@@ -2,13 +2,13 @@
 {
     public class Card
     {
-        private readonly CardModel _model;
-        private readonly ICardView _view;
+        public readonly CardModel Model;
+        public readonly ICardView View;
 
         public Card(CardModel cardModel, ICardView cardView)
         {
-            _model = cardModel;
-            _view = cardView;
+            Model = cardModel;
+            View = cardView;
         }
     }
 }

@@ -123,10 +123,12 @@
     <Compile Include="Client\Game\Players\Player.cs" />
     <Compile Include="Client\Game\Players\Player3D\Opponent3DView.cs" />
     <Compile Include="Client\Game\Players\Player3D\Player3DView.cs" />
+    <Compile Include="Client\Game\Players\PlayerModel.cs" />
     <Compile Include="Client\Game\Table\ITableView.cs" />
     <Compile Include="Client\Game\Table\Table2D.cs" />
     <Compile Include="Client\Game\Table\Table3D.cs" />
     <Compile Include="Client\Game\Table\TableTextView.cs" />
+    <Compile Include="Client\Game\Zones\Deck.cs" />
     <Compile Include="Client\Game\Zones\IZoneView.cs" />
     <Compile Include="Client\Game\Zones\Zone.cs" />
     <Compile Include="Client\Game\Zones\Zone2D.cs" />

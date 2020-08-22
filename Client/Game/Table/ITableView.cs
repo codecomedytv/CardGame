@@ -8,7 +8,7 @@ namespace CardGame.Client.Game.Table
         // Their main purpose is to reach into their children and pull out the Player and Opponent View to be
         // plugged into the player controller
 
-        IPlayerView PlayerView { get; set; }
-        IPlayerView OpponentView {get; set;}
+        IPlayerView PlayerView { get; }
+        IPlayerView OpponentView {get; }
     }
 }
