@@ -45,6 +45,10 @@ boot_splash/fullsize=false
 boot_splash/use_filter=false
 config/icon="res://icon.png"
 
+[autoload]
+
+Debug="*res://Shared/Debug.gd"
+
 [display]
 
 window/size/width=1920
