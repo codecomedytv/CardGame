@@ -23,7 +23,6 @@ namespace CardGame.Client.Game.Players
 
 		public void LoadDeck(IEnumerable<Card> deck)
 		{
-			Debug.Assert(View == null, "View == null");
 			foreach (var card in deck)
 			{
 				View.AddCardToDeck(card.View);

@@ -1,6 +1,7 @@
 ﻿using System;
 using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Players;
+using CardGame.Client.Game.Players.Player3D;
 using CardGame.Client.Game.Table;
 using Godot;
 using Godot.Collections;
@@ -31,10 +32,9 @@ namespace CardGame.Client.Game
         public override void _Ready()
         {
             AddChild((Node) TableView);
-            var view = TableView.PlayerView;
-            GD.Print(view);
             Player = new Player(TableView.PlayerView); // Has To Come After Adding Table for view reference
-
+            // Opponent = new Opponent3DView();
+            
             AddChild(Messenger);
             Messenger.Receiver.Connect(nameof(MessageReceiver.LoadDeck), this, nameof(OnLoadDeck));
             Messenger.Receiver.Connect(nameof(MessageReceiver.Draw), this, nameof(OnDraw));
