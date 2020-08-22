@@ -103,7 +103,10 @@
     <Compile Include="Client\ClientConn.cs" />
     <Compile Include="Client\DeckList.cs" />
     <Compile Include="Client\Game\Cards\Card.cs" />
+    <Compile Include="Client\Game\Cards\Card3D\Card3DView.cs" />
     <Compile Include="Client\Game\Cards\CardFace.cs" />
+    <Compile Include="Client\Game\Cards\CardFactory.cs" />
+    <Compile Include="Client\Game\Cards\CardInfo.cs" />
     <Compile Include="Client\Game\Cards\CardModel.cs" />
     <Compile Include="Client\Game\Cards\CardType.cs" />
     <Compile Include="Client\Game\Cards\ICardView.cs" />
@@ -128,6 +131,7 @@
     <Compile Include="Client\Game\Zones\Zone2D.cs" />
     <Compile Include="Client\Game\Zones\Zone3D.cs" />
     <Compile Include="Client\Game\Zones\ZoneTextView.cs" />
+    <Compile Include="Client\Library\CardLibrary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\Game\CardCatalog.cs" />
     <Compile Include="Server\Game\Cards\NullCard.cs" />
@@ -204,6 +208,7 @@
     <Compile Include="TestConnection.cs" />
     <Compile Include="Tests\GameFixture.cs" />
     <Compile Include="Tests\MockMessenger.cs" />
+    <Compile Include="Tests\Scripts\ClientSide\CardFactoryTest.cs" />
     <Compile Include="Tests\Scripts\Serverside\BattleTest.cs" />
     <Compile Include="Tests\Scripts\Serverside\GuardPuppyTest.cs" />
     <Compile Include="Tests\Scripts\Serverside\JudgeTest.cs" />
@@ -396,6 +401,7 @@
     <Content Include="addons\WAT\ui\results\result_forest.gd" />
     <Content Include="addons\WAT\ui\results\result_tree.gd" />
     <Content Include="Client\Game\Table\Table3D\Table.tscn" />
+    <Content Include="Client\Library\Library.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

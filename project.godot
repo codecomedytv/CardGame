@@ -31,7 +31,8 @@ Results_Directory="res://Tests/Results/WAT"
 Minimize_Window_When_Running_Tests=false
 TestStrategy={
 "repeat": 1,
-"strategy": "RunAll"
+"script": "res://Tests/Scripts/ClientSide/CardFactoryTest.cs",
+"strategy": "RunScript"
 }
 Tags=PoolStringArray(  )
 Display=8
@@ -39,6 +40,7 @@ Display=8
 [application]
 
 config/name="CardGame"
+run/main_scene="res://Client/Game/Table/Table3D/Table.tscn"
 boot_splash/fullsize=false
 boot_splash/use_filter=false
 config/icon="res://icon.png"
@@ -47,6 +49,7 @@ config/icon="res://icon.png"
 
 window/size/width=1920
 window/size/height=1080
+window/size/fullscreen=true
 window/size/test_width=1920
 window/size/test_height=1080
 window/stretch/mode="2d"

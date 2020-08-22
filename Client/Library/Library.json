@@ -1,0 +1,23 @@
+﻿{
+  "0": {"Title":  "NullCard", "CardType": 0, "Text":  "", "Art": "cultist" ,"Power": 0},
+  "1": {"Title": "Debug.1000ATK.1000DEF", "CardType": 1, "Text": "", "Power": 1000},
+  "2": {"Title": "Debug.500ATK.500DEF", "CardType": 1, "Text":  "", "Art": "cultist",  "Power":  500},
+  "3": {"Title": "Debug.1500ATK.1000DEF", "CardType": 1, "Text":  "","Art": "cultist", "Power":  0},
+  "4": {"Title": "Debug.BounceFromField", "CardType": 2, "Text":  "","Art": "cultist", "Power":  0},
+  "5": {"Title": "Debug.CannotBeDestroyedByEffect", "CardType": 1, "Text":  "", "Art": "cultist", "Power": 0},
+  "6": {"Title": "Debug.DestroyAttackingUnit", "CardType": 2, "Text":  "", "Art": "cultist", "Power":  0},
+  "7": {"Title": "Debug.DestroyOpponentUnit", "CardType": 2, "Text":  "", "Art": "cultist", "Power":  0},
+  "8": {"Title": "Debug.DiscardYourCard", "CardType": 2, "Text":  "", "Art": "cultist", "Power":  0},
+  "9": {"Title": "Debug.Draw2Cards", "CardType": 2, "Text":  "", "Art": "cultist", "Power":  0},
+  "10": {"Title":  "Debug.MillOneFromDeck", "CardType": 2, "Text":  "", "Art": "cultist", "Power":  0},
+  "11": {"Title": "Debug.PlayerCannotTakeDamage", "CardType": 1, "Text":  "", "Art": "cultist", "Power":  0},
+  "12": {"Title": "Debug.ReturnToDeck", "CardType": 2, "Text":  "", "Art": "cultist", "Power":  0},
+  "13": {"Title":  "Debug.CannotBeTargeted", "CardType": 1, "Text":  "", "Art": "cultist", "Power":  0},
+  "14": {"Title":  "Counter Attack", "CardType": 2, "Text": "Destroy attacking unit.", "Art": "meat", "Power": 0},
+  "15": {"Title":  "Dungeon Guide", "CardType": 1, "Text":  "", "Art":  "Adventurer", "Power": 2000},
+  "16": {"Title":  "Guard Puppy", "CardType": 1, "Text": "Cannot Be Destroyed By Battle.\n\nYour opponent cannot attack other units", "Art": "boar", "Power": 500},
+  "17": {"Title":  "Novice Archer", "CardType": 1, "Text": "When this card is deployed: Destroy target unit with 1000 or less attack", "Art": "M_bot", "Power": 1000},
+  "18": {"Title":  "Quest Reward", "CardType": 2, "Text": "Draw 2 Cards", "Art": "coin", "Power": 0},
+  "19": {"Title":  "Training Trainer", "CardType": 1, "Text": "", "Art":  "girl", "Power": 1000},
+  "20": {"Title":  "Wrong Way", "CardType": 2, "Text": "Return target unit to its owner's hand.", "Art":  "sign", "Power": 0}
+}

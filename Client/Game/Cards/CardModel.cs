@@ -2,9 +2,18 @@
 {
     public class CardModel
     {
-        public string Name;
+        public int Id;
+        public string Title;
         public int Power;
         public CardType CardType;
-        public CardFace Face;
+        public CardFace Face = CardFace.FaceDown;
+
+        public CardModel(int id, CardInfo cardInfo)
+        {
+            Id = id;
+            Title = cardInfo.Title;
+            Power = cardInfo.Power;
+            CardType = cardInfo.CardType;
+        }
     }
 }

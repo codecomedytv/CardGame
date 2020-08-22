@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<testsuites failures="0" name="TestXML" tests="1" time="1.021">
+<testsuite failures="0" name="Card Factory Test" tests="2" time="0.01">
+<testcase name="FetchCardInfo" time="0.158">
+</testcase>
+<testcase name="Create3DCard" time="0.096">
+</testcase>
+</testsuite>
+</testsuites>

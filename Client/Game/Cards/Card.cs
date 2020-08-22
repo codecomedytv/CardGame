@@ -2,8 +2,8 @@
 {
     public class Card
     {
-        private CardModel _model;
-        private ICardView _view;
+        private readonly CardModel _model;
+        private readonly ICardView _view;
 
         public Card(CardModel cardModel, ICardView cardView)
         {
