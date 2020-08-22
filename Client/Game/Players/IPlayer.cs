@@ -1,4 +1,5 @@
-﻿using CardGame.Client.Game.Cards;
+﻿using System.Collections.Generic;
+using CardGame.Client.Game.Cards;
 
 namespace CardGame.Client.Game.Players
 {
@@ -8,6 +9,7 @@ namespace CardGame.Client.Game.Players
         // so an interface is likely more suitable than a class
 
         void ConnectCommands(CommandQueue commandQueue);
+        void LoadDeck(IEnumerable<Card> deck);
         void Draw(Card card);
         void Discard(Card card);
         void Deploy(Card card);
