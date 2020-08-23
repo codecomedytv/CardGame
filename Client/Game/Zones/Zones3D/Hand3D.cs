@@ -18,20 +18,8 @@ namespace CardGame.Client.Game.Zones.Zones3D
             //card3D.GlobalTransform.origin = GlobalTransform.origin;
             //card3D.GlobalTransform = GlobalTransform;
             Sort();
-            //card3D.Position = new Vector3(card3D.Position.x + 0.5F + card3D.Scale.x * Cards.Count, card3D.Position.y , card3D.Position.z);
-            //Transform.Translated(-card3D.Translation);
-            //var t = Transform;
-            //t.origin.x -= card3D.Scale.x;
-            //Transform = t;
-            // card3D.Position = new Vector3(card3D.Position.x + 0.5F + card3D.Scale.x * Cards.Count, card3D.Position.y , card3D.Position.z);
         }
         
-        // public Vector3 Position
-        // { 
-        //     get => GetNode<Spatial>("3DCardView").Translation;
-        //     set => GetNode<Spatial>("3DCardView").Translation = value;
-        // }
-
         public void Remove(ICardView cardView)
         {
             Cards.Remove(cardView);

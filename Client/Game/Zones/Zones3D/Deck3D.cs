@@ -12,20 +12,16 @@ namespace CardGame.Client.Game.Zones.Zones3D
 		public void Add(ICardView cardView)
 		{
 			Cards.Add(cardView);
-			//AddChild((Node) cardView);
 			var card3D = (Card3DView) cardView;
-			card3D.GlobalTransform = GlobalTransform;
-			card3D.Position = new Vector3(card3D.Position.x, card3D.Position.y, Cards.Count * 0.01F);
+			card3D.Translation = GlobalTransform.origin;
+			card3D.Translation = new Vector3(card3D.Translation.x, card3D.Translation.y, Cards.Count * 0.01F);
 		}
 		
 		public void Remove(ICardView cardView)
 		{
 			Cards.Remove(cardView);
-			//RemoveChild((Card3DView) cardView);
 		}
 		
-		// AddToTopOfDeck
-
 		public void AddToTopOfDeck(Card3DView cardView)
 		{
 			var i = 0;
@@ -37,11 +33,11 @@ namespace CardGame.Client.Game.Zones.Zones3D
 				}
 
 				var card3D = (Card3DView) card;
-				card3D.Position = new Vector3(card3D.Position.x, card3D.Position.y, i * 0.01F);
+				card3D.Translation = new Vector3(card3D.Translation.x, card3D.Translation.y, i * 0.01F);
 				i += 1;
 			}
 
-			cardView.Position = new Vector3(cardView.Position.x, cardView.Position.y, i * 0.01F);
+			cardView.Translation = new Vector3(cardView.Translation.x, cardView.Translation.y, i * 0.01F);
 		}
 
 		public void Sort()
