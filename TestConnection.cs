@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Security.Cryptography;
 using CardGame.Client;
 using CardGame.Server;
 using Godot;
@@ -13,6 +14,12 @@ namespace CardGame
 
         public override void _Ready()
         {
+            GetNode<Button>("Button").Connect("pressed", this, nameof(OnStartPressed));
+        }
+
+        public void OnStartPressed()
+        {
+            GetNode<Button>("Button").Visible = false;
             AddChild(ServerConn);
             AddChild(Client1);
             AddChild(Client2);

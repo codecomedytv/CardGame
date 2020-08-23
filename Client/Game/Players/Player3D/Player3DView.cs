@@ -60,13 +60,18 @@ namespace CardGame.Client.Game.Players.Player3D
                 var card3D = (Card3DView) card; // We should look into handling this somehow
                 var sHand = (Spatial) _hand;
                 var globalPosition = card3D.GlobalTransform.origin;
-                //var globalDestination = sHand.GlobalTransform.origin;
+                card3D.Visible = false;
                 _deck.Remove(card);
                 _hand.Add(card); // May wrap these in _hand
-                //_hand.Sort();
                 var globalDestination = card3D.GlobalTransform.origin;
+                _gfx.InterpolateProperty(card3D, "visible", false, true, 0.1F);
+                var rotation = new Vector3(-25, 180, 0);
+
+                _gfx.InterpolateProperty(card3D, "rotation_degrees", card3D.Rotation, rotation, 0.3F);
                 _gfx.InterpolateProperty(card3D, "translation", globalPosition, globalDestination, 0.3F);
-                _gfx.InterpolateProperty(card3D, "rotation", card3D.Rotation, sHand.Rotation, 0.3F);
+                
+                //var rotation = new Vector3(sHand.Rotation.x, 180, 0);
+                //_gfx.InterpolateProperty(card3D, "rotation", card3D.Rotation, sHand.Rotation, 0.3F);
                 return _gfx;
             }
 
