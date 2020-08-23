@@ -51,6 +51,12 @@ namespace CardGame.Client.Game
             foreach (var kv in deckList)
             {
                 var card = CardFactory.Create(kv.Key, kv.Value);
+                
+                // This may be more suitable in something like the card catalog
+                // We want to have cards on the global level with a default of 0, 0, 0 so we can translate
+                // them easily
+                AddChild((Node) card.View);
+                
                 Cards.Add(kv.Key, card);
                 deck.Add(card);
             }

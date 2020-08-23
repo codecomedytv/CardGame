@@ -1,4 +1,5 @@
-﻿using CardGame.Client.Game.Cards;
+﻿using System.Collections.Generic;
+using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Cards.Card3D;
 using Godot;
 
@@ -6,14 +7,16 @@ namespace CardGame.Client.Game.Zones.Zones3D
 {
     public class Hand3D: Spatial, IZoneView
     {
+        private readonly IList<ICardView> Cards = new List<ICardView>();
+
         public void Add(ICardView cardView)
         {
-            AddChild((Card3DView) cardView);
+            Cards.Add(cardView);
         }
 
         public void Remove(ICardView cardView)
         {
-            throw new System.NotImplementedException();
+            Cards.Remove(cardView);
         }
 
         public void Sort()

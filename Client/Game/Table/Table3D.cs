@@ -7,7 +7,7 @@ namespace CardGame.Client.Game.Table
     {
         public IPlayerView PlayerView { get; }
         public IPlayerView OpponentView { get; }
-
+        
         public Table3D()
         {
             var scene = (PackedScene) GD.Load("res://Client/Game/Table/Table3D/Table.tscn");

@@ -62,8 +62,16 @@ namespace CardGame.Client.Game.Players.Player3D
                 _deck.Remove(card);
                 _hand.Add(card); // May wrap these in _hand
                 //_hand.Sort();
-                var globalDestination = card3D.GlobalTransform.origin;
-                //_gfx.InterpolateProperty(card3D, "translation", globalPosition, globalDestination, 0.3F);
+                var sHand = (Spatial) _hand;
+                var sDeck = (Spatial) _deck;
+                var globalDestination = sHand.GlobalTransform.origin;
+                // var resetPos = card3D.Transform;
+                // resetPos.origin = new Vector3(0, 0, 0);
+                // card3D.GlobalTransform = resetPos;
+                card3D.GlobalTransform = sDeck.GlobalTransform;
+                _gfx.InterpolateProperty(card3D, "translation", globalPosition, globalDestination, 0.3F);
+                _gfx.InterpolateProperty(card3D, "rotation", card3D.Rotation, sHand.Rotation, 0.3F);
+                GD.Print($"{globalPosition} to {globalDestination}");
                 return _gfx;
             }
 
