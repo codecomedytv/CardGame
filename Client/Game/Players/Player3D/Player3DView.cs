@@ -58,20 +58,15 @@ namespace CardGame.Client.Game.Players.Player3D
                 // Wrap these calls into the GFX Class so it doesn't rely on Tween
                 _gfx.RemoveAll();
                 var card3D = (Card3DView) card; // We should look into handling this somehow
+                var sHand = (Spatial) _hand;
                 var globalPosition = card3D.GlobalTransform.origin;
+                //var globalDestination = sHand.GlobalTransform.origin;
                 _deck.Remove(card);
                 _hand.Add(card); // May wrap these in _hand
                 //_hand.Sort();
-                var sHand = (Spatial) _hand;
-                var sDeck = (Spatial) _deck;
-                var globalDestination = sHand.GlobalTransform.origin;
-                // var resetPos = card3D.Transform;
-                // resetPos.origin = new Vector3(0, 0, 0);
-                // card3D.GlobalTransform = resetPos;
-                card3D.GlobalTransform = sDeck.GlobalTransform;
+                var globalDestination = card3D.GlobalTransform.origin;
                 _gfx.InterpolateProperty(card3D, "translation", globalPosition, globalDestination, 0.3F);
                 _gfx.InterpolateProperty(card3D, "rotation", card3D.Rotation, sHand.Rotation, 0.3F);
-                GD.Print($"{globalPosition} to {globalDestination}");
                 return _gfx;
             }
 
@@ -92,11 +87,8 @@ namespace CardGame.Client.Game.Players.Player3D
         
         // Note: We could create a new slot, resort the hand and then send the card to that slot?
         // Note: We should also rotate the card somewhere
-        // Note: The card will not be invisible so the first animation we'll be jank
         // Note: We'll skip sort implementation now, just focus on movement
-        
-        // var originalColor = Card.Modulate;
-        // Card.Modulate = Colors.Transparent;
+
         
         // Player.Deck.Add(Card); // Card is already in deck (but we may need to move it to top of deck)
         // Card.Position = Player.Deck.Position; // We're using global values here
