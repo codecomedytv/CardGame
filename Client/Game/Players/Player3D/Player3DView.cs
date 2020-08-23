@@ -2,6 +2,7 @@
 using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Cards.Card3D;
 using CardGame.Client.Game.Zones;
+using CardGame.Client.Game.Zones.Zones3D;
 using Godot;
 using Array = Godot.Collections.Array;
 
@@ -59,19 +60,17 @@ namespace CardGame.Client.Game.Players.Player3D
                 _gfx.RemoveAll();
                 var card3D = (Card3DView) card; // We should look into handling this somehow
                 var sHand = (Spatial) _hand;
+                var deck3D = (Deck3D) _deck;
+                deck3D.AddToTopOfDeck(card3D);
                 var globalPosition = card3D.GlobalTransform.origin;
                 card3D.Visible = false;
                 _deck.Remove(card);
                 _hand.Add(card); // May wrap these in _hand
                 var globalDestination = card3D.GlobalTransform.origin;
-                _gfx.InterpolateProperty(card3D, "visible", false, true, 0.1F);
                 var rotation = new Vector3(-25, 180, 0);
-
-                _gfx.InterpolateProperty(card3D, "rotation_degrees", card3D.Rotation, rotation, 0.3F);
-                _gfx.InterpolateProperty(card3D, "translation", globalPosition, globalDestination, 0.3F);
-                
-                //var rotation = new Vector3(sHand.Rotation.x, 180, 0);
-                //_gfx.InterpolateProperty(card3D, "rotation", card3D.Rotation, sHand.Rotation, 0.3F);
+                _gfx.InterpolateProperty(card3D, "visible", false, true, 0.1F);
+                _gfx.InterpolateProperty(card3D, "rotation_degrees", card3D.Rotation, rotation, 0.4F);
+                    _gfx.InterpolateProperty(card3D, "translation", globalPosition, globalDestination, 0.3F);
                 return _gfx;
             }
 

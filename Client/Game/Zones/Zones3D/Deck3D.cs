@@ -23,6 +23,26 @@ namespace CardGame.Client.Game.Zones.Zones3D
 			Cards.Remove(cardView);
 			//RemoveChild((Card3DView) cardView);
 		}
+		
+		// AddToTopOfDeck
+
+		public void AddToTopOfDeck(Card3DView cardView)
+		{
+			var i = 0;
+			foreach (var card in Cards)
+			{
+				if (card == cardView)
+				{
+					continue;
+				}
+
+				var card3D = (Card3DView) card;
+				card3D.Position = new Vector3(card3D.Position.x, card3D.Position.y, i * 0.01F);
+				i += 1;
+			}
+
+			cardView.Position = new Vector3(cardView.Position.x, cardView.Position.y, i * 0.01F);
+		}
 
 		public void Sort()
 		{
