@@ -3,15 +3,14 @@ using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Cards.Card3D;
 using Godot;
 
-namespace CardGame.Client.Game.Zones
+namespace CardGame.Client.Game.Zones.Zones3D
 {
-    public class Deck: Sprite3D, IZoneView
+    public class Deck3D: Sprite3D, IZoneView
     {
         private readonly List<ICardView> Cards = new List<ICardView>();
         
         public void Add(ICardView cardView)
         {
-            GD.Print("Adding Card View");
             Cards.Add(cardView);
             AddChild((Node) cardView);
             var card3D = (Card3DView) cardView;

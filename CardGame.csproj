@@ -128,11 +128,11 @@
     <Compile Include="Client\Game\Table\Table2D.cs" />
     <Compile Include="Client\Game\Table\Table3D.cs" />
     <Compile Include="Client\Game\Table\TableTextView.cs" />
-    <Compile Include="Client\Game\Zones\Deck.cs" />
     <Compile Include="Client\Game\Zones\IZoneView.cs" />
     <Compile Include="Client\Game\Zones\Zone.cs" />
     <Compile Include="Client\Game\Zones\Zone2D.cs" />
     <Compile Include="Client\Game\Zones\Zone3D.cs" />
+    <Compile Include="Client\Game\Zones\Zones3D\Deck3D.cs" />
     <Compile Include="Client\Game\Zones\ZoneTextView.cs" />
     <Compile Include="Client\Library\CardLibrary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

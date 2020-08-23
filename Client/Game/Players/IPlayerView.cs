@@ -1,4 +1,6 @@
-﻿using CardGame.Client.Game.Cards;
+﻿using System;
+using CardGame.Client.Game.Cards;
+using Godot;
 
 namespace CardGame.Client.Game.Players
 {
@@ -12,8 +14,7 @@ namespace CardGame.Client.Game.Players
         
         // Ideally we want to queue the animation by resetting the current tween, setting it up, and then returning
         // that setup
-        
-        
+        void Connect(Declaration addCommand);
         void DisplayName(string name);
         void DisplayHealth(int health);
         void AddCardToDeck(ICardView cardView);

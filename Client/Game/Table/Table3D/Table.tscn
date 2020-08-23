@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Client/Assets/CardSlot.png" type="Texture" id=1]
-[ext_resource path="res://Client/Game/Zones/Deck.cs" type="Script" id=2]
+[ext_resource path="res://Client/Game/Zones/Zones3D/Deck3D.cs" type="Script" id=2]
 [ext_resource path="res://Client/Game/Players/Player3D/Opponent3DView.cs" type="Script" id=3]
 [ext_resource path="res://Client/Game/Players/Player3D/Player3DView.cs" type="Script" id=4]
 

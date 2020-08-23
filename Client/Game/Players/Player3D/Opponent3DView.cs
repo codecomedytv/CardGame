@@ -7,6 +7,8 @@ namespace CardGame.Client.Game.Players.Player3D
 {
     public class Opponent3DView: Spatial, IPlayerView
     {
+        
+        private Declaration Declare;
         private Spatial _units;
         private Spatial _support;
         private Spatial _hand;
@@ -25,11 +27,22 @@ namespace CardGame.Client.Game.Players.Player3D
             _gfx = (Tween) GetNode("GFX");
             _sfx = (AudioStreamPlayer) GetNode("SFX");
         }
+        
+        public void Connect(Declaration declaration)
+        {
+            Declare = declaration;
+        }
 
         public void AddCardToDeck(ICardView cardView)
         {
             _deck.Add(cardView);
         }
+
+        public void Connect(Func<Tween> addCommand)
+        {
+            throw new NotImplementedException();
+        }
+
         public void DisplayName(string name)
         {
             throw new System.NotImplementedException();

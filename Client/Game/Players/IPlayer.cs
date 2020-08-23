@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CardGame.Client.Game.Cards;
+using Godot;
 
 namespace CardGame.Client.Game.Players
 {
@@ -7,8 +9,8 @@ namespace CardGame.Client.Game.Players
     {
         // There are some minor differences between player and opponent in certain actions
         // so an interface is likely more suitable than a class
-
-        void ConnectCommands(CommandQueue commandQueue);
+        
+        void Connect(Declaration addCommand);
         void LoadDeck(IEnumerable<Card> deck);
         void Draw(Card card);
         void Discard(Card card);

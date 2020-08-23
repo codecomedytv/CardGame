@@ -1,8 +1,8 @@
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using CardGame.Client.Game.Cards;
 using Godot;
-using WAT;
+using Object = Godot.Object;
 
 namespace CardGame.Client.Game.Players
 {
@@ -16,6 +16,12 @@ namespace CardGame.Client.Game.Players
 			Model = new PlayerModel();
 			View = view;
 		}
+		
+		public void Connect(Declaration addCommand)
+		{
+			View.Connect(addCommand);
+		}
+
 		public void ConnectCommands(CommandQueue commandQueue)
 		{
 			throw new System.NotImplementedException();
@@ -31,7 +37,8 @@ namespace CardGame.Client.Game.Players
 
 		public void Draw(Card card)
 		{
-			throw new System.NotImplementedException();
+			Model.Draw(card.Model);
+			View.Draw(card.View);
 		}
 
 		public void Discard(Card card)

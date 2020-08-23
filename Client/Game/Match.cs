@@ -38,6 +38,9 @@ namespace CardGame.Client.Game
             AddChild(Messenger);
             Messenger.Receiver.Connect(nameof(MessageReceiver.LoadDeck), this, nameof(OnLoadDeck));
             Messenger.Receiver.Connect(nameof(MessageReceiver.Draw), this, nameof(OnDraw));
+
+            CommandQueue.SubscribeTo(Player);
+            // CommandQueue.SubscribeTo(Opponent)
             Messenger.CallDeferred("SetReady");
         }
 
@@ -50,11 +53,22 @@ namespace CardGame.Client.Game
                 Cards.Add(kv.Key, card);
                 deck.Add(card);
             }
+            
             Player.LoadDeck(deck);
         }
 
-        public void OnDraw(int cardId, bool isOpponent)
+        private void OnDraw(int cardId, bool isOpponent)
         {
+            if (isOpponent)
+            {
+                return; // Skip Opponent For Now
+            }
+            GetPlayer(false).Draw(Cards[cardId]);
+        }
+
+        private IPlayer GetPlayer(bool isOpponent)
+        {
+            return isOpponent ? Opponent : Player;
         }
     }
 }
