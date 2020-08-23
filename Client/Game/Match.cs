@@ -41,6 +41,7 @@ namespace CardGame.Client.Game
 
             CommandQueue.SubscribeTo(Player);
             // CommandQueue.SubscribeTo(Opponent)
+            CommandQueue.SubscribeTo(Messenger.Receiver);
             Messenger.CallDeferred("SetReady");
         }
 

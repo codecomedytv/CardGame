@@ -22,6 +22,11 @@ namespace CardGame.Client.Game
             //player.ConnectDeclaration(this, nameof(OnCommandDeclared));
             player.Connect(Declare);
         }
+
+        public void SubscribeTo(MessageReceiver messageReceiver)
+        {
+            messageReceiver.Connect(nameof(MessageReceiver.ExecutedEvents), this, nameof(Execute));
+        }
         private void OnCommandDeclared(Func<Tween> command)
         {
             GD.Print("Command Added");
@@ -31,6 +36,7 @@ namespace CardGame.Client.Game
         // Setting State Should be a Queued Action In Future
         private async void Execute(int stateAfterExecution)
         {
+            GD.Print("Executing!");
             foreach (var command in Commands)
             {
                 var executor = command();

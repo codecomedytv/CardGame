@@ -13,7 +13,7 @@ namespace CardGame.Client.Game
 
 		public void Execute(int stateAfterExecution)
 		{
-			GD.Print("Message Receiver Executing");
+			EmitSignal(nameof(ExecutedEvents), stateAfterExecution);
 		}
 
 		public void Queue(string signal, params object[] args)

@@ -133,6 +133,7 @@
     <Compile Include="Client\Game\Zones\Zone2D.cs" />
     <Compile Include="Client\Game\Zones\Zone3D.cs" />
     <Compile Include="Client\Game\Zones\Zones3D\Deck3D.cs" />
+    <Compile Include="Client\Game\Zones\Zones3D\Hand3D.cs" />
     <Compile Include="Client\Game\Zones\ZoneTextView.cs" />
     <Compile Include="Client\Library\CardLibrary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
