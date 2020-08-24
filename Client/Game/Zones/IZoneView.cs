@@ -6,8 +6,8 @@ namespace CardGame.Client.Game.Zones
     public interface IZoneView: IEnumerable<Card>
     {
         public int Count { get; }
-        public void Add(Card cardView);
-        public void Remove(Card cardView);
+        public void Add(Card card);
+        public void Remove(Card card);
         public void Sort();
     }
 }

@@ -35,9 +35,9 @@ namespace CardGame.Client.Game.Players
 			Declare = declaration;
 		}
 
-		public void AddCardToDeck(Card cardView)
+		public void AddCardToDeck(Card card)
 		{
-			Deck.Add(cardView);
+			Deck.Add(card);
 		}
 		
 		public void DisplayName(string name)
@@ -63,16 +63,16 @@ namespace CardGame.Client.Game.Players
 			{
 				var card = Deck.ElementAt(Deck.Count - 1);
 				Deck.Add(card);
-				var globalPosition = card.Position;
+				var globalPosition = card.Translation;
 				Deck.Remove(card);
 				Hand.Add(card);
-				var globalDestination = card.Position;
+				var globalDestination = card.Translation;
 				var rotation = new Vector3(60, 0, 0);
 				
 				// Wrap In GFX Class
-				Gfx.InterpolateProperty(card, nameof(card.Visible), false, true, 0.1F);
-				Gfx.InterpolateProperty(card, nameof(card.Position), globalPosition, globalDestination, 0.1F);
-				Gfx.InterpolateProperty(card, nameof(card.RotationDegrees), card.Rotation, rotation, 0.1F);
+				Gfx.InterpolateProperty(card, nameof(Visible), false, true, 0.1F);
+				Gfx.InterpolateProperty(card, nameof(Translation), globalPosition, globalDestination, 0.1F);
+				Gfx.InterpolateProperty(card, nameof(RotationDegrees), card.Rotation, rotation, 0.1F);
 				return Gfx;
 			};
 

@@ -13,7 +13,7 @@ namespace CardGame.Client.Game.Zones
         public void Add(Card card)
         {
             Cards.Add(card);
-            card.Position = GlobalTransform.origin;
+            card.Translation = GlobalTransform.origin;
             Sort();;
         }
         
@@ -31,16 +31,16 @@ namespace CardGame.Client.Game.Zones
                 // Not entirely sure what I'm doing here other than essentially guessing the new position of cards
                 
                 // Move Card To Origin (right-most point)
-                card.Position = GlobalTransform.origin;
+                card.Translation = GlobalTransform.origin;
 
                 // 0.1F is so cards don't huddle together, another 0.1F is to give an actual space between cards
                 var fixPixelOffByOneMod = i * 0.2F;
                 
                 // Move the card forwards the line times its position in the list of cards
-                var xMod = card.Position.x + i + fixPixelOffByOneMod;
+                var xMod = card.Translation.x + i + fixPixelOffByOneMod;
                
                 // Finally set the position
-                card.Position = new Vector3(xMod, card.Position.y, card.Position.z);
+                card.Translation = new Vector3(xMod, card.Translation.y, card.Translation.z);
                 i += 1;
             }
         }

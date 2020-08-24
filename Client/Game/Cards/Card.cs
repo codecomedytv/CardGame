@@ -2,19 +2,14 @@ using Godot;
 
 namespace CardGame.Client.Game.Cards
 {
-	public class Card: Spatial //ICardView
+	public class Card: Spatial
 	{
 		public int Id;
 		public string Title;
 		public int Power;
 		public CardType CardType;
 		public CardFace Face = CardFace.FaceDown;
-		public Vector3 Position
-		{
-			get => Translation;
-			set => Translation = value;
-		}
-		
+
 		public override void _Ready()
 		{
 			GetNode<Area>("Area").Connect("mouse_entered", this, nameof(OnMouseEntered));

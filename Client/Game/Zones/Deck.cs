@@ -18,13 +18,13 @@ namespace CardGame.Client.Game.Zones
 				return;
 			}
 			Cards.Add(card);
-			card.Position = GlobalTransform.origin;
-			card.Position = new Vector3(card.Position.x, card.Position.y, Cards.Count * 0.01F);
+			card.Translation = GlobalTransform.origin;
+			card.Translation = new Vector3(card.Translation.x, card.Translation.y, Cards.Count * 0.01F);
 		}
 		
-		public void Remove(Card cardView)
+		public void Remove(Card card)
 		{
-			Cards.Remove(cardView);
+			Cards.Remove(card);
 		}
 		
 		private void AddToTopOfDeck(Card addedCard)
@@ -37,11 +37,11 @@ namespace CardGame.Client.Game.Zones
 					continue;
 				}
 
-				card.Position = new Vector3(card.Position.x, card.Position.y, i * 0.01F);
+				card.Translation = new Vector3(card.Translation.x, card.Translation.y, i * 0.01F);
 				i += 1;
 			}
 
-			addedCard.Position = new Vector3(addedCard.Position.x, addedCard.Position.y, i * 0.01F);
+			addedCard.Translation = new Vector3(addedCard.Translation.x, addedCard.Translation.y, i * 0.01F);
 		}
 		
 		public void Sort()
