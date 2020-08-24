@@ -36,7 +36,8 @@ namespace CardGame.Client.Game.Zones.Zones3D
             foreach (var card in Cards)
             {
                 card.Translation = GlobalTransform.origin;
-                card.Translation = new Vector3(card.Translation.x + card.Scale.x * i, card.Translation.y, card.Translation.z);
+                var xMod = card.Translation.x + card.Scale.x * i;
+                card.Translation = new Vector3(xMod, card.Translation.y, card.Translation.z);
                 i += 1;
             }
         }
