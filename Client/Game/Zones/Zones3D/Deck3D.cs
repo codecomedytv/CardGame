@@ -10,6 +10,11 @@ namespace CardGame.Client.Game.Zones.Zones3D
 		
 		public void Add(ICardView card)
 		{
+			if(Cards.Contains(card))
+			{
+				AddToTopOfDeck(card);
+				return;
+			}
 			Cards.Add(card);
 			card.Position = GlobalTransform.origin;
 			card.Position = new Vector3(card.Position.x, card.Position.y, Cards.Count * 0.01F);
@@ -17,10 +22,10 @@ namespace CardGame.Client.Game.Zones.Zones3D
 		
 		public void Remove(ICardView cardView)
 		{
-			Cards.Remove(cardView as ICardView);
+			Cards.Remove(cardView);
 		}
 		
-		public void AddToTopOfDeck(ICardView addedCard)
+		private void AddToTopOfDeck(ICardView addedCard)
 		{
 			var i = 0;
 			foreach (var card in Cards)

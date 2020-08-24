@@ -13,9 +13,9 @@ namespace CardGame.Client.Game.Players.Player3D
         private Declaration Declare;
         private Spatial Units;
         private Spatial Support;
-        private Hand3D Hand;
+        private IZoneView Hand;
         private Spatial Graveyard;
-        private Deck3D Deck;
+        private IZoneView Deck;
         private Tween Gfx;
         private AudioStreamPlayer Sfx;
 
@@ -23,9 +23,9 @@ namespace CardGame.Client.Game.Players.Player3D
         {
             Units = (Spatial) GetNode("Units");
             Support = (Spatial) GetNode("Support");
-            Hand = (Hand3D) GetNode("Hand");
+            Hand = (IZoneView) GetNode("Hand");
             Graveyard = (Spatial) GetNode("Discard");
-            Deck = (Deck3D) GetNode("Deck");
+            Deck = (IZoneView) GetNode("Deck");
             Gfx = (Tween) GetNode("GFX");
             Sfx = (AudioStreamPlayer) GetNode("SFX");
         }
@@ -58,20 +58,19 @@ namespace CardGame.Client.Game.Players.Player3D
             {
                 Gfx.RemoveAll();
                 
-                var card3D = (Card3DView) card;
-                card3D.Visible = false;
-                
-                Deck.AddToTopOfDeck(card3D);
-                var globalPosition = card3D.GlobalTransform.origin;
+                card.Visible = false;
+                Deck.Add(card);
+                var globalPosition = card.Position;
                 Deck.Remove(card);
                 Hand.Add(card);
-                var globalDestination = card3D.GlobalTransform.origin;
+                var globalDestination = card.Position;
                 var rotation = new Vector3(-25, 180, 0);
                 
                 // Wrap In GFX Class
-                Gfx.InterpolateProperty(card3D, "visible", false, true, 0.1F);
+                var card3D = (Spatial) card;
+                Gfx.InterpolateProperty(card3D, nameof(ICardView.Visible), false, true, 0.1F);
                 Gfx.InterpolateProperty(card3D, "rotation_degrees", card3D.Rotation, rotation, 0.4F);
-                    Gfx.InterpolateProperty(card3D, "translation", globalPosition, globalDestination, 0.3F);
+                    Gfx.InterpolateProperty(card3D, nameof(ICardView.Position), globalPosition, globalDestination, 0.3F);
                 return Gfx;
             }
 

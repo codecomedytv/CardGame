@@ -9,6 +9,12 @@ namespace CardGame.Client.Game.Cards.Card3D
             get => Translation;
             set => Translation = value;
         }
+
+        public new bool Visible
+        {
+            get => base.Visible;
+            set => base.Visible = value;
+        }
         
         public Card3DView(int id, CardInfo cardInfo)
         {
