@@ -2,8 +2,8 @@
 
 [ext_resource path="res://Client/Assets/CardSlot.png" type="Texture" id=1]
 [ext_resource path="res://Client/Game/Zones/Hand.cs" type="Script" id=2]
-[ext_resource path="res://Client/Game/Players/OpponentView.cs" type="Script" id=3]
-[ext_resource path="res://Client/Game/Players/PlayerView.cs" type="Script" id=4]
+[ext_resource path="res://Client/Game/Players/Opponent.cs" type="Script" id=3]
+[ext_resource path="res://Client/Game/Players/Player.cs" type="Script" id=4]
 [ext_resource path="res://Client/Game/Zones/Deck.cs" type="Script" id=5]
 
 [node name="Table3D" type="Spatial"]

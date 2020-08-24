@@ -114,11 +114,8 @@
     <Compile Include="Client\Game\MessegeReceiver.cs" />
     <Compile Include="Client\Game\Messenger.cs" />
     <Compile Include="Client\Game\Players\IPlayer.cs" />
-    <Compile Include="Client\Game\Players\IPlayerView.cs" />
     <Compile Include="Client\Game\Players\Opponent.cs" />
-    <Compile Include="Client\Game\Players\OpponentView.cs" />
     <Compile Include="Client\Game\Players\Player.cs" />
-    <Compile Include="Client\Game\Players\PlayerView.cs" />
     <Compile Include="Client\Game\Table.cs" />
     <Compile Include="Client\Game\Zones\Deck.cs" />
     <Compile Include="Client\Game\Zones\Hand.cs" />
@@ -397,9 +394,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Client\Game\Players\Player3D" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

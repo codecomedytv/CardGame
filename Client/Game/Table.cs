@@ -6,8 +6,8 @@ namespace CardGame.Client.Game
     public class Table: Spatial
     {
         private static int _instanceCount = 0;
-        public IPlayerView PlayerView { get; }
-        public IPlayerView OpponentView { get; }
+        public IPlayer PlayerView { get; }
+        public IPlayer OpponentView { get; }
         
         public Table()
         {
@@ -19,8 +19,8 @@ namespace CardGame.Client.Game
             {
                instance.Translation = new Vector3(0, -20, 0);
             }
-            PlayerView = (IPlayerView) instance.GetNode("PlayMat/Player");
-            OpponentView = (IPlayerView) instance.GetNode("PlayMat/Opponent");
+            PlayerView = (IPlayer) instance.GetNode("PlayMat/Player");
+            OpponentView = (IPlayer) instance.GetNode("PlayMat/Opponent");
             _instanceCount += 1;
         }
 

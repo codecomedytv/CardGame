@@ -29,8 +29,8 @@ namespace CardGame.Client.Game
         public override void _Ready()
         {
             AddChild(Table);
-            Player = new Player(Table.PlayerView); // Has To Come After Adding Table for view reference
-            Opponent = new Opponent(Table.OpponentView);
+            Player = Table.PlayerView; // Has To Come After Adding Table for view reference
+            Opponent = Table.OpponentView;
             
             AddChild(Messenger);
             Messenger.Receiver.Connect(nameof(MessageReceiver.LoadDeck), this, nameof(OnLoadDeck));
