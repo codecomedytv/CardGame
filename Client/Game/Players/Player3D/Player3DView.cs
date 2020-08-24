@@ -54,8 +54,6 @@ namespace CardGame.Client.Game.Players.Player3D
         {
             Tween Command()
             {
-                Gfx.RemoveAll();
-                
                 card.Visible = false;
                 Deck.Add(card);
                 var globalPosition = card.Position;

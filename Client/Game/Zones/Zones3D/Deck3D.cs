@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using CardGame.Client.Game.Cards;
 using Godot;
@@ -45,6 +46,16 @@ namespace CardGame.Client.Game.Zones.Zones3D
 		public void Sort()
 		{
 			throw new System.NotImplementedException();
+		}
+
+		public IEnumerator<ICardView> GetEnumerator()
+		{
+			return Cards.GetEnumerator();
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
 		}
 	}
 }

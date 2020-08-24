@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Cards.Card3D;
@@ -38,6 +39,16 @@ namespace CardGame.Client.Game.Zones.Zones3D
                 card.Position = new Vector3(xMod2, card.Position.y, card.Position.z);
                 i += 1;
             }
+        }
+
+        public IEnumerator<ICardView> GetEnumerator()
+        {
+            return Cards.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
