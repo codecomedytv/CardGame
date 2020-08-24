@@ -7,9 +7,14 @@ namespace CardGame.Client.Game.Zones.Zones3D
 {
 	public class Deck3D: Sprite3D, IZoneView
 	{
-		private readonly List<ICardView> Cards = new List<ICardView>();
+		private readonly IList<Card3DView> Cards = new List<Card3DView>();
 		
 		public void Add(ICardView cardView)
+		{
+			_add(cardView as Card3DView);
+		}
+
+		private void _add(Card3DView cardView)
 		{
 			Cards.Add(cardView);
 			var card3D = (Card3DView) cardView;
@@ -19,7 +24,7 @@ namespace CardGame.Client.Game.Zones.Zones3D
 		
 		public void Remove(ICardView cardView)
 		{
-			Cards.Remove(cardView);
+			Cards.Remove(cardView as Card3DView);
 		}
 		
 		public void AddToTopOfDeck(Card3DView cardView)
@@ -39,7 +44,7 @@ namespace CardGame.Client.Game.Zones.Zones3D
 
 			cardView.Translation = new Vector3(cardView.Translation.x, cardView.Translation.y, i * 0.01F);
 		}
-
+		
 		public void Sort()
 		{
 			throw new System.NotImplementedException();

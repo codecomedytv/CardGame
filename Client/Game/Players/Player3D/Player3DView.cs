@@ -11,28 +11,28 @@ namespace CardGame.Client.Game.Players.Player3D
     public class Player3DView: Spatial, IPlayerView
     {
         private Declaration Declare;
-        private Spatial _units;
-        private Spatial _support;
-        private IZoneView _hand;
-        private Spatial _discard;
-        private IZoneView _deck;
-        private Tween _gfx;
-        private AudioStreamPlayer _sfx;
+        private Spatial Units;
+        private Spatial Support;
+        private IZoneView Hand;
+        private Spatial Graveyard;
+        private IZoneView Deck;
+        private Tween Gfx;
+        private AudioStreamPlayer Sfx;
 
         public override void _Ready()
         {
-            _units = (Spatial) GetNode("Units");
-            _support = (Spatial) GetNode("Support");
-            _hand = (IZoneView) GetNode("Hand");
-            _discard = (Spatial) GetNode("Discard");
-            _deck = (IZoneView) GetNode("Deck");
-            _gfx = (Tween) GetNode("GFX");
-            _sfx = (AudioStreamPlayer) GetNode("SFX");
+            Units = (Spatial) GetNode("Units");
+            Support = (Spatial) GetNode("Support");
+            Hand = (IZoneView) GetNode("Hand");
+            Graveyard = (Spatial) GetNode("Discard");
+            Deck = (IZoneView) GetNode("Deck");
+            Gfx = (Tween) GetNode("GFX");
+            Sfx = (AudioStreamPlayer) GetNode("SFX");
         }
         
         public void AddCardToDeck(ICardView cardView)
         {
-            _deck.Add(cardView);
+            Deck.Add(cardView);
         }
 
         public void Connect(Declaration declaration)
@@ -57,21 +57,21 @@ namespace CardGame.Client.Game.Players.Player3D
             Tween Command()
             {
                 // Wrap these calls into the GFX Class so it doesn't rely on Tween
-                _gfx.RemoveAll();
+                Gfx.RemoveAll();
                 var card3D = (Card3DView) card; // We should look into handling this somehow
-                var sHand = (Spatial) _hand;
-                var deck3D = (Deck3D) _deck;
+                var sHand = (Spatial) Hand;
+                var deck3D = (Deck3D) Deck;
                 deck3D.AddToTopOfDeck(card3D);
                 var globalPosition = card3D.GlobalTransform.origin;
                 card3D.Visible = false;
-                _deck.Remove(card);
-                _hand.Add(card); // May wrap these in _hand
+                Deck.Remove(card);
+                Hand.Add(card); // May wrap these in _hand
                 var globalDestination = card3D.GlobalTransform.origin;
                 var rotation = new Vector3(-25, 180, 0);
-                _gfx.InterpolateProperty(card3D, "visible", false, true, 0.1F);
-                _gfx.InterpolateProperty(card3D, "rotation_degrees", card3D.Rotation, rotation, 0.4F);
-                    _gfx.InterpolateProperty(card3D, "translation", globalPosition, globalDestination, 0.3F);
-                return _gfx;
+                Gfx.InterpolateProperty(card3D, "visible", false, true, 0.1F);
+                Gfx.InterpolateProperty(card3D, "rotation_degrees", card3D.Rotation, rotation, 0.4F);
+                    Gfx.InterpolateProperty(card3D, "translation", globalPosition, globalDestination, 0.3F);
+                return Gfx;
             }
 
             Declare(Command);
