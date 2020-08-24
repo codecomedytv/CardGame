@@ -11,6 +11,7 @@ namespace CardGame.Client.Game.Zones.Zones3D
     {
         private readonly IList<ICardView> Cards = new List<ICardView>();
 
+        public int Count => Cards.Count;
         public void Add(ICardView card)
         {
             Cards.Add(card);

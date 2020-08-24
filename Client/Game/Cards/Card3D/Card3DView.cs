@@ -19,7 +19,7 @@ namespace CardGame.Client.Game.Cards.Card3D
         public Card3DView(int id, CardInfo cardInfo)
         {
             var scene = (PackedScene) GD.Load("res://Client/Game/Cards/Card3D/Card3DView.tscn");
-            var instance = (Spatial) scene.Instance();
+            var instance = scene.Instance() as Spatial;
             AddChild(instance);
         }
         

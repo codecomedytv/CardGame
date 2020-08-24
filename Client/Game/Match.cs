@@ -1,8 +1,5 @@
-﻿using System;
-using CardGame.Client.Game.Cards;
+﻿using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Players;
-using CardGame.Client.Game.Players.Player3D;
-using CardGame.Client.Game.Table;
 using Godot;
 using Godot.Collections;
 
@@ -14,26 +11,26 @@ namespace CardGame.Client.Game
         private readonly CommandQueue CommandQueue = new CommandQueue();
         private readonly Messenger Messenger = new Messenger();
         private readonly CardFactory CardFactory;
-        private readonly ITableView TableView;
+        private readonly Table Table;
         private IPlayer Player;
         private IPlayer Opponent;
 
         public Match()
         {
-            TableView = new Table3D();
+            Table = new Table();
             CardFactory = new CardFactory();
         }
 
-        public Match(ITableView tableView)
+        public Match(Table tableView)
         {
-            TableView = tableView;
+            Table = tableView;
         }
 
         public override void _Ready()
         {
-            AddChild((Node) TableView);
-            Player = new Player(TableView.PlayerView); // Has To Come After Adding Table for view reference
-            Opponent = new Opponent(TableView.OpponentView);
+            AddChild(Table);
+            Player = new Player(Table.PlayerView); // Has To Come After Adding Table for view reference
+            Opponent = new Opponent(Table.OpponentView);
             
             AddChild(Messenger);
             Messenger.Receiver.Connect(nameof(MessageReceiver.LoadDeck), this, nameof(OnLoadDeck));

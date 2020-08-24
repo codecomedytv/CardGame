@@ -60,8 +60,8 @@ namespace CardGame.Client.Game.Players.Player3D
             //throw new System.NotImplementedException();
             Tween Command()
             {
-                var card = Deck.ElementAt(0);
-                
+                var card = Deck.ElementAt(Deck.Count - 1);
+                Deck.Add(card);
                 var globalPosition = card.Position;
                 Deck.Remove(card);
                 Hand.Add(card);
@@ -71,8 +71,8 @@ namespace CardGame.Client.Game.Players.Player3D
                 // Wrap In GFX Class
                 var card3D = (Spatial) card;
                 Gfx.InterpolateProperty(card3D, nameof(ICardView.Visible), false, true, 0.1F);
-                Gfx.InterpolateProperty(card3D, "rotation_degrees", card3D.Rotation, rotation, 0.2F);
-                Gfx.InterpolateProperty(card3D, nameof(ICardView.Position), globalPosition, globalDestination, 0.3F);
+                Gfx.InterpolateProperty(card3D, nameof(ICardView.Position), globalPosition, globalDestination, 0.1F);
+                Gfx.InterpolateProperty(card3D, "rotation_degrees", card3D.Rotation, rotation, 0.1F);
                 return Gfx;
             };
 

@@ -125,12 +125,8 @@
     <Compile Include="Client\Game\Players\Player3D\Opponent3DView.cs" />
     <Compile Include="Client\Game\Players\Player3D\Player3DView.cs" />
     <Compile Include="Client\Game\Players\PlayerModel.cs" />
-    <Compile Include="Client\Game\Table\ITableView.cs" />
-    <Compile Include="Client\Game\Table\Table2D.cs" />
-    <Compile Include="Client\Game\Table\Table3D.cs" />
-    <Compile Include="Client\Game\Table\TableTextView.cs" />
+    <Compile Include="Client\Game\Table3D.cs" />
     <Compile Include="Client\Game\Zones\IZoneView.cs" />
-    <Compile Include="Client\Game\Zones\Zone.cs" />
     <Compile Include="Client\Game\Zones\Zones3D\Deck3D.cs" />
     <Compile Include="Client\Game\Zones\Zones3D\Hand3D.cs" />
     <Compile Include="Client\Library\CardLibrary.cs" />
@@ -402,7 +398,7 @@
     <Content Include="addons\WAT\ui\results\ResultTree.tscn" />
     <Content Include="addons\WAT\ui\results\result_forest.gd" />
     <Content Include="addons\WAT\ui\results\result_tree.gd" />
-    <Content Include="Client\Game\Table\Table3D\Table.tscn" />
+    <Content Include="Client\Game\Table.tscn" />
     <Content Include="Client\Library\Library.json" />
   </ItemGroup>
   <ItemGroup>

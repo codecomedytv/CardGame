@@ -1,18 +1,18 @@
 ﻿using CardGame.Client.Game.Players;
 using Godot;
 
-namespace CardGame.Client.Game.Table
+namespace CardGame.Client.Game
 {
-    public class Table3D: Spatial, ITableView
+    public class Table: Spatial
     {
         private static int _instanceCount = 0;
         public IPlayerView PlayerView { get; }
         public IPlayerView OpponentView { get; }
         
-        public Table3D()
+        public Table()
         {
             
-            var scene = (PackedScene) GD.Load("res://Client/Game/Table/Table3D/Table.tscn");
+            var scene = (PackedScene) GD.Load("res://Client/Game/Table.tscn");
             var instance = (Spatial) scene.Instance();
             AddChild(instance);
             if (_instanceCount > 0)
