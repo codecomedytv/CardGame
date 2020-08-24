@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using CardGame.Client.Game.Cards;
 using Godot;
 
-namespace CardGame.Client.Game.Zones.Zones3D
+namespace CardGame.Client.Game.Zones
 {
-	public class Deck3D: Sprite3D, IZoneView
+	public class Deck: Sprite3D, IZoneView
 	{
-		private readonly IList<ICardView> Cards = new List<ICardView>();
+		private readonly IList<Card> Cards = new List<Card>();
 		
 		public int Count => Cards.Count;
-		public void Add(ICardView card)
+		public void Add(Card card)
 		{
 			if(Cards.Contains(card))
 			{
@@ -22,12 +22,12 @@ namespace CardGame.Client.Game.Zones.Zones3D
 			card.Position = new Vector3(card.Position.x, card.Position.y, Cards.Count * 0.01F);
 		}
 		
-		public void Remove(ICardView cardView)
+		public void Remove(Card cardView)
 		{
 			Cards.Remove(cardView);
 		}
 		
-		private void AddToTopOfDeck(ICardView addedCard)
+		private void AddToTopOfDeck(Card addedCard)
 		{
 			var i = 0;
 			foreach (var card in Cards)
@@ -49,7 +49,7 @@ namespace CardGame.Client.Game.Zones.Zones3D
 			throw new System.NotImplementedException();
 		}
 
-		public IEnumerator<ICardView> GetEnumerator()
+		public IEnumerator<Card> GetEnumerator()
 		{
 			return Cards.GetEnumerator();
 		}

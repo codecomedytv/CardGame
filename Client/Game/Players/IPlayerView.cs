@@ -17,12 +17,12 @@ namespace CardGame.Client.Game.Players
         void Connect(Declaration addCommand);
         void DisplayName(string name);
         void DisplayHealth(int health);
-        void AddCardToDeck(ICardView cardView);
-        void Draw(ICardView card);
-        void Discard(ICardView card);
-        void Deploy(ICardView card);
-        void Set(ICardView card);
-        void Attack(ICardView attacker, ICardView defender);
-        void AttackDirectly(ICardView attacker);
+        void AddCardToDeck(Card cardView);
+        void Draw(Card card);
+        void Discard(Card card);
+        void Deploy(Card card);
+        void Set(Card card);
+        void Attack(Card attacker, Card defender);
+        void AttackDirectly(Card attacker);
     }
 }

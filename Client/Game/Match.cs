@@ -47,7 +47,7 @@ namespace CardGame.Client.Game
             for (var i = 0; i < 40; i++)
             {
                  var card = CardFactory.Create(0, SetCodes.NullCard);
-                 AddChild((Node) card.View);
+                 AddChild(card); // Need to put this into a central area
                  deck.Add(card);
             }
             
@@ -61,7 +61,7 @@ namespace CardGame.Client.Game
             foreach (var kv in deckList)
             {
                 var card = CardFactory.Create(kv.Key, kv.Value);
-                AddChild((Node) card.View); // Move To CardCatalog?
+                AddChild(card); // Move To CardCatalog?
                 Cards.Add(kv.Key, card);
                 deck.Add(card);
             }

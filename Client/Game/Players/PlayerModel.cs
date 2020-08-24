@@ -5,7 +5,7 @@ namespace CardGame.Client.Game.Players
 {
     public class PlayerModel: IPlayerModel
     {
-        public void Draw(CardModel card)
+        public void Draw(Card card)
         {
             
         }

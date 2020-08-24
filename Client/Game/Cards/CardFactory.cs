@@ -1,25 +1,23 @@
-﻿using System;
-using CardGame.Client.Game.Cards.Card3D;
-using CardGame.Client.Library;
+﻿using CardGame.Client.Library;
 using Godot;
 
 namespace CardGame.Client.Game.Cards
 {
     public class CardFactory
     {
-        private readonly Type View;
+        private readonly PackedScene CardScene = (PackedScene) GD.Load("res://Client/Game/Cards/Card3DView.tscn");
 
-        public CardFactory()
-        {
-            View = typeof(Card3DView);
-        }
+        public CardFactory() { }
         
         public Card Create(int id, SetCodes setCode)
         {
             var cardInfo = CardLibrary.Cards[setCode];
-            var model = new CardModel(id, cardInfo);
-            var view = (ICardView) Activator.CreateInstance(View, id, cardInfo);
-            return new Card(model, view);
+            var card = (Card) CardScene.Instance();
+            card.Id = id;
+            card.Title = cardInfo.Title;
+            card.Power = cardInfo.Power;
+            card.CardType = cardInfo.CardType;
+            return card;
         }
     }
 }

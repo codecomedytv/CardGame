@@ -1,25 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using CardGame.Client.Game.Cards;
-using CardGame.Client.Game.Cards.Card3D;
 using Godot;
 
-namespace CardGame.Client.Game.Zones.Zones3D
+namespace CardGame.Client.Game.Zones
 {
-    public class Hand3D: Spatial, IZoneView
+    public class Hand: Spatial, IZoneView
     {
-        private readonly IList<ICardView> Cards = new List<ICardView>();
+        private readonly IList<Card> Cards = new List<Card>();
 
         public int Count => Cards.Count;
-        public void Add(ICardView card)
+        public void Add(Card card)
         {
             Cards.Add(card);
             card.Position = GlobalTransform.origin;
             Sort();;
         }
         
-        public void Remove(ICardView card)
+        public void Remove(Card card)
         {
             Cards.Remove(card);
         }
@@ -42,7 +40,7 @@ namespace CardGame.Client.Game.Zones.Zones3D
             }
         }
 
-        public IEnumerator<ICardView> GetEnumerator()
+        public IEnumerator<Card> GetEnumerator()
         {
             return Cards.GetEnumerator();
         }

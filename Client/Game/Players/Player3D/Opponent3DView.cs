@@ -35,7 +35,7 @@ namespace CardGame.Client.Game.Players.Player3D
             Declare = declaration;
         }
 
-        public void AddCardToDeck(ICardView cardView)
+        public void AddCardToDeck(Card cardView)
         {
             Deck.Add(cardView);
         }
@@ -55,9 +55,8 @@ namespace CardGame.Client.Game.Players.Player3D
             throw new System.NotImplementedException();
         }
 
-        public void Draw(ICardView ignoredCard)
+        public void Draw(Card ignoredCard)
         {
-            //throw new System.NotImplementedException();
             Tween Command()
             {
                 var card = Deck.ElementAt(Deck.Count - 1);
@@ -69,37 +68,36 @@ namespace CardGame.Client.Game.Players.Player3D
                 var rotation = new Vector3(60, 0, 0);
                 
                 // Wrap In GFX Class
-                var card3D = (Spatial) card;
-                Gfx.InterpolateProperty(card3D, nameof(ICardView.Visible), false, true, 0.1F);
-                Gfx.InterpolateProperty(card3D, nameof(ICardView.Position), globalPosition, globalDestination, 0.1F);
-                Gfx.InterpolateProperty(card3D, "rotation_degrees", card3D.Rotation, rotation, 0.1F);
+                Gfx.InterpolateProperty(card, nameof(card.Visible), false, true, 0.1F);
+                Gfx.InterpolateProperty(card, nameof(card.Position), globalPosition, globalDestination, 0.1F);
+                Gfx.InterpolateProperty(card, nameof(card.RotationDegrees), card.Rotation, rotation, 0.1F);
                 return Gfx;
             };
 
            Declare(Command);
         }
         
-        public void Discard(ICardView card)
+        public void Discard(Card card)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Deploy(ICardView card)
+        public void Deploy(Card card)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Set(ICardView card)
+        public void Set(Card card)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Attack(ICardView attacker, ICardView defender)
+        public void Attack(Card attacker, Card defender)
         {
             throw new System.NotImplementedException();
         }
 
-        public void AttackDirectly(ICardView attacker)
+        public void AttackDirectly(Card attacker)
         {
             throw new System.NotImplementedException();
         }

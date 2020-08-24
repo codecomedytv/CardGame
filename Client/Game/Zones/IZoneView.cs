@@ -3,11 +3,11 @@ using CardGame.Client.Game.Cards;
 
 namespace CardGame.Client.Game.Zones
 {
-    public interface IZoneView: IEnumerable<ICardView>
+    public interface IZoneView: IEnumerable<Card>
     {
         public int Count { get; }
-        public void Add(ICardView cardView);
-        public void Remove(ICardView cardView);
+        public void Add(Card cardView);
+        public void Remove(Card cardView);
         public void Sort();
     }
 }

@@ -23,14 +23,14 @@ namespace CardGame.Client.Game.Players
         {
             foreach (var card in deck)
             {
-                View.AddCardToDeck(card.View);
+                View.AddCardToDeck(card);
             }
         }
 
         public void Draw(Card card)
         {
-            Model.Draw(card.Model);
-            View.Draw(card.View);
+            Model.Draw(card);
+            View.Draw(card);
         }
 
         public void Discard(Card card)
