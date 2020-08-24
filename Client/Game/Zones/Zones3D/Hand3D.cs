@@ -31,11 +31,11 @@ namespace CardGame.Client.Game.Zones.Zones3D
         {
             var card3D = Cards[0];
             var scaleX = card3D.Scale.x;
-            Translation = new Vector3(Translation.x - scaleX / 2, Translation.y, Translation.z);
+            Translation = new Vector3(Translation.x - (scaleX / 2.0F), Translation.y, Translation.z);
             var i = 1;
-            foreach (var card in Cards)
+            foreach (var card in Cards) 
             {
-                card.Translation = GlobalTransform.origin;
+                card.Translation = GlobalTransform.origin; // This is probably the primary issue
                 var xMod = card.Translation.x + card.Scale.x * i;
                 card.Translation = new Vector3(xMod, card.Translation.y, card.Translation.z);
                 i += 1;
