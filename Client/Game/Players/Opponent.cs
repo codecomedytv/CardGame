@@ -5,12 +5,10 @@ namespace CardGame.Client.Game.Players
 {
     public class Opponent: IPlayer
     {
-        private readonly IPlayerModel Model;
         private readonly IPlayerView View;
 
         public Opponent(IPlayerView view)
         {
-            Model = new PlayerModel();
             View = view;
         }
 
@@ -29,7 +27,6 @@ namespace CardGame.Client.Game.Players
 
         public void Draw(Card card)
         {
-            Model.Draw(card);
             View.Draw(card);
         }
 

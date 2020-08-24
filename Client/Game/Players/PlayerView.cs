@@ -2,16 +2,16 @@ using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Zones;
 using Godot;
 
-namespace CardGame.Client.Game.Players.Player3D
+namespace CardGame.Client.Game.Players
 {
-	public class Player3DView: Spatial, IPlayerView
+	public class PlayerView: Spatial, IPlayerView
 	{
 		private Declaration Declare;
 		private Spatial Units;
 		private Spatial Support;
-		private IZoneView Hand;
+		private Hand Hand;
 		private Spatial Graveyard;
-		private IZoneView Deck;
+		private Deck Deck;
 		private Tween Gfx;
 		private AudioStreamPlayer Sfx;
 
@@ -19,9 +19,9 @@ namespace CardGame.Client.Game.Players.Player3D
 		{
 			Units = (Spatial) GetNode("Units");
 			Support = (Spatial) GetNode("Support");
-			Hand = (IZoneView) GetNode("Hand");
+			Hand = (Hand) GetNode("Hand");
 			Graveyard = (Spatial) GetNode("Discard");
-			Deck = (IZoneView) GetNode("Deck");
+			Deck = (Deck) GetNode("Deck");
 			Gfx = (Tween) GetNode("GFX");
 			Sfx = (AudioStreamPlayer) GetNode("SFX");
 		}

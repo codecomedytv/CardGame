@@ -5,7 +5,7 @@ namespace CardGame.Client.Game.Cards
 {
     public class CardFactory
     {
-        private readonly PackedScene CardScene = (PackedScene) GD.Load("res://Client/Game/Cards/Card3DView.tscn");
+        private readonly PackedScene CardScene = (PackedScene) GD.Load("res://Client/Game/Cards/Card.tscn");
 
         public CardFactory() { }
         
