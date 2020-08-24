@@ -52,8 +52,6 @@ namespace CardGame.Client.Game.Players.Player3D
 
         public void Draw(ICardView card)
         {
-            GD.Print("Player View Drew Card");
-
             Tween Command()
             {
                 Gfx.RemoveAll();
@@ -70,7 +68,7 @@ namespace CardGame.Client.Game.Players.Player3D
                 var card3D = (Spatial) card;
                 Gfx.InterpolateProperty(card3D, nameof(ICardView.Visible), false, true, 0.1F);
                 Gfx.InterpolateProperty(card3D, "rotation_degrees", card3D.Rotation, rotation, 0.4F);
-                    Gfx.InterpolateProperty(card3D, nameof(ICardView.Position), globalPosition, globalDestination, 0.3F);
+                Gfx.InterpolateProperty(card3D, nameof(ICardView.Position), globalPosition, globalDestination, 0.3F);
                 return Gfx;
             }
 

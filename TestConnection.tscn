@@ -5,10 +5,30 @@
 [node name="TestConnection" type="Node"]
 script = ExtResource( 1 )
 
-[node name="Button" type="Button" parent="."]
+[node name="HostJoinJoin" type="Button" parent="."]
 margin_right = 97.0
 margin_bottom = 20.0
-text = "Start"
+text = "Host & Join & Join"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HostJoin" type="Button" parent="."]
+margin_left = 8.0
+margin_top = 45.0
+margin_right = 91.0
+margin_bottom = 65.0
+text = "Host & Join"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Join" type="Button" parent="."]
+margin_left = 143.0
+margin_top = 31.0
+margin_right = 178.0
+margin_bottom = 51.0
+text = "Join"
 __meta__ = {
 "_edit_use_anchors_": false
 }

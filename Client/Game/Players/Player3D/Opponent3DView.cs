@@ -56,12 +56,15 @@ namespace CardGame.Client.Game.Players.Player3D
         public void Draw(ICardView card)
         {
             //throw new System.NotImplementedException();
-            Action x = async () =>
+            Tween Command()
             {
-                await ToSignal(_gfx, "tween_all_completed");
+                _gfx.RemoveAll();
+                return _gfx;
             };
-        }
 
+           Declare(Command);
+        }
+        
         public void Discard(ICardView card)
         {
             throw new System.NotImplementedException();

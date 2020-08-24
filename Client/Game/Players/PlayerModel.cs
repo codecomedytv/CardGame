@@ -7,7 +7,7 @@ namespace CardGame.Client.Game.Players
     {
         public void Draw(CardModel card)
         {
-            GD.Print("Player Model Drew Card");
+            
         }
     }
 }

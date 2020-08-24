@@ -21,12 +21,7 @@ namespace CardGame.Client.Game.Players
 		{
 			View.Connect(addCommand);
 		}
-
-		public void ConnectCommands(CommandQueue commandQueue)
-		{
-			throw new System.NotImplementedException();
-		}
-
+		
 		public void LoadDeck(IEnumerable<Card> deck)
 		{
 			foreach (var card in deck)

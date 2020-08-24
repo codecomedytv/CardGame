@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CardGame.Client.Game.Players;
+using CardGame.Tests;
 using Godot;
 
 namespace CardGame.Client.Game
@@ -9,7 +11,7 @@ namespace CardGame.Client.Game
 
     public class CommandQueue: Godot.Object
     {
-        private IList<Func<Tween>> Commands = new List<Func<Tween>>();
+        private readonly Queue<Func<Tween>> Commands = new Queue<Func<Tween>>();
         private readonly Declaration Declare;
         
         public CommandQueue()
@@ -19,7 +21,6 @@ namespace CardGame.Client.Game
 
         public void SubscribeTo(IPlayer player)
         {
-            //player.ConnectDeclaration(this, nameof(OnCommandDeclared));
             player.Connect(Declare);
         }
 
@@ -29,19 +30,19 @@ namespace CardGame.Client.Game
         }
         private void OnCommandDeclared(Func<Tween> command)
         {
-            GD.Print("Command Added");
-            Commands.Add(command);
+            Commands.Enqueue(command);
         }
 
         // Setting State Should be a Queued Action In Future
         private async void Execute(int stateAfterExecution)
         {
-            GD.Print("Executing!");
-            foreach (var command in Commands)
+            while(Commands.Count > 0)
             {
+                var command = Commands.Dequeue();
                 var executor = command();
                 executor.Start();
                 await ToSignal(executor, "tween_all_completed");
+                executor.RemoveAll();
             }
         }
     }

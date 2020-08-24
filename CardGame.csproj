@@ -120,6 +120,7 @@
     <Compile Include="Client\Game\Players\IPlayer.cs" />
     <Compile Include="Client\Game\Players\IPlayerModel.cs" />
     <Compile Include="Client\Game\Players\IPlayerView.cs" />
+    <Compile Include="Client\Game\Players\Opponent.cs" />
     <Compile Include="Client\Game\Players\Player.cs" />
     <Compile Include="Client\Game\Players\Player3D\Opponent3DView.cs" />
     <Compile Include="Client\Game\Players\Player3D\Player3DView.cs" />
