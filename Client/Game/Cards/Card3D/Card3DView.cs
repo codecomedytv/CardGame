@@ -5,9 +5,9 @@ namespace CardGame.Client.Game.Cards.Card3D
     public class Card3DView: Spatial, ICardView
     {
         public Vector3 Position
-        { 
-            get => GetNode<Spatial>("3DCardView").Translation;
-            set => GetNode<Spatial>("3DCardView").Translation = value;
+        {
+            get => Translation;
+            set => Translation = value;
         }
         
         public Card3DView(int id, CardInfo cardInfo)

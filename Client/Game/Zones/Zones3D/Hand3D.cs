@@ -8,23 +8,18 @@ namespace CardGame.Client.Game.Zones.Zones3D
 {
     public class Hand3D: Spatial, IZoneView
     {
-        private readonly IList<Card3DView> Cards = new List<Card3DView>();
+        private readonly IList<ICardView> Cards = new List<ICardView>();
 
-        public void Add(ICardView cardView)
+        public void Add(ICardView card)
         {
-            _add(cardView as Card3DView);
-        }
-
-        private void _add(Card3DView card3DView)
-        {
-            Cards.Add(card3DView);
-            card3DView.Translation = GlobalTransform.origin;
-            Sort();
+            Cards.Add(card);
+            card.Position = GlobalTransform.origin;
+            Sort();;
         }
         
-        public void Remove(ICardView cardView)
+        public void Remove(ICardView card)
         {
-            Cards.Remove(cardView as Card3DView);
+            Cards.Remove(card);
         }
 
         public void Sort()
@@ -32,12 +27,15 @@ namespace CardGame.Client.Game.Zones.Zones3D
             var card3D = Cards[0];
             var scaleX = card3D.Scale.x;
             Translation = new Vector3(Translation.x - (scaleX / 2.0F), Translation.y, Translation.z);
-            var i = 1;
-            foreach (var card in Cards) 
+            var i = 0;
+            foreach (var card in Cards)
             {
-                card.Translation = GlobalTransform.origin; // This is probably the primary issue
-                var xMod = card.Translation.x + card.Scale.x * i;
-                card.Translation = new Vector3(xMod, card.Translation.y, card.Translation.z);
+                // Not entirely sure what I'm doing here other than essentially guessing the new position of cards
+                card.Position = GlobalTransform.origin - new Vector3(-0.5F, 0, 0);
+                var xMod = card.Position.x + card.Scale.x * i;
+                var xMod2 = xMod + 0.2F * i;
+                
+                card.Position = new Vector3(xMod2, card.Position.y, card.Position.z);
                 i += 1;
             }
         }

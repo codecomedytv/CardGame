@@ -4,9 +4,8 @@ namespace CardGame.Client.Game.Cards
 {
     public interface ICardView
     {
-       // Vector2 Position();
-
-       // Vector3 Position();
+        Vector3 Position { get; set; }
+        Vector3 Scale { get; set; }
         void DisplayPower(int power);
         void FlipFaceUp();
         void FlipFaceDown();
