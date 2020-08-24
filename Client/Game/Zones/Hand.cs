@@ -24,18 +24,23 @@ namespace CardGame.Client.Game.Zones
 
         public void Sort()
         {
-            var card3D = Cards[0];
-            var scaleX = card3D.Scale.x;
-            Translation = new Vector3(Translation.x - (scaleX / 2.0F), Translation.y, Translation.z);
+            Translation = new Vector3(Translation.x - 0.4F, Translation.y, Translation.z);
             var i = 0;
             foreach (var card in Cards)
             {
                 // Not entirely sure what I'm doing here other than essentially guessing the new position of cards
-                card.Position = GlobalTransform.origin - new Vector3(-0.5F, 0, 0);
-                var xMod = card.Position.x + card.Scale.x * i;
-                var xMod2 = xMod + 0.2F * i;
                 
-                card.Position = new Vector3(xMod2, card.Position.y, card.Position.z);
+                // Move Card To Origin (right-most point)
+                card.Position = GlobalTransform.origin;
+
+                // 0.1F is so cards don't huddle together, another 0.1F is to give an actual space between cards
+                var fixPixelOffByOneMod = i * 0.2F;
+                
+                // Move the card forwards the line times its position in the list of cards
+                var xMod = card.Position.x + i + fixPixelOffByOneMod;
+               
+                // Finally set the position
+                card.Position = new Vector3(xMod, card.Position.y, card.Position.z);
                 i += 1;
             }
         }
