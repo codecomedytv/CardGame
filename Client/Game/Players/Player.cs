@@ -101,13 +101,14 @@ namespace CardGame.Client.Game.Players
 			Tween Command()
 			{
 				var origin = card.Translation;
+				var destination = Units.NextSlot();
+
 				Hand.Remove(card);
 				Units.Add(card);
-				var destination = card.Translation;
-				//var rotation = Hand.Rotation;
 
-				Gfx.InterpolateProperty(card, nameof(Translation), origin, destination, 0.1F);
-				Gfx.InterpolateProperty(card, nameof(RotationDegrees), card.Rotation, Hand.Rotation, 0.1F);
+				Gfx.InterpolateProperty(card, nameof(Translation), origin, destination, 0.3F);
+				Gfx.InterpolateProperty(card, nameof(RotationDegrees), new Vector3(-25, 180, 0), new Vector3(0, 180, 0), 0.1F);
+				Gfx.InterpolateCallback(Hand, 0.2F, nameof(Hand.Sort));
 				return Gfx;
 			}
 

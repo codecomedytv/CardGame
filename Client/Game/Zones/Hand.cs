@@ -14,23 +14,21 @@ namespace CardGame.Client.Game.Zones
         {
             Cards.Add(card);
             card.Translation = GlobalTransform.origin;
+            Translation = new Vector3(Translation.x - 0.4F, Translation.y, Translation.z);
             Sort();;
         }
         
         public void Remove(Card card)
         {
             Cards.Remove(card);
-            // Sort();
+            Translation = new Vector3(Translation.x + 0.4F, Translation.y, Translation.z);
         }
 
         public void Sort()
         {
-            Translation = new Vector3(Translation.x - 0.4F, Translation.y, Translation.z);
             var i = 0;
             foreach (var card in Cards)
             {
-                // Not entirely sure what I'm doing here other than essentially guessing the new position of cards
-                
                 // Move Card To Origin (right-most point)
                 card.Translation = GlobalTransform.origin;
 
