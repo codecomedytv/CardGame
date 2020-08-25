@@ -44,19 +44,24 @@ namespace CardGame.Client.Game
             
             Messenger.CallDeferred("SetReady");
 
+            LoadOpponentDeck();
+            
+        }
+
+        private void LoadOpponentDeck()
+        {
             // Begin Loading Opponent Deck
             Cards.Add(0, CardFactory.Create(0, SetCodes.NullCard));
             // I don't really know where else to put this!
             var deck = new System.Collections.Generic.List<Card>();
             for (var i = 0; i < 40; i++)
             {
-                 var card = CardFactory.Create(0, SetCodes.NullCard);
-                 AddChild(card); // Need to put this into a central area
-                 deck.Add(card);
+                var card = CardFactory.Create(0, SetCodes.NullCard);
+                AddChild(card); // Need to put this into a central area
+                deck.Add(card);
             }
             
             Opponent.LoadDeck(deck);
-            
         }
 
         private void OnLoadDeck(Dictionary<int, SetCodes> deckList)
