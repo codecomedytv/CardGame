@@ -33,6 +33,10 @@ namespace CardGame.Client.Game.Cards
 		[Signal]
 		public delegate void MouseOveredExit();
 
+		public void SetCardArt(Texture art)
+		{
+			GetNode<Sprite3D>("Face").Texture = art;
+		}
 
 		public override void _Ready()
 		{

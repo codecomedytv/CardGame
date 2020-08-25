@@ -14,7 +14,7 @@
   "12": {"Title": "Debug.ReturnToDeck", "CardType": 2, "Text":  "", "Art": "cultist", "Power":  0},
   "13": {"Title":  "Debug.CannotBeTargeted", "CardType": 1, "Text":  "", "Art": "cultist", "Power":  0},
   "14": {"Title":  "Counter Attack", "CardType": 2, "Text": "Destroy attacking unit.", "Art": "meat", "Power": 0},
-  "15": {"Title":  "Dungeon Guide", "CardType": 1, "Text":  "", "Art":  "Adventurer", "Power": 2000},
+  "15": {"Title":  "Dungeon Guide", "CardType": 1, "Text":  "", "Art":  "DungeonGuide", "Power": 2000},
   "16": {"Title":  "Guard Puppy", "CardType": 1, "Text": "Cannot Be Destroyed By Battle.\n\nYour opponent cannot attack other units", "Art": "boar", "Power": 500},
   "17": {"Title":  "Novice Archer", "CardType": 1, "Text": "When this card is deployed: Destroy target unit with 1000 or less attack", "Art": "M_bot", "Power": 1000},
   "18": {"Title":  "Quest Reward", "CardType": 2, "Text": "Draw 2 Cards", "Art": "coin", "Power": 0},
