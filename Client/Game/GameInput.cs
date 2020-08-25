@@ -1,6 +1,7 @@
 ﻿using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Players;
 using Godot;
+using Godot.Collections;
 
 namespace CardGame.Client.Game
 {
@@ -11,6 +12,9 @@ namespace CardGame.Client.Game
 
         [Signal]
         public delegate void SetCard();
+
+        [Signal]
+        public delegate void Activate();
         
         private Card MousedOverCard;
         public Player User;
@@ -64,6 +68,22 @@ namespace CardGame.Client.Game
             {
                 User.State = States.Processing;
                 EmitSignal(nameof(SetCard), card.Id);
+            }
+            
+            else if (card.CanBeActivated)
+            {
+                card.FlipFaceUp();
+
+                //if (0 == 10)
+                //{
+                    // Target Section
+                //}
+
+                //else
+                //{
+                    User.State = States.Processing;
+                    EmitSignal(nameof(card), new Array());
+                //}
             }
         }
     }

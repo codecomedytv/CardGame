@@ -132,6 +132,12 @@ namespace CardGame.Client.Game.Players
 			Declare(Command);
 		}
 
+		public void Activate(Card card)
+		{
+			GD.Print("Opponent Activate");
+		}
+
+
 		public void Attack(Card attacker, Card defender)
 		{
 			throw new System.NotImplementedException();

@@ -24,6 +24,7 @@ namespace CardGame.Client.Game.Cards
 		public bool IsInActive = false;
 		public bool CanBeDeployed => State == CardStates.CanBeDeployed && Player is Player player && player.State == States.Idle;
 		public bool CanBeSet => State == CardStates.CanBeSet && Player is Player player && player.State == States.Idle;
+		public bool CanBeActivated => State == CardStates.CanBeActivated && Player is Player player && !player.IsInActive;
 		public bool CanBePlayed = false;
 		
 		// Signals
@@ -61,7 +62,7 @@ namespace CardGame.Client.Game.Cards
 
 		public void FlipFaceUp()
 		{
-			throw new System.NotImplementedException();
+			Translation = new Vector3(0, 180, 0);
 		}
 
 		public void FlipFaceDown()

@@ -13,6 +13,7 @@ namespace CardGame.Client.Game
 		[Signal] public delegate void Deploy();
 		[Signal] public delegate void RevealCard();
 		[Signal] public delegate void SetFaceDown();
+		[Signal] public delegate void Activate();
 
 		public void Execute(int stateAfterExecution)
 		{

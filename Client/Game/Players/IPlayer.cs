@@ -22,6 +22,7 @@ namespace CardGame.Client.Game.Players
         void Discard(Card card);
         void Deploy(Card card);
         void SetFaceDown(Card card);
+        void Activate(Card card);
         void Attack(Card attacker, Card defender);
         void AttackDirectly(Card attacker);
     }
