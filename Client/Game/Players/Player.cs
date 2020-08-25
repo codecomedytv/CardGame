@@ -8,7 +8,7 @@ namespace CardGame.Client.Game.Players
 	public class Player: Spatial, IPlayer
 	{
 		private Declaration Declare;
-		private Spatial Units;
+		private Units Units;
 		private Spatial Support;
 		private Hand Hand;
 		private Spatial Graveyard;
@@ -31,7 +31,7 @@ namespace CardGame.Client.Game.Players
 		// Begin Animation Logic
 		public override void _Ready()
 		{
-			Units = (Spatial) GetNode("Units");
+			Units = (Units) GetNode("Units");
 			Support = (Spatial) GetNode("Support");
 			Hand = (Hand) GetNode("Hand");
 			Graveyard = (Spatial) GetNode("Discard");
@@ -98,7 +98,20 @@ namespace CardGame.Client.Game.Players
 
 		public void Deploy(Card card)
 		{
-			GD.Print($"Deploying {card.Id}");
+			Tween Command()
+			{
+				var origin = card.Translation;
+				Hand.Remove(card);
+				Units.Add(card);
+				var destination = card.Translation;
+				//var rotation = Hand.Rotation;
+
+				Gfx.InterpolateProperty(card, nameof(Translation), origin, destination, 0.1F);
+				Gfx.InterpolateProperty(card, nameof(RotationDegrees), card.Rotation, Hand.Rotation, 0.1F);
+				return Gfx;
+			}
+
+			Declare(Command);
 		}
 
 		public void Set(Card card)

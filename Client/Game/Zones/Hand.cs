@@ -20,6 +20,7 @@ namespace CardGame.Client.Game.Zones
         public void Remove(Card card)
         {
             Cards.Remove(card);
+            // Sort();
         }
 
         public void Sort()

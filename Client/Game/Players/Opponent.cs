@@ -86,7 +86,7 @@ namespace CardGame.Client.Game.Players
 
 		public void Deploy(Card card)
 		{
-			throw new System.NotImplementedException();
+			GD.Print("Opponent Deploy Not Implemented");
 		}
 
 		public void Set(Card card)

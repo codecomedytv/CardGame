@@ -78,13 +78,14 @@ namespace CardGame
 		
 		private void SwapTables()
 		{
-			GD.Print("swapping tables");
-			var tables = GetTree().GetNodesInGroup("tables");
-			Debug.Assert(tables.Count == 2);
-			foreach (Spatial table in tables)
+			GD.Print("swapping games");
+			var games = GetTree().GetNodesInGroup("games");
+			Debug.Assert(games.Count == 2);
+			foreach (Spatial game in games)
 			{
-				var y = (int) table.Translation.y;
-				table.Translation = y == 0 ? new Vector3(0, -20, 0) : new Vector3(0, 0, 0);
+				//var y = (int) table.Translation.y;
+				//table.Translation = y == 0 ? new Vector3(0, -20, 0) : new Vector3(0, 0, 0);
+				game.Visible = !game.Visible;
 			}
 		}
 	}

@@ -7,8 +7,9 @@ using Godot;
 
 namespace CardGame.Client.Game
 {
-    public class Match: Node
+    public class Match: Spatial
     {
+        private static int _matchDebugCount = 0;
         private readonly Catalog Cards = new Catalog();
         private readonly CommandQueue CommandQueue = new CommandQueue();
         private readonly Messenger Messenger = new Messenger();
@@ -20,6 +21,13 @@ namespace CardGame.Client.Game
 
         public Match()
         {
+            AddToGroup("games");
+            if (_matchDebugCount > 0)
+            {
+                this.Visible = false;
+            }
+            _matchDebugCount += 1;
+            
             Table = new Table();
             CardFactory = new CardFactory();
         }
@@ -38,6 +46,7 @@ namespace CardGame.Client.Game
             Messenger.Receiver.Connect(nameof(MessageReceiver.Draw), this, nameof(OnDraw));
             Messenger.Receiver.Connect(nameof(MessageReceiver.UpdateCard), this, nameof(OnCardUpdated));
             Messenger.Receiver.Connect(nameof(MessageReceiver.Deploy), this, nameof(OnCardDeployed));
+            Messenger.Receiver.Connect(nameof(MessageReceiver.RevealCard), this, nameof(OnCardRevealed));
 
             GameInput.Connect(nameof(GameInput.Deploy), Messenger.Sender, nameof(MessageSender.DeclareDeploy));
 
@@ -107,6 +116,12 @@ namespace CardGame.Client.Game
             {
                 card.ValidAttackTargets.Add(Cards[defender]);
             }
+        }
+
+        public void OnCardRevealed(int id, SetCodes setCode, int zoneIds)
+        {
+            var card = CardFactory.Create(id, setCode);
+            Cards.Add(id, card);
         }
 
         private void OnCardDeployed(int id, SetCodes setCode, bool isOpponent)

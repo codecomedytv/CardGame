@@ -11,6 +11,7 @@ namespace CardGame.Client.Game
 		[Signal] public delegate void LoadDeck();
 		[Signal] public delegate void UpdateCard();
 		[Signal] public delegate void Deploy();
+		[Signal] public delegate void RevealCard();
 
 		public void Execute(int stateAfterExecution)
 		{

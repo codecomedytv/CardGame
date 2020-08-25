@@ -121,6 +121,7 @@
     <Compile Include="Client\Game\Zones\Deck.cs" />
     <Compile Include="Client\Game\Zones\Hand.cs" />
     <Compile Include="Client\Game\Zones\IZone.cs" />
+    <Compile Include="Client\Game\Zones\Units.cs" />
     <Compile Include="Client\Library\CardLibrary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\Game\CardCatalog.cs" />
