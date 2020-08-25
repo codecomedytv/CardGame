@@ -15,6 +15,9 @@ namespace CardGame.Client.Game
 
         [Signal]
         public delegate void Activate();
+
+        [Signal]
+        public delegate void EndTurn();
         
         private Card MousedOverCard;
         public Player User;
@@ -45,6 +48,16 @@ namespace CardGame.Client.Game
             if (MousedOverCard == card)
             {
                 MousedOverCard = null;
+            }
+        }
+
+        public void OnEndTurnPressed()
+        {
+            GD.Print("pressed end turn");
+            if (User.State == States.Idle)
+            {
+                GD.Print("Ending Turn");
+                EmitSignal(nameof(EndTurn));
             }
         }
 

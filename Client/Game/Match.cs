@@ -22,19 +22,13 @@ namespace CardGame.Client.Game
         public Match()
         {
             AddToGroup("games");
-            if (_matchDebugCount > 0)
-            {
-                this.Visible = false;
-            }
-            _matchDebugCount += 1;
-            
             Table = new Table();
             CardFactory = new CardFactory();
         }
         
         public override void _Ready()
         {
-            AddChild(Table);
+            AddChild(Table, true);
             AddChild(Messenger);
             AddChild(GameInput);
 
@@ -54,6 +48,9 @@ namespace CardGame.Client.Game
             GameInput.Connect(nameof(GameInput.Deploy), Messenger.Sender, nameof(MessageSender.DeclareDeploy));
             GameInput.Connect(nameof(GameInput.SetCard), Messenger.Sender, nameof(MessageSender.DeclareSet));
             GameInput.Connect(nameof(GameInput.Activate), Messenger.Sender, nameof(MessageSender.DeclareActivation));
+            GameInput.Connect(nameof(GameInput.EndTurn), Messenger.Sender, nameof(MessageSender.DeclareEndTurn));
+
+            Table.GetNode<Button>("Table3D/EndTurn").Connect("pressed", GameInput, nameof(GameInput.OnEndTurnPressed));
             
             var player = (Player) Player;
             CommandQueue.Connect(nameof(CommandQueue.SetState), player, nameof(player.SetState));
@@ -66,6 +63,14 @@ namespace CardGame.Client.Game
             Messenger.CallDeferred("SetReady");
 
             LoadOpponentDeck();
+            
+            // Debug
+            if (_matchDebugCount > 0)
+            {
+                this.Visible = false;
+                Table.GetNode<Button>("Table3D/EndTurn").Visible = false;
+            }
+            _matchDebugCount += 1;
             
         }
 

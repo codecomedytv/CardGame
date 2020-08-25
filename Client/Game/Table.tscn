@@ -171,3 +171,11 @@ texture = ExtResource( 1 )
 [node name="GFX" type="Tween" parent="PlayMat/Opponent"]
 
 [node name="SFX" type="AudioStreamPlayer" parent="PlayMat/Opponent"]
+
+[node name="EndTurn" type="Button" parent="."]
+margin_right = 91.0
+margin_bottom = 20.0
+text = "EndTurn"
+__meta__ = {
+"_edit_use_anchors_": false
+}

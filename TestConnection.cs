@@ -83,9 +83,8 @@ namespace CardGame
 			Debug.Assert(games.Count == 2);
 			foreach (Spatial game in games)
 			{
-				//var y = (int) table.Translation.y;
-				//table.Translation = y == 0 ? new Vector3(0, -20, 0) : new Vector3(0, 0, 0);
 				game.Visible = !game.Visible;
+				game.GetNode<Button>("Spatial/Table3D/EndTurn").Visible = game.Visible;
 			}
 		}
 	}
