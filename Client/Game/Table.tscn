@@ -182,3 +182,12 @@ text = "EndTurn"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="PassPlay" type="Button" parent="."]
+margin_top = 20.0
+margin_right = 91.0
+margin_bottom = 40.0
+text = "Pass Play"
+__meta__ = {
+"_edit_use_anchors_": false
+}

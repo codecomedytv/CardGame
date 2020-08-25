@@ -85,6 +85,7 @@ namespace CardGame
 			{
 				game.Visible = !game.Visible;
 				game.GetNode<Button>("Spatial/Table3D/EndTurn").Visible = game.Visible;
+				game.GetNode<Button>("Spatial/Table3D/PassPlay").Visible = game.Visible;
 			}
 		}
 	}

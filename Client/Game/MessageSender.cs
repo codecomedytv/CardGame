@@ -29,6 +29,11 @@ namespace CardGame.Client.Game
             Messenger.RpcId(ServerId, "OnActivationDeclared", Id, cardId, targetId);
         }
 
+        public void DeclarePassPlay()
+        {
+            Messenger.RpcId(ServerId, "OnPassPlayDeclared", Id);
+        }
+
         public void DeclareEndTurn()
         {
             Messenger.RpcId(ServerId, "OnEndTurnDeclared", Id);

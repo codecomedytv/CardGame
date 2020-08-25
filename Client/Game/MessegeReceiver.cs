@@ -14,7 +14,8 @@ namespace CardGame.Client.Game
 		[Signal] public delegate void RevealCard();
 		[Signal] public delegate void SetFaceDown();
 		[Signal] public delegate void Activate();
-		[Signal] public delegate void SendCardToZone();	
+		[Signal] public delegate void SendCardToZone();
+		[Signal] public delegate void ResolveCard();
 
 		public void Execute(int stateAfterExecution)
 		{

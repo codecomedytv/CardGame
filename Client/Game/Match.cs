@@ -48,10 +48,13 @@ namespace CardGame.Client.Game
             GameInput.Connect(nameof(GameInput.Deploy), Messenger.Sender, nameof(MessageSender.DeclareDeploy));
             GameInput.Connect(nameof(GameInput.SetCard), Messenger.Sender, nameof(MessageSender.DeclareSet));
             GameInput.Connect(nameof(GameInput.Activate), Messenger.Sender, nameof(MessageSender.DeclareActivation));
+            GameInput.Connect(nameof(GameInput.PassPlay), Messenger.Sender, nameof(MessageSender.DeclarePassPlay));
             GameInput.Connect(nameof(GameInput.EndTurn), Messenger.Sender, nameof(MessageSender.DeclareEndTurn));
+            
 
             Table.GetNode<Button>("Table3D/EndTurn").Connect("pressed", GameInput, nameof(GameInput.OnEndTurnPressed));
-            
+            Table.GetNode<Button>("Table3D/PassPlay").Connect("pressed", GameInput, nameof(GameInput.OnPassPlayPressed));
+
             var player = (Player) Player;
             CommandQueue.Connect(nameof(CommandQueue.SetState), player, nameof(player.SetState));
 
@@ -69,6 +72,7 @@ namespace CardGame.Client.Game
             {
                 this.Visible = false;
                 Table.GetNode<Button>("Table3D/EndTurn").Visible = false;
+                Table.GetNode<Button>("Table3D/PassPlay").Visible = false;
             }
             _matchDebugCount += 1;
             

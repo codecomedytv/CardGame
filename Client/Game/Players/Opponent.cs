@@ -151,7 +151,27 @@ namespace CardGame.Client.Game.Players
 
 		public void SendCardToGraveyard(Card card)
 		{
-			GD.Print("Opponent Sending Card To Graveyard");
+			Tween Command()
+			{
+				if (Units.Contains(card))
+				{
+					Units.Remove(card);
+				}
+				else if(Support.Contains(card))
+				{
+					Support.Remove(card);
+				}
+				
+				Graveyard.Add(card);
+				
+				var origin = card.Translation;
+				var destination = Graveyard.GlobalTransform.origin + new Vector3(0, 0, 0.05F);
+
+				Gfx.InterpolateProperty(card, nameof(Translation), origin, destination, 0.3F);
+				return Gfx;
+			}
+
+			Declare(Command);
 		}
 
 		public void Attack(Card attacker, Card defender)

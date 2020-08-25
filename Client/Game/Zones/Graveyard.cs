@@ -30,12 +30,7 @@ namespace CardGame.Client.Game.Zones
         {
             Cards.Remove(card);
         }
-
-        public Vector3 NextSlot()
-        {
-            return GlobalTransform.origin + new Vector3(0, 0, -0.1F * Count);
-        }
-
+        
         public void Sort()
         {
             throw new System.NotImplementedException();

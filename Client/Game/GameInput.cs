@@ -17,6 +17,9 @@ namespace CardGame.Client.Game
         public delegate void Activate();
 
         [Signal]
+        public delegate void PassPlay();
+
+        [Signal]
         public delegate void EndTurn();
         
         private Card MousedOverCard;
@@ -61,6 +64,16 @@ namespace CardGame.Client.Game
             }
         }
 
+        public void OnPassPlayPressed()
+        {
+            GD.Print("pressed pass play turn");
+            if (User.State == States.Active)
+            {
+                GD.Print("passing play");
+                EmitSignal(nameof(PassPlay));
+            }
+        }
+
         private void OnDoubleClicked(Card card)
         {
             if (!User.IsInActive)
@@ -87,16 +100,10 @@ namespace CardGame.Client.Game
             {
                 card.FlipFaceUp();
 
-                //if (0 == 10)
-                //{
-                    // Target Section
-                //}
+                // Insert Target Check Here
+                User.State = States.Processing;
+                EmitSignal(nameof(Activate), card.Id, new Array());
 
-                //else
-                //{
-                    User.State = States.Processing;
-                    EmitSignal(nameof(Activate), card.Id, new Array());
-                //}
             }
         }
     }

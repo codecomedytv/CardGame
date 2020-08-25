@@ -32,6 +32,11 @@ namespace CardGame.Client.Game.Zones
 		{
 			Cards.Add(card);
 		}
+		
+		public bool Contains(Card card)
+		{
+			return Cards.Contains(card);
+		}
 
 		public void Remove(Card card)
 		{
