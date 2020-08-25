@@ -1,7 +1,7 @@
-﻿using CardGame.Client.Game.Cards;
+﻿using System.Collections.Generic;
+using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Players;
 using Godot;
-using Godot.Collections;
 
 namespace CardGame.Client.Game
 {
@@ -33,6 +33,7 @@ namespace CardGame.Client.Game
 
             Messenger.Receiver.Connect(nameof(MessageReceiver.LoadDeck), this, nameof(OnLoadDeck));
             Messenger.Receiver.Connect(nameof(MessageReceiver.Draw), this, nameof(OnDraw));
+            Messenger.Receiver.Connect(nameof(MessageReceiver.UpdateCard), this, nameof(OnCardUpdated));
 
             var player = (Player) Player;
             CommandQueue.Connect(nameof(CommandQueue.SetState), player, nameof(player.SetState));
@@ -64,7 +65,7 @@ namespace CardGame.Client.Game
             Opponent.LoadDeck(deck);
         }
 
-        private void OnLoadDeck(Dictionary<int, SetCodes> deckList)
+        private void OnLoadDeck(Godot.Collections.Dictionary<int, SetCodes> deckList)
         {
             var deck = new System.Collections.Generic.List<Card>();
             foreach (var kv in deckList)
@@ -82,6 +83,24 @@ namespace CardGame.Client.Game
         private void OnDraw(int cardId = 0, bool isOpponent = false)
         {
             GetPlayer(isOpponent).Draw(Cards[cardId]);
+        }
+
+        private void OnCardUpdated(int id, CardStates state, IEnumerable<int> attackTargets, IEnumerable<int> targets)
+        {
+            var card = Cards[id];
+            card.State = state;
+            card.ValidTargets.Clear();
+            foreach (var target in targets)
+            {
+                card.ValidTargets.Add(Cards[target]);
+            }
+
+            card.ValidAttackTargets.Clear();
+
+            foreach (var defender in attackTargets)
+            {
+                card.ValidAttackTargets.Add(Cards[defender]);
+            }
         }
 
         private IPlayer GetPlayer(bool isOpponent)

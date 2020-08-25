@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using CardGame.Client.Game.Players;
 using CardGame.Client.Game.Zones;
 using Godot;
@@ -11,10 +12,13 @@ namespace CardGame.Client.Game.Cards
 		public string Title;
 		public int Power;
 		public CardType CardType;
+		public CardStates State;
 		private CardFace _face = CardFace.FaceDown;
 
 		public IPlayer Player;
 		public IZone Zone;
+		public readonly IList<Card> ValidTargets = new List<Card>();
+		public readonly IList<Card> ValidAttackTargets = new List<Card>();
 
 		// State Checks
 		public bool IsInActive = false;
