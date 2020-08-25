@@ -62,7 +62,7 @@ namespace CardGame.Client.Game.Cards
 
 		public void FlipFaceUp()
 		{
-			Translation = new Vector3(0, 180, 0);
+			RotationDegrees = new Vector3(Rotation.x, 180, Rotation.z);
 		}
 
 		public void FlipFaceDown()

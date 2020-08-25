@@ -121,7 +121,7 @@ namespace CardGame.Client.Game.Players
 				var destination = Support.NextSlot() + new Vector3(0, 0, 0.05F);
 
 				Hand.Remove(card);
-				Units.Add(card);
+				Support.Add(card);
 
 				Gfx.InterpolateProperty(card, nameof(Translation), origin, destination, 0.3F);
 				Gfx.InterpolateProperty(card, nameof(RotationDegrees), new Vector3(-25, 0, 0), new Vector3(0, 0, 0), 0.1F);
@@ -134,10 +134,22 @@ namespace CardGame.Client.Game.Players
 
 		public void Activate(Card card)
 		{
-			GD.Print("Opponent Activate");
+			Tween Command()
+			{
+				var fakeCard = Support[0];
+				Support.Remove(fakeCard);
+				Support.Add(card);
+				card.Translation = fakeCard.Translation;
+				fakeCard.Free();
+				
+				Gfx.InterpolateProperty(card, nameof(RotationDegrees), new Vector3(0, 0, 0), new Vector3(0, 180, 0), 0.1F);
+				
+				return Gfx;
+			}
+
+			Declare(Command);
 		}
-
-
+		
 		public void Attack(Card attacker, Card defender)
 		{
 			throw new System.NotImplementedException();

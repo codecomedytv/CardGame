@@ -95,7 +95,7 @@ namespace CardGame.Client.Game
                 //else
                 //{
                     User.State = States.Processing;
-                    EmitSignal(nameof(card), new Array());
+                    EmitSignal(nameof(Activate), card.Id, new Array());
                 //}
             }
         }

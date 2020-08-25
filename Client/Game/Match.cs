@@ -147,9 +147,9 @@ namespace CardGame.Client.Game
             GetPlayer(isOpponent).SetFaceDown(Cards[id]);
         }
 
-        private void OnCardActivated(int id, bool isOpponent)
+        private void OnCardActivated(int id, SetCodes setCode, int positionInLink, bool isOpponent, int targetId = 0)
         {
-            GetPlayer(isOpponent).SetFaceDown(Cards[id]);
+            GetPlayer(isOpponent).Activate(Cards[id]);
         }
 
         private IPlayer GetPlayer(bool isOpponent)
