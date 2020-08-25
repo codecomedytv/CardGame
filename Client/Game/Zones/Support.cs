@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using CardGame.Client.Game.Cards;
 using Godot;
 
 namespace CardGame.Client.Game.Zones
 {
-    public class Units: Spatial, IZone
+    public class Support : Spatial, IZone
     {
         private IList<Card> Cards = new List<Card>();
+
         public IEnumerator<Card> GetEnumerator()
         {
             throw new System.NotImplementedException();
@@ -25,7 +25,7 @@ namespace CardGame.Client.Game.Zones
         }
 
         public int Count => Cards.Count;
-        
+
         public void Add(Card card)
         {
             Cards.Add(card);
