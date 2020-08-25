@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using CardGame.Client.Game.Cards;
@@ -14,7 +13,7 @@ namespace CardGame.Client.Game.Players
 		private Units Units;
 		private Support Support;
 		private Hand Hand;
-		private Spatial Graveyard;
+		private Graveyard Graveyard;
 		private Deck Deck;
 		private Tween Gfx;
 		private AudioStreamPlayer Sfx;
@@ -24,7 +23,7 @@ namespace CardGame.Client.Game.Players
 			Units = (Units) GetNode("Units");
 			Support = (Support) GetNode("Support");
 			Hand = (Hand) GetNode("Hand");
-			Graveyard = (Spatial) GetNode("Discard");
+			Graveyard = (Graveyard) GetNode("Graveyard");
 			Deck = (Deck) GetNode("Deck");
 			Gfx = (Tween) GetNode("GFX");
 			Sfx = (AudioStreamPlayer) GetNode("SFX");

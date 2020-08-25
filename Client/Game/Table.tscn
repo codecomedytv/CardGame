@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Client/Assets/CardSlot.png" type="Texture" id=1]
 [ext_resource path="res://Client/Game/Zones/Hand.cs" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Client/Game/Zones/Deck.cs" type="Script" id=5]
 [ext_resource path="res://Client/Game/Zones/Units.cs" type="Script" id=6]
 [ext_resource path="res://Client/Game/Zones/Support.cs" type="Script" id=7]
+[ext_resource path="res://Client/Game/Zones/Graveyard.cs" type="Script" id=8]
 
 [node name="Table3D" type="Spatial" groups=[
 "tables",
@@ -85,10 +86,11 @@ pixel_size = 0.001
 texture = ExtResource( 1 )
 script = ExtResource( 5 )
 
-[node name="Discard" type="Sprite3D" parent="PlayMat/Player"]
+[node name="Graveyard" type="Sprite3D" parent="PlayMat/Player"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0.2, 0 )
 pixel_size = 0.001
 texture = ExtResource( 1 )
+script = ExtResource( 8 )
 
 [node name="GFX" type="Tween" parent="PlayMat/Player"]
 
@@ -163,10 +165,11 @@ pixel_size = 0.001
 texture = ExtResource( 1 )
 script = ExtResource( 5 )
 
-[node name="Discard" type="Sprite3D" parent="PlayMat/Opponent"]
+[node name="Graveyard" type="Sprite3D" parent="PlayMat/Opponent"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -1.7, 0 )
 pixel_size = 0.001
 texture = ExtResource( 1 )
+script = ExtResource( 8 )
 
 [node name="GFX" type="Tween" parent="PlayMat/Opponent"]
 
