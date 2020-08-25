@@ -22,7 +22,7 @@ namespace CardGame.Client.Game.Cards
 
 		// State Checks
 		public bool IsInActive = false;
-		public bool CanBeDeployed = false;
+		public bool CanBeDeployed => State == CardStates.CanBeDeployed && Player is Player player && player.State == States.Idle;
 		public bool CanBeSet = false;
 		public bool CanBePlayed = false;
 		

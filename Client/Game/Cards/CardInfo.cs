@@ -6,6 +6,14 @@ namespace CardGame.Client.Game.Cards
     public enum CardFace { FaceDown, FaceUp, }
     public enum CardType { Null, Unit, Support, }
     
+    // Passive,
+    // CanBeDeployed,
+    // CanBeSet,
+    // CanBeActivated,
+    // CanAttack,
+    // CanAttackDirectly,
+    // Activated
+    
     public readonly struct CardInfo
     {
         public readonly CardType CardType;

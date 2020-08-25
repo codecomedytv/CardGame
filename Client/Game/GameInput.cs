@@ -17,6 +17,7 @@ namespace CardGame.Client.Game
             if (gameEvent is InputEventMouseButton mb && mb.Doubleclick && MousedOverCard != null)
             {
                 GD.Print($"Double Clicked {MousedOverCard.Id}");
+                OnDoubleClicked(MousedOverCard);
             }
         }
 
@@ -50,8 +51,10 @@ namespace CardGame.Client.Game
 
         private void TakeAction(Card card)
         {
+            GD.Print("Taking Action");
             if (card.CanBeDeployed)
             {
+                GD.Print("Deploying!");
                 User.State = States.Processing;
                 EmitSignal(nameof(Deploy), card.Id);
             }
