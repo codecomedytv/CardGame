@@ -64,5 +64,6 @@ enabled=PoolStringArray( "WAT" )
 
 [rendering]
 
+environment/default_clear_color=Color( 0.301961, 0.301961, 0.301961, 0.411765 )
 quality/depth/hdr=false
 quality/dynamic_fonts/use_oversampling=false

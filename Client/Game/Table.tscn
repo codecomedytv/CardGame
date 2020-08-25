@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Client/Assets/CardSlot.png" type="Texture" id=1]
 [ext_resource path="res://Client/Game/Zones/Hand.cs" type="Script" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Client/Assets/HUD/HealthBarFrame.png" type="Texture" id=11]
 [ext_resource path="res://Client/Assets/Font/Modded/ElectrolizeTurnCount.tres" type="DynamicFont" id=12]
 [ext_resource path="res://Client/Assets/Font/Modded/LifeCount_Electrolize.tres" type="DynamicFont" id=13]
+[ext_resource path="res://Client/Assets/Background_Space.png" type="Texture" id=14]
 
 [node name="Table3D" type="Spatial" groups=[
 "tables",
@@ -292,3 +293,7 @@ text = "8000"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform( 2.89293, 0, 0, 0, 3.10572, 0, 0, 0, 1, 2.947, 2.2, -2 )
+texture = ExtResource( 14 )
