@@ -67,5 +67,25 @@ namespace CardGame
 			Client1.Name = "Client1";
 			Client1.Join();
 		}
+
+		public override void _Process(float delta)
+		{
+			if (Input.IsActionJustPressed("ui_up"))
+			{
+				SwapTables();
+			}
+		}
+		
+		private void SwapTables()
+		{
+			GD.Print("swapping tables");
+			var tables = GetTree().GetNodesInGroup("tables");
+			Debug.Assert(tables.Count == 2);
+			foreach (Spatial table in tables)
+			{
+				var y = (int) table.Translation.y;
+				table.Translation = y == 0 ? new Vector3(0, -20, 0) : new Vector3(0, 0, 0);
+			}
+		}
 	}
 }

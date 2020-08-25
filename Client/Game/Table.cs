@@ -1,4 +1,5 @@
-﻿using CardGame.Client.Game.Players;
+﻿using System.Collections.Generic;
+using CardGame.Client.Game.Players;
 using Godot;
 
 namespace CardGame.Client.Game
@@ -23,6 +24,5 @@ namespace CardGame.Client.Game
             OpponentView = (IPlayer) instance.GetNode("PlayMat/Opponent");
             _instanceCount += 1;
         }
-
     }
 }
