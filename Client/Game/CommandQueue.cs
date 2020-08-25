@@ -11,6 +11,9 @@ namespace CardGame.Client.Game
 
     public class CommandQueue: Godot.Object
     {
+        [Signal]
+        public delegate void SetState();
+        
         private readonly Queue<Func<Tween>> Commands = new Queue<Func<Tween>>();
         private readonly Declaration Declare;
         
@@ -44,6 +47,8 @@ namespace CardGame.Client.Game
                 await ToSignal(executor, "tween_all_completed");
                 executor.RemoveAll();
             }
+            
+            EmitSignal(nameof(SetState), stateAfterExecution);
         }
     }
 }

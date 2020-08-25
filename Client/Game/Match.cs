@@ -14,33 +14,37 @@ namespace CardGame.Client.Game
         private readonly Table Table;
         private IPlayer Player;
         private IPlayer Opponent;
+        private GameInput GameInput = new GameInput();
 
         public Match()
         {
             Table = new Table();
             CardFactory = new CardFactory();
         }
-
-        public Match(Table tableView)
-        {
-            Table = tableView;
-        }
-
+        
         public override void _Ready()
         {
             AddChild(Table);
+            AddChild(Messenger);
+
             Player = Table.PlayerView; // Has To Come After Adding Table for view reference
             Opponent = Table.OpponentView;
-            
-            AddChild(Messenger);
+            GameInput.User = (Player) Player;
+
             Messenger.Receiver.Connect(nameof(MessageReceiver.LoadDeck), this, nameof(OnLoadDeck));
             Messenger.Receiver.Connect(nameof(MessageReceiver.Draw), this, nameof(OnDraw));
+
+            var player = (Player) Player;
+            CommandQueue.Connect(nameof(CommandQueue.SetState), player, nameof(player.SetState));
 
             CommandQueue.SubscribeTo(Player);
             CommandQueue.SubscribeTo(Opponent);
             CommandQueue.SubscribeTo(Messenger.Receiver);
+            
+            
             Messenger.CallDeferred("SetReady");
 
+            // Begin Loading Opponent Deck
             Cards.Add(0, CardFactory.Create(0, SetCodes.NullCard));
             // I don't really know where else to put this!
             var deck = new System.Collections.Generic.List<Card>();
@@ -63,6 +67,7 @@ namespace CardGame.Client.Game
                 var card = CardFactory.Create(kv.Key, kv.Value);
                 AddChild(card); // Move To CardCatalog?
                 Cards.Add(kv.Key, card);
+                GameInput.SubscribeTo(card);
                 deck.Add(card);
             }
             

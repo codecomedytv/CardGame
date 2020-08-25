@@ -15,7 +15,20 @@ namespace CardGame.Client.Game.Players
 		private Deck Deck;
 		private Tween Gfx;
 		private AudioStreamPlayer Sfx;
+		public States State;
+		
+		// Begin Business Logic
+		public bool IsInActive => State != States.Active && State != States.Idle;
 
+		public void SetState(States state)
+		{
+			State = state;
+			GD.Print("Set State to " + state.ToString());
+		}
+		
+		// End Business Logic
+		
+		// Begin Animation Logic
 		public override void _Ready()
 		{
 			Units = (Spatial) GetNode("Units");

@@ -1,3 +1,6 @@
+using System;
+using CardGame.Client.Game.Players;
+using CardGame.Client.Game.Zones;
 using Godot;
 
 namespace CardGame.Client.Game.Cards
@@ -8,25 +11,32 @@ namespace CardGame.Client.Game.Cards
 		public string Title;
 		public int Power;
 		public CardType CardType;
-		public CardFace Face = CardFace.FaceDown;
+		private CardFace _face = CardFace.FaceDown;
+
+		public IPlayer Player;
+		public IZone Zone;
+
+		// State Checks
+		public bool IsInActive = false;
+		public bool CanBeDeployed = false;
+		public bool CanBeSet = false;
+		public bool CanBePlayed = false;
+		
+		// Signals
+		[Signal]
+		public delegate void MouseOvered();
+
 
 		public override void _Ready()
 		{
 			GetNode<Area>("Area").Connect("mouse_entered", this, nameof(OnMouseEntered));
-			GetNode<Area>("Area").Connect("mouse_exited", this, nameof(OnMouseExited));
 		}
 
 		private void OnMouseEntered()
 		{
-			GD.Print("Entered");
+			EmitSignal(nameof(MouseOvered), this);
 		}
-
-		private void OnMouseExited()
-		{
-			GD.Print("Exit!");
-		}
-
-
+		
 		public void DisplayPower(int power)
 		{
 			throw new System.NotImplementedException();
