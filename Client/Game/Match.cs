@@ -122,6 +122,7 @@ namespace CardGame.Client.Game
         public void OnCardRevealed(int id, SetCodes setCode, int zoneIds)
         {
             var card = CardFactory.Create(id, setCode);
+            AddChild(card);
             Cards.Add(id, card);
         }
 

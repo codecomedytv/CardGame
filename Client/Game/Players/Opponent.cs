@@ -86,7 +86,30 @@ namespace CardGame.Client.Game.Players
 
 		public void Deploy(Card card)
 		{
-			GD.Print("Opponent Deploy Not Implemented");
+			GD.Print("Opponent Deploying Card");
+			Tween Command()
+			{
+				//card.GetNode<Sprite3D>("Face").FlipV = !card.GetNode<Sprite3D>("Face").FlipV;
+				var fakeCard = Hand[0];
+				Hand.Remove(fakeCard);
+				Hand.Add(card);
+				fakeCard.Free();
+				
+				var origin = card.Translation;
+				var destination = Units.NextSlot()  + new Vector3(0, 0, 0.05F);
+
+				Hand.Remove(card);
+				Units.Add(card);
+				
+				GD.Print(origin);
+				GD.Print(destination);
+				Gfx.InterpolateProperty(card, nameof(Translation), origin, destination, 0.3F);
+				Gfx.InterpolateProperty(card, nameof(RotationDegrees), new Vector3(-25, 0, 0), new Vector3(0, 180, 0), 0.1F);
+				Gfx.InterpolateCallback(Hand, 0.2F, nameof(Hand.Sort));
+				return Gfx;
+			}
+			
+			Declare(Command);
 		}
 
 		public void SetFaceDown(Card ignoredCard)
