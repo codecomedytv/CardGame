@@ -10,6 +10,7 @@ namespace CardGame.Client.Game
 		[Signal] public delegate void Draw();
 		[Signal] public delegate void LoadDeck();
 		[Signal] public delegate void UpdateCard();
+		[Signal] public delegate void Deploy();
 
 		public void Execute(int stateAfterExecution)
 		{

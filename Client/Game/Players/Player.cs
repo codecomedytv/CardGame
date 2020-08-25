@@ -44,6 +44,7 @@ namespace CardGame.Client.Game.Players
 		{
 			foreach (var card in deck)
 			{
+				card.Player = this;
 				AddCardToDeck(card);
 			}
 		}
@@ -97,7 +98,7 @@ namespace CardGame.Client.Game.Players
 
 		public void Deploy(Card card)
 		{
-			throw new System.NotImplementedException();
+			GD.Print($"Deploying {card.Id}");
 		}
 
 		public void Set(Card card)

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Players;
+using CardGame.Client.Game.Zones;
+using CardGame.Server.Game;
 using Godot;
 
 namespace CardGame.Client.Game
@@ -35,6 +37,9 @@ namespace CardGame.Client.Game
             Messenger.Receiver.Connect(nameof(MessageReceiver.LoadDeck), this, nameof(OnLoadDeck));
             Messenger.Receiver.Connect(nameof(MessageReceiver.Draw), this, nameof(OnDraw));
             Messenger.Receiver.Connect(nameof(MessageReceiver.UpdateCard), this, nameof(OnCardUpdated));
+            Messenger.Receiver.Connect(nameof(MessageReceiver.Deploy), this, nameof(OnCardDeployed));
+
+            GameInput.Connect(nameof(GameInput.Deploy), Messenger.Sender, nameof(MessageSender.DeclareDeploy));
 
             var player = (Player) Player;
             CommandQueue.Connect(nameof(CommandQueue.SetState), player, nameof(player.SetState));
@@ -102,6 +107,12 @@ namespace CardGame.Client.Game
             {
                 card.ValidAttackTargets.Add(Cards[defender]);
             }
+        }
+
+        private void OnCardDeployed(int id, SetCodes setCode, bool isOpponent)
+        {
+            // Setcode Arg is Legacy, we use a specialized reveal command instead if new card
+            GetPlayer(isOpponent).Deploy(Cards[id]);
         }
 
         private IPlayer GetPlayer(bool isOpponent)

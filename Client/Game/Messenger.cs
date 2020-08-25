@@ -1,5 +1,4 @@
-﻿using CardGame.Client.Game.Zones;
-using Godot;
+﻿using Godot;
 
 namespace CardGame.Client.Game
 {
@@ -8,7 +7,7 @@ namespace CardGame.Client.Game
         private const int ServerId = 1;
         private int Id => Multiplayer.GetNetworkUniqueId();
         public readonly MessageReceiver Receiver;
-        private readonly MessageSender Sender;
+        public readonly MessageSender Sender;
 
         public Messenger()
         {

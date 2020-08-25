@@ -1,6 +1,8 @@
-﻿namespace CardGame.Client.Game.Zones
+﻿using Godot;
+
+namespace CardGame.Client.Game
 {
-    public class MessageSender
+    public class MessageSender: Object
     {
         // Controls Messages Being Sent To The Server
         private const int ServerId = 1;
@@ -10,6 +12,11 @@
         public MessageSender(Messenger messenger)
         {
             Messenger = messenger;
+        }
+
+        public void DeclareDeploy(int cardId)
+        {
+            Messenger.RpcId(ServerId, "OnDeployDeclared", Id, cardId);
         }
     }
 }
