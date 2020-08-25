@@ -84,8 +84,7 @@ namespace CardGame
 			foreach (Spatial game in games)
 			{
 				game.Visible = !game.Visible;
-				game.GetNode<Button>("Spatial/Table3D/EndTurn").Visible = game.Visible;
-				game.GetNode<Button>("Spatial/Table3D/PassPlay").Visible = game.Visible;
+				game.GetNode<Control>("Spatial/Table3D/HUD").Visible = game.Visible;
 			}
 		}
 	}
