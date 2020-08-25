@@ -11,8 +11,8 @@ namespace CardGame.Client.Game.Players
 	{
 		
 		private Declaration Declare;
-		private Spatial Units;
-		private Spatial Support;
+		private Units Units;
+		private Support Support;
 		private Hand Hand;
 		private Spatial Graveyard;
 		private Deck Deck;
@@ -21,8 +21,8 @@ namespace CardGame.Client.Game.Players
 
 		public override void _Ready()
 		{
-			Units = (Spatial) GetNode("Units");
-			Support = (Spatial) GetNode("Support");
+			Units = (Units) GetNode("Units");
+			Support = (Support) GetNode("Support");
 			Hand = (Hand) GetNode("Hand");
 			Graveyard = (Spatial) GetNode("Discard");
 			Deck = (Deck) GetNode("Deck");
@@ -89,9 +89,24 @@ namespace CardGame.Client.Game.Players
 			GD.Print("Opponent Deploy Not Implemented");
 		}
 
-		public void SetFaceDown(Card card)
+		public void SetFaceDown(Card ignoredCard)
 		{
-			GD.Print("Opponent Set Not Implemented");
+			Tween Command()
+			{
+				var card = Hand[0];
+				var origin = card.Translation;
+				var destination = Support.NextSlot() + new Vector3(0, 0, 0.05F);
+
+				Hand.Remove(card);
+				Units.Add(card);
+
+				Gfx.InterpolateProperty(card, nameof(Translation), origin, destination, 0.3F);
+				Gfx.InterpolateProperty(card, nameof(RotationDegrees), new Vector3(-25, 0, 0), new Vector3(0, 0, 0), 0.1F);
+				Gfx.InterpolateCallback(Hand, 0.2F, nameof(Hand.Sort));
+				return Gfx;
+			}
+			
+			Declare(Command);
 		}
 
 		public void Attack(Card attacker, Card defender)

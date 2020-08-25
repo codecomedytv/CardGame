@@ -10,6 +10,8 @@ namespace CardGame.Client.Game.Zones
         private readonly IList<Card> Cards = new List<Card>();
 
         public int Count => Cards.Count;
+
+        public Card this[int index] => Cards[index];
         public void Add(Card card)
         {
             Cards.Add(card);
