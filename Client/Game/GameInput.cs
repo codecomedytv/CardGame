@@ -4,7 +4,7 @@ using Godot;
 
 namespace CardGame.Client.Game
 {
-    public class GameInput: Object
+    public class GameInput: Node
     {
         [Signal]
         public delegate void Deploy();
@@ -12,16 +12,32 @@ namespace CardGame.Client.Game
         private Card MousedOverCard;
         public Player User;
 
+        public override void _Input(InputEvent gameEvent)
+        {
+            if (gameEvent is InputEventMouseButton mb && mb.Doubleclick && MousedOverCard != null)
+            {
+                GD.Print($"Double Clicked {MousedOverCard.Id}");
+            }
+        }
+
         public void SubscribeTo(Card card)
         {
             card.Connect(nameof(Card.MouseOvered), this, nameof(OnMousedOverCard));
+            card.Connect(nameof(Card.MouseOveredExit), this, nameof(OnMousedOverExitCard));
         }
 
         private void OnMousedOverCard(Card card)
         {
-            // We probably don't need to connect an exit condition because
-            // hovering over a new card replace this one
             MousedOverCard = card;
+        }
+
+        private void OnMousedOverExitCard(Card card)
+        {
+            // Make sure a different card hasn't already overriden it
+            if (MousedOverCard == card)
+            {
+                MousedOverCard = null;
+            }
         }
 
         private void OnDoubleClicked(Card card)

@@ -30,15 +30,24 @@ namespace CardGame.Client.Game.Cards
 		[Signal]
 		public delegate void MouseOvered();
 
+		[Signal]
+		public delegate void MouseOveredExit();
+
 
 		public override void _Ready()
 		{
 			GetNode<Area>("Area").Connect("mouse_entered", this, nameof(OnMouseEntered));
+			GetNode<Area>("Area").Connect("mouse_exited", this, nameof(OnMouseExit));
 		}
 
 		private void OnMouseEntered()
 		{
 			EmitSignal(nameof(MouseOvered), this);
+		}
+		
+		private void OnMouseExit()
+		{
+			EmitSignal(nameof(MouseOveredExit), this);
 		}
 		
 		public void DisplayPower(int power)

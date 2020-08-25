@@ -26,6 +26,7 @@ namespace CardGame.Client.Game
         {
             AddChild(Table);
             AddChild(Messenger);
+            AddChild(GameInput);
 
             Player = Table.PlayerView; // Has To Come After Adding Table for view reference
             Opponent = Table.OpponentView;
