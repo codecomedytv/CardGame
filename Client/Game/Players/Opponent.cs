@@ -148,7 +148,12 @@ namespace CardGame.Client.Game.Players
 
 			Declare(Command);
 		}
-		
+
+		public void SendCardToGraveyard(Card card)
+		{
+			GD.Print("Opponent Sending Card To Graveyard");
+		}
+
 		public void Attack(Card attacker, Card defender)
 		{
 			throw new System.NotImplementedException();

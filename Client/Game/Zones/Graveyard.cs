@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.NetworkInformation;
 using CardGame.Client.Game.Cards;
 using Godot;
@@ -19,15 +20,20 @@ namespace CardGame.Client.Game.Zones
             return GetEnumerator();
         }
 
-        public int Count { get; }
+        public int Count => Cards.Count;
         public void Add(Card card)
         {
-            throw new System.NotImplementedException();
+            Cards.Add(card);
         }
 
         public void Remove(Card card)
         {
-            throw new System.NotImplementedException();
+            Cards.Remove(card);
+        }
+
+        public Vector3 NextSlot()
+        {
+            return GlobalTransform.origin + new Vector3(0, 0, -0.1F * Count);
         }
 
         public void Sort()

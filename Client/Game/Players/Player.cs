@@ -138,6 +138,11 @@ namespace CardGame.Client.Game.Players
 		{
 			GD.Print("Activate");
 		}
+		
+		public void SendCardToGraveyard(Card card)
+		{
+			GD.Print("Player Sending Card To Graveyard");
+		}
 
 		public void Attack(Card attacker, Card defender)
 		{

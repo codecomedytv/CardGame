@@ -43,7 +43,7 @@ namespace CardGame.Client.Game
             Messenger.Receiver.Connect(nameof(MessageReceiver.RevealCard), this, nameof(OnCardRevealed));
             Messenger.Receiver.Connect(nameof(MessageReceiver.SetFaceDown), this, nameof(OnCardSetFaceDown));
             Messenger.Receiver.Connect(nameof(MessageReceiver.Activate), this, nameof(OnCardActivated));
-            
+            Messenger.Receiver.Connect(nameof(MessageReceiver.SendCardToZone), this, nameof(OnCardSentToZone));
             
             GameInput.Connect(nameof(GameInput.Deploy), Messenger.Sender, nameof(MessageSender.DeclareDeploy));
             GameInput.Connect(nameof(GameInput.SetCard), Messenger.Sender, nameof(MessageSender.DeclareSet));
@@ -151,6 +151,13 @@ namespace CardGame.Client.Game
         {
             GetPlayer(isOpponent).Activate(Cards[id]);
         }
+
+        public void OnCardSentToZone(int cardId, int zoneId, bool isOpponent)
+        {
+            // We may want to make this more specific on server-side too
+            GetPlayer(isOpponent).SendCardToGraveyard(Cards[cardId]);
+        }
+        
 
         private IPlayer GetPlayer(bool isOpponent)
         {
