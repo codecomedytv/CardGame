@@ -89,9 +89,9 @@ namespace CardGame.Client.Game.Players
 			GD.Print("Opponent Deploy Not Implemented");
 		}
 
-		public void Set(Card card)
+		public void SetFaceDown(Card card)
 		{
-			throw new System.NotImplementedException();
+			GD.Print("Opponent Set Not Implemented");
 		}
 
 		public void Attack(Card attacker, Card defender)

@@ -18,5 +18,10 @@ namespace CardGame.Client.Game
         {
             Messenger.RpcId(ServerId, "OnDeployDeclared", Id, cardId);
         }
+
+        public void DeclareSet(int cardId)
+        {
+            Messenger.RpcId(ServerId, "OnSetFaceDownDeclared", Id, cardId);
+        }
     }
 }

@@ -127,7 +127,6 @@ pixel_size = 0.001
 texture = ExtResource( 1 )
 
 [node name="Support" type="Spatial" parent="PlayMat/Opponent"]
-script = ExtResource( 7 )
 
 [node name="CardSlot0" type="Sprite3D" parent="PlayMat/Opponent/Support"]
 pixel_size = 0.001

@@ -9,7 +9,7 @@ namespace CardGame.Client.Game.Players
 	{
 		private Declaration Declare;
 		private Units Units;
-		private Spatial Support;
+		private Support Support;
 		private Hand Hand;
 		private Spatial Graveyard;
 		private Deck Deck;
@@ -32,7 +32,7 @@ namespace CardGame.Client.Game.Players
 		public override void _Ready()
 		{
 			Units = (Units) GetNode("Units");
-			Support = (Spatial) GetNode("Support");
+			Support = (Support) GetNode("Support");
 			Hand = (Hand) GetNode("Hand");
 			Graveyard = (Spatial) GetNode("Discard");
 			Deck = (Deck) GetNode("Deck");
@@ -115,9 +115,23 @@ namespace CardGame.Client.Game.Players
 			Declare(Command);
 		}
 
-		public void Set(Card card)
+		public void SetFaceDown(Card card)
 		{
-			throw new System.NotImplementedException();
+			Tween Command()
+			{
+				var origin = card.Translation;
+				var destination = Support.NextSlot() + new Vector3(0, 0, 0.1F);
+
+				Hand.Remove(card);
+				Units.Add(card);
+
+				Gfx.InterpolateProperty(card, nameof(Translation), origin, destination, 0.3F);
+				Gfx.InterpolateProperty(card, nameof(RotationDegrees), new Vector3(-25, 180, 0), new Vector3(0, 0, 0), 0.1F);
+				Gfx.InterpolateCallback(Hand, 0.2F, nameof(Hand.Sort));
+				return Gfx;
+			}
+			
+			Declare(Command);
 		}
 
 		public void Attack(Card attacker, Card defender)

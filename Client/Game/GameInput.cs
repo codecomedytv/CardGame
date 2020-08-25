@@ -8,6 +8,9 @@ namespace CardGame.Client.Game
     {
         [Signal]
         public delegate void Deploy();
+
+        [Signal]
+        public delegate void SetCard();
         
         private Card MousedOverCard;
         public Player User;
@@ -51,12 +54,16 @@ namespace CardGame.Client.Game
 
         private void TakeAction(Card card)
         {
-            GD.Print("Taking Action");
             if (card.CanBeDeployed)
             {
-                GD.Print("Deploying!");
                 User.State = States.Processing;
                 EmitSignal(nameof(Deploy), card.Id);
+            }
+            
+            else if (card.CanBeSet)
+            {
+                User.State = States.Processing;
+                EmitSignal(nameof(SetCard), card.Id);
             }
         }
     }

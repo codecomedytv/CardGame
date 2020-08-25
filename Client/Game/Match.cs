@@ -47,9 +47,10 @@ namespace CardGame.Client.Game
             Messenger.Receiver.Connect(nameof(MessageReceiver.UpdateCard), this, nameof(OnCardUpdated));
             Messenger.Receiver.Connect(nameof(MessageReceiver.Deploy), this, nameof(OnCardDeployed));
             Messenger.Receiver.Connect(nameof(MessageReceiver.RevealCard), this, nameof(OnCardRevealed));
-
+            Messenger.Receiver.Connect(nameof(MessageReceiver.SetFaceDown), this, nameof(OnCardSetFaceDown));
             GameInput.Connect(nameof(GameInput.Deploy), Messenger.Sender, nameof(MessageSender.DeclareDeploy));
-
+            GameInput.Connect(nameof(GameInput.SetCard), Messenger.Sender, nameof(MessageSender.DeclareSet));
+            
             var player = (Player) Player;
             CommandQueue.Connect(nameof(CommandQueue.SetState), player, nameof(player.SetState));
 
@@ -128,6 +129,12 @@ namespace CardGame.Client.Game
         {
             // Setcode Arg is Legacy, we use a specialized reveal command instead if new card
             GetPlayer(isOpponent).Deploy(Cards[id]);
+        }
+
+        private void OnCardSetFaceDown(int id, bool isOpponent)
+        {
+            // Setcode Arg is Legacy, we use a specialized reveal command instead if new card
+            GetPlayer(isOpponent).SetFaceDown(Cards[id]);
         }
 
         private IPlayer GetPlayer(bool isOpponent)
