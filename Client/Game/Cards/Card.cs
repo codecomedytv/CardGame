@@ -27,7 +27,7 @@ namespace CardGame.Client.Game.Cards
 		public bool CanBeDeployed => State == CardStates.CanBeDeployed && Player is Player player && player.State == States.Idle;
 		public bool CanBeSet => State == CardStates.CanBeSet && Player is Player player && player.State == States.Idle;
 		public bool CanBeActivated => State == CardStates.CanBeActivated && Player is Player player && !player.IsInActive;
-		public bool CanBePlayed = false;
+		public bool CanBePlayed => CanBeSet || CanBeActivated || CanBeDeployed;
 		
 		// Signals
 		[Signal]
@@ -47,6 +47,11 @@ namespace CardGame.Client.Game.Cards
 			GetNode<Area>("Area").Connect("mouse_exited", this, nameof(OnMouseExit));
 			AttackingIcon = GetNode<Sprite3D>("Attacking");
 			DefendingIcon = GetNode<Sprite3D>("Defending");
+		}
+
+		public void OnPlayerStateChanged(States state)
+		{
+			GetNode<Sprite3D>("Playable").Visible = CanBePlayed;
 		}
 
 		private void OnMouseEntered()

@@ -8,6 +8,8 @@ namespace CardGame.Client.Game.Players
 {
 	public class Player: Spatial, IPlayer
 	{
+		[Signal]
+		public delegate void StateChanged();
 		private Declaration Declare;
 		private Units Units;
 		private Support Support;
@@ -19,14 +21,14 @@ namespace CardGame.Client.Game.Players
 		public States State
 		{
 			get => BackingState;
-			set => SetEnergyIcon(value);
+			set => SetState(value);
 		}
 
 		private States BackingState;
 		public Sprite EnergyIcon;
 		public Sprite OpponentEnergyIcon;
 
-		private States SetEnergyIcon(States state)
+		public States SetState(States state)
 		{
 			BackingState = state;
 			if (state == States.Active || state == States.Idle)
@@ -39,17 +41,13 @@ namespace CardGame.Client.Game.Players
 				EnergyIcon.Visible = false;
 				OpponentEnergyIcon.Visible = true;
 			}
-
+	
+			EmitSignal(nameof(StateChanged), state);
 			return state;
 		}
 		// Begin Business Logic
 		public bool IsInActive => State != States.Active && State != States.Idle;
 
-		public void SetState(States state)
-		{
-			State = state;
-			GD.Print("Set State to " + state.ToString());
-		}
 		
 		// End Business Logic
 		
@@ -70,6 +68,7 @@ namespace CardGame.Client.Game.Players
 			foreach (var card in deck)
 			{
 				card.Player = this;
+				Connect(nameof(StateChanged), card, nameof(Card.OnPlayerStateChanged));
 				AddCardToDeck(card);
 			}
 		}

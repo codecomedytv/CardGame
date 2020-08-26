@@ -86,9 +86,9 @@ pixel_size = 0.001
 texture = ExtResource( 6 )
 
 [node name="Playable" type="Sprite3D" parent="."]
-transform = Transform( 1.08521, 0, 0, 0, 1.08521, 0, 0, 0, 1.1, 0, 0, 0 )
+transform = Transform( 1.06293, 0, 0, 0, 1.06293, 0, 0, 0, 1.1, 0, 0, 0 )
 visible = false
-modulate = Color( 1, 1, 1, 0.453285 )
+modulate = Color( 1, 1, 1, 0.319298 )
 pixel_size = 0.001
 texture = ExtResource( 4 )
 
