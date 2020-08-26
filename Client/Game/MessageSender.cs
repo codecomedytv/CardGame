@@ -29,6 +29,11 @@ namespace CardGame.Client.Game
             Messenger.RpcId(ServerId, "OnAttackDeclared", Id, attackerId, cardId);
         }
 
+        public void DeclareDirectAttack(int attackerId)
+        {
+            Messenger.RpcId(ServerId, "OnDirectAttackDeclared", Id, attackerId);
+        }
+
         public void DeclareActivation(int cardId, int targetId)
         {
             Messenger.RpcId(ServerId, "OnActivationDeclared", Id, cardId, targetId);

@@ -10,6 +10,8 @@ namespace CardGame.Client.Game.Players
 	{
 		[Signal]
 		public delegate void StateChanged();
+
+		public Sprite DefendingIcon { get; set; }
 		private Declaration Declare;
 		private Units Units;
 		private Support Support;
@@ -229,6 +231,24 @@ namespace CardGame.Client.Game.Players
 		{
 			attacker.AttackingIcon.Visible = false;
 			defender.DefendingIcon.Visible = false;
+		}
+
+		public void GetAttackedDirectly(Card attacker)
+		{
+			// Declaration, not battle
+			Tween Command()
+			{
+				Gfx.InterpolateCallback(attacker, 0.1F, nameof(Card.Attack));
+				Gfx.InterpolateCallback(this, 0.1F, nameof(Defend));
+				return Gfx;
+			}
+			
+			Declare(Command);
+		}
+
+		public void Defend()
+		{
+			DefendingIcon.Visible = true;
 		}
 	}
 }

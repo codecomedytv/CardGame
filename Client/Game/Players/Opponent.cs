@@ -8,7 +8,7 @@ namespace CardGame.Client.Game.Players
 {
 	public class Opponent: Spatial, IPlayer
 	{
-		
+		public Sprite DefendingIcon { get; set; }
 		private Declaration Declare;
 		private Units Units;
 		private Support Support;
@@ -218,6 +218,11 @@ namespace CardGame.Client.Game.Players
 		{
 			attacker.AttackingIcon.Visible = false;
 			defender.DefendingIcon.Visible = false;
+		}
+		
+		public void Defend()
+		{
+			DefendingIcon.Visible = true;
 		}
 	}
 }

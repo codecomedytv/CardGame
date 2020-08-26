@@ -35,6 +35,7 @@ namespace CardGame.Client.Game
             Player = Table.PlayerView; // Has To Come After Adding Table for view reference
             Opponent = Table.OpponentView;
             GameInput.User = (Player) Player;
+            GameInput.Opponent = (Opponent) Opponent;
 
             Messenger.Receiver.Connect(nameof(MessageReceiver.LoadDeck), this, nameof(OnLoadDeck));
             Messenger.Receiver.Connect(nameof(MessageReceiver.Draw), this, nameof(OnDraw));
@@ -45,12 +46,16 @@ namespace CardGame.Client.Game
             Messenger.Receiver.Connect(nameof(MessageReceiver.Activate), this, nameof(OnCardActivated));
             Messenger.Receiver.Connect(nameof(MessageReceiver.SendCardToZone), this, nameof(OnCardSentToZone));
             Messenger.Receiver.Connect(nameof(MessageReceiver.BattleUnit), this, nameof(OnUnitBattled));
-            Messenger.Receiver.Connect(nameof(MessageReceiver.OpponentAttackUnit), this, nameof(OnOpponentAttackUnitQueued));
+            Messenger.Receiver.Connect(nameof(MessageReceiver.OpponentAttackUnit), this, nameof(OnOpponentAttackUnit));
+            Messenger.Receiver.Connect(nameof(MessageReceiver.OpponentAttackDirectly), this,
+                nameof(OnOpponentAttackDirectly));
             
             GameInput.Connect(nameof(GameInput.Deploy), Messenger.Sender, nameof(MessageSender.DeclareDeploy));
             GameInput.Connect(nameof(GameInput.SetCard), Messenger.Sender, nameof(MessageSender.DeclareSet));
             GameInput.Connect(nameof(GameInput.Activate), Messenger.Sender, nameof(MessageSender.DeclareActivation));
             GameInput.Connect(nameof(GameInput.Attack), Messenger.Sender, nameof(MessageSender.DeclareAttack));
+            GameInput.Connect(nameof(GameInput.DirectAttack), Messenger.Sender,
+                nameof(MessageSender.DeclareDirectAttack));
             GameInput.Connect(nameof(GameInput.PassPlay), Messenger.Sender, nameof(MessageSender.DeclarePassPlay));
             GameInput.Connect(nameof(GameInput.EndTurn), Messenger.Sender, nameof(MessageSender.DeclareEndTurn));
             
@@ -165,9 +170,15 @@ namespace CardGame.Client.Game
             GetPlayer(isOpponent).SendCardToGraveyard(Cards[cardId]);
         }
         
-        public void OnOpponentAttackUnitQueued(int attackerId, int defenderId)
+        public void OnOpponentAttackUnit(int attackerId, int defenderId)
         {
             Opponent.Attack(Cards[attackerId], Cards[defenderId]);
+        }
+
+        public void OnOpponentAttackDirectly(int attackerId)
+        {
+            var p = (Player) Player;
+            p.GetAttackedDirectly(Cards[attackerId]);
         }
         
         private void OnUnitBattled(int attackerId, int defenderId, bool isOpponent)

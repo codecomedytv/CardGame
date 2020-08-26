@@ -19,14 +19,18 @@ namespace CardGame.Client.Game
         [Signal]
         public delegate void PassPlay();
 
-        [Signal]
+        [Signal] 
         public delegate void Attack();
+
+        [Signal] 
+        public delegate void DirectAttack();
 
         [Signal]
         public delegate void EndTurn();
         
         private Card MousedOverCard;
         public Player User;
+        public Opponent Opponent;
 
         public override void _Input(InputEvent gameEvent)
         {
@@ -144,6 +148,13 @@ namespace CardGame.Client.Game
                 card.AttackingIcon.Visible = true;
                 User.Attacking = true;
                 User.CardInUse = card;
+            }
+            
+            else if (card.CanAttackDirectly)
+            {
+                card.AttackingIcon.Visible = true;
+                Opponent.Defend();
+                EmitSignal(nameof(DirectAttack), card.Id);
             }
             
         }

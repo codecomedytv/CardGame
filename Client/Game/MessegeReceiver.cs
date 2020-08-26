@@ -18,6 +18,7 @@ namespace CardGame.Client.Game
 		[Signal] public delegate void ResolveCard();
 		[Signal] public delegate void OpponentAttackUnit();
 		[Signal] public delegate void BattleUnit();
+		[Signal] public delegate void OpponentAttackDirectly();
 
 		public void Execute(int stateAfterExecution)
 		{

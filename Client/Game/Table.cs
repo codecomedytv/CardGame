@@ -21,6 +21,8 @@ namespace CardGame.Client.Game
             var p = (Player) PlayerView;
             p.EnergyIcon = (Sprite) instance.GetNode("HUD/PlayerActive");
             p.OpponentEnergyIcon = (Sprite) instance.GetNode("HUD/OpponentActive");
+            PlayerView.DefendingIcon = (Sprite) instance.GetNode("HUD/PlayerDefending");
+            OpponentView.DefendingIcon = (Sprite) instance.GetNode("HUD/OpponentDefending");
         }
     }
 }
