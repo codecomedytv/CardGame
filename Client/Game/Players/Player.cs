@@ -16,8 +16,32 @@ namespace CardGame.Client.Game.Players
 		private Deck Deck;
 		private Tween Gfx;
 		private AudioStreamPlayer Sfx;
-		public States State;
-		
+		public States State
+		{
+			get => BackingState;
+			set => SetEnergyIcon(value);
+		}
+
+		private States BackingState;
+		public Sprite EnergyIcon;
+		public Sprite OpponentEnergyIcon;
+
+		private States SetEnergyIcon(States state)
+		{
+			BackingState = state;
+			if (state == States.Active || state == States.Idle)
+			{
+				EnergyIcon.Visible = true;
+				OpponentEnergyIcon.Visible = false;
+			}
+			else
+			{
+				EnergyIcon.Visible = false;
+				OpponentEnergyIcon.Visible = true;
+			}
+
+			return state;
+		}
 		// Begin Business Logic
 		public bool IsInActive => State != States.Active && State != States.Idle;
 
