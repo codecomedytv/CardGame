@@ -35,6 +35,13 @@ namespace CardGame.Client.Game
                 GD.Print($"Double Clicked {MousedOverCard.Id}");
                 OnDoubleClicked(MousedOverCard);
             }
+            else if (gameEvent is InputEventMouseButton mob && mob.Doubleclick && User.Attacking)
+            {
+                User.CardInUse.AttackingIcon.Visible = false;
+                User.Attacking = false;
+                User.CardInUse = null;
+                
+            }
         }
 
         public void SubscribeTo(Card card)
