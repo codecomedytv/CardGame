@@ -15,6 +15,8 @@ namespace CardGame.Client.Game.Cards
 		public CardStates State;
 		private CardFace _face = CardFace.FaceDown;
 
+		public Sprite3D AttackingIcon;
+		public Sprite3D DefendingIcon;
 		public IPlayer Player;
 		public IZone Zone;
 		public readonly IList<Card> ValidTargets = new List<Card>();
@@ -43,6 +45,8 @@ namespace CardGame.Client.Game.Cards
 		{
 			GetNode<Area>("Area").Connect("mouse_entered", this, nameof(OnMouseEntered));
 			GetNode<Area>("Area").Connect("mouse_exited", this, nameof(OnMouseExit));
+			AttackingIcon = GetNode<Sprite3D>("Attacking");
+			DefendingIcon = GetNode<Sprite3D>("Defending");
 		}
 
 		private void OnMouseEntered()

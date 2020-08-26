@@ -126,7 +126,7 @@ namespace CardGame.Client.Game.Players
 			Tween Command()
 			{
 				var origin = card.Translation;
-				var destination = Units.NextSlot();
+				var destination = Units.NextSlot() + new Vector3(0, 0, 0.05F);
 
 				Hand.Remove(card);
 				Units.Add(card);
@@ -139,7 +139,7 @@ namespace CardGame.Client.Game.Players
 
 			Declare(Command);
 		}
-
+		
 		public void SetFaceDown(Card card)
 		{
 			Tween Command()
