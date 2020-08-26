@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using CardGame.Client.Game.Players;
 using CardGame.Client.Game.Zones;
 using Godot;
@@ -49,6 +50,23 @@ namespace CardGame.Client.Game.Cards
 			GetNode<Area>("Area").Connect("mouse_exited", this, nameof(OnMouseExit));
 			AttackingIcon = GetNode<Sprite3D>("Attacking");
 			DefendingIcon = GetNode<Sprite3D>("Defending");
+			if (CardType == CardType.Unit)
+			{
+				ChangeAttack();
+			}
+		}
+
+		private void ChangeAttack()
+		{
+			var i = 0;
+			foreach (var element in Power.ToString())
+			{
+				GetNode<Sprite3D>($"Power/{i}").Texture = GD.Load($"res://Client/Assets/Numbers/{element}.png") as Texture;
+				GetNode<Sprite3D>($"Power/{i}").Visible = true;
+				i += 1;
+			}
+
+			GetNode<Spatial>("Power").Visible = true;
 		}
 
 		public void OnPlayerStateChanged(States state)

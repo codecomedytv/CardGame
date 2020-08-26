@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Client/Game/Cards/Card.cs" type="Script" id=1]
 [ext_resource path="res://Client/Assets/SciFiCardFace.png" type="Texture" id=2]
@@ -6,6 +6,9 @@
 [ext_resource path="res://Client/Assets/HUD/Active.png" type="Texture" id=4]
 [ext_resource path="res://Client/Assets/HUD/icon_sword.png" type="Texture" id=5]
 [ext_resource path="res://Client/Assets/HUD/icon_shield.png" type="Texture" id=6]
+[ext_resource path="res://Client/Assets/Numbers/2.png" type="Texture" id=7]
+[ext_resource path="res://Client/Assets/Numbers/1.png" type="Texture" id=8]
+[ext_resource path="res://Client/Assets/Numbers/6.png" type="Texture" id=9]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -86,9 +89,9 @@ pixel_size = 0.001
 texture = ExtResource( 6 )
 
 [node name="Playable" type="Sprite3D" parent="."]
-transform = Transform( 1.06293, 0, 0, 0, 1.06293, 0, 0, 0, 1.1, 0, 0, 0 )
+transform = Transform( 1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0 )
 visible = false
-modulate = Color( 1, 1, 1, 0.319298 )
+modulate = Color( 1, 1, 1, 0.588235 )
 pixel_size = 0.001
 texture = ExtResource( 4 )
 
@@ -101,3 +104,35 @@ shape = SubResource( 1 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Active"
 anims/Active = SubResource( 2 )
+
+[node name="Power" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00277823, -0.270887, -0.05 )
+visible = false
+
+[node name="0" type="Sprite3D" parent="Power"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2 )
+visible = false
+flip_h = true
+pixel_size = 0.001
+texture = ExtResource( 7 )
+
+[node name="1" type="Sprite3D" parent="Power"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0, -0.2 )
+visible = false
+flip_h = true
+pixel_size = 0.001
+texture = ExtResource( 8 )
+
+[node name="2" type="Sprite3D" parent="Power"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0, -0.2 )
+visible = false
+flip_h = true
+pixel_size = 0.001
+texture = ExtResource( 8 )
+
+[node name="3" type="Sprite3D" parent="Power"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, -0.2 )
+visible = false
+flip_h = true
+pixel_size = 0.001
+texture = ExtResource( 9 )
