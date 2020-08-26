@@ -167,7 +167,7 @@ namespace CardGame.Client.Game
         
         public void OnOpponentAttackUnitQueued(int attackerId, int defenderId)
         {
-            GD.Print("Opponent Attack Unit");
+            Opponent.Attack(Cards[attackerId], Cards[defenderId]);
         }
         
         private void OnUnitBattled(int attackerId, int defenderId, bool isOpponent)

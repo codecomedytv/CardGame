@@ -134,6 +134,7 @@ namespace CardGame.Client.Game
             
             else if (card.CanAttack)
             {
+                card.AttackingIcon.Visible = true;
                 User.Attacking = true;
                 User.CardInUse = card;
             }

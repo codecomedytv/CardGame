@@ -66,6 +66,16 @@ namespace CardGame.Client.Game.Cards
 			EmitSignal(nameof(MouseOveredExit), this);
 		}
 		
+		public void Attack()
+		{
+			AttackingIcon.Visible = true;
+		}
+
+		public void Defend()
+		{
+			DefendingIcon.Visible = true;
+		}
+		
 		public void DisplayPower(int power)
 		{
 			throw new System.NotImplementedException();

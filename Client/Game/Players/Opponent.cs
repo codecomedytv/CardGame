@@ -176,7 +176,14 @@ namespace CardGame.Client.Game.Players
 
 		public void Attack(Card attacker, Card defender)
 		{
-			throw new System.NotImplementedException();
+			Tween Command()
+			{
+				Gfx.InterpolateCallback(attacker, 0.1F, nameof(Card.Attack));
+				Gfx.InterpolateCallback(defender, 0.1F, nameof(Card.Defend));
+				return Gfx;
+			}
+
+			Declare(Command);
 		}
 
 		public void AttackDirectly(Card attacker)

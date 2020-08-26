@@ -195,6 +195,7 @@ namespace CardGame.Client.Game.Players
 		{
 			throw new System.NotImplementedException();
 		}
+		
 
 		public void AttackDirectly(Card attacker)
 		{
