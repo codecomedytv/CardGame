@@ -172,7 +172,7 @@ namespace CardGame.Client.Game
         
         private void OnUnitBattled(int attackerId, int defenderId, bool isOpponent)
         {
-            GD.Print("Battle!");
+            GetPlayer(isOpponent).Battle(Cards[attackerId], Cards[defenderId]);
         }
         
 

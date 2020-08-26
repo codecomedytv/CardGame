@@ -26,5 +26,6 @@ namespace CardGame.Client.Game.Players
         void SendCardToGraveyard(Card card);
         void Attack(Card attacker, Card defender);
         void AttackDirectly(Card attacker);
+        void Battle(Card attacker, Card defender);
     }
 }
