@@ -9,6 +9,9 @@ namespace CardGame.Client.Game.Players
 	public class Opponent: Spatial, IPlayer
 	{
 		public Sprite DefendingIcon { get; set; }
+		public TextureProgress LifeBar { get; set; }
+		public Label LifeCount { get; set; }
+		public Label LifeChange { get; set; }
 		private Declaration Declare;
 		private Units Units;
 		private Support Support;
@@ -225,7 +228,25 @@ namespace CardGame.Client.Game.Players
 
 			Declare(Command);
 		}
-		
+
+		public void LoseLife(int lifeLost)
+		{
+			var newLife = GD.Str(LifeCount.Text.ToInt() - lifeLost);
+			var percentage = 100 - (int) ((lifeLost / 8000F) * 100);
+			
+			Tween Command()
+			{
+				LifeChange.Text = $"- {lifeLost}";
+				Gfx.InterpolateCallback(LifeChange, 0.1F, "set_visible", true);
+				Gfx.InterpolateCallback(LifeCount, 0.3F, "set_text", newLife);
+				Gfx.InterpolateProperty(LifeBar, "value", (int) LifeBar.Value, percentage, 0.3F);
+				Gfx.InterpolateCallback(LifeChange, 0.5F, "set_visible", false);
+				return Gfx;
+			}
+
+			Declare(Command);
+		}
+
 		public void ClearBattle(Card attacker, Card defender)
 		{
 			attacker.AttackingIcon.Visible = false;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Client/Assets/CardSlot.png" type="Texture" id=1]
 [ext_resource path="res://Client/Game/Zones/Hand.cs" type="Script" id=2]
@@ -19,6 +19,14 @@
 [ext_resource path="res://Client/Assets/HUD/ButtonDisabled.png" type="Texture" id=17]
 [ext_resource path="res://Client/Assets/HUD/ActiveStatus.png" type="Texture" id=18]
 [ext_resource path="res://Client/Assets/HUD/icon_shield.png" type="Texture" id=19]
+[ext_resource path="res://Client/Assets/Font/Electrolize-Regular.ttf" type="DynamicFontData" id=20]
+
+[sub_resource type="DynamicFont" id=8]
+size = 128
+outline_color = Color( 1, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 20 )
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 15 )
@@ -254,17 +262,34 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Change" type="Label" parent="HUD/PlayerLife"]
+visible = false
+margin_left = -868.809
+margin_top = -371.476
+margin_right = -383.809
+margin_bottom = -218.476
+custom_fonts/font = SubResource( 8 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0.760784, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 1, 0, 0, 1 )
+custom_constants/shadow_offset_x = 5
+custom_constants/shadow_offset_y = 5
+text = "- 8000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Bar" type="TextureProgress" parent="HUD/PlayerLife"]
 show_behind_parent = true
 margin_left = 18.0
 margin_top = 11.0
 margin_right = 352.0
 margin_bottom = 51.0
-rect_scale = Vector2( 1.08, 1 )
 value = 100.0
 texture_under = ExtResource( 10 )
 texture_progress = ExtResource( 9 )
 fill_mode = 1
+nine_patch_stretch = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -280,11 +305,11 @@ margin_left = 18.0
 margin_top = 11.0
 margin_right = 352.0
 margin_bottom = 51.0
-rect_scale = Vector2( 1.08, 1 )
 value = 100.0
 texture_under = ExtResource( 10 )
 texture_progress = ExtResource( 9 )
 fill_mode = 1
+nine_patch_stretch = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -301,6 +326,23 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 2
 custom_constants/shadow_offset_y = 2
 text = "8000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Change" type="Label" parent="HUD/OpponentLife"]
+visible = false
+margin_left = -872.029
+margin_top = 258.261
+margin_right = -387.029
+margin_bottom = 411.261
+custom_fonts/font = SubResource( 8 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0.760784, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 1, 0, 0, 1 )
+custom_constants/shadow_offset_x = 5
+custom_constants/shadow_offset_y = 5
+text = "- 8000"
 __meta__ = {
 "_edit_use_anchors_": false
 }

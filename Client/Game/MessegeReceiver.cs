@@ -22,6 +22,8 @@ namespace CardGame.Client.Game
 
 		[Signal] public delegate void DirectAttack();
 
+		[Signal] public delegate void LoseLife();
+
 		public void Execute(int stateAfterExecution)
 		{
 			EmitSignal(nameof(ExecutedEvents), stateAfterExecution);

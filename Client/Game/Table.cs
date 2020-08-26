@@ -23,6 +23,12 @@ namespace CardGame.Client.Game
             p.OpponentEnergyIcon = (Sprite) instance.GetNode("HUD/OpponentActive");
             PlayerView.DefendingIcon = (Sprite) instance.GetNode("HUD/PlayerDefending");
             OpponentView.DefendingIcon = (Sprite) instance.GetNode("HUD/OpponentDefending");
+            PlayerView.LifeBar = (TextureProgress) instance.GetNode("HUD/PlayerLife/Bar");
+            PlayerView.LifeCount = (Label) instance.GetNode("HUD/PlayerLife/Count");
+            PlayerView.LifeChange = (Label) instance.GetNode("HUD/PlayerLife/Change");
+            OpponentView.LifeBar = (TextureProgress) instance.GetNode("HUD/OpponentLife/Bar");
+            OpponentView.LifeCount = (Label) instance.GetNode("HUD/OpponentLife/Count");
+            OpponentView.LifeChange = (Label) instance.GetNode("HUD/OpponentLife/Change");
         }
     }
 }

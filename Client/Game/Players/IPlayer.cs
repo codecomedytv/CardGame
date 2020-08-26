@@ -14,8 +14,12 @@ namespace CardGame.Client.Game.Players
         
         // Ideally we want to queue the animation by resetting the current tween, setting it up, and then returning
         // that setup
-        Sprite DefendingIcon { get; set; }
         
+        // Implemenation Leaking Here. Note for refactoring
+        Sprite DefendingIcon { get; set; }
+        TextureProgress LifeBar { get; set; }
+        Label LifeCount { get; set; }
+        Label LifeChange { get; set; }
         void Connect(Declaration addCommand);
         void DisplayName(string name);
         void DisplayHealth(int health);
@@ -30,6 +34,7 @@ namespace CardGame.Client.Game.Players
         void Attack(Card attacker, Card defender);
         void AttackDirectly(Card attacker);
         void Battle(Card attacker, Card defender);
+        void LoseLife(int lifeLost);
 
         void ClearDirectAttackingDefense();
     }

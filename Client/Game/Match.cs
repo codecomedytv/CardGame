@@ -54,6 +54,7 @@ namespace CardGame.Client.Game
             Messenger.Receiver.Connect(nameof(MessageReceiver.OpponentAttackDirectly), this,
                 nameof(OnOpponentAttackDirectly));
             Messenger.Receiver.Connect(nameof(MessageReceiver.DirectAttack), this, nameof(OnDirectAttack));
+            Messenger.Receiver.Connect(nameof(MessageReceiver.LoseLife), this, nameof(OnLifeLost));
             
             GameInput.Connect(nameof(GameInput.Deploy), Messenger.Sender, nameof(MessageSender.DeclareDeploy));
             GameInput.Connect(nameof(GameInput.SetCard), Messenger.Sender, nameof(MessageSender.DeclareSet));
@@ -194,6 +195,11 @@ namespace CardGame.Client.Game
         private void OnDirectAttack(int attackerId, bool isOpponent)
         {
             GetPlayer(isOpponent).AttackDirectly(Cards[attackerId]);
+        }
+
+        private void OnLifeLost(int lifeLost, bool isOpponent)
+        {
+            GetPlayer(isOpponent).LoseLife(lifeLost);
         }
         
 
