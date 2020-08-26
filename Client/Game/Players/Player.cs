@@ -20,6 +20,7 @@ namespace CardGame.Client.Game.Players
 		private Deck Deck;
 		private Tween Gfx;
 		private AudioStreamPlayer Sfx;
+		public Opponent Opponent;
 		public States State
 		{
 			get => BackingState;
@@ -201,7 +202,25 @@ namespace CardGame.Client.Game.Players
 
 		public void AttackDirectly(Card attacker)
 		{
-			throw new System.NotImplementedException();
+			Tween Command()
+			{
+				var destination = new Vector3(2.5F, 9F, attacker.Translation.z);
+
+				Gfx.InterpolateProperty(attacker, nameof(Translation), attacker.Translation, destination, 0.1F);
+				Gfx.InterpolateProperty(attacker, nameof(Translation), destination, attacker.Translation, 0.1F,
+					Tween.TransitionType.Linear, Tween.EaseType.In, 0.3F);
+				Gfx.InterpolateCallback(Opponent, 0.3F, nameof(IPlayer.ClearDirectAttackingDefense));
+				
+				
+				return Gfx;
+			}
+
+			Declare(Command);
+		}
+
+		public void ClearDirectAttackingDefense()
+		{
+			DefendingIcon.Visible = false;
 		}
 
 		public void Battle(Card attacker, Card defender)

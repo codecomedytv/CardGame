@@ -17,6 +17,7 @@ namespace CardGame.Client.Game.Players
 		private Deck Deck;
 		private Tween Gfx;
 		private AudioStreamPlayer Sfx;
+		public Player Player;
 
 		public override void _Ready()
 		{
@@ -188,7 +189,18 @@ namespace CardGame.Client.Game.Players
 
 		public void AttackDirectly(Card attacker)
 		{
-			throw new System.NotImplementedException();
+			Tween Command()
+			{
+				var destination = new Vector3(2.5F, -2.95F, 1);
+
+				Gfx.InterpolateProperty(attacker, nameof(Translation), attacker.Translation, destination, 0.1F);
+				Gfx.InterpolateProperty(attacker, nameof(Translation), destination, attacker.Translation, 0.1F,
+					Tween.TransitionType.Linear, Tween.EaseType.In, 0.3F);
+				Gfx.InterpolateCallback(Player, 0.3F, nameof(IPlayer.ClearDirectAttackingDefense));
+				return Gfx;
+			}
+
+			Declare(Command);
 		}
 
 		public void Battle(Card attacker, Card defender)
@@ -224,5 +236,10 @@ namespace CardGame.Client.Game.Players
 		{
 			DefendingIcon.Visible = true;
 		}
+		public void ClearDirectAttackingDefense()
+		{
+			DefendingIcon.Visible = false;
+		}
+		
 	}
 }

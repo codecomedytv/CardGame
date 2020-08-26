@@ -36,6 +36,10 @@ namespace CardGame.Client.Game
             Opponent = Table.OpponentView;
             GameInput.User = (Player) Player;
             GameInput.Opponent = (Opponent) Opponent;
+            var p = (Player) Player;
+            p.Opponent = Opponent as Opponent;
+            var o = (Opponent) Opponent;
+            o.Player = p;
 
             Messenger.Receiver.Connect(nameof(MessageReceiver.LoadDeck), this, nameof(OnLoadDeck));
             Messenger.Receiver.Connect(nameof(MessageReceiver.Draw), this, nameof(OnDraw));
@@ -49,6 +53,7 @@ namespace CardGame.Client.Game
             Messenger.Receiver.Connect(nameof(MessageReceiver.OpponentAttackUnit), this, nameof(OnOpponentAttackUnit));
             Messenger.Receiver.Connect(nameof(MessageReceiver.OpponentAttackDirectly), this,
                 nameof(OnOpponentAttackDirectly));
+            Messenger.Receiver.Connect(nameof(MessageReceiver.DirectAttack), this, nameof(OnDirectAttack));
             
             GameInput.Connect(nameof(GameInput.Deploy), Messenger.Sender, nameof(MessageSender.DeclareDeploy));
             GameInput.Connect(nameof(GameInput.SetCard), Messenger.Sender, nameof(MessageSender.DeclareSet));
@@ -184,6 +189,11 @@ namespace CardGame.Client.Game
         private void OnUnitBattled(int attackerId, int defenderId, bool isOpponent)
         {
             GetPlayer(isOpponent).Battle(Cards[attackerId], Cards[defenderId]);
+        }
+
+        private void OnDirectAttack(int attackerId, bool isOpponent)
+        {
+            GetPlayer(isOpponent).AttackDirectly(Cards[attackerId]);
         }
         
 

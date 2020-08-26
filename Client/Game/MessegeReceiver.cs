@@ -20,6 +20,8 @@ namespace CardGame.Client.Game
 		[Signal] public delegate void BattleUnit();
 		[Signal] public delegate void OpponentAttackDirectly();
 
+		[Signal] public delegate void DirectAttack();
+
 		public void Execute(int stateAfterExecution)
 		{
 			EmitSignal(nameof(ExecutedEvents), stateAfterExecution);
