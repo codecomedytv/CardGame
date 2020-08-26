@@ -24,6 +24,11 @@ namespace CardGame.Client.Game
             Messenger.RpcId(ServerId, "OnSetFaceDownDeclared", Id, cardId);
         }
 
+        public void DeclareAttack(int attackerId, int cardId)
+        {
+            Messenger.RpcId(ServerId, "OnAttackDeclared", Id, attackerId, cardId);
+        }
+
         public void DeclareActivation(int cardId, int targetId)
         {
             Messenger.RpcId(ServerId, "OnActivationDeclared", Id, cardId, targetId);

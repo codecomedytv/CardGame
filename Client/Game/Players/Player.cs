@@ -47,6 +47,9 @@ namespace CardGame.Client.Game.Players
 		}
 		// Begin Business Logic
 		public bool IsInActive => State != States.Active && State != States.Idle;
+		public bool Attacking = false;
+		public Card CardInUse = null;
+		public bool IsChoosingAttackTarget => Attacking && State == States.Idle;
 
 		
 		// End Business Logic

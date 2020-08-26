@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Players;
 using CardGame.Client.Game.Zones;
@@ -44,10 +44,13 @@ namespace CardGame.Client.Game
             Messenger.Receiver.Connect(nameof(MessageReceiver.SetFaceDown), this, nameof(OnCardSetFaceDown));
             Messenger.Receiver.Connect(nameof(MessageReceiver.Activate), this, nameof(OnCardActivated));
             Messenger.Receiver.Connect(nameof(MessageReceiver.SendCardToZone), this, nameof(OnCardSentToZone));
+            Messenger.Receiver.Connect(nameof(MessageReceiver.BattleUnit), this, nameof(OnUnitBattled));
+            Messenger.Receiver.Connect(nameof(MessageReceiver.OpponentAttackUnit), this, nameof(OnOpponentAttackUnitQueued));
             
             GameInput.Connect(nameof(GameInput.Deploy), Messenger.Sender, nameof(MessageSender.DeclareDeploy));
             GameInput.Connect(nameof(GameInput.SetCard), Messenger.Sender, nameof(MessageSender.DeclareSet));
             GameInput.Connect(nameof(GameInput.Activate), Messenger.Sender, nameof(MessageSender.DeclareActivation));
+            GameInput.Connect(nameof(GameInput.Attack), Messenger.Sender, nameof(MessageSender.DeclareAttack));
             GameInput.Connect(nameof(GameInput.PassPlay), Messenger.Sender, nameof(MessageSender.DeclarePassPlay));
             GameInput.Connect(nameof(GameInput.EndTurn), Messenger.Sender, nameof(MessageSender.DeclareEndTurn));
             
@@ -135,6 +138,7 @@ namespace CardGame.Client.Game
         {
             var card = CardFactory.Create(id, setCode);
             AddChild(card);
+            GameInput.SubscribeTo(card);
             Cards.Add(id, card);
         }
 
@@ -159,6 +163,16 @@ namespace CardGame.Client.Game
         {
             // We may want to make this more specific on server-side too
             GetPlayer(isOpponent).SendCardToGraveyard(Cards[cardId]);
+        }
+        
+        public void OnOpponentAttackUnitQueued(int attackerId, int defenderId)
+        {
+            GD.Print("Opponent Attack Unit");
+        }
+        
+        private void OnUnitBattled(int attackerId, int defenderId, bool isOpponent)
+        {
+            GD.Print("Battle!");
         }
         
 

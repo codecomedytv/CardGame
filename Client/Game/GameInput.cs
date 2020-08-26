@@ -20,6 +20,9 @@ namespace CardGame.Client.Game
         public delegate void PassPlay();
 
         [Signal]
+        public delegate void Attack();
+
+        [Signal]
         public delegate void EndTurn();
         
         private Card MousedOverCard;
@@ -74,12 +77,35 @@ namespace CardGame.Client.Game
             }
         }
 
+        private void ChooseAttackTarget(Card card)
+        {
+            if (User.CardInUse.HasAttackTarget(card))
+            {
+                User.State = States.Processing;
+                card.DefendingIcon.Visible = true;
+                EmitSignal(nameof(Attack), User.CardInUse.Id, card.Id);
+            }
+            else
+            {
+                User.CardInUse.AttackingIcon.Visible = false;
+            }
+
+            User.Attacking = false;
+            User.CardInUse = null;
+        }
+
         private void OnDoubleClicked(Card card)
         {
-            if (!User.IsInActive)
+            if (User.IsChoosingAttackTarget)
+            {
+                ChooseAttackTarget(card);
+            }
+            
+            else if (!User.IsInActive)
             {
                 TakeAction(card);
             }
+            
         }
 
         private void TakeAction(Card card)
@@ -105,6 +131,13 @@ namespace CardGame.Client.Game
                 EmitSignal(nameof(Activate), card.Id, new Array());
 
             }
+            
+            else if (card.CanAttack)
+            {
+                User.Attacking = true;
+                User.CardInUse = card;
+            }
+            
         }
     }
 }
