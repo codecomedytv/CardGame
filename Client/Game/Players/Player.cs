@@ -150,7 +150,7 @@ namespace CardGame.Client.Game.Players
 				var destination = Support.NextSlot() + new Vector3(0, 0, 0.05F);
 
 				Hand.Remove(card);
-				Units.Add(card);
+				Support.Add(card);
 
 				Gfx.InterpolateProperty(card, nameof(Translation), origin, destination, 0.3F);
 				Gfx.InterpolateProperty(card, nameof(RotationDegrees), new Vector3(-25, 180, 0), new Vector3(0, 0, 0), 0.1F);
