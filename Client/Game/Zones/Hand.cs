@@ -16,14 +16,14 @@ namespace CardGame.Client.Game.Zones
         {
             Cards.Add(card);
             card.Translation = GlobalTransform.origin;
-            Translation = new Vector3(Translation.x - 0.4F, Translation.y, Translation.z);
+            Translation = new Vector3(Translation.x - 0.5F, Translation.y, Translation.z);
             Sort();;
         }
         
         public void Remove(Card card)
         {
             Cards.Remove(card);
-            Translation = new Vector3(Translation.x + 0.4F, Translation.y, Translation.z);
+            Translation = new Vector3(Translation.x + 0.5F, Translation.y, Translation.z);
         }
 
         public void Sort()
@@ -34,8 +34,8 @@ namespace CardGame.Client.Game.Zones
                 // Move Card To Origin (right-most point)
                 card.Translation = GlobalTransform.origin;
 
-                // 0.1F is so cards don't huddle together, another 0.1F is to give an actual space between cards
-                var fixPixelOffByOneMod = i * 0.2F;
+                // 0.1F is so cards don't huddle together, another 0.2F is to give an actual space between cards
+                var fixPixelOffByOneMod = i * 0.3F;
                 
                 // Move the card forwards the line times its position in the list of cards
                 var xMod = card.Translation.x + i + fixPixelOffByOneMod;

@@ -1,10 +1,58 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Client/Game/Cards/Card.cs" type="Script" id=1]
 [ext_resource path="res://Client/Assets/SciFiCardFace.png" type="Texture" id=2]
 [ext_resource path="res://Client/Assets/CardBack.png" type="Texture" id=3]
+[ext_resource path="res://Client/Assets/HUD/Active.png" type="Texture" id=4]
 
 [sub_resource type="BoxShape" id=1]
+
+[sub_resource type="Animation" id=2]
+resource_name = "Active"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Playable:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.588235 ), Color( 1, 1, 1, 0.196078 ), Color( 1, 1, 1, 0.588235 ) ]
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Playable:scale:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1.1, -0.25, 0, 0.25, 0, 1.05, -0.25, 0, 0.25, 0, 1.1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1, 2 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Playable:scale:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 1.1, -0.25, 0, 0.25, 0, 1.05, -0.25, 0, 0.25, 0, 1.1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1, 2 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("Playable:scale:z")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 1.1, -0.25, 0, 0.25, 0, 1.1, -0.25, 0, 0.25, 0, 1.1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1, 2 )
+}
 
 [node name="3DCardView" type="Spatial"]
 script = ExtResource( 1 )
@@ -23,8 +71,19 @@ pixel_size = 0.001
 double_sided = false
 texture = ExtResource( 3 )
 
+[node name="Playable" type="Sprite3D" parent="."]
+transform = Transform( 1.05873, 0, 0, 0, 1.05873, 0, 0, 0, 1.1, 0, 0, 0 )
+visible = false
+modulate = Color( 1, 1, 1, 0.291403 )
+pixel_size = 0.001
+texture = ExtResource( 4 )
+
 [node name="Area" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
 transform = Transform( 0.551904, 0, 0, 0, 0.585156, 0, 0, 0, 0.0656928, 0, 0, 0 )
 shape = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Active"
+anims/Active = SubResource( 2 )
