@@ -125,7 +125,8 @@ namespace CardGame.Client.Game
 
         private void OnDraw(int cardId = 0, bool isOpponent = false)
         {
-            GetPlayer(isOpponent).Draw(Cards[cardId]);
+            var command = GetPlayer(isOpponent).Draw(Cards[cardId]);
+            CommandQueue.Add(command);
         }
 
         private void OnCardUpdated(int id, CardStates state, IEnumerable<int> attackTargets, IEnumerable<int> targets)
@@ -157,51 +158,59 @@ namespace CardGame.Client.Game
         private void OnCardDeployed(int id, SetCodes setCode, bool isOpponent)
         {
             // Setcode Arg is Legacy, we use a specialized reveal command instead if new card
-            Func<Tween> deploy = GetPlayer(isOpponent).Deploy(Cards[id]);
-            CommandQueue.Add(deploy);
+            var command = GetPlayer(isOpponent).Deploy(Cards[id]);
+            CommandQueue.Add(command);
         }
 
         private void OnCardSetFaceDown(int id, bool isOpponent)
         {
             // Setcode Arg is Legacy, we use a specialized reveal command instead if new card
-            GetPlayer(isOpponent).SetFaceDown(Cards[id]);
+            var command = GetPlayer(isOpponent).SetFaceDown(Cards[id]);
+            CommandQueue.Add(command);
         }
 
         private void OnCardActivated(int id, SetCodes setCode, int positionInLink, bool isOpponent, int targetId = 0)
         {
-            GetPlayer(isOpponent).Activate(Cards[id]);
+            var command = GetPlayer(isOpponent).Activate(Cards[id]);
+            CommandQueue.Add(command);
         }
 
         public void OnCardSentToZone(int cardId, int zoneId, bool isOpponent)
         {
             // We may want to make this more specific on server-side too
-            GetPlayer(isOpponent).SendCardToGraveyard(Cards[cardId]);
+            var command = GetPlayer(isOpponent).SendCardToGraveyard(Cards[cardId]);
+            CommandQueue.Add(command);
         }
         
         public void OnOpponentAttackUnit(int attackerId, int defenderId)
         {
-            Opponent.Attack(Cards[attackerId], Cards[defenderId]);
+            var command = Opponent.Attack(Cards[attackerId], Cards[defenderId]);
+            CommandQueue.Add(command);
         }
 
         public void OnOpponentAttackDirectly(int attackerId)
         {
             var p = (Player) Player;
-            p.GetAttackedDirectly(Cards[attackerId]);
+            var command = p.GetAttackedDirectly(Cards[attackerId]);
+            CommandQueue.Add(command);
         }
         
         private void OnUnitBattled(int attackerId, int defenderId, bool isOpponent)
         {
-            GetPlayer(isOpponent).Battle(Cards[attackerId], Cards[defenderId]);
+            var command = GetPlayer(isOpponent).Battle(Cards[attackerId], Cards[defenderId]);
+            CommandQueue.Add(command);
         }
 
         private void OnDirectAttack(int attackerId, bool isOpponent)
         {
-            GetPlayer(isOpponent).AttackDirectly(Cards[attackerId]);
+            var command = GetPlayer(isOpponent).AttackDirectly(Cards[attackerId]);
+            CommandQueue.Add(command);
         }
 
         private void OnLifeLost(int lifeLost, bool isOpponent)
         {
-            GetPlayer(isOpponent).LoseLife(lifeLost);
+            var command = GetPlayer(isOpponent).LoseLife(lifeLost);
+            CommandQueue.Add(command);
         }
         
 

@@ -24,7 +24,7 @@ namespace CardGame.Client.Game
 
         public void SubscribeTo(IPlayer player)
         {
-            player.Connect(Declare);
+            // player.Connect(Declare);
         }
 
         public void SubscribeTo(MessageReceiver messageReceiver)
@@ -33,7 +33,7 @@ namespace CardGame.Client.Game
         }
         private void OnCommandDeclared(Func<Tween> command)
         {
-            Commands.Enqueue(command);
+            // Commands.Enqueue(command);
         }
 
         public void Add(Func<Tween> command)

@@ -25,17 +25,17 @@ namespace CardGame.Client.Game.Players
         void DisplayName(string name);
         void DisplayHealth(int health);
         void AddCardToDeck(Card cardView);
-        public void LoadDeck(IEnumerable<Card> deck);
-        void Draw(Card card);
-        void Discard(Card card);
+        void LoadDeck(IEnumerable<Card> deck);
+        Func<Tween> Draw(Card card);
+        Func<Tween> Discard(Card card);
         Func<Tween> Deploy(Card card);
-        void SetFaceDown(Card card);
-        void Activate(Card card);
-        void SendCardToGraveyard(Card card);
-        void Attack(Card attacker, Card defender);
-        void AttackDirectly(Card attacker);
-        void Battle(Card attacker, Card defender);
-        void LoseLife(int lifeLost);
+        Func<Tween> SetFaceDown(Card card);
+        Func<Tween> Activate(Card card);
+        Func<Tween> SendCardToGraveyard(Card card);
+        Func<Tween> Attack(Card attacker, Card defender);
+        Func<Tween> AttackDirectly(Card attacker);
+        Func<Tween> Battle(Card attacker, Card defender);
+        Func<Tween> LoseLife(int lifeLost);
 
         void ClearDirectAttackingDefense();
     }

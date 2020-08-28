@@ -61,7 +61,7 @@ namespace CardGame.Client.Game.Players
 				AddCardToDeck(card);
 			}
 		}
-		public void Draw(Card ignoredCard)
+		public Func<Tween> Draw(Card ignoredCard)
 		{
 			Tween Command()
 			{
@@ -80,12 +80,17 @@ namespace CardGame.Client.Game.Players
 				return Gfx;
 			};
 
-		   Declare(Command);
+		   return Command;
 		}
 		
-		public void Discard(Card card)
+		public Func<Tween> Discard(Card card)
 		{
-			throw new System.NotImplementedException();
+			Tween Command()
+			{
+				return Gfx;
+			}
+
+			return Command;
 		}
 
 		public Func<Tween> Deploy(Card card)
@@ -113,11 +118,11 @@ namespace CardGame.Client.Game.Players
 				return Gfx;
 			}
 			
-			// Declare(Command);
+			// return Command;
 			return Command;
 		}
 
-		public void SetFaceDown(Card ignoredCard)
+		public Func<Tween> SetFaceDown(Card ignoredCard)
 		{
 			Tween Command()
 			{
@@ -134,10 +139,10 @@ namespace CardGame.Client.Game.Players
 				return Gfx;
 			}
 			
-			Declare(Command);
+			return Command;
 		}
 
-		public void Activate(Card card)
+		public Func<Tween> Activate(Card card)
 		{
 			Tween Command()
 			{
@@ -152,10 +157,10 @@ namespace CardGame.Client.Game.Players
 				return Gfx;
 			}
 
-			Declare(Command);
+			return Command;
 		}
 
-		public void SendCardToGraveyard(Card card)
+		public Func<Tween> SendCardToGraveyard(Card card)
 		{
 			Tween Command()
 			{
@@ -177,10 +182,10 @@ namespace CardGame.Client.Game.Players
 				return Gfx;
 			}
 
-			Declare(Command);
+			return Command;
 		}
 
-		public void Attack(Card attacker, Card defender)
+		public Func<Tween> Attack(Card attacker, Card defender)
 		{
 			Tween Command()
 			{
@@ -189,10 +194,10 @@ namespace CardGame.Client.Game.Players
 				return Gfx;
 			}
 
-			Declare(Command);
+			return Command;
 		}
 
-		public void AttackDirectly(Card attacker)
+		public Func<Tween> AttackDirectly(Card attacker)
 		{
 			Tween Command()
 			{
@@ -206,10 +211,10 @@ namespace CardGame.Client.Game.Players
 				return Gfx;
 			}
 
-			Declare(Command);
+			return Command;
 		}
 
-		public void Battle(Card attacker, Card defender)
+		public Func<Tween> Battle(Card attacker, Card defender)
 		{
 			Tween Command()
 			{
@@ -229,10 +234,10 @@ namespace CardGame.Client.Game.Players
 				return Gfx;
 			}
 
-			Declare(Command);
+			return Command;
 		}
 
-		public void LoseLife(int lifeLost)
+		public Func<Tween> LoseLife(int lifeLost)
 		{
 			var newLife = GD.Str(LifeCount.Text.ToInt() - lifeLost);
 			var percentage = 100 - (int) ((lifeLost / 8000F) * 100);
@@ -247,7 +252,7 @@ namespace CardGame.Client.Game.Players
 				return Gfx;
 			}
 
-			Declare(Command);
+			return Command;
 		}
 
 		public void ClearBattle(Card attacker, Card defender)
