@@ -13,7 +13,6 @@ namespace CardGame.Client.Game.Players
 		public TextureProgress LifeBar { get; set; }
 		public Label LifeCount { get; set; }
 		public Label LifeChange { get; set; }
-		private Declaration Declare;
 		private Units Units;
 		private Support Support;
 		private Hand Hand;
@@ -34,11 +33,6 @@ namespace CardGame.Client.Game.Players
 			Sfx = (AudioStreamPlayer) GetNode("SFX");
 		}
 		
-		public void Connect(Declaration declaration)
-		{
-			Declare = declaration;
-		}
-
 		public void AddCardToDeck(Card card)
 		{
 			Deck.Add(card);

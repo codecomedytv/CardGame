@@ -5,7 +5,6 @@ using Godot;
 
 namespace CardGame.Client.Game
 {
-    public delegate void Declaration(Func<Tween> command);
     public delegate Func<Tween> Command();
 
 
@@ -13,20 +12,8 @@ namespace CardGame.Client.Game
     {
         [Signal]
         public delegate void SetState();
-        
         private readonly Queue<Func<Tween>> Commands = new Queue<Func<Tween>>();
-        private readonly Declaration Declare;
         
-        public CommandQueue()
-        {
-            Declare = OnCommandDeclared;
-        }
-
-        public void SubscribeTo(IPlayer player)
-        {
-            // player.Connect(Declare);
-        }
-
         public void SubscribeTo(MessageReceiver messageReceiver)
         {
             messageReceiver.Connect(nameof(MessageReceiver.ExecutedEvents), this, nameof(Execute));

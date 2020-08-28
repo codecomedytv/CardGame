@@ -16,7 +16,6 @@ namespace CardGame.Client.Game.Players
 		public TextureProgress LifeBar { get; set; }
 		public Label LifeCount { get; set; }
 		public Label LifeChange { get; set; }
-		private Declaration Declare;
 		private Units Units;
 		private Support Support;
 		private Hand Hand;
@@ -87,11 +86,7 @@ namespace CardGame.Client.Game.Players
 		{
 			Deck.Add(card);
 		}
-
-		public void Connect(Declaration declaration)
-		{
-			Declare = declaration;
-		}
+		
 
 		public void DisplayName(string name)
 		{

@@ -21,7 +21,6 @@ namespace CardGame.Client.Game.Players
         TextureProgress LifeBar { get; set; }
         Label LifeCount { get; set; }
         Label LifeChange { get; set; }
-        void Connect(Declaration addCommand);
         void DisplayName(string name);
         void DisplayHealth(int health);
         void AddCardToDeck(Card cardView);

@@ -72,9 +72,7 @@ namespace CardGame.Client.Game
 
             var player = (Player) Player;
             CommandQueue.Connect(nameof(CommandQueue.SetState), player, nameof(player.SetState));
-
-            CommandQueue.SubscribeTo(Player);
-            CommandQueue.SubscribeTo(Opponent);
+            
             CommandQueue.SubscribeTo(Messenger.Receiver);
             
             
