@@ -38,7 +38,7 @@ namespace CardGame.Client.Game
             GameInput.User = (Player) Player;
             GameInput.Opponent = (Opponent) Opponent;
             var p = (Player) Player;
-            p.Opponent = Opponent as Opponent;
+            p.Opponent = (Opponent) Opponent;
             var o = (Opponent) Opponent;
             o.Player = p;
 
