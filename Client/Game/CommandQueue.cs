@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using CardGame.Client.Game.Players;
 using Godot;
 
 namespace CardGame.Client.Game
