@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using CardGame.Client.Game.Players;
 using Godot;
 
@@ -10,14 +11,7 @@ namespace CardGame.Client.Game
 
     public class CommandQueue: Godot.Object
     {
-        [Signal]
-        public delegate void SetState();
         private readonly Queue<Command> Commands = new Queue<Command>();
-        
-        public void SubscribeTo(MessageReceiver messageReceiver)
-        {
-            messageReceiver.Connect(nameof(MessageReceiver.ExecutedEvents), this, nameof(Execute));
-        }
         
         public void Add(Command command)
         {
@@ -25,7 +19,7 @@ namespace CardGame.Client.Game
         }
 
         // Setting State Should be a Queued Action In Future
-        private async void Execute(int stateAfterExecution)
+        public async Task Execute()
         {
             // Investigate Await ForEach?
             while(Commands.Count > 0)
@@ -33,11 +27,9 @@ namespace CardGame.Client.Game
                 var command = Commands.Dequeue();
                 var executor = command();
                 executor.Start();
-                await ToSignal(executor, "tween_all_completed");
+                await ToSignal(executor, "tween_all_completed"); // hate it
                 executor.RemoveAll();
             }
-            
-            EmitSignal(nameof(SetState), stateAfterExecution);
         }
     }
 }

@@ -5,6 +5,7 @@ using CardGame.Client.Game.Players;
 using CardGame.Client.Game.Zones;
 using CardGame.Server.Game;
 using Godot;
+using States = CardGame.Client.Game.Players.States;
 
 namespace CardGame.Client.Game
 {
@@ -56,6 +57,7 @@ namespace CardGame.Client.Game
                 nameof(OnOpponentAttackDirectly));
             Messenger.Receiver.Connect(nameof(MessageReceiver.DirectAttack), this, nameof(OnDirectAttack));
             Messenger.Receiver.Connect(nameof(MessageReceiver.LoseLife), this, nameof(OnLifeLost));
+            Messenger.Receiver.Connect(nameof(MessageReceiver.ExecutedEvents), this, nameof(Execute));
             
             GameInput.Connect(nameof(GameInput.Deploy), Messenger.Sender, nameof(MessageSender.DeclareDeploy));
             GameInput.Connect(nameof(GameInput.SetCard), Messenger.Sender, nameof(MessageSender.DeclareSet));
@@ -71,9 +73,8 @@ namespace CardGame.Client.Game
             Table.GetNode<Button>("Table3D/HUD/PassPlay").Connect("pressed", GameInput, nameof(GameInput.OnPassPlayPressed));
 
             var player = (Player) Player;
-            CommandQueue.Connect(nameof(CommandQueue.SetState), player, nameof(player.SetState));
             
-            CommandQueue.SubscribeTo(Messenger.Receiver);
+            // CommandQueue.SubscribeTo(Messenger.Receiver);
             
             
             Messenger.CallDeferred("SetReady");
@@ -88,6 +89,13 @@ namespace CardGame.Client.Game
             }
             _matchDebugCount += 1;
             
+        }
+
+        public async void Execute(States stateAfterExecution)
+        {
+            await CommandQueue.Execute();
+            var p = (Player) Player;
+            p.SetState(stateAfterExecution); // ClientSide States Are Erroneously affecting this (processing etc)
         }
 
         private void LoadOpponentDeck()
