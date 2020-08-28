@@ -5,25 +5,21 @@ using Godot;
 
 namespace CardGame.Client.Game
 {
-    public delegate Func<Tween> Command();
+    public delegate Tween Command();
 
 
     public class CommandQueue: Godot.Object
     {
         [Signal]
         public delegate void SetState();
-        private readonly Queue<Func<Tween>> Commands = new Queue<Func<Tween>>();
+        private readonly Queue<Command> Commands = new Queue<Command>();
         
         public void SubscribeTo(MessageReceiver messageReceiver)
         {
             messageReceiver.Connect(nameof(MessageReceiver.ExecutedEvents), this, nameof(Execute));
         }
-        private void OnCommandDeclared(Func<Tween> command)
-        {
-            // Commands.Enqueue(command);
-        }
-
-        public void Add(Func<Tween> command)
+        
+        public void Add(Command command)
         {
             Commands.Enqueue(command);
         }
@@ -31,6 +27,7 @@ namespace CardGame.Client.Game
         // Setting State Should be a Queued Action In Future
         private async void Execute(int stateAfterExecution)
         {
+            // Investigate Await ForEach?
             while(Commands.Count > 0)
             {
                 var command = Commands.Dequeue();

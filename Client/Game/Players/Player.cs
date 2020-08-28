@@ -98,7 +98,7 @@ namespace CardGame.Client.Game.Players
 			throw new System.NotImplementedException();
 		}
 
-		public Func<Tween> Draw(Card card)
+		public Command Draw(Card card)
 		{
 			Tween Command()
 			{
@@ -120,12 +120,12 @@ namespace CardGame.Client.Game.Players
 			return Command;
 		}
 		
-		public Func<Tween> Discard(Card card)
+		public Command Discard(Card card)
 		{
 			throw new System.NotImplementedException();
 		}
 
-		public Func<Tween> Deploy(Card card)
+		public Command Deploy(Card card)
 		{
 			Tween Command()
 			{
@@ -144,7 +144,7 @@ namespace CardGame.Client.Game.Players
 			return Command;
 		}
 		
-		public Func<Tween> SetFaceDown(Card card)
+		public Command SetFaceDown(Card card)
 		{
 			Tween Command()
 			{
@@ -163,7 +163,7 @@ namespace CardGame.Client.Game.Players
 			return Command;
 		}
 
-		public Func<Tween> Activate(Card card)
+		public Command Activate(Card card)
 		{
 			GD.Print("Activate");
 
@@ -175,7 +175,7 @@ namespace CardGame.Client.Game.Players
 			return Command;
 		}
 		
-		public Func<Tween> SendCardToGraveyard(Card card)
+		public Command SendCardToGraveyard(Card card)
 		{
 			Tween Command()
 			{
@@ -200,13 +200,13 @@ namespace CardGame.Client.Game.Players
 			return Command;
 		}
 
-		public Func<Tween> Attack(Card attacker, Card defender)
+		public Command Attack(Card attacker, Card defender)
 		{
 			throw new System.NotImplementedException();
 		}
 		
 
-		public Func<Tween> AttackDirectly(Card attacker)
+		public Command AttackDirectly(Card attacker)
 		{
 			Tween Command()
 			{
@@ -226,7 +226,7 @@ namespace CardGame.Client.Game.Players
 			return Command;
 		}
 
-		public Func<Tween> LoseLife(int lifeLost)
+		public Command LoseLife(int lifeLost)
 		{
 			var newLife = GD.Str(LifeCount.Text.ToInt() - lifeLost);
 			var percentage = 100 - (int) ((lifeLost / 8000F) * 100);
@@ -250,7 +250,7 @@ namespace CardGame.Client.Game.Players
 			DefendingIcon.Visible = false;
 		}
 
-		public Func<Tween> Battle(Card attacker, Card defender)
+		public Command Battle(Card attacker, Card defender)
 		{
 			Tween Command()
 			{
@@ -279,7 +279,7 @@ namespace CardGame.Client.Game.Players
 			defender.DefendingIcon.Visible = false;
 		}
 
-		public Func<Tween> GetAttackedDirectly(Card attacker)
+		public Command GetAttackedDirectly(Card attacker)
 		{
 			// Declaration, not battle
 			Tween Command()

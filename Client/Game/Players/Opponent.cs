@@ -55,7 +55,7 @@ namespace CardGame.Client.Game.Players
 				AddCardToDeck(card);
 			}
 		}
-		public Func<Tween> Draw(Card ignoredCard)
+		public Command Draw(Card ignoredCard)
 		{
 			Tween Command()
 			{
@@ -77,7 +77,7 @@ namespace CardGame.Client.Game.Players
 		   return Command;
 		}
 		
-		public Func<Tween> Discard(Card card)
+		public Command Discard(Card card)
 		{
 			Tween Command()
 			{
@@ -87,7 +87,7 @@ namespace CardGame.Client.Game.Players
 			return Command;
 		}
 
-		public Func<Tween> Deploy(Card card)
+		public Command Deploy(Card card)
 		{
 			GD.Print("Opponent Deploying Card");
 			Tween Command()
@@ -116,7 +116,7 @@ namespace CardGame.Client.Game.Players
 			return Command;
 		}
 
-		public Func<Tween> SetFaceDown(Card ignoredCard)
+		public Command SetFaceDown(Card ignoredCard)
 		{
 			Tween Command()
 			{
@@ -136,7 +136,7 @@ namespace CardGame.Client.Game.Players
 			return Command;
 		}
 
-		public Func<Tween> Activate(Card card)
+		public Command Activate(Card card)
 		{
 			Tween Command()
 			{
@@ -154,7 +154,7 @@ namespace CardGame.Client.Game.Players
 			return Command;
 		}
 
-		public Func<Tween> SendCardToGraveyard(Card card)
+		public Command SendCardToGraveyard(Card card)
 		{
 			Tween Command()
 			{
@@ -179,7 +179,7 @@ namespace CardGame.Client.Game.Players
 			return Command;
 		}
 
-		public Func<Tween> Attack(Card attacker, Card defender)
+		public Command Attack(Card attacker, Card defender)
 		{
 			Tween Command()
 			{
@@ -191,7 +191,7 @@ namespace CardGame.Client.Game.Players
 			return Command;
 		}
 
-		public Func<Tween> AttackDirectly(Card attacker)
+		public Command AttackDirectly(Card attacker)
 		{
 			Tween Command()
 			{
@@ -208,7 +208,7 @@ namespace CardGame.Client.Game.Players
 			return Command;
 		}
 
-		public Func<Tween> Battle(Card attacker, Card defender)
+		public Command Battle(Card attacker, Card defender)
 		{
 			Tween Command()
 			{
@@ -231,7 +231,7 @@ namespace CardGame.Client.Game.Players
 			return Command;
 		}
 
-		public Func<Tween> LoseLife(int lifeLost)
+		public Command LoseLife(int lifeLost)
 		{
 			var newLife = GD.Str(LifeCount.Text.ToInt() - lifeLost);
 			var percentage = 100 - (int) ((lifeLost / 8000F) * 100);
