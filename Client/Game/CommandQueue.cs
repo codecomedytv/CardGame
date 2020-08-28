@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using CardGame.Client.Game.Players;
-using CardGame.Tests;
 using Godot;
 
 namespace CardGame.Client.Game
 {
     public delegate void Declaration(Func<Tween> command);
+    public delegate Func<Tween> Command();
+
 
     public class CommandQueue: Godot.Object
     {
@@ -32,6 +32,11 @@ namespace CardGame.Client.Game
             messageReceiver.Connect(nameof(MessageReceiver.ExecutedEvents), this, nameof(Execute));
         }
         private void OnCommandDeclared(Func<Tween> command)
+        {
+            Commands.Enqueue(command);
+        }
+
+        public void Add(Func<Tween> command)
         {
             Commands.Enqueue(command);
         }

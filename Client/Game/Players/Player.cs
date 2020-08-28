@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CardGame.Client.Game.Cards;
@@ -129,7 +130,7 @@ namespace CardGame.Client.Game.Players
 			throw new System.NotImplementedException();
 		}
 
-		public void Deploy(Card card)
+		public Func<Tween> Deploy(Card card)
 		{
 			Tween Command()
 			{
@@ -145,7 +146,8 @@ namespace CardGame.Client.Game.Players
 				return Gfx;
 			}
 
-			Declare(Command);
+			// Declare(Command);
+			return Command;
 		}
 		
 		public void SetFaceDown(Card card)

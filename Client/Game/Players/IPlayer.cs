@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CardGame.Client.Game.Cards;
 using Godot;
 
@@ -27,7 +28,7 @@ namespace CardGame.Client.Game.Players
         public void LoadDeck(IEnumerable<Card> deck);
         void Draw(Card card);
         void Discard(Card card);
-        void Deploy(Card card);
+        Func<Tween> Deploy(Card card);
         void SetFaceDown(Card card);
         void Activate(Card card);
         void SendCardToGraveyard(Card card);

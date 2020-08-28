@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Players;
@@ -156,7 +157,8 @@ namespace CardGame.Client.Game
         private void OnCardDeployed(int id, SetCodes setCode, bool isOpponent)
         {
             // Setcode Arg is Legacy, we use a specialized reveal command instead if new card
-            GetPlayer(isOpponent).Deploy(Cards[id]);
+            Func<Tween> deploy = GetPlayer(isOpponent).Deploy(Cards[id]);
+            CommandQueue.Add(deploy);
         }
 
         private void OnCardSetFaceDown(int id, bool isOpponent)
