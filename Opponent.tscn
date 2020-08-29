@@ -1,0 +1,160 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Client/Assets/Font/Modded/LifeCount_Electrolize.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Client/Assets/HUD/HealthProgressElement.png" type="Texture" id=2]
+[ext_resource path="res://Client/Assets/HUD/HealthProgressBackground.png" type="Texture" id=3]
+[ext_resource path="res://Client/Assets/Font/Electrolize-Regular.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Client/Assets/CardSlot.png" type="Texture" id=5]
+[ext_resource path="res://Client/Assets/HUD/icon_shield.png" type="Texture" id=6]
+[ext_resource path="res://Client/Assets/HUD/HealthBarFrame.png" type="Texture" id=7]
+[ext_resource path="res://Client/Game/Zones/Deck.cs" type="Script" id=8]
+[ext_resource path="res://Client/Game/Zones/Graveyard.cs" type="Script" id=9]
+[ext_resource path="res://Client/Game/Zones/Units.cs" type="Script" id=10]
+[ext_resource path="res://Client/Game/Zones/Hand.cs" type="Script" id=11]
+[ext_resource path="res://Client/Game/Zones/Support.cs" type="Script" id=12]
+[ext_resource path="res://Client/Game/Players/Opponent.cs" type="Script" id=13]
+
+[sub_resource type="DynamicFont" id=1]
+size = 128
+outline_color = Color( 1, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 4 )
+
+[node name="Opponent" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.75, 0 )
+script = ExtResource( 13 )
+
+[node name="Units" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0 )
+script = ExtResource( 10 )
+
+[node name="CardSlot0" type="Sprite3D" parent="Units"]
+pixel_size = 0.001
+texture = ExtResource( 5 )
+
+[node name="CardSlot1" type="Sprite3D" parent="Units"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 0, 0 )
+pixel_size = 0.001
+texture = ExtResource( 5 )
+
+[node name="CardSlot2" type="Sprite3D" parent="Units"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 0 )
+pixel_size = 0.001
+texture = ExtResource( 5 )
+
+[node name="CardSlot3" type="Sprite3D" parent="Units"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75, 0, 0 )
+pixel_size = 0.001
+texture = ExtResource( 5 )
+
+[node name="CardSlot4" type="Sprite3D" parent="Units"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0 )
+pixel_size = 0.001
+texture = ExtResource( 5 )
+
+[node name="Support" type="Spatial" parent="."]
+script = ExtResource( 12 )
+
+[node name="CardSlot0" type="Sprite3D" parent="Support"]
+pixel_size = 0.001
+texture = ExtResource( 5 )
+
+[node name="CardSlot1" type="Sprite3D" parent="Support"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 0, 0 )
+pixel_size = 0.001
+texture = ExtResource( 5 )
+
+[node name="CardSlot2" type="Sprite3D" parent="Support"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 0 )
+pixel_size = 0.001
+texture = ExtResource( 5 )
+
+[node name="CardSlot3" type="Sprite3D" parent="Support"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75, 0, 0 )
+pixel_size = 0.001
+texture = ExtResource( 5 )
+
+[node name="CardSlot4" type="Sprite3D" parent="Support"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0 )
+pixel_size = 0.001
+texture = ExtResource( 5 )
+
+[node name="Hand" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.906308, -0.422618, 0, 0.422618, 0.906308, 2.5, 2.5, 0 )
+script = ExtResource( 11 )
+
+[node name="Deck" type="Sprite3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0.2, 0 )
+pixel_size = 0.001
+texture = ExtResource( 5 )
+script = ExtResource( 8 )
+
+[node name="Graveyard" type="Sprite3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -1.7, 0 )
+pixel_size = 0.001
+texture = ExtResource( 5 )
+script = ExtResource( 9 )
+
+[node name="GFX" type="Tween" parent="."]
+
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+
+[node name="Life" type="Sprite" parent="."]
+position = Vector2( 1553.36, 1.61325 )
+texture = ExtResource( 7 )
+centered = false
+
+[node name="Bar" type="TextureProgress" parent="Life"]
+show_behind_parent = true
+margin_left = 18.0
+margin_top = 11.0
+margin_right = 352.0
+margin_bottom = 51.0
+value = 100.0
+texture_under = ExtResource( 3 )
+texture_progress = ExtResource( 2 )
+fill_mode = 1
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Count" type="Label" parent="Life"]
+margin_left = 126.774
+margin_top = 10.7402
+margin_right = 223.774
+margin_bottom = 49.7402
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0.760784, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 2
+text = "8000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Change" type="Label" parent="Life"]
+visible = false
+margin_left = -872.029
+margin_top = 258.261
+margin_right = -387.029
+margin_bottom = 411.261
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0.760784, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 1, 0, 0, 1 )
+custom_constants/shadow_offset_x = 5
+custom_constants/shadow_offset_y = 5
+text = "- 8000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Defending" type="Sprite" parent="."]
+visible = false
+position = Vector2( 1620, 100 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 6 )

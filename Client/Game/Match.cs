@@ -38,8 +38,6 @@ namespace CardGame.Client.Game
             Opponent = (Opponent) Table.OpponentView;
             GameInput.User = Player;
             GameInput.Opponent = Opponent;
-            Player.Opponent = Opponent;
-            Opponent.Player = Player;
 
             Messenger.Receiver.Connect(nameof(MessageReceiver.LoadDeck), this, nameof(OnLoadDeck));
             Messenger.Receiver.Connect(nameof(MessageReceiver.Draw), this, nameof(OnDraw));

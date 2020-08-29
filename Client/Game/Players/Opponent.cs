@@ -20,7 +20,6 @@ namespace CardGame.Client.Game.Players
 		private Deck Deck;
 		private Tween Gfx;
 		private AudioStreamPlayer Sfx;
-		public Player Player;
 
 		public override void _Ready()
 		{
@@ -203,7 +202,7 @@ namespace CardGame.Client.Game.Players
 				Gfx.InterpolateProperty(attacker, nameof(Translation), destination, attacker.Translation, 0.1F,
 					Tween.TransitionType.Linear, Tween.EaseType.In, 0.3F);
 				Gfx.InterpolateCallback(attacker.AttackingIcon, 0.2F, "set_visible", false);
-				Gfx.InterpolateCallback(Player, 0.3F, nameof(IPlayer.ClearDirectAttackingDefense));
+				// Gfx.InterpolateCallback(Player, 0.3F, nameof(IPlayer.ClearDirectAttackingDefense));
 				return Gfx;
 			}
 

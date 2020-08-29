@@ -24,15 +24,14 @@ namespace CardGame.Client.Game.Players
 		private Deck Deck;
 		private Tween Gfx;
 		private AudioStreamPlayer Sfx;
-		public Opponent Opponent;
+		
+		private States BackingState;
 		public States State
 		{
 			get => BackingState;
 			set => SetState(value);
 		}
 
-		private States BackingState;
-		private Sprite EnergyIcon;
 
 		public States SetState(States state)
 		{
@@ -209,9 +208,6 @@ namespace CardGame.Client.Game.Players
 					Tween.TransitionType.Linear, Tween.EaseType.In, 0.3F);
 				
 				Gfx.InterpolateCallback(attacker.AttackingIcon, 0.2F, "set_visible", false);
-				Gfx.InterpolateCallback(Opponent, 0.3F, nameof(IPlayer.ClearDirectAttackingDefense));
-				
-				
 				return Gfx;
 			}
 
@@ -236,12 +232,7 @@ namespace CardGame.Client.Game.Players
 
 			return Command;
 		}
-
-		public void ClearDirectAttackingDefense()
-		{
-			DefendingIcon.Visible = false;
-		}
-
+		
 		public Command Battle(Card attacker, Card defender)
 		{
 			Tween Command()
@@ -265,7 +256,7 @@ namespace CardGame.Client.Game.Players
 			return Command;
 		}
 
-		public void ClearBattle(Card attacker, Card defender)
+		private void ClearBattle(Card attacker, Card defender)
 		{
 			attacker.AttackingIcon.Visible = false;
 			defender.DefendingIcon.Visible = false;
@@ -284,7 +275,7 @@ namespace CardGame.Client.Game.Players
 			return Command;
 		}
 
-		public void Defend()
+		private void Defend()
 		{
 			DefendingIcon.Visible = true;
 		}

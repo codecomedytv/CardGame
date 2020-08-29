@@ -1,55 +1,36 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://Client/Assets/CardSlot.png" type="Texture" id=1]
-[ext_resource path="res://Client/Game/Zones/Hand.cs" type="Script" id=2]
-[ext_resource path="res://Client/Game/Players/Opponent.cs" type="Script" id=3]
-[ext_resource path="res://Client/Game/Players/Player.cs" type="Script" id=4]
-[ext_resource path="res://Client/Game/Zones/Deck.cs" type="Script" id=5]
-[ext_resource path="res://Client/Game/Zones/Units.cs" type="Script" id=6]
-[ext_resource path="res://Client/Game/Zones/Support.cs" type="Script" id=7]
-[ext_resource path="res://Client/Game/Zones/Graveyard.cs" type="Script" id=8]
-[ext_resource path="res://Client/Assets/HUD/HealthProgressElement.png" type="Texture" id=9]
-[ext_resource path="res://Client/Assets/HUD/HealthProgressBackground.png" type="Texture" id=10]
-[ext_resource path="res://Client/Assets/HUD/HealthBarFrame.png" type="Texture" id=11]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Opponent.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Client/Assets/Font/Modded/ElectrolizeTurnCount.tres" type="DynamicFont" id=12]
-[ext_resource path="res://Client/Assets/Font/Modded/LifeCount_Electrolize.tres" type="DynamicFont" id=13]
 [ext_resource path="res://Client/Assets/Background_Space.png" type="Texture" id=14]
 [ext_resource path="res://Client/Assets/HUD/ButtonNormal.png" type="Texture" id=15]
 [ext_resource path="res://Client/Assets/HUD/ButtonPressed.png" type="Texture" id=16]
 [ext_resource path="res://Client/Assets/HUD/ButtonDisabled.png" type="Texture" id=17]
-[ext_resource path="res://Client/Assets/HUD/icon_shield.png" type="Texture" id=19]
-[ext_resource path="res://Client/Assets/Font/Electrolize-Regular.ttf" type="DynamicFontData" id=20]
 
-[sub_resource type="DynamicFont" id=1]
-size = 128
-outline_color = Color( 1, 0, 0, 1 )
-use_mipmaps = true
-use_filter = true
-font_data = ExtResource( 20 )
-
-[sub_resource type="StyleBoxTexture" id=2]
+[sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 15 )
 region_rect = Rect2( 0, 0, 373, 208 )
 
-[sub_resource type="StyleBoxTexture" id=3]
+[sub_resource type="StyleBoxTexture" id=2]
 texture = ExtResource( 16 )
 region_rect = Rect2( 0, 0, 391, 226 )
 
-[sub_resource type="StyleBoxEmpty" id=4]
+[sub_resource type="StyleBoxEmpty" id=3]
 
-[sub_resource type="StyleBoxTexture" id=5]
+[sub_resource type="StyleBoxTexture" id=4]
 texture = ExtResource( 17 )
 region_rect = Rect2( 0, 0, 279, 110 )
+
+[sub_resource type="StyleBoxTexture" id=5]
+texture = ExtResource( 15 )
+region_rect = Rect2( 0, 0, 373, 208 )
 
 [sub_resource type="StyleBoxTexture" id=6]
 texture = ExtResource( 15 )
 region_rect = Rect2( 0, 0, 373, 208 )
 
-[sub_resource type="StyleBoxTexture" id=7]
-texture = ExtResource( 15 )
-region_rect = Rect2( 0, 0, 373, 208 )
-
-[sub_resource type="StyleBoxEmpty" id=8]
+[sub_resource type="StyleBoxEmpty" id=7]
 
 [node name="Table3D" type="Spatial" groups=[
 "tables",
@@ -60,280 +41,9 @@ transform = Transform( 1, 0, 0, 0, 0.906308, -0.422618, 0, 0.422618, 0.906308, 3
 
 [node name="PlayMat" type="Spatial" parent="."]
 
-[node name="Player" type="Spatial" parent="PlayMat"]
-script = ExtResource( 4 )
+[node name="Player" parent="PlayMat" instance=ExtResource( 1 )]
 
-[node name="Units" type="Spatial" parent="PlayMat/Player"]
-script = ExtResource( 6 )
-
-[node name="CardSlot0" type="Sprite3D" parent="PlayMat/Player/Units"]
-pixel_size = 0.001
-texture = ExtResource( 1 )
-
-[node name="CardSlot1" type="Sprite3D" parent="PlayMat/Player/Units"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 0, 0 )
-pixel_size = 0.001
-texture = ExtResource( 1 )
-
-[node name="CardSlot2" type="Sprite3D" parent="PlayMat/Player/Units"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 0 )
-pixel_size = 0.001
-texture = ExtResource( 1 )
-
-[node name="CardSlot3" type="Sprite3D" parent="PlayMat/Player/Units"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75, 0, 0 )
-pixel_size = 0.001
-texture = ExtResource( 1 )
-
-[node name="CardSlot4" type="Sprite3D" parent="PlayMat/Player/Units"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0 )
-pixel_size = 0.001
-texture = ExtResource( 1 )
-
-[node name="Support" type="Spatial" parent="PlayMat/Player"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0 )
-script = ExtResource( 7 )
-
-[node name="CardSlot0" type="Sprite3D" parent="PlayMat/Player/Support"]
-pixel_size = 0.001
-texture = ExtResource( 1 )
-
-[node name="CardSlot1" type="Sprite3D" parent="PlayMat/Player/Support"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 0, 0 )
-pixel_size = 0.001
-texture = ExtResource( 1 )
-
-[node name="CardSlot2" type="Sprite3D" parent="PlayMat/Player/Support"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 0 )
-pixel_size = 0.001
-texture = ExtResource( 1 )
-
-[node name="CardSlot3" type="Sprite3D" parent="PlayMat/Player/Support"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75, 0, 0 )
-pixel_size = 0.001
-texture = ExtResource( 1 )
-
-[node name="CardSlot4" type="Sprite3D" parent="PlayMat/Player/Support"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0 )
-pixel_size = 0.001
-texture = ExtResource( 1 )
-
-[node name="Hand" type="Spatial" parent="PlayMat/Player"]
-transform = Transform( 1, 0, 0, 0, 0.906308, -0.422618, 0, 0.422618, 0.906308, 2.5, -3.2, 0 )
-script = ExtResource( 2 )
-
-[node name="Deck" type="Sprite3D" parent="PlayMat/Player"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -1.7, 0 )
-pixel_size = 0.001
-texture = ExtResource( 1 )
-script = ExtResource( 5 )
-
-[node name="Graveyard" type="Sprite3D" parent="PlayMat/Player"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0.2, 0 )
-pixel_size = 0.001
-texture = ExtResource( 1 )
-script = ExtResource( 8 )
-
-[node name="GFX" type="Tween" parent="PlayMat/Player"]
-
-[node name="SFX" type="AudioStreamPlayer" parent="PlayMat/Player"]
-
-[node name="Life" type="Sprite" parent="PlayMat/Player"]
-position = Vector2( 1550.14, 1000.35 )
-texture = ExtResource( 11 )
-centered = false
-
-[node name="Count" type="Label" parent="PlayMat/Player/Life"]
-margin_left = 130.0
-margin_top = 11.0
-margin_right = 227.0
-margin_bottom = 50.0
-custom_fonts/font = ExtResource( 13 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_outline_modulate = Color( 0.760784, 0, 0, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_offset_x = 2
-custom_constants/shadow_offset_y = 2
-text = "8000"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Change" type="Label" parent="PlayMat/Player/Life"]
-visible = false
-margin_left = -868.809
-margin_top = -371.476
-margin_right = -383.809
-margin_bottom = -218.476
-custom_fonts/font = SubResource( 1 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_outline_modulate = Color( 0.760784, 0, 0, 1 )
-custom_colors/font_color_shadow = Color( 1, 0, 0, 1 )
-custom_constants/shadow_offset_x = 5
-custom_constants/shadow_offset_y = 5
-text = "- 8000"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Bar" type="TextureProgress" parent="PlayMat/Player/Life"]
-show_behind_parent = true
-margin_left = 18.0
-margin_top = 11.0
-margin_right = 352.0
-margin_bottom = 51.0
-value = 100.0
-texture_under = ExtResource( 10 )
-texture_progress = ExtResource( 9 )
-fill_mode = 1
-nine_patch_stretch = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Defending" type="Sprite" parent="PlayMat/Player"]
-visible = false
-position = Vector2( 1620, 955 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 19 )
-
-[node name="Opponent" type="Spatial" parent="PlayMat"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.75, 0 )
-script = ExtResource( 3 )
-
-[node name="Units" type="Spatial" parent="PlayMat/Opponent"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0 )
-script = ExtResource( 6 )
-
-[node name="CardSlot0" type="Sprite3D" parent="PlayMat/Opponent/Units"]
-pixel_size = 0.001
-texture = ExtResource( 1 )
-
-[node name="CardSlot1" type="Sprite3D" parent="PlayMat/Opponent/Units"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 0, 0 )
-pixel_size = 0.001
-texture = ExtResource( 1 )
-
-[node name="CardSlot2" type="Sprite3D" parent="PlayMat/Opponent/Units"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 0 )
-pixel_size = 0.001
-texture = ExtResource( 1 )
-
-[node name="CardSlot3" type="Sprite3D" parent="PlayMat/Opponent/Units"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75, 0, 0 )
-pixel_size = 0.001
-texture = ExtResource( 1 )
-
-[node name="CardSlot4" type="Sprite3D" parent="PlayMat/Opponent/Units"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0 )
-pixel_size = 0.001
-texture = ExtResource( 1 )
-
-[node name="Support" type="Spatial" parent="PlayMat/Opponent"]
-script = ExtResource( 7 )
-
-[node name="CardSlot0" type="Sprite3D" parent="PlayMat/Opponent/Support"]
-pixel_size = 0.001
-texture = ExtResource( 1 )
-
-[node name="CardSlot1" type="Sprite3D" parent="PlayMat/Opponent/Support"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 0, 0 )
-pixel_size = 0.001
-texture = ExtResource( 1 )
-
-[node name="CardSlot2" type="Sprite3D" parent="PlayMat/Opponent/Support"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 0 )
-pixel_size = 0.001
-texture = ExtResource( 1 )
-
-[node name="CardSlot3" type="Sprite3D" parent="PlayMat/Opponent/Support"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75, 0, 0 )
-pixel_size = 0.001
-texture = ExtResource( 1 )
-
-[node name="CardSlot4" type="Sprite3D" parent="PlayMat/Opponent/Support"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0 )
-pixel_size = 0.001
-texture = ExtResource( 1 )
-
-[node name="Hand" type="Spatial" parent="PlayMat/Opponent"]
-transform = Transform( 1, 0, 0, 0, 0.906308, -0.422618, 0, 0.422618, 0.906308, 2.5, 2.5, 0 )
-script = ExtResource( 2 )
-
-[node name="Deck" type="Sprite3D" parent="PlayMat/Opponent"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0.2, 0 )
-pixel_size = 0.001
-texture = ExtResource( 1 )
-script = ExtResource( 5 )
-
-[node name="Graveyard" type="Sprite3D" parent="PlayMat/Opponent"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -1.7, 0 )
-pixel_size = 0.001
-texture = ExtResource( 1 )
-script = ExtResource( 8 )
-
-[node name="GFX" type="Tween" parent="PlayMat/Opponent"]
-
-[node name="SFX" type="AudioStreamPlayer" parent="PlayMat/Opponent"]
-
-[node name="Life" type="Sprite" parent="PlayMat/Opponent"]
-position = Vector2( 1553.36, 1.61325 )
-texture = ExtResource( 11 )
-centered = false
-
-[node name="Bar" type="TextureProgress" parent="PlayMat/Opponent/Life"]
-show_behind_parent = true
-margin_left = 18.0
-margin_top = 11.0
-margin_right = 352.0
-margin_bottom = 51.0
-value = 100.0
-texture_under = ExtResource( 10 )
-texture_progress = ExtResource( 9 )
-fill_mode = 1
-nine_patch_stretch = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Count" type="Label" parent="PlayMat/Opponent/Life"]
-margin_left = 126.774
-margin_top = 10.7402
-margin_right = 223.774
-margin_bottom = 49.7402
-custom_fonts/font = ExtResource( 13 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_outline_modulate = Color( 0.760784, 0, 0, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_offset_x = 2
-custom_constants/shadow_offset_y = 2
-text = "8000"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Change" type="Label" parent="PlayMat/Opponent/Life"]
-visible = false
-margin_left = -872.029
-margin_top = 258.261
-margin_right = -387.029
-margin_bottom = 411.261
-custom_fonts/font = SubResource( 1 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_outline_modulate = Color( 0.760784, 0, 0, 1 )
-custom_colors/font_color_shadow = Color( 1, 0, 0, 1 )
-custom_constants/shadow_offset_x = 5
-custom_constants/shadow_offset_y = 5
-text = "- 8000"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Defending" type="Sprite" parent="PlayMat/Opponent"]
-visible = false
-position = Vector2( 1620, 100 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 19 )
+[node name="Opponent" parent="PlayMat" instance=ExtResource( 2 )]
 
 [node name="HUD" type="Control" parent="."]
 margin_right = 40.0
@@ -363,11 +73,11 @@ margin_left = 1730.0
 margin_top = 870.0
 margin_right = 1930.0
 margin_bottom = 970.0
-custom_styles/hover = SubResource( 2 )
-custom_styles/pressed = SubResource( 3 )
-custom_styles/focus = SubResource( 4 )
-custom_styles/disabled = SubResource( 5 )
-custom_styles/normal = SubResource( 6 )
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
 text = "Pass Play"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -378,11 +88,11 @@ margin_left = 1730.0
 margin_top = 930.0
 margin_right = 1930.0
 margin_bottom = 1030.0
-custom_styles/hover = SubResource( 7 )
-custom_styles/pressed = SubResource( 3 )
-custom_styles/focus = SubResource( 8 )
-custom_styles/disabled = SubResource( 5 )
-custom_styles/normal = SubResource( 6 )
+custom_styles/hover = SubResource( 6 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 7 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
 text = "End Turn"
 __meta__ = {
 "_edit_use_anchors_": false

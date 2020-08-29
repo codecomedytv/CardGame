@@ -22,6 +22,5 @@ namespace CardGame.Client.Game.Players
         Command Battle(Card attacker, Card defender);
         Command LoseLife(int lifeLost);
 
-        void ClearDirectAttackingDefense();
     }
 }
