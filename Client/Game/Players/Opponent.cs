@@ -9,10 +9,10 @@ namespace CardGame.Client.Game.Players
 {
 	public class Opponent: Spatial, IPlayer
 	{
-		public Sprite DefendingIcon { get; set; }
-		public TextureProgress LifeBar { get; set; }
-		public Label LifeCount { get; set; }
-		public Label LifeChange { get; set; }
+		private Sprite DefendingIcon { get; set; }
+		private TextureProgress LifeBar { get; set; }
+		private Label LifeCount { get; set; }
+		private Label LifeChange { get; set; }
 		private Units Units;
 		private Support Support;
 		private Hand Hand;
@@ -31,6 +31,10 @@ namespace CardGame.Client.Game.Players
 			Deck = (Deck) GetNode("Deck");
 			Gfx = (Tween) GetNode("GFX");
 			Sfx = (AudioStreamPlayer) GetNode("SFX");
+			LifeBar = (TextureProgress) GetNode("Life/Bar");
+			LifeCount = (Label) GetNode("Life/Count");
+			LifeChange = (Label) GetNode("Life/Change");
+			DefendingIcon = (Sprite) GetNode("Defending");
 		}
 		
 		public void AddCardToDeck(Card card)
@@ -92,7 +96,6 @@ namespace CardGame.Client.Game.Players
 			GD.Print("Opponent Deploying Card");
 			Tween Command()
 			{
-				//card.GetNode<Sprite3D>("Face").FlipV = !card.GetNode<Sprite3D>("Face").FlipV;
 				var fakeCard = Hand[0];
 				Hand.Remove(fakeCard);
 				Hand.Add(card);
@@ -112,7 +115,6 @@ namespace CardGame.Client.Game.Players
 				return Gfx;
 			}
 			
-			// return Command;
 			return Command;
 		}
 

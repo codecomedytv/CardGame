@@ -21,36 +21,36 @@
 [ext_resource path="res://Client/Assets/HUD/icon_shield.png" type="Texture" id=19]
 [ext_resource path="res://Client/Assets/Font/Electrolize-Regular.ttf" type="DynamicFontData" id=20]
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=1]
 size = 128
 outline_color = Color( 1, 0, 0, 1 )
 use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 20 )
 
-[sub_resource type="StyleBoxTexture" id=1]
+[sub_resource type="StyleBoxTexture" id=2]
 texture = ExtResource( 15 )
 region_rect = Rect2( 0, 0, 373, 208 )
 
-[sub_resource type="StyleBoxTexture" id=2]
+[sub_resource type="StyleBoxTexture" id=3]
 texture = ExtResource( 16 )
 region_rect = Rect2( 0, 0, 391, 226 )
 
-[sub_resource type="StyleBoxEmpty" id=3]
-
-[sub_resource type="StyleBoxTexture" id=4]
-texture = ExtResource( 17 )
-region_rect = Rect2( 0, 0, 279, 110 )
+[sub_resource type="StyleBoxEmpty" id=4]
 
 [sub_resource type="StyleBoxTexture" id=5]
-texture = ExtResource( 15 )
-region_rect = Rect2( 0, 0, 373, 208 )
+texture = ExtResource( 17 )
+region_rect = Rect2( 0, 0, 279, 110 )
 
 [sub_resource type="StyleBoxTexture" id=6]
 texture = ExtResource( 15 )
 region_rect = Rect2( 0, 0, 373, 208 )
 
-[sub_resource type="StyleBoxEmpty" id=7]
+[sub_resource type="StyleBoxTexture" id=7]
+texture = ExtResource( 15 )
+region_rect = Rect2( 0, 0, 373, 208 )
+
+[sub_resource type="StyleBoxEmpty" id=8]
 
 [node name="Table3D" type="Spatial" groups=[
 "tables",
@@ -139,6 +139,70 @@ script = ExtResource( 8 )
 
 [node name="SFX" type="AudioStreamPlayer" parent="PlayMat/Player"]
 
+[node name="Life" type="Sprite" parent="PlayMat/Player"]
+position = Vector2( 1550.14, 1000.35 )
+texture = ExtResource( 11 )
+centered = false
+
+[node name="Count" type="Label" parent="PlayMat/Player/Life"]
+margin_left = 130.0
+margin_top = 11.0
+margin_right = 227.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0.760784, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 2
+text = "8000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Change" type="Label" parent="PlayMat/Player/Life"]
+visible = false
+margin_left = -868.809
+margin_top = -371.476
+margin_right = -383.809
+margin_bottom = -218.476
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0.760784, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 1, 0, 0, 1 )
+custom_constants/shadow_offset_x = 5
+custom_constants/shadow_offset_y = 5
+text = "- 8000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bar" type="TextureProgress" parent="PlayMat/Player/Life"]
+show_behind_parent = true
+margin_left = 18.0
+margin_top = 11.0
+margin_right = 352.0
+margin_bottom = 51.0
+value = 100.0
+texture_under = ExtResource( 10 )
+texture_progress = ExtResource( 9 )
+fill_mode = 1
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Active" type="Sprite" parent="PlayMat/Player"]
+visible = false
+position = Vector2( 1700.17, 962.464 )
+texture = ExtResource( 18 )
+
+[node name="Defending" type="Sprite" parent="PlayMat/Player"]
+visible = false
+position = Vector2( 1620, 955 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 19 )
+
 [node name="Opponent" type="Spatial" parent="PlayMat"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.75, 0 )
 script = ExtResource( 3 )
@@ -218,6 +282,70 @@ script = ExtResource( 8 )
 
 [node name="SFX" type="AudioStreamPlayer" parent="PlayMat/Opponent"]
 
+[node name="Life" type="Sprite" parent="PlayMat/Opponent"]
+position = Vector2( 1553.36, 1.61325 )
+texture = ExtResource( 11 )
+centered = false
+
+[node name="Bar" type="TextureProgress" parent="PlayMat/Opponent/Life"]
+show_behind_parent = true
+margin_left = 18.0
+margin_top = 11.0
+margin_right = 352.0
+margin_bottom = 51.0
+value = 100.0
+texture_under = ExtResource( 10 )
+texture_progress = ExtResource( 9 )
+fill_mode = 1
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Count" type="Label" parent="PlayMat/Opponent/Life"]
+margin_left = 126.774
+margin_top = 10.7402
+margin_right = 223.774
+margin_bottom = 49.7402
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0.760784, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 2
+text = "8000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Change" type="Label" parent="PlayMat/Opponent/Life"]
+visible = false
+margin_left = -872.029
+margin_top = 258.261
+margin_right = -387.029
+margin_bottom = 411.261
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0.760784, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 1, 0, 0, 1 )
+custom_constants/shadow_offset_x = 5
+custom_constants/shadow_offset_y = 5
+text = "- 8000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Active" type="Sprite" parent="PlayMat/Opponent"]
+visible = false
+position = Vector2( 1700.17, 106.464 )
+texture = ExtResource( 18 )
+
+[node name="Defending" type="Sprite" parent="PlayMat/Opponent"]
+visible = false
+position = Vector2( 1620, 100 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 19 )
+
 [node name="HUD" type="Control" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
@@ -241,122 +369,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PlayerLife" type="Sprite" parent="HUD"]
-position = Vector2( 1550.14, 1000.35 )
-texture = ExtResource( 11 )
-centered = false
-
-[node name="Count" type="Label" parent="HUD/PlayerLife"]
-margin_left = 130.0
-margin_top = 11.0
-margin_right = 227.0
-margin_bottom = 50.0
-custom_fonts/font = ExtResource( 13 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_outline_modulate = Color( 0.760784, 0, 0, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_offset_x = 2
-custom_constants/shadow_offset_y = 2
-text = "8000"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Change" type="Label" parent="HUD/PlayerLife"]
-visible = false
-margin_left = -868.809
-margin_top = -371.476
-margin_right = -383.809
-margin_bottom = -218.476
-custom_fonts/font = SubResource( 8 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_outline_modulate = Color( 0.760784, 0, 0, 1 )
-custom_colors/font_color_shadow = Color( 1, 0, 0, 1 )
-custom_constants/shadow_offset_x = 5
-custom_constants/shadow_offset_y = 5
-text = "- 8000"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Bar" type="TextureProgress" parent="HUD/PlayerLife"]
-show_behind_parent = true
-margin_left = 18.0
-margin_top = 11.0
-margin_right = 352.0
-margin_bottom = 51.0
-value = 100.0
-texture_under = ExtResource( 10 )
-texture_progress = ExtResource( 9 )
-fill_mode = 1
-nine_patch_stretch = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="OpponentLife" type="Sprite" parent="HUD"]
-position = Vector2( 1553.36, 1.61325 )
-texture = ExtResource( 11 )
-centered = false
-
-[node name="Bar" type="TextureProgress" parent="HUD/OpponentLife"]
-show_behind_parent = true
-margin_left = 18.0
-margin_top = 11.0
-margin_right = 352.0
-margin_bottom = 51.0
-value = 100.0
-texture_under = ExtResource( 10 )
-texture_progress = ExtResource( 9 )
-fill_mode = 1
-nine_patch_stretch = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Count" type="Label" parent="HUD/OpponentLife"]
-margin_left = 126.774
-margin_top = 10.7402
-margin_right = 223.774
-margin_bottom = 49.7402
-custom_fonts/font = ExtResource( 13 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_outline_modulate = Color( 0.760784, 0, 0, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_offset_x = 2
-custom_constants/shadow_offset_y = 2
-text = "8000"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Change" type="Label" parent="HUD/OpponentLife"]
-visible = false
-margin_left = -872.029
-margin_top = 258.261
-margin_right = -387.029
-margin_bottom = 411.261
-custom_fonts/font = SubResource( 8 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_outline_modulate = Color( 0.760784, 0, 0, 1 )
-custom_colors/font_color_shadow = Color( 1, 0, 0, 1 )
-custom_constants/shadow_offset_x = 5
-custom_constants/shadow_offset_y = 5
-text = "- 8000"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="PassPlay" type="Button" parent="HUD"]
 margin_left = 1730.0
 margin_top = 870.0
 margin_right = 1930.0
 margin_bottom = 970.0
-custom_styles/hover = SubResource( 1 )
-custom_styles/pressed = SubResource( 2 )
-custom_styles/focus = SubResource( 3 )
-custom_styles/disabled = SubResource( 4 )
-custom_styles/normal = SubResource( 5 )
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 3 )
+custom_styles/focus = SubResource( 4 )
+custom_styles/disabled = SubResource( 5 )
+custom_styles/normal = SubResource( 6 )
 text = "Pass Play"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -367,37 +389,15 @@ margin_left = 1730.0
 margin_top = 930.0
 margin_right = 1930.0
 margin_bottom = 1030.0
-custom_styles/hover = SubResource( 6 )
-custom_styles/pressed = SubResource( 2 )
-custom_styles/focus = SubResource( 7 )
-custom_styles/disabled = SubResource( 4 )
-custom_styles/normal = SubResource( 5 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 3 )
+custom_styles/focus = SubResource( 8 )
+custom_styles/disabled = SubResource( 5 )
+custom_styles/normal = SubResource( 6 )
 text = "End Turn"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="OpponentActive" type="Sprite" parent="HUD"]
-visible = false
-position = Vector2( 1700.17, 106.464 )
-texture = ExtResource( 18 )
-
-[node name="PlayerActive" type="Sprite" parent="HUD"]
-visible = false
-position = Vector2( 1700.17, 962.464 )
-texture = ExtResource( 18 )
-
-[node name="PlayerDefending" type="Sprite" parent="HUD"]
-visible = false
-position = Vector2( 1620, 955 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 19 )
-
-[node name="OpponentDefending" type="Sprite" parent="HUD"]
-visible = false
-position = Vector2( 1620, 100 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 19 )
 
 [node name="Background" type="Sprite3D" parent="."]
 transform = Transform( 2.89293, 0, 0, 0, 3.10572, 0, 0, 0, 1, 2.947, 2.2, -2 )

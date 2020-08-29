@@ -10,12 +10,13 @@ namespace CardGame.Client.Game.Players
 	public class Player: Spatial, IPlayer
 	{
 		[Signal]
-		public delegate void StateChanged();
+		private delegate void StateChanged();
 
-		public Sprite DefendingIcon { get; set; }
-		public TextureProgress LifeBar { get; set; }
-		public Label LifeCount { get; set; }
-		public Label LifeChange { get; set; }
+		private Sprite DefendingIcon { get; set; }
+		private TextureProgress LifeBar { get; set; }
+		private Label LifeCount { get; set; }
+		private Label LifeChange { get; set; }
+		
 		private Units Units;
 		private Support Support;
 		private Hand Hand;
@@ -31,33 +32,29 @@ namespace CardGame.Client.Game.Players
 		}
 
 		private States BackingState;
-		public Sprite EnergyIcon;
-		public Sprite OpponentEnergyIcon;
+		private Sprite EnergyIcon;
 
 		public States SetState(States state)
 		{
 			BackingState = state;
 			if (state == States.Active || state == States.Idle)
 			{
-				EnergyIcon.Visible = true;
-				OpponentEnergyIcon.Visible = false;
+				//EnergyIcon.Visible = true;
 			}
 			else
 			{
-				EnergyIcon.Visible = false;
-				OpponentEnergyIcon.Visible = true;
+				//EnergyIcon.Visible = false;
 			}
 	
 			EmitSignal(nameof(StateChanged), state);
 			return state;
 		}
+		
 		// Begin Business Logic
 		public bool IsInActive => State != States.Active && State != States.Idle;
 		public bool Attacking = false;
 		public Card CardInUse = null;
 		public bool IsChoosingAttackTarget => Attacking && State == States.Idle;
-
-		
 		// End Business Logic
 		
 		// Begin Animation Logic
@@ -70,6 +67,12 @@ namespace CardGame.Client.Game.Players
 			Deck = (Deck) GetNode("Deck");
 			Gfx = (Tween) GetNode("GFX");
 			Sfx = (AudioStreamPlayer) GetNode("SFX");
+			LifeBar = (TextureProgress) GetNode("Life/Bar");
+			LifeCount = (Label) GetNode("Life/Count");
+			LifeChange = (Label) GetNode("Life/Change");
+			EnergyIcon = (Sprite) GetNode("Active");
+			DefendingIcon = (Sprite) GetNode("Defending");
+			EnergyIcon.Visible = false;
 		}
 		
 		public void LoadDeck(IEnumerable<Card> deck)
