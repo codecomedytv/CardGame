@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Client/Assets/CardSlot.png" type="Texture" id=1]
 [ext_resource path="res://Client/Game/Zones/Hand.cs" type="Script" id=2]
@@ -17,7 +17,6 @@
 [ext_resource path="res://Client/Assets/HUD/ButtonNormal.png" type="Texture" id=15]
 [ext_resource path="res://Client/Assets/HUD/ButtonPressed.png" type="Texture" id=16]
 [ext_resource path="res://Client/Assets/HUD/ButtonDisabled.png" type="Texture" id=17]
-[ext_resource path="res://Client/Assets/HUD/ActiveStatus.png" type="Texture" id=18]
 [ext_resource path="res://Client/Assets/HUD/icon_shield.png" type="Texture" id=19]
 [ext_resource path="res://Client/Assets/Font/Electrolize-Regular.ttf" type="DynamicFontData" id=20]
 
@@ -192,11 +191,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Active" type="Sprite" parent="PlayMat/Player"]
-visible = false
-position = Vector2( 1700.17, 962.464 )
-texture = ExtResource( 18 )
-
 [node name="Defending" type="Sprite" parent="PlayMat/Player"]
 visible = false
 position = Vector2( 1620, 955 )
@@ -334,11 +328,6 @@ text = "- 8000"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Active" type="Sprite" parent="PlayMat/Opponent"]
-visible = false
-position = Vector2( 1700.17, 106.464 )
-texture = ExtResource( 18 )
 
 [node name="Defending" type="Sprite" parent="PlayMat/Opponent"]
 visible = false

@@ -37,15 +37,6 @@ namespace CardGame.Client.Game.Players
 		public States SetState(States state)
 		{
 			BackingState = state;
-			if (state == States.Active || state == States.Idle)
-			{
-				//EnergyIcon.Visible = true;
-			}
-			else
-			{
-				//EnergyIcon.Visible = false;
-			}
-	
 			EmitSignal(nameof(StateChanged), state);
 			return state;
 		}
@@ -70,9 +61,7 @@ namespace CardGame.Client.Game.Players
 			LifeBar = (TextureProgress) GetNode("Life/Bar");
 			LifeCount = (Label) GetNode("Life/Count");
 			LifeChange = (Label) GetNode("Life/Change");
-			EnergyIcon = (Sprite) GetNode("Active");
 			DefendingIcon = (Sprite) GetNode("Defending");
-			EnergyIcon.Visible = false;
 		}
 		
 		public void LoadDeck(IEnumerable<Card> deck)

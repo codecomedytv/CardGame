@@ -17,9 +17,9 @@ namespace CardGame.Client.Game
         private readonly Messenger Messenger = new Messenger();
         private readonly CardFactory CardFactory;
         private readonly Table Table;
-        private IPlayer Player;
-        private IPlayer Opponent;
-        private GameInput GameInput = new GameInput();
+        private Player Player;
+        private Opponent Opponent;
+        private readonly GameInput GameInput = new GameInput();
 
         public Match()
         {
@@ -34,14 +34,12 @@ namespace CardGame.Client.Game
             AddChild(Messenger);
             AddChild(GameInput);
 
-            Player = Table.PlayerView; // Has To Come After Adding Table for view reference
-            Opponent = Table.OpponentView;
-            GameInput.User = (Player) Player;
-            GameInput.Opponent = (Opponent) Opponent;
-            var p = (Player) Player;
-            p.Opponent = (Opponent) Opponent;
-            var o = (Opponent) Opponent;
-            o.Player = p;
+            Player = (Player) Table.PlayerView; // Has To Come After Adding Table for view reference
+            Opponent = (Opponent) Table.OpponentView;
+            GameInput.User = Player;
+            GameInput.Opponent = Opponent;
+            Player.Opponent = Opponent;
+            Opponent.Player = Player;
 
             Messenger.Receiver.Connect(nameof(MessageReceiver.LoadDeck), this, nameof(OnLoadDeck));
             Messenger.Receiver.Connect(nameof(MessageReceiver.Draw), this, nameof(OnDraw));
@@ -68,13 +66,9 @@ namespace CardGame.Client.Game
             GameInput.Connect(nameof(GameInput.PassPlay), Messenger.Sender, nameof(MessageSender.DeclarePassPlay));
             GameInput.Connect(nameof(GameInput.EndTurn), Messenger.Sender, nameof(MessageSender.DeclareEndTurn));
             
-
             Table.GetNode<Button>("Table3D/HUD/EndTurn").Connect("pressed", GameInput, nameof(GameInput.OnEndTurnPressed));
             Table.GetNode<Button>("Table3D/HUD/PassPlay").Connect("pressed", GameInput, nameof(GameInput.OnPassPlayPressed));
 
-            var player = (Player) Player;
-            
-            // CommandQueue.SubscribeTo(Messenger.Receiver);
             
             
             Messenger.CallDeferred("SetReady");
@@ -222,7 +216,7 @@ namespace CardGame.Client.Game
 
         private IPlayer GetPlayer(bool isOpponent)
         {
-            return isOpponent ? Opponent : Player;
+            return isOpponent ? Opponent : Player as IPlayer;
         }
     }
 }
