@@ -17,11 +17,11 @@ namespace CardGame.Client.Game.Players
 		private Label LifeCount { get; set; }
 		private Label LifeChange { get; set; }
 		
-		private Units Units;
-		private Support Support;
-		private Hand Hand;
-		private Graveyard Graveyard;
-		private Deck Deck;
+		public Units Units { get; set; }
+		public Support Support { get; set; }
+		public Hand Hand { get; set; }
+		public Graveyard Graveyard { get; set; }
+		public Deck Deck { get; set; }
 		private AudioStreamPlayer Sfx;
 		
 		private States BackingState;

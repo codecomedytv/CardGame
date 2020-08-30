@@ -14,6 +14,7 @@ namespace CardGame.Client.Game
         private static int _matchDebugCount = 0;
         private readonly Catalog Cards = new Catalog();
         private readonly CommandQueue CommandQueue = new CommandQueue();
+        private readonly CommandFactory CommandFactory = new CommandFactory();
         private readonly Messenger Messenger = new Messenger();
         private readonly CardFactory CardFactory;
         private readonly Table Table;
@@ -126,7 +127,7 @@ namespace CardGame.Client.Game
 
         private void OnDraw(int cardId = 0, bool isOpponent = false)
         {
-            var command = GetPlayer(isOpponent).Draw(Cards[cardId]);
+            var command = isOpponent ? CommandFactory.Draw(Opponent) : CommandFactory.Draw(Player, Cards[cardId]);
             CommandQueue.Add(command);
         }
 
