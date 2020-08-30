@@ -206,7 +206,6 @@ namespace CardGame.Client.Game
         
         private void OnUnitBattled(int attackerId, int defenderId, bool isOpponent)
         {
-            // var command = GetPlayer(isOpponent).Battle(Cards[attackerId], Cards[defenderId]);
             var command = CommandFactory.Battle(GetPlayer(isOpponent), Cards[attackerId], Cards[defenderId]);
             CommandQueue.Add(command);
         }
