@@ -35,12 +35,10 @@ namespace CardGame.Client.Game.Cards
 		public bool CanBePlayed => CanBeSet || CanBeActivated || CanBeDeployed;
 		public bool HasAttackTarget(Card card) => ValidAttackTargets.Contains(card);
 		
-		// Signals
-		[Signal]
-		public delegate void MouseOvered();
 
-		[Signal]
-		public delegate void MouseOveredExit();
+		public Action<Card> MouseOvered;
+		public Action<Card> MouseOveredExit;
+
 
 		public void SetCardArt(Texture art)
 		{
@@ -77,16 +75,9 @@ namespace CardGame.Client.Game.Cards
 			GetNode<Sprite3D>("Playable").Visible = CanBePlayed;
 		}
 
-		private void OnMouseEntered()
-		{
-			EmitSignal(nameof(MouseOvered), this);
-		}
-		
-		private void OnMouseExit()
-		{
-			EmitSignal(nameof(MouseOveredExit), this);
-		}
-		
+		private void OnMouseEntered() => MouseOvered(this);
+		private void OnMouseExit() => MouseOveredExit(this);
+
 		public void Attack()
 		{
 			AttackingIcon.Visible = true;

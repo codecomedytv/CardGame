@@ -118,7 +118,8 @@ namespace CardGame.Client.Game
                 var card = CardFactory.Create(kv.Key, kv.Value);
                 AddChild(card); // Move To CardCatalog?
                 Cards.Add(kv.Key, card);
-                GameInput.SubscribeTo(card);
+                card.MouseOvered = GameInput.OnMousedOverCard;
+                card.MouseOveredExit = GameInput.OnMousedOverExitCard;
                 deck.Add(card);
             }
             
@@ -159,7 +160,8 @@ namespace CardGame.Client.Game
             var card = CardFactory.Create(id, setCode);
             Opponent.RegisterCard(card);
             AddChild(card);
-            GameInput.SubscribeTo(card);
+            card.MouseOvered = GameInput.OnMousedOverCard;
+            card.MouseOveredExit = GameInput.OnMousedOverExitCard;
             Cards.Add(id, card);
         }
 

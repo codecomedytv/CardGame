@@ -24,7 +24,6 @@ namespace CardGame.Client.Game
         {
             if (gameEvent is InputEventMouseButton mb && mb.Doubleclick && MousedOverCard != null)
             {
-                GD.Print($"Double Clicked {MousedOverCard.Id}");
                 OnDoubleClicked(MousedOverCard);
             }
             else if (gameEvent is InputEventMouseButton mob && mob.Doubleclick && User.Attacking)
@@ -35,43 +34,19 @@ namespace CardGame.Client.Game
                 
             }
         }
-
-        public void SubscribeTo(Card card)
-        {
-            card.Connect(nameof(Card.MouseOvered), this, nameof(OnMousedOverCard));
-            card.Connect(nameof(Card.MouseOveredExit), this, nameof(OnMousedOverExitCard));
-        }
-
-        private void OnMousedOverCard(Card card)
-        {
-            MousedOverCard = card;
-        }
-
-        private void OnMousedOverExitCard(Card card)
+        
+        public void OnMousedOverCard(Card card) => MousedOverCard = card;
+        
+        public void OnMousedOverExitCard(Card card)
         {
             // Make sure a different card hasn't already overriden it
-            if (MousedOverCard == card)
-            {
-                MousedOverCard = null;
-            }
+            MousedOverCard = MousedOverCard == card ? null : MousedOverCard;
         }
 
-        public void OnEndTurnPressed()
-        {
-            if (User.State == States.Idle)
-            {
-                EndTurn();
-            }
-        }
+        public void OnPassPlayPressed() { if (User.State == States.Active) { PassPlay(); } }
 
-
-        public void OnPassPlayPressed()
-        {
-            if (User.State == States.Active)
-            {
-                PassPlay();
-            }
-        }
+        public void OnEndTurnPressed() { if (User.State == States.Idle) { EndTurn(); } }
+        
 
         private void ChooseAttackTarget(Card card)
         {
