@@ -17,8 +17,6 @@ namespace CardGame.Client.Game.Players
         
         void AddCardToDeck(Card cardView);
         void LoadDeck(IEnumerable<Card> deck);
-        Command SetFaceDown(Card card);
-        Command Activate(Card card);
         Command SendCardToGraveyard(Card card);
         Command Attack(Card attacker, Card defender);
         Command AttackDirectly(Card attacker);

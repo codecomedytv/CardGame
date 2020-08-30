@@ -46,46 +46,8 @@ namespace CardGame.Client.Game.Players
 				AddCardToDeck(card);
 			}
 		}
-	
-		public Command SetFaceDown(Card ignoredCard)
-		{
-			Tween Command(Tween gfx)
-			{
-				var card = Hand[0];
-				var origin = card.Translation;
-				var destination = Support.NextSlot() + new Vector3(0, 0, 0.05F);
-
-				Hand.Remove(card);
-				Support.Add(card);
-
-				gfx.InterpolateProperty(card, nameof(Translation), origin, destination, 0.3F);
-				gfx.InterpolateProperty(card, nameof(RotationDegrees), new Vector3(-25, 0, 0), new Vector3(0, 0, 0),
-					0.1F);
-				gfx.InterpolateCallback(Hand, 0.2F, nameof(Hand.Sort));
-				return gfx;
-			}
-
-			return Command;
-		}
-
-		public Command Activate(Card card)
-		{
-			Tween Command(Tween gfx)
-			{
-				var fakeCard = Support[0];
-				Support.Remove(fakeCard);
-				Support.Add(card);
-				card.Translation = fakeCard.Translation;
-				fakeCard.Free();
-
-				gfx.InterpolateProperty(card, nameof(RotationDegrees), new Vector3(0, 0, 0), new Vector3(0, 180, 0),
-					0.1F);
-
-				return gfx;
-			}
-
-			return Command;
-		}
+		
+		
 
 		public Command SendCardToGraveyard(Card card)
 		{

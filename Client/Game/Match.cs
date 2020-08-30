@@ -167,14 +167,17 @@ namespace CardGame.Client.Game
         private void OnCardSetFaceDown(int id, bool isOpponent)
         {
             // Setcode Arg is Legacy, we use a specialized reveal command instead if new card
-            var command = isOpponent ? Opponent.SetFaceDown(Cards[id]) : Player.SetFaceDown(Cards[id]);
+            var command = isOpponent ? CommandFactory.SetFaceDown(Opponent) : CommandFactory.SetFaceDown(Player, Cards[id]);
             CommandQueue.Add(command);
         }
 
         private void OnCardActivated(int id, SetCodes setCode, int positionInLink, bool isOpponent, int targetId = 0)
         {
-            var command = isOpponent ? Opponent.Activate(Cards[id]) : Player.Activate(Cards[id]);
-            CommandQueue.Add(command);
+            if (isOpponent)
+            {
+                var command = CommandFactory.Activate(Opponent, Cards[id]);
+                CommandQueue.Add(command);
+            }
         }
 
         public void OnCardSentToZone(int cardId, int zoneId, bool isOpponent)

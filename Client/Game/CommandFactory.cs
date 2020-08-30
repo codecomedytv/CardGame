@@ -78,5 +78,62 @@ namespace CardGame.Client.Game
 	        return Command;
         }
         
+        public Command SetFaceDown(IPlayer player, Card card)
+        {
+	        Tween Command(Tween gfx)
+	        {
+		        var origin = card.Translation;
+		        var destination = player.Support.NextSlot() + new Vector3(0, 0, 0.05F);
+
+		        player.Hand.Remove(card);
+		        player.Support.Add(card);
+
+		        gfx.InterpolateProperty(card, nameof(card.Translation), origin, destination, 0.3F);
+		        gfx.InterpolateProperty(card, nameof(card.RotationDegrees), new Vector3(-25, 180, 0), new Vector3(0, 0, 0), 0.1F);
+		        gfx.InterpolateCallback(player.Hand, 0.2F, nameof(Hand.Sort));
+		        return gfx;
+	        }
+	        return Command;
+        }
+        
+        public Command SetFaceDown(Opponent opponent)
+        {
+	        Tween Command(Tween gfx)
+	        {
+		        var card = opponent.Hand[0];
+		        var origin = card.Translation;
+		        var destination = opponent.Support.NextSlot() + new Vector3(0, 0, 0.05F);
+
+		        opponent.Hand.Remove(card);
+		        opponent.Support.Add(card);
+
+		        gfx.InterpolateProperty(card, nameof(card.Translation), origin, destination, 0.3F);
+		        gfx.InterpolateProperty(card, nameof(card.RotationDegrees), new Vector3(-25, 0, 0), new Vector3(0, 0, 0),
+			        0.1F);
+		        gfx.InterpolateCallback(opponent.Hand, 0.2F, nameof(Hand.Sort));
+		        return gfx;
+	        }
+
+	        return Command;
+        }
+        
+        public Command Activate(Opponent opponent, Card card)
+        {
+	        Tween Command(Tween gfx)
+	        {
+		        var fakeCard = opponent.Support[0];
+		        opponent.Support.Remove(fakeCard);
+		        opponent.Support.Add(card);
+		        card.Translation = fakeCard.Translation;
+		        fakeCard.Free();
+
+		        gfx.InterpolateProperty(card, nameof(card.RotationDegrees), new Vector3(0, 0, 0), new Vector3(0, 180, 0),
+			        0.1F);
+
+		        return gfx;
+	        }
+
+	        return Command;
+        }
     }
 }
