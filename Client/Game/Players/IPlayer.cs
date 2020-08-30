@@ -14,9 +14,12 @@ namespace CardGame.Client.Game.Players
         Hand Hand { get; }
         Units Units { get; }
         Support Support { get; }
-        
-        void AddCardToDeck(Card cardView);
+        void RegisterCard(Card card);
         void LoadDeck(IEnumerable<Card> deck);
+        
+        
+        // Need To Refactor This?
+        // Move To CommandFactory At Least
         Command Attack(Card attacker, Card defender);
         Command AttackDirectly(Card attacker);
         Command Battle(Card attacker, Card defender);

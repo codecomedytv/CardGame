@@ -136,6 +136,10 @@ namespace CardGame.Client.Game
             var card = Cards[id];
             card.State = state;
             card.ValidTargets.Clear();
+            
+            // Just Replace The Lists?
+            // Cannot do that because we need to get the cards
+            // unless we check via ids?
             foreach (var target in targets)
             {
                 card.ValidTargets.Add(Cards[target]);
@@ -151,7 +155,9 @@ namespace CardGame.Client.Game
 
         public void OnCardRevealed(int id, SetCodes setCode, int zoneIds)
         {
+            // We already know our own cards (so far) so we revealed cards default to Opponents;
             var card = CardFactory.Create(id, setCode);
+            Opponent.RegisterCard(card);
             AddChild(card);
             GameInput.SubscribeTo(card);
             Cards.Add(id, card);

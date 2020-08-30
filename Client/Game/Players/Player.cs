@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Zones;
 using Godot;
@@ -63,19 +61,17 @@ namespace CardGame.Client.Game.Players
 		{
 			foreach (var card in deck)
 			{
-				card.Player = this;
-				Connect(nameof(StateChanged), card, nameof(Card.OnPlayerStateChanged));
-				AddCardToDeck(card);
+				RegisterCard(card);
+				Deck.Add(card);
 			}
 		}
-		
-		public void AddCardToDeck(Card card)
+
+		public void RegisterCard(Card card)
 		{
-			Deck.Add(card);
+			card.Player = this;
+			Connect(nameof(StateChanged), card, nameof(Card.OnPlayerStateChanged));
 		}
 		
-		
-
 		public Command Attack(Card attacker, Card defender)
 		{
 			throw new System.NotImplementedException();

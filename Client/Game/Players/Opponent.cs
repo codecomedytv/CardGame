@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Zones;
 using Godot;
@@ -32,16 +30,16 @@ namespace CardGame.Client.Game.Players
 			DefendingIcon = (Sprite) GetNode("Defending");
 		}
 		
-		public void AddCardToDeck(Card card)
+		public void RegisterCard(Card card)
 		{
-			Deck.Add(card);
+			card.Player = this;
 		}
-		
+
 		public void LoadDeck(IEnumerable<Card> deck)
 		{
 			foreach (var card in deck)
 			{
-				AddCardToDeck(card);
+				Deck.Add(card);
 			}
 		}
 		
