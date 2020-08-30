@@ -160,27 +160,27 @@ namespace CardGame.Client.Game
         private void OnCardDeployed(int id, SetCodes setCode, bool isOpponent)
         {
             // Setcode Arg is Legacy, we use a specialized reveal command instead if new card
-            var command = GetPlayer(isOpponent).Deploy(Cards[id]);
+            var command = isOpponent ? Opponent.Deploy(Cards[id]) : Player.Deploy(Cards[id]);
             CommandQueue.Add(command);
         }
 
         private void OnCardSetFaceDown(int id, bool isOpponent)
         {
             // Setcode Arg is Legacy, we use a specialized reveal command instead if new card
-            var command = GetPlayer(isOpponent).SetFaceDown(Cards[id]);
+            var command = isOpponent ? Opponent.SetFaceDown(Cards[id]) : Player.SetFaceDown(Cards[id]);
             CommandQueue.Add(command);
         }
 
         private void OnCardActivated(int id, SetCodes setCode, int positionInLink, bool isOpponent, int targetId = 0)
         {
-            var command = GetPlayer(isOpponent).Activate(Cards[id]);
+            var command = isOpponent ? Opponent.Activate(Cards[id]) : Player.Activate(Cards[id]);
             CommandQueue.Add(command);
         }
 
         public void OnCardSentToZone(int cardId, int zoneId, bool isOpponent)
         {
             // We may want to make this more specific on server-side too
-            var command = GetPlayer(isOpponent).SendCardToGraveyard(Cards[cardId]);
+            var command = isOpponent ? Opponent.SendCardToGraveyard(Cards[cardId]) : Player.SendCardToGraveyard(Cards[cardId]);
             CommandQueue.Add(command);
         }
         

@@ -15,7 +15,6 @@ namespace CardGame.Client.Game.Players
         Units Units { get; }
         Support Support { get; }
         
-
         void AddCardToDeck(Card cardView);
         void LoadDeck(IEnumerable<Card> deck);
         Command Deploy(Card card);
