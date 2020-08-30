@@ -135,5 +135,31 @@ namespace CardGame.Client.Game
 
 	        return Command;
         }
+        
+        public Command SendCardToGraveyard(IPlayer player, Card card)
+        {
+	        Tween Command(Tween gfx)
+	        {
+		        // Use Zone Properties On Cards In Future
+		        if (player.Units.Contains(card))
+		        {
+			        player.Units.Remove(card);
+		        }
+		        else if(player.Support.Contains(card))
+		        {
+			        player.Support.Remove(card);
+		        }
+				
+		        player.Graveyard.Add(card);
+				
+		        var origin = card.Translation;
+		        var destination = player.Graveyard.GlobalTransform.origin + new Vector3(0, 0, 0.1F);
+
+		        gfx.InterpolateProperty(card, nameof(card.Translation), origin, destination, 0.3F);
+		        return gfx;
+	        }
+			
+	        return Command;
+        }
     }
 }

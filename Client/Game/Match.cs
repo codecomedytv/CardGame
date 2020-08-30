@@ -183,7 +183,7 @@ namespace CardGame.Client.Game
         public void OnCardSentToZone(int cardId, int zoneId, bool isOpponent)
         {
             // We may want to make this more specific on server-side too
-            var command = isOpponent ? Opponent.SendCardToGraveyard(Cards[cardId]) : Player.SendCardToGraveyard(Cards[cardId]);
+            var command = isOpponent ? CommandFactory.SendCardToGraveyard(Opponent, Cards[cardId]) : CommandFactory.SendCardToGraveyard(Player, Cards[cardId]);
             CommandQueue.Add(command);
         }
         

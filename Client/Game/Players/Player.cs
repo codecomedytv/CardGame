@@ -76,30 +76,7 @@ namespace CardGame.Client.Game.Players
 			Deck.Add(card);
 		}
 		
-		public Command SendCardToGraveyard(Card card)
-		{
-			Tween Command(Tween gfx)
-			{
-				if (Units.Contains(card))
-				{
-					Units.Remove(card);
-				}
-				else if(Support.Contains(card))
-				{
-					Support.Remove(card);
-				}
-				
-				Graveyard.Add(card);
-				
-				var origin = card.Translation;
-				var destination = Graveyard.GlobalTransform.origin + new Vector3(0, 0, 0.1F);
-
-				gfx.InterpolateProperty(card, nameof(Translation), origin, destination, 0.3F);
-				return gfx;
-			}
-			
-			return Command;
-		}
+		
 
 		public Command Attack(Card attacker, Card defender)
 		{
