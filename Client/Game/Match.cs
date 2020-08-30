@@ -163,21 +163,19 @@ namespace CardGame.Client.Game
             Cards.Add(id, card);
         }
 
-        private void OnCardDeployed(int id, SetCodes setCode, bool isOpponent)
+        private void OnCardDeployed(int id, bool isOpponent)
         {
-            // Setcode Arg is Legacy, we use a specialized reveal command instead if new card
             var command = isOpponent ? CommandFactory.Deploy(Opponent, Cards[id]) : CommandFactory.Deploy(Player, Cards[id]);
             CommandQueue.Add(command);
         }
 
         private void OnCardSetFaceDown(int id, bool isOpponent)
         {
-            // Setcode Arg is Legacy, we use a specialized reveal command instead if new card
             var command = isOpponent ? CommandFactory.SetFaceDown(Opponent) : CommandFactory.SetFaceDown(Player, Cards[id]);
             CommandQueue.Add(command);
         }
 
-        private void OnCardActivated(int id, SetCodes setCode, int positionInLink, bool isOpponent, int targetId = 0)
+        private void OnCardActivated(int id, bool isOpponent, int targetId = 0)
         {
             if (isOpponent)
             {
