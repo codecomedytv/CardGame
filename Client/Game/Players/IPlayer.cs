@@ -11,19 +11,13 @@ namespace CardGame.Client.Game.Players
         
         Deck Deck { get; }
         Graveyard Graveyard { get;  }
-        
         Hand Hand { get; }
-        
         Units Units { get; }
-        
         Support Support { get; }
         
-        void DisplayName(string name);
-        void DisplayHealth(int health);
+
         void AddCardToDeck(Card cardView);
         void LoadDeck(IEnumerable<Card> deck);
-        Command Draw(Card card);
-        Command Discard(Card card);
         Command Deploy(Card card);
         Command SetFaceDown(Card card);
         Command Activate(Card card);

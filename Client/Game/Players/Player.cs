@@ -76,44 +76,6 @@ namespace CardGame.Client.Game.Players
 			Deck.Add(card);
 		}
 		
-
-		public void DisplayName(string name)
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public void DisplayHealth(int health)
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public Command Draw(Card card)
-		{
-			Tween Command(Tween gfx)
-			{
-				card.Visible = false;
-				Deck.Add(card);
-				var globalPosition = card.Translation;
-				Deck.Remove(card);
-				Hand.Add(card);
-				var globalDestination = card.Translation;
-				var rotation = new Vector3(-25, 180, 0);
-				
-				// Wrap In gfx Class
-				gfx.InterpolateProperty(card, nameof(Visible), false, true, 0.1F);
-				gfx.InterpolateProperty(card, nameof(Translation), globalPosition, globalDestination, 0.1F);
-				gfx.InterpolateProperty(card, nameof(RotationDegrees), card.Rotation, rotation, 0.1F);
-				return gfx;
-			}
-
-			return Command;
-		}
-		
-		public Command Discard(Card card)
-		{
-			throw new System.NotImplementedException();
-		}
-
 		public Command Deploy(Card card)
 		{
 			Tween Command(Tween gfx)

@@ -39,16 +39,6 @@ namespace CardGame.Client.Game.Players
 			Deck.Add(card);
 		}
 		
-		public void DisplayName(string name)
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public void DisplayHealth(int health)
-		{
-			throw new System.NotImplementedException();
-		}
-		
 		public void LoadDeck(IEnumerable<Card> deck)
 		{
 			foreach (var card in deck)
@@ -56,38 +46,7 @@ namespace CardGame.Client.Game.Players
 				AddCardToDeck(card);
 			}
 		}
-		public Command Draw(Card ignoredCard)
-		{
-			Tween Command(Tween gfx)
-			{
-				var card = Deck.ElementAt(Deck.Count - 1);
-				Deck.Add(card);
-				var globalPosition = card.Translation;
-				Deck.Remove(card);
-				Hand.Add(card);
-				var globalDestination = card.Translation;
-				var rotation = new Vector3(60, 0, 0);
-				
-				// Wrap In gfx Class
-				gfx.InterpolateProperty(card, nameof(Visible), false, true, 0.1F);
-				gfx.InterpolateProperty(card, nameof(Translation), globalPosition, globalDestination, 0.1F);
-				gfx.InterpolateProperty(card, nameof(RotationDegrees), card.Rotation, rotation, 0.1F);
-				return gfx;
-			};
-
-		   return Command;
-		}
 		
-		public Command Discard(Card card)
-		{
-			Tween Command(Tween gfx)
-			{
-				return gfx;
-			}
-
-			return Command;
-		}
-
 		public Command Deploy(Card card)
 		{
 			GD.Print("Opponent Deploying Card");
