@@ -46,34 +46,7 @@ namespace CardGame.Client.Game.Players
 				AddCardToDeck(card);
 			}
 		}
-		
-		public Command Deploy(Card card)
-		{
-			GD.Print("Opponent Deploying Card");
-			Tween Command(Tween gfx)
-			{
-				var fakeCard = Hand[0];
-				Hand.Remove(fakeCard);
-				Hand.Add(card);
-				fakeCard.Free();
-				
-				var origin = card.Translation;
-				var destination = Units.NextSlot()  + new Vector3(0, 0, 0.05F);
-
-				Hand.Remove(card);
-				Units.Add(card);
-				
-				GD.Print(origin);
-				GD.Print(destination);
-				gfx.InterpolateProperty(card, nameof(Translation), origin, destination, 0.3F);
-				gfx.InterpolateProperty(card, nameof(RotationDegrees), new Vector3(-25, 0, 0), new Vector3(0, 180, 0), 0.1F);
-				gfx.InterpolateCallback(Hand, 0.2F, nameof(Hand.Sort));
-				return gfx;
-			}
-			
-			return Command;
-		}
-
+	
 		public Command SetFaceDown(Card ignoredCard)
 		{
 			Tween Command(Tween gfx)
@@ -86,11 +59,12 @@ namespace CardGame.Client.Game.Players
 				Support.Add(card);
 
 				gfx.InterpolateProperty(card, nameof(Translation), origin, destination, 0.3F);
-				gfx.InterpolateProperty(card, nameof(RotationDegrees), new Vector3(-25, 0, 0), new Vector3(0, 0, 0), 0.1F);
+				gfx.InterpolateProperty(card, nameof(RotationDegrees), new Vector3(-25, 0, 0), new Vector3(0, 0, 0),
+					0.1F);
 				gfx.InterpolateCallback(Hand, 0.2F, nameof(Hand.Sort));
 				return gfx;
 			}
-			
+
 			return Command;
 		}
 
@@ -103,9 +77,10 @@ namespace CardGame.Client.Game.Players
 				Support.Add(card);
 				card.Translation = fakeCard.Translation;
 				fakeCard.Free();
-				
-				gfx.InterpolateProperty(card, nameof(RotationDegrees), new Vector3(0, 0, 0), new Vector3(0, 180, 0), 0.1F);
-				
+
+				gfx.InterpolateProperty(card, nameof(RotationDegrees), new Vector3(0, 0, 0), new Vector3(0, 180, 0),
+					0.1F);
+
 				return gfx;
 			}
 
@@ -120,13 +95,13 @@ namespace CardGame.Client.Game.Players
 				{
 					Units.Remove(card);
 				}
-				else if(Support.Contains(card))
+				else if (Support.Contains(card))
 				{
 					Support.Remove(card);
 				}
-				
+
 				Graveyard.Add(card);
-				
+
 				var origin = card.Translation;
 				var destination = Graveyard.GlobalTransform.origin + new Vector3(0, 0, 0.05F);
 
@@ -173,12 +148,16 @@ namespace CardGame.Client.Game.Players
 				var attackerDestination = new Vector3(2.5F, 1.75F, attacker.Translation.z);
 				var defenderDestination = new Vector3(2.5F, 0.5F, defender.Translation.z);
 
-				gfx.InterpolateProperty(attacker, nameof(Translation), attacker.Translation, attackerDestination, 0.1F);
-				gfx.InterpolateProperty(defender, nameof(Translation), defender.Translation, defenderDestination, 0.1F);
+				gfx.InterpolateProperty(attacker, nameof(Translation), attacker.Translation, attackerDestination,
+					0.1F);
+				gfx.InterpolateProperty(defender, nameof(Translation), defender.Translation, defenderDestination,
+					0.1F);
 				// Sound // Extra Here
-				gfx.InterpolateProperty(attacker, nameof(Translation), attackerDestination, attacker.Translation, 0.1F,
+				gfx.InterpolateProperty(attacker, nameof(Translation), attackerDestination, attacker.Translation,
+					0.1F,
 					Tween.TransitionType.Linear, Tween.EaseType.In, 0.3F);
-				gfx.InterpolateProperty(defender, nameof(Translation), defenderDestination, defender.Translation, 0.1F,
+				gfx.InterpolateProperty(defender, nameof(Translation), defenderDestination, defender.Translation,
+					0.1F,
 					Tween.TransitionType.Linear, Tween.EaseType.In, 0.3F);
 
 				gfx.InterpolateCallback(this, 0.4F, nameof(ClearBattle), attacker, defender);
@@ -193,7 +172,7 @@ namespace CardGame.Client.Game.Players
 		{
 			var newLife = GD.Str(LifeCount.Text.ToInt() - lifeLost);
 			var percentage = 100 - (int) ((lifeLost / 8000F) * 100);
-			
+
 			Tween Command(Tween gfx)
 			{
 				LifeChange.Text = $"- {lifeLost}";
@@ -212,15 +191,15 @@ namespace CardGame.Client.Game.Players
 			attacker.AttackingIcon.Visible = false;
 			defender.DefendingIcon.Visible = false;
 		}
-		
+
 		public void Defend()
 		{
 			DefendingIcon.Visible = true;
 		}
+
 		public void ClearDirectAttackingDefense()
 		{
 			DefendingIcon.Visible = false;
 		}
-		
 	}
 }

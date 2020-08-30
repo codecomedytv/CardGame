@@ -50,7 +50,33 @@ namespace CardGame.Client.Game
 
 	        return Command;
         }
-		
-		
-	}
+        
+        public Command Deploy(IPlayer player, Card card)
+        {
+	        Tween Command(Tween gfx)
+	        {
+		        if (player is Opponent)
+		        {
+			        var fakeCard = player.Hand[0];
+			        player.Hand.Remove(fakeCard);
+			        player.Hand.Add(card);
+			        fakeCard.Free();
+		        }
+
+		        var origin = card.Translation;
+		        var destination = player.Units.NextSlot() + new Vector3(0, 0, 0.05F);
+
+		        player.Hand.Remove(card);
+		        player.Units.Add(card);
+
+		        gfx.InterpolateProperty(card, nameof(card.Translation), origin, destination, 0.3F);
+		        gfx.InterpolateProperty(card, nameof(card.RotationDegrees), new Vector3(-25, 180, 0), new Vector3(0, 180, 0), 0.1F);
+		        gfx.InterpolateCallback(player.Hand, 0.2F, nameof(Hand.Sort));
+		        return gfx;
+	        }
+
+	        return Command;
+        }
+        
+    }
 }

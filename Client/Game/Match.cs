@@ -160,7 +160,7 @@ namespace CardGame.Client.Game
         private void OnCardDeployed(int id, SetCodes setCode, bool isOpponent)
         {
             // Setcode Arg is Legacy, we use a specialized reveal command instead if new card
-            var command = isOpponent ? Opponent.Deploy(Cards[id]) : Player.Deploy(Cards[id]);
+            var command = isOpponent ? CommandFactory.Deploy(Opponent, Cards[id]) : CommandFactory.Deploy(Player, Cards[id]);
             CommandQueue.Add(command);
         }
 

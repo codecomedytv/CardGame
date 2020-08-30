@@ -17,7 +17,6 @@ namespace CardGame.Client.Game.Players
         
         void AddCardToDeck(Card cardView);
         void LoadDeck(IEnumerable<Card> deck);
-        Command Deploy(Card card);
         Command SetFaceDown(Card card);
         Command Activate(Card card);
         Command SendCardToGraveyard(Card card);
