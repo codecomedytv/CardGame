@@ -1,32 +1,20 @@
-﻿using CardGame.Client.Game.Cards;
+﻿using System;
+using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Players;
 using Godot;
-using Godot.Collections;
+using Array = Godot.Collections.Array;
 
 namespace CardGame.Client.Game
 {
     public class GameInput: Node
     {
-        [Signal]
-        public delegate void Deploy();
-
-        [Signal]
-        public delegate void SetCard();
-
-        [Signal]
-        public delegate void Activate();
-
-        [Signal]
-        public delegate void PassPlay();
-
-        [Signal] 
-        public delegate void Attack();
-
-        [Signal] 
-        public delegate void DirectAttack();
-
-        [Signal]
-        public delegate void EndTurn();
+        public Action<int> Deploy;
+        public Action<int> SetCard;
+        public Action<int, int> Activate;
+        public Action<int, int> Attack;
+        public Action<int> DirectAttack;
+        public Action PassPlay;
+        public Action EndTurn;
         
         private Card MousedOverCard;
         public Player User;
@@ -70,21 +58,18 @@ namespace CardGame.Client.Game
 
         public void OnEndTurnPressed()
         {
-            GD.Print("pressed end turn");
             if (User.State == States.Idle)
             {
-                GD.Print("Ending Turn");
-                EmitSignal(nameof(EndTurn));
+                EndTurn();
             }
         }
 
+
         public void OnPassPlayPressed()
         {
-            GD.Print("pressed pass play turn");
             if (User.State == States.Active)
             {
-                GD.Print("passing play");
-                EmitSignal(nameof(PassPlay));
+                PassPlay();
             }
         }
 
@@ -94,7 +79,7 @@ namespace CardGame.Client.Game
             {
                 User.State = States.Processing;
                 card.DefendingIcon.Visible = true;
-                EmitSignal(nameof(Attack), User.CardInUse.Id, card.Id);
+                Attack(User.CardInUse.Id, card.Id);
             }
             else
             {
@@ -124,13 +109,13 @@ namespace CardGame.Client.Game
             if (card.CanBeDeployed)
             {
                 User.State = States.Processing;
-                EmitSignal(nameof(Deploy), card.Id);
+                Deploy(card.Id);
             }
             
             else if (card.CanBeSet)
             {
                 User.State = States.Processing;
-                EmitSignal(nameof(SetCard), card.Id);
+                SetCard(card.Id);
             }
             
             else if (card.CanBeActivated)
@@ -139,8 +124,7 @@ namespace CardGame.Client.Game
 
                 // Insert Target Check Here
                 User.State = States.Processing;
-                EmitSignal(nameof(Activate), card.Id, new Array());
-
+                Activate(card.Id, 0);
             }
             
             else if (card.CanAttack)
@@ -154,7 +138,7 @@ namespace CardGame.Client.Game
             {
                 card.AttackingIcon.Visible = true;
                 Opponent.Defend();
-                EmitSignal(nameof(DirectAttack), card.Id);
+                DirectAttack(card.Id);
             }
             
         }

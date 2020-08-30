@@ -58,15 +58,15 @@ namespace CardGame.Client.Game
             Messenger.Receiver.Connect(nameof(MessageReceiver.DirectAttack), this, nameof(OnDirectAttack));
             Messenger.Receiver.Connect(nameof(MessageReceiver.LoseLife), this, nameof(OnLifeLost));
             Messenger.Receiver.Connect(nameof(MessageReceiver.ExecutedEvents), this, nameof(Execute));
-            
-            GameInput.Connect(nameof(GameInput.Deploy), Messenger.Sender, nameof(MessageSender.DeclareDeploy));
-            GameInput.Connect(nameof(GameInput.SetCard), Messenger.Sender, nameof(MessageSender.DeclareSet));
-            GameInput.Connect(nameof(GameInput.Activate), Messenger.Sender, nameof(MessageSender.DeclareActivation));
-            GameInput.Connect(nameof(GameInput.Attack), Messenger.Sender, nameof(MessageSender.DeclareAttack));
-            GameInput.Connect(nameof(GameInput.DirectAttack), Messenger.Sender,
-                nameof(MessageSender.DeclareDirectAttack));
-            GameInput.Connect(nameof(GameInput.PassPlay), Messenger.Sender, nameof(MessageSender.DeclarePassPlay));
-            GameInput.Connect(nameof(GameInput.EndTurn), Messenger.Sender, nameof(MessageSender.DeclareEndTurn));
+
+            GameInput.Deploy = Messenger.Sender.DeclareDeploy;
+            GameInput.SetCard = Messenger.Sender.DeclareSet;
+            GameInput.Activate = Messenger.Sender.DeclareActivation;
+            GameInput.Attack = Messenger.Sender.DeclareAttack;
+            GameInput.DirectAttack = Messenger.Sender.DeclareDirectAttack;
+            GameInput.PassPlay = Messenger.Sender.DeclarePassPlay;
+            GameInput.EndTurn = Messenger.Sender.DeclareEndTurn;
+ 
             
             Table.GetNode<Button>("Table3D/HUD/EndTurn").Connect("pressed", GameInput, nameof(GameInput.OnEndTurnPressed));
             Table.GetNode<Button>("Table3D/HUD/PassPlay").Connect("pressed", GameInput, nameof(GameInput.OnPassPlayPressed));
