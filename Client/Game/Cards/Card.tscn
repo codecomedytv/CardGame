@@ -88,7 +88,6 @@ tracks/6/keys = {
 }
 
 [node name="Card" type="Spatial"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 script = ExtResource( 1 )
 
 [node name="Face" type="Sprite3D" parent="."]
@@ -118,7 +117,7 @@ pixel_size = 0.001
 texture = ExtResource( 6 )
 
 [node name="Playable" type="Sprite3D" parent="."]
-transform = Transform( 1.1, 0, 0, 0, 1.1, 0, 0, 0, 1, 0, 0, 0 )
+transform = Transform( 1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0 )
 visible = false
 modulate = Color( 1, 1, 1, 0.588235 )
 pixel_size = 0.001
@@ -135,28 +134,32 @@ autoplay = "Playable"
 anims/Playable = SubResource( 2 )
 
 [node name="Power" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00277823, -0.270887, -0.05 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.131011, -0.115822, 0.171931 )
 
 [node name="0" type="Sprite3D" parent="Power"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.155195, -0.441086, -0.2 )
+centered = false
 flip_h = true
 pixel_size = 0.001
 texture = ExtResource( 7 )
 
 [node name="1" type="Sprite3D" parent="Power"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0, -0.2 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.255195, -0.441086, -0.2 )
+centered = false
 flip_h = true
 pixel_size = 0.001
 texture = ExtResource( 8 )
 
 [node name="2" type="Sprite3D" parent="Power"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0, -0.2 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.355195, -0.441086, -0.2 )
+centered = false
 flip_h = true
 pixel_size = 0.001
 texture = ExtResource( 8 )
 
 [node name="3" type="Sprite3D" parent="Power"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, -0.2 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.455195, -0.441086, -0.2 )
+centered = false
 flip_h = true
 pixel_size = 0.001
 texture = ExtResource( 9 )
