@@ -6,7 +6,7 @@ using Godot;
 
 namespace CardGame.Client.Game
 {
-    public class CommandFactory
+    public class CommandFactory: Godot.Object
     {
         public Command Draw(IPlayer player, Card card)
 		{
@@ -160,6 +160,38 @@ namespace CardGame.Client.Game
 	        }
 			
 	        return Command;
+        }
+        
+        public Command Battle(IPlayer player, Card attacker, Card defender)
+        {
+	        Tween Command(Tween gfx)
+	        {
+		       
+		        var attackerY = player is Opponent ? 1.75F : 0.5F;
+		        var defenderY = player is Opponent ? 1.75F : 0.5F;
+		        var attackerDestination = new Vector3(2.5F, attackerY, attacker.Translation.z);
+		        var defenderDestination = new Vector3(2.5F, defenderY, defender.Translation.z);
+
+		        gfx.InterpolateProperty(attacker, nameof(Translation), attacker.Translation, attackerDestination, 0.1F);
+		        gfx.InterpolateProperty(defender, nameof(Translation), defender.Translation, defenderDestination, 0.1F);
+		        // Insert Sound
+		        gfx.InterpolateProperty(attacker, nameof(Translation), attackerDestination, attacker.Translation, 0.1F, 
+			        Tween.TransitionType.Linear, Tween.EaseType.In, 0.3F);
+		        gfx.InterpolateProperty(defender, nameof(Translation), defenderDestination, defender.Translation, 0.1F,
+			        Tween.TransitionType.Linear, Tween.EaseType.In, 0.3F);
+
+		        gfx.InterpolateCallback(this, 0.4F, nameof(ClearBattle), attacker, defender);
+				
+		        return gfx;
+	        }
+
+	        return Command;
+        }
+        
+        private void ClearBattle(Card attacker, Card defender)
+        {
+	        attacker.AttackingIcon.Visible = false;
+	        defender.DefendingIcon.Visible = false;
         }
     }
 }

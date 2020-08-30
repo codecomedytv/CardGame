@@ -114,35 +114,6 @@ namespace CardGame.Client.Game.Players
 			return Command;
 		}
 		
-		public Command Battle(Card attacker, Card defender)
-		{
-			Tween Command(Tween gfx)
-			{
-				var attackerDestination = new Vector3(2.5F, 0.5F, attacker.Translation.z);
-				var defenderDestination = new Vector3(2.5F, 1.75F, defender.Translation.z);
-
-				gfx.InterpolateProperty(attacker, nameof(Translation), attacker.Translation, attackerDestination, 0.1F);
-				gfx.InterpolateProperty(defender, nameof(Translation), defender.Translation, defenderDestination, 0.1F);
-				// Insert Sound
-				gfx.InterpolateProperty(attacker, nameof(Translation), attackerDestination, attacker.Translation, 0.1F, 
-					Tween.TransitionType.Linear, Tween.EaseType.In, 0.3F);
-				gfx.InterpolateProperty(defender, nameof(Translation), defenderDestination, defender.Translation, 0.1F,
-					Tween.TransitionType.Linear, Tween.EaseType.In, 0.3F);
-
-				gfx.InterpolateCallback(this, 0.4F, nameof(ClearBattle), attacker, defender);
-				
-				return gfx;
-			}
-
-			return Command;
-		}
-
-		private void ClearBattle(Card attacker, Card defender)
-		{
-			attacker.AttackingIcon.Visible = false;
-			defender.DefendingIcon.Visible = false;
-		}
-
 		public Command GetAttackedDirectly(Card attacker)
 		{
 			// Declaration, not battle
