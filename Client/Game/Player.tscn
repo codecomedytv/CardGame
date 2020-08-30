@@ -95,10 +95,6 @@ pixel_size = 0.001
 texture = ExtResource( 5 )
 script = ExtResource( 9 )
 
-[node name="GFX" type="Tween" parent="."]
-
-[node name="SFX" type="AudioStreamPlayer" parent="."]
-
 [node name="Life" type="Sprite" parent="."]
 position = Vector2( 1550.14, 1000.35 )
 texture = ExtResource( 7 )

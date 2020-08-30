@@ -22,7 +22,6 @@ namespace CardGame.Client.Game.Players
 		public Hand Hand { get; set; }
 		public Graveyard Graveyard { get; set; }
 		public Deck Deck { get; set; }
-		private AudioStreamPlayer Sfx;
 		
 		private States BackingState;
 		public States State
@@ -54,7 +53,6 @@ namespace CardGame.Client.Game.Players
 			Hand = (Hand) GetNode("Hand");
 			Graveyard = (Graveyard) GetNode("Graveyard");
 			Deck = (Deck) GetNode("Deck");
-			Sfx = (AudioStreamPlayer) GetNode("SFX");
 			LifeBar = (TextureProgress) GetNode("Life/Bar");
 			LifeCount = (Label) GetNode("Life/Count");
 			LifeChange = (Label) GetNode("Life/Change");
