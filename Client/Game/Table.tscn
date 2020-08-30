@@ -1,12 +1,13 @@
 [gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Opponent.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Client/Game/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Client/Game/Opponent.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Client/Assets/Font/Modded/ElectrolizeTurnCount.tres" type="DynamicFont" id=12]
 [ext_resource path="res://Client/Assets/Background_Space.png" type="Texture" id=14]
 [ext_resource path="res://Client/Assets/HUD/ButtonNormal.png" type="Texture" id=15]
 [ext_resource path="res://Client/Assets/HUD/ButtonPressed.png" type="Texture" id=16]
 [ext_resource path="res://Client/Assets/HUD/ButtonDisabled.png" type="Texture" id=17]
+
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 15 )
