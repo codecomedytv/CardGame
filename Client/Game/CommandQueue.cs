@@ -4,12 +4,12 @@ using Godot;
 
 namespace CardGame.Client.Game
 {
-    public delegate Tween Command();
-
+    public delegate Tween Command(Tween gfx);
 
     public class CommandQueue: Godot.Object
     {
         private readonly Queue<Command> Commands = new Queue<Command>();
+        public Tween Gfx; // Temp
         
         public void Add(Command command)
         {
@@ -23,7 +23,7 @@ namespace CardGame.Client.Game
             while(Commands.Count > 0)
             {
                 var command = Commands.Dequeue();
-                var executor = command();
+                var executor = command(Gfx);
                 executor.Start();
                 await ToSignal(executor, "tween_all_completed"); // hate it
                 executor.RemoveAll();

@@ -33,6 +33,9 @@ namespace CardGame.Client.Game
             AddChild(Table, true);
             AddChild(Messenger);
             AddChild(GameInput);
+            var t = new Tween();
+            Table.AddChild(t);
+            CommandQueue.Gfx = t;
 
             Player = (Player) Table.PlayerView; // Has To Come After Adding Table for view reference
             Opponent = (Opponent) Table.OpponentView;

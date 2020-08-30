@@ -18,7 +18,6 @@ namespace CardGame.Client.Game.Players
 		private Hand Hand;
 		private Graveyard Graveyard;
 		private Deck Deck;
-		private Tween Gfx;
 		private AudioStreamPlayer Sfx;
 
 		public override void _Ready()
@@ -28,7 +27,6 @@ namespace CardGame.Client.Game.Players
 			Hand = (Hand) GetNode("Hand");
 			Graveyard = (Graveyard) GetNode("Graveyard");
 			Deck = (Deck) GetNode("Deck");
-			Gfx = (Tween) GetNode("GFX");
 			Sfx = (AudioStreamPlayer) GetNode("SFX");
 			LifeBar = (TextureProgress) GetNode("Life/Bar");
 			LifeCount = (Label) GetNode("Life/Count");
@@ -60,7 +58,7 @@ namespace CardGame.Client.Game.Players
 		}
 		public Command Draw(Card ignoredCard)
 		{
-			Tween Command()
+			Tween Command(Tween gfx)
 			{
 				var card = Deck.ElementAt(Deck.Count - 1);
 				Deck.Add(card);
@@ -70,11 +68,11 @@ namespace CardGame.Client.Game.Players
 				var globalDestination = card.Translation;
 				var rotation = new Vector3(60, 0, 0);
 				
-				// Wrap In GFX Class
-				Gfx.InterpolateProperty(card, nameof(Visible), false, true, 0.1F);
-				Gfx.InterpolateProperty(card, nameof(Translation), globalPosition, globalDestination, 0.1F);
-				Gfx.InterpolateProperty(card, nameof(RotationDegrees), card.Rotation, rotation, 0.1F);
-				return Gfx;
+				// Wrap In gfx Class
+				gfx.InterpolateProperty(card, nameof(Visible), false, true, 0.1F);
+				gfx.InterpolateProperty(card, nameof(Translation), globalPosition, globalDestination, 0.1F);
+				gfx.InterpolateProperty(card, nameof(RotationDegrees), card.Rotation, rotation, 0.1F);
+				return gfx;
 			};
 
 		   return Command;
@@ -82,9 +80,9 @@ namespace CardGame.Client.Game.Players
 		
 		public Command Discard(Card card)
 		{
-			Tween Command()
+			Tween Command(Tween gfx)
 			{
-				return Gfx;
+				return gfx;
 			}
 
 			return Command;
@@ -93,7 +91,7 @@ namespace CardGame.Client.Game.Players
 		public Command Deploy(Card card)
 		{
 			GD.Print("Opponent Deploying Card");
-			Tween Command()
+			Tween Command(Tween gfx)
 			{
 				var fakeCard = Hand[0];
 				Hand.Remove(fakeCard);
@@ -108,10 +106,10 @@ namespace CardGame.Client.Game.Players
 				
 				GD.Print(origin);
 				GD.Print(destination);
-				Gfx.InterpolateProperty(card, nameof(Translation), origin, destination, 0.3F);
-				Gfx.InterpolateProperty(card, nameof(RotationDegrees), new Vector3(-25, 0, 0), new Vector3(0, 180, 0), 0.1F);
-				Gfx.InterpolateCallback(Hand, 0.2F, nameof(Hand.Sort));
-				return Gfx;
+				gfx.InterpolateProperty(card, nameof(Translation), origin, destination, 0.3F);
+				gfx.InterpolateProperty(card, nameof(RotationDegrees), new Vector3(-25, 0, 0), new Vector3(0, 180, 0), 0.1F);
+				gfx.InterpolateCallback(Hand, 0.2F, nameof(Hand.Sort));
+				return gfx;
 			}
 			
 			return Command;
@@ -119,7 +117,7 @@ namespace CardGame.Client.Game.Players
 
 		public Command SetFaceDown(Card ignoredCard)
 		{
-			Tween Command()
+			Tween Command(Tween gfx)
 			{
 				var card = Hand[0];
 				var origin = card.Translation;
@@ -128,10 +126,10 @@ namespace CardGame.Client.Game.Players
 				Hand.Remove(card);
 				Support.Add(card);
 
-				Gfx.InterpolateProperty(card, nameof(Translation), origin, destination, 0.3F);
-				Gfx.InterpolateProperty(card, nameof(RotationDegrees), new Vector3(-25, 0, 0), new Vector3(0, 0, 0), 0.1F);
-				Gfx.InterpolateCallback(Hand, 0.2F, nameof(Hand.Sort));
-				return Gfx;
+				gfx.InterpolateProperty(card, nameof(Translation), origin, destination, 0.3F);
+				gfx.InterpolateProperty(card, nameof(RotationDegrees), new Vector3(-25, 0, 0), new Vector3(0, 0, 0), 0.1F);
+				gfx.InterpolateCallback(Hand, 0.2F, nameof(Hand.Sort));
+				return gfx;
 			}
 			
 			return Command;
@@ -139,7 +137,7 @@ namespace CardGame.Client.Game.Players
 
 		public Command Activate(Card card)
 		{
-			Tween Command()
+			Tween Command(Tween gfx)
 			{
 				var fakeCard = Support[0];
 				Support.Remove(fakeCard);
@@ -147,9 +145,9 @@ namespace CardGame.Client.Game.Players
 				card.Translation = fakeCard.Translation;
 				fakeCard.Free();
 				
-				Gfx.InterpolateProperty(card, nameof(RotationDegrees), new Vector3(0, 0, 0), new Vector3(0, 180, 0), 0.1F);
+				gfx.InterpolateProperty(card, nameof(RotationDegrees), new Vector3(0, 0, 0), new Vector3(0, 180, 0), 0.1F);
 				
-				return Gfx;
+				return gfx;
 			}
 
 			return Command;
@@ -157,7 +155,7 @@ namespace CardGame.Client.Game.Players
 
 		public Command SendCardToGraveyard(Card card)
 		{
-			Tween Command()
+			Tween Command(Tween gfx)
 			{
 				if (Units.Contains(card))
 				{
@@ -173,8 +171,8 @@ namespace CardGame.Client.Game.Players
 				var origin = card.Translation;
 				var destination = Graveyard.GlobalTransform.origin + new Vector3(0, 0, 0.05F);
 
-				Gfx.InterpolateProperty(card, nameof(Translation), origin, destination, 0.3F);
-				return Gfx;
+				gfx.InterpolateProperty(card, nameof(Translation), origin, destination, 0.3F);
+				return gfx;
 			}
 
 			return Command;
@@ -182,11 +180,11 @@ namespace CardGame.Client.Game.Players
 
 		public Command Attack(Card attacker, Card defender)
 		{
-			Tween Command()
+			Tween Command(Tween gfx)
 			{
-				Gfx.InterpolateCallback(attacker, 0.1F, nameof(Card.Attack));
-				Gfx.InterpolateCallback(defender, 0.1F, nameof(Card.Defend));
-				return Gfx;
+				gfx.InterpolateCallback(attacker, 0.1F, nameof(Card.Attack));
+				gfx.InterpolateCallback(defender, 0.1F, nameof(Card.Defend));
+				return gfx;
 			}
 
 			return Command;
@@ -194,16 +192,16 @@ namespace CardGame.Client.Game.Players
 
 		public Command AttackDirectly(Card attacker)
 		{
-			Tween Command()
+			Tween Command(Tween gfx)
 			{
 				var destination = new Vector3(2.5F, -2.95F, 1);
 
-				Gfx.InterpolateProperty(attacker, nameof(Translation), attacker.Translation, destination, 0.1F);
-				Gfx.InterpolateProperty(attacker, nameof(Translation), destination, attacker.Translation, 0.1F,
+				gfx.InterpolateProperty(attacker, nameof(Translation), attacker.Translation, destination, 0.1F);
+				gfx.InterpolateProperty(attacker, nameof(Translation), destination, attacker.Translation, 0.1F,
 					Tween.TransitionType.Linear, Tween.EaseType.In, 0.3F);
-				Gfx.InterpolateCallback(attacker.AttackingIcon, 0.2F, "set_visible", false);
-				// Gfx.InterpolateCallback(Player, 0.3F, nameof(IPlayer.ClearDirectAttackingDefense));
-				return Gfx;
+				gfx.InterpolateCallback(attacker.AttackingIcon, 0.2F, "set_visible", false);
+				// gfx.InterpolateCallback(Player, 0.3F, nameof(IPlayer.ClearDirectAttackingDefense));
+				return gfx;
 			}
 
 			return Command;
@@ -211,22 +209,22 @@ namespace CardGame.Client.Game.Players
 
 		public Command Battle(Card attacker, Card defender)
 		{
-			Tween Command()
+			Tween Command(Tween gfx)
 			{
 				var attackerDestination = new Vector3(2.5F, 1.75F, attacker.Translation.z);
 				var defenderDestination = new Vector3(2.5F, 0.5F, defender.Translation.z);
 
-				Gfx.InterpolateProperty(attacker, nameof(Translation), attacker.Translation, attackerDestination, 0.1F);
-				Gfx.InterpolateProperty(defender, nameof(Translation), defender.Translation, defenderDestination, 0.1F);
+				gfx.InterpolateProperty(attacker, nameof(Translation), attacker.Translation, attackerDestination, 0.1F);
+				gfx.InterpolateProperty(defender, nameof(Translation), defender.Translation, defenderDestination, 0.1F);
 				// Sound // Extra Here
-				Gfx.InterpolateProperty(attacker, nameof(Translation), attackerDestination, attacker.Translation, 0.1F,
+				gfx.InterpolateProperty(attacker, nameof(Translation), attackerDestination, attacker.Translation, 0.1F,
 					Tween.TransitionType.Linear, Tween.EaseType.In, 0.3F);
-				Gfx.InterpolateProperty(defender, nameof(Translation), defenderDestination, defender.Translation, 0.1F,
+				gfx.InterpolateProperty(defender, nameof(Translation), defenderDestination, defender.Translation, 0.1F,
 					Tween.TransitionType.Linear, Tween.EaseType.In, 0.3F);
 
-				Gfx.InterpolateCallback(this, 0.4F, nameof(ClearBattle), attacker, defender);
+				gfx.InterpolateCallback(this, 0.4F, nameof(ClearBattle), attacker, defender);
 
-				return Gfx;
+				return gfx;
 			}
 
 			return Command;
@@ -237,14 +235,14 @@ namespace CardGame.Client.Game.Players
 			var newLife = GD.Str(LifeCount.Text.ToInt() - lifeLost);
 			var percentage = 100 - (int) ((lifeLost / 8000F) * 100);
 			
-			Tween Command()
+			Tween Command(Tween gfx)
 			{
 				LifeChange.Text = $"- {lifeLost}";
-				Gfx.InterpolateCallback(LifeChange, 0.1F, "set_visible", true);
-				Gfx.InterpolateCallback(LifeCount, 0.3F, "set_text", newLife);
-				Gfx.InterpolateProperty(LifeBar, "value", (int) LifeBar.Value, percentage, 0.3F);
-				Gfx.InterpolateCallback(LifeChange, 0.5F, "set_visible", false);
-				return Gfx;
+				gfx.InterpolateCallback(LifeChange, 0.1F, "set_visible", true);
+				gfx.InterpolateCallback(LifeCount, 0.3F, "set_text", newLife);
+				gfx.InterpolateProperty(LifeBar, "value", (int) LifeBar.Value, percentage, 0.3F);
+				gfx.InterpolateCallback(LifeChange, 0.5F, "set_visible", false);
+				return gfx;
 			}
 
 			return Command;
