@@ -18,8 +18,8 @@
         {
             const bool won = true;
             const bool lost = false;
-            message(Winner.Id, "GameOver", won);
-            message(Loser.Id, "GameOver", lost);
+            message(Winner.Id, Commands.GameOver, won);
+            message(Loser.Id, Commands.GameOver, lost);
         }
     }
 }

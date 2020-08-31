@@ -19,9 +19,9 @@ namespace CardGame.Server.Game.Events
 
         public override void SendMessage(Message message)
         {
-            message(Controller.Id, "Deploy", Card.Id, !IsOpponent);
-            message(Controller.Opponent.Id, "RevealCard", Card.Id, Card.SetCode, ZoneIds.Hand);
-            message(Controller.Opponent.Id, "Deploy", Card.Id, IsOpponent);
+            message(Controller.Id, Commands.Deploy, Card.Id, !IsOpponent);
+            message(Controller.Opponent.Id, Commands.RevealCard, Card.Id, Card.SetCode, ZoneIds.Hand);
+            message(Controller.Opponent.Id, Commands.Deploy, Card.Id, IsOpponent);
         }
     }
 }

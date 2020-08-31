@@ -1,4 +1,5 @@
 ﻿#nullable enable
+using CardGame.Client.Game;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Skills;
 using CardGame.Server.Game.Zones;
@@ -31,9 +32,9 @@ namespace CardGame.Server.Game.Events
         public override void SendMessage(Message message)
         {
             var knownTarget = 0;
-            message(Player.Id, "Activate", Card.Id, !IsOpponent, knownTarget);
-            message(Player.Opponent.Id, "RevealCard", Card.Id, Card.SetCode, ZoneIds.Support);
-            message(Player.Opponent.Id, "Activate", Card.Id, IsOpponent, TargetId());
+            message(Player.Id, Commands.Activate, Card.Id, !IsOpponent, knownTarget);
+            message(Player.Opponent.Id, Commands.RevealCard, Card.Id, Card.SetCode, ZoneIds.Support);
+            message(Player.Opponent.Id, Commands.Activate, Card.Id, IsOpponent, TargetId());
         }
     }
 }

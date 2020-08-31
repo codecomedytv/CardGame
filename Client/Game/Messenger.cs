@@ -21,9 +21,9 @@ namespace CardGame.Client.Game
         }
 
         [Puppet]
-        public void Queue(string signal, params object[] args)
+        public void Queue(Commands command, params object[] args)
         {
-            EmitSignal(nameof(QueueEvents), signal, args);
+            EmitSignal(nameof(QueueEvents), command, args);
         }
         
         public void DeclareDeploy(int cardId)

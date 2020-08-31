@@ -15,8 +15,8 @@
 
         public override void SendMessage(Message message)
         {
-            message(Player.Id, "LoseLife", Dealt, false);
-            message(Player.Opponent.Id, "LoseLife", Dealt, true);
+            message(Player.Id, Commands.LoseLife, Dealt, false);
+            message(Player.Opponent.Id, Commands.LoseLife, Dealt, true);
         }
     }
 }

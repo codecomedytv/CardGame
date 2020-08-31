@@ -18,7 +18,7 @@ namespace CardGame.Server.Game.Events
 
         public override void SendMessage(Message message)
         {
-            message(Attacker.Opponent.Id, "OpponentAttackDirectly", Attacker.Id);
+            message(Attacker.Opponent.Id, Commands.OpponentAttackDirectly, Attacker.Id);
         }
     }
 }

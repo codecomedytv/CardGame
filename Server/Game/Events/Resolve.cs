@@ -20,8 +20,8 @@ namespace CardGame.Server.Game.Events
 
         public override void SendMessage(Message message)
         {
-            message(Card.Controller.Id, "ResolveCard", Card.Id, TargetId);
-            message(Card.Opponent.Id, "ResolveCard", Card.Id, TargetId);
+            message(Card.Controller.Id, Commands.ResolveCard, Card.Id, TargetId);
+            message(Card.Opponent.Id, Commands.ResolveCard, Card.Id, TargetId);
         }
     }
 }

@@ -78,34 +78,44 @@ namespace CardGame.Client.Game
         [Signal]
         public delegate void Unpack();
 
-        private void Queue(string signal, params object[] args) // What happens if we emit params to params?
+        private void Queue(Commands command, params object[] args) // What happens if we emit params to params?
         {
-            var methodName = GetCommandName(signal);
+            var methodName = GetCommandName(command);
+            if (methodName == "")
+            {
+                GD.PushWarning($"No Method Found For {command}");
+                return;
+            }
             Connect(nameof(Unpack), this, methodName, null, (uint) ConnectFlags.Oneshot);
             EmitSignal(nameof(Unpack), args);
         }
 
-        private string GetCommandName(string oldSignal)
+        private string GetCommandName(Commands command)
         {
-            return oldSignal switch
+            return command switch
             {
-                "Draw" => nameof(OnDraw),
-                "LoadDeck" => nameof(OnLoadDeck),
-                "UpdateCard" => nameof(OnCardUpdated),
-                "Deploy" => nameof(OnCardDeployed),
-                "RevealCard" => nameof(OnCardRevealed),
-                "SetFaceDown" => nameof(OnCardSetFaceDown),
-                "Activate" => nameof(OnCardActivated),
-                "SendCardToZone" => nameof(OnCardSentToZone),
-                "BattleUnit" => nameof(OnUnitBattled),
-                "OpponentAttackUnit" => nameof(OnOpponentAttackUnit),
-                "OpponentAttackDirectly" => nameof(OnOpponentAttackDirectly),
-                "DirectAttack" => nameof(OnDirectAttack),
-                "LoseLife" => nameof(OnLifeLost),
-                _ => throw new NotSupportedException($"Command {oldSignal} has no Counterpart Method")
+                Commands.Draw => nameof(OnDraw),
+                Commands.LoadDeck => nameof(OnLoadDeck),
+                Commands.UpdateCard => nameof(OnCardUpdated),
+                Commands.Deploy => nameof(OnCardDeployed),
+                Commands.RevealCard => nameof(OnCardRevealed),
+                Commands.SetFaceDown => nameof(OnCardSetFaceDown),
+                Commands.Activate => nameof(OnCardActivated),
+                Commands.SendCardToZone => nameof(OnCardSentToZone),
+                Commands.BattleUnit => nameof(OnUnitBattled),
+                Commands.OpponentAttackUnit => nameof(OnOpponentAttackUnit),
+                Commands.OpponentAttackDirectly => nameof(OnOpponentAttackDirectly),
+                Commands.DirectAttack => nameof(OnDirectAttack),
+                Commands.LoseLife => nameof(OnLifeLost),
+                Commands.ResolveCard => "",
+                Commands.Trigger => "",
+                Commands.GameOver => "",
+                Commands.BounceCard => "",
+                Commands.TargetRequested => "",
+                _ => throw new NotSupportedException($"Command {command} has no Counterpart Method")
             };
         }
-
+        
         public async void Execute(States stateAfterExecution)
         {
             await CommandQueue.Execute();

@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CardGame.Client.Game;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Events;
 using Godot;
 
 namespace CardGame.Server.Game {
 	
-	public delegate object Message(int id, string method, params object[] arguments);
+	public delegate object Message(int id, Commands command, params object[] arguments);
 
 	public class Messenger : Node
 	{
@@ -32,9 +33,9 @@ namespace CardGame.Server.Game {
 			Message = SendMessage;
 		}
 
-		private object SendMessage(int id, string signal, params object[] args)
+		private object SendMessage(int id, Commands command, params object[] args)
 		{
-			return RpcId(id, "Queue", signal, args.ToList());
+			return RpcId(id, "Queue", command, args.ToList());
 		}
 		
 		public virtual void OnPlayExecuted(Event gameEvent) => gameEvent.SendMessage(Message);

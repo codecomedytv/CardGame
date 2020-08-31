@@ -19,8 +19,8 @@ namespace CardGame.Server.Game.Events
         
         public override void SendMessage(Message message)
         {
-            message(Owner.Id, "BounceCard", Card.Id, !IsOpponent);
-            message(Owner.Opponent.Id, "BounceCard", Card.Id, IsOpponent);
+            message(Owner.Id, Commands.BounceCard, Card.Id, !IsOpponent);
+            message(Owner.Opponent.Id, Commands.BounceCard, Card.Id, IsOpponent);
         }
     }
 }
