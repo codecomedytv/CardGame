@@ -43,22 +43,9 @@ namespace CardGame.Client.Game
             GameInput.User = Player;
             GameInput.Opponent = Opponent;
 
-            Messenger.Receiver.Connect(nameof(MessageReceiver.LoadDeck), this, nameof(OnLoadDeck));
-            Messenger.Receiver.Connect(nameof(MessageReceiver.Draw), this, nameof(OnDraw));
-            Messenger.Receiver.Connect(nameof(MessageReceiver.UpdateCard), this, nameof(OnCardUpdated));
-            Messenger.Receiver.Connect(nameof(MessageReceiver.Deploy), this, nameof(OnCardDeployed));
-            Messenger.Receiver.Connect(nameof(MessageReceiver.RevealCard), this, nameof(OnCardRevealed));
-            Messenger.Receiver.Connect(nameof(MessageReceiver.SetFaceDown), this, nameof(OnCardSetFaceDown));
-            Messenger.Receiver.Connect(nameof(MessageReceiver.Activate), this, nameof(OnCardActivated));
-            Messenger.Receiver.Connect(nameof(MessageReceiver.SendCardToZone), this, nameof(OnCardSentToZone));
-            Messenger.Receiver.Connect(nameof(MessageReceiver.BattleUnit), this, nameof(OnUnitBattled));
-            Messenger.Receiver.Connect(nameof(MessageReceiver.OpponentAttackUnit), this, nameof(OnOpponentAttackUnit));
-            Messenger.Receiver.Connect(nameof(MessageReceiver.OpponentAttackDirectly), this,
-                nameof(OnOpponentAttackDirectly));
-            Messenger.Receiver.Connect(nameof(MessageReceiver.DirectAttack), this, nameof(OnDirectAttack));
-            Messenger.Receiver.Connect(nameof(MessageReceiver.LoseLife), this, nameof(OnLifeLost));
+            Messenger.Receiver.Connect(nameof(MessageReceiver.QueueEvents), this, nameof(Queue));
             Messenger.Receiver.Connect(nameof(MessageReceiver.ExecutedEvents), this, nameof(Execute));
-
+            
             GameInput.Deploy = Messenger.Sender.DeclareDeploy;
             GameInput.SetCard = Messenger.Sender.DeclareSet;
             GameInput.Activate = Messenger.Sender.DeclareActivation;
@@ -85,6 +72,37 @@ namespace CardGame.Client.Game
             }
             _matchDebugCount += 1;
             
+        }
+
+        [Signal]
+        public delegate void Unpack();
+
+        private void Queue(string signal, params object[] args) // What happens if we emit params to params?
+        {
+            var methodName = GetCommandName(signal);
+            Connect(nameof(Unpack), this, methodName, null, (uint) ConnectFlags.Oneshot);
+            EmitSignal(nameof(Unpack), args);
+        }
+
+        private string GetCommandName(string oldSignal)
+        {
+            return oldSignal switch
+            {
+                "Draw" => nameof(OnDraw),
+                "LoadDeck" => nameof(OnLoadDeck),
+                "UpdateCard" => nameof(OnCardUpdated),
+                "Deploy" => nameof(OnCardDeployed),
+                "RevealCard" => nameof(OnCardRevealed),
+                "SetFaceDown" => nameof(OnCardSetFaceDown),
+                "Activate" => nameof(OnCardActivated),
+                "SendCardToZone" => nameof(OnCardSentToZone),
+                "BattleUnit" => nameof(OnUnitBattled),
+                "OpponentAttackUnit" => nameof(OnOpponentAttackUnit),
+                "OpponentAttackDirectly" => nameof(OnOpponentAttackDirectly),
+                "DirectAttack" => nameof(OnDirectAttack),
+                "LoseLife" => nameof(OnLifeLost),
+                _ => throw new NotSupportedException($"Command {oldSignal} has no Counterpart Method")
+            };
         }
 
         public async void Execute(States stateAfterExecution)
