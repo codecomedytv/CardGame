@@ -43,16 +43,17 @@ namespace CardGame.Client.Game
             GameInput.User = Player;
             GameInput.Opponent = Opponent;
 
-            Messenger.Receiver.Connect(nameof(MessageReceiver.QueueEvents), this, nameof(Queue));
-            Messenger.Receiver.Connect(nameof(MessageReceiver.ExecutedEvents), this, nameof(Execute));
+            // Wonder if we can use events here?
+            Messenger.Connect(nameof(Messenger.QueueEvents), this, nameof(Queue));
+            Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
             
-            GameInput.Deploy = Messenger.Sender.DeclareDeploy;
-            GameInput.SetCard = Messenger.Sender.DeclareSet;
-            GameInput.Activate = Messenger.Sender.DeclareActivation;
-            GameInput.Attack = Messenger.Sender.DeclareAttack;
-            GameInput.DirectAttack = Messenger.Sender.DeclareDirectAttack;
-            GameInput.PassPlay = Messenger.Sender.DeclarePassPlay;
-            GameInput.EndTurn = Messenger.Sender.DeclareEndTurn;
+            GameInput.Deploy = Messenger.DeclareDeploy;
+            GameInput.SetCard = Messenger.DeclareSet;
+            GameInput.Activate = Messenger.DeclareActivation;
+            GameInput.Attack = Messenger.DeclareAttack;
+            GameInput.DirectAttack = Messenger.DeclareDirectAttack;
+            GameInput.PassPlay = Messenger.DeclarePassPlay;
+            GameInput.EndTurn = Messenger.DeclareEndTurn;
  
             
             Table.GetNode<Button>("Table3D/HUD/EndTurn").Connect("pressed", GameInput, nameof(GameInput.OnEndTurnPressed));
