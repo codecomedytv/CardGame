@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Players;
-using CardGame.Client.Game.Zones;
-using CardGame.Server.Game;
 using Godot;
 using States = CardGame.Client.Game.Players.States;
 
@@ -14,7 +12,6 @@ namespace CardGame.Client.Game
         private static int _matchDebugCount = 0;
         private readonly Catalog Cards = new Catalog();
         private readonly CommandQueue CommandQueue = new CommandQueue();
-        private readonly CommandFactory CommandFactory = new CommandFactory();
         private readonly Messenger Messenger = new Messenger();
         private readonly CardFactory CardFactory;
         private readonly Table Table;
