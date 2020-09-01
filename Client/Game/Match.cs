@@ -8,6 +8,8 @@ namespace CardGame.Client.Game
 {
     public class Match: Spatial
     {
+        [Signal] private delegate void QueueCommand();
+        
         private static int _matchDebugCount = 0;
         private readonly Catalog Cards = new Catalog();
         private readonly Queue<Command> CommandQueue = new Queue<Command>();
@@ -38,8 +40,8 @@ namespace CardGame.Client.Game
             GameInput.User = Player;
             GameInput.Opponent = Opponent;
             
-            Messenger.ExecuteEvents = this.Execute;
-            Messenger.QueueEvent = this.Queue;
+            Messenger.ExecuteEvents = Execute;
+            Messenger.QueueEvent = Queue;
             
             GameInput.Deploy = Messenger.DeclareDeploy;
             GameInput.SetCard = Messenger.DeclareSet;
@@ -48,40 +50,38 @@ namespace CardGame.Client.Game
             GameInput.DirectAttack = Messenger.DeclareDirectAttack;
             GameInput.PassPlay = Messenger.DeclarePassPlay;
             GameInput.EndTurn = Messenger.DeclareEndTurn;
- 
             
             Table.GetNode<Button>("Table3D/HUD/EndTurn").Connect("pressed", GameInput, nameof(GameInput.OnEndTurnPressed));
             Table.GetNode<Button>("Table3D/HUD/PassPlay").Connect("pressed", GameInput, nameof(GameInput.OnPassPlayPressed));
-
-            
-            
             Messenger.CallDeferred("SetReady");
 
             LoadOpponentDeck();
-            
-            // Debug
-            if (_matchDebugCount > 0)
-            {
-                this.Visible = false;
-                Table.GetNode<Control>("Table3D/HUD").Visible = false;
-            }
-            _matchDebugCount += 1;
-            
+            DebugCount();
         }
 
-        [Signal]
-        public delegate void Unpack();
+        private void DebugCount()
+        {
+            // Used For Testing In The Same Editor
+            if (_matchDebugCount > 0)
+            {
+                Visible = false;
+                Table.GetNode<Control>("Table3D/HUD").Visible = false;
+            }
+            _matchDebugCount += 1;    
+        }
 
-        private void Queue(Commands command, params object[] args) // What happens if we emit params to params?
+        private async void Execute()
+        {
+            while(CommandQueue.Count > 0) { await CommandQueue.Dequeue().Execute(Gfx); }
+        }
+
+        private void Queue(Commands command, params object[] args)
         {
             var methodName = GetCommandName(command);
             if (methodName == "")
-            {
-                GD.PushWarning($"No Method Found For {command}");
-                return;
-            }
-            Connect(nameof(Unpack), this, methodName, null, (uint) ConnectFlags.Oneshot);
-            EmitSignal(nameof(Unpack), args);
+            { GD.PushWarning($"No Method Found For {command}"); return; }
+            Connect(nameof(QueueCommand), this, methodName, null, (uint) ConnectFlags.Oneshot);
+            EmitSignal(nameof(QueueCommand), args);
         }
 
         private string GetCommandName(Commands command)
@@ -110,16 +110,7 @@ namespace CardGame.Client.Game
                 _ => throw new NotSupportedException($"Command {command} has no Counterpart Method")
             };
         }
-
-        private async void Execute()
-        {
-            while(CommandQueue.Count > 0)
-            {
-                var cmd = CommandQueue.Dequeue();
-                await cmd.Execute(Gfx);
-            }
-        }
-
+        
         private void LoadOpponentDeck()
         {
             // Begin Loading Opponent Deck
@@ -237,7 +228,6 @@ namespace CardGame.Client.Game
             CommandQueue.Enqueue(new LoseLife(GetPlayer(isOpponent), lifeLost));
         }
         
-
         private IPlayer GetPlayer(bool isOpponent)
         {
             return isOpponent ? Opponent : Player as IPlayer;
