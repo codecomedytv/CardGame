@@ -3,7 +3,7 @@ using Godot;
 
 namespace CardGame.Client.Game
 {
-    public class LoseLife: xCommand
+    public class LoseLife: Command
     {
         private IPlayer Player;
         private int LifeLost;

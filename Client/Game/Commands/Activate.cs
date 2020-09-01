@@ -4,7 +4,7 @@ using Godot;
 
 namespace CardGame.Client.Game
 {
-    public class Activate: xCommand
+    public class Activate: Command
     {
         // Our Cards Are Activated ClientSide so we always know this is going to be Opponent
         private readonly Opponent Opponent;

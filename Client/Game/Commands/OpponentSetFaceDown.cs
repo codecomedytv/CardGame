@@ -4,7 +4,7 @@ using Godot;
 
 namespace CardGame.Client.Game
 {
-    public class OpponentSetFaceDown: xCommand
+    public class OpponentSetFaceDown: Command
     {
         private readonly Opponent Opponent;
 

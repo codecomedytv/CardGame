@@ -4,7 +4,7 @@ using Godot;
 
 namespace CardGame.Client.Game
 {
-    public class SetFaceDown: xCommand
+    public class SetFaceDown: Command
     {
         private readonly Card Card;
 

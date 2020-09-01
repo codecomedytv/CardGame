@@ -3,7 +3,7 @@ using Godot;
 
 namespace CardGame.Client.Game
 {
-    public class Draw: xCommand
+    public class Draw: Command
     {
         private readonly Card Card;
 

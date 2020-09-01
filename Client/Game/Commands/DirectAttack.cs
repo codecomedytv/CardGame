@@ -4,7 +4,7 @@ using Godot;
 
 namespace CardGame.Client.Game
 {
-    public class DirectAttack: xCommand
+    public class DirectAttack: Command
     {
         private readonly IPlayer Player;
         private readonly Card Attacker;

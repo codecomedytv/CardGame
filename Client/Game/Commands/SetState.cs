@@ -3,7 +3,7 @@ using Godot;
 
 namespace CardGame.Client.Game
 {
-    public class SetState: xCommand
+    public class SetState: Command
     {
         private readonly Player Player;
         private readonly States State;

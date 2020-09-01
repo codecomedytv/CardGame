@@ -3,9 +3,9 @@ using Godot;
 
 namespace CardGame.Client.Game
 {
-    public abstract class xCommand
+    public abstract class Command
     {
-        public xCommand() { }
+        public Command() { }
         
         public async Task<Task> Execute(Tween gfx)
         {

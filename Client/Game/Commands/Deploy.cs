@@ -5,7 +5,7 @@ using Godot;
 
 namespace CardGame.Client.Game
 {
-    public class Deploy: xCommand
+    public class Deploy: Command
     {
         private readonly Card Card;
         

@@ -3,7 +3,7 @@ using Godot;
 
 namespace CardGame.Client.Game
 {
-    public class DeclareAttack: xCommand
+    public class DeclareAttack: Command
     {
         private readonly Card Attacker;
         private readonly Card Defender;
