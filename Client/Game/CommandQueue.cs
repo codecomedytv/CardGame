@@ -16,7 +16,6 @@ namespace CardGame.Client.Game
             {
                 var cmd = Commands.Dequeue();
                 await cmd.Execute(Gfx);
-                Gfx.RemoveAll();
             }
         }
     }
