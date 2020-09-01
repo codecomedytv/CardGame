@@ -231,8 +231,7 @@ namespace CardGame.Client.Game
 
         private void OnLifeLost(int lifeLost, bool isOpponent)
         {
-            var command = GetPlayer(isOpponent).LoseLife(lifeLost);
-            CommandQueue.Add(command);
+            CommandQueue.Add(new LoseLife(GetPlayer(isOpponent), lifeLost));
         }
         
 
