@@ -79,6 +79,11 @@ namespace CardGame.Client.Game.Players
 
 			return Command;
 		}
+
+		public void StopDefending()
+		{
+			DefendingIcon.Visible = false;
+		}
 		
 		public void Defend()
 		{

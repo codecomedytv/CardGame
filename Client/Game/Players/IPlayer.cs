@@ -16,12 +16,15 @@ namespace CardGame.Client.Game.Players
         Support Support { get; }
         void RegisterCard(Card card);
         void LoadDeck(IEnumerable<Card> deck);
+        ///void LoseLife(int lifeLost);
         
         // Need To Refactor This?
         // Move To CommandFactory At Least
         //Command Attack(Card attacker, Card defender);
         Command AttackDirectly(Card attacker);
         Command LoseLife(int lifeLost);
+
+        void StopDefending();
 
     }
 }

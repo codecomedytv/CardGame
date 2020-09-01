@@ -228,9 +228,8 @@ namespace CardGame.Client.Game
 
         public void OnOpponentAttackDirectly(int attackerId)
         {
-            var p = (Player) Player;
-            var command = p.GetAttackedDirectly(Cards[attackerId]);
-            CommandQueue.Add(command);
+            // The Declaration
+            CommandQueue.Add(new DeclareDirectAttack(Player, Cards[attackerId]));
         }
         
         private void OnUnitBattled(int attackerId, int defenderId, bool isOpponent)
@@ -240,7 +239,8 @@ namespace CardGame.Client.Game
 
         private void OnDirectAttack(int attackerId, bool isOpponent)
         {
-            CommandQueue.Add(new DeclareDirectAttack(Player, Cards[attackerId]));
+            // Actual Attack
+            CommandQueue.Add(new DirectAttack(GetPlayer(isOpponent), Cards[attackerId]));
         }
 
         private void OnLifeLost(int lifeLost, bool isOpponent)

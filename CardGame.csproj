@@ -113,6 +113,7 @@
     <Compile Include="Client\Game\Commands\DeclareAttack.cs" />
     <Compile Include="Client\Game\Commands\DeclareDirectAttack.cs" />
     <Compile Include="Client\Game\Commands\Deploy.cs" />
+    <Compile Include="Client\Game\Commands\DirectAttack.cs" />
     <Compile Include="Client\Game\Commands\Draw.cs" />
     <Compile Include="Client\Game\Commands\LoseLife.cs" />
     <Compile Include="Client\Game\Commands\OpponentDraw.cs" />

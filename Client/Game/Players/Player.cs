@@ -109,6 +109,17 @@ namespace CardGame.Client.Game.Players
 
 			return Command;
 		}
+
+		// public void LoseLife(int lifeLost)
+		// {
+		// 	var newLife = GD.Str(LifeCount.Text.ToInt() - lifeLost);
+		// 	var percentage = 100 - (int) ((lifeLost / 8000F) * 100);
+		// 	LifeChange.Text = $"- {lifeLost}";
+		// }
+		public void StopDefending()
+		{
+			DefendingIcon.Visible = false;
+		}
 		
 		public Command GetAttackedDirectly(Card attacker)
 		{
