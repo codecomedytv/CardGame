@@ -123,7 +123,7 @@ namespace CardGame.Client.Game.Players
 			return Command;
 		}
 
-		private void Defend()
+		public void Defend()
 		{
 			DefendingIcon.Visible = true;
 		}

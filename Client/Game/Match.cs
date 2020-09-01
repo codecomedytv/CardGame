@@ -236,8 +236,7 @@ namespace CardGame.Client.Game
 
         private void OnDirectAttack(int attackerId, bool isOpponent)
         {
-            var command = GetPlayer(isOpponent).AttackDirectly(Cards[attackerId]);
-            CommandQueue.Add(command);
+            CommandQueue.Add(new DeclareDirectAttack(Player, Cards[attackerId]));
         }
 
         private void OnLifeLost(int lifeLost, bool isOpponent)
