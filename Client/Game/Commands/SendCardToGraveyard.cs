@@ -5,7 +5,7 @@ namespace CardGame.Client.Game
 {
     public class SendCardToGraveyard: xCommand
     {
-        private Card Card;
+        private readonly Card Card;
 
         public SendCardToGraveyard(Card card)
         {

@@ -7,7 +7,7 @@ namespace CardGame.Client.Game
 {
     public class Deploy: xCommand
     {
-        private Card Card;
+        private readonly Card Card;
         
         public Deploy(Card card)
         {

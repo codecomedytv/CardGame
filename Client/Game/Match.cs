@@ -207,11 +207,9 @@ namespace CardGame.Client.Game
             CommandQueue.Add(command);
         }
 
-        private void OnCardActivated(int id, bool isOpponent, int targetId = 0)
+        private void OnCardActivated(int id, int targetId = 0)
         {
-            if (!isOpponent) return;
-            var command = CommandFactory.Activate(Opponent, Cards[id]);
-            CommandQueue.Add(command);
+            CommandQueue.Add(new Activate(Opponent, Cards[id]));
         }
 
         public void OnCardSentToZone(int cardId, int zoneId)

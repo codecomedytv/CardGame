@@ -108,9 +108,11 @@
     <Compile Include="Client\Game\Catalog.cs" />
     <Compile Include="Client\Game\CommandFactory.cs" />
     <Compile Include="Client\Game\CommandQueue.cs" />
+    <Compile Include="Client\Game\Commands\Activate.cs" />
     <Compile Include="Client\Game\Commands\Command.cs" />
     <Compile Include="Client\Game\Commands\Deploy.cs" />
     <Compile Include="Client\Game\Commands\Draw.cs" />
+    <Compile Include="Client\Game\Commands\LoseLife.cs" />
     <Compile Include="Client\Game\Commands\SendCardToGraveyard.cs" />
     <Compile Include="Client\Game\GameInput.cs" />
     <Compile Include="Client\Game\Match.cs" />
