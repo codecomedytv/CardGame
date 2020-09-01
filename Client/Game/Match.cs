@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Players;
@@ -77,11 +78,14 @@ namespace CardGame.Client.Game
 
         private void Queue(Commands command, params object[] args)
         {
-            var methodName = GetCommandName(command);
-            if (methodName == "")
-            { GD.PushWarning($"No Method Found For {command}"); return; }
-            Connect(nameof(QueueCommand), this, methodName, null, (uint) ConnectFlags.Oneshot);
+            // Is this unnecessary? Could we just get the strings directly and skip the event manager step?
+            Connect(nameof(QueueCommand), this, GetCommandName(command), null, (uint) ConnectFlags.Oneshot);
             EmitSignal(nameof(QueueCommand), args);
+        }
+
+        private void NotFound(IEnumerable args)
+        {
+            GD.PushWarning($"Method with args {args} not found");
         }
 
         private string GetCommandName(Commands command)
@@ -101,11 +105,11 @@ namespace CardGame.Client.Game
                 Commands.OpponentAttackDirectly => nameof(OnOpponentAttackDirectly),
                 Commands.DirectAttack => nameof(OnDirectAttack),
                 Commands.LoseLife => nameof(OnLifeLost),
-                Commands.ResolveCard => "",
-                Commands.Trigger => "",
-                Commands.GameOver => "",
-                Commands.BounceCard => "",
-                Commands.TargetRequested => "",
+                Commands.ResolveCard => nameof(NotFound),
+                Commands.Trigger => nameof(NotFound),
+                Commands.GameOver => nameof(NotFound),
+                Commands.BounceCard => nameof(NotFound),
+                Commands.TargetRequested => nameof(NotFound),
                 Commands.SetState => nameof(OnStateSet),
                 _ => throw new NotSupportedException($"Command {command} has no Counterpart Method")
             };
@@ -142,10 +146,21 @@ namespace CardGame.Client.Game
             
             Player.LoadDeck(deck);
         }
+        
+        public void OnCardRevealed(int id, SetCodes setCode, int zoneIds)
+                {
+                    // We already know our own cards (so far) so we revealed cards default to Opponents;
+                    // Could we pre-send opponent cards ids over? Would it be meaningful if all info remains on server
+                    var card = CardFactory.Create(id, setCode);
+                    Opponent.RegisterCard(card);
+                    AddChild(card);
+                    card.MouseOvered = GameInput.OnMousedOverCard;
+                    card.MouseOveredExit = GameInput.OnMousedOverExitCard;
+                    Cards.Add(id, card);
+                }
 
         private void OnStateSet(States state)
         {
-            GD.Print($"Setting State To {state}");
             CommandQueue.Enqueue(new SetState(Player, state));
         }
 
@@ -162,18 +177,6 @@ namespace CardGame.Client.Game
         private void OnCardUpdated(int id, CardStates state, IList<int> attackTargets, IList<int> targets)
         {
             Cards[id].Update(state, targets, attackTargets);
-        }
-
-        public void OnCardRevealed(int id, SetCodes setCode, int zoneIds)
-        {
-            // We already know our own cards (so far) so we revealed cards default to Opponents;
-            // Could we pre-send opponent cards ids over? Would it be meaningful if all info remains on server
-            var card = CardFactory.Create(id, setCode);
-            Opponent.RegisterCard(card);
-            AddChild(card);
-            card.MouseOvered = GameInput.OnMousedOverCard;
-            card.MouseOveredExit = GameInput.OnMousedOverExitCard;
-            Cards.Add(id, card);
         }
 
         private void OnCardDeployed(int id)
