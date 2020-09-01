@@ -74,23 +74,6 @@ namespace CardGame.Client.Game.Players
 			Connect(nameof(StateChanged), card, nameof(Card.OnPlayerStateChanged));
 		}
 		
-		public Command AttackDirectly(Card attacker)
-		{
-			Tween Command(Tween gfx)
-			{
-				var destination = new Vector3(2.5F, 9F, attacker.Translation.z);
-
-				gfx.InterpolateProperty(attacker, nameof(Translation), attacker.Translation, destination, 0.1F);
-				gfx.InterpolateProperty(attacker, nameof(Translation), destination, attacker.Translation, 0.1F,
-					Tween.TransitionType.Linear, Tween.EaseType.In, 0.3F);
-				
-				gfx.InterpolateCallback(attacker.AttackingIcon, 0.2F, "set_visible", false);
-				return gfx;
-			}
-
-			return Command;
-		}
-
 		public void LoseLife(int lifeLost, Tween gfx)
 		{
 			var newLife = GD.Str(LifeCount.Text.ToInt() - lifeLost);
@@ -107,18 +90,6 @@ namespace CardGame.Client.Game.Players
 			DefendingIcon.Visible = false;
 		}
 		
-		public Command GetAttackedDirectly(Card attacker)
-		{
-			// Declaration, not battle
-			Tween Command(Tween gfx)
-			{
-				gfx.InterpolateCallback(attacker, 0.1F, nameof(Card.Attack));
-				gfx.InterpolateCallback(this, 0.1F, nameof(Defend));
-				return gfx;
-			}
-			
-			return Command;
-		}
 
 		public void Defend()
 		{

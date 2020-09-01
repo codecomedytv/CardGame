@@ -16,7 +16,7 @@ namespace CardGame.Client.Game.Players
         Support Support { get; }
         void RegisterCard(Card card);
         void LoadDeck(IEnumerable<Card> deck);
-        Command AttackDirectly(Card attacker);
+      //  Command AttackDirectly(Card attacker);
         void LoseLife(int lifeLost, Tween gfx);
 
         void StopDefending();

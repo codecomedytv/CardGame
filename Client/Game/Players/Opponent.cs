@@ -45,24 +45,6 @@ namespace CardGame.Client.Game.Players
 			}
 		}
 		
-		public Command AttackDirectly(Card attacker)
-		{
-			Tween Command(Tween gfx)
-			{
-				var destination = new Vector3(2.5F, -2.95F, 1);
-
-				gfx.InterpolateProperty(attacker, nameof(Translation), attacker.Translation, destination, 0.1F);
-				gfx.InterpolateProperty(attacker, nameof(Translation), destination, attacker.Translation, 0.1F,
-					Tween.TransitionType.Linear, Tween.EaseType.In, 0.3F);
-				gfx.InterpolateCallback(attacker.AttackingIcon, 0.2F, "set_visible", false);
-				// gfx.InterpolateCallback(Player, 0.3F, nameof(IPlayer.ClearDirectAttackingDefense));
-				return gfx;
-			}
-
-			return Command;
-		}
-		
-	
 		public void LoseLife(int lifeLost, Tween gfx)
 		{
 			var newLife = GD.Str(LifeCount.Text.ToInt() - lifeLost);
