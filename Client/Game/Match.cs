@@ -14,18 +14,18 @@ namespace CardGame.Client.Game
         private readonly Catalog Cards = new Catalog();
         private readonly Queue<Command> CommandQueue = new Queue<Command>();
         private readonly Messenger Messenger = new Messenger();
-        private readonly CardFactory CardFactory;
+        private readonly CardFactory CardFactory = new CardFactory();
+        private readonly GameInput GameInput = new GameInput();
+        private readonly Tween Gfx = new Tween();
         private readonly Table Table;
         private Player Player;
         private Opponent Opponent;
-        private readonly GameInput GameInput = new GameInput();
-        private readonly Tween Gfx = new Tween();
+        
 
         public Match()
         {
             AddToGroup("games");
             Table = new Table();
-            CardFactory = new CardFactory();
         }
         
         public override void _Ready()
