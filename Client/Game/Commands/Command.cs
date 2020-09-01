@@ -5,10 +5,7 @@ namespace CardGame.Client.Game
 {
     public abstract class xCommand
     {
-        public xCommand()
-        {
-            
-        }
+        public xCommand() { }
         
         public async Task<Task> Execute(Tween gfx)
         {
@@ -17,9 +14,6 @@ namespace CardGame.Client.Game
             return Task.CompletedTask;
         }
 
-        protected virtual void SetUp(Tween gfx)
-        {
-            // 
-        }
+        protected abstract void SetUp(Tween gfx);
     }
 }

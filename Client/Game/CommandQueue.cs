@@ -8,12 +8,15 @@ namespace CardGame.Client.Game
 
     public class CommandQueue //: //Godot.Object
     {
-        private readonly Queue<Command> Commands = new Queue<Command>();
+        private readonly Queue<object> Commands = new Queue<object>();
         public Tween Gfx; // Temp
         
-        public void Add(Command command)
+        public void Add(object command)
         {
-            Commands.Enqueue(command);
+            if (command is Command || command is xCommand)
+            {
+                Commands.Enqueue(command);
+            }
         }
 
         // Setting State Should be a Queued Action In Future
@@ -22,11 +25,19 @@ namespace CardGame.Client.Game
             // Investigate Await ForEach?
             while(Commands.Count > 0)
             {
-                var command = Commands.Dequeue();
-                var executor = command(Gfx);
-                executor.Start();
-                await Gfx.ToSignal(executor, "tween_all_completed"); // hate it
-                executor.RemoveAll();
+                var cmd = Commands.Dequeue();
+                if (cmd is Command command)
+                {
+                    var executor = command(Gfx);
+                    executor.Start();
+                    await Gfx.ToSignal(executor, "tween_all_completed"); // hate it
+                    executor.RemoveAll();
+                }
+                else if (cmd is xCommand xCommand)
+                {
+                    await xCommand.Execute(Gfx);
+                    Gfx.RemoveAll();
+                }
             }
         }
     }
