@@ -111,6 +111,7 @@
     <Compile Include="Client\Game\Commands\Command.cs" />
     <Compile Include="Client\Game\Commands\Deploy.cs" />
     <Compile Include="Client\Game\Commands\Draw.cs" />
+    <Compile Include="Client\Game\Commands\SendCardToGraveyard.cs" />
     <Compile Include="Client\Game\GameInput.cs" />
     <Compile Include="Client\Game\Match.cs" />
     <Compile Include="Client\Game\Messenger.cs" />

@@ -198,8 +198,7 @@ namespace CardGame.Client.Game
 
         private void OnCardDeployed(int id)
         {
-            var command = new Deploy(Cards[id]);
-            CommandQueue.Add(command);
+            CommandQueue.Add(new Deploy(Cards[id]));
         }
 
         private void OnCardSetFaceDown(int id, bool isOpponent)
@@ -217,9 +216,7 @@ namespace CardGame.Client.Game
 
         public void OnCardSentToZone(int cardId, int zoneId)
         {
-            // We may want to make this more specific on server-side too
-            var command = CommandFactory.SendCardToGraveyard(Cards[cardId]);
-            CommandQueue.Add(command);
+            CommandQueue.Add(new SendCardToGraveyard(Cards[cardId]));
         }
         
         public void OnOpponentAttackUnit(int attackerId, int defenderId)
