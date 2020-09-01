@@ -1,4 +1,6 @@
-﻿using Godot;
+﻿using System;
+using CardGame.Client.Game.Players;
+using Godot;
 
 namespace CardGame.Client.Game
 {
@@ -6,25 +8,18 @@ namespace CardGame.Client.Game
     {
         private const int ServerId = 1;
         private int Id => Multiplayer.GetNetworkUniqueId();
-
         public Messenger() { Name = "Messenger"; }
-        
         public void SetReady() => RpcId(ServerId, "SetReady", Id);
+
+        public Action<States> ExecuteEvents; 
+        public Action<Commands, object[]> QueueEvent;
         
-        [Signal] public delegate void ExecutedEvents();
-        [Signal] public delegate void QueueEvents();
+        [Puppet]
+        // Change stateIntoACommand?
+        private void Execute(States stateAfterExecution) => ExecuteEvents(stateAfterExecution);
 
         [Puppet]
-        public void Execute(int stateAfterExecution)
-        {
-            EmitSignal(nameof(ExecutedEvents), stateAfterExecution);
-        }
-
-        [Puppet]
-        public void Queue(Commands command, params object[] args)
-        {
-            EmitSignal(nameof(QueueEvents), command, args);
-        }
+        private void Queue(Commands command, params object[] args) => QueueEvent(command, args);
         
         public void DeclareDeploy(int cardId)
         {

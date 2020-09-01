@@ -42,10 +42,9 @@ namespace CardGame.Client.Game
             Opponent = (Opponent) Table.OpponentView;
             GameInput.User = Player;
             GameInput.Opponent = Opponent;
-
-            // Wonder if we can use events here?
-            Messenger.Connect(nameof(Messenger.QueueEvents), this, nameof(Queue));
-            Messenger.Connect(nameof(Messenger.ExecutedEvents), this, nameof(Execute));
+            
+            Messenger.ExecuteEvents = this.Execute;
+            Messenger.QueueEvent = this.Queue;
             
             GameInput.Deploy = Messenger.DeclareDeploy;
             GameInput.SetCard = Messenger.DeclareSet;
