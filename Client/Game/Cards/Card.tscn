@@ -135,6 +135,7 @@ anims/Playable = SubResource( 2 )
 
 [node name="Power" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.131011, -0.115822, 0.171931 )
+visible = false
 
 [node name="0" type="Sprite3D" parent="Power"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.155195, -0.441086, -0.2 )

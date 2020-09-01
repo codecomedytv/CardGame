@@ -29,7 +29,7 @@ namespace CardGame.Client.Game.Players
 		}
 
 
-		public States SetState(States state)
+		private States SetState(States state)
 		{
 			BackingState = state;
 			EmitSignal(nameof(StateChanged), state);

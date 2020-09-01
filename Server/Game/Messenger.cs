@@ -48,7 +48,8 @@ namespace CardGame.Server.Game {
 			}
 			foreach (var player in players)
 			{
-				RpcId(player.Id, "Execute", player.State);
+				Message(player.Id, Commands.SetState, player.State);
+				RpcId(player.Id, "Execute");
 			}
 		}
 

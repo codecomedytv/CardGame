@@ -6,7 +6,7 @@ namespace CardGame.Client.Game
 {
     public delegate Tween Command(Tween gfx);
 
-    public class CommandQueue //: //Godot.Object
+    public class CommandQueue
     {
         private readonly Queue<object> Commands = new Queue<object>();
         public Tween Gfx; // Temp
@@ -19,8 +19,7 @@ namespace CardGame.Client.Game
             }
         }
 
-        // Setting State Should be a Queued Action In Future
-        public async Task Execute()
+        public async void Execute()
         {
             // Investigate Await ForEach?
             while(Commands.Count > 0)
@@ -30,7 +29,7 @@ namespace CardGame.Client.Game
                 {
                     var executor = command(Gfx);
                     executor.Start();
-                    await Gfx.ToSignal(executor, "tween_all_completed"); // hate it
+                    await Gfx.ToSignal(executor, "tween_all_completed");
                     executor.RemoveAll();
                 }
                 else if (cmd is xCommand xCommand)

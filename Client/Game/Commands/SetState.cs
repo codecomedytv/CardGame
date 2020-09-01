@@ -1,0 +1,22 @@
+﻿using CardGame.Client.Game.Players;
+using Godot;
+
+namespace CardGame.Client.Game
+{
+    public class SetState: xCommand
+    {
+        private readonly Player Player;
+        private readonly States State;
+
+        public SetState(Player player, States state)
+        {
+            Player = player;
+            State = state;
+        }
+
+        protected override void SetUp(Tween gfx)
+        {
+            Player.State = State;
+        }
+    }
+}

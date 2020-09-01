@@ -107,15 +107,14 @@ namespace CardGame.Client.Game
                 Commands.GameOver => "",
                 Commands.BounceCard => "",
                 Commands.TargetRequested => "",
+                Commands.SetState => nameof(OnStateSet),
                 _ => throw new NotSupportedException($"Command {command} has no Counterpart Method")
             };
         }
 
-        private async void Execute(States stateAfterExecution)
-        {
-            await CommandQueue.Execute();
-            var p = (Player) Player;
-            p.SetState(stateAfterExecution); // ClientSide States Are Erroneously affecting this (processing etc)
+        private void Execute()
+        { 
+            CommandQueue.Execute();
         }
 
         private void LoadOpponentDeck()
@@ -150,6 +149,12 @@ namespace CardGame.Client.Game
             Player.LoadDeck(deck);
         }
 
+        private void OnStateSet(States state)
+        {
+            GD.Print($"Setting State To {state}");
+            CommandQueue.Add(new SetState(Player, state));
+        }
+
         private void OnDraw(int cardId)
         {
             CommandQueue.Add(new Draw(Cards[cardId]));
@@ -168,6 +173,7 @@ namespace CardGame.Client.Game
         public void OnCardRevealed(int id, SetCodes setCode, int zoneIds)
         {
             // We already know our own cards (so far) so we revealed cards default to Opponents;
+            // Could we pre-send opponent cards ids over? Would it be meaningful if all info remains on server
             var card = CardFactory.Create(id, setCode);
             Opponent.RegisterCard(card);
             AddChild(card);

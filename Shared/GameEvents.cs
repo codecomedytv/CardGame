@@ -45,6 +45,7 @@
         GameOver,
         DirectAttack,
         BounceCard,
-        TargetRequested
+        TargetRequested,
+        SetState
     }
 }

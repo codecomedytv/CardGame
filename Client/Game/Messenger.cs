@@ -11,12 +11,11 @@ namespace CardGame.Client.Game
         public Messenger() { Name = "Messenger"; }
         public void SetReady() => RpcId(ServerId, "SetReady", Id);
 
-        public Action<States> ExecuteEvents; 
+        public Action ExecuteEvents; 
         public Action<Commands, object[]> QueueEvent;
         
         [Puppet]
-        // Change stateIntoACommand?
-        private void Execute(States stateAfterExecution) => ExecuteEvents(stateAfterExecution);
+        private void Execute() => ExecuteEvents();
 
         [Puppet]
         private void Queue(Commands command, params object[] args) => QueueEvent(command, args);
