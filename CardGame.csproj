@@ -109,6 +109,7 @@
     <Compile Include="Client\Game\CommandFactory.cs" />
     <Compile Include="Client\Game\CommandQueue.cs" />
     <Compile Include="Client\Game\Commands\Activate.cs" />
+    <Compile Include="Client\Game\Commands\Battle.cs" />
     <Compile Include="Client\Game\Commands\Command.cs" />
     <Compile Include="Client\Game\Commands\Deploy.cs" />
     <Compile Include="Client\Game\Commands\Draw.cs" />

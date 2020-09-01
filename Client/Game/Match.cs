@@ -232,8 +232,7 @@ namespace CardGame.Client.Game
         
         private void OnUnitBattled(int attackerId, int defenderId, bool isOpponent)
         {
-            var command = CommandFactory.Battle(Cards[attackerId], Cards[defenderId]);
-            CommandQueue.Add(command);
+            CommandQueue.Add(new Battle(Cards[attackerId], Cards[defenderId]));
         }
 
         private void OnDirectAttack(int attackerId, bool isOpponent)

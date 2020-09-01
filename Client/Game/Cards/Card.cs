@@ -58,6 +58,16 @@ namespace CardGame.Client.Game.Cards
 			}
 		}
 
+		public void StopAttacking()
+		{
+			AttackingIcon.Visible = false;
+		}
+
+		public void StopDefending()
+		{
+			DefendingIcon.Visible = false;
+		}
+
 		private void ChangeAttack()
 		{
 			var i = 0;
