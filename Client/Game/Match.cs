@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Players;
 using Godot;
-using States = CardGame.Client.Game.Players.States;
 
 namespace CardGame.Client.Game
 {
