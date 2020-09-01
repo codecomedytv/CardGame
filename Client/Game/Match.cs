@@ -205,10 +205,14 @@ namespace CardGame.Client.Game
             CommandQueue.Add(new Deploy(Cards[id]));
         }
 
-        private void OnCardSetFaceDown(int id, bool isOpponent)
+        private void OnCardSetFaceDown(int id)
         {
-            var command = isOpponent ? CommandFactory.SetFaceDown(Opponent) : CommandFactory.SetFaceDown(Cards[id]);
-            CommandQueue.Add(command);
+            CommandQueue.Add(new SetFaceDown(Cards[id]));
+        }
+
+        private void OnCardSetFaceDown()
+        {
+            CommandQueue.Add(new OpponentSetFaceDown(Opponent));
         }
 
         private void OnCardActivated(int id, int targetId = 0)

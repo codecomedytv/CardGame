@@ -117,7 +117,9 @@
     <Compile Include="Client\Game\Commands\Draw.cs" />
     <Compile Include="Client\Game\Commands\LoseLife.cs" />
     <Compile Include="Client\Game\Commands\OpponentDraw.cs" />
+    <Compile Include="Client\Game\Commands\OpponentSetFaceDown.cs" />
     <Compile Include="Client\Game\Commands\SendCardToGraveyard.cs" />
+    <Compile Include="Client\Game\Commands\SetFaceDown.cs" />
     <Compile Include="Client\Game\GameInput.cs" />
     <Compile Include="Client\Game\Match.cs" />
     <Compile Include="Client\Game\Messenger.cs" />
