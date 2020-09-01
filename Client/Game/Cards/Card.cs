@@ -19,8 +19,8 @@ namespace CardGame.Client.Game.Cards
 		public Sprite3D AttackingIcon;
 		public Sprite3D DefendingIcon;
 		public IZone Zone;
-		public readonly IList<Card> ValidTargets = new List<Card>();
-		public readonly IList<Card> ValidAttackTargets = new List<Card>();
+		public IList<int> ValidTargets = new List<int>();
+		public IList<int> ValidAttackTargets = new List<int>();
 		public IPlayer OwningPlayer { get; set; }
 		public IPlayer Controller { get; set; }
 
@@ -34,12 +34,18 @@ namespace CardGame.Client.Game.Cards
 		public bool CanAttackDirectly => State == CardStates.CanAttackDirectly && Controller is Player player &&
 		                                 player.State == States.Idle;
 		public bool CanBePlayed => CanBeSet || CanBeActivated || CanBeDeployed;
-		public bool HasAttackTarget(Card card) => ValidAttackTargets.Contains(card);
+		public bool HasAttackTarget(Card card) => ValidAttackTargets.Contains(card.Id);
 		
 
 		public Action<Card> MouseOvered;
 		public Action<Card> MouseOveredExit;
 
+		public void Update(CardStates state, IList<int> targets, IList<int> attackTargets)
+		{
+			State = state;
+			ValidTargets = targets;
+			ValidAttackTargets = attackTargets;
+		}
 
 		public void SetCardArt(Texture art)
 		{

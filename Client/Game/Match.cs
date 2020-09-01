@@ -160,29 +160,9 @@ namespace CardGame.Client.Game
             CommandQueue.Add(new OpponentDraw(Opponent));
         }
 
-        private void OnCardUpdated(int id, CardStates state, IEnumerable<int> attackTargets, IEnumerable<int> targets)
+        private void OnCardUpdated(int id, CardStates state, IList<int> attackTargets, IList<int> targets)
         {
-            var card = Cards[id];
-            // card.update
-            // use card ids not ints for targets
-            // just replace
-            card.State = state;
-            card.ValidTargets.Clear();
-            
-            // Just Replace The Lists?
-            // Cannot do that because we need to get the cards
-            // unless we check via ids?
-            foreach (var target in targets)
-            {
-                card.ValidTargets.Add(Cards[target]);
-            }
-
-            card.ValidAttackTargets.Clear();
-
-            foreach (var defender in attackTargets)
-            {
-                card.ValidAttackTargets.Add(Cards[defender]);
-            }
+            Cards[id].Update(state, targets, attackTargets);
         }
 
         public void OnCardRevealed(int id, SetCodes setCode, int zoneIds)
