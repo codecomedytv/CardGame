@@ -114,8 +114,8 @@ namespace CardGame.Client.Game
                 _ => throw new NotSupportedException($"Command {command} has no Counterpart Method")
             };
         }
-        
-        public async void Execute(States stateAfterExecution)
+
+        private async void Execute(States stateAfterExecution)
         {
             await CommandQueue.Execute();
             var p = (Player) Player;
@@ -163,6 +163,9 @@ namespace CardGame.Client.Game
         private void OnCardUpdated(int id, CardStates state, IEnumerable<int> attackTargets, IEnumerable<int> targets)
         {
             var card = Cards[id];
+            // card.update
+            // use card ids not ints for targets
+            // just replace
             card.State = state;
             card.ValidTargets.Clear();
             
@@ -207,11 +210,9 @@ namespace CardGame.Client.Game
 
         private void OnCardActivated(int id, bool isOpponent, int targetId = 0)
         {
-            if (isOpponent)
-            {
-                var command = CommandFactory.Activate(Opponent, Cards[id]);
-                CommandQueue.Add(command);
-            }
+            if (!isOpponent) return;
+            var command = CommandFactory.Activate(Opponent, Cards[id]);
+            CommandQueue.Add(command);
         }
 
         public void OnCardSentToZone(int cardId, int zoneId, bool isOpponent)

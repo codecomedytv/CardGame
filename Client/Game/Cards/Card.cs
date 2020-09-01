@@ -18,19 +18,20 @@ namespace CardGame.Client.Game.Cards
 
 		public Sprite3D AttackingIcon;
 		public Sprite3D DefendingIcon;
-		public IPlayer Player;
 		public IZone Zone;
 		public readonly IList<Card> ValidTargets = new List<Card>();
 		public readonly IList<Card> ValidAttackTargets = new List<Card>();
+		public IPlayer OwningPlayer { get; set; }
+		public IPlayer ControllingPlayer { get; set; }
 
 		// State Checks
 		public bool IsInActive = false;
-		public bool CanBeDeployed => State == CardStates.CanBeDeployed && Player is Player player && player.State == States.Idle;
-		public bool CanBeSet => State == CardStates.CanBeSet && Player is Player player && player.State == States.Idle;
-		public bool CanBeActivated => State == CardStates.CanBeActivated && Player is Player player && !player.IsInActive;
-		public bool CanAttack => State == CardStates.CanAttack && ValidAttackTargets.Count > 0 && Player is Player player && player.State == States.Idle;
+		public bool CanBeDeployed => State == CardStates.CanBeDeployed && ControllingPlayer is Player player && player.State == States.Idle;
+		public bool CanBeSet => State == CardStates.CanBeSet && ControllingPlayer is Player player && player.State == States.Idle;
+		public bool CanBeActivated => State == CardStates.CanBeActivated && ControllingPlayer is Player player && !player.IsInActive;
+		public bool CanAttack => State == CardStates.CanAttack && ValidAttackTargets.Count > 0 && ControllingPlayer is Player player && player.State == States.Idle;
 
-		public bool CanAttackDirectly => State == CardStates.CanAttackDirectly && Player is Player player &&
+		public bool CanAttackDirectly => State == CardStates.CanAttackDirectly && ControllingPlayer is Player player &&
 		                                 player.State == States.Idle;
 		public bool CanBePlayed => CanBeSet || CanBeActivated || CanBeDeployed;
 		public bool HasAttackTarget(Card card) => ValidAttackTargets.Contains(card);

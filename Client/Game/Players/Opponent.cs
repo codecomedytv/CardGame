@@ -32,7 +32,9 @@ namespace CardGame.Client.Game.Players
 		
 		public void RegisterCard(Card card)
 		{
-			card.Player = this;
+			// card.Player = this;
+			card.OwningPlayer = this;
+			card.ControllingPlayer = this;
 		}
 
 		public void LoadDeck(IEnumerable<Card> deck)
