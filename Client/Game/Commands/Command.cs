@@ -10,6 +10,7 @@ namespace CardGame.Client.Game
         public async Task<Task> Execute(Tween gfx)
         {
             SetUp(gfx);
+            gfx.Start();
             await gfx.ToSignal(gfx, "tween_all_completed");
             return Task.CompletedTask;
         }

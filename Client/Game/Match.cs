@@ -198,7 +198,7 @@ namespace CardGame.Client.Game
 
         private void OnCardDeployed(int id)
         {
-            var command = CommandFactory.Deploy(Cards[id]);
+            var command = new Deploy(Cards[id]);
             CommandQueue.Add(command);
         }
 
