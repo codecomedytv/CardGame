@@ -70,7 +70,7 @@ namespace CardGame.Client.Game.Players
 		{
 			// card.Player = this;
 			card.OwningPlayer = this;
-			card.ControllingPlayer = this;
+			card.Controller = this;
 			Connect(nameof(StateChanged), card, nameof(Card.OnPlayerStateChanged));
 		}
 		

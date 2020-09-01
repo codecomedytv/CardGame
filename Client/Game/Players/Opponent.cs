@@ -34,7 +34,7 @@ namespace CardGame.Client.Game.Players
 		{
 			// card.Player = this;
 			card.OwningPlayer = this;
-			card.ControllingPlayer = this;
+			card.Controller = this;
 		}
 
 		public void LoadDeck(IEnumerable<Card> deck)

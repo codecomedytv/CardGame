@@ -8,15 +8,15 @@ namespace CardGame.Client.Game
 {
     public class CommandFactory: Godot.Object
     {
-        public Command Draw(IPlayer player, Card card)
+        public Command Draw(Card card)
 		{
 			Tween Command(Tween gfx)
 			{
 				card.Visible = false;
-				player.Deck.Add(card);
+				card.Controller.Deck.Add(card);
 				var globalPosition = card.Translation;
-				player.Deck.Remove(card);
-				player.Hand.Add(card);
+				card.Controller.Deck.Remove(card);
+				card.Controller.Hand.Add(card);
 				var globalDestination = card.Translation;
 				var rotation = new Vector3(-25, 180, 0);
 				
@@ -51,46 +51,46 @@ namespace CardGame.Client.Game
 	        return Command;
         }
         
-        public Command Deploy(IPlayer player, Card card)
+        public Command Deploy(Card card)
         {
 	        Tween Command(Tween gfx)
 	        {
-		        if (player is Opponent)
+		        if (card.Controller is Opponent)
 		        {
-			        var fakeCard = player.Hand[0];
-			        player.Hand.Remove(fakeCard);
-			        player.Hand.Add(card);
+			        var fakeCard = card.Controller.Hand[0];
+			        card.Controller.Hand.Remove(fakeCard);
+			        card.Controller.Hand.Add(card);
 			        fakeCard.Free();
 		        }
 
 		        var origin = card.Translation;
-		        var destination = player.Units.NextSlot() + new Vector3(0, 0, 0.05F);
+		        var destination = card.Controller.Units.NextSlot() + new Vector3(0, 0, 0.05F);
 
-		        player.Hand.Remove(card);
-		        player.Units.Add(card);
+		        card.Controller.Hand.Remove(card);
+		        card.Controller.Units.Add(card);
 
 		        gfx.InterpolateProperty(card, nameof(card.Translation), origin, destination, 0.3F);
 		        gfx.InterpolateProperty(card, nameof(card.RotationDegrees), new Vector3(-25, 180, 0), new Vector3(0, 180, 0), 0.1F);
-		        gfx.InterpolateCallback(player.Hand, 0.2F, nameof(Hand.Sort));
+		        gfx.InterpolateCallback(card.Controller.Hand, 0.2F, nameof(Hand.Sort));
 		        return gfx;
 	        }
 
 	        return Command;
         }
         
-        public Command SetFaceDown(IPlayer player, Card card)
+        public Command SetFaceDown(Card card)
         {
 	        Tween Command(Tween gfx)
 	        {
 		        var origin = card.Translation;
-		        var destination = player.Support.NextSlot() + new Vector3(0, 0, 0.05F);
+		        var destination = card.Controller.Support.NextSlot() + new Vector3(0, 0, 0.05F);
 
-		        player.Hand.Remove(card);
-		        player.Support.Add(card);
+		        card.Controller.Hand.Remove(card);
+		        card.Controller.Support.Add(card);
 
 		        gfx.InterpolateProperty(card, nameof(card.Translation), origin, destination, 0.3F);
 		        gfx.InterpolateProperty(card, nameof(card.RotationDegrees), new Vector3(-25, 180, 0), new Vector3(0, 0, 0), 0.1F);
-		        gfx.InterpolateCallback(player.Hand, 0.2F, nameof(Hand.Sort));
+		        gfx.InterpolateCallback(card.Controller.Hand, 0.2F, nameof(Hand.Sort));
 		        return gfx;
 	        }
 	        return Command;
@@ -136,24 +136,24 @@ namespace CardGame.Client.Game
 	        return Command;
         }
         
-        public Command SendCardToGraveyard(IPlayer player, Card card)
+        public Command SendCardToGraveyard(Card card)
         {
 	        Tween Command(Tween gfx)
 	        {
 		        // Use Zone Properties On Cards In Future
-		        if (player.Units.Contains(card))
+		        if (card.Controller.Units.Contains(card))
 		        {
-			        player.Units.Remove(card);
+			        card.Controller.Units.Remove(card);
 		        }
-		        else if(player.Support.Contains(card))
+		        else if(card.Controller.Support.Contains(card))
 		        {
-			        player.Support.Remove(card);
+			        card.Controller.Support.Remove(card);
 		        }
 				
-		        player.Graveyard.Add(card);
+		        card.OwningPlayer.Graveyard.Add(card);
 				
 		        var origin = card.Translation;
-		        var destination = player.Graveyard.GlobalTransform.origin + new Vector3(0, 0, 0.1F);
+		        var destination = card.OwningPlayer.Graveyard.GlobalTransform.origin + new Vector3(0, 0, 0.1F);
 
 		        gfx.InterpolateProperty(card, nameof(card.Translation), origin, destination, 0.3F);
 		        return gfx;

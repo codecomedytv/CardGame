@@ -156,7 +156,7 @@ namespace CardGame.Client.Game
 
         private void OnDraw(int cardId = 0, bool isOpponent = false)
         {
-            var command = isOpponent ? CommandFactory.Draw(Opponent) : CommandFactory.Draw(Player, Cards[cardId]);
+            var command = isOpponent ? CommandFactory.Draw(Opponent) : CommandFactory.Draw(Cards[cardId]);
             CommandQueue.Add(command);
         }
 
@@ -196,15 +196,15 @@ namespace CardGame.Client.Game
             Cards.Add(id, card);
         }
 
-        private void OnCardDeployed(int id, bool isOpponent)
+        private void OnCardDeployed(int id)
         {
-            var command = isOpponent ? CommandFactory.Deploy(Opponent, Cards[id]) : CommandFactory.Deploy(Player, Cards[id]);
+            var command = CommandFactory.Deploy(Cards[id]); 
             CommandQueue.Add(command);
         }
 
         private void OnCardSetFaceDown(int id, bool isOpponent)
         {
-            var command = isOpponent ? CommandFactory.SetFaceDown(Opponent) : CommandFactory.SetFaceDown(Player, Cards[id]);
+            var command = isOpponent ? CommandFactory.SetFaceDown(Opponent) : CommandFactory.SetFaceDown(Cards[id]);
             CommandQueue.Add(command);
         }
 
@@ -215,10 +215,10 @@ namespace CardGame.Client.Game
             CommandQueue.Add(command);
         }
 
-        public void OnCardSentToZone(int cardId, int zoneId, bool isOpponent)
+        public void OnCardSentToZone(int cardId, int zoneId)
         {
             // We may want to make this more specific on server-side too
-            var command = isOpponent ? CommandFactory.SendCardToGraveyard(Opponent, Cards[cardId]) : CommandFactory.SendCardToGraveyard(Player, Cards[cardId]);
+            var command = CommandFactory.SendCardToGraveyard(Cards[cardId]);
             CommandQueue.Add(command);
         }
         
