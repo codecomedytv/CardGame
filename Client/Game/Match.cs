@@ -154,10 +154,14 @@ namespace CardGame.Client.Game
             Player.LoadDeck(deck);
         }
 
-        private void OnDraw(int cardId = 0, bool isOpponent = false)
+        private void OnDraw(int cardId)
         {
-            var command = isOpponent ? CommandFactory.Draw(Opponent) : CommandFactory.Draw(Cards[cardId]);
-            CommandQueue.Add(command);
+            CommandQueue.Add(new Draw(Cards[cardId]));
+        }
+
+        private void OnDraw()
+        {
+            CommandQueue.Add(new OpponentDraw(Opponent));
         }
 
         private void OnCardUpdated(int id, CardStates state, IEnumerable<int> attackTargets, IEnumerable<int> targets)
