@@ -10,13 +10,14 @@ namespace CardGame.Client.Game
     {
         private static int _matchDebugCount = 0;
         private readonly Catalog Cards = new Catalog();
-        private readonly CommandQueue CommandQueue = new CommandQueue();
+        private readonly Queue<Command> CommandQueue = new Queue<Command>();
         private readonly Messenger Messenger = new Messenger();
         private readonly CardFactory CardFactory;
         private readonly Table Table;
         private Player Player;
         private Opponent Opponent;
         private readonly GameInput GameInput = new GameInput();
+        private readonly Tween Gfx = new Tween();
 
         public Match()
         {
@@ -30,9 +31,7 @@ namespace CardGame.Client.Game
             AddChild(Table, true);
             AddChild(Messenger);
             AddChild(GameInput);
-            var t = new Tween();
-            Table.AddChild(t);
-            CommandQueue.Gfx = t;
+            AddChild(Gfx);
 
             Player = (Player) Table.PlayerView; // Has To Come After Adding Table for view reference
             Opponent = (Opponent) Table.OpponentView;
@@ -112,9 +111,13 @@ namespace CardGame.Client.Game
             };
         }
 
-        private void Execute()
-        { 
-            CommandQueue.Execute();
+        private async void Execute()
+        {
+            while(CommandQueue.Count > 0)
+            {
+                var cmd = CommandQueue.Dequeue();
+                await cmd.Execute(Gfx);
+            }
         }
 
         private void LoadOpponentDeck()
@@ -152,17 +155,17 @@ namespace CardGame.Client.Game
         private void OnStateSet(States state)
         {
             GD.Print($"Setting State To {state}");
-            CommandQueue.Add(new SetState(Player, state));
+            CommandQueue.Enqueue(new SetState(Player, state));
         }
 
         private void OnDraw(int cardId)
         {
-            CommandQueue.Add(new Draw(Cards[cardId]));
+            CommandQueue.Enqueue(new Draw(Cards[cardId]));
         }
 
         private void OnDraw()
         {
-            CommandQueue.Add(new OpponentDraw(Opponent));
+            CommandQueue.Enqueue(new OpponentDraw(Opponent));
         }
 
         private void OnCardUpdated(int id, CardStates state, IList<int> attackTargets, IList<int> targets)
@@ -184,54 +187,54 @@ namespace CardGame.Client.Game
 
         private void OnCardDeployed(int id)
         {
-            CommandQueue.Add(new Deploy(Cards[id]));
+            CommandQueue.Enqueue(new Deploy(Cards[id]));
         }
 
         private void OnCardSetFaceDown(int id)
         {
-            CommandQueue.Add(new SetFaceDown(Cards[id]));
+            CommandQueue.Enqueue(new SetFaceDown(Cards[id]));
         }
 
         private void OnCardSetFaceDown()
         {
-            CommandQueue.Add(new OpponentSetFaceDown(Opponent));
+            CommandQueue.Enqueue(new OpponentSetFaceDown(Opponent));
         }
 
         private void OnCardActivated(int id, int targetId = 0)
         {
-            CommandQueue.Add(new Activate(Opponent, Cards[id]));
+            CommandQueue.Enqueue(new Activate(Opponent, Cards[id]));
         }
 
         public void OnCardSentToZone(int cardId, int zoneId)
         {
-            CommandQueue.Add(new SendCardToGraveyard(Cards[cardId]));
+            CommandQueue.Enqueue(new SendCardToGraveyard(Cards[cardId]));
         }
         
         public void OnOpponentAttackUnit(int attackerId, int defenderId)
         {
-            CommandQueue.Add(new DeclareAttack(Cards[attackerId], Cards[defenderId]));
+            CommandQueue.Enqueue(new DeclareAttack(Cards[attackerId], Cards[defenderId]));
         }
 
         public void OnOpponentAttackDirectly(int attackerId)
         {
             // The Declaration
-            CommandQueue.Add(new DeclareDirectAttack(Player, Cards[attackerId]));
+            CommandQueue.Enqueue(new DeclareDirectAttack(Player, Cards[attackerId]));
         }
         
         private void OnUnitBattled(int attackerId, int defenderId, bool isOpponent)
         {
-            CommandQueue.Add(new Battle(Cards[attackerId], Cards[defenderId]));
+            CommandQueue.Enqueue(new Battle(Cards[attackerId], Cards[defenderId]));
         }
 
         private void OnDirectAttack(int attackerId, bool isOpponent)
         {
             // Actual Attack
-            CommandQueue.Add(new DirectAttack(GetPlayer(isOpponent), Cards[attackerId]));
+            CommandQueue.Enqueue(new DirectAttack(GetPlayer(isOpponent), Cards[attackerId]));
         }
 
         private void OnLifeLost(int lifeLost, bool isOpponent)
         {
-            CommandQueue.Add(new LoseLife(GetPlayer(isOpponent), lifeLost));
+            CommandQueue.Enqueue(new LoseLife(GetPlayer(isOpponent), lifeLost));
         }
         
 
