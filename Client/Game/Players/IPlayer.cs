@@ -19,7 +19,7 @@ namespace CardGame.Client.Game.Players
         
         // Need To Refactor This?
         // Move To CommandFactory At Least
-        Command Attack(Card attacker, Card defender);
+        //Command Attack(Card attacker, Card defender);
         Command AttackDirectly(Card attacker);
         Command LoseLife(int lifeLost);
 

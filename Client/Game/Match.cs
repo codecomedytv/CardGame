@@ -219,8 +219,7 @@ namespace CardGame.Client.Game
         
         public void OnOpponentAttackUnit(int attackerId, int defenderId)
         {
-            var command = Opponent.Attack(Cards[attackerId], Cards[defenderId]);
-            CommandQueue.Add(command);
+            CommandQueue.Add(new DeclareAttack(Cards[attackerId], Cards[defenderId]));
         }
 
         public void OnOpponentAttackDirectly(int attackerId)

@@ -74,12 +74,6 @@ namespace CardGame.Client.Game.Players
 			Connect(nameof(StateChanged), card, nameof(Card.OnPlayerStateChanged));
 		}
 		
-		public Command Attack(Card attacker, Card defender)
-		{
-			throw new System.NotImplementedException();
-		}
-		
-
 		public Command AttackDirectly(Card attacker)
 		{
 			Tween Command(Tween gfx)

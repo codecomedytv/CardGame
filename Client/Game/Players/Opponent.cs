@@ -45,18 +45,6 @@ namespace CardGame.Client.Game.Players
 			}
 		}
 		
-		public Command Attack(Card attacker, Card defender)
-		{
-			Tween Command(Tween gfx)
-			{
-				gfx.InterpolateCallback(attacker, 0.1F, nameof(Card.Attack));
-				gfx.InterpolateCallback(defender, 0.1F, nameof(Card.Defend));
-				return gfx;
-			}
-
-			return Command;
-		}
-
 		public Command AttackDirectly(Card attacker)
 		{
 			Tween Command(Tween gfx)
