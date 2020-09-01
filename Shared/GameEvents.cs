@@ -24,8 +24,10 @@
 
     public enum Commands
     {
-        // We may merge this with events in future
-        // Have to considered things like "bounce" etc && SendCardToZone differences
+        // We may merge Commands with Events in future but..
+        // .. we need to consider more specific events (no "SentToZone")
+        
+        // Some unhandled events are not listed for the time being
         Draw,
         LoadDeck,
         UpdateCard,
@@ -38,14 +40,7 @@
         OpponentAttackUnit,
         OpponentAttackDirectly,
         LoseLife,
-        
-        // Unhandled
-        ResolveCard,
-        Trigger,
-        GameOver,
         DirectAttack,
-        BounceCard,
-        TargetRequested,
         SetState
     }
 }

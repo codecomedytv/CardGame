@@ -3,14 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Players;
+using CardGame.Server.Game.Events;
 using Godot;
 
 namespace CardGame.Client.Game
 {
     public class Match: Spatial
     {
-        [Signal] private delegate void QueueCommand();
-        
         private static int _matchDebugCount = 0;
         private readonly Catalog Cards = new Catalog();
         private readonly Queue<Command> CommandQueue = new Queue<Command>();
@@ -36,7 +35,8 @@ namespace CardGame.Client.Game
             AddChild(GameInput);
             AddChild(Gfx);
 
-            Player = (Player) Table.PlayerView; // Has To Come After Adding Table for view reference
+            // Change Back Into ControllerModel/View Objects
+            Player = (Player) Table.PlayerView;
             Opponent = (Opponent) Table.OpponentView;
             GameInput.User = Player;
             GameInput.Opponent = Opponent;
@@ -78,41 +78,7 @@ namespace CardGame.Client.Game
 
         private void Queue(Commands command, params object[] args)
         {
-            // Is this unnecessary? Could we just get the strings directly and skip the event manager step?
-            Connect(nameof(QueueCommand), this, GetCommandName(command), null, (uint) ConnectFlags.Oneshot);
-            EmitSignal(nameof(QueueCommand), args);
-        }
-
-        private void NotFound(IEnumerable args)
-        {
-            GD.PushWarning($"Method with args {args} not found");
-        }
-
-        private string GetCommandName(Commands command)
-        {
-            return command switch
-            {
-                Commands.Draw => nameof(OnDraw),
-                Commands.LoadDeck => nameof(OnLoadDeck),
-                Commands.UpdateCard => nameof(OnCardUpdated),
-                Commands.Deploy => nameof(OnCardDeployed),
-                Commands.RevealCard => nameof(OnCardRevealed),
-                Commands.SetFaceDown => nameof(OnCardSetFaceDown),
-                Commands.Activate => nameof(OnCardActivated),
-                Commands.SendCardToZone => nameof(OnCardSentToZone),
-                Commands.BattleUnit => nameof(OnUnitBattled),
-                Commands.OpponentAttackUnit => nameof(OnOpponentAttackUnit),
-                Commands.OpponentAttackDirectly => nameof(OnOpponentAttackDirectly),
-                Commands.DirectAttack => nameof(OnDirectAttack),
-                Commands.LoseLife => nameof(OnLifeLost),
-                Commands.ResolveCard => nameof(NotFound),
-                Commands.Trigger => nameof(NotFound),
-                Commands.GameOver => nameof(NotFound),
-                Commands.BounceCard => nameof(NotFound),
-                Commands.TargetRequested => nameof(NotFound),
-                Commands.SetState => nameof(OnStateSet),
-                _ => throw new NotSupportedException($"Command {command} has no Counterpart Method")
-            };
+            Call(command.ToString(), args);
         }
         
         private void LoadOpponentDeck()
@@ -131,7 +97,7 @@ namespace CardGame.Client.Game
             Opponent.LoadDeck(deck);
         }
 
-        private void OnLoadDeck(Godot.Collections.Dictionary<int, SetCodes> deckList)
+        private void LoadDeck(Godot.Collections.Dictionary<int, SetCodes> deckList)
         {
             var deck = new System.Collections.Generic.List<Card>();
             foreach (var kv in deckList)
@@ -147,7 +113,7 @@ namespace CardGame.Client.Game
             Player.LoadDeck(deck);
         }
         
-        public void OnCardRevealed(int id, SetCodes setCode, int zoneIds)
+        public void RevealCard(int id, SetCodes setCode, int zoneIds)
                 {
                     // We already know our own cards (so far) so we revealed cards default to Opponents;
                     // Could we pre-send opponent cards ids over? Would it be meaningful if all info remains on server
@@ -159,74 +125,74 @@ namespace CardGame.Client.Game
                     Cards.Add(id, card);
                 }
 
-        private void OnStateSet(States state)
+        private void SetState(States state)
         {
             CommandQueue.Enqueue(new SetState(Player, state));
         }
 
-        private void OnDraw(int cardId)
+        private void Draw(int cardId)
         {
             CommandQueue.Enqueue(new Draw(Cards[cardId]));
         }
 
-        private void OnDraw()
+        private void Draw()
         {
             CommandQueue.Enqueue(new OpponentDraw(Opponent));
         }
 
-        private void OnCardUpdated(int id, CardStates state, IList<int> attackTargets, IList<int> targets)
+        private void UpdateCard(int id, CardStates state, IList<int> attackTargets, IList<int> targets)
         {
             Cards[id].Update(state, targets, attackTargets);
         }
 
-        private void OnCardDeployed(int id)
+        private void Deploy(int id)
         {
             CommandQueue.Enqueue(new Deploy(Cards[id]));
         }
 
-        private void OnCardSetFaceDown(int id)
+        private void SetFaceDown(int id)
         {
             CommandQueue.Enqueue(new SetFaceDown(Cards[id]));
         }
 
-        private void OnCardSetFaceDown()
+        private void SetFaceDown()
         {
             CommandQueue.Enqueue(new OpponentSetFaceDown(Opponent));
         }
 
-        private void OnCardActivated(int id, int targetId = 0)
+        private void Activate(int id, int targetId = 0)
         {
             CommandQueue.Enqueue(new Activate(Opponent, Cards[id]));
         }
 
-        public void OnCardSentToZone(int cardId, int zoneId)
+        public void SendCardToZone(int cardId, int zoneId)
         {
             CommandQueue.Enqueue(new SendCardToGraveyard(Cards[cardId]));
         }
         
-        public void OnOpponentAttackUnit(int attackerId, int defenderId)
+        public void OpponentAttackUnit(int attackerId, int defenderId)
         {
             CommandQueue.Enqueue(new DeclareAttack(Cards[attackerId], Cards[defenderId]));
         }
 
-        public void OnOpponentAttackDirectly(int attackerId)
+        public void OpponentAttackDirectly(int attackerId)
         {
             // The Declaration
             CommandQueue.Enqueue(new DeclareDirectAttack(Player, Cards[attackerId]));
         }
         
-        private void OnUnitBattled(int attackerId, int defenderId, bool isOpponent)
+        private void BattleUnit(int attackerId, int defenderId, bool isOpponent)
         {
             CommandQueue.Enqueue(new Battle(Cards[attackerId], Cards[defenderId]));
         }
 
-        private void OnDirectAttack(int attackerId, bool isOpponent)
+        private void DirectAttack(int attackerId, bool isOpponent)
         {
             // Actual Attack
             CommandQueue.Enqueue(new DirectAttack(GetPlayer(isOpponent), Cards[attackerId]));
         }
 
-        private void OnLifeLost(int lifeLost, bool isOpponent)
+        private void LoseLife(int lifeLost, bool isOpponent)
         {
             CommandQueue.Enqueue(new LoseLife(GetPlayer(isOpponent), lifeLost));
         }

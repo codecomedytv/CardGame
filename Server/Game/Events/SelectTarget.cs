@@ -20,12 +20,5 @@ namespace CardGame.Server.Game.Events
             GD.Print($"Valid Targets Count is {validTargets.Count} (Source SelectTargetEvent)");
 
         }
-
-        public override void SendMessage(Message message)
-        {
-            GD.Print($"Valid Targets Count is {Targets.Select(c => c.Id).ToList().Count} (Source SelectTargetMessage)");
-            List<int> targets = Targets.Select(c => c.Id).ToList();
-            message(Player.Id, Commands.TargetRequested, targets);
-        }
     }
 }

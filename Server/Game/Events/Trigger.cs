@@ -20,11 +20,6 @@ namespace CardGame.Server.Game.Events
             Skill = skill;
             PositionInLink = skill.PositionInLink;
         }
-
-        public override void SendMessage(Message message)
-        {
-            message(Player.Id, Commands.Trigger, Card.Id, PositionInLink);
-            message(Player.Opponent.Id, Commands.Trigger, Card.Id, PositionInLink);
-        }
+        
     }
 }

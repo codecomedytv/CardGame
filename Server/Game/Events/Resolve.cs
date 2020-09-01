@@ -17,11 +17,6 @@ namespace CardGame.Server.Game.Events
         }
 
         private int TargetId => Target?.Id ?? 0;
-
-        public override void SendMessage(Message message)
-        {
-            message(Card.Controller.Id, Commands.ResolveCard, Card.Id, TargetId);
-            message(Card.Opponent.Id, Commands.ResolveCard, Card.Id, TargetId);
-        }
+        
     }
 }

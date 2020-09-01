@@ -13,13 +13,5 @@
             Winner = winner;
             Loser = loser;
         }
-
-        public override void SendMessage(Message message)
-        {
-            const bool won = true;
-            const bool lost = false;
-            message(Winner.Id, Commands.GameOver, won);
-            message(Loser.Id, Commands.GameOver, lost);
-        }
     }
 }
