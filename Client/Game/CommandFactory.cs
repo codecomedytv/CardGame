@@ -51,33 +51,6 @@ namespace CardGame.Client.Game
 	        return Command;
         }
         
-        public Command Deploy(Card card)
-        {
-	        Tween Command(Tween gfx)
-	        {
-		        if (card.Controller is Opponent)
-		        {
-			        var fakeCard = card.Controller.Hand[0];
-			        card.Controller.Hand.Remove(fakeCard);
-			        card.Controller.Hand.Add(card);
-			        fakeCard.Free();
-		        }
-
-		        var origin = card.Translation;
-		        var destination = card.Controller.Units.NextSlot() + new Vector3(0, 0, 0.05F);
-
-		        card.Controller.Hand.Remove(card);
-		        card.Controller.Units.Add(card);
-
-		        gfx.InterpolateProperty(card, nameof(card.Translation), origin, destination, 0.3F);
-		        gfx.InterpolateProperty(card, nameof(card.RotationDegrees), new Vector3(-25, 180, 0), new Vector3(0, 180, 0), 0.1F);
-		        gfx.InterpolateCallback(card.Controller.Hand, 0.2F, nameof(Hand.Sort));
-		        return gfx;
-	        }
-
-	        return Command;
-        }
-        
         public Command SetFaceDown(Card card)
         {
 	        Tween Command(Tween gfx)
@@ -117,50 +90,6 @@ namespace CardGame.Client.Game
 	        return Command;
         }
         
-        public Command Activate(Opponent opponent, Card card)
-        {
-	        Tween Command(Tween gfx)
-	        {
-		        var fakeCard = opponent.Support[0];
-		        opponent.Support.Remove(fakeCard);
-		        opponent.Support.Add(card);
-		        card.Translation = fakeCard.Translation;
-		        fakeCard.Free();
-
-		        gfx.InterpolateProperty(card, nameof(card.RotationDegrees), new Vector3(0, 0, 0), new Vector3(0, 180, 0),
-			        0.1F);
-
-		        return gfx;
-	        }
-
-	        return Command;
-        }
-        
-        public Command SendCardToGraveyard(Card card)
-        {
-	        Tween Command(Tween gfx)
-	        {
-		        // Use Zone Properties On Cards In Future
-		        if (card.Controller.Units.Contains(card))
-		        {
-			        card.Controller.Units.Remove(card);
-		        }
-		        else if(card.Controller.Support.Contains(card))
-		        {
-			        card.Controller.Support.Remove(card);
-		        }
-				
-		        card.OwningPlayer.Graveyard.Add(card);
-				
-		        var origin = card.Translation;
-		        var destination = card.OwningPlayer.Graveyard.GlobalTransform.origin + new Vector3(0, 0, 0.1F);
-
-		        gfx.InterpolateProperty(card, nameof(card.Translation), origin, destination, 0.3F);
-		        return gfx;
-	        }
-			
-	        return Command;
-        }
         
         public Command Battle(Card attacker, Card defender)
         {
