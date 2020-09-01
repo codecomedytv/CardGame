@@ -162,13 +162,13 @@ namespace CardGame.Client.Game
 	        return Command;
         }
         
-        public Command Battle(IPlayer player, Card attacker, Card defender)
+        public Command Battle(Card attacker, Card defender)
         {
 	        Tween Command(Tween gfx)
 	        {
 		       
-		        var attackerY = player is Opponent ? 1.75F : 0.5F;
-		        var defenderY = player is Opponent ? 1.75F : 0.5F;
+		        var attackerY = attacker.Controller is Opponent ? 1.75F : 0.5F;
+		        var defenderY = attacker.Controller is Opponent ? 1.75F : 0.5F;
 		        var attackerDestination = new Vector3(2.5F, attackerY, attacker.Translation.z);
 		        var defenderDestination = new Vector3(2.5F, defenderY, defender.Translation.z);
 

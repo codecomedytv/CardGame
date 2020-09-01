@@ -6,7 +6,7 @@ namespace CardGame.Client.Game
 {
     public delegate Tween Command(Tween gfx);
 
-    public class CommandQueue: Godot.Object
+    public class CommandQueue //: //Godot.Object
     {
         private readonly Queue<Command> Commands = new Queue<Command>();
         public Tween Gfx; // Temp
@@ -25,7 +25,7 @@ namespace CardGame.Client.Game
                 var command = Commands.Dequeue();
                 var executor = command(Gfx);
                 executor.Start();
-                await ToSignal(executor, "tween_all_completed"); // hate it
+                await Gfx.ToSignal(executor, "tween_all_completed"); // hate it
                 executor.RemoveAll();
             }
         }
