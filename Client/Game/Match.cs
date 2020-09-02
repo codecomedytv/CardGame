@@ -3,6 +3,7 @@ using System.Linq;
 using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Players;
 using Godot;
+using Card = CardGame.Server.Game.Cards.Card;
 
 namespace CardGame.Client.Game
 {
@@ -84,23 +85,20 @@ namespace CardGame.Client.Game
             CommandQueue.Enqueue(new OpponentLoadDeck(Opponent, CardFactory, card => AddChild(card)));
         }
         
-
-        // Connect(nameof(StateChanged), card, nameof(Card.OnPlayerStateChanged));
-  
         private void LoadDeck(IDictionary<int, SetCodes> deckList)
         {
-            var deck = new List<Card>();
             foreach (var (key, value) in deckList.Select(p => (p.Key, p.Value)))
             {
                 var card = CardFactory.Create(key, value);
-                AddChild(card); // Move To CardCatalog?
+                AddChild(card);
                 Cards.Add(key, card);
                 card.MouseOvered = GameInput.OnMousedOverCard;
                 card.MouseOveredExit = GameInput.OnMousedOverExitCard;
-                deck.Add(card);
+                card.OwningPlayer = Player;
+                card.Controller = Player;
+                Player.Deck.Add(card);
+                Player.Connect(nameof(Player.StateChanged), card, nameof(card.OnPlayerStateChanged));
             }
-            
-            Player.LoadDeck(deck);
         }
         
         public void RevealCard(int id, SetCodes setCode, int zoneIds)
@@ -108,7 +106,8 @@ namespace CardGame.Client.Game
             // We already know our own cards (so far) so we revealed cards default to Opponents;
             // Could we pre-send opponent cards ids over? Would it be meaningful if all info remains on server
             var card = CardFactory.Create(id, setCode);
-            Opponent.RegisterCard(card);
+            card.OwningPlayer = Opponent;
+            card.Controller = Opponent;
             AddChild(card);
             card.MouseOvered = GameInput.OnMousedOverCard;
             card.MouseOveredExit = GameInput.OnMousedOverExitCard;

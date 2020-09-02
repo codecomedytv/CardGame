@@ -8,7 +8,7 @@ namespace CardGame.Client.Game.Players
 	public class Player: Spatial, IPlayer
 	{
 		[Signal]
-		private delegate void StateChanged();
+		public delegate void StateChanged();
 
 		private Sprite DefendingIcon { get; set; }
 		private TextureProgress LifeBar { get; set; }
@@ -55,23 +55,6 @@ namespace CardGame.Client.Game.Players
 			LifeCount = (Label) GetNode("Life/Count");
 			LifeChange = (Label) GetNode("Life/Change");
 			DefendingIcon = (Sprite) GetNode("Defending");
-		}
-		
-		public void LoadDeck(IEnumerable<Card> deck)
-		{
-			foreach (var card in deck)
-			{
-				RegisterCard(card);
-				Deck.Add(card);
-			}
-		}
-
-		public void RegisterCard(Card card)
-		{
-			// card.Player = this;
-			card.OwningPlayer = this;
-			card.Controller = this;
-			Connect(nameof(StateChanged), card, nameof(Card.OnPlayerStateChanged));
 		}
 		
 		public void LoseLife(int lifeLost, Tween gfx)

@@ -14,11 +14,7 @@ namespace CardGame.Client.Game.Players
         Hand Hand { get; }
         Units Units { get; }
         Support Support { get; }
-        void RegisterCard(Card card);
-        void LoadDeck(IEnumerable<Card> deck);
-      //  Command AttackDirectly(Card attacker);
         void LoseLife(int lifeLost, Tween gfx);
-
         void StopDefending();
 
     }

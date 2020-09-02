@@ -30,21 +30,6 @@ namespace CardGame.Client.Game.Players
 			DefendingIcon = (Sprite) GetNode("Defending");
 		}
 		
-		public void RegisterCard(Card card)
-		{
-			// card.Player = this;
-			card.OwningPlayer = this;
-			card.Controller = this;
-		}
-
-		public void LoadDeck(IEnumerable<Card> deck)
-		{
-			foreach (var card in deck)
-			{
-				Deck.Add(card);
-			}
-		}
-		
 		public void LoseLife(int lifeLost, Tween gfx)
 		{
 			var newLife = GD.Str(LifeCount.Text.ToInt() - lifeLost);
