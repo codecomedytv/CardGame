@@ -2,10 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Players;
-using CardGame.Client.Game.Zones;
-using CardGame.Server.Game.Events;
 using Godot;
-using Card = CardGame.Server.Game.Cards.Card;
 
 namespace CardGame.Client.Game
 {
