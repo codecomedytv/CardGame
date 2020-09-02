@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Zones;
@@ -7,8 +8,7 @@ namespace CardGame.Client.Game.Players
 {
 	public class Player: Spatial, IPlayer
 	{
-		[Signal]
-		public delegate void StateChanged();
+		public event Action<States> StateChanged;
 
 		private Sprite DefendingIcon { get; set; }
 		private TextureProgress LifeBar { get; set; }
@@ -27,12 +27,11 @@ namespace CardGame.Client.Game.Players
 			get => BackingState;
 			set => SetState(value);
 		}
-
-
+		
 		private States SetState(States state)
 		{
 			BackingState = state;
-			EmitSignal(nameof(StateChanged), state);
+			StateChanged?.Invoke(state);
 			return state;
 		}
 		

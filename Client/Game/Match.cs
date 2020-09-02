@@ -85,7 +85,7 @@ namespace CardGame.Client.Game
 				card.Controller = Player;
 				card.MouseOvered = GameInput.OnMousedOverCard;
 				card.MouseOveredExit = GameInput.OnMousedOverExitCard;
-				Player.Connect(nameof(Player.StateChanged), card, nameof(card.OnPlayerStateChanged));
+				Player.StateChanged += card.OnPlayerStateChanged;
 				Player.Deck.Add(card);
 			}
 		}
