@@ -7,6 +7,7 @@ namespace CardGame.Client.Game
 {
     public class Catalog: IEnumerable<Card>
     {
+        
         private readonly Dictionary<int, Card> Cards = new Dictionary<int, Card>();
         public void Add(int id, Card card) => Cards[id] = card;
         public Card this[int key] => Cards[key];

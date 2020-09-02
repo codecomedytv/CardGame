@@ -81,20 +81,12 @@ namespace CardGame.Client.Game
         
         private void LoadOpponentDeck()
         {
-            // Begin Loading Opponent Deck
-            Cards.Add(0, CardFactory.Create(0, SetCodes.NullCard));
-            // I don't really know where else to put this!
-            var deck = new List<Card>();
-            for (var i = 0; i < 40; i++)
-            {
-                var card = CardFactory.Create(0, SetCodes.NullCard);
-                AddChild(card); // Need to put this into a central area
-                deck.Add(card);
-            }
-            
-            Opponent.LoadDeck(deck);
+            CommandQueue.Enqueue(new OpponentLoadDeck(Opponent, CardFactory, card => AddChild(card)));
         }
+        
 
+        // Connect(nameof(StateChanged), card, nameof(Card.OnPlayerStateChanged));
+  
         private void LoadDeck(IDictionary<int, SetCodes> deckList)
         {
             var deck = new List<Card>();
