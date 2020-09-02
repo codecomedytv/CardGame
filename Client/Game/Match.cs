@@ -47,9 +47,10 @@ namespace CardGame.Client.Game
 			Messenger.CallDeferred("SetReady");
 
 			LoadOpponentDeck();
+			LoseLife(3000, false);
+			Execute();
 		}
 
-		
 		private async void Execute()
 		{
 			while(CommandQueue.Count > 0) { await CommandQueue.Dequeue().Execute(Gfx); }
@@ -60,7 +61,7 @@ namespace CardGame.Client.Game
 			Call(command.ToString(), args);
 		}
 		
-		// These 3 Methods (LoadDeck, OpponentLoadDeck & RevealCard) need to happen immediately..
+		// These 4 Methods (LoadDeck, OpponentLoadDeck, RevealCard & UpdateCard) need to happen immediately..
 		// ..rather than be queued otherwise everything else will cause an indexing error.
 		private void LoadOpponentDeck()
 		{
@@ -101,6 +102,11 @@ namespace CardGame.Client.Game
 			Cards.Add(id, card);
 		}
 		
+		private void UpdateCard(int id, CardStates state, IList<int> attackTargets, IList<int> targets)
+		{
+			Cards[id].Update(state, targets, attackTargets);
+		}
+		
 		private void SetState(States state)
 		{
 			CommandQueue.Enqueue(new SetState(Player, state));
@@ -115,12 +121,7 @@ namespace CardGame.Client.Game
 		{
 			CommandQueue.Enqueue(new OpponentDraw(Opponent));
 		}
-
-		private void UpdateCard(int id, CardStates state, IList<int> attackTargets, IList<int> targets)
-		{
-			Cards[id].Update(state, targets, attackTargets);
-		}
-
+		
 		private void Deploy(int id)
 		{
 			CommandQueue.Enqueue(new Deploy(Cards[id]));

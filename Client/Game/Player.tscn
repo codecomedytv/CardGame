@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Client/Assets/Font/Modded/LifeCount_Electrolize.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Client/Assets/HUD/HealthProgressElement.png" type="Texture" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Client/Game/Players/Player.cs" type="Script" id=11]
 [ext_resource path="res://Client/Game/Zones/Hand.cs" type="Script" id=12]
 [ext_resource path="res://Client/Game/Zones/Support.cs" type="Script" id=13]
+[ext_resource path="res://Client/Game/Players/HealthBar.cs" type="Script" id=14]
 
 [sub_resource type="DynamicFont" id=1]
 size = 128
@@ -95,12 +96,13 @@ pixel_size = 0.001
 texture = ExtResource( 5 )
 script = ExtResource( 9 )
 
-[node name="Life" type="Sprite" parent="."]
+[node name="Health" type="Sprite" parent="."]
 position = Vector2( 1550.14, 1000.35 )
 texture = ExtResource( 7 )
 centered = false
+script = ExtResource( 14 )
 
-[node name="Count" type="Label" parent="Life"]
+[node name="Count" type="Label" parent="Health"]
 margin_left = 130.0
 margin_top = 11.0
 margin_right = 227.0
@@ -116,12 +118,28 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Change" type="Label" parent="Life"]
+[node name="Bar" type="TextureProgress" parent="Health"]
+show_behind_parent = true
+margin_left = 18.0
+margin_top = 11.0
+margin_right = 352.0
+margin_bottom = 51.0
+max_value = 8000.0
+value = 8000.0
+texture_under = ExtResource( 3 )
+texture_progress = ExtResource( 2 )
+fill_mode = 1
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Change" type="Label" parent="Health"]
 visible = false
 margin_left = -868.809
-margin_top = -371.476
+margin_top = -400.0
 margin_right = -383.809
-margin_bottom = -218.476
+margin_bottom = -247.0
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0.760784, 0, 0, 1 )
@@ -129,21 +147,6 @@ custom_colors/font_color_shadow = Color( 1, 0, 0, 1 )
 custom_constants/shadow_offset_x = 5
 custom_constants/shadow_offset_y = 5
 text = "- 8000"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Bar" type="TextureProgress" parent="Life"]
-show_behind_parent = true
-margin_left = 18.0
-margin_top = 11.0
-margin_right = 352.0
-margin_bottom = 51.0
-value = 100.0
-texture_under = ExtResource( 3 )
-texture_progress = ExtResource( 2 )
-fill_mode = 1
-nine_patch_stretch = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

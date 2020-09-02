@@ -8,14 +8,18 @@ namespace CardGame.Client.Game.Players
 	public class Opponent: Spatial, IPlayer
 	{
 		private Sprite DefendingIcon { get; set; }
-		private TextureProgress LifeBar { get; set; }
-		private Label LifeCount { get; set; }
-		private Label LifeChange { get; set; }
-		public Units Units { get; set; }
-		public Support Support { get; set; }
-		public Hand Hand { get; set; }
-		public Graveyard Graveyard { get; set; }
-		public Deck Deck { get; set; }
+		private HealthBar HealthBar { get; set; }
+
+		public int Health
+		{
+			get => HealthBar.Value;
+			set => SetHealth(value);
+		}
+		public Units Units { get; private set; }
+		public Support Support { get; private set; }
+		public Hand Hand { get; private set; }
+		public Graveyard Graveyard { get; private set; }
+		public Deck Deck { get; private set; }
 
 		public override void _Ready()
 		{
@@ -24,23 +28,15 @@ namespace CardGame.Client.Game.Players
 			Hand = (Hand) GetNode("Hand");
 			Graveyard = (Graveyard) GetNode("Graveyard");
 			Deck = (Deck) GetNode("Deck");
-			LifeBar = (TextureProgress) GetNode("Life/Bar");
-			LifeCount = (Label) GetNode("Life/Count");
-			LifeChange = (Label) GetNode("Life/Change");
 			DefendingIcon = (Sprite) GetNode("Defending");
+			HealthBar = (HealthBar) GetNode("Health");
 		}
 		
-		public void LoseLife(int lifeLost, Tween gfx)
+		private int SetHealth(int health)
 		{
-			var newLife = GD.Str(LifeCount.Text.ToInt() - lifeLost);
-			var percentage = 100 - (int) ((lifeLost / 8000F) * 100);
-			LifeChange.Text = $"- {lifeLost}";
-			gfx.InterpolateCallback(LifeChange, 0.1F, "set_visible", true);
-			gfx.InterpolateCallback(LifeCount, 0.3F, "set_text", newLife);
-			gfx.InterpolateProperty(LifeBar, "value", (int) LifeBar.Value, percentage, 0.3F);
-			gfx.InterpolateCallback(LifeChange, 0.5F, "set_visible", false);
+			HealthBar.OnHealthChanged(Health - health);
+			return health;
 		}
-		
 
 		public void StopDefending()
 		{

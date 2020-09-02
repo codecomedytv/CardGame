@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Client/Assets/Font/Modded/LifeCount_Electrolize.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Client/Assets/HUD/HealthProgressElement.png" type="Texture" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Client/Game/Zones/Hand.cs" type="Script" id=11]
 [ext_resource path="res://Client/Game/Zones/Support.cs" type="Script" id=12]
 [ext_resource path="res://Client/Game/Players/Opponent.cs" type="Script" id=13]
+[ext_resource path="res://Client/Game/Players/HealthBar.cs" type="Script" id=14]
 
 [sub_resource type="DynamicFont" id=1]
 size = 128
@@ -96,18 +97,20 @@ pixel_size = 0.001
 texture = ExtResource( 5 )
 script = ExtResource( 9 )
 
-[node name="Life" type="Sprite" parent="."]
+[node name="Health" type="Sprite" parent="."]
 position = Vector2( 1553.36, 1.61325 )
 texture = ExtResource( 7 )
 centered = false
+script = ExtResource( 14 )
 
-[node name="Bar" type="TextureProgress" parent="Life"]
+[node name="Bar" type="TextureProgress" parent="Health"]
 show_behind_parent = true
 margin_left = 18.0
 margin_top = 11.0
 margin_right = 352.0
 margin_bottom = 51.0
-value = 100.0
+max_value = 8000.0
+value = 8000.0
 texture_under = ExtResource( 3 )
 texture_progress = ExtResource( 2 )
 fill_mode = 1
@@ -116,7 +119,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Count" type="Label" parent="Life"]
+[node name="Count" type="Label" parent="Health"]
 margin_left = 126.774
 margin_top = 10.7402
 margin_right = 223.774
@@ -132,7 +135,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Change" type="Label" parent="Life"]
+[node name="Change" type="Label" parent="Health"]
 visible = false
 margin_left = -872.029
 margin_top = 258.261

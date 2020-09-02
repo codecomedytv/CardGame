@@ -19,8 +19,11 @@ namespace CardGame.Client.Game
             AddChild(instance);
             PlayerView = (IPlayer) instance.GetNode("PlayMat/Player");
             OpponentView = (IPlayer) instance.GetNode("PlayMat/Opponent");
-            GetNode<Button>("Table3D/HUD/EndTurn").Connect("pressed", this, nameof(EndTurnPressed));
-            GetNode<Button>("Table3D/HUD/PassPlay").Connect("pressed", this, nameof(PassPlayPressed));
+            GetNode<Button>("Table3D/HUD/EndTurn").Connect("pressed", this, nameof(OnEndTurnPressed));
+            GetNode<Button>("Table3D/HUD/PassPlay").Connect("pressed", this, nameof(OnPassPlayPressed));
         }
+
+        private void OnPassPlayPressed() => PassPlayPressed();
+        private void OnEndTurnPressed() => EndTurnPressed();
     }
 }
