@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Players;
 using Godot;
@@ -94,14 +95,14 @@ namespace CardGame.Client.Game
             Opponent.LoadDeck(deck);
         }
 
-        private void LoadDeck(Dictionary<int, SetCodes> deckList)
+        private void LoadDeck(IDictionary<int, SetCodes> deckList)
         {
             var deck = new List<Card>();
-            foreach (var kv in deckList)
+            foreach (var (key, value) in deckList.Select(p => (p.Key, p.Value)))
             {
-                var card = CardFactory.Create(kv.Key, kv.Value);
+                var card = CardFactory.Create(key, value);
                 AddChild(card); // Move To CardCatalog?
-                Cards.Add(kv.Key, card);
+                Cards.Add(key, card);
                 card.MouseOvered = GameInput.OnMousedOverCard;
                 card.MouseOveredExit = GameInput.OnMousedOverExitCard;
                 deck.Add(card);
