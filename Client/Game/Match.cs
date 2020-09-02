@@ -53,9 +53,9 @@ namespace CardGame.Client.Game
 			GameInput.DirectAttack = Messenger.DeclareDirectAttack;
 			GameInput.PassPlay = Messenger.DeclarePassPlay;
 			GameInput.EndTurn = Messenger.DeclareEndTurn;
-			
-			Table.GetNode<Button>("Table3D/HUD/EndTurn").Connect("pressed", GameInput, nameof(GameInput.OnEndTurnPressed));
-			Table.GetNode<Button>("Table3D/HUD/PassPlay").Connect("pressed", GameInput, nameof(GameInput.OnPassPlayPressed));
+
+			Table.PassPlayPressed = GameInput.OnPassPlayPressed;
+			Table.EndTurnPressed = GameInput.OnEndTurnPressed;
 			Messenger.CallDeferred("SetReady");
 
 			LoadOpponentDeck();
@@ -72,6 +72,8 @@ namespace CardGame.Client.Game
 			Call(command.ToString(), args);
 		}
 		
+		// These 3 Methods (LoadDeck, OpponentLoadDeck & RevealCard) need to happen immediately..
+		// ..rather than be queued otherwise everything else will cause an indexing error.
 		private void LoadOpponentDeck()
 		{
 			for (var i = 0; i < 40; i++)
@@ -84,8 +86,6 @@ namespace CardGame.Client.Game
 			}
 		}
 		
-		// These 3 Methods (LoadDeck, OpponentLoadDeck & RevealCard) need to happen immediately..
-		// ..rather than be queued otherwise everything else will cause an indexing error.
 		private void LoadDeck(IDictionary<int, SetCodes> deckList)
 		{
 			foreach (var (key, value) in deckList.Select(p => (p.Key, p.Value)))

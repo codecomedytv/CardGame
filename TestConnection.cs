@@ -31,24 +31,19 @@ namespace CardGame
 
 		private void OnNodeAdded(Node node)
 		{
-			if(node is Match match)
-			{
-				if (GameCount > 0)
-				{
-					match.HideView();
-				}
-				GameCount += 1;
-			}
+			if (!(node is Match match)) return;
+			if (GameCount > 0) { match.HideView(); }
+			GameCount += 1;
 		}
 
-		public void HideButtons()
+		private void HideButtons()
 		{
 			HostJoinJoin.Visible = false;
 			HostJoin.Visible = false;
 			Join.Visible = false;
 		}
 
-		public void OnStartPressed()
+		private void OnStartPressed()
 		{
 			HideButtons();
 			AddChild(ServerConn);
@@ -63,7 +58,7 @@ namespace CardGame
 			Client2.Join();
 		}
 
-		public void OnHostJoinPressed()
+		private void OnHostJoinPressed()
 		{
 			HideButtons();
 			AddChild(ServerConn);
@@ -75,7 +70,7 @@ namespace CardGame
 			Client1.Join();
 		}
 
-		public void OnJoinPressed()
+		private void OnJoinPressed()
 		{
 			HideButtons();
 			AddChild(Client1);
