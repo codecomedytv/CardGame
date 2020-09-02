@@ -20,6 +20,12 @@ namespace CardGame.Client.Game
         public Player User;
         public Opponent Opponent;
 
+        public void Subscribe(Card card)
+        {
+            card.MouseOvered = OnMousedOverCard;
+            card.MouseOveredExit = OnMousedOverExitCard;
+        }
+
         public override void _Input(InputEvent gameEvent)
         {
             if (gameEvent is InputEventMouseButton mb && mb.Doubleclick && MousedOverCard != null)
