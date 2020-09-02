@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using CardGame.Client;
@@ -9,7 +10,7 @@ namespace CardGame
 {
 	public class TestConnection: Node
 	{
-		private int GameCount = 0;
+		private readonly IList<Match> Games = new List<Match>();
 		private readonly ServerConn ServerConn = new ServerConn();
 		private readonly ClientConn Client1 = new ClientConn();
 		private readonly ClientConn Client2 = new ClientConn();
@@ -29,12 +30,7 @@ namespace CardGame
 			Join.Connect("pressed", this, nameof(OnJoinPressed));
 		}
 
-		private void OnNodeAdded(Node node)
-		{
-			if (!(node is Match match)) return;
-			if (GameCount > 0) { match.HideView(); }
-			GameCount += 1;
-		}
+		private void OnNodeAdded(Node node) { if (node is Match match) { Games.Add(match); } }
 
 		private void HideButtons()
 		{
@@ -43,7 +39,7 @@ namespace CardGame
 			Join.Visible = false;
 		}
 
-		private void OnStartPressed()
+		private async void OnStartPressed()
 		{
 			HideButtons();
 			AddChild(ServerConn);
@@ -56,6 +52,14 @@ namespace CardGame
 			ServerConn.Host();
 			Client1.Join();
 			Client2.Join();
+			await ToSignal(GetTree().CreateTimer(0.1F), "timeout");
+			ReverseGameVisibility(Games[0]);
+		}
+
+		private void ReverseGameVisibility(Spatial game)
+		{
+			game.Visible = !game.Visible;
+			game.GetNode<Control>("Spatial/Table3D/HUD").Visible = game.Visible;
 		}
 
 		private void OnHostJoinPressed()
@@ -80,22 +84,9 @@ namespace CardGame
 
 		public override void _Process(float delta)
 		{
-			if (Input.IsActionJustPressed("ui_up"))
-			{
-				SwapTables();
-			}
-		}
-		
-		private void SwapTables()
-		{
+			if (!Input.IsActionJustPressed("ui_up")) return;
 			GD.Print("swapping games");
-			var games = GetTree().GetNodesInGroup("games");
-			Debug.Assert(games.Count == 2);
-			foreach (Spatial game in games)
-			{
-				game.Visible = !game.Visible;
-				game.GetNode<Control>("Spatial/Table3D/HUD").Visible = game.Visible;
-			}
+			foreach (var game in Games) { ReverseGameVisibility(game); }
 		}
 	}
 }

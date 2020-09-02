@@ -20,15 +20,6 @@ namespace CardGame.Client.Game
 		private readonly Table Table = new Table();
 		private Player Player;
 		private Opponent Opponent;
-
-		public void HideView()
-		{
-			// DebugUse
-			Visible = false;
-			Table.GetNode<Control>("Table3D/HUD").Visible = false;
-		}
-
-		public Match() { }
 		
 		public override void _Ready()
 		{

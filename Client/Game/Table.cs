@@ -14,7 +14,6 @@ namespace CardGame.Client.Game
         
         public Table()
         {
-            Name = "Table";
             var scene = (PackedScene) GD.Load("res://Client/Game/Table.tscn");
             var instance = (Spatial) scene.Instance();
             AddChild(instance);
