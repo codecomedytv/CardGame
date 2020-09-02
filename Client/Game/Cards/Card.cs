@@ -13,14 +13,14 @@ namespace CardGame.Client.Game.Cards
 		public string Title;
 		public int Power;
 		public CardType CardType;
-		public CardStates State;
+		private CardStates State;
 		private CardFace _face = CardFace.FaceDown;
 
-		public Sprite3D AttackingIcon;
-		public Sprite3D DefendingIcon;
+		private Sprite3D AttackingIcon;
+		private Sprite3D DefendingIcon;
 		public IZone Zone;
-		public IList<int> ValidTargets = new List<int>();
-		public IList<int> ValidAttackTargets = new List<int>();
+		private IList<int> ValidTargets = new List<int>();
+		private IList<int> ValidAttackTargets = new List<int>();
 		public IPlayer OwningPlayer { get; set; }
 		public IPlayer Controller { get; set; }
 

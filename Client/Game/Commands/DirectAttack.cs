@@ -21,7 +21,7 @@ namespace CardGame.Client.Game
             gfx.InterpolateProperty(Attacker, nameof(Translation), Attacker.Translation, destination, 0.1F);
             gfx.InterpolateProperty(Attacker, nameof(Translation), destination, Attacker.Translation, 0.1F,
                 Tween.TransitionType.Linear, Tween.EaseType.In, 0.3F);
-            gfx.InterpolateCallback(Attacker.AttackingIcon, 0.2F, "set_visible", false);
+            gfx.InterpolateCallback(Attacker, 0.2F, nameof(Card.StopAttacking));
             gfx.InterpolateCallback((Object) Player, 0.3F, nameof(Player.StopDefending));
         }
     }

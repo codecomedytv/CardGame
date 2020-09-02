@@ -28,7 +28,7 @@ namespace CardGame.Client.Game
             }
             else if (gameEvent is InputEventMouseButton mob && mob.Doubleclick && User.Attacking)
             {
-                User.CardInUse.AttackingIcon.Visible = false;
+                User.CardInUse.StopAttacking();
                 User.Attacking = false;
                 User.CardInUse = null;
                 
@@ -53,12 +53,12 @@ namespace CardGame.Client.Game
             if (User.CardInUse.HasAttackTarget(card))
             {
                 User.State = States.Processing;
-                card.DefendingIcon.Visible = true;
+                card.Defend();
                 Attack(User.CardInUse.Id, card.Id);
             }
             else
             {
-                User.CardInUse.AttackingIcon.Visible = false;
+                User.CardInUse.StopAttacking();
             }
 
             User.Attacking = false;
@@ -104,14 +104,14 @@ namespace CardGame.Client.Game
             
             else if (card.CanAttack)
             {
-                card.AttackingIcon.Visible = true;
+                card.Attack();
                 User.Attacking = true;
                 User.CardInUse = card;
             }
             
             else if (card.CanAttackDirectly)
             {
-                card.AttackingIcon.Visible = true;
+                card.Attack();
                 Opponent.Defend();
                 DirectAttack(card.Id);
             }

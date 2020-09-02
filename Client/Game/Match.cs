@@ -114,16 +114,16 @@ namespace CardGame.Client.Game
         }
         
         public void RevealCard(int id, SetCodes setCode, int zoneIds)
-                {
-                    // We already know our own cards (so far) so we revealed cards default to Opponents;
-                    // Could we pre-send opponent cards ids over? Would it be meaningful if all info remains on server
-                    var card = CardFactory.Create(id, setCode);
-                    Opponent.RegisterCard(card);
-                    AddChild(card);
-                    card.MouseOvered = GameInput.OnMousedOverCard;
-                    card.MouseOveredExit = GameInput.OnMousedOverExitCard;
-                    Cards.Add(id, card);
-                }
+        {
+            // We already know our own cards (so far) so we revealed cards default to Opponents;
+            // Could we pre-send opponent cards ids over? Would it be meaningful if all info remains on server
+            var card = CardFactory.Create(id, setCode);
+            Opponent.RegisterCard(card);
+            AddChild(card);
+            card.MouseOvered = GameInput.OnMousedOverCard;
+            card.MouseOveredExit = GameInput.OnMousedOverExitCard;
+            Cards.Add(id, card);
+        }
 
         private void SetState(States state)
         {
