@@ -11,23 +11,24 @@ namespace CardGame.Client.Game
 {
 	public class Match: Spatial
 	{
-		private static int _matchDebugCount = 0;
 		private readonly Catalog Cards = new Catalog();
 		private readonly Queue<Command> CommandQueue = new Queue<Command>();
 		private readonly Messenger Messenger = new Messenger();
 		private readonly CardFactory CardFactory = new CardFactory();
 		private readonly GameInput GameInput = new GameInput();
 		private readonly Tween Gfx = new Tween();
-		private readonly Table Table;
+		private readonly Table Table = new Table();
 		private Player Player;
 		private Opponent Opponent;
-		
 
-		public Match()
+		public void HideView()
 		{
-			AddToGroup("games");
-			Table = new Table();
+			// DebugUse
+			Visible = false;
+			Table.GetNode<Control>("Table3D/HUD").Visible = false;
 		}
+
+		public Match() { }
 		
 		public override void _Ready()
 		{
@@ -58,20 +59,9 @@ namespace CardGame.Client.Game
 			Messenger.CallDeferred("SetReady");
 
 			LoadOpponentDeck();
-			DebugCount();
 		}
 
-		private void DebugCount()
-		{
-			// Used For Testing In The Same Editor
-			if (_matchDebugCount > 0)
-			{
-				Visible = false;
-				Table.GetNode<Control>("Table3D/HUD").Visible = false;
-			}
-			_matchDebugCount += 1;    
-		}
-
+		
 		private async void Execute()
 		{
 			while(CommandQueue.Count > 0) { await CommandQueue.Dequeue().Execute(Gfx); }

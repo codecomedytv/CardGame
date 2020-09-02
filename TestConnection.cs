@@ -1,6 +1,7 @@
 using System.Diagnostics;
-using System.Security.Cryptography;
+using System.Threading.Tasks;
 using CardGame.Client;
+using CardGame.Client.Game;
 using CardGame.Server;
 using Godot;
 
@@ -8,6 +9,7 @@ namespace CardGame
 {
 	public class TestConnection: Node
 	{
+		private int GameCount = 0;
 		private readonly ServerConn ServerConn = new ServerConn();
 		private readonly ClientConn Client1 = new ClientConn();
 		private readonly ClientConn Client2 = new ClientConn();
@@ -17,6 +19,7 @@ namespace CardGame
 
 		public override void _Ready()
 		{
+			GetTree().Connect("node_added", this, nameof(OnNodeAdded));
 			HostJoinJoin = GetNode<Button>("HostJoinJoin");
 			HostJoin = GetNode<Button>("HostJoin");
 			Join = GetNode<Button>("Join");
@@ -24,6 +27,18 @@ namespace CardGame
 			HostJoinJoin.Connect("pressed", this, nameof(OnStartPressed));
 			HostJoin.Connect("pressed", this, nameof(OnHostJoinPressed));
 			Join.Connect("pressed", this, nameof(OnJoinPressed));
+		}
+
+		private void OnNodeAdded(Node node)
+		{
+			if(node is Match match)
+			{
+				if (GameCount > 0)
+				{
+					match.HideView();
+				}
+				GameCount += 1;
+			}
 		}
 
 		public void HideButtons()
