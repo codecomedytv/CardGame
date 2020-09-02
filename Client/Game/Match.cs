@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Players;
-using CardGame.Server.Game.Events;
 using Godot;
 
 namespace CardGame.Client.Game
@@ -86,7 +83,7 @@ namespace CardGame.Client.Game
             // Begin Loading Opponent Deck
             Cards.Add(0, CardFactory.Create(0, SetCodes.NullCard));
             // I don't really know where else to put this!
-            var deck = new System.Collections.Generic.List<Card>();
+            var deck = new List<Card>();
             for (var i = 0; i < 40; i++)
             {
                 var card = CardFactory.Create(0, SetCodes.NullCard);
@@ -97,9 +94,9 @@ namespace CardGame.Client.Game
             Opponent.LoadDeck(deck);
         }
 
-        private void LoadDeck(Godot.Collections.Dictionary<int, SetCodes> deckList)
+        private void LoadDeck(Dictionary<int, SetCodes> deckList)
         {
-            var deck = new System.Collections.Generic.List<Card>();
+            var deck = new List<Card>();
             foreach (var kv in deckList)
             {
                 var card = CardFactory.Create(kv.Key, kv.Value);
