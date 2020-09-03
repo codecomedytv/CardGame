@@ -47,8 +47,6 @@ namespace CardGame.Client.Game
 			Messenger.CallDeferred("SetReady");
 
 			LoadOpponentDeck();
-			LoseLife(3000, false);
-			Execute();
 		}
 
 		private async void Execute()
