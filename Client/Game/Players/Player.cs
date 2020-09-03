@@ -11,6 +11,8 @@ namespace CardGame.Client.Game.Players
 
 		private Sprite DefendingIcon { get; set; }
 		
+		private Sprite EnergyIcon { get; set; }
+		
 		private States BackingState;
 		public States State { get => BackingState; set => SetState(value); }
 		private HealthBar HealthBar { get; set; }
@@ -25,8 +27,15 @@ namespace CardGame.Client.Game.Players
 		
 		private States SetState(States state)
 		{
+			if (state == States.Idle || state == States.Active)
+			{
+				EnergyIcon.Modulate = Colors.Gold;
+			}
+			else
+			{
+				EnergyIcon.Modulate = Colors.Black;
+			}
 			BackingState = state;
-			GD.Print("Setting State Change");
 			StateChanged?.Invoke(state);
 			return state;
 		}
@@ -45,6 +54,7 @@ namespace CardGame.Client.Game.Players
 			Deck = (Deck) GetNode("Deck");
 			DefendingIcon = (Sprite) GetNode("HUD/Defending");
 			HealthBar = (HealthBar) GetNode("HUD/Health");
+			EnergyIcon = (Sprite) GetNode("HUD/EnergyIcon");
 		}
 
 		private int SetHealth(int health)
