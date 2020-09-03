@@ -47,13 +47,18 @@ namespace CardGame.Client.Game
 
 		public void OnAttackedDirectly(BasePlayer player)
 		{
-			var p = (Node) player;
-			p.AddChild(Shield);
+			Shield.Scale *= 4;
+			Shield.Translation = player is Player? new Vector3(10, -1, 0): new Vector3(12, 2, -0.2F);
+			Shield.RotationDegrees = new Vector3(25, 0, 0);
+			player.AddChild(Shield);
 		}
 
 		public void OnDirectAttackStopped(BasePlayer player)
 		{
 			player.RemoveChild(Shield);
+			Shield.Scale /= 4;
+			Shield.Translation = new Vector3(-0.05F, 0, -0.2F);
+			Shield.RotationDegrees = new Vector3(0, 0, 0);
 		}
 	}
 }
