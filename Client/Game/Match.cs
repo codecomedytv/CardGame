@@ -46,6 +46,7 @@ namespace CardGame.Client.Game
 			GameInput.AttackerSelected = BattleSystem.OnAttackerSelected;
 			GameInput.AttackStopped = BattleSystem.OnAttackStopped;
 			GameInput.DefenderSelected = BattleSystem.OnDefenderSelected;
+			GameInput.AttackedDirectly = BattleSystem.OnAttackedDirectly;
 
 			Table.PassPlayPressed = GameInput.OnPassPlayPressed;
 			Table.EndTurnPressed = GameInput.OnEndTurnPressed;
@@ -175,9 +176,9 @@ namespace CardGame.Client.Game
 			CommandQueue.Enqueue(new LoseLife(GetPlayer(isOpponent), lifeLost));
 		}
 		
-		private IPlayer GetPlayer(bool isOpponent)
+		private BasePlayer GetPlayer(bool isOpponent)
 		{
-			return isOpponent ? Opponent : Player as IPlayer;
+			return isOpponent ? Opponent : Player as BasePlayer;
 		}
 	}
 }

@@ -5,25 +5,25 @@ using Godot;
 
 namespace CardGame.Client.Game.Players
 {
-	public class Player: Spatial, IPlayer
+	public class Player: BasePlayer
 	{
 		public event Action<States> StateChanged;
-
-		private Sprite DefendingIcon { get; set; }
-		
 		private Sprite EnergyIcon { get; set; }
 		
 		private States BackingState;
 		public States State { get => BackingState; set => SetState(value); }
 		private HealthBar HealthBar { get; set; }
-		public int Health { get => HealthBar.Value; set => SetHealth(value); }
-		public Units Units { get; private set; }
-		public Support Support { get; private set; }
-		public Hand Hand { get; private set; }
-		public Graveyard Graveyard { get; private set; }
-		public Deck Deck { get; private set; }
-		
-		
+
+		public override int Health
+		{
+			get => HealthBar.Value;
+			set => SetHealth(value);
+		}
+		public override Units Units { get; protected set; }
+		public override Support Support { get; protected set; }
+		public override Hand Hand { get; protected set; }
+		public override Graveyard Graveyard { get; protected set; }
+		public override Deck Deck { get; protected set; }
 		
 		private States SetState(States state)
 		{
@@ -52,7 +52,6 @@ namespace CardGame.Client.Game.Players
 			Hand = (Hand) GetNode("Hand");
 			Graveyard = (Graveyard) GetNode("Graveyard");
 			Deck = (Deck) GetNode("Deck");
-			DefendingIcon = (Sprite) GetNode("HUD/Defending");
 			HealthBar = (HealthBar) GetNode("HUD/Health");
 			EnergyIcon = (Sprite) GetNode("HUD/EnergyIcon");
 		}
@@ -61,16 +60,6 @@ namespace CardGame.Client.Game.Players
 		{
 			HealthBar.OnHealthChanged(Health - health);
 			return health;
-		}
-		
-		public void StopDefending()
-		{
-			DefendingIcon.Visible = false;
-		}
-		
-		public void Defend()
-		{
-			DefendingIcon.Visible = true;
 		}
 	}
 }

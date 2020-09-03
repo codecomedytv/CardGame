@@ -124,7 +124,7 @@
     <Compile Include="Client\Game\GameInput.cs" />
     <Compile Include="Client\Game\Match.cs" />
     <Compile Include="Client\Game\Messenger.cs" />
-    <Compile Include="Client\Game\Players\IPlayer.cs" />
+    <Compile Include="Client\Game\Players\BasePlayer.cs" />
     <Compile Include="Client\Game\Players\HealthBar.cs" />
     <Compile Include="Client\Game\Players\Opponent.cs" />
     <Compile Include="Client\Game\Players\Player.cs" />

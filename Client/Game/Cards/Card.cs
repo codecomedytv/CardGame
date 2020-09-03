@@ -18,8 +18,8 @@ namespace CardGame.Client.Game.Cards
 		public IZone Zone;
 		private IList<int> ValidTargets = new List<int>();
 		private IList<int> ValidAttackTargets = new List<int>();
-		public IPlayer OwningPlayer { get; set; }
-		public IPlayer Controller { get; set; }
+		public BasePlayer OwningPlayer { get; set; }
+		public BasePlayer Controller { get; set; }
 
 		// State Checks
 		public bool IsInActive = false;

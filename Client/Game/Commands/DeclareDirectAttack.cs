@@ -19,7 +19,7 @@ namespace CardGame.Client.Game
         protected override void SetUp(Tween gfx)
         {
             gfx.InterpolateCallback(BattleSystem, 0.1F, nameof(BattleSystem.OnAttackerSelected), Attacker);
-            gfx.InterpolateCallback(Player, 0.1F, nameof(Player.Defend));
+            gfx.InterpolateCallback(BattleSystem, 0.1F, nameof(BattleSystem.OnAttackedDirectly), Player);
         }
     }
 }

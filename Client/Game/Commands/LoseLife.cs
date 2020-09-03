@@ -5,10 +5,10 @@ namespace CardGame.Client.Game
 {
     public class LoseLife: Command
     {
-        private IPlayer Player;
+        private BasePlayer Player;
         private int LifeLost;
         
-        public LoseLife(IPlayer player, int lifeLost)
+        public LoseLife(BasePlayer player, int lifeLost)
         {
             Player = player;
             LifeLost = lifeLost;
@@ -16,7 +16,7 @@ namespace CardGame.Client.Game
         protected override void SetUp(Tween gfx)
         {
             var finalValue = Player.Health - LifeLost;
-            gfx.InterpolateProperty((Object) Player, nameof(IPlayer.Health), Player.Health, finalValue, 1);
+            gfx.InterpolateProperty((Object) Player, nameof(BasePlayer.Health), Player.Health, finalValue, 1);
         }
     }
 }

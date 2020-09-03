@@ -18,11 +18,9 @@ namespace CardGame.Client.Game
 
         public Action<Card> AttackerSelected;
         public Action<Card> DefenderSelected;
+        public Action<BasePlayer> AttackedDirectly;
+        public Action<Card> AttackStopped;
 
-        #nullable enable
-        public Action<Card, Card?>? AttackStopped;
-        # nullable disable
-        
         private Card MousedOverCard;
         public Player User;
         public Opponent Opponent;
@@ -41,7 +39,7 @@ namespace CardGame.Client.Game
             }
             else if (gameEvent is InputEventMouseButton mob && mob.Doubleclick && User.Attacking)
             {
-                AttackStopped?.Invoke(User.CardInUse, null);
+                AttackStopped?.Invoke(User.CardInUse);
                 User.Attacking = false;
                 User.CardInUse = null;
                 
@@ -71,7 +69,7 @@ namespace CardGame.Client.Game
             }
             else
             {
-                AttackStopped?.Invoke(User.CardInUse, null);
+                AttackStopped?.Invoke(User.CardInUse);
             }
 
             User.Attacking = false;
@@ -125,7 +123,7 @@ namespace CardGame.Client.Game
             else if (card.CanAttackDirectly)
             {
                 AttackerSelected?.Invoke(card);
-                Opponent.Defend();
+                AttackedDirectly?.Invoke(Opponent);
                 DirectAttack(card.Id);
             }
             

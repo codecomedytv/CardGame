@@ -5,21 +5,20 @@ using Godot;
 
 namespace CardGame.Client.Game.Players
 {
-	public class Opponent: Spatial, IPlayer
+	public class Opponent: BasePlayer
 	{
-		private Sprite DefendingIcon { get; set; }
 		private HealthBar HealthBar { get; set; }
 
-		public int Health
+		public override int Health
 		{
 			get => HealthBar.Value;
 			set => SetHealth(value);
 		}
-		public Units Units { get; private set; }
-		public Support Support { get; private set; }
-		public Hand Hand { get; private set; }
-		public Graveyard Graveyard { get; private set; }
-		public Deck Deck { get; private set; }
+		public override Units Units { get; protected set; }
+		public override Support Support { get; protected set; }
+		public override Hand Hand { get; protected set; }
+		public override Graveyard Graveyard { get; protected set; }
+		public override Deck Deck { get; protected set; }
 
 		public override void _Ready()
 		{
@@ -28,7 +27,6 @@ namespace CardGame.Client.Game.Players
 			Hand = (Hand) GetNode("Hand");
 			Graveyard = (Graveyard) GetNode("Graveyard");
 			Deck = (Deck) GetNode("Deck");
-			DefendingIcon = (Sprite) GetNode("HUD/Defending");
 			HealthBar = (HealthBar) GetNode("HUD/Health");
 		}
 		
@@ -36,21 +34,6 @@ namespace CardGame.Client.Game.Players
 		{
 			HealthBar.OnHealthChanged(Health - health);
 			return health;
-		}
-
-		public void StopDefending()
-		{
-			DefendingIcon.Visible = false;
-		}
-		
-		public void Defend()
-		{
-			DefendingIcon.Visible = true;
-		}
-
-		public void ClearDirectAttackingDefense()
-		{
-			DefendingIcon.Visible = false;
 		}
 	}
 }
