@@ -15,6 +15,7 @@ namespace CardGame.Client.Game
 		private readonly GameInput GameInput = new GameInput();
 		private readonly Tween Gfx = new Tween();
 		private readonly Table Table = new Table();
+		private readonly BattleSystem BattleSystem = new BattleSystem();
 		private Player Player;
 		private Opponent Opponent;
 		
@@ -41,6 +42,10 @@ namespace CardGame.Client.Game
 			GameInput.DirectAttack = Messenger.DeclareDirectAttack;
 			GameInput.PassPlay = Messenger.DeclarePassPlay;
 			GameInput.EndTurn = Messenger.DeclareEndTurn;
+
+			GameInput.AttackerSelected = BattleSystem.OnAttackerSelected;
+			GameInput.AttackStopped = BattleSystem.OnAttackStopped;
+			GameInput.DefenderSelected = BattleSystem.OnDefenderSelected;
 
 			Table.PassPlayPressed = GameInput.OnPassPlayPressed;
 			Table.EndTurnPressed = GameInput.OnEndTurnPressed;
@@ -147,22 +152,22 @@ namespace CardGame.Client.Game
 		
 		public void OpponentAttackUnit(int attackerId, int defenderId)
 		{
-			CommandQueue.Enqueue(new DeclareAttack(Cards[attackerId], Cards[defenderId]));
+			CommandQueue.Enqueue(new DeclareAttack(Cards[attackerId], Cards[defenderId], BattleSystem));
 		}
 
 		public void OpponentAttackDirectly(int attackerId)
 		{
-			CommandQueue.Enqueue(new DeclareDirectAttack(Player, Cards[attackerId]));
+			CommandQueue.Enqueue(new DeclareDirectAttack(Player, Cards[attackerId], BattleSystem));
 		}
 		
 		private void BattleUnit(int attackerId, int defenderId, bool isOpponent)
 		{
-			CommandQueue.Enqueue(new Battle(Cards[attackerId], Cards[defenderId]));
+			CommandQueue.Enqueue(new Battle(Cards[attackerId], Cards[defenderId], BattleSystem));
 		}
 
 		private void DirectAttack(int attackerId, bool isOpponent)
 		{
-			CommandQueue.Enqueue(new DirectAttack(GetPlayer(isOpponent), Cards[attackerId]));
+			CommandQueue.Enqueue(new DirectAttack(GetPlayer(isOpponent), Cards[attackerId], BattleSystem));
 		}
 
 		private void LoseLife(int lifeLost, bool isOpponent)

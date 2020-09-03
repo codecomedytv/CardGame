@@ -8,11 +8,13 @@ namespace CardGame.Client.Game
     {
         private readonly Card Attacker;
         private readonly Card Defender;
+        private readonly BattleSystem BattleSystem;
         
-        public Battle(Card attacker, Card defender)
+        public Battle(Card attacker, Card defender, BattleSystem battleSystem)
         {
             Attacker = attacker;
             Defender = defender;
+            BattleSystem = battleSystem;
         }
         protected override void SetUp(Tween gfx)
         {
@@ -28,9 +30,8 @@ namespace CardGame.Client.Game
                 Tween.TransitionType.Linear, Tween.EaseType.In, 0.3F);
             gfx.InterpolateProperty(Defender, nameof(Translation), defenderDestination, Defender.Translation, 0.1F,
                 Tween.TransitionType.Linear, Tween.EaseType.In, 0.3F);
-
-            gfx.InterpolateCallback(Attacker, 0.4F, nameof(Card.StopAttacking));
-            gfx.InterpolateCallback(Defender, 0.4F, nameof(Card.StopDefending));
+            
+            gfx.InterpolateCallback(BattleSystem, 0.4F, nameof(BattleSystem.OnAttackStopped), Attacker, Defender);
         }
     }
 }

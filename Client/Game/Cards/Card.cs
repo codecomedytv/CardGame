@@ -15,9 +15,6 @@ namespace CardGame.Client.Game.Cards
 		public CardType CardType;
 		private CardStates State;
 		private CardFace _face = CardFace.FaceDown;
-
-		private Sprite3D AttackingIcon;
-		private Sprite3D DefendingIcon;
 		public IZone Zone;
 		private IList<int> ValidTargets = new List<int>();
 		private IList<int> ValidAttackTargets = new List<int>();
@@ -56,24 +53,12 @@ namespace CardGame.Client.Game.Cards
 		{
 			GetNode<Area>("Area").Connect("mouse_entered", this, nameof(OnMouseEntered));
 			GetNode<Area>("Area").Connect("mouse_exited", this, nameof(OnMouseExit));
-			AttackingIcon = GetNode<Sprite3D>("Attacking");
-			DefendingIcon = GetNode<Sprite3D>("Defending");
 			if (CardType == CardType.Unit)
 			{
 				ChangeAttack();
 			}
 		}
-
-		public void StopAttacking()
-		{
-			AttackingIcon.Visible = false;
-		}
-
-		public void StopDefending()
-		{
-			DefendingIcon.Visible = false;
-		}
-
+		
 		private void ChangeAttack()
 		{
 			var i = 0;
@@ -94,16 +79,6 @@ namespace CardGame.Client.Game.Cards
 
 		private void OnMouseEntered() => MouseOvered(this);
 		private void OnMouseExit() => MouseOveredExit(this);
-
-		public void Attack()
-		{
-			AttackingIcon.Visible = true;
-		}
-
-		public void Defend()
-		{
-			DefendingIcon.Visible = true;
-		}
 		
 		public void DisplayPower(int power)
 		{

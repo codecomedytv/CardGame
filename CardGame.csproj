@@ -102,6 +102,7 @@
     <Compile Include="addons\WAT\core\test\Test.cs" />
     <Compile Include="Client\ClientConn.cs" />
     <Compile Include="Client\DeckList.cs" />
+    <Compile Include="Client\Game\BattleSystem.cs" />
     <Compile Include="Client\Game\Cards\Card.cs" />
     <Compile Include="Client\Game\Cards\CardFactory.cs" />
     <Compile Include="Client\Game\Cards\CardInfo.cs" />
