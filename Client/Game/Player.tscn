@@ -96,13 +96,20 @@ pixel_size = 0.001
 texture = ExtResource( 5 )
 script = ExtResource( 9 )
 
-[node name="Health" type="Sprite" parent="."]
+[node name="HUD" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Health" type="Sprite" parent="HUD"]
 position = Vector2( 1550.14, 1000.35 )
 texture = ExtResource( 7 )
 centered = false
 script = ExtResource( 14 )
 
-[node name="Count" type="Label" parent="Health"]
+[node name="Count" type="Label" parent="HUD/Health"]
 margin_left = 130.0
 margin_top = 11.0
 margin_right = 227.0
@@ -118,7 +125,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Bar" type="TextureProgress" parent="Health"]
+[node name="Bar" type="TextureProgress" parent="HUD/Health"]
 show_behind_parent = true
 margin_left = 18.0
 margin_top = 11.0
@@ -134,7 +141,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Change" type="Label" parent="Health"]
+[node name="Change" type="Label" parent="HUD/Health"]
 visible = false
 margin_left = -868.809
 margin_top = -400.0
@@ -151,7 +158,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Defending" type="Sprite" parent="."]
+[node name="Defending" type="Sprite" parent="HUD"]
 visible = false
 position = Vector2( 1620, 955 )
 scale = Vector2( 0.5, 0.5 )

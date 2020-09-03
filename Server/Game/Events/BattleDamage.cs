@@ -8,6 +8,7 @@
 
         public BattleDamage(ISource source, Player player, int damage)
         {
+            
             Source = source;
             Player = player;
             Dealt = damage;

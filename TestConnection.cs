@@ -59,6 +59,8 @@ namespace CardGame
 		private void ReverseGameVisibility(Spatial game)
 		{
 			game.Visible = !game.Visible;
+			game.GetNode<Control>("Spatial/Table3D/PlayMat/Player/HUD").Visible = game.Visible;
+			game.GetNode<Control>("Spatial/Table3D/PlayMat/Opponent/HUD").Visible = game.Visible;
 			game.GetNode<Control>("Spatial/Table3D/HUD").Visible = game.Visible;
 		}
 

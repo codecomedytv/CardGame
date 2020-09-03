@@ -15,8 +15,8 @@ namespace CardGame.Client.Game
         }
         protected override void SetUp(Tween gfx)
         {
-            //Player.LoseLife(LifeLost, gfx);
-            gfx.InterpolateProperty((Object) Player, nameof(IPlayer.Health), 8000, 3000, 3.3F);
+            var finalValue = Player.Health - LifeLost;
+            gfx.InterpolateProperty((Object) Player, nameof(IPlayer.Health), Player.Health, finalValue, 1);
         }
     }
 }

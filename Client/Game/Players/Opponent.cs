@@ -28,8 +28,8 @@ namespace CardGame.Client.Game.Players
 			Hand = (Hand) GetNode("Hand");
 			Graveyard = (Graveyard) GetNode("Graveyard");
 			Deck = (Deck) GetNode("Deck");
-			DefendingIcon = (Sprite) GetNode("Defending");
-			HealthBar = (HealthBar) GetNode("Health");
+			DefendingIcon = (Sprite) GetNode("HUD/Defending");
+			HealthBar = (HealthBar) GetNode("HUD/Health");
 		}
 		
 		private int SetHealth(int health)
