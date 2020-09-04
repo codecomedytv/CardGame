@@ -97,14 +97,15 @@ texture = ExtResource( 5 )
 script = ExtResource( 9 )
 
 [node name="HUD" type="Control" parent="."]
+margin_top = -35.0
 margin_right = 40.0
-margin_bottom = 40.0
+margin_bottom = 5.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Health" type="Sprite" parent="HUD"]
-position = Vector2( 1550.14, 1000.35 )
+position = Vector2( 1550.14, 847.35 )
 texture = ExtResource( 7 )
 centered = false
 script = ExtResource( 14 )
@@ -159,5 +160,5 @@ __meta__ = {
 }
 
 [node name="EnergyIcon" type="Sprite" parent="HUD"]
-position = Vector2( 1629.27, 965.233 )
+position = Vector2( 1629.27, 812.233 )
 texture = ExtResource( 15 )

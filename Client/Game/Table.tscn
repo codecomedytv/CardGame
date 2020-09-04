@@ -95,9 +95,9 @@ __meta__ = {
 
 [node name="PassPlay" type="Button" parent="HUD"]
 margin_left = 1730.0
-margin_top = 870.0
+margin_top = 673.0
 margin_right = 1930.0
-margin_bottom = 970.0
+margin_bottom = 773.0
 custom_styles/hover = SubResource( 8 )
 custom_styles/pressed = SubResource( 2 )
 custom_styles/focus = SubResource( 3 )
@@ -110,9 +110,9 @@ __meta__ = {
 
 [node name="EndTurn" type="Button" parent="HUD"]
 margin_left = 1730.0
-margin_top = 930.0
+margin_top = 733.0
 margin_right = 1930.0
-margin_bottom = 1030.0
+margin_bottom = 833.0
 custom_styles/hover = SubResource( 6 )
 custom_styles/pressed = SubResource( 2 )
 custom_styles/focus = SubResource( 7 )
