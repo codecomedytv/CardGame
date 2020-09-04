@@ -17,6 +17,7 @@ namespace CardGame.Client.Game.Cards
             card.Title = cardInfo.Title;
             card.Power = cardInfo.Power;
             card.CardType = cardInfo.CardType;
+            card.Effect = cardInfo.Text;
             card.SetCardArt(GD.Load($"res://Client/Assets/CardArt/{cardInfo.Art}.png") as Texture);
             return card;
         }

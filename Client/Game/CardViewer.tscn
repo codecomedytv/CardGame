@@ -47,6 +47,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Title" type="Label" parent="."]
+visible = false
+margin_left = 68.0
+margin_top = 700.0
+margin_right = 1063.0
+margin_bottom = 786.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "[ Card Type(s) ]"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Types" type="Label" parent="."]
 visible = false
 margin_left = 68.0
@@ -72,6 +87,7 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 align = 1
 valign = 1
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
