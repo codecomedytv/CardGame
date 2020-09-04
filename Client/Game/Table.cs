@@ -13,6 +13,7 @@ namespace CardGame.Client.Game
         public Action EndTurnPressed;
         public Label LifeChange;
         public CardViewer CardViewer;
+        public TextureRect ActivationView;
         
         public Table()
         {
@@ -25,6 +26,7 @@ namespace CardGame.Client.Game
             GetNode<Button>("Table3D/HUD/PassPlay").Connect("pressed", this, nameof(OnPassPlayPressed));
             LifeChange = GetNode<Label>("Table3D/HUD/LifeChange");
             CardViewer = GetNode<CardViewer>("Table3D/HUD/CardViewer");
+            ActivationView = GetNode<TextureRect>("Table3D/HUD/ActivationView");
         }
 
         private void OnPassPlayPressed() => PassPlayPressed();

@@ -148,7 +148,8 @@ namespace CardGame.Client.Game
 
 		private void Activate(int id, int targetId = 0)
 		{
-			CommandQueue.Enqueue(new Activate(Opponent, Cards[id]));
+			// We're always assuming opponent? What about our own activations?
+			CommandQueue.Enqueue(new Activate(Opponent, Cards[id], Table.ActivationView));
 		}
 
 		public void SendCardToZone(int cardId, int zoneId)
