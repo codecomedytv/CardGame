@@ -160,5 +160,5 @@ __meta__ = {
 }
 
 [node name="EnergyIcon" type="Sprite" parent="HUD"]
-position = Vector2( 1629.27, 812.233 )
+position = Vector2( 1842.27, 677.233 )
 texture = ExtResource( 15 )

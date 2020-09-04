@@ -47,8 +47,8 @@ namespace CardGame.Client.Game
 
 		public void OnAttackedDirectly(BasePlayer player)
 		{
-			Shield.Scale *= 4;
-			Shield.Translation = player is Player? new Vector3(10, -1, 0): new Vector3(12, 2, -0.2F);
+			Shield.Scale *= 2;
+			Shield.Translation = player is Player? new Vector3(9.8F, -1, -0.2F): new Vector3(12.5F, 2.7F, 0);
 			Shield.RotationDegrees = new Vector3(25, 0, 0);
 			player.AddChild(Shield);
 		}
@@ -56,7 +56,7 @@ namespace CardGame.Client.Game
 		public void OnDirectAttackStopped(BasePlayer player)
 		{
 			player.RemoveChild(Shield);
-			Shield.Scale /= 4;
+			Shield.Scale /= 2;
 			Shield.Translation = new Vector3(-0.05F, 0, -0.2F);
 			Shield.RotationDegrees = new Vector3(0, 0, 0);
 		}
