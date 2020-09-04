@@ -130,6 +130,7 @@ __meta__ = {
 script = ExtResource( 5 )
 
 [node name="ActivationView" type="TextureRect" parent="HUD"]
+visible = false
 margin_left = 791.179
 margin_top = 371.548
 margin_right = 1921.18

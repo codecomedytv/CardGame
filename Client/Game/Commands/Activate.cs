@@ -32,7 +32,7 @@ namespace CardGame.Client.Game.Commands
             gfx.InterpolateCallback(ActivationView, 0.2F, "set_visible", true);
             gfx.InterpolateProperty(ActivationView, "modulate", Colors.White, ActivationView.Modulate, 0.3F,
                 Tween.TransitionType.Linear, Tween.EaseType.In, 0.1F);
-            gfx.InterpolateCallback(ActivationView, 0.7F, "set_visible", false);
+            gfx.InterpolateCallback(ActivationView, 1, "set_visible", false);
         }
     }
 }
