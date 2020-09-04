@@ -173,7 +173,7 @@ namespace CardGame.Client.Game
 
 		private void LoseLife(int lifeLost, bool isOpponent)
 		{
-			CommandQueue.Enqueue(new LoseLife(GetPlayer(isOpponent), lifeLost));
+			CommandQueue.Enqueue(new LoseLife(GetPlayer(isOpponent), lifeLost, Table));
 		}
 		
 		private BasePlayer GetPlayer(bool isOpponent)

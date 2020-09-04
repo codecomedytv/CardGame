@@ -11,6 +11,7 @@ namespace CardGame.Client.Game
 
         public Action PassPlayPressed;
         public Action EndTurnPressed;
+        public Label LifeChange;
         
         public Table()
         {
@@ -21,6 +22,7 @@ namespace CardGame.Client.Game
             OpponentView = (BasePlayer) instance.GetNode("PlayMat/Opponent");
             GetNode<Button>("Table3D/HUD/EndTurn").Connect("pressed", this, nameof(OnEndTurnPressed));
             GetNode<Button>("Table3D/HUD/PassPlay").Connect("pressed", this, nameof(OnPassPlayPressed));
+            LifeChange = GetNode<Label>("Table3D/HUD/LifeChange");
         }
 
         private void OnPassPlayPressed() => PassPlayPressed();
