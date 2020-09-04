@@ -91,9 +91,9 @@ namespace CardGame.Client.Game
 				Cards.Add(key, card);
 				card.OwningPlayer = Player;
 				card.Controller = Player;
-				card.MouseOvered = GameInput.OnMousedOverCard;
+				card.MouseOvered += GameInput.OnMousedOverCard;
 				card.MouseOveredExit = GameInput.OnMousedOverExitCard;
-				card.MouseOvered = CardViewer.OnCardFocused;
+				card.MouseOvered += CardViewer.OnCardFocused;
 				Player.StateChanged += card.OnPlayerStateChanged;
 				Player.Deck.Add(card);
 			}
@@ -105,9 +105,9 @@ namespace CardGame.Client.Game
 			card.OwningPlayer = Opponent; 
 			card.Controller = Opponent; 
 			AddChild(card); 
-			card.MouseOvered = GameInput.OnMousedOverCard; 
+			card.MouseOvered += GameInput.OnMousedOverCard; 
 			card.MouseOveredExit = GameInput.OnMousedOverExitCard;
-			card.MouseOvered = CardViewer.OnCardFocused;
+			card.MouseOvered += CardViewer.OnCardFocused;
 			Cards.Add(id, card);
 		}
 		
