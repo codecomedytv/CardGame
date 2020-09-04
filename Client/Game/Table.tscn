@@ -1,8 +1,10 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Client/Game/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Client/Game/Opponent.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Client/Assets/Font/Electrolize-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Client/Game/CardViewer.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Client/Game/CardViewer.cs" type="Script" id=5]
 [ext_resource path="res://Client/Assets/Font/Modded/ElectrolizeTurnCount.tres" type="DynamicFont" id=12]
 [ext_resource path="res://Client/Assets/Background_Space.png" type="Texture" id=14]
 [ext_resource path="res://Client/Assets/HUD/ButtonNormal.png" type="Texture" id=15]
@@ -122,6 +124,9 @@ text = "End Turn"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="CardViewer" parent="HUD" instance=ExtResource( 4 )]
+script = ExtResource( 5 )
 
 [node name="Background" type="Sprite3D" parent="."]
 transform = Transform( 2.89293, 0, 0, 0, 3.10572, 0, 0, 0, 1, 2.947, 2.2, -2 )

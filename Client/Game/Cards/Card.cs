@@ -15,6 +15,8 @@ namespace CardGame.Client.Game.Cards
 		public CardType CardType;
 		private CardStates State;
 		private CardFace _face = CardFace.FaceDown;
+		public string Effect;
+		public Texture Art;
 		public IZone Zone;
 		private IList<int> ValidTargets = new List<int>();
 		private IList<int> ValidAttackTargets = new List<int>();
@@ -46,7 +48,8 @@ namespace CardGame.Client.Game.Cards
 
 		public void SetCardArt(Texture art)
 		{
-			GetNode<Sprite3D>("Face").Texture = art;
+			Art = art;
+			GetNode<Sprite3D>("Face").Texture = Art;
 		}
 
 		public override void _Ready()

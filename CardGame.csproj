@@ -106,6 +106,7 @@
     <Compile Include="Client\Game\Cards\Card.cs" />
     <Compile Include="Client\Game\Cards\CardFactory.cs" />
     <Compile Include="Client\Game\Cards\CardInfo.cs" />
+    <Compile Include="Client\Game\CardViewer.cs" />
     <Compile Include="Client\Game\Catalog.cs" />
     <Compile Include="Client\Game\Commands\Activate.cs" />
     <Compile Include="Client\Game\Commands\Battle.cs" />

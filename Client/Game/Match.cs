@@ -19,7 +19,8 @@ namespace CardGame.Client.Game
 		private readonly BattleSystem BattleSystem = new BattleSystem();
 		private Player Player;
 		private Opponent Opponent;
-		
+		private CardViewer CardViewer;
+
 		public override void _Ready()
 		{
 			AddChild(Table, true);
@@ -28,6 +29,7 @@ namespace CardGame.Client.Game
 			AddChild(Gfx);
 
 			// Change Back Into ControllerModel/View Objects
+			CardViewer = Table.CardViewer;
 			Player = (Player) Table.PlayerView;
 			Opponent = (Opponent) Table.OpponentView;
 			GameInput.User = Player;
@@ -91,6 +93,7 @@ namespace CardGame.Client.Game
 				card.Controller = Player;
 				card.MouseOvered = GameInput.OnMousedOverCard;
 				card.MouseOveredExit = GameInput.OnMousedOverExitCard;
+				card.MouseOvered = CardViewer.OnCardFocused;
 				Player.StateChanged += card.OnPlayerStateChanged;
 				Player.Deck.Add(card);
 			}
@@ -104,6 +107,7 @@ namespace CardGame.Client.Game
 			AddChild(card); 
 			card.MouseOvered = GameInput.OnMousedOverCard; 
 			card.MouseOveredExit = GameInput.OnMousedOverExitCard;
+			card.MouseOvered = CardViewer.OnCardFocused;
 			Cards.Add(id, card);
 		}
 		
