@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CardGame.Client.Game.Cards;
+using CardGame.Client.Game.Commands;
 using CardGame.Client.Game.Players;
 using Godot;
 
@@ -60,9 +61,9 @@ namespace CardGame.Client.Game
 			while(CommandQueue.Count > 0) { await CommandQueue.Dequeue().Execute(Gfx); }
 		}
 
-		private void Queue(Commands command, params object[] args)
+		private void Queue(CommandId commandId, params object[] args)
 		{
-			Call(command.ToString(), args);
+			Call(commandId.ToString(), args);
 		}
 		
 		// These 4 Methods (LoadDeck, OpponentLoadDeck, RevealCard & UpdateCard) need to happen immediately..

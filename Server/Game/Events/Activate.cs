@@ -31,8 +31,8 @@ namespace CardGame.Server.Game.Events
 
         public override void SendMessage(Message message)
         {
-            message(Player.Opponent.Id, Commands.RevealCard, Card.Id, Card.SetCode, ZoneIds.Support);
-            message(Player.Opponent.Id, Commands.Activate, Card.Id, TargetId());
+            message(Player.Opponent.Id, CommandId.RevealCard, Card.Id, Card.SetCode, ZoneIds.Support);
+            message(Player.Opponent.Id, CommandId.Activate, Card.Id, TargetId());
         }
     }
 }

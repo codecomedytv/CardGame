@@ -25,7 +25,7 @@ namespace CardGame.Server.Game.Events
 
         public override void SendMessage(Message message)
         {
-	        message(Player.Id, Commands.LoadDeck, Deck.ToDictionary(c => c.Id, c => c.SetCode));
+	        message(Player.Id, CommandId.LoadDeck, Deck.ToDictionary(c => c.Id, c => c.SetCode));
         }
 
 

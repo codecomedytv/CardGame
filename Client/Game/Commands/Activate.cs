@@ -2,7 +2,7 @@
 using CardGame.Client.Game.Players;
 using Godot;
 
-namespace CardGame.Client.Game
+namespace CardGame.Client.Game.Commands
 {
     public class Activate: Command
     {

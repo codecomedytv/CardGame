@@ -8,7 +8,7 @@ using Godot;
 
 namespace CardGame.Server.Game {
 	
-	public delegate object Message(int id, Commands command, params object[] arguments);
+	public delegate object Message(int id, CommandId commandId, params object[] arguments);
 
 	public class Messenger : Node
 	{
@@ -33,9 +33,9 @@ namespace CardGame.Server.Game {
 			Message = SendMessage;
 		}
 
-		private object SendMessage(int id, Commands command, params object[] args)
+		private object SendMessage(int id, CommandId commandId, params object[] args)
 		{
-			return RpcId(id, "Queue", command, args.ToList());
+			return RpcId(id, "Queue", commandId, args.ToList());
 		}
 		
 		public virtual void OnPlayExecuted(Event gameEvent) => gameEvent.SendMessage(Message);
@@ -48,7 +48,7 @@ namespace CardGame.Server.Game {
 			}
 			foreach (var player in players)
 			{
-				Message(player.Id, Commands.SetState, player.State);
+				Message(player.Id, CommandId.SetState, player.State);
 				RpcId(player.Id, "Execute");
 			}
 		}

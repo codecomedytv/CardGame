@@ -18,8 +18,8 @@ namespace CardGame.Server.Game.Events
 
         public override void SendMessage(Message message)
         {
-            message(Controller.Id, Commands.SetFaceDown, Card.Id);
-            message(Controller.Opponent.Id, Commands.SetFaceDown);
+            message(Controller.Id, CommandId.SetFaceDown, Card.Id);
+            message(Controller.Opponent.Id, CommandId.SetFaceDown);
         }
     }
 }

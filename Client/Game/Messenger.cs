@@ -12,13 +12,13 @@ namespace CardGame.Client.Game
         public void SetReady() => RpcId(ServerId, "SetReady", Id);
 
         public Action ExecuteEvents; 
-        public Action<Commands, object[]> QueueEvent;
+        public Action<CommandId, object[]> QueueEvent;
         
         [Puppet]
         private void Execute() => ExecuteEvents();
 
         [Puppet]
-        private void Queue(Commands command, params object[] args) => QueueEvent(command, args);
+        private void Queue(CommandId commandId, params object[] args) => QueueEvent(commandId, args);
         
         public void DeclareDeploy(int cardId)
         {

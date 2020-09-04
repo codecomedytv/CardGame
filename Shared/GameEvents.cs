@@ -22,7 +22,7 @@
         Activate,
     }
 
-    public enum Commands
+    public enum CommandId
     {
         // We may merge Commands with Events in future but..
         // .. we need to consider more specific events (no "SentToZone")
