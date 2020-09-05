@@ -1,9 +1,7 @@
 <?xml version="1.0" ?>
-<testsuites failures="0" name="TestXML" tests="1" time="1.021">
-<testsuite failures="0" name="Card Factory Test" tests="2" time="0.01">
-<testcase name="FetchCardInfo" time="0.158">
-</testcase>
-<testcase name="Create3DCard" time="0.096">
+<testsuites failures="0" name="TestXML" tests="1" time="1.114">
+<testsuite failures="0" name="Visual" tests="1" time="0.009">
+<testcase name="LoadDeck" time="5.339">
 </testcase>
 </testsuite>
 </testsuites>

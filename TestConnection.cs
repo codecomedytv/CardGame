@@ -14,6 +14,8 @@ namespace CardGame
 		private readonly ServerConn ServerConn = new ServerConn();
 		private readonly ClientConn Client1 = new ClientConn();
 		private readonly ClientConn Client2 = new ClientConn();
+		private OptionButton TestSelector;
+		private Button RunSelectedTest;
 		private Button HostJoinJoin;
 		private Button HostJoin;
 		private Button Join;
@@ -25,12 +27,38 @@ namespace CardGame
 			HostJoin = GetNode<Button>("HostJoin");
 			Join = GetNode<Button>("Join");
 
+			TestSelector = GetNode<OptionButton>("Tests");
+			RunSelectedTest = GetNode<Button>("RunTest");
+			RunSelectedTest.Connect("pressed", this, "OnRunSelectedTest");
 			HostJoinJoin.Connect("pressed", this, nameof(OnStartPressed));
 			HostJoin.Connect("pressed", this, nameof(OnHostJoinPressed));
 			Join.Connect("pressed", this, nameof(OnJoinPressed));
+			SetUpTests();
 		}
 
 		private void OnNodeAdded(Node node) { if (node is Match match) { Games.Add(match); } }
+
+		private void SetUpTests()
+		{
+			var d = new Directory();
+			d.Open("res://Tests/Visual");
+			d.ListDirBegin(true);
+			var filename = d.GetNext();
+			while (filename != "")
+			{
+				TestSelector.AddItem($"res://Tests/Visual/{filename}");
+				filename = d.GetNext();
+			}
+			d.ListDirEnd();
+		}
+
+		public void OnRunSelectedTest()
+		{
+			var file = TestSelector.GetItemText(TestSelector.GetSelectedId());
+			var n = GD.Load<CSharpScript>(file);
+			Node o = (Node) n.New();
+			AddChild(o);
+		}
 
 		private void HideButtons()
 		{

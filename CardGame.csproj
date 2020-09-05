@@ -215,6 +215,7 @@
     <Compile Include="Tests\GameFixture.cs" />
     <Compile Include="Tests\MockMessenger.cs" />
     <Compile Include="Tests\Scripts\ClientSide\CardFactoryTest.cs" />
+    <Compile Include="Tests\Scripts\ClientSide\Deploy.cs" />
     <Compile Include="Tests\Scripts\Serverside\BattleTest.cs" />
     <Compile Include="Tests\Scripts\Serverside\GuardPuppyTest.cs" />
     <Compile Include="Tests\Scripts\Serverside\JudgeTest.cs" />
@@ -224,6 +225,7 @@
     <Compile Include="Tests\Scripts\Serverside\PlayerStates.cs" />
     <Compile Include="Tests\Scripts\Serverside\PlayTest.cs" />
     <Compile Include="Tests\Scripts\Serverside\SkillTest.cs" />
+    <Compile Include="Tests\Scripts\Visual\Visual.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="addons\WAT\assets\crash_warning.png" />

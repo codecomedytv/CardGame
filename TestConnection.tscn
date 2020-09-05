@@ -32,3 +32,22 @@ text = "Join"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Tests" type="OptionButton" parent="."]
+margin_left = 272.0
+margin_top = 62.0
+margin_right = 539.0
+margin_bottom = 82.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RunTest" type="Button" parent="."]
+margin_left = 363.0
+margin_top = 103.0
+margin_right = 468.0
+margin_bottom = 123.0
+text = "Run Test"
+__meta__ = {
+"_edit_use_anchors_": false
+}

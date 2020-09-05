@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Commands;
 using CardGame.Client.Game.Players;
@@ -9,6 +11,7 @@ namespace CardGame.Client.Game
 {
 	public class Match: Spatial
 	{
+		[Signal] public delegate void OnExecutionComplete();
 		private readonly Catalog Cards = new Catalog();
 		private readonly Queue<Command> CommandQueue = new Queue<Command>();
 		private readonly Messenger Messenger = new Messenger();
@@ -53,7 +56,16 @@ namespace CardGame.Client.Game
 
 			Table.PassPlayPressed = GameInput.OnPassPlayPressed;
 			Table.EndTurnPressed = GameInput.OnEndTurnPressed;
-			Messenger.CallDeferred("SetReady");
+
+			// This check exists mainly to avoid problems in a non-RPC test method
+			if (Multiplayer.NetworkPeer != null)
+			{
+				Messenger.CallDeferred("SetReady");
+			}
+			else
+			{
+				GD.PushWarning("No Network Peer Active");
+			}
 
 			LoadOpponentDeck();
 		}
@@ -61,6 +73,7 @@ namespace CardGame.Client.Game
 		private async void Execute()
 		{
 			while(CommandQueue.Count > 0) { await CommandQueue.Dequeue().Execute(Gfx); }
+			EmitSignal(nameof(OnExecutionComplete));
 		}
 
 		private void Queue(CommandId commandId, params object[] args)
