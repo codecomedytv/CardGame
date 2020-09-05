@@ -122,6 +122,7 @@
     <Compile Include="Client\Game\Commands\SendCardToGraveyard.cs" />
     <Compile Include="Client\Game\Commands\SetFaceDown.cs" />
     <Compile Include="Client\Game\Commands\SetState.cs" />
+    <Compile Include="Client\Game\Effects.cs" />
     <Compile Include="Client\Game\GameInput.cs" />
     <Compile Include="Client\Game\Match.cs" />
     <Compile Include="Client\Game\Messenger.cs" />
