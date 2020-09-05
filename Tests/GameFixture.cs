@@ -12,27 +12,27 @@ namespace CardGame.Tests
         protected Player Player;
         protected Player Opponent;
 
-    protected void StartGame(List<SetCodes> deckList, List<SetCodes> deckList2 = null)
-    {
-        deckList2 ??= deckList;
-        Players.Add(new Player(1, deckList));
-        Players.Add(new Player(2, deckList2));
-        Play = new MockMessenger();
-        Match = new Match(new Players(Players[0], Players[1]), Play);
-        AddChild(Match);
-        foreach(var player in Players){ Play.SetReady(player.Id); }
+        protected void StartGame(List<SetCodes> deckList, List<SetCodes> deckList2 = null)
+        {
+            deckList2 ??= deckList;
+            Players.Add(new Player(1, deckList));
+            Players.Add(new Player(2, deckList2));
+            Play = new MockMessenger();
+            Match = new Match(new Players(Players[0], Players[1]), Play);
+            AddChild(Match);
+            foreach(var player in Players){ Play.SetReady(player.Id); }
 
-        var turnPlayer = Match.TurnPlayer;
-        Player = turnPlayer;
-        Opponent = turnPlayer.Opponent;
-    }
+            var turnPlayer = Match.TurnPlayer;
+            Player = turnPlayer;
+            Opponent = turnPlayer.Opponent;
+        }
 
-    public override void Post()
-    {
-        Players.Clear();
-        Play.Free();
-        Match.Free();
-    }
+        public override void Post()
+        {
+            Players.Clear();
+            Play.Free();
+            Match.Free();
+        } 
     }
     
 }

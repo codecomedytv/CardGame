@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
-<testsuites failures="0" name="TestXML" tests="1" time="1.109">
-<testsuite failures="0" name="Visual" tests="1" time="0.01">
-<testcase name="LoadDeck" time="1.342">
+<testsuites failures="1" name="TestXML" tests="1" time="1.201">
+<testsuite failures="1" name="Visual" tests="1" time="0.013">
+<testcase name="ActivateCard" time="6.451">
 </testcase>
 </testsuite>
 </testsuites>

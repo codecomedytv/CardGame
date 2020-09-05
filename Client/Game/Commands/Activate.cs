@@ -26,13 +26,24 @@ namespace CardGame.Client.Game.Commands
             Card.Translation = fakeCard.Translation;
             fakeCard.Free();
 
+            var bigScale = ActivationView.RectScale * 1.5F;
+            
             ActivationView.Texture = Card.Art;
             gfx.InterpolateProperty(Card, nameof(Card.RotationDegrees), new Vector3(0, 0, 0), new Vector3(0, 180, 0),
                 0.1F);
             gfx.InterpolateCallback(ActivationView, 0.2F, "set_visible", true);
-            gfx.InterpolateProperty(ActivationView, "modulate", Colors.White, ActivationView.Modulate, 0.3F,
-                Tween.TransitionType.Linear, Tween.EaseType.In, 0.1F);
+
+            gfx.InterpolateProperty(ActivationView, "modulate", Colors.Transparent, ActivationView.Modulate, 0.1F,
+                Tween.TransitionType.Linear, Tween.EaseType.In, 0.3F);
+            gfx.InterpolateProperty(ActivationView, "rect_scale", bigScale, ActivationView.RectScale,
+                0.1F, Tween.TransitionType.Linear, Tween.EaseType.OutIn, 0.3F);
+            gfx.InterpolateProperty(ActivationView, "modulate", ActivationView.Modulate, Colors.Transparent, 0.1F,
+                Tween.TransitionType.Linear, Tween.EaseType.In, 0.6F);
             gfx.InterpolateCallback(ActivationView, 1, "set_visible", false);
+
+
+            ActivationView.Modulate = Colors.Transparent;
+            ActivationView.RectScale = bigScale;
         }
     }
 }

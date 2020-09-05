@@ -131,11 +131,12 @@ script = ExtResource( 5 )
 
 [node name="ActivationView" type="TextureRect" parent="HUD"]
 visible = false
-margin_left = 791.179
-margin_top = 371.548
-margin_right = 1921.18
-margin_bottom = 1614.55
+margin_left = 338.179
+margin_top = -120.548
+margin_right = 1468.18
+margin_bottom = 1122.45
 rect_scale = Vector2( 0.25, 0.25 )
+rect_pivot_offset = Vector2( 560, 625 )
 mouse_filter = 2
 texture = ExtResource( 4 )
 __meta__ = {
