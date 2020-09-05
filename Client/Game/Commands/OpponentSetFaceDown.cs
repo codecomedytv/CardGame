@@ -12,7 +12,7 @@ namespace CardGame.Client.Game
         {
             Opponent = opponent;
         }
-        protected override void SetUp(Tween gfx)
+        protected override void SetUp(Effects gfx)
         {
             var card = Opponent.Hand[0];
             var origin = card.Translation;

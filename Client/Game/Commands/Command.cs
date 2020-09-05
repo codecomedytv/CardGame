@@ -7,15 +7,14 @@ namespace CardGame.Client.Game
     {
         public Command() { }
         
-        public async Task<Task> Execute(Tween gfx)
+        public async Task<Task> Execute(Effects gfx)
         {
             gfx.RemoveAll();
             SetUp(gfx);
-            gfx.Start();
-            await gfx.ToSignal(gfx, "tween_all_completed");
+            await gfx.Start();
             return Task.CompletedTask;
         }
 
-        protected abstract void SetUp(Tween gfx);
+        protected abstract void SetUp(Effects gfx);
     }
 }

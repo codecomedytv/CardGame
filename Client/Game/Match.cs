@@ -17,7 +17,8 @@ namespace CardGame.Client.Game
 		private readonly Messenger Messenger = new Messenger();
 		private readonly CardFactory CardFactory = new CardFactory();
 		private readonly GameInput GameInput = new GameInput();
-		private readonly Tween Gfx = new Tween();
+		//private readonly Tween Gfx = new Tween();
+		private readonly Effects Effects = new Effects();
 		private readonly Table Table = new Table();
 		private readonly BattleSystem BattleSystem = new BattleSystem();
 		private Player Player;
@@ -29,7 +30,7 @@ namespace CardGame.Client.Game
 			AddChild(Table, true);
 			AddChild(Messenger);
 			AddChild(GameInput);
-			AddChild(Gfx);
+			AddChild(Effects);
 
 			// Change Back Into ControllerModel/View Objects
 			CardViewer = Table.CardViewer;
@@ -72,7 +73,7 @@ namespace CardGame.Client.Game
 
 		private async void Execute()
 		{
-			while(CommandQueue.Count > 0) { await CommandQueue.Dequeue().Execute(Gfx); }
+			while(CommandQueue.Count > 0) { await CommandQueue.Dequeue().Execute(Effects); }
 			EmitSignal(nameof(OnExecutionComplete));
 		}
 

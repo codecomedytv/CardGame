@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using System.Threading.Tasks;
+using Godot;
 
 namespace CardGame.Client.Game
 {
@@ -12,6 +13,14 @@ namespace CardGame.Client.Game
             AddChild(Tween);
             AddChild(Audio);
         }
+
+        public async Task Start()
+        {
+            Tween.Start();
+            await Tween.ToSignal(Tween, "tween_all_completed");
+        }
+
+        public void RemoveAll() => Tween.RemoveAll();
 
         public void InterpolateProperty(Object source, string property, object initialVal, object finalVal, float duration, 
             Tween.TransitionType transType = Tween.TransitionType.Quint, Tween.EaseType easeType = Tween.EaseType.In, float delay = 0.0F)

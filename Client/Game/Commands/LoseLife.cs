@@ -15,7 +15,7 @@ namespace CardGame.Client.Game
             LifeLost = lifeLost;
             Table = table;
         }
-        protected override void SetUp(Tween gfx)
+        protected override void SetUp(Effects gfx)
         {
             var finalValue = Player.Health - LifeLost;
             Table.LifeChange.Text = $"-{LifeLost}";

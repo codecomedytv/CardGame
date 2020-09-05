@@ -14,7 +14,7 @@ namespace CardGame.Client.Game
             State = state;
         }
 
-        protected override void SetUp(Tween gfx)
+        protected override void SetUp(Effects gfx)
         {
             Player.State = State;
         }

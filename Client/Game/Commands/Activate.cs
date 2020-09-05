@@ -18,7 +18,7 @@ namespace CardGame.Client.Game.Commands
             ActivationView = activationView;
         }
         
-        protected override void SetUp(Tween gfx)
+        protected override void SetUp(Effects gfx)
         {
             var fakeCard = Opponent.Support[0];
             Opponent.Support.Remove(fakeCard);

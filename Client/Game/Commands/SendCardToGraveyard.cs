@@ -11,7 +11,7 @@ namespace CardGame.Client.Game
         {
             Card = card;
         }
-        protected override void SetUp(Tween gfx)
+        protected override void SetUp(Effects gfx)
         {
             // Use Zone Properties On Cards In Future
             if (Card.Controller.Units.Contains(Card))

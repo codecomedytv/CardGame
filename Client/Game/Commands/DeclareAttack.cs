@@ -15,7 +15,7 @@ namespace CardGame.Client.Game
             Defender = defender;
             BattleSystem = battleSystem;
         }
-        protected override void SetUp(Tween gfx)
+        protected override void SetUp(Effects gfx)
         {
             gfx.InterpolateCallback(BattleSystem, 0.1F, nameof(BattleSystem.OnAttackerSelected), Attacker);
             gfx.InterpolateCallback(BattleSystem, 0.1F, nameof(BattleSystem.OnDefenderSelected), Defender);

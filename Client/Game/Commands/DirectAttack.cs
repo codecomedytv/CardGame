@@ -16,7 +16,7 @@ namespace CardGame.Client.Game
             Attacker = attacker;
             BattleSystem = battleSystem;
         }
-        protected override void SetUp(Tween gfx)
+        protected override void SetUp(Effects gfx)
         {
             var destination = Attacker.Controller is Opponent? new Vector3(2.5F, -2.95F, 1) :  new Vector3(2.5F, 9F, Attacker.Translation.z);
 

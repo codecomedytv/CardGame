@@ -13,7 +13,7 @@ namespace CardGame.Client.Game
         {
             Card = card;
         }
-        protected override void SetUp(Tween gfx)
+        protected override void SetUp(Effects gfx)
         {
             if (Card.Controller is Opponent)
             {

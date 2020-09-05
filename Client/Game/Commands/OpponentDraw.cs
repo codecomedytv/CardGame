@@ -12,7 +12,7 @@ namespace CardGame.Client.Game
         {
             Opponent = opponent;
         }
-        protected override void SetUp(Tween gfx)
+        protected override void SetUp(Effects gfx)
         {
             var card = Opponent.Deck.ElementAt(Opponent.Deck.Count - 1);
             Opponent.Deck.Add(card);

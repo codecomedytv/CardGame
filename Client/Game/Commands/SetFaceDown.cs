@@ -12,7 +12,7 @@ namespace CardGame.Client.Game
         {
             Card = card;
         }
-        protected override void SetUp(Tween gfx)
+        protected override void SetUp(Effects gfx)
         {
             var origin = Card.Translation;
             var destination = Card.Controller.Support.NextSlot() + new Vector3(0, 0, 0.05F);

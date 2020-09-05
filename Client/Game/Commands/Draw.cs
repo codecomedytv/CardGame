@@ -11,7 +11,7 @@ namespace CardGame.Client.Game
         {
             Card = card;
         }
-        protected override void SetUp(Tween gfx)
+        protected override void SetUp(Effects gfx)
         {
             Card.Visible = false;
             Card.Controller.Deck.Add(Card);

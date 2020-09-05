@@ -16,7 +16,7 @@ namespace CardGame.Client.Game
             Defender = defender;
             BattleSystem = battleSystem;
         }
-        protected override void SetUp(Tween gfx)
+        protected override void SetUp(Effects gfx)
         {
             var attackerY = Attacker.Controller is Opponent ? 1.75F : 0.5F;
             var defenderY = Attacker.Controller is Opponent ? 1.75F : 0.5F;
