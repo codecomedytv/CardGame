@@ -10,13 +10,13 @@ namespace CardGame.Tests.Scripts.ClientSide
         [Test]
         public async void LoadDeck()
         {
-            var match = new Match();
+            var match = new TestMatch();
             AddChild(match);
             var messenger = match.GetNode<Messenger>("Messenger");
             messenger.QueueEvent(CommandId.LoadDeck, new object[] {new Dictionary<int, SetCodes>{ {1, SetCodes.AlphaDungeonGuide} }});
             messenger.ExecuteEvents();
-            await ToSignal(UntilSignal(match, nameof(Match.OnExecutionComplete), 5F), YIELD);
-            Assert.IsEqual(match.GetNode<Player>("Spatial/Table3D/PlayMat/Player").Deck.Count, 1);
+            await ToSignal(UntilSignal(match, nameof(Match.OnExecutionComplete), 1F), YIELD);
+            Assert.IsEqual(match.Player.Deck.Count, 1);
         }
         
     }

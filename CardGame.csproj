@@ -213,6 +213,7 @@
     <Compile Include="Shared\SetCodes.cs" />
     <Compile Include="TestConnection.cs" />
     <Compile Include="Tests\GameFixture.cs" />
+    <Compile Include="Tests\TestMatch.cs" />
     <Compile Include="Tests\MockMessenger.cs" />
     <Compile Include="Tests\Scripts\ClientSide\CardFactoryTest.cs" />
     <Compile Include="Tests\Scripts\ClientSide\Deploy.cs" />

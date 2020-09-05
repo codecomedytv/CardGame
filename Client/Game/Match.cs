@@ -26,6 +26,7 @@ namespace CardGame.Client.Game
 
 		public override void _Ready()
 		{
+			GD.Print("BaseReadyCalled");
 			AddChild(Table, true);
 			AddChild(Messenger);
 			AddChild(GameInput);

@@ -13,7 +13,7 @@ namespace CardGame.Tests.Visual
         {
             // We don't need to talk to the server for these
             // we do need to await though (add an event to the match?
-            var match = new Match();
+            var match = new TestMatch();
             AddChild(match);
             var messenger = match.GetNode<Messenger>("Messenger");
             messenger.QueueEvent(CommandId.LoadDeck, new object[] {new Dictionary<int, SetCodes>{ {1, SetCodes.AlphaDungeonGuide} }});
@@ -21,3 +21,4 @@ namespace CardGame.Tests.Visual
         }
     }
 }
+
