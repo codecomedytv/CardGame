@@ -23,12 +23,12 @@ namespace CardGame
 		public override void _Ready()
 		{
 			GetTree().Connect("node_added", this, nameof(OnNodeAdded));
-			HostJoinJoin = GetNode<Button>("HostJoinJoin");
-			HostJoin = GetNode<Button>("HostJoin");
-			Join = GetNode<Button>("Join");
+			HostJoinJoin = GetNode<Button>("Menu/HostJoinJoin");
+			HostJoin = GetNode<Button>("Menu/HostJoin");
+			Join = GetNode<Button>("Menu/Join");
 
-			TestSelector = GetNode<OptionButton>("Tests");
-			RunSelectedTest = GetNode<Button>("RunTest");
+			TestSelector = GetNode<OptionButton>("Menu/Tests");
+			RunSelectedTest = GetNode<Button>("Menu/RunTest");
 			RunSelectedTest.Connect("pressed", this, "OnRunSelectedTest");
 			HostJoinJoin.Connect("pressed", this, nameof(OnStartPressed));
 			HostJoin.Connect("pressed", this, nameof(OnHostJoinPressed));
@@ -62,9 +62,7 @@ namespace CardGame
 
 		private void HideButtons()
 		{
-			HostJoinJoin.Visible = false;
-			HostJoin.Visible = false;
-			Join.Visible = false;
+			GetNode<VBoxContainer>("Menu").Visible = false;
 		}
 
 		private async void OnStartPressed()
