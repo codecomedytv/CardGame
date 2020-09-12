@@ -20,6 +20,9 @@ namespace CardGame.Client.Game.Cards
 		public IZone Zone;
 		private IList<int> ValidTargets = new List<int>();
 		private IList<int> ValidAttackTargets = new List<int>();
+
+		public bool IsHidden { get; set; } = true;
+
 		public BasePlayer OwningPlayer { get; set; }
 		public BasePlayer Controller { get; set; }
 
@@ -80,9 +83,22 @@ namespace CardGame.Client.Game.Cards
 			GetNode<Sprite3D>("Playable").Visible = CanBePlayed;
 		}
 
-		private void OnMouseEntered() => MouseOvered(this);
-		private void OnMouseExit() => MouseOveredExit(this);
-		
+		private void OnMouseEntered()
+		{
+			if (!IsHidden)
+			{
+				MouseOvered(this);
+			}
+		}
+
+		private void OnMouseExit()
+		{
+			if (!IsHidden)
+			{
+				MouseOveredExit(this);
+			}
+		}
+
 		public void DisplayPower(int power)
 		{
 			throw new System.NotImplementedException();

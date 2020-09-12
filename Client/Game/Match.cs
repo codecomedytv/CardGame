@@ -101,6 +101,7 @@ namespace CardGame.Client.Game
 			foreach (var (key, value) in deckList.Select(p => (p.Key, p.Value)))
 			{
 				var card = CardFactory.Create(key, value);
+				card.IsHidden = false;
 				AddChild(card);
 				Cards.Add(key, card);
 				card.OwningPlayer = Player;
@@ -116,6 +117,7 @@ namespace CardGame.Client.Game
 		public void RevealCard(int id, SetCodes setCode, int zoneIds)
 		{ 
 			var card = CardFactory.Create(id, setCode);
+			card.IsHidden = false;
 			card.OwningPlayer = Opponent; 
 			card.Controller = Opponent; 
 			AddChild(card); 
