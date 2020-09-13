@@ -12,5 +12,7 @@ namespace CardGame.Client.Assets.Audio
 
         public static readonly AudioStream Activate =
             GD.Load<AudioStream>($"{LocalPath}/Card_Game_Play_Slam_Water_Rise_01.wav");
+
+        public static readonly AudioStream BackgroundMusic = GD.Load<AudioStream>($"{LocalPath}/car race - loop.ogg");
     }
 }
