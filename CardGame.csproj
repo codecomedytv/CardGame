@@ -411,6 +411,7 @@
     <Content Include="addons\WAT\ui\results\ResultTree.tscn" />
     <Content Include="addons\WAT\ui\results\result_forest.gd" />
     <Content Include="addons\WAT\ui\results\result_tree.gd" />
+    <Content Include="Client\Assets\Audio\Card_Game_Action_Health_Upgrade_02.wav" />
     <Content Include="Client\Assets\Audio\Card_Game_Movement_Deal_Single_01.wav" />
     <Content Include="Client\Assets\Audio\Card_Game_Play_Mech_Arm_01.wav" />
     <Content Include="Client\Assets\CardArt\boar.png" />
