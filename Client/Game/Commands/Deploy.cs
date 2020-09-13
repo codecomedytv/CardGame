@@ -1,4 +1,5 @@
-﻿using CardGame.Client.Game.Cards;
+﻿using CardGame.Client.Assets.Audio;
+using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Players;
 using CardGame.Client.Game.Zones;
 using Godot;
@@ -29,6 +30,7 @@ namespace CardGame.Client.Game
             Card.Controller.Hand.Remove(Card);
             Card.Controller.Units.Add(Card);
 
+            gfx.Play(Audio.Deploy);
             gfx.InterpolateProperty(Card, nameof(Card.Translation), origin, destination, 0.3F);
             gfx.InterpolateProperty(Card, nameof(Card.RotationDegrees), new Vector3(-25, 180, 0), new Vector3(0, 180, 0), 0.1F);
             gfx.InterpolateCallback(Card.Controller.Hand, 0.2F, nameof(Hand.Sort));
