@@ -9,5 +9,8 @@ namespace CardGame.Client.Assets.Audio
         public static readonly AudioStream Deploy = GD.Load<AudioStream>($"{LocalPath}/Card_Game_Play_Mech_Arm_01.wav");
         public static readonly AudioStream SetCard =
             GD.Load<AudioStream>($"{LocalPath}/Card_Game_Action_Health_Upgrade_02.wav");
+
+        public static readonly AudioStream Activate =
+            GD.Load<AudioStream>($"{LocalPath}/Card_Game_Play_Slam_Water_Rise_01.wav");
     }
 }

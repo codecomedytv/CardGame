@@ -1,4 +1,5 @@
-﻿using CardGame.Client.Game.Cards;
+﻿using CardGame.Client.Assets.Audio;
+using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Players;
 using Godot;
 
@@ -29,6 +30,7 @@ namespace CardGame.Client.Game.Commands
             var bigScale = ActivationView.RectScale * 1.5F;
             
             ActivationView.Texture = Card.Art;
+            gfx.Play(Audio.Activate);
             gfx.InterpolateProperty(Card, nameof(Card.RotationDegrees), new Vector3(0, 0, 0), new Vector3(0, 180, 0), 0.1F);
             gfx.InterpolateCallback(ActivationView, 0.2F, "set_visible", true);
             gfx.InterpolateProperty(ActivationView, "modulate", Colors.Transparent, ActivationView.Modulate, 0.1F, delay: 0.3F);
