@@ -1,3 +1,4 @@
+using CardGame.Client.Assets.Audio;
 using CardGame.Client.Game.Cards;
 using Godot;
 
@@ -22,6 +23,7 @@ namespace CardGame.Client.Game
 			var rotation = new Vector3(-25, 180, 0);
 
 			// Wrap In gfx Class
+			gfx.Play(Audio.Draw);
 			gfx.InterpolateProperty(Card, nameof(Card.Visible), false, true, 0.1F);
 			gfx.InterpolateProperty(Card, nameof(Card.Translation), globalPosition, globalDestination, 0.1F);
 			gfx.InterpolateProperty(Card, nameof(Card.RotationDegrees), Card.Rotation, rotation, 0.1F);

@@ -14,6 +14,17 @@ namespace CardGame.Client.Game
             AddChild(Audio);
         }
 
+        public void Play(AudioStream audio, float delay = 0.0F)
+        {
+            Tween.InterpolateCallback(this, delay, "_playAudio", audio);
+        }
+
+        public void _playAudio(AudioStream stream)
+        {
+            Audio.Stream = stream;
+            Audio.Play();
+        }
+
         public async Task Start()
         {
             Tween.Start();
