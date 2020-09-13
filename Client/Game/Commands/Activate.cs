@@ -29,16 +29,11 @@ namespace CardGame.Client.Game.Commands
             var bigScale = ActivationView.RectScale * 1.5F;
             
             ActivationView.Texture = Card.Art;
-            gfx.InterpolateProperty(Card, nameof(Card.RotationDegrees), new Vector3(0, 0, 0), new Vector3(0, 180, 0),
-                0.1F);
+            gfx.InterpolateProperty(Card, nameof(Card.RotationDegrees), new Vector3(0, 0, 0), new Vector3(0, 180, 0), 0.1F);
             gfx.InterpolateCallback(ActivationView, 0.2F, "set_visible", true);
-
-            gfx.InterpolateProperty(ActivationView, "modulate", Colors.Transparent, ActivationView.Modulate, 0.1F,
-                Tween.TransitionType.Linear, Tween.EaseType.In, 0.3F);
-            gfx.InterpolateProperty(ActivationView, "rect_scale", bigScale, ActivationView.RectScale,
-                0.1F, Tween.TransitionType.Linear, Tween.EaseType.OutIn, 0.3F);
-            gfx.InterpolateProperty(ActivationView, "modulate", ActivationView.Modulate, Colors.Transparent, 0.1F,
-                Tween.TransitionType.Linear, Tween.EaseType.In, 0.6F);
+            gfx.InterpolateProperty(ActivationView, "modulate", Colors.Transparent, ActivationView.Modulate, 0.1F, delay: 0.3F);
+            gfx.InterpolateProperty(ActivationView, "rect_scale", bigScale, ActivationView.RectScale, 0.2F, Tween.TransitionType.Linear, Tween.EaseType.In, delay: 0.4F);
+            gfx.InterpolateProperty(ActivationView, "modulate", ActivationView.Modulate, Colors.Transparent, 0.1F, delay: 8);
             gfx.InterpolateCallback(ActivationView, 1, "set_visible", false);
 
 

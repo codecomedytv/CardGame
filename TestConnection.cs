@@ -46,7 +46,7 @@ namespace CardGame
 			var filename = d.GetNext();
 			while (filename != "")
 			{
-				TestSelector.AddItem($"res://Tests/Visual/{filename}");
+				TestSelector.AddItem($"res://Tests/Scripts/Visual/{filename}");
 				filename = d.GetNext();
 			}
 			d.ListDirEnd();
