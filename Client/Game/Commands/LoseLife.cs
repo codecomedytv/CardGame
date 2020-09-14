@@ -1,4 +1,5 @@
-﻿using CardGame.Client.Game.Players;
+﻿using CardGame.Client.Assets.Audio;
+using CardGame.Client.Game.Players;
 using Godot;
 
 namespace CardGame.Client.Game
@@ -22,6 +23,7 @@ namespace CardGame.Client.Game
             var originalPosition = Table.LifeChange.RectPosition;
             var yMod = Player is Player ? 200 : -200;
             Table.LifeChange.RectPosition += new Vector2(0, yMod);
+            gfx.Play(Audio.LoseLife);
             gfx.InterpolateCallback(Table.LifeChange, 0, "set_visible", true);
             gfx.InterpolateProperty(Player, nameof(BasePlayer.Health), Player.Health, finalValue, 1);
             gfx.InterpolateCallback(Table.LifeChange, 1, "set_visible", false);
