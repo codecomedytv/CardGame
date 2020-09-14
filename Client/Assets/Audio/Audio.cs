@@ -10,6 +10,7 @@ namespace CardGame.Client.Assets.Audio
         public static readonly AudioStream SetCard = Load("Card_Game_Action_Health_Upgrade_02.wav");
         public static readonly AudioStream Activate = Load("Card_Game_Play_Slam_Water_Rise_01.wav");
         public static readonly AudioStream LoseLife = Load("Card_Game_Play_Slam_Wind_01.wav");
+        public static readonly AudioStream Destroyed = Load("Card_Game_Effect_Fracture_03.wav");
         public static readonly AudioStream BackgroundMusic = Load("car race - loop.ogg");
 
         private static AudioStream Load(string path)
