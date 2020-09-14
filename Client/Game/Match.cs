@@ -17,7 +17,6 @@ namespace CardGame.Client.Game
 		private readonly Messenger Messenger = new Messenger();
 		private readonly CardFactory CardFactory = new CardFactory();
 		private readonly GameInput GameInput = new GameInput();
-		//private readonly Tween Gfx = new Tween();
 		private readonly Effects Effects = new Effects();
 		private readonly Table Table = new Table();
 		private readonly BattleSystem BattleSystem = new BattleSystem();
@@ -33,6 +32,7 @@ namespace CardGame.Client.Game
 			AddChild(Effects);
 
 			// Change Back Into ControllerModel/View Objects
+			GameInput.Cards = Cards;
 			CardViewer = Table.CardViewer;
 			Player = (Player) Table.PlayerView;
 			Opponent = (Opponent) Table.OpponentView;
@@ -70,7 +70,7 @@ namespace CardGame.Client.Game
 
 			LoadOpponentDeck();
 		}
-
+		
 		private async void Execute()
 		{
 			while(CommandQueue.Count > 0) { await CommandQueue.Dequeue().Execute(Effects); }
@@ -82,6 +82,8 @@ namespace CardGame.Client.Game
 			Call(commandId.ToString(), args);
 		}
 		
+		// Unsorted Methods, may require a second look for placement
+
 		// These 4 Methods (LoadDeck, OpponentLoadDeck, RevealCard & UpdateCard) need to happen immediately..
 		// ..rather than be queued otherwise everything else will cause an indexing error.
 		private void LoadOpponentDeck()

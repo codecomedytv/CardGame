@@ -18,8 +18,9 @@ namespace CardGame.Client.Game.Cards
 		public string Effect;
 		public Texture Art;
 		public IZone Zone;
-		private IList<int> ValidTargets = new List<int>();
-		private IList<int> ValidAttackTargets = new List<int>();
+		public IList<int> ValidTargets = new List<int>();
+		public IList<int> ValidAttackTargets = new List<int>();
+		private Sprite3D TargetReticule;
 
 		public bool IsHidden { get; set; } = true;
 
@@ -57,12 +58,27 @@ namespace CardGame.Client.Game.Cards
 
 		public override void _Ready()
 		{
+			TargetReticule = GetNode<Sprite3D>("Target");
 			GetNode<Area>("Area").Connect("mouse_entered", this, nameof(OnMouseEntered));
 			GetNode<Area>("Area").Connect("mouse_exited", this, nameof(OnMouseExit));
 			if (CardType == CardType.Unit)
 			{
 				ChangeAttack();
 			}
+		}
+
+		public void Target()
+		{
+			GD.Print("Targeting");
+			TargetReticule.Visible = true;
+			GetNode<AnimationPlayer>("AnimationPlayer").Play("Target");
+		}
+
+		public void StopTargeting()
+		{
+			TargetReticule.Visible = false;
+			GetNode<AnimationPlayer>("AnimationPlayer").Play("Playable");
+
 		}
 		
 		private void ChangeAttack()

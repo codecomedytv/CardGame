@@ -8,6 +8,7 @@ namespace CardGame.Client.Game
 {
     public class GameInput: Node
     {
+        public Catalog Cards;
         public Action<int> Deploy;
         public Action<int> SetCard;
         public Action<int, int> Activate;
@@ -72,6 +73,10 @@ namespace CardGame.Client.Game
                 AttackStopped?.Invoke(User.CardInUse);
             }
 
+            foreach (var id in User.CardInUse.ValidAttackTargets)
+            {
+                Cards[id].StopTargeting();
+            }
             User.Attacking = false;
             User.CardInUse = null;
         }
@@ -116,6 +121,10 @@ namespace CardGame.Client.Game
             else if (card.CanAttack)
             {
                 AttackerSelected?.Invoke(card);
+                foreach (var id in card.ValidAttackTargets)
+                {
+                    Cards[id].Target();
+                }
                 User.Attacking = true;
                 User.CardInUse = card;
             }
