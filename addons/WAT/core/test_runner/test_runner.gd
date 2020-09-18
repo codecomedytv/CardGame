@@ -106,7 +106,10 @@ func end() -> void:
 	test_results.deposit(_cases)
 	emit_signal("ended")
 	clear()
-	get_tree().quit()
+	if ProjectSettings.get("RunInEngine"):
+		get_tree().quit()
+	else:
+		queue_free()
 
 func _create_test_double_registry() -> void:
 	if not ProjectSettings.has_setting("WAT/TestDouble"):

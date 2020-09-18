@@ -12,9 +12,9 @@ onready var Summary: Label = $GUI/Summary
 onready var Results: TabContainer = $GUI/Results
 onready var Run: HBoxContainer = $GUI/Interact/Run
 onready var Select: HBoxContainer = $GUI/Interact/Select
-onready var ViewMenu: MenuButton = $GUI/Interact/View.get_popup()
+onready var ViewMenu: PopupMenu = $GUI/Interact/View.get_popup()
 onready var QuickStart: Button = $GUI/Interact/Run/QuickStart
-onready var Menu: MenuButton = $GUI/Interact/Run/Menu.get_popup()
+onready var Menu: PopupMenu = $GUI/Interact/Run/Menu.get_popup()
 onready var DirectorySelector: OptionButton = $GUI/Interact/Select/Directory
 onready var ScriptSelector: OptionButton = $GUI/Interact/Select/Script
 onready var TagSelector: OptionButton = $GUI/Interact/Select/Tag
@@ -140,13 +140,35 @@ func strategy() -> Dictionary:
 	return ProjectSettings.get_setting("WAT/TestStrategy")
 
 func _run() -> void:
-	start_time()
-	Results.clear()
-	execute.run(TestRunner)
-	EditorPlugin.new().make_bottom_panel_item_visible(self)
-
-
-	    
+	add_setting()
+	if Engine.is_editor_hint():
+		ProjectSettings.set("RunInEngine", true)
+		start_time()
+		Results.clear()
+		execute.run(TestRunner)
+		EditorPlugin.new().make_bottom_panel_item_visible(self)
+	else:
+		ProjectSettings.set("RunInEngine", false)
+		start_time()
+		Results.clear()
+		add_child(load(TestRunner).instance())
+		
+func add_setting() -> void:
+	if not ProjectSettings.has_setting("RunInEngine"):
+		var prop = {"name": "RunInEngine", "type": TYPE_BOOL, 
+			"hint_string": "If Engine it quits tree, if not it displays"}
+		ProjectSettings.set("RunInEngine", true)
+		ProjectSettings.add_property_info(prop)
+		
+func _create_test_folder() -> void:
+	var title: String = "WAT/Test_Directory"
+	if not ProjectSettings.has_setting(title):
+		var property_info: Dictionary = {"name": title, "type": TYPE_STRING, 
+		"hint_string": "Store your WATTests here"}
+		ProjectSettings.set(title, "res://tests")
+		ProjectSettings.add_property_info(property_info)
+		push_warning("Set Test Directory to 'res://tests'. You can change this in Project -> Project Settings -> General -> WAT")
+	
 	
 const WATResults = preload("res://addons/WAT/resources/results.tres")
 func _process(delta):
