@@ -76,13 +76,13 @@ margin_bottom = 24.0
 
 [node name="Select" type="HBoxContainer" parent="GUI/Interact"]
 margin_left = 152.0
-margin_right = 818.0
+margin_right = 791.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Directory" type="OptionButton" parent="GUI/Interact/Select"]
-margin_right = 219.0
+margin_right = 210.0
 margin_bottom = 24.0
 grow_horizontal = 0
 grow_vertical = 0
@@ -97,8 +97,8 @@ items = [ "Select Directory", null, false, 0, null ]
 selected = 0
 
 [node name="Script" type="OptionButton" parent="GUI/Interact/Select"]
-margin_left = 223.0
-margin_right = 442.0
+margin_left = 214.0
+margin_right = 424.0
 margin_bottom = 24.0
 hint_tooltip = "Select a single test script to run (your choices depend on which folder is selected)."
 size_flags_horizontal = 3
@@ -112,8 +112,8 @@ __meta__ = {
 }
 
 [node name="Tag" type="OptionButton" parent="GUI/Interact/Select"]
-margin_left = 446.0
-margin_right = 666.0
+margin_left = 428.0
+margin_right = 639.0
 margin_bottom = 24.0
 hint_tooltip = "select a tag and then run all tests that have that tag"
 size_flags_horizontal = 3
@@ -123,13 +123,13 @@ items = [ "Select Tag", null, false, 0, null ]
 selected = 0
 
 [node name="VSeparator2" type="VSeparator" parent="GUI/Interact"]
-margin_left = 828.0
-margin_right = 832.0
+margin_left = 801.0
+margin_right = 805.0
 margin_bottom = 24.0
 
 [node name="Repeat" type="SpinBox" parent="GUI/Interact"]
-margin_left = 842.0
-margin_right = 972.0
+margin_left = 815.0
+margin_right = 945.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 130, 0 )
 size_flags_horizontal = 0
@@ -141,11 +141,17 @@ prefix = "Repeat"
 suffix = "Times"
 
 [node name="More" type="Button" parent="GUI/Interact"]
-margin_left = 982.0
-margin_right = 1010.0
+margin_left = 955.0
+margin_right = 983.0
 margin_bottom = 24.0
 icon = ExtResource( 1 )
 flat = true
+
+[node name="Minimize" type="Button" parent="GUI/Interact"]
+margin_left = 993.0
+margin_right = 1010.0
+margin_bottom = 24.0
+text = "-"
 
 [node name="HiddenBorder" type="HSeparator" parent="GUI"]
 visible = false

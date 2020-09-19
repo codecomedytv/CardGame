@@ -32,7 +32,7 @@ func _on_view_pressed(id: int) -> void:
 			Results.collapse_all()
 		RESULTS.EXPAND_FAILURES:
 			Results.expand_failures()
-
+			
 func _ready() -> void:
 	set_process(false)
 	More.connect("pressed", self, "_show_more")
@@ -171,7 +171,10 @@ func _create_test_folder() -> void:
 	
 	
 const WATResults = preload("res://addons/WAT/resources/results.tres")
+
 func _process(delta):
+	if Input.is_key_pressed(KEY_M):
+		visible = !visible
 	if WATResults.exist():
 		var results = WATResults.withdraw()
 		summarize(results)

@@ -1,14 +1,17 @@
-﻿using System.Linq;
+﻿using System.Threading.Tasks;
 using CardGame.Client.Game;
-using CardGame.Client.Game.Players;
 using CardGame.Server.Game.Zones;
-using Godot;
 using Godot.Collections;
 
 namespace CardGame.Tests.Scripts.ClientSide
 {
     public class Visual: WAT.Test
     {
+        public override async void Pre()
+        {
+            await ToSignal(UntilTimeout(2F), YIELD);
+        }
+
         [Test]
         public async void LoadDeck()
         {
@@ -17,7 +20,7 @@ namespace CardGame.Tests.Scripts.ClientSide
             var messenger = match.Messenger;
             messenger.QueueEvent(CommandId.LoadDeck, new object[] {new Dictionary<int, SetCodes>{ {1, SetCodes.AlphaDungeonGuide} }});
             messenger.ExecuteEvents();
-            await ToSignal(UntilSignal(match, nameof(Match.OnExecutionComplete), 1F), YIELD);
+            await ToSignal(UntilSignal(match, nameof(Match.OnExecutionComplete), 10), YIELD);
             Assert.IsEqual(match.Player.Deck.Count, 1);
         }
 
@@ -32,7 +35,7 @@ namespace CardGame.Tests.Scripts.ClientSide
             messenger.QueueEvent(CommandId.RevealCard, new object[] {1, SetCodes.AlphaQuestReward, ZoneIds.Support});
             messenger.QueueEvent(CommandId.Activate, new object[] {1, 0});
             messenger.ExecuteEvents();
-            await ToSignal(UntilSignal(match, nameof(Match.OnExecutionComplete), 1F), YIELD);
+            await ToSignal(UntilSignal(match, nameof(Match.OnExecutionComplete), 10), YIELD);
             await ToSignal(UntilTimeout(5F), YIELD);
 
         }
