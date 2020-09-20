@@ -29,22 +29,9 @@ namespace CardGame.Client.Game
             gfx.InterpolateProperty(card, nameof(card.Translation), origin, destination, 0.3F);
             gfx.InterpolateProperty(card, nameof(card.RotationDegrees), new Vector3(-25, 0, 0), new Vector3(0, 0, 0),
                 0.1F);
-            gfx.InterpolateCallback(new HelperNode(card.Controller.HandModel), 0.2F, nameof(HelperNode.Sort));
+            gfx.InterpolateCallback(new Sorter(card.Controller.HandModel), 0.2F, nameof(Sorter.Sort));
+
         }
 
-        public class HelperNode: Node
-        {
-            private HandModel Zone;
-            public HelperNode(HandModel zone)
-            {
-                Zone = zone;
-            }
-
-            public void Sort()
-            {
-                Zone.Sort();
-                QueueFree();
-            }
-        }
     }
 }

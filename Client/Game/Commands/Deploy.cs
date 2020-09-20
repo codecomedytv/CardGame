@@ -37,22 +37,8 @@ namespace CardGame.Client.Game
             gfx.Play(Audio.Deploy);
             gfx.InterpolateProperty(Card, nameof(Card.Translation), origin, destination, 0.3F);
             gfx.InterpolateProperty(Card, nameof(Card.RotationDegrees), new Vector3(-25, 180, 0), new Vector3(0, 180, 0), 0.1F);
-            gfx.InterpolateCallback(new HelperNode(Card.Controller.HandModel), 0.2F, nameof(HelperNode.Sort));
+            gfx.InterpolateCallback(new Sorter(Card.Controller.HandModel), 0.2F, nameof(Sorter.Sort));
         }
-
-        public class HelperNode: Node
-        {
-            private HandModel Zone;
-            public HelperNode(HandModel zone)
-            {
-                Zone = zone;
-            }
-
-            public void Sort()
-            {
-                Zone.Sort();
-                QueueFree();
-            }
-        }
+        
     }
 }

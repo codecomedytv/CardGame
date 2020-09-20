@@ -18,7 +18,8 @@ namespace CardGame.Client.Game.Zones
         {
             Cards.Add(card);
             card.Translation = GlobalTransform.origin;
-            Sort();
+            var sorter = new Sorter(Cards);
+            sorter.Sort();
         }
         
         public void Remove(Card card)
@@ -26,34 +27,12 @@ namespace CardGame.Client.Game.Zones
             Cards.Remove(card);
         }
 
-        public void Sort()
-        {
-            var sorter = new Sorter(Cards);
-            sorter.Sort();
-        }
+        // public void Sort()
+        // {
+        //     var sorter = new Sorter(Cards);
+        //     sorter.Sort();
+        // }
 
-        public class Sorter : Godot.Object
-        {
-            private readonly IList<Card> Cards;
-            
-            public Sorter(IList<Card> cards)
-            {
-                Cards = cards;
-            }
-
-            public void Sort()
-            {
-                const float modifier = 1.2F;
-                var lastCardOnTheLeft = Cards.Count / 2;
-                var initial = -lastCardOnTheLeft * modifier + 0.6F;
-                foreach (var card in Cards)
-                {
-                    card.Translation = new Vector3(initial + 2.5F, card.Translation.y, card.Translation.z);
-                    initial += modifier;
-                }
-            }
-            
-            
-        }
+        
     }
 }
