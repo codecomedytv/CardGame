@@ -5,13 +5,13 @@ using CardGame.Client.Game.Cards;
 
 namespace CardGame.Client.Game.Zones.ModelControllers
 {
-    public class HandModel: IZoneModelController
+    public class UnitsModel: IZoneModelController
     {
         private readonly IList<Card> Cards = new List<Card>();
         private readonly IZone View; 
         public int Count => Cards.Count;
 
-        public HandModel(IZone view) => View = view;
+        public UnitsModel(IZone view) => View = view;
 
         public void Add(Card card)
         {
@@ -28,7 +28,12 @@ namespace CardGame.Client.Game.Zones.ModelControllers
             Cards.Remove(card);
             View.Remove(card);
         }
-        
+
+        public void NextSlot()
+        {
+            
+        }
+
         public void Sort() => View.Sort();
 
         public IEnumerator<Card> GetEnumerator() => Cards.GetEnumerator();

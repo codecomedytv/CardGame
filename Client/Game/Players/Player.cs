@@ -20,7 +20,7 @@ namespace CardGame.Client.Game.Players
 			get => HealthBar.Value;
 			set => SetHealth(value);
 		}
-		public override Units Units { get; protected set; }
+		public override UnitsModel UnitsModel { get; protected set; }
 		public override Support Support { get; protected set; }
 		public override HandModel HandModel { get; protected set; }
 		public override Graveyard Graveyard { get; protected set; }
@@ -49,7 +49,7 @@ namespace CardGame.Client.Game.Players
 		
 		public override void _Ready()
 		{
-			Units = (Units) GetNode("Units");
+			UnitsModel = new UnitsModel((Units) GetNode("Units"));
 			Support = (Support) GetNode("Support");
 			HandModel = new HandModel((Hand) GetNode("Hand"));
 			Graveyard = (Graveyard) GetNode("Graveyard");

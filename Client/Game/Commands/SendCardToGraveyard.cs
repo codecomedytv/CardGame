@@ -1,4 +1,5 @@
-﻿using CardGame.Client.Assets.Audio;
+﻿using System.Linq;
+using CardGame.Client.Assets.Audio;
 using CardGame.Client.Game.Cards;
 using Godot;
 
@@ -15,9 +16,9 @@ namespace CardGame.Client.Game
         protected override void SetUp(Effects gfx)
         {
             // Use Zone Properties On Cards In Future
-            if (Card.Controller.Units.Contains(Card))
+            if (Card.Controller.UnitsModel.Contains(Card))
             {
-                Card.Controller.Units.Remove(Card);
+                Card.Controller.UnitsModel.Remove(Card);
             }
             else if(Card.Controller.Support.Contains(Card))
             {

@@ -27,10 +27,12 @@ namespace CardGame.Client.Game
             }
 
             var origin = Card.Translation;
-            var destination = Card.Controller.Units.NextSlot() + new Vector3(0, 0, 0.05F);
+            //var destination = Card.Controller.UnitsModel.NextSlot() + new Vector3(0, 0, 0.05F);
 
             Card.Controller.HandModel.Remove(Card);
-            Card.Controller.Units.Add(Card);
+            Card.Controller.UnitsModel.Add(Card);
+            var destination = Card.Translation + new Vector3(0, 0, 0.05F);
+            Card.Translation = origin;
 
             gfx.Play(Audio.Deploy);
             gfx.InterpolateProperty(Card, nameof(Card.Translation), origin, destination, 0.3F);

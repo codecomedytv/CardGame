@@ -10,7 +10,7 @@ namespace CardGame.Client.Game.Players
         public abstract DeckModel DeckModel { get; protected set; }
         public abstract Graveyard Graveyard { get; protected set; }
         public abstract HandModel HandModel { get; protected set; }
-        public abstract Units Units { get; protected set; }
+        public abstract UnitsModel UnitsModel { get; protected set; }
         public abstract Support Support { get; protected set; }
     }
 }
