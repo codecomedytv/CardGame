@@ -17,17 +17,18 @@ namespace CardGame.Client.Game
 		protected override void SetUp(Effects gfx)
 		{
 			var origin = Card.Translation;
-			var destination = Card.Controller.Support.NextSlot() + new Vector3(0, 0, 0.05F);
 
 			Card.Controller.HandModel.Remove(Card);
-			Card.Controller.Support.Add(Card);
-
+			Card.Controller.SupportModel.Add(Card);
+			var destination = Card.Translation + new Vector3(0, 0, 0.05F);
+			Card.Translation = origin;
+			
 			gfx.Play(Audio.SetCard);
 			gfx.InterpolateProperty(Card, nameof(Card.Translation), origin, destination, 0.3F);
 			gfx.InterpolateProperty(Card, nameof(Card.RotationDegrees), new Vector3(-25, 180, 0), new Vector3(0, 0, 0), 0.1F);
 			gfx.InterpolateCallback(new Deploy.HelperNode(Card.Controller.HandModel), 0.2F, nameof(Deploy.HelperNode.Sort));
 		}
-
+		
 		public class HelperNode: Node
 		{
 			private IZoneModelController Zone;

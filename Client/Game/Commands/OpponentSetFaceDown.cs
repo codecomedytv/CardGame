@@ -19,10 +19,11 @@ namespace CardGame.Client.Game
         {
             var card = Opponent.HandModel.First();
             var origin = card.Translation;
-            var destination = Opponent.Support.NextSlot() + new Vector3(0, 0, 0.05F);
 
-            Opponent.HandModel.Remove(card);
-            Opponent.Support.Add(card);
+            card.Controller.HandModel.Remove(card);
+            card.Controller.SupportModel.Add(card);
+            var destination = card.Translation + new Vector3(0, 0, 0.05F);
+            card.Translation = origin;
 
             gfx.Play(Audio.SetCard);
             gfx.InterpolateProperty(card, nameof(card.Translation), origin, destination, 0.3F);

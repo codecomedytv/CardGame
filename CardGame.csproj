@@ -138,6 +138,7 @@
     <Compile Include="Client\Game\Zones\ModelControllers\DeckModel.cs" />
     <Compile Include="Client\Game\Zones\ModelControllers\HandModel.cs" />
     <Compile Include="Client\Game\Zones\ModelControllers\IZoneModelController.cs" />
+    <Compile Include="Client\Game\Zones\ModelControllers\SupportModel.cs" />
     <Compile Include="Client\Game\Zones\ModelControllers\UnitsModel.cs" />
     <Compile Include="Client\Game\Zones\Views\Deck.cs" />
     <Compile Include="Client\Game\Zones\Views\Graveyard.cs" />

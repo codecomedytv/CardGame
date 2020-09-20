@@ -5,19 +5,19 @@ using CardGame.Client.Game.Cards;
 
 namespace CardGame.Client.Game.Zones.ModelControllers
 {
-    public class UnitsModel: IZoneModelController
+    public class SupportModel: IZoneModelController
     {
         private readonly IList<Card> Cards = new List<Card>();
         private readonly IZone View; 
         public int Count => Cards.Count;
 
-        public UnitsModel(IZone view) => View = view;
+        public SupportModel(IZone view) => View = view;
 
         public void Add(Card card)
         {
             if (Cards.Contains(card))
             {
-                throw new InvalidDataException("Attempted to add a card that already existed in HandModel");
+                throw new InvalidDataException("Attempted to add a card that already existed in DeckModel");
             }
             Cards.Add(card);
             View.Add(card);

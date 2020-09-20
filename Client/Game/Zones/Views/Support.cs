@@ -20,17 +20,13 @@ namespace CardGame.Client.Game.Zones
 		}
 
 		public Card this[int index] => Cards[index];
-
-		public Vector3 NextSlot()
-		{
-			return GetNode<Sprite3D>($"CardSlot{Count}").GlobalTransform.origin;
-		}
-
+		
 		public int Count => Cards.Count;
 
 		public void Add(Card card)
 		{
 			Cards.Add(card);
+			card.Translation = GetNode<Sprite3D>($"CardSlot{Count-1}").GlobalTransform.origin;
 		}
 		
 		public bool Contains(Card card)

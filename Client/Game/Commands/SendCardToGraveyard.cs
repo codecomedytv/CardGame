@@ -20,9 +20,9 @@ namespace CardGame.Client.Game
             {
                 Card.Controller.UnitsModel.Remove(Card);
             }
-            else if(Card.Controller.Support.Contains(Card))
+            else if(Card.Controller.SupportModel.Contains(Card))
             {
-                Card.Controller.Support.Remove(Card);
+                Card.Controller.SupportModel.Remove(Card);
             }
 				
             Card.OwningPlayer.Graveyard.Add(Card);

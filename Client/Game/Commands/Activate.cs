@@ -1,4 +1,5 @@
-﻿using CardGame.Client.Assets.Audio;
+﻿using System.Linq;
+using CardGame.Client.Assets.Audio;
 using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Players;
 using Godot;
@@ -21,9 +22,9 @@ namespace CardGame.Client.Game.Commands
         
         protected override void SetUp(Effects gfx)
         {
-            var fakeCard = Opponent.Support[0];
-            Opponent.Support.Remove(fakeCard);
-            Opponent.Support.Add(Card);
+            var fakeCard = Opponent.SupportModel.First();
+            Opponent.SupportModel.Remove(fakeCard);
+            Opponent.SupportModel.Add(Card);
             Card.Translation = fakeCard.Translation;
             fakeCard.Free();
 
