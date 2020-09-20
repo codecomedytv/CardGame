@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Client/Game/Zones/Views/GraveyardView.cs" type="Script" id=1]
 [ext_resource path="res://Client/Game/Zones/Views/DeckView.cs" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Client/Assets/HUD/HealthProgressBackground.png" type="Texture" id=6]
 [ext_resource path="res://Client/Assets/HUD/HealthBarFrame.png" type="Texture" id=7]
 [ext_resource path="res://Client/Assets/CardSlot.png" type="Texture" id=8]
+[ext_resource path="res://Client/Game/Cards/Card.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Client/Assets/HUD/HealthProgressElement.png" type="Texture" id=10]
 [ext_resource path="res://Client/Game/Players/HealthBar.cs" type="Script" id=12]
 [ext_resource path="res://Client/Game/Players/Player.cs" type="Script" id=13]
@@ -83,6 +84,8 @@ texture = ExtResource( 8 )
 [node name="Hand" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.906308, -0.422618, 0, 0.422618, 0.906308, 2.5, -3.2, 0 )
 script = ExtResource( 4 )
+
+[node name="Card" parent="Hand" instance=ExtResource( 9 )]
 
 [node name="Deck" type="Sprite3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -1.7, 0 )

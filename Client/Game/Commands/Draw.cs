@@ -1,10 +1,11 @@
 using CardGame.Client.Assets.Audio;
 using CardGame.Client.Game.Cards;
+using CardGame.Client.Game.Zones.ModelControllers;
 using Godot;
 
 namespace CardGame.Client.Game
 {
-	public class Draw: Command
+	public class Draw : Command
 	{
 		private readonly Card Card;
 
@@ -12,6 +13,7 @@ namespace CardGame.Client.Game
 		{
 			Card = card;
 		}
+
 		protected override void SetUp(Effects gfx)
 		{
 			Card.Visible = false;
@@ -28,7 +30,8 @@ namespace CardGame.Client.Game
 			Card.Translation = globalPosition;
 			gfx.InterpolateProperty(Card, nameof(Card.Translation), Card.Translation, globalPosition, 0.09F);
 			gfx.InterpolateProperty(Card, nameof(Card.Visible), false, true, 0.1F);
-			gfx.InterpolateProperty(Card, nameof(Card.Translation), globalPosition, globalDestination, 0.2F, delay: 0.1F);
+			gfx.InterpolateProperty(Card, nameof(Card.Translation), globalPosition, globalDestination, 0.2F,
+				delay: 0.1F);
 			gfx.InterpolateProperty(Card, nameof(Card.RotationDegrees), Card.Rotation, rotation, 0.2F, delay: 0);
 		}
 	}

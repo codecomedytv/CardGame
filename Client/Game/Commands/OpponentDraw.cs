@@ -15,7 +15,6 @@ namespace CardGame.Client.Game
         }
         protected override void SetUp(Effects gfx)
         {
-            GD.Print(Opponent.DeckModel.Count);
             var card = Opponent.DeckModel.Last();
             //Opponent.DeckModel.Add(card); // We keep re-adding the card? Does C# have a UniqueCollection?
             var globalPosition = card.Translation;
