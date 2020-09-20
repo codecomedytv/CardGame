@@ -1,6 +1,7 @@
 using CardGame.Client.Assets.Audio;
 using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Zones;
+using CardGame.Client.Game.Zones.ModelControllers;
 using Godot;
 
 namespace CardGame.Client.Game
@@ -18,13 +19,28 @@ namespace CardGame.Client.Game
 			var origin = Card.Translation;
 			var destination = Card.Controller.Support.NextSlot() + new Vector3(0, 0, 0.05F);
 
-			Card.Controller.Hand.Remove(Card);
+			Card.Controller.HandModel.Remove(Card);
 			Card.Controller.Support.Add(Card);
 
 			gfx.Play(Audio.SetCard);
 			gfx.InterpolateProperty(Card, nameof(Card.Translation), origin, destination, 0.3F);
 			gfx.InterpolateProperty(Card, nameof(Card.RotationDegrees), new Vector3(-25, 180, 0), new Vector3(0, 0, 0), 0.1F);
-			gfx.InterpolateCallback(Card.Controller.Hand, 0.2F, nameof(Hand.Sort));
+			gfx.InterpolateCallback(new Deploy.HelperNode(Card.Controller.HandModel), 0.2F, nameof(Deploy.HelperNode.Sort));
+		}
+
+		public class HelperNode: Node
+		{
+			private IZoneModelController Zone;
+			public HelperNode(IZoneModelController zone)
+			{
+				Zone = zone;
+			}
+
+			public void Sort()
+			{
+				Zone.Sort();
+				QueueFree();
+			}
 		}
 	}
 }

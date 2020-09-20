@@ -22,7 +22,7 @@ namespace CardGame.Client.Game.Players
 		}
 		public override Units Units { get; protected set; }
 		public override Support Support { get; protected set; }
-		public override Hand Hand { get; protected set; }
+		public override HandModel HandModel { get; protected set; }
 		public override Graveyard Graveyard { get; protected set; }
 		public override DeckModel DeckModel { get; protected set; }
 		
@@ -51,7 +51,7 @@ namespace CardGame.Client.Game.Players
 		{
 			Units = (Units) GetNode("Units");
 			Support = (Support) GetNode("Support");
-			Hand = (Hand) GetNode("Hand");
+			HandModel = new HandModel((Hand) GetNode("Hand"));
 			Graveyard = (Graveyard) GetNode("Graveyard");
 			DeckModel = new DeckModel((Deck) GetNode("Deck"));
 			HealthBar = (HealthBar) GetNode("HUD/Health");
