@@ -19,8 +19,8 @@ namespace CardGame.Client.Game.Cards
 		public string Effect;
 		public Texture Art;
 		public IZoneView ZoneView;
-		public IList<Card> ValidTargets = new List<Card>();
-		public IList<Card> ValidAttackTargets = new List<Card>();
+		public Targets ValidTargets = new Targets();
+		public Targets ValidAttackTargets = new Targets();
 		private Sprite3D TargetReticule;
 		public int ZoneIndex = -1;
 		public IZone Zone;
@@ -49,8 +49,8 @@ namespace CardGame.Client.Game.Cards
 		public void Update(CardStates state, IList<Card> targets, IList<Card> attackTargets)
 		{
 			State = state;
-			ValidTargets = targets;
-			ValidAttackTargets = attackTargets;
+			ValidTargets.Update(targets);
+			ValidAttackTargets.Update(attackTargets);
 		}
 
 		public void SetCardArt(Texture art)
@@ -72,7 +72,6 @@ namespace CardGame.Client.Game.Cards
 
 		public void Target()
 		{
-			GD.Print("Targeting");
 			TargetReticule.Visible = true;
 			GetNode<AnimationPlayer>("AnimationPlayer").Play("Target");
 		}

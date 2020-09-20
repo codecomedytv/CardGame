@@ -32,7 +32,6 @@ namespace CardGame.Client.Game
 			AddChild(Effects);
 
 			// Change Back Into ControllerModel/View Objects
-			GameInput.Cards = Cards;
 			CardViewer = Table.CardViewer;
 			Player = (Player) Table.PlayerView;
 			Opponent = (Opponent) Table.OpponentView;
