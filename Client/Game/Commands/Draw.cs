@@ -21,7 +21,7 @@ namespace CardGame.Client.Game
 			Card.Controller.DeckModel.Add(Card);
 			var globalPosition = Card.Translation;
 			Card.Controller.DeckModel.Remove(Card);
-			Card.Controller.HandModel.Add(Card);
+			Card.Controller.Hand.Add(Card);
 			var globalDestination = Card.Translation;
 			var rotation = new Vector3(-25, 180, 0);
 

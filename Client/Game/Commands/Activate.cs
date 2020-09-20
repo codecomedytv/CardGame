@@ -22,9 +22,9 @@ namespace CardGame.Client.Game.Commands
         
         protected override void SetUp(Effects gfx)
         {
-            var fakeCard = Opponent.SupportModel.First();
-            Opponent.SupportModel.Remove(fakeCard);
-            Opponent.SupportModel.Add(Card);
+            var fakeCard = Opponent.Support.First();
+            Opponent.Support.Remove(fakeCard);
+            Opponent.Support.Add(Card);
             Card.Translation = fakeCard.Translation;
             fakeCard.Free();
 

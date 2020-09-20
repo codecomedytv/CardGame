@@ -17,11 +17,11 @@ namespace CardGame.Client.Game
         }
         protected override void SetUp(Effects gfx)
         {
-            var card = Opponent.HandModel.First();
+            var card = Opponent.Hand.First();
             var origin = card.Translation;
 
-            card.Controller.HandModel.Remove(card);
-            card.Controller.SupportModel.Add(card);
+            card.Controller.Hand.Remove(card);
+            card.Controller.Support.Add(card);
             var destination = card.Translation + new Vector3(0, 0, 0.05F);
             card.Translation = origin;
 
@@ -29,7 +29,7 @@ namespace CardGame.Client.Game
             gfx.InterpolateProperty(card, nameof(card.Translation), origin, destination, 0.3F);
             gfx.InterpolateProperty(card, nameof(card.RotationDegrees), new Vector3(-25, 0, 0), new Vector3(0, 0, 0),
                 0.1F);
-            gfx.InterpolateCallback(new Sorter(card.Controller.HandModel), 0.2F, nameof(Sorter.Sort));
+            gfx.InterpolateCallback(new Sorter(card.Controller.Hand), 0.2F, nameof(Sorter.Sort));
 
         }
 

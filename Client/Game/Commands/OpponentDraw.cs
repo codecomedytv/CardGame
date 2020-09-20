@@ -19,7 +19,7 @@ namespace CardGame.Client.Game
             //Opponent.DeckModel.Add(card); // We keep re-adding the card? Does C# have a UniqueCollection?
             var globalPosition = card.Translation;
             Opponent.DeckModel.Remove(card);
-            Opponent.HandModel.Add(card);
+            Opponent.Hand.Add(card);
             var globalDestination = card.Translation;
             var rotation = new Vector3(60, 0, 0);
 				

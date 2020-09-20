@@ -5,13 +5,13 @@ using CardGame.Client.Game.Cards;
 
 namespace CardGame.Client.Game.Zones.ModelControllers
 {
-    public class UnitsModel: IZoneModelController
+    public class Units: IZone
     {
         private readonly IList<Card> Cards = new List<Card>();
         private readonly IZoneView View; 
         public int Count => Cards.Count;
 
-        public UnitsModel(IZoneView view) => View = view;
+        public Units(IZoneView view) => View = view;
 
         public void Add(Card card)
         {

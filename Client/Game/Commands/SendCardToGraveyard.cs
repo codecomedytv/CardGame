@@ -16,17 +16,17 @@ namespace CardGame.Client.Game
         protected override void SetUp(Effects gfx)
         {
             // Use Zone Properties On Cards In Future
-            if (Card.Controller.UnitsModel.Contains(Card))
+            if (Card.Controller.Units.Contains(Card))
             {
-                Card.Controller.UnitsModel.Remove(Card);
+                Card.Controller.Units.Remove(Card);
             }
-            else if(Card.Controller.SupportModel.Contains(Card))
+            else if(Card.Controller.Support.Contains(Card))
             {
-                Card.Controller.SupportModel.Remove(Card);
+                Card.Controller.Support.Remove(Card);
             }
 
             var origin = Card.Translation;
-            Card.OwningPlayer.GraveyardModel.Add(Card);
+            Card.OwningPlayer.Graveyard.Add(Card);
             var destination = Card.Translation + new Vector3(0, 0, 0.1F);
             Card.Translation = origin;
 				

@@ -20,10 +20,10 @@ namespace CardGame.Client.Game.Players
 			get => HealthBar.Value;
 			set => SetHealth(value);
 		}
-		public override UnitsModel UnitsModel { get; protected set; }
-		public override SupportModel SupportModel { get; protected set; }
-		public override HandModel HandModel { get; protected set; }
-		public override GraveyardModel GraveyardModel { get; protected set; }
+		public override Units Units { get; protected set; }
+		public override Support Support { get; protected set; }
+		public override Hand Hand { get; protected set; }
+		public override Graveyard Graveyard { get; protected set; }
 		public override DeckModel DeckModel { get; protected set; }
 		
 		// Should really be a separate class
@@ -49,10 +49,10 @@ namespace CardGame.Client.Game.Players
 		
 		public override void _Ready()
 		{
-			UnitsModel = new UnitsModel((UnitsView) GetNode("Units"));
-			SupportModel = new SupportModel( (SupportView) GetNode("Support"));
-			HandModel = new HandModel((HandView) GetNode("Hand"));
-			GraveyardModel = new GraveyardModel((GraveyardView) GetNode("Graveyard"));
+			Units = new Units((UnitsView) GetNode("Units"));
+			Support = new Support( (SupportView) GetNode("Support"));
+			Hand = new Hand((HandView) GetNode("Hand"));
+			Graveyard = new Graveyard((GraveyardView) GetNode("Graveyard"));
 			DeckModel = new DeckModel((DeckView) GetNode("Deck"));
 			HealthBar = (HealthBar) GetNode("HUD/Health");
 			EnergyIcon = (Sprite) GetNode("HUD/EnergyIcon");

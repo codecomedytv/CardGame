@@ -5,13 +5,13 @@ using CardGame.Client.Game.Cards;
 
 namespace CardGame.Client.Game.Zones.ModelControllers
 {
-    public class GraveyardModel: IZoneModelController
+    public class Support: IZone
     {
         private readonly IList<Card> Cards = new List<Card>();
         private readonly IZoneView View; 
         public int Count => Cards.Count;
 
-        public GraveyardModel(IZoneView view) => View = view;
+        public Support(IZoneView view) => View = view;
 
         public void Add(Card card)
         {
@@ -20,6 +20,7 @@ namespace CardGame.Client.Game.Zones.ModelControllers
                 throw new InvalidDataException("Attempted to add a card that already existed in DeckModel");
             }
             Cards.Add(card);
+            card.ZoneIndex = Cards.Count;
             View.Add(card);
         }
 

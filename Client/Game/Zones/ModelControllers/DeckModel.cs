@@ -5,7 +5,7 @@ using CardGame.Client.Game.Cards;
 
 namespace CardGame.Client.Game.Zones.ModelControllers
 {
-    public class DeckModel: IZoneModelController
+    public class DeckModel: IZone
     {
         private readonly IList<Card> Cards = new List<Card>();
         private readonly IZoneView View; 
