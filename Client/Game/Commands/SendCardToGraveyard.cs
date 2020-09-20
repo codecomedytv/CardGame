@@ -24,12 +24,13 @@ namespace CardGame.Client.Game
             {
                 Card.Controller.SupportModel.Remove(Card);
             }
-				
-            Card.OwningPlayer.Graveyard.Add(Card);
+
+            var origin = Card.Translation;
+            Card.OwningPlayer.GraveyardModel.Add(Card);
+            var destination = Card.Translation + new Vector3(0, 0, 0.1F);
+            Card.Translation = origin;
 				
             gfx.Play(Audio.Destroyed, 0.4F);
-            var origin = Card.Translation;
-            var destination = Card.OwningPlayer.Graveyard.GlobalTransform.origin + new Vector3(0, 0, 0.1F);
             gfx.InterpolateProperty(Card, nameof(Card.Translation), origin, destination, 0.3F);
         }
     }

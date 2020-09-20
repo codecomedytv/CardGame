@@ -24,6 +24,7 @@ namespace CardGame.Client.Game.Zones
         public void Add(Card card)
         {
             Cards.Add(card);
+            card.Translation = GlobalTransform.origin;
         }
 
         public void Remove(Card card)
