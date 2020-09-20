@@ -17,10 +17,10 @@ namespace CardGame.Client.Game
 		protected override void SetUp(Effects gfx)
 		{
 			Card.Visible = false;
-			Card.Controller.DeckModel.Remove(Card);
-			Card.Controller.DeckModel.Add(Card);
+			Card.Controller.Deck.Remove(Card);
+			Card.Controller.Deck.Add(Card);
 			var globalPosition = Card.Translation;
-			Card.Controller.DeckModel.Remove(Card);
+			Card.Controller.Deck.Remove(Card);
 			Card.Controller.Hand.Add(Card);
 			var globalDestination = Card.Translation;
 			var rotation = new Vector3(-25, 180, 0);

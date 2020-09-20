@@ -135,7 +135,7 @@
     <Compile Include="Client\Game\Players\Player.cs" />
     <Compile Include="Client\Game\Players\States.cs" />
     <Compile Include="Client\Game\Table.cs" />
-    <Compile Include="Client\Game\Zones\ModelControllers\DeckModel.cs" />
+    <Compile Include="Client\Game\Zones\ModelControllers\Deck.cs" />
     <Compile Include="Client\Game\Zones\ModelControllers\Graveyard.cs" />
     <Compile Include="Client\Game\Zones\ModelControllers\Hand.cs" />
     <Compile Include="Client\Game\Zones\ModelControllers\IZone.cs" />

@@ -24,7 +24,7 @@ namespace CardGame.Client.Game.Players
 		public override Support Support { get; protected set; }
 		public override Hand Hand { get; protected set; }
 		public override Graveyard Graveyard { get; protected set; }
-		public override DeckModel DeckModel { get; protected set; }
+		public override Deck Deck { get; protected set; }
 		
 		// Should really be a separate class
 		private States SetState(States state)
@@ -53,7 +53,7 @@ namespace CardGame.Client.Game.Players
 			Support = new Support( (SupportView) GetNode("Support"));
 			Hand = new Hand((HandView) GetNode("Hand"));
 			Graveyard = new Graveyard((GraveyardView) GetNode("Graveyard"));
-			DeckModel = new DeckModel((DeckView) GetNode("Deck"));
+			Deck = new Deck((DeckView) GetNode("Deck"));
 			HealthBar = (HealthBar) GetNode("HUD/Health");
 			EnergyIcon = (Sprite) GetNode("HUD/EnergyIcon");
 		}

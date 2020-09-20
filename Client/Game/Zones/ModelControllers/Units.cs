@@ -20,6 +20,7 @@ namespace CardGame.Client.Game.Zones.ModelControllers
                 throw new InvalidDataException("Attempted to add a card that already existed in HandModel");
             }
             Cards.Add(card);
+            card.Zone = this;
             card.ZoneIndex = Cards.Count;
             View.Add(card);
         }

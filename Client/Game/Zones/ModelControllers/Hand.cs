@@ -22,6 +22,7 @@ namespace CardGame.Client.Game.Zones.ModelControllers
             }
 
             Cards.Add(card);
+            card.Zone = this;
             card.ZoneIndex = Cards.Count;
             View.Add(card);
             var sorter = new Sorter(Cards);

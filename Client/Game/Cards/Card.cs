@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CardGame.Client.Game.Players;
 using CardGame.Client.Game.Zones;
+using CardGame.Client.Game.Zones.ModelControllers;
 using Godot;
 
 namespace CardGame.Client.Game.Cards
@@ -22,6 +23,7 @@ namespace CardGame.Client.Game.Cards
 		public IList<int> ValidAttackTargets = new List<int>();
 		private Sprite3D TargetReticule;
 		public int ZoneIndex = -1;
+		public IZone Zone;
 
 		public bool IsHidden { get; set; } = true;
 
