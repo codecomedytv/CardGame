@@ -26,7 +26,6 @@ namespace CardGame.Client.Game.Zones.ModelControllers
         public void Remove(Card card)
         {
             Cards.Remove(card);
-            View.Remove(card);
         }
         
         public IEnumerator<Card> GetEnumerator() => Cards.GetEnumerator();

@@ -20,14 +20,17 @@ namespace CardGame.Client.Game.Zones.ModelControllers
             {
                 throw new InvalidDataException("Attempted to add a card that already existed in HandModel");
             }
+
             Cards.Add(card);
+            card.ZoneIndex = Cards.Count;
             View.Add(card);
+            var sorter = new Sorter(Cards);
+            sorter.Sort();
         }
 
         public void Remove(Card card)
         {
             Cards.Remove(card);
-            View.Remove(card);
         }
         
         public IEnumerator<Card> GetEnumerator() => Cards.GetEnumerator();

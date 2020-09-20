@@ -9,10 +9,6 @@ namespace CardGame.Client.Game.Zones
 {
     public class GraveyardView: Sprite3D, IZoneView
     {
-        
-        public int Count => 0;
         public void Add(Card card) { card.Translation = GlobalTransform.origin; }
-
-        public void Remove(Card card) { }
     }
 }

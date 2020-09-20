@@ -21,6 +21,7 @@ namespace CardGame.Client.Game.Cards
 		public IList<int> ValidTargets = new List<int>();
 		public IList<int> ValidAttackTargets = new List<int>();
 		private Sprite3D TargetReticule;
+		public int ZoneIndex = -1;
 
 		public bool IsHidden { get; set; } = true;
 
