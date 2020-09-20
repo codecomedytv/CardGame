@@ -3,9 +3,11 @@ using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Zones;
 using CardGame.Client.Game.Zones.ModelControllers;
 using Godot;
+using JetBrains.Annotations;
 
 namespace CardGame.Client.Game.Players
 {
+	[UsedImplicitly]
 	public class Player: BasePlayer
 	{
 		public event Action<States> StateChanged;

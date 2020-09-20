@@ -73,9 +73,9 @@ namespace CardGame.Client.Game
                 AttackStopped?.Invoke(User.CardInUse);
             }
 
-            foreach (var id in User.CardInUse.ValidAttackTargets)
+            foreach (var target in User.CardInUse.ValidAttackTargets)
             {
-                Cards[id].StopTargeting();
+                target.StopTargeting();
             }
             User.Attacking = false;
             User.CardInUse = null;
@@ -121,9 +121,9 @@ namespace CardGame.Client.Game
             else if (card.CanAttack)
             {
                 AttackerSelected?.Invoke(card);
-                foreach (var id in card.ValidAttackTargets)
+                foreach (var target in card.ValidAttackTargets)
                 {
-                    Cards[id].Target();
+                    target.Target();
                 }
                 User.Attacking = true;
                 User.CardInUse = card;

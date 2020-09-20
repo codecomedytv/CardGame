@@ -19,8 +19,8 @@ namespace CardGame.Client.Game.Cards
 		public string Effect;
 		public Texture Art;
 		public IZoneView ZoneView;
-		public IList<int> ValidTargets = new List<int>();
-		public IList<int> ValidAttackTargets = new List<int>();
+		public IList<Card> ValidTargets = new List<Card>();
+		public IList<Card> ValidAttackTargets = new List<Card>();
 		private Sprite3D TargetReticule;
 		public int ZoneIndex = -1;
 		public IZone Zone;
@@ -40,13 +40,13 @@ namespace CardGame.Client.Game.Cards
 		public bool CanAttackDirectly => State == CardStates.CanAttackDirectly && Controller is Player player &&
 		                                 player.State == States.Idle;
 		public bool CanBePlayed => CanBeSet || CanBeActivated || CanBeDeployed;
-		public bool HasAttackTarget(Card card) => ValidAttackTargets.Contains(card.Id);
+		public bool HasAttackTarget(Card card) => ValidAttackTargets.Contains(card);
 		
 
 		public Action<Card> MouseOvered;
 		public Action<Card> MouseOveredExit;
 
-		public void Update(CardStates state, IList<int> targets, IList<int> attackTargets)
+		public void Update(CardStates state, IList<Card> targets, IList<Card> attackTargets)
 		{
 			State = state;
 			ValidTargets = targets;

@@ -131,7 +131,9 @@ namespace CardGame.Client.Game
 		
 		private void UpdateCard(int id, CardStates state, IList<int> attackTargets, IList<int> targets)
 		{
-			Cards[id].Update(state, targets, attackTargets);
+			Cards[id].Update(state, 
+				targets.Select(targetId => Cards[targetId]).ToList(), 
+				attackTargets.Select(targetId => Cards[targetId]).ToList());
 		}
 		
 		private void SetState(States state)

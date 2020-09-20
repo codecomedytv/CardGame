@@ -51,6 +51,10 @@
       <Private>False</Private>
       <HintPath>$(ProjectDir)/.mono/assemblies/$(ApiConfiguration)/GodotSharpEditor.dll</HintPath>
     </Reference>
+    <Reference Include="JetBrains.Annotations, Version=2020.2.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325">
+      <HintPath>packages\JetBrains.Annotations.2020.2.0-eap\lib\net20\JetBrains.Annotations.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
       <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.1.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
       <Private>True</Private>
@@ -107,6 +111,7 @@
     <Compile Include="Client\Game\Cards\Card.cs" />
     <Compile Include="Client\Game\Cards\CardFactory.cs" />
     <Compile Include="Client\Game\Cards\CardInfo.cs" />
+    <Compile Include="Client\Game\Cards\Targets.cs" />
     <Compile Include="Client\Game\CardViewer.cs" />
     <Compile Include="Client\Game\Catalog.cs" />
     <Compile Include="Client\Game\Commands\Activate.cs" />
