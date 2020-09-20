@@ -6,14 +6,26 @@ namespace CardGame.Client.Game
 {
     public class Table: Spatial
     {
-        public BasePlayer PlayerView { get; }
-        public BasePlayer OpponentView { get; }
+        [Export] private PackedScene TableScene;
+        [Export] private NodePath Player;
+        [Export] private NodePath Opponent;
+        [Export] private NodePath LifeChangeLabel;
+        [Export] private NodePath CardView;
+        [Export] private NodePath PassPlay;
+        [Export] private NodePath EndTurn;
+        public IPlayerView PlayerView { get; }
+        public IPlayerView OpponentView { get; }
 
         public Action PassPlayPressed;
         public Action EndTurnPressed;
         public Label LifeChange;
         public CardViewer CardViewer;
         public TextureRect ActivationView;
+
+        public static Table Create()
+        {
+            return new Table();
+        }
         
         public Table()
         {

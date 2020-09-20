@@ -15,18 +15,20 @@ namespace CardGame.Client.Game
         }
         protected override void SetUp(Effects gfx)
         {
-            var card = Opponent.Deck.ElementAt(Opponent.Deck.Count - 1);
-            Opponent.Deck.Add(card);
+            GD.Print(Opponent.DeckModel.Count);
+            var card = Opponent.DeckModel.Last();
+            //Opponent.DeckModel.Add(card); // We keep re-adding the card? Does C# have a UniqueCollection?
             var globalPosition = card.Translation;
-            Opponent.Deck.Remove(card);
+            Opponent.DeckModel.Remove(card);
             Opponent.Hand.Add(card);
             var globalDestination = card.Translation;
             var rotation = new Vector3(60, 0, 0);
 				
             gfx.Play(Audio.Draw);
+            gfx.InterpolateProperty(card, nameof(card.Translation), card.Translation, globalPosition, 0.09F);
             gfx.InterpolateProperty(card, nameof(card.Visible), false, true, 0.1F);
-            gfx.InterpolateProperty(card, nameof(card.Translation), globalPosition, globalDestination, 0.1F);
-            gfx.InterpolateProperty(card, nameof(card.RotationDegrees), card.Rotation, rotation, 0.1F);
+            gfx.InterpolateProperty(card, nameof(card.Translation), globalPosition, globalDestination, 0.2F, delay: 0.1F);
+            gfx.InterpolateProperty(card, nameof(card.RotationDegrees), card.Rotation, rotation, 0.2F, delay: 0);
         }
     }
 }

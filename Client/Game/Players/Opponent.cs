@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Zones;
+using CardGame.Client.Game.Zones.ModelControllers;
 using Godot;
 
 namespace CardGame.Client.Game.Players
@@ -18,7 +19,7 @@ namespace CardGame.Client.Game.Players
 		public override Support Support { get; protected set; }
 		public override Hand Hand { get; protected set; }
 		public override Graveyard Graveyard { get; protected set; }
-		public override Deck Deck { get; protected set; }
+		public override DeckModel DeckModel { get; protected set; }
 
 		public override void _Ready()
 		{
@@ -26,7 +27,7 @@ namespace CardGame.Client.Game.Players
 			Support = (Support) GetNode("Support");
 			Hand = (Hand) GetNode("Hand");
 			Graveyard = (Graveyard) GetNode("Graveyard");
-			Deck = (Deck) GetNode("Deck");
+			DeckModel = new DeckModel((Deck) GetNode("Deck"));
 			HealthBar = (HealthBar) GetNode("HUD/Health");
 		}
 		

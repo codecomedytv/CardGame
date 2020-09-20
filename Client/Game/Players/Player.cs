@@ -1,6 +1,7 @@
 using System;
 using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Zones;
+using CardGame.Client.Game.Zones.ModelControllers;
 using Godot;
 
 namespace CardGame.Client.Game.Players
@@ -23,8 +24,9 @@ namespace CardGame.Client.Game.Players
 		public override Support Support { get; protected set; }
 		public override Hand Hand { get; protected set; }
 		public override Graveyard Graveyard { get; protected set; }
-		public override Deck Deck { get; protected set; }
+		public override DeckModel DeckModel { get; protected set; }
 		
+		// Should really be a separate class
 		private States SetState(States state)
 		{
 			if (state == States.Idle || state == States.Active)
@@ -51,7 +53,7 @@ namespace CardGame.Client.Game.Players
 			Support = (Support) GetNode("Support");
 			Hand = (Hand) GetNode("Hand");
 			Graveyard = (Graveyard) GetNode("Graveyard");
-			Deck = (Deck) GetNode("Deck");
+			DeckModel = new DeckModel((Deck) GetNode("Deck"));
 			HealthBar = (HealthBar) GetNode("HUD/Health");
 			EnergyIcon = (Sprite) GetNode("HUD/EnergyIcon");
 		}

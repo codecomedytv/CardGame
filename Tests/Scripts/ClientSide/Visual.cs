@@ -21,7 +21,7 @@ namespace CardGame.Tests.Scripts.ClientSide
             messenger.QueueEvent(CommandId.LoadDeck, new object[] {new Dictionary<int, SetCodes>{ {1, SetCodes.AlphaDungeonGuide} }});
             messenger.ExecuteEvents();
             await ToSignal(UntilSignal(match, nameof(Match.OnExecutionComplete), 10), YIELD);
-            Assert.IsEqual(match.Player.Deck.Count, 1);
+            Assert.IsEqual(match.Player.DeckModel.Count, 1);
         }
 
         [Test]
