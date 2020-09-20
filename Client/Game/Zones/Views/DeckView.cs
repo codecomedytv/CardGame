@@ -22,19 +22,6 @@ namespace CardGame.Client.Game.Zones
 			Cards.Remove(card);
 		}
 
-		public void Sort()
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public IEnumerator<Card> GetEnumerator()
-		{
-			return Cards.GetEnumerator();
-		}
-
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return GetEnumerator();
-		}
+		
 	}
 }

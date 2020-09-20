@@ -8,38 +8,20 @@ namespace CardGame.Client.Game.Zones
 {
 	public class UnitsView: Spatial, IZoneView
 	{
-		private IList<Card> Cards = new List<Card>();
-		public IEnumerator<Card> GetEnumerator()
-		{
-			throw new System.NotImplementedException();
-		}
 
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return GetEnumerator();
-		}
-		
+		private IList<Card> Cards = new List<Card>();
 		public int Count => Cards.Count;
-		
+
 		public void Add(Card card)
 		{
 			Cards.Add(card);
 			card.Translation = GetNode<Sprite3D>($"CardSlot{Count-1}").GlobalTransform.origin;
 		}
 
-		public bool Contains(Card card)
-		{
-			return Cards.Contains(card);
-		}
-
 		public void Remove(Card card)
 		{
 			Cards.Remove(card);
 		}
-
-		public void Sort()
-		{
-			throw new System.NotImplementedException();
-		}
+		public void Sort() { throw new System.NotImplementedException(); }
 	}
 }

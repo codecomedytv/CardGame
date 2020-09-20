@@ -8,6 +8,5 @@ namespace CardGame.Client.Game.Zones.ModelControllers
         public int Count { get; }
         public void Add(Card card);
         public void Remove(Card card);
-        public void Sort();
     }
 }

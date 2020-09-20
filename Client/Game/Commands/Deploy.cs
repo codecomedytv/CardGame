@@ -42,8 +42,8 @@ namespace CardGame.Client.Game
 
         public class HelperNode: Node
         {
-            private IZoneModelController Zone;
-            public HelperNode(IZoneModelController zone)
+            private HandModel Zone;
+            public HelperNode(HandModel zone)
             {
                 Zone = zone;
             }

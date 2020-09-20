@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using CardGame.Client.Game.Cards;
+using Godot;
 
 namespace CardGame.Client.Game.Zones.ModelControllers
 {
@@ -28,9 +29,13 @@ namespace CardGame.Client.Game.Zones.ModelControllers
             Cards.Remove(card);
             View.Remove(card);
         }
-        
-        public void Sort() => View.Sort();
 
+        public void Sort()
+        {
+            var v = (HandView) View;
+            v.Sort();
+        }
+        
         public IEnumerator<Card> GetEnumerator() => Cards.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }

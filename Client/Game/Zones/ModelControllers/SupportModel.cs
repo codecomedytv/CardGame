@@ -28,9 +28,7 @@ namespace CardGame.Client.Game.Zones.ModelControllers
             Cards.Remove(card);
             View.Remove(card);
         }
-
-        public void Sort() => View.Sort();
-
+        
         public IEnumerator<Card> GetEnumerator() => Cards.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
