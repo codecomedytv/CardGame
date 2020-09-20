@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using CardGame.Client.Game.Cards;
+﻿using CardGame.Client.Game.Cards;
 
 namespace CardGame.Client.Game.Zones
 {
-    public interface IZoneView //IEnumerable<Card>
+    public interface IZoneView
     {
         public void Add(Card card);
     }
 }
+

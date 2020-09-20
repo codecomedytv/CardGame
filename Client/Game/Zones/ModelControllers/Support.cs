@@ -21,7 +21,7 @@ namespace CardGame.Client.Game.Zones.ModelControllers
             }
             Cards.Add(card);
             card.Zone = this;
-            card.ZoneIndex = Cards.Count;
+            card.ZoneIndex = Count;
             View.Add(card);
         }
 
