@@ -5,7 +5,7 @@ using Godot;
 
 namespace CardGame.Client.Game.Zones
 {
-    public class Hand: Spatial, IZone
+    public class HandView: Spatial, IZoneView
     {
         private readonly IList<Card> Cards = new List<Card>();
 

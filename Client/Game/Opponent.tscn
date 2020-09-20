@@ -1,10 +1,10 @@
 [gd_scene load_steps=20 format=2]
 
-[ext_resource path="res://Client/Game/Zones/Views/Graveyard.cs" type="Script" id=1]
-[ext_resource path="res://Client/Game/Zones/Views/Deck.cs" type="Script" id=2]
-[ext_resource path="res://Client/Game/Zones/Views/Support.cs" type="Script" id=3]
-[ext_resource path="res://Client/Game/Zones/Views/Hand.cs" type="Script" id=4]
-[ext_resource path="res://Client/Game/Zones/Views/Units.cs" type="Script" id=5]
+[ext_resource path="res://Client/Game/Zones/Views/GraveyardView.cs" type="Script" id=1]
+[ext_resource path="res://Client/Game/Zones/Views/UnitsView.cs" type="Script" id=2]
+[ext_resource path="res://Client/Game/Zones/Views/SupportView.cs" type="Script" id=3]
+[ext_resource path="res://Client/Game/Zones/Views/HandView.cs" type="Script" id=4]
+[ext_resource path="res://Client/Game/Zones/Views/DeckView.cs" type="Script" id=5]
 [ext_resource path="res://Client/Assets/HUD/HealthProgressBackground.png" type="Texture" id=6]
 [ext_resource path="res://Client/Assets/HUD/HealthBarFrame.png" type="Texture" id=7]
 [ext_resource path="res://Client/Assets/CardSlot.png" type="Texture" id=8]
@@ -18,7 +18,7 @@
 [ext_resource path="res://Client/Game/Cards/Target.tres" type="Animation" id=16]
 [ext_resource path="res://Client/Game/AnimationPlayer.gd" type="Script" id=17]
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=1]
 length = 2.0
 loop = true
 tracks/0/type = "transform"
@@ -99,7 +99,7 @@ tracks/7/keys = {
 "times": PoolRealArray( 0, 1, 2 )
 }
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=2]
 size = 128
 outline_color = Color( 1, 0, 0, 1 )
 use_mipmaps = true
@@ -112,7 +112,7 @@ script = ExtResource( 11 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "DirectAttackTarget"
-anims/DirectAttackTarget = SubResource( 3 )
+anims/DirectAttackTarget = SubResource( 1 )
 anims/Target = ExtResource( 16 )
 script = ExtResource( 17 )
 
@@ -124,7 +124,7 @@ texture = ExtResource( 15 )
 
 [node name="Units" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0 )
-script = ExtResource( 5 )
+script = ExtResource( 2 )
 
 [node name="CardSlot0" type="Sprite3D" parent="Units"]
 pixel_size = 0.001
@@ -185,7 +185,7 @@ script = ExtResource( 4 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0.2, 0 )
 pixel_size = 0.001
 texture = ExtResource( 8 )
-script = ExtResource( 2 )
+script = ExtResource( 5 )
 
 [node name="Graveyard" type="Sprite3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -1.7, 0 )
@@ -244,7 +244,7 @@ margin_left = -872.029
 margin_top = 258.261
 margin_right = -387.029
 margin_bottom = 411.261
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0.760784, 0, 0, 1 )
 custom_colors/font_color_shadow = Color( 1, 0, 0, 1 )

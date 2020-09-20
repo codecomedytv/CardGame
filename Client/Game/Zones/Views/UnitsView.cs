@@ -6,7 +6,7 @@ using Godot;
 
 namespace CardGame.Client.Game.Zones
 {
-	public class Units: Spatial, IZone
+	public class UnitsView: Spatial, IZoneView
 	{
 		private IList<Card> Cards = new List<Card>();
 		public IEnumerator<Card> GetEnumerator()
@@ -18,12 +18,7 @@ namespace CardGame.Client.Game.Zones
 		{
 			return GetEnumerator();
 		}
-
-		// public Vector3 NextSlot()
-		// {
-		// 	return GetNode<Sprite3D>($"CardSlot{Count}").GlobalTransform.origin;
-		// }
-
+		
 		public int Count => Cards.Count;
 		
 		public void Add(Card card)

@@ -7,7 +7,7 @@ using Godot;
 
 namespace CardGame.Client.Game.Zones
 {
-    public class Graveyard: Sprite3D, IZone
+    public class GraveyardView: Sprite3D, IZoneView
     {   
         private IList<Card> Cards = new List<Card>();
         public IEnumerator<Card> GetEnumerator()

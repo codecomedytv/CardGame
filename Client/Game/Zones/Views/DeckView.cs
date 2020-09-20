@@ -5,7 +5,7 @@ using Godot;
 
 namespace CardGame.Client.Game.Zones
 {
-	public class Deck: Sprite3D, IZone
+	public class DeckView: Sprite3D, IZoneView
 	{
 		private readonly IList<Card> Cards = new List<Card>();
 		

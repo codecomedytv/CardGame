@@ -8,10 +8,10 @@ namespace CardGame.Client.Game.Zones.ModelControllers
     public class HandModel: IZoneModelController
     {
         private readonly IList<Card> Cards = new List<Card>();
-        private readonly IZone View; 
+        private readonly IZoneView View; 
         public int Count => Cards.Count;
 
-        public HandModel(IZone view) => View = view;
+        public HandModel(IZoneView view) => View = view;
 
         public void Add(Card card)
         {

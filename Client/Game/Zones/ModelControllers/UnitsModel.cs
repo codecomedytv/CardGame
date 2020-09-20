@@ -8,10 +8,10 @@ namespace CardGame.Client.Game.Zones.ModelControllers
     public class UnitsModel: IZoneModelController
     {
         private readonly IList<Card> Cards = new List<Card>();
-        private readonly IZone View; 
+        private readonly IZoneView View; 
         public int Count => Cards.Count;
 
-        public UnitsModel(IZone view) => View = view;
+        public UnitsModel(IZoneView view) => View = view;
 
         public void Add(Card card)
         {

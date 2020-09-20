@@ -49,11 +49,11 @@ namespace CardGame.Client.Game.Players
 		
 		public override void _Ready()
 		{
-			UnitsModel = new UnitsModel((Units) GetNode("Units"));
-			SupportModel = new SupportModel( (Support) GetNode("Support"));
-			HandModel = new HandModel((Hand) GetNode("Hand"));
-			GraveyardModel = new GraveyardModel((Graveyard) GetNode("Graveyard"));
-			DeckModel = new DeckModel((Deck) GetNode("Deck"));
+			UnitsModel = new UnitsModel((UnitsView) GetNode("Units"));
+			SupportModel = new SupportModel( (SupportView) GetNode("Support"));
+			HandModel = new HandModel((HandView) GetNode("Hand"));
+			GraveyardModel = new GraveyardModel((GraveyardView) GetNode("Graveyard"));
+			DeckModel = new DeckModel((DeckView) GetNode("Deck"));
 			HealthBar = (HealthBar) GetNode("HUD/Health");
 			EnergyIcon = (Sprite) GetNode("HUD/EnergyIcon");
 		}

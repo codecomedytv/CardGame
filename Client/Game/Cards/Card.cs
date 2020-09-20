@@ -17,7 +17,7 @@ namespace CardGame.Client.Game.Cards
 		private CardFace _face = CardFace.FaceDown;
 		public string Effect;
 		public Texture Art;
-		public IZone Zone;
+		public IZoneView ZoneView;
 		public IList<int> ValidTargets = new List<int>();
 		public IList<int> ValidAttackTargets = new List<int>();
 		private Sprite3D TargetReticule;

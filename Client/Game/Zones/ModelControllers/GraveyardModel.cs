@@ -8,10 +8,10 @@ namespace CardGame.Client.Game.Zones.ModelControllers
     public class GraveyardModel: IZoneModelController
     {
         private readonly IList<Card> Cards = new List<Card>();
-        private readonly IZone View; 
+        private readonly IZoneView View; 
         public int Count => Cards.Count;
 
-        public GraveyardModel(IZone view) => View = view;
+        public GraveyardModel(IZoneView view) => View = view;
 
         public void Add(Card card)
         {
