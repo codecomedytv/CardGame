@@ -3,13 +3,35 @@ using Godot;
 
 namespace CardGame.Client.Game.Players
 {
-    public abstract class BasePlayer: Spatial, IPlayerView
+    public class BasePlayer: Spatial, IPlayerView
     {
-        public abstract int Health { get; set; }
-        public abstract Zone Deck { get; protected set; }
-        public abstract Zone Graveyard { get; protected set; }
-        public abstract Zone Hand { get; protected set; }
-        public abstract Zone Units { get; protected set; }
-        public abstract Zone Support { get; protected set; }
+        private HealthBar HealthBar { get; set; }
+
+        public int Health
+        {
+            get => HealthBar.Value;
+            set => SetHealth(value);
+        }
+        public Zone Deck { get; private set; }
+        public Zone Graveyard { get; private set; }
+        public Zone Hand { get; private set; }
+        public Zone Units { get; private set; }
+        public Zone Support { get; private set; }
+
+        public override void _Ready()
+        {
+            Units = new Zone((Spatial) GetNode("Units"));
+            Support = new Zone( (Spatial) GetNode("Support"));
+            Hand = new Zone((Spatial) GetNode("Hand"));
+            Graveyard = new Zone((Spatial) GetNode("Graveyard"));
+            Deck = new Zone((Spatial) GetNode("Deck"));
+            HealthBar = (HealthBar) GetNode("HUD/Health");
+        }
+        
+        private int SetHealth(int health)
+        {
+            HealthBar.OnHealthChanged(Health - health);
+            return health;
+        }
     }
 }

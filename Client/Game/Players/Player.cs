@@ -15,17 +15,6 @@ namespace CardGame.Client.Game.Players
 		private States BackingState;
 		public States State { get => BackingState; set => SetState(value); }
 		private HealthBar HealthBar { get; set; }
-
-		public override int Health
-		{
-			get => HealthBar.Value;
-			set => SetHealth(value);
-		}
-		public override Zone Units { get; protected set; }
-		public override Zone Support { get; protected set; }
-		public override Zone Hand { get; protected set; }
-		public override Zone Graveyard { get; protected set; }
-		public override Zone Deck { get; protected set; }
 		
 		// Should really be a separate class
 		private States SetState(States state)
@@ -50,19 +39,8 @@ namespace CardGame.Client.Game.Players
 		
 		public override void _Ready()
 		{
-			Units = new Zone((Spatial) GetNode("Units"));
-			Support = new Zone( (Spatial) GetNode("Support"));
-			Hand = new Zone((Spatial) GetNode("Hand"));
-			Graveyard = new Zone((Spatial) GetNode("Graveyard"));
-			Deck = new Zone((Spatial) GetNode("Deck"));
-			HealthBar = (HealthBar) GetNode("HUD/Health");
+			base._Ready();
 			EnergyIcon = (Sprite) GetNode("HUD/EnergyIcon");
-		}
-
-		private int SetHealth(int health)
-		{
-			HealthBar.OnHealthChanged(Health - health);
-			return health;
 		}
 	}
 }
