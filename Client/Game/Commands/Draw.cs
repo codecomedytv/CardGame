@@ -1,7 +1,6 @@
 using CardGame.Client.Assets.Audio;
 using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Zones;
-using CardGame.Client.Game.Zones.ModelControllers;
 using Godot;
 
 namespace CardGame.Client.Game

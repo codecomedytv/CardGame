@@ -1,7 +1,4 @@
-using System.Collections.Generic;
-using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Zones;
-using CardGame.Client.Game.Zones.ModelControllers;
 using Godot;
 
 namespace CardGame.Client.Game.Players
@@ -16,19 +13,19 @@ namespace CardGame.Client.Game.Players
 			set => SetHealth(value);
 		}
 
-		public override Units Units { get; protected set; }
-		public override Support Support { get; protected set; }
-		public override Hand Hand { get; protected set; }
-		public override Graveyard Graveyard { get; protected set; }
-		public override Deck Deck { get; protected set; }
+		public override Zone Units { get; protected set; }
+		public override Zone Support { get; protected set; }
+		public override Zone Hand { get; protected set; }
+		public override Zone Graveyard { get; protected set; }
+		public override Zone Deck { get; protected set; }
 
 		public override void _Ready()
 		{
-			Units = new Units((Spatial) GetNode("Units"));
-			Support = new Support((Spatial) GetNode("Support"));
-			Hand = new Hand( (Spatial) GetNode("Hand"));
-			Graveyard = new Graveyard((Spatial) GetNode("Graveyard"));
-			Deck = new Deck((Spatial) GetNode("Deck"));
+			Units = new Zone((Spatial) GetNode("Units"));
+			Support = new Zone((Spatial) GetNode("Support"));
+			Hand = new Zone( (Spatial) GetNode("Hand"));
+			Graveyard = new Zone((Spatial) GetNode("Graveyard"));
+			Deck = new Zone((Spatial) GetNode("Deck"));
 			HealthBar = (HealthBar) GetNode("HUD/Health");
 		}
 		

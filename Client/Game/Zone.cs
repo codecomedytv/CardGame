@@ -4,15 +4,15 @@ using System.IO;
 using CardGame.Client.Game.Cards;
 using Godot;
 
-namespace CardGame.Client.Game.Zones.ModelControllers
+namespace CardGame.Client.Game.Zones
 {
-    public class Graveyard: IZone
+    public class Zone: IEnumerable<Card>
     {
         private readonly IList<Card> Cards = new List<Card>();
         public readonly Spatial View; 
         public int Count => Cards.Count;
 
-        public Graveyard(Spatial view) => View = view;
+        public Zone(Spatial view) => View = view;
 
         public void Add(Card card)
         {
