@@ -6,12 +6,8 @@ using Godot;
 
 namespace CardGame.Client.Game.Zones
 {
-	public class UnitsView: Spatial, IZoneView
+	public class UnitsView: Spatial
 	{
 		
-		public void Add(Card card)
-		{ card.Translation = GetNode<Sprite3D>($"CardSlot{card.ZoneIndex-1}").GlobalTransform.origin; }
-
-		public void Remove(Card card) { }
 	}
 }
