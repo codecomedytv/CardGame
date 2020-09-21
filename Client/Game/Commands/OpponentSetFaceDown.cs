@@ -22,7 +22,9 @@ namespace CardGame.Client.Game
 
             card.Controller.Hand.Remove(card);
             card.Controller.Support.Add(card);
-            var destination = card.Translation + new Vector3(0, 0, 0.05F);
+            
+            var destination = card.Controller.Support.View.GetNode<Sprite3D>($"CardSlot{card.ZoneIndex - 1}").GlobalTransform.origin;
+            destination += new Vector3(0, 0, 0.05F);
             card.Translation = origin;
 
             gfx.Play(Audio.SetCard);
