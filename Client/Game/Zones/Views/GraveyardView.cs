@@ -7,8 +7,8 @@ using Godot;
 
 namespace CardGame.Client.Game.Zones
 {
-    public class GraveyardView: Sprite3D, IZoneView
+    public class GraveyardView: Sprite3D
     {
-        public void Add(Card card) { card.Translation = GlobalTransform.origin; }
+        
     }
 }

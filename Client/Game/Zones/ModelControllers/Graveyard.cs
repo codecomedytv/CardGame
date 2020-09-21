@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.IO;
 using CardGame.Client.Game.Cards;
+using Godot;
 
 namespace CardGame.Client.Game.Zones.ModelControllers
 {
     public class Graveyard: IZone
     {
         private readonly IList<Card> Cards = new List<Card>();
-        private readonly IZoneView View; 
+        public readonly Spatial View; 
         public int Count => Cards.Count;
 
-        public Graveyard(IZoneView view) => View = view;
+        public Graveyard(Spatial view) => View = view;
 
         public void Add(Card card)
         {
@@ -22,7 +23,6 @@ namespace CardGame.Client.Game.Zones.ModelControllers
             Cards.Add(card);
             card.Zone = this;
             card.ZoneIndex = Cards.Count;
-            View.Add(card);
         }
 
         public void Remove(Card card)
