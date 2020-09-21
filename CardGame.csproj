@@ -147,12 +147,6 @@
     <Compile Include="Client\Game\Zones\ModelControllers\Support.cs" />
     <Compile Include="Client\Game\Zones\ModelControllers\Units.cs" />
     <Compile Include="Client\Game\Zones\Sorter.cs" />
-    <Compile Include="Client\Game\Zones\Views\DeckView.cs" />
-    <Compile Include="Client\Game\Zones\Views\GraveyardView.cs" />
-    <Compile Include="Client\Game\Zones\Views\HandView.cs" />
-    <Compile Include="Client\Game\Zones\Views\IZoneView.cs" />
-    <Compile Include="Client\Game\Zones\Views\SupportView.cs" />
-    <Compile Include="Client\Game\Zones\Views\UnitsView.cs" />
     <Compile Include="Client\Library\CardLibrary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\Game\CardCatalog.cs" />

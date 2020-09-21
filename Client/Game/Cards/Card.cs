@@ -18,7 +18,6 @@ namespace CardGame.Client.Game.Cards
 		private CardFace _face = CardFace.FaceDown;
 		public string Effect;
 		public Texture Art;
-		public IZoneView ZoneView;
 		public Targets ValidTargets = new Targets();
 		public Targets ValidAttackTargets = new Targets();
 		private Sprite3D TargetReticule;

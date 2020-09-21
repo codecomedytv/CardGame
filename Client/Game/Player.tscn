@@ -1,103 +1,90 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Client/Game/Zones/Views/GraveyardView.cs" type="Script" id=1]
-[ext_resource path="res://Client/Game/Zones/Views/DeckView.cs" type="Script" id=2]
-[ext_resource path="res://Client/Game/Zones/Views/SupportView.cs" type="Script" id=3]
-[ext_resource path="res://Client/Game/Zones/Views/HandView.cs" type="Script" id=4]
-[ext_resource path="res://Client/Game/Zones/Views/UnitsView.cs" type="Script" id=5]
-[ext_resource path="res://Client/Assets/HUD/HealthProgressBackground.png" type="Texture" id=6]
-[ext_resource path="res://Client/Assets/HUD/HealthBarFrame.png" type="Texture" id=7]
-[ext_resource path="res://Client/Assets/CardSlot.png" type="Texture" id=8]
-[ext_resource path="res://Client/Game/Cards/Card.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Client/Assets/HUD/HealthProgressElement.png" type="Texture" id=10]
-[ext_resource path="res://Client/Game/Players/HealthBar.cs" type="Script" id=12]
-[ext_resource path="res://Client/Game/Players/Player.cs" type="Script" id=13]
-[ext_resource path="res://Client/Assets/Font/Modded/LifeCount_Electrolize.tres" type="DynamicFont" id=14]
-[ext_resource path="res://Client/Assets/Font/Electrolize-Regular.ttf" type="DynamicFontData" id=15]
-[ext_resource path="res://Client/Assets/HUD/ActiveStatus.png" type="Texture" id=16]
+[ext_resource path="res://Client/Assets/Font/Electrolize-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Client/Assets/HUD/HealthProgressBackground.png" type="Texture" id=2]
+[ext_resource path="res://Client/Assets/HUD/HealthBarFrame.png" type="Texture" id=3]
+[ext_resource path="res://Client/Assets/CardSlot.png" type="Texture" id=4]
+[ext_resource path="res://Client/Assets/HUD/HealthProgressElement.png" type="Texture" id=5]
+[ext_resource path="res://Client/Game/Players/HealthBar.cs" type="Script" id=6]
+[ext_resource path="res://Client/Game/Players/Player.cs" type="Script" id=7]
+[ext_resource path="res://Client/Assets/HUD/ActiveStatus.png" type="Texture" id=8]
+[ext_resource path="res://Client/Assets/Font/Modded/LifeCount_Electrolize.tres" type="DynamicFont" id=9]
 
 [sub_resource type="DynamicFont" id=1]
 size = 128
 outline_color = Color( 1, 0, 0, 1 )
 use_mipmaps = true
 use_filter = true
-font_data = ExtResource( 15 )
+font_data = ExtResource( 1 )
 
 [node name="Player" type="Spatial"]
-script = ExtResource( 13 )
+script = ExtResource( 7 )
 
 [node name="Units" type="Spatial" parent="."]
-script = ExtResource( 5 )
 
 [node name="CardSlot0" type="Sprite3D" parent="Units"]
 pixel_size = 0.001
-texture = ExtResource( 8 )
+texture = ExtResource( 4 )
 
 [node name="CardSlot1" type="Sprite3D" parent="Units"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 0, 0 )
 pixel_size = 0.001
-texture = ExtResource( 8 )
+texture = ExtResource( 4 )
 
 [node name="CardSlot2" type="Sprite3D" parent="Units"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 0 )
 pixel_size = 0.001
-texture = ExtResource( 8 )
+texture = ExtResource( 4 )
 
 [node name="CardSlot3" type="Sprite3D" parent="Units"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75, 0, 0 )
 pixel_size = 0.001
-texture = ExtResource( 8 )
+texture = ExtResource( 4 )
 
 [node name="CardSlot4" type="Sprite3D" parent="Units"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0 )
 pixel_size = 0.001
-texture = ExtResource( 8 )
+texture = ExtResource( 4 )
 
 [node name="Support" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0 )
-script = ExtResource( 3 )
 
 [node name="CardSlot0" type="Sprite3D" parent="Support"]
 pixel_size = 0.001
-texture = ExtResource( 8 )
+texture = ExtResource( 4 )
 
 [node name="CardSlot1" type="Sprite3D" parent="Support"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 0, 0 )
 pixel_size = 0.001
-texture = ExtResource( 8 )
+texture = ExtResource( 4 )
 
 [node name="CardSlot2" type="Sprite3D" parent="Support"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 0 )
 pixel_size = 0.001
-texture = ExtResource( 8 )
+texture = ExtResource( 4 )
 
 [node name="CardSlot3" type="Sprite3D" parent="Support"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75, 0, 0 )
 pixel_size = 0.001
-texture = ExtResource( 8 )
+texture = ExtResource( 4 )
 
 [node name="CardSlot4" type="Sprite3D" parent="Support"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0 )
 pixel_size = 0.001
-texture = ExtResource( 8 )
+texture = ExtResource( 4 )
 
 [node name="Hand" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.906308, -0.422618, 0, 0.422618, 0.906308, 2.5, -3.2, 0 )
-script = ExtResource( 4 )
-
-[node name="Card" parent="Hand" instance=ExtResource( 9 )]
 
 [node name="Deck" type="Sprite3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -1.7, 0 )
 pixel_size = 0.001
-texture = ExtResource( 8 )
-script = ExtResource( 2 )
+texture = ExtResource( 4 )
 
 [node name="Graveyard" type="Sprite3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0.2, 0 )
 pixel_size = 0.001
-texture = ExtResource( 8 )
-script = ExtResource( 1 )
+texture = ExtResource( 4 )
 
 [node name="HUD" type="Control" parent="."]
 margin_top = -35.0
@@ -109,16 +96,16 @@ __meta__ = {
 
 [node name="Health" type="Sprite" parent="HUD"]
 position = Vector2( 1550.14, 847.35 )
-texture = ExtResource( 7 )
+texture = ExtResource( 3 )
 centered = false
-script = ExtResource( 12 )
+script = ExtResource( 6 )
 
 [node name="Count" type="Label" parent="HUD/Health"]
 margin_left = 130.0
 margin_top = 11.0
 margin_right = 227.0
 margin_bottom = 50.0
-custom_fonts/font = ExtResource( 14 )
+custom_fonts/font = ExtResource( 9 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0.760784, 0, 0, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
@@ -137,8 +124,8 @@ margin_right = 352.0
 margin_bottom = 51.0
 max_value = 8000.0
 value = 8000.0
-texture_under = ExtResource( 6 )
-texture_progress = ExtResource( 10 )
+texture_under = ExtResource( 2 )
+texture_progress = ExtResource( 5 )
 fill_mode = 1
 nine_patch_stretch = true
 __meta__ = {
@@ -164,4 +151,4 @@ __meta__ = {
 
 [node name="EnergyIcon" type="Sprite" parent="HUD"]
 position = Vector2( 1842.27, 677.233 )
-texture = ExtResource( 16 )
+texture = ExtResource( 8 )

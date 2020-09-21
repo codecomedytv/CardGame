@@ -51,11 +51,11 @@ namespace CardGame.Client.Game.Players
 		
 		public override void _Ready()
 		{
-			Units = new Units((UnitsView) GetNode("Units"));
-			Support = new Support( (SupportView) GetNode("Support"));
-			Hand = new Hand((HandView) GetNode("Hand"));
-			Graveyard = new Graveyard((GraveyardView) GetNode("Graveyard"));
-			Deck = new Deck((DeckView) GetNode("Deck"));
+			Units = new Units((Spatial) GetNode("Units"));
+			Support = new Support( (Spatial) GetNode("Support"));
+			Hand = new Hand((Spatial) GetNode("Hand"));
+			Graveyard = new Graveyard((Spatial) GetNode("Graveyard"));
+			Deck = new Deck((Spatial) GetNode("Deck"));
 			HealthBar = (HealthBar) GetNode("HUD/Health");
 			EnergyIcon = (Sprite) GetNode("HUD/EnergyIcon");
 		}
