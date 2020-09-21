@@ -30,7 +30,7 @@ namespace CardGame.Client.Game
 
             Card.Controller.Hand.Remove(Card);
             Card.Controller.Units.Add(Card);
-            var destination = Card.Controller.Units.View.GetNode<Sprite3D>($"CardSlot{Card.ZoneIndex-1}").GlobalTransform.origin + new Vector3(0, 0, 0.05F);
+            var destination = Card.Controller.View.Units.GetNode<Sprite3D>($"CardSlot{Card.ZoneIndex-1}").GlobalTransform.origin + new Vector3(0, 0, 0.05F);
             Card.Translation = origin;
 
             gfx.Play(Audio.Deploy);

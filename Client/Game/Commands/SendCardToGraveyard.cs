@@ -28,7 +28,7 @@ namespace CardGame.Client.Game
             var origin = Card.Translation;
             Card.OwningPlayer.Graveyard.Add(Card);
             // Should probably defined this base on count of cards in graveyard
-            var destination = Card.OwningPlayer.Graveyard.View.GlobalTransform.origin + new Vector3(0, 0, 0.1F);
+            var destination = Card.OwningPlayer.View.Graveyard.GlobalTransform.origin + new Vector3(0, 0, 0.1F);
             Card.Translation = origin;
 				
             gfx.Play(Audio.Destroyed, 0.4F);

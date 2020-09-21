@@ -27,11 +27,11 @@ namespace CardGame.Client.Game.Players
         public BasePlayer(PlayerView view)
         {
             View = view;
-            Units = new Zone(View.Units);
-            Support = new Zone(View.Support);
-            Hand = new Zone(View.Hand);
-            Graveyard = new Zone(View.Graveyard);
-            Deck = new Zone(View.Deck);
+            Units = new Zone();
+            Support = new Zone();
+            Hand = new Zone();
+            Graveyard = new Zone();
+            Deck = new Zone();
             HealthBar = View.HealthBar;
         }
         

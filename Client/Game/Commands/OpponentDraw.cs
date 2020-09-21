@@ -21,7 +21,7 @@ namespace CardGame.Client.Game
             Opponent.Deck.Remove(card);
             Opponent.Hand.Add(card);
             
-            card.Translation = card.Controller.Hand.View.GlobalTransform.origin;
+            card.Translation = card.Controller.View.Hand.GlobalTransform.origin;
             var sorter = new Sorter(card.Controller.Hand);
             sorter.Sort();
 			

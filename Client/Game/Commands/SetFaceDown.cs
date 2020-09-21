@@ -20,7 +20,7 @@ namespace CardGame.Client.Game
 			Card.Controller.Hand.Remove(Card);
 			Card.Controller.Support.Add(Card);
 			
-			var destination = Card.Controller.Support.View.GetNode<Sprite3D>($"CardSlot{Card.ZoneIndex - 1}").GlobalTransform.origin;
+			var destination = Card.Controller.View.Support.GetNode<Sprite3D>($"CardSlot{Card.ZoneIndex - 1}").GlobalTransform.origin;
 			destination += new Vector3(0, 0, 0.05F);
 			Card.Translation = origin;
 			

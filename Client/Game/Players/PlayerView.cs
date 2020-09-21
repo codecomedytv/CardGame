@@ -1,8 +1,9 @@
-﻿using System.Diagnostics.Contracts;
-using Godot;
+﻿using Godot;
+using JetBrains.Annotations;
 
 namespace CardGame.Client.Game.Players
 {
+    [UsedImplicitly]
     public class PlayerView: Spatial
     {
         public HealthBar HealthBar;

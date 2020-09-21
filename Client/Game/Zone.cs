@@ -9,10 +9,9 @@ namespace CardGame.Client.Game.Zones
     public class Zone: IEnumerable<Card>
     {
         private readonly IList<Card> Cards = new List<Card>();
-        public readonly Spatial View; 
         public int Count => Cards.Count;
 
-        public Zone(Spatial view) => View = view;
+        public Zone() { }
 
         public void Add(Card card)
         {

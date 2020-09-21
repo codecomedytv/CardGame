@@ -6,10 +6,6 @@ namespace CardGame.Client.Game.Players
 	public class Opponent: BasePlayer
 	{
 		public Opponent(PlayerView view) : base(view) { }
-
-		public Opponent()
-		{
-			
-		}
+		public Opponent() { }
 	}
 }
