@@ -31,10 +31,9 @@ namespace CardGame.Client.Game
 			AddChild(GameInput);
 			AddChild(Effects);
 
-			// Change Back Into ControllerModel/View Objects
 			CardViewer = Table.CardViewer;
-			Player = (Player) Table.PlayerView;
-			Opponent = (Opponent) Table.OpponentView;
+			Player = new Player(Table.PlayerView);
+			Opponent = new Opponent(Table.OpponentView);
 			GameInput.User = Player;
 			GameInput.Opponent = Opponent;
 			

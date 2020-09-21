@@ -36,11 +36,10 @@ namespace CardGame.Client.Game.Players
 		public bool Attacking = false;
 		public Card CardInUse = null;
 		public bool IsChoosingAttackTarget => Attacking && State == States.Idle;
-		
-		public override void _Ready()
+
+		public Player(PlayerView view): base(view)
 		{
-			base._Ready();
-			EnergyIcon = (Sprite) GetNode("HUD/EnergyIcon");
+			EnergyIcon = (Sprite) View.GetNode("HUD/EnergyIcon");
 		}
 	}
 }

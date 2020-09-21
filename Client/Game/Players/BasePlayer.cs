@@ -3,7 +3,7 @@ using Godot;
 
 namespace CardGame.Client.Game.Players
 {
-    public class BasePlayer: Spatial, IPlayerView
+    public class BasePlayer: Spatial //, IPlayerView
     {
         private HealthBar HealthBar { get; set; }
 
@@ -12,20 +12,23 @@ namespace CardGame.Client.Game.Players
             get => HealthBar.Value;
             set => SetHealth(value);
         }
+        
+        public PlayerView View { get; set; }
         public Zone Deck { get; private set; }
         public Zone Graveyard { get; private set; }
         public Zone Hand { get; private set; }
         public Zone Units { get; private set; }
         public Zone Support { get; private set; }
 
-        public override void _Ready()
+        public BasePlayer(PlayerView view)
         {
-            Units = new Zone((Spatial) GetNode("Units"));
-            Support = new Zone( (Spatial) GetNode("Support"));
-            Hand = new Zone((Spatial) GetNode("Hand"));
-            Graveyard = new Zone((Spatial) GetNode("Graveyard"));
-            Deck = new Zone((Spatial) GetNode("Deck"));
-            HealthBar = (HealthBar) GetNode("HUD/Health");
+            View = view;
+            Units = new Zone(View.Units);
+            Support = new Zone(View.Support);
+            Hand = new Zone(View.Hand);
+            Graveyard = new Zone(View.Graveyard);
+            Deck = new Zone(View.Deck);
+            HealthBar = View.HealthBar;
         }
         
         private int SetHealth(int health)

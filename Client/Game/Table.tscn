@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Client/Game/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Client/Game/Opponent.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Client/Game/CardViewer.cs" type="Script" id=5]
 [ext_resource path="res://Client/Game/CardViewer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Client/Assets/Audio/car race - loop.ogg" type="AudioStream" id=7]
+[ext_resource path="res://Client/Game/Players/PlayerView.cs" type="Script" id=8]
 [ext_resource path="res://Client/Assets/Font/Modded/ElectrolizeTurnCount.tres" type="DynamicFont" id=12]
 [ext_resource path="res://Client/Assets/Background_Space.png" type="Texture" id=14]
 [ext_resource path="res://Client/Assets/HUD/ButtonNormal.png" type="Texture" id=15]
@@ -54,8 +55,10 @@ transform = Transform( 1, 0, 0, 0, 0.906308, -0.422618, 0, 0.422618, 0.906308, 3
 [node name="PlayMat" type="Spatial" parent="."]
 
 [node name="Player" parent="PlayMat" instance=ExtResource( 1 )]
+script = ExtResource( 8 )
 
 [node name="Opponent" parent="PlayMat" instance=ExtResource( 2 )]
+script = ExtResource( 8 )
 
 [node name="HUD" type="Control" parent="."]
 margin_right = 40.0

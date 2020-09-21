@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using CardGame.Client.Game.Players;
 using Godot;
 
@@ -13,8 +14,8 @@ namespace CardGame.Client.Game
         [Export] private NodePath CardView;
         [Export] private NodePath PassPlay;
         [Export] private NodePath EndTurn;
-        public IPlayerView PlayerView { get; }
-        public IPlayerView OpponentView { get; }
+        public PlayerView PlayerView { get; }
+        public PlayerView OpponentView { get; }
 
         public Action PassPlayPressed;
         public Action EndTurnPressed;
@@ -32,8 +33,8 @@ namespace CardGame.Client.Game
             var scene = (PackedScene) GD.Load("res://Client/Game/Table.tscn");
             var instance = (Spatial) scene.Instance();
             AddChild(instance);
-            PlayerView = (BasePlayer) instance.GetNode("PlayMat/Player");
-            OpponentView = (BasePlayer) instance.GetNode("PlayMat/Opponent");
+            PlayerView = (PlayerView) instance.GetNode("PlayMat/Player");
+            OpponentView = (PlayerView) instance.GetNode("PlayMat/Opponent");
             GetNode<Button>("Table3D/HUD/EndTurn").Connect("pressed", this, nameof(OnEndTurnPressed));
             GetNode<Button>("Table3D/HUD/PassPlay").Connect("pressed", this, nameof(OnPassPlayPressed));
             LifeChange = GetNode<Label>("Table3D/HUD/LifeChange");
