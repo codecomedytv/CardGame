@@ -77,7 +77,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        Play.PassPlay(Opponent.Id);
 	        Play.PassPlay(Player.Id);
 	
-	        Assert.Has(GuardPuppy, Opponent.Graveyard, "GuardPuppy is in owner's discard");
+	        Assert.Contains(GuardPuppy, Opponent.Graveyard, "GuardPuppy is in owner's discard");
 	        Assert.IsFalse(DungeonGuide.HasTag(TagIds.CannotBeAttacked), "Then a Unit it tagged no longer has the tag");
         }
         
@@ -104,7 +104,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        Play.PassPlay(Opponent.Id);
 	        Play.PassPlay(Player.Id);
 	
-	        Assert.Has(dungeonGuide, Opponent.Graveyard, "That Unit is in owner's discard");
+	        Assert.Contains(dungeonGuide, Opponent.Graveyard, "That Unit is in owner's discard");
 	        Assert.IsFalse(dungeonGuide.HasTag(TagIds.CannotBeAttacked), "Then that Unit no longer has the tag");
         }
     }

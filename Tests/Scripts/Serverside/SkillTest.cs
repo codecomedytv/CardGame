@@ -55,7 +55,7 @@ namespace CardGame.Tests.Scripts.Serverside
             Play.PassPlay(Opponent.Id);
             Play.PassPlay(Player.Id);
             
-            Assert.Has(unitA, Opponent.Graveyard, "Then That Unit Is Destroyed");
+            Assert.Contains(unitA, Opponent.Graveyard, "Then That Unit Is Destroyed");
 
         }
 
@@ -73,7 +73,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        Play.PassPlay(Opponent.Id);
 	        Play.PassPlay(Player.Id);
 	        
-	        Assert.Has(discarding, Player.Graveyard, "Then that card is in that Player's Discard");
+	        Assert.Contains(discarding, Player.Graveyard, "Then that card is in that Player's Discard");
         }
 
         [Test]
@@ -95,7 +95,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        Play.PassPlay(Player.Id);
 
 	        Assert.IsTrue(bounceIsOnField, "Bounced Card Was On Field");
-	        Assert.Has(bounce, Opponent.Hand, "Bounce is in Owners Hand");
+	        Assert.Contains(bounce, Opponent.Hand, "Bounce is in Owners Hand");
 
         }
 
@@ -115,7 +115,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        Play.PassPlay(Opponent.Id);
 	        Play.PassPlay(Player.Id);
 
-	        Assert.Has(cardToMill, Player.Graveyard, "Then that card is in the Player's discard");
+	        Assert.Contains(cardToMill, Player.Graveyard, "Then that card is in the Player's discard");
         }
 
         [Test]
@@ -135,7 +135,7 @@ namespace CardGame.Tests.Scripts.Serverside
 	        Play.PassPlay(Opponent.Id);
 	        Play.PassPlay(Player.Id);
 
-	        Assert.Has(cardToReturn, Player.Deck, "Then that card is in the Player's Deck");
+	        Assert.Contains(cardToReturn, Player.Deck, "Then that card is in the Player's Deck");
         }
         
         [Test]
@@ -157,9 +157,9 @@ namespace CardGame.Tests.Scripts.Serverside
 	        Play.PassPlay(Opponent.Id);
 	        Play.PassPlay(Player.Id);
 
-	        Assert.Has(destroyUnitCard, Player.Graveyard, "Then that skill's card is in the discard");
+	        Assert.Contains(destroyUnitCard, Player.Graveyard, "Then that skill's card is in the discard");
 
-	        Assert.DoesNotHave(invincibleCard, Opponent.Graveyard,
+	        Assert.DoesNotContain(invincibleCard, Opponent.Graveyard,
 		        "But the invincible card is not in its owner discard");
         }
         
@@ -193,7 +193,7 @@ namespace CardGame.Tests.Scripts.Serverside
 
 	        Assert.IsTrue(Opponent.HasTag(TagIds.CannotTakeBattleDamage), "Defending Player has Tag.CannotTakeDamage");
 	        Assert.IsEqual(life, Opponent.Health, "Player's life did not change");
-	        Assert.Has(debug500500, Opponent.Graveyard, "But the defending unit was still destroyed");
+	        Assert.Contains(debug500500, Opponent.Graveyard, "But the defending unit was still destroyed");
         }
         
         [Test]
@@ -219,8 +219,8 @@ namespace CardGame.Tests.Scripts.Serverside
 	        Play.PassPlay(Opponent.Id);
 	        Play.PassPlay(Player.Id);
 
-	        Assert.DoesNotHave(destroyUnit, Player.Graveyard, "DestroyUnit was not sent to Player's discard");
-	        Assert.DoesNotHave(cannotBeTargeted, Opponent.Graveyard, "Untargetable Card was not destroyed");
+	        Assert.DoesNotContain(destroyUnit, Player.Graveyard, "DestroyUnit was not sent to Player's discard");
+	        Assert.DoesNotContain(cannotBeTargeted, Opponent.Graveyard, "Untargetable Card was not destroyed");
         }		
 
 

@@ -8,7 +8,7 @@ namespace WAT
 	public class Recorder : Node
 	{
 		Godot.Object What;
-		Godot.Collections.Dictionary<String, System.Object> Properties = new Godot.Collections.Dictionary<String, System.Object>();
+		Godot.Collections.Dictionary<string, object> Properties = new Godot.Collections.Dictionary<string, object>();
 		bool isRecording = false;
 	
 		public void Start() { isRecording = true; }
@@ -17,8 +17,8 @@ namespace WAT
 		public void Record(Godot.Object what, Godot.Collections.Array properties)
 		{
 			What = what;
-			foreach(string Property in properties){
-				Properties[Property] = new Godot.Collections.Array();
+			foreach(string property in properties){
+				Properties[property] = new Godot.Collections.Array();
 			}
 		}
 		

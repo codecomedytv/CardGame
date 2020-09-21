@@ -53,7 +53,7 @@ namespace CardGame.Tests.Scripts.Serverside
 			// Player 1 took an action from IDLE that doesn't start a chain so they should
 			// be active (rather than acting?) Maybe acting != activating?
 			
-			Assert.Has(attacker, Player.Field, "Attacker Has been Deployed");
+			Assert.Contains(attacker, Player.Field, "Attacker Has been Deployed");
 			
 			Assert.IsTrue(Player.State == States.Acting, "Player 1 is ACTING");
 			Assert.IsTrue(Opponent.State == States.Active, "Player 0 is ACTIVE");
@@ -75,7 +75,7 @@ namespace CardGame.Tests.Scripts.Serverside
 			Assert.IsTrue(Opponent.State == States.Idle, "Player 0 is IDLE");
 			
 			Play.SetFaceDown(Opponent.Id, chainMines.Id);
-			Assert.Has(chainMines, Opponent.Support, "Chain Mines Has been set");
+			Assert.Contains(chainMines, Opponent.Support, "Chain Mines Has been set");
 			Play.EndTurn(Opponent.Id);
 			
 			Assert.IsTrue(Player.State == States.Idle, "Player 1 is IDLE");
@@ -104,9 +104,9 @@ namespace CardGame.Tests.Scripts.Serverside
 			
 			
 			
-			Assert.Has(attacker, Player.Graveyard, attacker + "Unit %s is in Player 1's discard");
+			Assert.Contains(attacker, Player.Graveyard, attacker + "Unit %s is in Player 1's discard");
 			
-			Assert.Has(chainMines, Opponent.Graveyard, chainMines + "Support %s is in Player 0's Discard");
+			Assert.Contains(chainMines, Opponent.Graveyard, chainMines + "Support %s is in Player 0's Discard");
 
 	    }
     }

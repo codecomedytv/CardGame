@@ -49,7 +49,7 @@ static func get_instance_base_type() -> String:
 # We may also need to create an external script when loading tests
 # so we can collect them via c# attributes
 func setup(testcase):
-	asserts = load("res://addons/WAT/core/assertions/assertions.gd").new()
+	asserts = load("res://addons/WAT/core/assertions/GDscript/assertions.gd").new()
 	direct = load("res://addons/WAT/core/double/factory.gd").new()
 	Testcase = testcase # No changes needed
 	Yielder = load("res://addons/WAT/core/test/yielder.gd").new() # Research C# Yield

@@ -43,8 +43,8 @@ namespace CardGame.Tests.Scripts.Serverside
             Play.PassPlay(Opponent.Id);
             
             // Link Should Resolve Here
-            Assert.Has(attacker, Player.Graveyard, attacker + "is in Player 1's Discard");
-            Assert.Has(chainMine, Opponent.Graveyard, chainMine + " is in Player 0's Discard");
+            Assert.Contains(attacker, Player.Graveyard, attacker + "is in Player 1's Discard");
+            Assert.Contains(chainMine, Opponent.Graveyard, chainMine + " is in Player 0's Discard");
         }
     }
 }

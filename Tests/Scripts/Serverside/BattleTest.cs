@@ -57,7 +57,7 @@ namespace CardGame.Tests.Scripts.Serverside
             var difference = debug15001000.Power - debug10001000.Power;
             var expectedLife = Player.Health - difference;
 	
-            Assert.Has(debug10001000, Opponent.Graveyard, "Then the defending unit is destroyed");
+            Assert.Contains(debug10001000, Opponent.Graveyard, "Then the defending unit is destroyed");
             Assert.IsEqual(expectedLife, Opponent.Health,
              "Then the defending Players loses life equal to the difference");
 
@@ -105,7 +105,7 @@ namespace CardGame.Tests.Scripts.Serverside
 			Play.PassPlay(Opponent.Id);
 			Play.PassPlay(Player.Id);
 				
-	        Assert.Has(debug10001000, Player.Graveyard, "Then it is destroyed");
+	        Assert.Contains(debug10001000, Player.Graveyard, "Then it is destroyed");
 	        Assert.IsEqual(expectedLife, Player.Health,
 					"Then the attacking Player loses life equal to the difference");
         }

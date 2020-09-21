@@ -1,13 +1,13 @@
 <?xml version="1.0" ?>
-<testsuites failures="1" name="TestXML" tests="1" time="1.574">
-<testsuite failures="2" name="PlayTest" tests="3" time="0.015">
-<testcase name="When They End Their Turn" time="0.001">
+<testsuites failures="1" name="TestXML" tests="1" time="1.618">
+<testsuite failures="2" name="PlayTest" tests="3" time="0.014">
+<testcase name="When They End Their Turn" time="0.005">
 <failure message="EXPECTED: N/A but GOT N/A"></failure>
 </testcase>
 <testcase name="When They Set A Support" time="0">
 <failure message="EXPECTED: N/A but GOT N/A"></failure>
 </testcase>
-<testcase name="When They Deploy A Unit" time="11.221">
+<testcase name="When They Deploy A Unit" time="11.26">
 </testcase>
 </testsuite>
 </testsuites>

@@ -37,7 +37,7 @@ namespace CardGame.Tests.Scripts.Serverside
             Play.PassPlay(Opponent.Id);
             Play.Target(Opponent.Id, weakling.Id);
             
-            Assert.Has(weakling, Player.Graveyard, "Then it destroys a 500/500 Unit");
+            Assert.Contains(weakling, Player.Graveyard, "Then it destroys a 500/500 Unit");
         }
 
     }
