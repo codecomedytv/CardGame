@@ -14,15 +14,18 @@ namespace CardGame.Client.Game
 		[Signal] public delegate void OnExecutionComplete();
 		private readonly Catalog Cards = new Catalog();
 		private readonly Queue<Command> CommandQueue = new Queue<Command>();
-		private readonly Messenger Messenger = new Messenger();
 		private readonly CardFactory CardFactory = new CardFactory();
 		private readonly GameInput GameInput = new GameInput();
 		private readonly Effects Effects = new Effects();
 		private readonly Table Table = new Table();
 		private readonly BattleSystem BattleSystem = new BattleSystem();
-		private Player Player;
-		private Opponent Opponent;
 		private CardViewer CardViewer;
+		public readonly Messenger Messenger = new Messenger();
+		
+		// We should add things to the tree before passing them into this constructor..
+		// ..if they need to be create beforehand. That way these can be readonly fields.
+		public Player Player { get; private set; }
+		public Opponent Opponent { get; private set; }
 
 		public override void _Ready()
 		{

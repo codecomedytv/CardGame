@@ -6,7 +6,7 @@ namespace CardGame.Tests
 {
     public class GameFixture: WAT.Test
     {
-        private List<Player> Players = new List<Player>();
+        private readonly List<Player> Players = new List<Player>();
         protected MockMessenger Play;// Replace with test focused
         private Match Match;
         protected Player Player;

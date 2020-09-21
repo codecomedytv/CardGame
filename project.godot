@@ -31,10 +31,9 @@ Test_Directory="res://Tests/Scripts"
 Results_Directory="res://Tests/Results/WAT"
 Minimize_Window_When_Running_Tests=false
 TestStrategy={
-"method": "ActivateCard",
 "repeat": 1,
-"script": "res://Tests/Scripts/ClientSide/Visual.cs",
-"strategy": "RunMethod"
+"script": "res://Tests/Scripts/ClientSide/PlayTest.cs",
+"strategy": "RunScript"
 }
 Tags=PoolStringArray(  )
 Display=8

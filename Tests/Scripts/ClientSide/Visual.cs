@@ -15,7 +15,7 @@ namespace CardGame.Tests.Scripts.ClientSide
         [Test]
         public async void LoadDeck()
         {
-            var match = new TestMatch();
+            var match = new Match();
             AddChild(match);
             var messenger = match.Messenger;
             messenger.QueueEvent(CommandId.LoadDeck, new object[] {new Dictionary<int, SetCodes>{ {1, SetCodes.AlphaDungeonGuide} }});
@@ -27,7 +27,7 @@ namespace CardGame.Tests.Scripts.ClientSide
         [Test]
         public async void ActivateCard()
         {
-            var match = new TestMatch();
+            var match = new Match();
             AddChild(match);
             var messenger = match.Messenger;
             messenger.QueueEvent(CommandId.Draw, new object[]{});
@@ -37,7 +37,6 @@ namespace CardGame.Tests.Scripts.ClientSide
             messenger.ExecuteEvents();
             await ToSignal(UntilSignal(match, nameof(Match.OnExecutionComplete), 10), YIELD);
             await ToSignal(UntilTimeout(5F), YIELD);
-
         }
         
     }

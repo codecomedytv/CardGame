@@ -13,6 +13,7 @@ namespace CardGame.Client.Game.Zones
 
         public Zone() { }
 
+        public Card this[int idx] => Cards[idx];
         public void Add(Card card)
         {
             if (Cards.Contains(card))
