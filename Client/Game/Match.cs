@@ -94,6 +94,8 @@ namespace CardGame.Client.Game
 				card.OwningPlayer = Opponent;
 				card.Controller = Opponent;
 				Opponent.Deck.Add(card);
+				card.Translation = Opponent.Deck.View.GlobalTransform.origin;
+				card.Translation = new Vector3(card.Translation.x, card.Translation.y, card.ZoneIndex * 0.01F);
 			}
 		}
 		
@@ -112,6 +114,8 @@ namespace CardGame.Client.Game
 				card.MouseOvered += CardViewer.OnCardFocused;
 				Player.StateChanged += card.OnPlayerStateChanged;
 				Player.Deck.Add(card);
+				card.Translation = Player.Deck.View.GlobalTransform.origin;
+				card.Translation = new Vector3(card.Translation.x, card.Translation.y, card.ZoneIndex * 0.01F);
 			}
 		}
 		
