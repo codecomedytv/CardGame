@@ -9,10 +9,10 @@ namespace CardGame.Client.Game.Zones.ModelControllers
     public class Hand: IZone
     {
         private readonly IList<Card> Cards = new List<Card>();
-        private readonly IZoneView View; 
+        public readonly Spatial View; 
         public int Count => Cards.Count;
 
-        public Hand(IZoneView view) => View = view;
+        public Hand(Spatial view) => View = view;
 
         public void Add(Card card)
         {
@@ -24,9 +24,6 @@ namespace CardGame.Client.Game.Zones.ModelControllers
             Cards.Add(card);
             card.Zone = this;
             card.ZoneIndex = Cards.Count;
-            View.Add(card);
-            var sorter = new Sorter(Cards);
-            sorter.Sort();
         }
 
         public void Remove(Card card)

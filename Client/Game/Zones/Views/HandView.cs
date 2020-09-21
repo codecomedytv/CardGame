@@ -3,11 +3,8 @@ using Godot;
 
 namespace CardGame.Client.Game.Zones
 {
-    public class HandView : Spatial, IZoneView
+    public class HandView : Spatial
     {
-        public void Add(Card card)
-        {
-            card.Translation = GlobalTransform.origin;
-        }
+   
     }
 }
