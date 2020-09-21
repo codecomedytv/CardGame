@@ -34,16 +34,27 @@ namespace CardGame.Tests.Scripts.ClientSide
         }
         
         [Test]
-        public void When_They_Set_A_Support()
+        public async void When_They_Set_A_Support()
         {
-            Assert.Fail();
+            var match = new Match();
+            AddChild(match);
+            var messenger = match.Messenger;
+            var deckList = new Dictionary<int, SetCodes>();
+            
+            for (var i = 0; i < 40; i++) { deckList[i] = SetCodes.AlphaQuestReward; }
+            
+            messenger.QueueEvent(CommandId.LoadDeck, new object[] {deckList});
+            messenger.ExecuteEvents();
+            await ToSignal(UntilSignal(match, nameof(Match.OnExecutionComplete), 10), YIELD);
+
+            var toSet = match.Player.Deck[0];
+            messenger.QueueEvent(CommandId.Draw, new object[] {toSet.Id});
+            messenger.QueueEvent(CommandId.SetFaceDown, new object[] {toSet.Id});
+            messenger.ExecuteEvents();
+            await ToSignal(UntilSignal(match, nameof(Match.OnExecutionComplete), 10), YIELD);
+            
+            Assert.IsEqual(toSet.Zone, match.Player.Support, "Unit was deployed");
         }
 
-        [Test]
-        public void When_They_End_Their_Turn()
-        {
-            Assert.Fail();
-        }
-        
     }
 }
