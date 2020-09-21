@@ -37,6 +37,10 @@ namespace CardGame.Client.Game.Players
 		public Card CardInUse = null;
 		public bool IsChoosingAttackTarget => Attacking && State == States.Idle;
 
+		public Player()
+		{
+			
+		}
 		public Player(PlayerView view): base(view)
 		{
 			EnergyIcon = (Sprite) View.GetNode("HUD/EnergyIcon");

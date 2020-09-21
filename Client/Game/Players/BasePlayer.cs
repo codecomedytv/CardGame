@@ -20,6 +20,10 @@ namespace CardGame.Client.Game.Players
         public Zone Units { get; private set; }
         public Zone Support { get; private set; }
 
+        public BasePlayer()
+        {
+            
+        }
         public BasePlayer(PlayerView view)
         {
             View = view;
