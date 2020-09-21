@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Client/Assets/HUD/HealthProgressBackground.png" type="Texture" id=6]
 [ext_resource path="res://Client/Assets/HUD/HealthBarFrame.png" type="Texture" id=7]
@@ -10,91 +10,8 @@
 [ext_resource path="res://Client/Assets/HUD/icon_shield.png" type="Texture" id=13]
 [ext_resource path="res://Client/Assets/Font/Electrolize-Regular.ttf" type="DynamicFontData" id=14]
 [ext_resource path="res://Client/Assets/HUD/icon_target.png" type="Texture" id=15]
-[ext_resource path="res://Client/Game/Cards/Target.tres" type="Animation" id=16]
-[ext_resource path="res://Client/Game/AnimationPlayer.gd" type="Script" id=17]
 
-[sub_resource type="Animation" id=2]
-length = 2.0
-loop = true
-tracks/0/type = "transform"
-tracks/0/path = NodePath("Target")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = PoolRealArray(  )
-tracks/1/type = "bezier"
-tracks/1/path = NodePath("Target:modulate:r")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 1, 2 )
-}
-tracks/2/type = "bezier"
-tracks/2/path = NodePath("Target:modulate:g")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 1, 2 )
-}
-tracks/3/type = "bezier"
-tracks/3/path = NodePath("Target:modulate:b")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 1, 2 )
-}
-tracks/4/type = "bezier"
-tracks/4/path = NodePath("Target:modulate:a")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0.392157, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 1, 2 )
-}
-tracks/5/type = "bezier"
-tracks/5/path = NodePath("Target:scale:x")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"points": PoolRealArray( 0.8, -0.25, 0, 0.25, 0, 0.6, -0.25, 0, 0.25, 0, 0.8, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 1, 2 )
-}
-tracks/6/type = "bezier"
-tracks/6/path = NodePath("Target:scale:y")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"points": PoolRealArray( 0.8, -0.25, 0, 0.25, 0, 0.6, -0.25, 0, 0.25, 0, 0.8, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 1, 2 )
-}
-tracks/7/type = "bezier"
-tracks/7/path = NodePath("Target:scale:z")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/keys = {
-"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 1, 2 )
-}
-
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=1]
 size = 128
 outline_color = Color( 1, 0, 0, 1 )
 use_mipmaps = true
@@ -105,14 +22,8 @@ font_data = ExtResource( 14 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.75, 0 )
 script = ExtResource( 11 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "DirectAttackTarget"
-anims/DirectAttackTarget = SubResource( 2 )
-anims/Target = ExtResource( 16 )
-script = ExtResource( 17 )
-
 [node name="Target" type="Sprite3D" parent="."]
-transform = Transform( 0.8, 0, 0, 0, 0.725046, -0.422618, 0, 0.338095, 0.906308, 3.10148, 3.026, 1 )
+transform = Transform( 0.8, 0, 0, 0, 0.725046, -0.422619, 0, 0.338095, 0.906308, 3.10148, 3.026, 1 )
 visible = false
 modulate = Color( 1, 0, 0, 1 )
 texture = ExtResource( 15 )
@@ -234,7 +145,7 @@ margin_left = -872.029
 margin_top = 258.261
 margin_right = -387.029
 margin_bottom = 411.261
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0.760784, 0, 0, 1 )
 custom_colors/font_color_shadow = Color( 1, 0, 0, 1 )
