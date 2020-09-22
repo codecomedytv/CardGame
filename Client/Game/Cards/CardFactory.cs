@@ -1,4 +1,5 @@
-﻿using CardGame.Client.Library;
+﻿using System;
+using CardGame.Client.Library;
 using Godot;
 
 namespace CardGame.Client.Game.Cards
@@ -6,6 +7,7 @@ namespace CardGame.Client.Game.Cards
     public class CardFactory
     {
         private readonly PackedScene CardScene = (PackedScene) GD.Load("res://Client/Game/Cards/Card.tscn");
+        public event Action<Card> OnCardCreated; 
 
         public CardFactory() { }
         
@@ -19,6 +21,7 @@ namespace CardGame.Client.Game.Cards
             card.CardType = cardInfo.CardType;
             card.Effect = cardInfo.Text;
             card.SetCardArt(GD.Load($"res://Client/Assets/CardArt/{cardInfo.Art}.png") as Texture);
+            OnCardCreated?.Invoke(card);
             return card;
         }
     }

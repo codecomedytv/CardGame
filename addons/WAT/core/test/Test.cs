@@ -188,13 +188,15 @@ namespace WAT {
 
 		}
 
-		public Timer UntilSignal(Godot.Object Emitter, string Event, double TimeLimit)
+		protected Timer UntilSignal(Godot.Object Emitter, string Event, double TimeLimit)
 		{
 			Watcher.Call("watch", Emitter, Event);
-			return (Timer)Yielder.Call("until_signal", TimeLimit, Emitter, Event);
+			var yielder = (Timer)Yielder.Call("until_signal", TimeLimit, Emitter, Event);
+			Assert.ObjectIsConnected(Emitter, Event, yielder, "_on_resume");
+			return yielder;
 		}
-		
-		public Timer UntilTimeout(double TimeLimit)
+
+		protected Timer UntilTimeout(double TimeLimit)
 		{
 			return (Timer)Yielder.Call("until_timeout", TimeLimit);
 		}

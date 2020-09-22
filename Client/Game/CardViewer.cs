@@ -10,8 +10,11 @@ namespace CardGame.Client.Game
         private Label CardTypes;
         private Label Effect;
         private Label Power;
-        
-        
+
+        public void OnCardCreated(Card card)
+        {
+            card.MouseOvered += OnCardFocused;
+        }
         public override void _Ready()
         {
             Title = GetNode<Label>("Title");

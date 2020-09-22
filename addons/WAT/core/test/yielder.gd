@@ -17,6 +17,7 @@ func until_timeout(time: float) -> Timer:
 	return self
 	
 func until_signal(time: float, emitter: Object, event: String) -> Timer:
+	print("Connecting %s with signal %s with a timeline of %s" % [emitter, event, time])
 	_emitter = emitter
 	_event = event
 	_emitter.connect(event, self, "_on_resume", [], CONNECT_DEFERRED)
@@ -27,6 +28,7 @@ func until_signal(time: float, emitter: Object, event: String) -> Timer:
 	return self
 
 func _on_resume(a = null, b = null, c = null, d = null, e = null, f = null) -> void:
+	print(time_left)
 	paused = true
 	disconnect("timeout", self, "_on_resume")
 	if is_instance_valid(_emitter) and _emitter.is_connected(_event, self, "_on_resume"):

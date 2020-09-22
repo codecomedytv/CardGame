@@ -31,9 +31,10 @@ Test_Directory="res://Tests/Scripts"
 Results_Directory="res://Tests/Results/WAT"
 Minimize_Window_When_Running_Tests=false
 TestStrategy={
+"method": "When_They_Deploy_A_Unit",
 "repeat": 1,
 "script": "res://Tests/Scripts/ClientSide/PlayTest.cs",
-"strategy": "RunScript"
+"strategy": "RunMethod"
 }
 Tags=PoolStringArray(  )
 Display=8

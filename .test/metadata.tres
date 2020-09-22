@@ -7,9 +7,9 @@
 [ext_resource path="res://Tests/Scripts/Serverside/NoviceArcherTest.cs" type="Script" id=5]
 [ext_resource path="res://Tests/Scripts/Serverside/LinkTest.cs" type="Script" id=6]
 [ext_resource path="res://addons/WAT/core/test/Test.cs" type="Script" id=7]
-[ext_resource path="res://Tests/Scripts/Visual/Visual.cs" type="Script" id=8]
+[ext_resource path="res://Tests/Scripts/ClientSide/PlayTest.cs" type="Script" id=8]
 
 [resource]
 script = ExtResource( 1 )
-scripts = [ null, null, null, ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), null, null, ExtResource( 5 ), null, null, null, null, null, null, null, null, null, null, ExtResource( 6 ), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, ExtResource( 7 ), ExtResource( 8 ) ]
-tags = [ [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ] ]
+scripts = [ null, null, null, ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), null, null, ExtResource( 5 ), null, null, null, null, null, null, null, null, null, null, ExtResource( 6 ), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, ExtResource( 7 ), null, ExtResource( 8 ) ]
+tags = [ [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ], [  ] ]

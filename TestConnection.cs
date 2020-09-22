@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using CardGame.Client;
 using CardGame.Client.Game;
 using CardGame.Server;

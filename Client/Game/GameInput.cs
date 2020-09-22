@@ -31,6 +31,12 @@ namespace CardGame.Client.Game
             card.MouseOveredExit = OnMousedOverExitCard;
         }
 
+        public void OnCardCreated(Card card)
+        {
+            card.MouseOvered += OnMousedOverCard;
+            card.MouseOveredExit = OnMousedOverExitCard;
+        }
+
         public override void _Input(InputEvent gameEvent)
         {
             if (gameEvent is InputEventMouseButton mb && mb.Doubleclick && MousedOverCard != null)

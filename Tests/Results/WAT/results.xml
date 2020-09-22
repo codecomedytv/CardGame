@@ -1,9 +1,7 @@
 <?xml version="1.0" ?>
-<testsuites failures="0" name="TestXML" tests="1" time="1.8">
-<testsuite failures="0" name="PlayTest" tests="2" time="0.014">
-<testcase name="When They Set A Support" time="11.265">
-</testcase>
-<testcase name="When They Deploy A Unit" time="10.716">
+<testsuites failures="0" name="TestXML" tests="1" time="1.22">
+<testsuite failures="0" name="PlayTest" tests="1" time="0.011">
+<testcase name="When They Deploy A Unit" time="1.099">
 </testcase>
 </testsuite>
 </testsuites>

@@ -42,6 +42,11 @@ namespace CardGame.Client.Game
 			
 			Messenger.ExecuteEvents = Execute;
 			Messenger.QueueEvent = Queue;
+
+			CardFactory.OnCardCreated += GameInput.OnCardCreated;
+			CardFactory.OnCardCreated += CardViewer.OnCardCreated;
+			CardFactory.OnCardCreated += Cards.OnCardCreated;
+			CardFactory.OnCardCreated += OnCardCreated;
 			
 			GameInput.Deploy = Messenger.DeclareDeploy;
 			GameInput.SetCard = Messenger.DeclareSet;
@@ -71,6 +76,8 @@ namespace CardGame.Client.Game
 
 			LoadOpponentDeck();
 		}
+
+		private void OnCardCreated(Card card) { AddChild(card); }
 		
 		private async void Execute()
 		{
@@ -92,7 +99,6 @@ namespace CardGame.Client.Game
 			for (var i = 0; i < 40; i++)
 			{
 				var card = CardFactory.Create(0, SetCodes.NullCard);
-				AddChild(card); 
 				card.OwningPlayer = Opponent;
 				card.Controller = Opponent;
 				Opponent.Deck.Add(card);
@@ -103,35 +109,14 @@ namespace CardGame.Client.Game
 		
 		private void LoadDeck(IDictionary<int, SetCodes> deckList)
 		{
-			foreach (var (key, value) in deckList.Select(p => (p.Key, p.Value)))
-			{
-				var card = CardFactory.Create(key, value);
-				card.IsHidden = false;
-				AddChild(card);
-				Cards.Add(key, card);
-				card.OwningPlayer = Player;
-				card.Controller = Player;
-				card.MouseOvered += GameInput.OnMousedOverCard;
-				card.MouseOveredExit = GameInput.OnMousedOverExitCard;
-				card.MouseOvered += CardViewer.OnCardFocused;
-				Player.StateChanged += card.OnPlayerStateChanged;
-				Player.Deck.Add(card);
-				card.Translation = Player.View.Deck.GlobalTransform.origin;
-				card.Translation = new Vector3(card.Translation.x, card.Translation.y, card.ZoneIndex * 0.01F);
-			}
+			CommandQueue.Enqueue(new LoadDeck(Player, CardFactory, deckList));
 		}
 		
 		public void RevealCard(int id, SetCodes setCode, int zoneIds)
 		{ 
 			var card = CardFactory.Create(id, setCode);
-			card.IsHidden = false;
 			card.OwningPlayer = Opponent; 
-			card.Controller = Opponent; 
-			AddChild(card); 
-			card.MouseOvered += GameInput.OnMousedOverCard; 
-			card.MouseOveredExit = GameInput.OnMousedOverExitCard;
-			card.MouseOvered += CardViewer.OnCardFocused;
-			Cards.Add(id, card);
+			card.Controller = Opponent;
 		}
 		
 		private void UpdateCard(int id, CardStates state, IList<int> attackTargets, IList<int> targets)

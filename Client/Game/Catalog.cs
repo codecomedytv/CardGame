@@ -9,6 +9,13 @@ namespace CardGame.Client.Game
 	{
 		
 		private readonly Dictionary<int, Card> Cards = new Dictionary<int, Card>();
+
+		public void OnCardCreated(Card card)
+		{
+			if (card.Id == 0) return;
+			card.IsHidden = false;
+			Cards[card.Id] = card;
+		}
 		public void Add(int id, Card card) => Cards[id] = card;
 		public Card this[int key] => Cards[key];
 		public IEnumerator<Card> GetEnumerator() => Cards.Values.GetEnumerator();
