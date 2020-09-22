@@ -23,5 +23,21 @@ namespace CardGame.Client.Game.Players
             HealthBar = (HealthBar) GetNode("HUD/Health");
             // Get State For Player (maybe a nodeornull?)
         }
+
+        public void OnStateChanged(States state)
+        {
+            var energyIcon = GetNodeOrNull("HUD/EnergyIcon");
+            if (energyIcon != null && energyIcon is Sprite energy)
+            {
+                if (state == States.Idle || state == States.Active)
+                {
+                    energy.Modulate = Colors.Gold;
+                }
+                else
+                {
+                    energy.Modulate = Colors.Black;
+                }
+            }
+        }
     }
 }

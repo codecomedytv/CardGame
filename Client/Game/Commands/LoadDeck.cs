@@ -30,7 +30,7 @@ namespace CardGame.Client.Game.Commands
                 var card = CardFactory.Create(key, value);
                 card.OwningPlayer = Player;
                 card.Controller = Player;
-                Player.StateChanged += card.OnPlayerStateChanged;
+                Player.PlayerState.StateChanged += card.OnPlayerStateChanged;
                 Player.Deck.Add(card);
                 card.Translation = Player.View.Deck.GlobalTransform.origin;
                 card.Translation = new Vector3(card.Translation.x, card.Translation.y, card.ZoneIndex * 0.01F);

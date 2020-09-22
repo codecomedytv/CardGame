@@ -43,11 +43,11 @@ namespace CardGame.Client.Game
             {
                 OnDoubleClicked(MousedOverCard);
             }
-            else if (gameEvent is InputEventMouseButton mob && mob.Doubleclick && User.Attacking)
+            else if (gameEvent is InputEventMouseButton mob && mob.Doubleclick && User.PlayerState.Attacking)
             {
-                AttackStopped?.Invoke(User.CardInUse);
-                User.Attacking = false;
-                User.CardInUse = null;
+                AttackStopped?.Invoke(User.PlayerState.CardInUse);
+                User.PlayerState.Attacking = false;
+                User.PlayerState.CardInUse = null;
                 
             }
         }
@@ -60,37 +60,37 @@ namespace CardGame.Client.Game
             MousedOverCard = MousedOverCard == card ? null : MousedOverCard;
         }
 
-        public void OnPassPlayPressed() { if (User.State == States.Active) { PassPlay(); } }
+        public void OnPassPlayPressed() { if (User.PlayerState.State == States.Active) { PassPlay(); } }
 
-        public void OnEndTurnPressed() { if (User.State == States.Idle) { EndTurn(); } }
+        public void OnEndTurnPressed() { if (User.PlayerState.State == States.Idle) { EndTurn(); } }
         
 
         private void ChooseAttackTarget(Card card)
         {
-            if (User.CardInUse.HasAttackTarget(card))
+            if (User.PlayerState.CardInUse.HasAttackTarget(card))
             {
-                User.State = States.Processing;
+                User.PlayerState.State = States.Processing;
                 DefenderSelected?.Invoke(card);
-                Attack(User.CardInUse.Id, card.Id);
+                Attack(User.PlayerState.CardInUse.Id, card.Id);
             }
             else
             {
-                AttackStopped?.Invoke(User.CardInUse);
+                AttackStopped?.Invoke(User.PlayerState.CardInUse);
             }
 
             card.ValidAttackTargets.StopHighlighting();
-            User.Attacking = false;
-            User.CardInUse = null;
+            User.PlayerState.Attacking = false;
+            User.PlayerState.CardInUse = null;
         }
 
         private void OnDoubleClicked(Card card)
         {
-            if (User.IsChoosingAttackTarget)
+            if (User.PlayerState.IsChoosingAttackTarget)
             {
                 ChooseAttackTarget(card);
             }
             
-            else if (!User.IsInActive)
+            else if (!User.PlayerState.IsInActive)
             {
                 TakeAction(card);
             }
@@ -101,13 +101,13 @@ namespace CardGame.Client.Game
         {
             if (card.CanBeDeployed)
             {
-                User.State = States.Processing;
+                User.PlayerState.State = States.Processing;
                 Deploy(card.Id);
             }
             
             else if (card.CanBeSet)
             {
-                User.State = States.Processing;
+                User.PlayerState.State = States.Processing;
                 SetCard(card.Id);
             }
             
@@ -116,7 +116,7 @@ namespace CardGame.Client.Game
                 card.FlipFaceUp();
 
                 // Insert Target Check Here
-                User.State = States.Processing;
+                User.PlayerState.State = States.Processing;
                 Activate(card.Id, 0);
             }
             
@@ -124,8 +124,8 @@ namespace CardGame.Client.Game
             {
                 AttackerSelected?.Invoke(card);
                 card.ValidAttackTargets.Highlight();
-                User.Attacking = true;
-                User.CardInUse = card;
+                User.PlayerState.Attacking = true;
+                User.PlayerState.CardInUse = card;
             }
             
             else if (card.CanAttackDirectly)

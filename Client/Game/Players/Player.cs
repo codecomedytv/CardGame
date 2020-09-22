@@ -9,34 +9,13 @@ namespace CardGame.Client.Game.Players
 	[UsedImplicitly]
 	public class Player: BasePlayer
 	{
-		public event Action<States> StateChanged;
-		private Sprite EnergyIcon { get; set; }
 		
-		// Should really be a separate class
-		protected override States SetState(States state)
-		{
-			if (state == States.Idle || state == States.Active)
-			{
-				EnergyIcon.Modulate = Colors.Gold;
-			}
-			else
-			{
-				EnergyIcon.Modulate = Colors.Black;
-			}
-			BackingState = state;
-			StateChanged?.Invoke(state);
-			return state;
-		}
+		public PlayerState PlayerState = new PlayerState();
 		
-		public bool IsInActive => State != States.Active && State != States.Idle;
-		public bool Attacking = false;
-		public Card CardInUse = null;
-		public bool IsChoosingAttackTarget => Attacking && State == States.Idle;
-
 		private Player() { }
 		public Player(PlayerView view): base(view)
 		{
-			EnergyIcon = (Sprite) View.GetNode("HUD/EnergyIcon");
+			PlayerState.StateChanged += View.OnStateChanged;
 		}
 	}
 }
