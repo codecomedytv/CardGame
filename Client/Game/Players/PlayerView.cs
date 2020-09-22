@@ -7,6 +7,7 @@ namespace CardGame.Client.Game.Players
     public class PlayerView: Spatial
     {
         public HealthBar HealthBar;
+        [CanBeNull] private Sprite EnergyIcon;
         public Spatial Deck { get; private set; }
         public Spatial Graveyard { get; private set; }
         public Spatial Units { get; private set; }
@@ -21,23 +22,20 @@ namespace CardGame.Client.Game.Players
             Units = (Spatial) GetNode("Units");
             Support = (Spatial) GetNode("Support");
             HealthBar = (HealthBar) GetNode("HUD/Health");
-            // Get State For Player (maybe a nodeornull?)
+            EnergyIcon = (Sprite) GetNodeOrNull("HUD/EnergyIcon");
         }
 
         public void OnStateChanged(States state)
         {
-            var energyIcon = GetNodeOrNull("HUD/EnergyIcon");
-            if (energyIcon != null && energyIcon is Sprite energy)
+            if (EnergyIcon != null)
             {
-                if (state == States.Idle || state == States.Active)
-                {
-                    energy.Modulate = Colors.Gold;
-                }
-                else
-                {
-                    energy.Modulate = Colors.Black;
-                }
+                EnergyIcon.Modulate = (state == States.Idle || state == States.Active) ? Colors.Gold : Colors.Black;
             }
+        }
+
+        public void OnHealthChanged(int lifeLost)
+        {
+            HealthBar.OnHealthChanged(lifeLost);
         }
     }
 }
