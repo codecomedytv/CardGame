@@ -6,10 +6,10 @@ namespace CardGame.Client.Game.Commands
 {
     public class OpponentLoadDeck: Command
     {
-        private readonly Opponent Opponent;
+        private readonly Player Opponent;
         private readonly CardFactory CardFactory;
 
-        public OpponentLoadDeck(Opponent opponent, CardFactory cardFactory)
+        public OpponentLoadDeck(Player opponent, CardFactory cardFactory)
         {
             Opponent = opponent;
             CardFactory = cardFactory;

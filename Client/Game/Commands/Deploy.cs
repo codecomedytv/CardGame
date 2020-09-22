@@ -17,7 +17,7 @@ namespace CardGame.Client.Game
         }
         protected override void SetUp(Effects gfx)
         {
-            if (Card.Controller is Opponent)
+            if (!Card.Controller.IsUser)
             {
                 var fakeCard = Card.Controller.Hand.First();
                 Card.Controller.Hand.Remove(fakeCard);

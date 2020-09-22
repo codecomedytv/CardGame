@@ -18,12 +18,12 @@ namespace CardGame.Client.Game
 
         public Action<Card> AttackerSelected;
         public Action<Card> DefenderSelected;
-        public Action<BasePlayer> AttackedDirectly;
+        public Action<Player> AttackedDirectly;
         public Action<Card> AttackStopped;
 
         private Card MousedOverCard;
         public Player User;
-        public Opponent Opponent;
+        public Player Opponent;
 
         public void Subscribe(Card card)
         {

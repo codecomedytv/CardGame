@@ -6,11 +6,11 @@ namespace CardGame.Client.Game
 {
     public class DirectAttack: Command
     {
-        private readonly BasePlayer Player;
+        private readonly Player Player;
         private readonly Card Attacker;
         private readonly BattleSystem BattleSystem;
 
-        public DirectAttack(BasePlayer player, Card attacker, BattleSystem battleSystem)
+        public DirectAttack(Player player, Card attacker, BattleSystem battleSystem)
         {
             Player = player;
             Attacker = attacker;
@@ -18,7 +18,7 @@ namespace CardGame.Client.Game
         }
         protected override void SetUp(Effects gfx)
         {
-            var destination = Attacker.Controller is Opponent? new Vector3(2.5F, -2.95F, 1) :  new Vector3(2.5F, 9F, Attacker.Translation.z);
+            var destination = Attacker.Controller.IsUser? new Vector3(2.5F, 9F, Attacker.Translation.z): new Vector3(2.5F, -2.95F, 1);
 
             gfx.InterpolateProperty(Attacker, nameof(Translation), Attacker.Translation, destination, 0.1F);
             gfx.InterpolateProperty(Attacker, nameof(Translation), destination, Attacker.Translation, 0.1F,

@@ -9,11 +9,11 @@ namespace CardGame.Client.Game.Commands
     public class Activate: Command
     {
         // Our Cards Are Activated ClientSide so we always know this is going to be Opponent
-        private readonly Opponent Opponent;
+        private readonly Player Opponent;
         private readonly Card Card;
         private readonly TextureRect ActivationView;
 
-        public Activate(Opponent opponent, Card card, TextureRect activationView)
+        public Activate(Player opponent, Card card, TextureRect activationView)
         {
             Opponent = opponent;
             Card = card;

@@ -25,18 +25,18 @@ namespace CardGame.Client.Game.Cards
 
 		public bool IsHidden { get; set; } = true;
 
-		public BasePlayer OwningPlayer { get; set; }
-		public BasePlayer Controller { get; set; }
+		public Player OwningPlayer { get; set; }
+		public Player Controller { get; set; }
 
 		// State Checks
 		public bool IsInActive = false;
-		public bool CanBeDeployed => State == CardStates.CanBeDeployed && Controller is Player player && player.PlayerState.State == States.Idle;
-		public bool CanBeSet => State == CardStates.CanBeSet && Controller is Player player && player.PlayerState.State == States.Idle;
-		public bool CanBeActivated => State == CardStates.CanBeActivated && Controller is Player player && !player.PlayerState.IsInActive;
-		public bool CanAttack => State == CardStates.CanAttack && ValidAttackTargets.Count > 0 && Controller is Player player && player.PlayerState.State == States.Idle;
+		public bool CanBeDeployed => State == CardStates.CanBeDeployed && Controller.IsUser && Controller.PlayerState.State == States.Idle;
+		public bool CanBeSet => State == CardStates.CanBeSet && Controller.IsUser && Controller.PlayerState.State == States.Idle;
+		public bool CanBeActivated => State == CardStates.CanBeActivated && Controller.IsUser && !Controller.PlayerState.IsInActive;
+		public bool CanAttack => State == CardStates.CanAttack && ValidAttackTargets.Count > 0 && Controller.IsUser && Controller.PlayerState.State == States.Idle;
 
-		public bool CanAttackDirectly => State == CardStates.CanAttackDirectly && Controller is Player player &&
-		                                 player.PlayerState.State == States.Idle;
+		public bool CanAttackDirectly => State == CardStates.CanAttackDirectly && Controller.IsUser &&
+		                                 Controller.PlayerState.State == States.Idle;
 		public bool CanBePlayed => CanBeSet || CanBeActivated || CanBeDeployed;
 		public bool HasAttackTarget(Card card) => ValidAttackTargets.Contains(card);
 		

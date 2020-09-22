@@ -5,11 +5,11 @@ namespace CardGame.Client.Game.Commands
 {
     public class RevealCard: Command
     {
-        private readonly Opponent Opponent;
+        private readonly Player Opponent;
         private readonly CardFactory CardFactory;
         private readonly int Id;
         private readonly SetCodes SetCode;
-        public RevealCard(Opponent opponent, CardFactory cardFactory, int id, SetCodes setCode)
+        public RevealCard(Player opponent, CardFactory cardFactory, int id, SetCodes setCode)
         {
             Opponent = opponent;
             CardFactory = cardFactory;

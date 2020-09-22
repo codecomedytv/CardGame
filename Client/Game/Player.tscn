@@ -6,7 +6,7 @@
 [ext_resource path="res://Client/Assets/CardSlot.png" type="Texture" id=4]
 [ext_resource path="res://Client/Assets/HUD/HealthProgressElement.png" type="Texture" id=5]
 [ext_resource path="res://Client/Game/Players/HealthBar.cs" type="Script" id=6]
-[ext_resource path="res://Client/Game/Players/Player.cs" type="Script" id=7]
+[ext_resource path="res://Client/Game/Players/PlayerView.cs" type="Script" id=7]
 [ext_resource path="res://Client/Assets/HUD/ActiveStatus.png" type="Texture" id=8]
 [ext_resource path="res://Client/Assets/Font/Modded/LifeCount_Electrolize.tres" type="DynamicFont" id=9]
 

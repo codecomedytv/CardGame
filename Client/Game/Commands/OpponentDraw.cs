@@ -8,9 +8,9 @@ namespace CardGame.Client.Game
 {
     public class OpponentDraw: Command
     {
-        private readonly Opponent Opponent;
+        private readonly Player Opponent;
 
-        public OpponentDraw(Opponent opponent)
+        public OpponentDraw(Player opponent)
         {
             Opponent = opponent;
         }

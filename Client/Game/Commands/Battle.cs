@@ -18,8 +18,8 @@ namespace CardGame.Client.Game
         }
         protected override void SetUp(Effects gfx)
         {
-            var attackerY = Attacker.Controller is Opponent ? 1.75F : 0.5F;
-            var defenderY = Attacker.Controller is Opponent ? 1.75F : 0.5F;
+            var attackerY = Attacker.Controller.IsUser? 0.5F: 1.75F;
+            var defenderY = Attacker.Controller.IsUser? 0.5F: 1.75F;
             var attackerDestination = new Vector3(2.5F, attackerY, Attacker.Translation.z);
             var defenderDestination = new Vector3(2.5F, defenderY, Defender.Translation.z);
 

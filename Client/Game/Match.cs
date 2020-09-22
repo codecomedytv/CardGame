@@ -25,7 +25,7 @@ namespace CardGame.Client.Game
 		// We should add things to the tree before passing them into this constructor..
 		// ..if they need to be create beforehand. That way these can be readonly fields.
 		public Player Player { get; private set; }
-		public Opponent Opponent { get; private set; }
+		public Player Opponent { get; private set; }
 
 		public override void _Ready()
 		{
@@ -35,8 +35,8 @@ namespace CardGame.Client.Game
 			AddChild(Effects);
 
 			CardViewer = Table.CardViewer;
-			Player = new Player(Table.PlayerView);
-			Opponent = new Opponent(Table.OpponentView);
+			Player = new Player(Table.PlayerView, true);
+			Opponent = new Player(Table.OpponentView);
 			GameInput.User = Player;
 			GameInput.Opponent = Opponent;
 			
@@ -176,9 +176,9 @@ namespace CardGame.Client.Game
 			CommandQueue.Enqueue(new LoseLife(GetPlayer(isOpponent), lifeLost, Table));
 		}
 		
-		private BasePlayer GetPlayer(bool isOpponent)
+		private Player GetPlayer(bool isOpponent)
 		{
-			return isOpponent ? Opponent : Player as BasePlayer;
+			return isOpponent ? Opponent : Player as Player;
 		}
 	}
 }
