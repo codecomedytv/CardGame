@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.Contracts;
+using CardGame.Client.Game.Cards;
 
 namespace CardGame.Client.Game.Players
 {
@@ -16,4 +17,5 @@ namespace CardGame.Client.Game.Players
         Processing,
         GameOver
     }
+    
 }

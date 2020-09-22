@@ -12,12 +12,8 @@ namespace CardGame.Client.Game.Players
 		public event Action<States> StateChanged;
 		private Sprite EnergyIcon { get; set; }
 		
-		private States BackingState;
-		public States State { get => BackingState; set => SetState(value); }
-		private HealthBar HealthBar { get; set; }
-		
 		// Should really be a separate class
-		private States SetState(States state)
+		protected override States SetState(States state)
 		{
 			if (state == States.Idle || state == States.Active)
 			{
