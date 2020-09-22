@@ -10,12 +10,10 @@ namespace CardGame.Client.Game.Players
 	public class Player: BasePlayer
 	{
 		
-		public PlayerState PlayerState = new PlayerState();
 		
 		private Player() { }
 		public Player(PlayerView view): base(view)
 		{
-			PlayerState.StateChanged += View.OnStateChanged;
 		}
 	}
 }

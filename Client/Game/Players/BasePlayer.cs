@@ -13,6 +13,8 @@ namespace CardGame.Client.Game.Players
             set => SetHealth(value);
         }
         
+        public readonly PlayerState PlayerState = new PlayerState();
+
         public PlayerView View { get; private set; }
         public readonly Zone Deck = new Zone();
         public readonly Zone Graveyard = new Zone();
@@ -26,6 +28,9 @@ namespace CardGame.Client.Game.Players
         {
             View = view;
             HealthBar = View.HealthBar;
+            // We only care about this as a Player, we just essentially ignore it when working with the opponent
+            // even though technically the opponent has it
+            PlayerState.StateChanged += View.OnStateChanged;
         }
         
         private int SetHealth(int health)
