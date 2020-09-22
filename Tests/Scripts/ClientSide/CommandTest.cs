@@ -11,7 +11,7 @@ namespace CardGame.Tests.Scripts.ClientSide
 	 * ..essentially we are only focused on seeing if our command objects work correctly..
 	 * ..there will be a separate test suite (integration-ish) that will focus on cross-server/client rules
 	 */
-	public class PlayTest: WAT.Test
+	public class CommandTest: WAT.Test
 	{
 		private Match Match;
 		private Player Player;
