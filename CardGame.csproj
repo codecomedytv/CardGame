@@ -138,6 +138,7 @@
     <Compile Include="Client\Game\Commands\OpponentDraw.cs" />
     <Compile Include="Client\Game\Commands\OpponentLoadDeck.cs" />
     <Compile Include="Client\Game\Commands\OpponentSetFaceDown.cs" />
+    <Compile Include="Client\Game\Commands\RevealCard.cs" />
     <Compile Include="Client\Game\Commands\SendCardToGraveyard.cs" />
     <Compile Include="Client\Game\Commands\SetFaceDown.cs" />
     <Compile Include="Client\Game\Commands\SetState.cs" />

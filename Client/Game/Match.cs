@@ -81,7 +81,6 @@ namespace CardGame.Client.Game
 		
 		private async void Execute()
 		{
-			GD.Print("Executing");
 			while(CommandQueue.Count > 0) { await CommandQueue.Dequeue().Execute(Effects); }
 			EmitSignal(nameof(OnExecutionComplete));
 		}
@@ -91,10 +90,6 @@ namespace CardGame.Client.Game
 			Call(commandId.ToString(), args);
 		}
 		
-		// Unsorted Methods, may require a second look for placement
-
-		// These 4 Methods (LoadDeck, OpponentLoadDeck, RevealCard & UpdateCard) need to happen immediately..
-		// ..rather than be queued otherwise everything else will cause an indexing error.
 		private void LoadOpponentDeck()
 		{
 			CommandQueue.Enqueue(new OpponentLoadDeck(Opponent, CardFactory));
@@ -106,10 +101,8 @@ namespace CardGame.Client.Game
 		}
 		
 		public void RevealCard(int id, SetCodes setCode, int zoneIds)
-		{ 
-			var card = CardFactory.Create(id, setCode);
-			card.OwningPlayer = Opponent; 
-			card.Controller = Opponent;
+		{
+			CommandQueue.Enqueue(new RevealCard(Opponent, CardFactory, id, setCode));
 		}
 		
 		private void UpdateCard(int id, CardStates state, IList<int> attackTargets, IList<int> targets)
