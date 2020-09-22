@@ -20,10 +20,7 @@ namespace CardGame.Client.Game.Players
         public readonly Zone Units  = new Zone();
         public readonly Zone Support  = new Zone();
 
-        protected BasePlayer()
-        {
-            
-        }
+        protected BasePlayer() { }
 
         protected BasePlayer(PlayerView view)
         {
