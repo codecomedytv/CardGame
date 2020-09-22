@@ -1,11 +1,10 @@
 ﻿using System;
 using CardGame.Client.Game.Zones;
-using Godot;
-using WAT;
+
 
 namespace CardGame.Client.Game.Players
 {
-    public class Player: Spatial
+    public class Player: Godot.Object
     {
         private event Action<int> OnHealthChanged;
    
@@ -25,6 +24,7 @@ namespace CardGame.Client.Game.Players
         public readonly Zone Support  = new Zone();
         public readonly bool IsUser;
 
+        private Player() {}
         public Player(PlayerView view, bool isUser = false)
         {
             IsUser = isUser;
