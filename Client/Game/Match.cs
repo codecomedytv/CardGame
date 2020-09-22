@@ -96,15 +96,7 @@ namespace CardGame.Client.Game
 		// ..rather than be queued otherwise everything else will cause an indexing error.
 		private void LoadOpponentDeck()
 		{
-			for (var i = 0; i < 40; i++)
-			{
-				var card = CardFactory.Create(0, SetCodes.NullCard);
-				card.OwningPlayer = Opponent;
-				card.Controller = Opponent;
-				Opponent.Deck.Add(card);
-				card.Translation = Opponent.View.Deck.GlobalTransform.origin;
-				card.Translation = new Vector3(card.Translation.x, card.Translation.y, card.ZoneIndex * 0.01F);
-			}
+			CommandQueue.Enqueue(new OpponentLoadDeck(Opponent, CardFactory));
 		}
 		
 		private void LoadDeck(IDictionary<int, SetCodes> deckList)
