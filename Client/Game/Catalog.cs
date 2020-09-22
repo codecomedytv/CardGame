@@ -12,7 +12,7 @@ namespace CardGame.Client.Game
 
 		public void OnCardCreated(Card card)
 		{
-			if (card.Id == 0) return;
+			if (card.Id < 0) return;
 			card.IsHidden = false;
 			Cards[card.Id] = card;
 		}

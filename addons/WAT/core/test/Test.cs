@@ -192,7 +192,6 @@ namespace WAT {
 		{
 			Watcher.Call("watch", Emitter, Event);
 			var yielder = (Timer)Yielder.Call("until_signal", TimeLimit, Emitter, Event);
-			Assert.ObjectIsConnected(Emitter, Event, yielder, "_on_resume");
 			return yielder;
 		}
 

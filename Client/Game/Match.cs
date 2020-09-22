@@ -81,6 +81,7 @@ namespace CardGame.Client.Game
 		
 		private async void Execute()
 		{
+			GD.Print("Executing");
 			while(CommandQueue.Count > 0) { await CommandQueue.Dequeue().Execute(Effects); }
 			EmitSignal(nameof(OnExecutionComplete));
 		}

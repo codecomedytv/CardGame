@@ -19,13 +19,16 @@ namespace CardGame.Client.Game.Commands
             _LoadDeck();
         }
 
-        protected override void SetUp(Effects gfx) { }
+        protected override void SetUp(Effects gfx)
+        {
+            
+        }
 
         private void _LoadDeck()
         {
             for (var i = 0; i < 40; i++)
             {
-                var card = CardFactory.Create(0, SetCodes.NullCard);
+                var card = CardFactory.Create(-1, SetCodes.NullCard);
                 card.OwningPlayer = Opponent;
                 card.Controller = Opponent;
                 Opponent.Deck.Add(card);

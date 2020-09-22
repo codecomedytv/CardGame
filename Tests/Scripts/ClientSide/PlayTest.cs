@@ -1,63 +1,66 @@
+using System.Threading.Tasks;
 using CardGame.Client.Game;
+using CardGame.Client.Game.Players;
+using Godot;
 using Godot.Collections;
 
 namespace CardGame.Tests.Scripts.ClientSide
 {
+	/*
+	 *  These tests do not care about rules, only about actions..
+	 * ..essentially we are only focused on seeing if our command objects work correctly..
+	 * ..there will be a separate test suite (integration-ish) that will focus on cross-server/client rules
+	 */
 	public class PlayTest: WAT.Test
 	{
+		private Match Match;
+		private Player Player;
+		private Messenger Messenger;
+
+		private async Task<object[]> Execution(double timeLimit = 1)
+		{
+			return await ToSignal(UntilSignal(Match, nameof(Match.OnExecutionComplete), timeLimit), YIELD);
+		}
+		
+		public override async void Start()
+		{
+			Match = new Match();
+			AddChild(Match);
+			Player = Match.Player;
+			Messenger = Match.Messenger;
+			var deckList = new Dictionary<int, SetCodes>
+			{
+				[0] = SetCodes.AlphaDungeonGuide, [1] = SetCodes.AlphaQuestReward
+			};
+			Messenger.QueueEvent(CommandId.LoadDeck, new object[]{deckList});
+			Messenger.ExecuteEvents();
+			await Execution();
+		}
+
 		[Test]
 		public async void When_They_Deploy_A_Unit()
 		{
-			// What's our goal with these tests?
-			// Should be treated separately than a test that tests inter-communication?
-			// (I'm going to go with yes, these tests don't care about rules, just about actions working correctly)
-			// These tests will overlap with both serverside and the interconnected tests for great coverage (i hope)
-			
-			var match = new Match();
-			AddChild(match);
-			var messenger = match.Messenger;
-			var deckList = new Dictionary<int, SetCodes>();
-			
-			for (var i = 0; i < 40; i++) { deckList[i] = SetCodes.AlphaDungeonGuide; }
-			
-			messenger.QueueEvent(CommandId.LoadDeck, new object[] {deckList});
-			// messenger.ExecuteEvents();
-			// await ToSignal(UntilSignal(match, nameof(Match.OnExecutionComplete), 10F), YIELD);
-			//
-			// var toDeploy = match.Player.Deck[0];
-			// messenger.QueueEvent(CommandId.Draw, new object[] {toDeploy.Id});
-			// messenger.QueueEvent(CommandId.Deploy, new object[] {toDeploy.Id})
-			
-			
-			messenger.QueueEvent(CommandId.Draw, new object[] {0});
-			messenger.QueueEvent(CommandId.Deploy, new object[] {0});
-			messenger.ExecuteEvents();
-			await ToSignal(UntilSignal(match, nameof(Match.OnExecutionComplete), 10F), YIELD);
-			
-			//Assert.IsEqual(toDeploy.Zone, match.Player.Units, "Unit was deployed");
+			const int toDeployId = 0;
+			Messenger.QueueEvent(CommandId.Draw, new object[] {toDeployId});
+			Messenger.QueueEvent(CommandId.Deploy, new object[] {toDeployId});
+			Messenger.ExecuteEvents();
+			await Execution();
+
+			var toDeploy = Match.Player.Units[0];
+			Assert.IsEqual(toDeploy.Zone, Match.Player.Units, "Unit was deployed");
 		}
 		
 		[Test]
 		public async void When_They_Set_A_Support()
 		{
-			var match = new Match();
-			AddChild(match);
-			var messenger = match.Messenger;
-			var deckList = new Dictionary<int, SetCodes>();
-			
-			for (var i = 0; i < 40; i++) { deckList[i] = SetCodes.AlphaQuestReward; }
-			
-			messenger.QueueEvent(CommandId.LoadDeck, new object[] {deckList});
-			messenger.ExecuteEvents();
-			await ToSignal(UntilSignal(match, nameof(Match.OnExecutionComplete), 10), YIELD);
+			const int toSetId = 1;
+			Messenger.QueueEvent(CommandId.Draw, new object[] {toSetId});
+			Messenger.QueueEvent(CommandId.SetFaceDown, new object[] {toSetId});
+			Messenger.ExecuteEvents();
+			await Execution();
 
-			var toSet = match.Player.Deck[0];
-			messenger.QueueEvent(CommandId.Draw, new object[] {toSet.Id});
-			messenger.QueueEvent(CommandId.SetFaceDown, new object[] {toSet.Id});
-			messenger.ExecuteEvents();
-			await ToSignal(UntilSignal(match, nameof(Match.OnExecutionComplete), 10), YIELD);
-			
-			Assert.IsEqual(toSet.Zone, match.Player.Support, "Unit was deployed");
+			var toSet = Match.Player.Support[0];
+			Assert.IsEqual(toSet.Zone, Match.Player.Support, "Support was Set");
 		}
 
 	}

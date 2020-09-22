@@ -16,5 +16,10 @@ namespace CardGame.Client.Game
         }
 
         protected abstract void SetUp(Effects gfx);
+
+        protected void AddProxyDelay(Effects gfx)
+        {
+            // Used for Commands that are casted immediately
+        }
     }
 }
