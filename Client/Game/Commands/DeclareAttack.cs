@@ -7,18 +7,16 @@ namespace CardGame.Client.Game
     {
         private readonly Card Attacker;
         private readonly Card Defender;
-        private readonly BattleSystem BattleSystem;
 
-        public DeclareAttack(Card attacker, Card defender, BattleSystem battleSystem)
+        public DeclareAttack(Card attacker, Card defender)
         {
             Attacker = attacker;
             Defender = defender;
-            BattleSystem = battleSystem;
         }
         protected override void SetUp(Effects gfx)
         {
-            gfx.InterpolateCallback(BattleSystem, 0.1F, nameof(BattleSystem.OnAttackerSelected), Attacker);
-            gfx.InterpolateCallback(BattleSystem, 0.1F, nameof(BattleSystem.OnDefenderSelected), Defender);
+            gfx.InterpolateCallback(Attacker, 0.1F, nameof(Card.Attack));
+            gfx.InterpolateCallback(Defender, 0.1F, nameof(Card.Defend));
         }
     }
 }

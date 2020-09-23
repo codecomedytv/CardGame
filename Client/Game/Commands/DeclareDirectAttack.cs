@@ -8,18 +8,16 @@ namespace CardGame.Client.Game
     {
         private readonly Player Player;
         private readonly Card Attacker;
-        private readonly BattleSystem BattleSystem;
 
-        public DeclareDirectAttack(Player player, Card attacker, BattleSystem battleSystem)
+        public DeclareDirectAttack(Player player, Card attacker)
         {
             Player = player;
             Attacker = attacker;
-            BattleSystem = battleSystem;
         }
         protected override void SetUp(Effects gfx)
         {
-            gfx.InterpolateCallback(BattleSystem, 0.1F, nameof(BattleSystem.OnAttackerSelected), Attacker);
-            gfx.InterpolateCallback(BattleSystem, 0.1F, nameof(BattleSystem.OnAttackedDirectly), Player);
+            gfx.InterpolateCallback(Attacker, 0.1F, nameof(Card.Attack));
+            gfx.InterpolateCallback(Player.View, 0.1F, nameof(PlayerView.Defend));
         }
     }
 }

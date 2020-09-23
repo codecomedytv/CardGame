@@ -15,12 +15,7 @@ namespace CardGame.Client.Game
         public Action<int> DirectAttack;
         public Action PassPlay;
         public Action EndTurn;
-
-        public Action<Card> AttackerSelected;
-        public Action<Card> DefenderSelected;
-        public Action<Player> AttackedDirectly;
-        public Action<Card> AttackStopped;
-
+        
         private Card MousedOverCard;
         public Player User;
         public Player Opponent;
@@ -45,7 +40,7 @@ namespace CardGame.Client.Game
             }
             else if (gameEvent is InputEventMouseButton mob && mob.Doubleclick && User.PlayerState.Attacking)
             {
-                AttackStopped?.Invoke(User.PlayerState.CardInUse);
+                User.PlayerState.CardInUse.StopAttack();
                 User.PlayerState.Attacking = false;
                 User.PlayerState.CardInUse = null;
                 
@@ -70,12 +65,12 @@ namespace CardGame.Client.Game
             if (User.PlayerState.CardInUse.HasAttackTarget(card))
             {
                 User.PlayerState.State = States.Processing;
-                DefenderSelected?.Invoke(card);
+                card.Defend();
                 Attack(User.PlayerState.CardInUse.Id, card.Id);
             }
             else
             {
-                AttackStopped?.Invoke(User.PlayerState.CardInUse);
+                User.PlayerState.CardInUse.StopAttack();
             }
 
             card.ValidAttackTargets.StopHighlighting();
@@ -122,7 +117,7 @@ namespace CardGame.Client.Game
             
             else if (card.CanAttack)
             {
-                AttackerSelected?.Invoke(card);
+                card.Attack();
                 card.ValidAttackTargets.Highlight();
                 User.PlayerState.Attacking = true;
                 User.PlayerState.CardInUse = card;
@@ -130,8 +125,8 @@ namespace CardGame.Client.Game
             
             else if (card.CanAttackDirectly)
             {
-                AttackerSelected?.Invoke(card);
-                AttackedDirectly?.Invoke(Opponent);
+                card.Attack();
+                Opponent.View.Defend();
                 DirectAttack(card.Id);
             }
             

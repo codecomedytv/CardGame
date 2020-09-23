@@ -33,15 +33,13 @@ double_sided = false
 texture = ExtResource( 3 )
 
 [node name="Attacking" type="Sprite3D" parent="."]
-transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 1, -0.81069, 0.112086, -1 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, -0.2 )
 visible = false
-pixel_size = 0.001
 texture = ExtResource( 5 )
 
 [node name="Defending" type="Sprite3D" parent="."]
-transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 1, -0.81069, 0.112086, -1 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, -0.2 )
 visible = false
-pixel_size = 0.001
 texture = ExtResource( 6 )
 
 [node name="Playable" type="Sprite3D" parent="."]
@@ -103,3 +101,6 @@ transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 1, 0.025, 0.029, -0.02 )
 visible = false
 modulate = Color( 1, 0, 0, 1 )
 texture = ExtResource( 10 )
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+visible = false

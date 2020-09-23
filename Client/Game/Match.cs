@@ -18,7 +18,6 @@ namespace CardGame.Client.Game
 		private readonly GameInput GameInput = new GameInput();
 		private readonly Effects Effects = new Effects();
 		private readonly Table Table = new Table();
-		private readonly BattleSystem BattleSystem = new BattleSystem();
 		private CardViewer CardViewer;
 		public readonly Messenger Messenger = new Messenger();
 		
@@ -55,11 +54,6 @@ namespace CardGame.Client.Game
 			GameInput.DirectAttack = Messenger.DeclareDirectAttack;
 			GameInput.PassPlay = Messenger.DeclarePassPlay;
 			GameInput.EndTurn = Messenger.DeclareEndTurn;
-
-			GameInput.AttackerSelected = BattleSystem.OnAttackerSelected;
-			GameInput.AttackStopped = BattleSystem.OnAttackStopped;
-			GameInput.DefenderSelected = BattleSystem.OnDefenderSelected;
-			GameInput.AttackedDirectly = BattleSystem.OnAttackedDirectly;
 
 			Table.PassPlayPressed = GameInput.OnPassPlayPressed;
 			Table.EndTurnPressed = GameInput.OnEndTurnPressed;
@@ -153,22 +147,22 @@ namespace CardGame.Client.Game
 		
 		public void OpponentAttackUnit(int attackerId, int defenderId)
 		{
-			CommandQueue.Enqueue(new DeclareAttack(Cards[attackerId], Cards[defenderId], BattleSystem));
+			CommandQueue.Enqueue(new DeclareAttack(Cards[attackerId], Cards[defenderId]));
 		}
 
 		public void OpponentAttackDirectly(int attackerId)
 		{
-			CommandQueue.Enqueue(new DeclareDirectAttack(Player, Cards[attackerId], BattleSystem));
+			CommandQueue.Enqueue(new DeclareDirectAttack(Player, Cards[attackerId]));
 		}
 		
 		private void BattleUnit(int attackerId, int defenderId, bool isOpponent)
 		{
-			CommandQueue.Enqueue(new Battle(Cards[attackerId], Cards[defenderId], BattleSystem));
+			CommandQueue.Enqueue(new Battle(Cards[attackerId], Cards[defenderId]));
 		}
 
 		private void DirectAttack(int attackerId, bool isOpponent)
 		{
-			CommandQueue.Enqueue(new DirectAttack(GetPlayer(isOpponent), Cards[attackerId], BattleSystem));
+			CommandQueue.Enqueue(new DirectAttack(GetPlayer(isOpponent), Cards[attackerId]));
 		}
 
 		private void LoseLife(int lifeLost, bool isOpponent)

@@ -1,5 +1,4 @@
 ﻿using CardGame.Client.Game.Cards;
-using CardGame.Client.Game.Players;
 using Godot;
 
 namespace CardGame.Client.Game
@@ -8,13 +7,11 @@ namespace CardGame.Client.Game
     {
         private readonly Card Attacker;
         private readonly Card Defender;
-        private readonly BattleSystem BattleSystem;
         
-        public Battle(Card attacker, Card defender, BattleSystem battleSystem)
+        public Battle(Card attacker, Card defender)
         {
             Attacker = attacker;
             Defender = defender;
-            BattleSystem = battleSystem;
         }
         protected override void SetUp(Effects gfx)
         {
@@ -31,7 +28,8 @@ namespace CardGame.Client.Game
             gfx.InterpolateProperty(Defender, nameof(Translation), defenderDestination, Defender.Translation, 0.1F,
                 Tween.TransitionType.Linear, Tween.EaseType.In, 0.3F);
             
-            gfx.InterpolateCallback(BattleSystem, 0.4F, nameof(BattleSystem.OnAttackStopped), Attacker, Defender);
+            gfx.InterpolateCallback(Attacker, 0.4F, nameof(Card.StopAttack));
+            gfx.InterpolateCallback(Defender, 0.4F, nameof(Card.StopDefend));
         }
     }
 }

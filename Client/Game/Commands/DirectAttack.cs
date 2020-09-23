@@ -8,13 +8,11 @@ namespace CardGame.Client.Game
     {
         private readonly Player Player;
         private readonly Card Attacker;
-        private readonly BattleSystem BattleSystem;
 
-        public DirectAttack(Player player, Card attacker, BattleSystem battleSystem)
+        public DirectAttack(Player player, Card attacker)
         {
             Player = player;
             Attacker = attacker;
-            BattleSystem = battleSystem;
         }
         protected override void SetUp(Effects gfx)
         {
@@ -23,8 +21,8 @@ namespace CardGame.Client.Game
             gfx.InterpolateProperty(Attacker, nameof(Translation), Attacker.Translation, destination, 0.1F);
             gfx.InterpolateProperty(Attacker, nameof(Translation), destination, Attacker.Translation, 0.1F,
                 Tween.TransitionType.Linear, Tween.EaseType.In, 0.3F);
-            gfx.InterpolateCallback(BattleSystem, 0.2F, nameof(BattleSystem.OnAttackStopped), Attacker, null);
-            gfx.InterpolateCallback(BattleSystem, 0.2F, nameof(BattleSystem.OnDirectAttackStopped), Player);
+            gfx.InterpolateCallback(Attacker, 0.2F, nameof(Card.StopAttack));
+            gfx.InterpolateCallback(Player.View, 0.2F, nameof(PlayerView.StopDefending));
         }
     }
 }

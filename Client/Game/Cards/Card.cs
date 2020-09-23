@@ -80,6 +80,26 @@ namespace CardGame.Client.Game.Cards
 			GetNode<AnimationPlayer>("AnimationPlayer").Play("Playable");
 
 		}
+
+		public void Attack()
+		{
+			GetNode<Sprite3D>("Attacking").Visible = true;
+		}
+
+		public void StopAttack()
+		{
+			GetNode<Sprite3D>("Attacking").Visible = false;
+		}
+
+		public void Defend()
+		{
+			GetNode<Sprite3D>("Defending").Visible = true;
+		}
+
+		public void StopDefend()
+		{
+			GetNode<Sprite3D>("Defending").Visible = false;
+		}
 		
 		private void ChangeAttack()
 		{

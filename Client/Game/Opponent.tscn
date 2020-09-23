@@ -156,8 +156,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Defending" type="Sprite" parent="HUD"]
+[node name="Defend" type="Sprite" parent="HUD"]
 visible = false
-position = Vector2( 1620, 100 )
-scale = Vector2( 0.5, 0.5 )
+position = Vector2( 1642, 142 )
 texture = ExtResource( 13 )
