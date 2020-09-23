@@ -19,13 +19,7 @@ namespace CardGame.Client.Game
         private Card MousedOverCard;
         public Player User;
         public Player Opponent;
-
-        public void Subscribe(Card card)
-        {
-            card.MouseOvered = OnMousedOverCard;
-            card.MouseOveredExit = OnMousedOverExitCard;
-        }
-
+        
         public void OnCardCreated(Card card)
         {
             card.MouseOvered += OnMousedOverCard;

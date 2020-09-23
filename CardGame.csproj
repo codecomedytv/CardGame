@@ -121,6 +121,7 @@
     <Compile Include="Client\Game\Cards\Card.cs" />
     <Compile Include="Client\Game\Cards\CardFactory.cs" />
     <Compile Include="Client\Game\Cards\CardInfo.cs" />
+    <Compile Include="Client\Game\Cards\CardState.cs" />
     <Compile Include="Client\Game\Cards\Targets.cs" />
     <Compile Include="Client\Game\CardViewer.cs" />
     <Compile Include="Client\Game\Catalog.cs" />

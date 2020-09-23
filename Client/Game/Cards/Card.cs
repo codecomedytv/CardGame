@@ -22,6 +22,7 @@ namespace CardGame.Client.Game.Cards
 		private Sprite3D TargetReticule;
 		public int ZoneIndex = -1;
 		public Zone Zone;
+		private readonly CardState CardState;
 
 		public bool IsHidden { get; set; } = true;
 
@@ -30,23 +31,26 @@ namespace CardGame.Client.Game.Cards
 
 		// State Checks
 		public bool IsInActive = false;
-		public bool CanBeDeployed => State == CardStates.CanBeDeployed && Controller.IsUser && Controller.PlayerState.State == States.Idle;
-		public bool CanBeSet => State == CardStates.CanBeSet && Controller.IsUser && Controller.PlayerState.State == States.Idle;
-		public bool CanBeActivated => State == CardStates.CanBeActivated && Controller.IsUser && !Controller.PlayerState.IsInActive;
-		public bool CanAttack => State == CardStates.CanAttack && ValidAttackTargets.Count > 0 && Controller.IsUser && Controller.PlayerState.State == States.Idle;
-
-		public bool CanAttackDirectly => State == CardStates.CanAttackDirectly && Controller.IsUser &&
-		                                 Controller.PlayerState.State == States.Idle;
-		public bool CanBePlayed => CanBeSet || CanBeActivated || CanBeDeployed;
+		public bool CanBeDeployed => CardState.CanBeDeployed();
+		public bool CanBeSet => CardState.CanBeSet();
+		public bool CanBeActivated => CardState.CanBeActivated();
+		public bool CanAttack => CardState.CanAttack();
+		public bool CanAttackDirectly => CardState.CanAttackDirectly();
+		private bool CanBePlayed => CardState.CanBePlayed();
 		public bool HasAttackTarget(Card card) => ValidAttackTargets.Contains(card);
 		
 
 		public Action<Card> MouseOvered;
 		public Action<Card> MouseOveredExit;
 
+		public Card()
+		{
+			CardState = new CardState(this);
+		}
+
 		public void Update(CardStates state, IList<Card> targets, IList<Card> attackTargets)
 		{
-			State = state;
+			CardState.State = state;
 			ValidTargets.Update(targets);
 			ValidAttackTargets.Update(attackTargets);
 		}
