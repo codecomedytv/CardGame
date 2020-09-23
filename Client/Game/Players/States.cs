@@ -17,13 +17,14 @@ namespace CardGame.Client.Game.Players
         Targeting,
         Processing,
         GameOver
+        
     }
 
     public class PlayerState
     {
         public event Action<States> StateChanged;
-
-        private States InternalState = States.Idle;
+        
+        private States InternalState = States.Passive;
         public States State { 
             get => InternalState;
             set => SetState(value);
