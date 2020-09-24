@@ -33,9 +33,9 @@ namespace CardGame.Client.Game
 			AddChild(GameInput);
 			AddChild(Effects);
 
-			CardViewer = Table.CardViewer;
-			Player = new Player(Table.PlayerView, true);
-			Opponent = new Player(Table.OpponentView);
+			CardViewer = (CardViewer) Table.CardViewer;
+			Player = new Player((PlayerView) Table.PlayerView, true);
+			Opponent = new Player((PlayerView) Table.OpponentView);
 			GameInput.User = Player;
 			GameInput.Opponent = Opponent;
 			
@@ -75,8 +75,12 @@ namespace CardGame.Client.Game
 		
 		private async void Execute()
 		{
+			var t = OS.GetTicksUsec();
 			while(CommandQueue.Count > 0) { await CommandQueue.Dequeue().Execute(Effects); }
+			var total = OS.GetTicksUsec() - t;
+			Console.WriteLine(total /  1000000);
 			EmitSignal(nameof(OnExecutionComplete));
+			
 		}
 
 		private void Queue(CommandId commandId, params object[] args)

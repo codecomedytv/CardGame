@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using CardGame.Client.Assets.Audio;
 using CardGame.Client.Game.Players;
 using CardGame.Client.Game.Zones;
@@ -35,6 +36,7 @@ namespace CardGame.Client.Game
             gfx.InterpolateProperty(card, nameof(card.Visible), false, true, 0.1F);
             gfx.InterpolateProperty(card, nameof(card.Translation), globalPosition, globalDestination, 0.2F, delay: 0.1F);
             gfx.InterpolateProperty(card, nameof(card.RotationDegrees), card.Rotation, rotation, 0.2F, delay: 0);
+            Console.WriteLine($"{gfx.GetRunTime()} is Opponent Draw Command Time");
         }
     }
 }

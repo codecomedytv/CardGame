@@ -14,13 +14,13 @@ namespace CardGame.Client.Game
         [Export] private NodePath CardView;
         [Export] private NodePath PassPlay;
         [Export] private NodePath EndTurn;
-        public PlayerView PlayerView { get; }
-        public PlayerView OpponentView { get; }
+        public Spatial PlayerView { get; }
+        public Spatial OpponentView { get; }
 
         public Action PassPlayPressed;
         public Action EndTurnPressed;
         public Label LifeChange;
-        public CardViewer CardViewer;
+        public Control CardViewer;
         public TextureRect ActivationView;
 
         public static Table Create()
@@ -33,12 +33,12 @@ namespace CardGame.Client.Game
             var scene = (PackedScene) GD.Load("res://Client/Game/Table.tscn");
             var instance = (Spatial) scene.Instance();
             AddChild(instance);
-            PlayerView = (PlayerView) instance.GetNode("PlayMat/Player");
-            OpponentView = (PlayerView) instance.GetNode("PlayMat/Opponent");
+            PlayerView = (Spatial) instance.GetNode("PlayMat/Player");
+            OpponentView = (Spatial) instance.GetNode("PlayMat/Opponent");
             GetNode<Button>("Table3D/HUD/EndTurn").Connect("pressed", this, nameof(OnEndTurnPressed));
             GetNode<Button>("Table3D/HUD/PassPlay").Connect("pressed", this, nameof(OnPassPlayPressed));
             LifeChange = GetNode<Label>("Table3D/HUD/LifeChange");
-            CardViewer = GetNode<CardViewer>("Table3D/HUD/CardViewer");
+            CardViewer = (Control) GetNode("Table3D/HUD/CardViewer");
             ActivationView = GetNode<TextureRect>("Table3D/HUD/ActivationView");
         }
 

@@ -151,6 +151,7 @@ __meta__ = {
 }
 
 [node name="EnergyIcon" type="Sprite" parent="HUD"]
+modulate = Color( 0, 0, 0, 1 )
 position = Vector2( 1842.27, 677.233 )
 texture = ExtResource( 8 )
 

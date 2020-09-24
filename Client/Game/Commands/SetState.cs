@@ -1,4 +1,5 @@
-﻿using CardGame.Client.Game.Players;
+﻿using System;
+using CardGame.Client.Game.Players;
 using Godot;
 
 namespace CardGame.Client.Game
@@ -7,6 +8,7 @@ namespace CardGame.Client.Game
     {
         private readonly Player Player;
         private readonly States State;
+        private HelperNode Helper;
 
         public SetState(Player player, States state)
         {
@@ -16,7 +18,20 @@ namespace CardGame.Client.Game
 
         protected override void SetUp(Effects gfx)
         {
-            Player.PlayerState.State = State;
+            //Player.PlayerState.State = State;
+            Helper = new HelperNode();
+            gfx.InterpolateCallback(Helper, 0.3F, nameof(HelperNode.SetState), Player, State);
+            Console.WriteLine($"{gfx.GetRunTime()} is runtime of set state");
+        }
+        
+        private class  HelperNode: Node
+        {
+            public void SetState(Player player, States state)
+            {
+                player.PlayerState.State = state;
+                Console.WriteLine($"State set at {OS.GetTicksUsec()}");
+                QueueFree();
+            }
         }
     }
 }

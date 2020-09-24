@@ -10,9 +10,13 @@ namespace CardGame.Client.Game
 
         public override void _Ready()
         {
+            //Tween.PlaybackProcessMode = Tween.TweenProcessMode.Idle;
+            //Tween.PlaybackSpeed = 2;
             AddChild(Tween);
             AddChild(Audio);
         }
+
+        public float GetRunTime() => Tween.GetRuntime();
 
         public void Play(AudioStream audio, float delay = 0.0F)
         {
