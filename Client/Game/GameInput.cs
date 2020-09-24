@@ -88,42 +88,43 @@ namespace CardGame.Client.Game
 
         private void TakeAction(Card card)
         {
-            if (card.CanBeDeployed)
+            switch (card.State)
             {
-                User.PlayerState.State = States.Processing;
-                Deploy(card.Id);
-            }
-            
-            else if (card.CanBeSet)
-            {
-                User.PlayerState.State = States.Processing;
-                SetCard(card.Id);
-            }
-            
-            else if (card.CanBeActivated)
-            {
-                card.FlipFaceUp();
+                case CardStates.Passive:
+                    break;
+                case CardStates.CanBeDeployed:
+                    User.PlayerState.State = States.Processing;
+                    Deploy(card.Id);
+                    break;
+                case CardStates.CanBeSet:
+                    User.PlayerState.State = States.Processing;
+                    SetCard(card.Id);
+                    break;
+                case CardStates.CanBeActivated:
+                    card.FlipFaceUp();
 
-                // Insert Target Check Here
-                User.PlayerState.State = States.Processing;
-                Activate(card.Id, 0);
+                    // Insert Target Check Here
+                    User.PlayerState.State = States.Processing;
+                    Activate(card.Id, 0);
+                    break;
+                case CardStates.CanAttack:
+                    card.Attack();
+                    card.ValidAttackTargets.Highlight();
+                    User.PlayerState.Attacking = true;
+                    User.PlayerState.CardInUse = card;
+                    break;
+                case CardStates.CanAttackDirectly:
+                    card.Attack();
+                    Opponent.View.Defend();
+                    DirectAttack(card.Id);
+                    break;
+                case CardStates.Activated:
+                    break;
+                default:
+                    // Cannot Be Used
+                    break;
             }
-            
-            else if (card.CanAttack)
-            {
-                card.Attack();
-                card.ValidAttackTargets.Highlight();
-                User.PlayerState.Attacking = true;
-                User.PlayerState.CardInUse = card;
-            }
-            
-            else if (card.CanAttackDirectly)
-            {
-                card.Attack();
-                Opponent.View.Defend();
-                DirectAttack(card.Id);
-            }
-            
+
         }
     }
 }

@@ -13,33 +13,23 @@ namespace CardGame.Client.Game.Cards
 		public string Title;
 		public int Power;
 		public CardType CardType;
-		private CardStates State;
 		private CardFace _face = CardFace.FaceDown;
 		public string Effect;
 		public Texture Art;
-		public Targets ValidTargets = new Targets();
-		public Targets ValidAttackTargets = new Targets();
+		public readonly Targets ValidTargets = new Targets();
+		public readonly Targets ValidAttackTargets = new Targets();
 		private Sprite3D TargetReticule;
 		public int ZoneIndex = -1;
 		public Zone Zone;
+
+		public CardStates State => CardState.State;
 		private readonly CardState CardState;
 
 		public bool IsHidden { get; set; } = true;
-
 		public Player OwningPlayer { get; set; }
 		public Player Controller { get; set; }
-
-		// State Checks
-		public bool IsInActive = false;
-		public bool CanBeDeployed => CardState.CanBeDeployed();
-		public bool CanBeSet => CardState.CanBeSet();
-		public bool CanBeActivated => CardState.CanBeActivated();
-		public bool CanAttack => CardState.CanAttack();
-		public bool CanAttackDirectly => CardState.CanAttackDirectly();
-		private bool CanBePlayed => CardState.CanBePlayed();
-		public bool HasAttackTarget(Card card) => ValidAttackTargets.Contains(card);
 		
-
+		public bool HasAttackTarget(Card card) => ValidAttackTargets.Contains(card);
 		public Action<Card> MouseOvered;
 		public Action<Card> MouseOveredExit;
 
@@ -120,7 +110,7 @@ namespace CardGame.Client.Game.Cards
 
 		public void OnPlayerStateChanged(States state)
 		{
-			GetNode<Sprite3D>("Playable").Visible = CanBePlayed;
+			GetNode<Sprite3D>("Playable").Visible = CardState.CanBePlayed();
 		}
 
 		private void OnMouseEntered()
