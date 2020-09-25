@@ -107,7 +107,9 @@ namespace CardGame.Client.Game
 			card.Controller = Opponent;
 		}
 		
-		private void UpdateCard(int id, CardStates state, Array<int> attackTargetIds, Array<int> skillTargetIds)
+		// I wanted to cast these to an int Array (for consistency sake with the RPC) but..
+		// ..that does not seem to track well and just causes index errors)
+		private void UpdateCard(int id, CardStates state, IEnumerable<int> attackTargetIds, IEnumerable<int> skillTargetIds)
 		{
 			// Don't ever queue actions like this up again..
 			// ..I was updating 40 cards at a time which made our command unnecessairly huge
