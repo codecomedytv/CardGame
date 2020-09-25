@@ -18,8 +18,6 @@ namespace CardGame.Client.Game
 
         protected override void SetUp(Effects gfx)
         {
-            //Player.PlayerState.State = State;
-            Console.WriteLine($"Setting Up State At {OS.GetTicksUsec() / 1000000}");
             Helper = new HelperNode();
             gfx.InterpolateCallback(Helper, 0.01F, nameof(HelperNode.SetState), Player, State);
         }
@@ -28,9 +26,7 @@ namespace CardGame.Client.Game
         {
             public void SetState(Player player, States state)
             {
-                Console.WriteLine($"State set at {OS.GetTicksUsec()  / 1000000}");
                 player.PlayerState.State = state;
-                //QueueFree();
             }
         }
     }

@@ -42,8 +42,6 @@ namespace CardGame.Server {
 		[Master]
 		public void RegisterPlayer(int player, Godot.Collections.Array<SetCodes> deckList)
 		{
-			Debug.Assert(deckList != null);
-			Debug.Print($"Called Register Player with {deckList}");
 			Queue.Enqueue(new Player(player, deckList.ToList()));
 		}
 
