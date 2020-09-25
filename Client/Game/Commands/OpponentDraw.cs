@@ -29,7 +29,7 @@ namespace CardGame.Client.Game
             // Our destination is where the card is POST-SORT, not the hand origin itself
             var globalDestination = card.Translation;
 
-            var rotation = new Vector3(60, 0, 0);
+            var rotation = new Vector3(90, 180, 0);
 				
             gfx.Play(Audio.Draw);
             gfx.InterpolateProperty(card, "translation", card.Translation, globalPosition, 0.09F);
