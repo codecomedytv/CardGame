@@ -1,8 +1,10 @@
+using System;
 using System.Linq;
 using CardGame.Server.Game.Cards;
 using CardGame.Server.Game.Events;
 using CardGame.Server.Game.Skills;
 using Godot;
+using Object = Godot.Object;
 
 namespace CardGame.Server.Game {
 

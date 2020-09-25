@@ -6,7 +6,7 @@ using CardGame.Server.Game.Skills;
 using CardGame.Server.Game.Tags;
 using CardGame.Server.Game.Zones;
 using Godot;
-
+using Godot.Collections;
 namespace CardGame.Server.Game.Cards
 {
     public class Unit : Card
@@ -19,7 +19,15 @@ namespace CardGame.Server.Game.Cards
         {
         }
 
-        public override List<int> GetValidAttackTargets() => ValidAttackTargets.Select(c => c.Id).ToList();
+        protected override Array<int> GetValidAttackTargets()
+        {
+            var targets = new Array<int>();
+            foreach (var card in ValidAttackTargets)
+            {
+                targets.Add(card.Id);
+            }
+            return targets;
+        }
 
         public override void SetState()
         {
@@ -31,7 +39,7 @@ namespace CardGame.Server.Game.Cards
 
             if (Zone == Controller.Field && IsReady && !Attacked)
             {
-                ValidAttackTargets = Opponent.Field.AsEnumerable();
+                ValidAttackTargets = Opponent.Field;
                 State = !ValidAttackTargets.ToList().Any()? States.CanAttackDirectly: States.CanAttack;
             }
 

@@ -6,6 +6,8 @@ using CardGame.Client.Game.Cards;
 using CardGame.Client.Game.Commands;
 using CardGame.Client.Game.Players;
 using Godot;
+using Godot.Collections;
+using Array = Godot.Collections.Array;
 
 namespace CardGame.Client.Game
 {
@@ -105,7 +107,7 @@ namespace CardGame.Client.Game
 			card.Controller = Opponent;
 		}
 		
-		private void UpdateCard(int id, CardStates state, IEnumerable<int> attackTargetIds, IEnumerable<int> skillTargetIds)
+		private void UpdateCard(int id, CardStates state, Array<int> attackTargetIds, Array<int> skillTargetIds)
 		{
 			// Don't ever queue actions like this up again..
 			// ..I was updating 40 cards at a time which made our command unnecessairly huge

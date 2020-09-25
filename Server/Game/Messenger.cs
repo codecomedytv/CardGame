@@ -46,6 +46,7 @@ namespace CardGame.Server.Game {
 			{
 				card.Update(Message);
 			}
+
 			foreach (var player in players)
 			{
 				Message(player.Id, CommandId.SetState, player.State);

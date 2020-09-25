@@ -20,18 +20,6 @@ namespace CardGame.Client.Game.Cards
 		private Sprite3D TargetReticule;
 		public int ZoneIndex = -1;
 		public Zone Zone;
-		
-		// public new Vector3 Translation
-		// {
-		// 	get => base.Translation;
-		// 	set => base.Translation = value;
-		// }
-		//
-		// public new Vector3 Rotation
-		// {
-		// 	get => base.Rotation;
-		// 	set => base.Rotation = value;
-		// }
 
 		public CardStates State => CardState.State;
 		private readonly CardState CardState;
@@ -68,7 +56,7 @@ namespace CardGame.Client.Game.Cards
 				ChangeAttack();
 			}
 		}
-
+		
 		public void Update(CardStates state, IList<Card> targets, IList<Card> attackTargets)
 		{
 			CardState.State = state;

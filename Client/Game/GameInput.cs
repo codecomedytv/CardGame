@@ -51,7 +51,10 @@ namespace CardGame.Client.Game
 
         public void OnPassPlayPressed() { if (User.PlayerState.State == States.Active) { PassPlay(); } }
 
-        public void OnEndTurnPressed() { if (User.PlayerState.State == States.Idle) { EndTurn(); } }
+        public void OnEndTurnPressed()
+        {
+            if (User.PlayerState.State == States.Idle) { EndTurn(); }
+        }
         
 
         private void ChooseAttackTarget(Card card)
