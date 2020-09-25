@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using CardGame.Server.Game;
 
@@ -39,9 +40,11 @@ namespace CardGame.Server {
 		}
 		
 		[Master]
-		public void RegisterPlayer(int player, IEnumerable<int> deckList)
+		public void RegisterPlayer(int player, Godot.Collections.Array<SetCodes> deckList)
 		{
-			Queue.Enqueue(new Player(player, deckList.Select(c => (SetCodes) c).ToList()));
+			Debug.Assert(deckList != null);
+			Debug.Print($"Called Register Player with {deckList}");
+			Queue.Enqueue(new Player(player, deckList.ToList()));
 		}
 
 		public void Host() 

@@ -1,3 +1,4 @@
+using System;
 using CardGame.Client.Game;
 using Godot;
 
@@ -30,8 +31,9 @@ namespace CardGame.Client {
 			CustomMultiplayer.NetworkPeer = Client;
 		}
 
-		public void OnConnected() {
-			RpcId(1, "RegisterPlayer", CustomMultiplayer.GetNetworkUniqueId(), DeckList);
+		public void OnConnected()
+		{
+			RpcId(1, "RegisterPlayer", CustomMultiplayer.GetNetworkUniqueId(), DeckList.ToArray());
 		}
 
 		public void OnFailed() { GD.Print("Connection Failed"); }

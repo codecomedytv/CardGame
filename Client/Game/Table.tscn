@@ -154,4 +154,3 @@ texture = ExtResource( 14 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
-autoplay = true

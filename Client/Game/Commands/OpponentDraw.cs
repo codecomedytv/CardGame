@@ -32,10 +32,10 @@ namespace CardGame.Client.Game
             var rotation = new Vector3(60, 0, 0);
 				
             gfx.Play(Audio.Draw);
-            gfx.InterpolateProperty(card, nameof(card.Translation), card.Translation, globalPosition, 0.09F);
-            gfx.InterpolateProperty(card, nameof(card.Visible), false, true, 0.1F);
-            gfx.InterpolateProperty(card, nameof(card.Translation), globalPosition, globalDestination, 0.2F, delay: 0.1F);
-            gfx.InterpolateProperty(card, nameof(card.RotationDegrees), card.Rotation, rotation, 0.2F, delay: 0);
+            gfx.InterpolateProperty(card, "translation", card.Translation, globalPosition, 0.09F);
+            gfx.InterpolateProperty(card, "visible", false, true, 0.1F);
+            gfx.InterpolateProperty(card, "translation", globalPosition, globalDestination, 0.2F, delay: 0.1F);
+            gfx.InterpolateProperty(card, "rotation_degrees", card.Rotation, rotation, 0.2F, delay: 0);
 
         }
     }

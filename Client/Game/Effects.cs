@@ -14,6 +14,9 @@ namespace CardGame.Client.Game
             //Tween.PlaybackSpeed = 2;
             AddChild(Tween);
             AddChild(Audio);
+            
+            // Muting for a moment
+            Audio.VolumeDb = 0; 
         }
 
         public float GetRunTime() => Tween.GetRuntime();

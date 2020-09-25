@@ -37,10 +37,10 @@ namespace CardGame.Client.Game
 			// Wrap In gfx Class
 			gfx.Play(Audio.Draw);
 			Card.Translation = globalPosition;
-			gfx.InterpolateProperty(Card, nameof(Card.Translation), Card.Translation, globalPosition, 0.09F);
-			gfx.InterpolateProperty(Card, nameof(Card.Visible), false, true, 0.1F);
-			gfx.InterpolateProperty(Card, nameof(Card.Translation), globalPosition, globalDestination, 0.2F, delay: 0.1F);
-			gfx.InterpolateProperty(Card, nameof(Card.RotationDegrees), Card.Rotation, rotation, 0.2F, delay: 0);
+			gfx.InterpolateProperty(Card, "translation", Card.Translation, globalPosition, 0.09F);
+			gfx.InterpolateProperty(Card, "visible", false, true, 0.1F);
+			gfx.InterpolateProperty(Card, "translation", globalPosition, globalDestination, 0.2F, delay: 0.1F);
+			gfx.InterpolateProperty(Card, "rotation_degrees", Card.Rotation, rotation, 0.2F, delay: 0);
 		}
 	}
 }
