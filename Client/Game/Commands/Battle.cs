@@ -20,12 +20,12 @@ namespace CardGame.Client.Game
             var attackerDestination = new Vector3(2.5F, attackerY, Attacker.Translation.z);
             var defenderDestination = new Vector3(2.5F, defenderY, Defender.Translation.z);
 
-            gfx.InterpolateProperty(Attacker, nameof(Translation), Attacker.Translation, attackerDestination, 0.1F);
-            gfx.InterpolateProperty(Defender, nameof(Translation), Defender.Translation, defenderDestination, 0.1F);
+            gfx.InterpolateProperty(Attacker, "translation", Attacker.Translation, attackerDestination, 0.1F);
+            gfx.InterpolateProperty(Defender, "translation", Defender.Translation, defenderDestination, 0.1F);
             // Insert Sound
-            gfx.InterpolateProperty(Attacker, nameof(Translation), attackerDestination, Attacker.Translation, 0.1F, 
+            gfx.InterpolateProperty(Attacker, "translation", attackerDestination, Attacker.Translation, 0.1F, 
                 Tween.TransitionType.Linear, Tween.EaseType.In, 0.3F);
-            gfx.InterpolateProperty(Defender, nameof(Translation), defenderDestination, Defender.Translation, 0.1F,
+            gfx.InterpolateProperty(Defender, "translation", defenderDestination, Defender.Translation, 0.1F,
                 Tween.TransitionType.Linear, Tween.EaseType.In, 0.3F);
             
             gfx.InterpolateCallback(Attacker, 0.4F, nameof(Card.StopAttack));

@@ -27,8 +27,8 @@ namespace CardGame.Client.Game
             card.Translation = origin;
 
             gfx.Play(Audio.SetCard);
-            gfx.InterpolateProperty(card, nameof(card.Translation), origin, destination, 0.3F);
-            gfx.InterpolateProperty(card, nameof(card.RotationDegrees), new Vector3(-25, 0, 0), new Vector3(0, 0, 0),
+            gfx.InterpolateProperty(card, "translation", origin, destination, 0.3F);
+            gfx.InterpolateProperty(card, "rotation_degrees", new Vector3(-25, 0, 0), new Vector3(0, 0, 0),
                 0.1F);
             gfx.InterpolateCallback(new Sorter(card.Controller.Hand), 0.2F, nameof(Sorter.Sort));
 

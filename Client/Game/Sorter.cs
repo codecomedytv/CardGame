@@ -26,7 +26,7 @@ namespace CardGame.Client.Game.Zones
                 initial += modifier;
             }
             
-            CallDeferred(nameof(Free));
+            CallDeferred("free");
         }
             
             

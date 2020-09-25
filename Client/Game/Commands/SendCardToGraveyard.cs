@@ -32,7 +32,7 @@ namespace CardGame.Client.Game
             Card.Translation = origin;
 				
             gfx.Play(Audio.Destroyed, 0.4F);
-            gfx.InterpolateProperty(Card, nameof(Card.Translation), origin, destination, 0.3F);
+            gfx.InterpolateProperty(Card, "translation", origin, destination, 0.3F);
         }
     }
 }

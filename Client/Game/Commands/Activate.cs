@@ -32,7 +32,7 @@ namespace CardGame.Client.Game.Commands
             
             ActivationView.Texture = Card.Art;
             gfx.Play(Audio.Activate);
-            gfx.InterpolateProperty(Card, nameof(Card.RotationDegrees), new Vector3(0, 0, 0), new Vector3(0, 180, 0), 0.1F);
+            gfx.InterpolateProperty(Card, "rotation_degrees", new Vector3(0, 0, 0), new Vector3(0, 180, 0), 0.1F);
             gfx.InterpolateCallback(ActivationView, 0.2F, "set_visible", true);
             gfx.InterpolateProperty(ActivationView, "modulate", Colors.Transparent, ActivationView.Modulate, 0.1F, delay: 0.3F);
             gfx.InterpolateProperty(ActivationView, "rect_scale", bigScale, ActivationView.RectScale, 0.2F, Tween.TransitionType.Linear, Tween.EaseType.In, delay: 0.4F);
