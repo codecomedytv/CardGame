@@ -75,10 +75,10 @@ namespace CardGame.Client.Game
 		
 		private async void Execute()
 		{
-			var t = OS.GetTicksUsec();
-			while(CommandQueue.Count > 0) { await CommandQueue.Dequeue().Execute(Effects); }
-			var total = OS.GetTicksUsec() - t;
-			Console.WriteLine(total /  1000000);
+			while (CommandQueue.Count > 0)
+			{
+				await CommandQueue.Dequeue().Execute(Effects);
+			}
 			EmitSignal(nameof(OnExecutionComplete));
 			
 		}
@@ -100,14 +100,20 @@ namespace CardGame.Client.Game
 		
 		public void RevealCard(int id, SetCodes setCode, int zoneIds)
 		{
-			CommandQueue.Enqueue(new RevealCard(Opponent, CardFactory, id, setCode));
+			var card = CardFactory.Create(id, setCode);
+			card.OwningPlayer = Opponent; 
+			card.Controller = Opponent;
 		}
 		
-		private void UpdateCard(int id, CardStates state, IList<int> attackTargets, IList<int> targets)
+		private void UpdateCard(int id, CardStates state, IEnumerable<int> attackTargetIds, IEnumerable<int> skillTargetIds)
 		{
-			CommandQueue.Enqueue(new UpdateCard(Cards, Cards[id], state, attackTargets, targets));
+			// Don't ever queue actions like this up again..
+			// ..I was updating 40 cards at a time which made our command unnecessairly huge
+			Cards[id].Update(state, 
+				skillTargetIds.Select(targetId => Cards[targetId]).ToList(), 
+				attackTargetIds.Select(targetId => Cards[targetId]).ToList());
 		}
-		
+
 		private void SetState(States state)
 		{
 			CommandQueue.Enqueue(new SetState(Player, state));

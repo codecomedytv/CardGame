@@ -18,7 +18,7 @@ namespace CardGame.Client.Game
 
         public float GetRunTime() => Tween.GetRuntime();
 
-        public void Play(AudioStream audio, float delay = 0.0F)
+        public void Play(AudioStream audio, float delay = 0.01F)
         {
             Tween.InterpolateCallback(this, delay, "_playAudio", audio);
         }
@@ -29,12 +29,13 @@ namespace CardGame.Client.Game
             Audio.Play();
         }
 
-        public async Task Start()
+        public SignalAwaiter Start()
         {
             Tween.Start();
-            await Tween.ToSignal(Tween, "tween_all_completed");
+            var awaiter = Tween.ToSignal(Tween, "tween_all_completed");
+            return awaiter;
         }
-
+        
         public void RemoveAll() => Tween.RemoveAll();
 
         public void InterpolateProperty(Object source, string property, object initialVal, object finalVal, float duration, 

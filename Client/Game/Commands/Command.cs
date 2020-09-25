@@ -1,25 +1,21 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Godot;
 
 namespace CardGame.Client.Game
 {
     public abstract class Command
     {
-        public Command() { }
+        protected Command() { }
         
-        public async Task<Task> Execute(Effects gfx)
+        public SignalAwaiter Execute(Effects gfx)
         {
             gfx.RemoveAll();
             SetUp(gfx);
-            await gfx.Start();
-            return Task.CompletedTask;
+            var awaiter = gfx.Start();
+            return awaiter;
         }
 
         protected abstract void SetUp(Effects gfx);
-
-        protected void AddProxyDelay(Effects gfx)
-        {
-            // Used for Commands that are casted immediately
-        }
     }
 }

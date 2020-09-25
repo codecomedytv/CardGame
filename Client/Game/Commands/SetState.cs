@@ -19,18 +19,18 @@ namespace CardGame.Client.Game
         protected override void SetUp(Effects gfx)
         {
             //Player.PlayerState.State = State;
+            Console.WriteLine($"Setting Up State At {OS.GetTicksUsec() / 1000000}");
             Helper = new HelperNode();
-            gfx.InterpolateCallback(Helper, 0.3F, nameof(HelperNode.SetState), Player, State);
-            Console.WriteLine($"{gfx.GetRunTime()} is runtime of set state");
+            gfx.InterpolateCallback(Helper, 0.01F, nameof(HelperNode.SetState), Player, State);
         }
         
         private class  HelperNode: Node
         {
             public void SetState(Player player, States state)
             {
+                Console.WriteLine($"State set at {OS.GetTicksUsec()  / 1000000}");
                 player.PlayerState.State = state;
-                Console.WriteLine($"State set at {OS.GetTicksUsec()}");
-                QueueFree();
+                //QueueFree();
             }
         }
     }

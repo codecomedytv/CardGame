@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using System;
+using Godot;
 using JetBrains.Annotations;
 
 namespace CardGame.Client.Game.Players
@@ -42,6 +43,8 @@ namespace CardGame.Client.Game.Players
             if (EnergyIcon != null)
             {
                 EnergyIcon.Modulate = (state == States.Idle || state == States.Active) ? Colors.Gold : Colors.Black;
+                EnergyIcon.Update();
+                Console.WriteLine($"Energy Modulated at {OS.GetTicksUsec() / 1000000}");
             }
         }
 

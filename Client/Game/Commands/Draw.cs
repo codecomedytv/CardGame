@@ -41,7 +41,6 @@ namespace CardGame.Client.Game
 			gfx.InterpolateProperty(Card, nameof(Card.Visible), false, true, 0.1F);
 			gfx.InterpolateProperty(Card, nameof(Card.Translation), globalPosition, globalDestination, 0.2F, delay: 0.1F);
 			gfx.InterpolateProperty(Card, nameof(Card.RotationDegrees), Card.Rotation, rotation, 0.2F, delay: 0);
-			Console.WriteLine($"{gfx.GetRunTime()} is Draw Command Time");
 		}
 	}
 }

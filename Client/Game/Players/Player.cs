@@ -14,7 +14,7 @@ namespace CardGame.Client.Game.Players
             get => InternalHealth;
             set => SetHealth(value);
         }
-        
+
         public readonly PlayerView View;
         public readonly PlayerState PlayerState = new PlayerState();
         public readonly Zone Deck = new Zone();
