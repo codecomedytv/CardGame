@@ -1,10 +1,10 @@
-using System;
 using CardGame.Client.Game;
 using Godot;
+using JetBrains.Annotations;
 
 namespace CardGame.Client {
 	
-	// ReSharper disable once ClassNeverInstantiated.Global
+	[UsedImplicitly]
 	public class ClientConn : Connection
 	{
 		private const string Ip = "127.0.0.1";
@@ -37,10 +37,7 @@ namespace CardGame.Client {
 		}
 
 		public void OnFailed() { GD.Print("Connection Failed"); }
-
-		[Signal]
-		public delegate void GameBegan(); // I think this was a test-oriented signal?
-
+		
 		[Puppet]
 		public void CreateRoom(string gameId)
 		{
