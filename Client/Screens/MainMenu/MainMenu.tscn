@@ -1,0 +1,51 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Client/Screens/MainMenu/MainMenuView.cs" type="Script" id=1]
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+margin_right = 1920.0
+margin_bottom = 1080.0
+
+[node name="Menu" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 860.0
+margin_top = 410.0
+margin_right = 1060.0
+margin_bottom = 670.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 20
+
+[node name="Play" type="Button" parent="CenterContainer/Menu"]
+margin_right = 200.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 200, 50 )
+text = "Play"
+
+[node name="DeckEditor" type="Button" parent="CenterContainer/Menu"]
+margin_top = 70.0
+margin_right = 200.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 200, 50 )
+text = "Deck Editor"
+
+[node name="Profile" type="Button" parent="CenterContainer/Menu"]
+margin_top = 140.0
+margin_right = 200.0
+margin_bottom = 190.0
+rect_min_size = Vector2( 200, 50 )
+text = "Profile"
+
+[node name="Quit" type="Button" parent="CenterContainer/Menu"]
+margin_top = 210.0
+margin_right = 200.0
+margin_bottom = 260.0
+rect_min_size = Vector2( 200, 50 )
+text = "Quit"

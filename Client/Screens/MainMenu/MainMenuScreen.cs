@@ -3,23 +3,28 @@ using Godot;
 
 namespace CardGame.Client.Screens
 {
-    public class MainMenu: IScreen<Node>
+    public class MainMenuScreen: IScreen<MainMenuView>
     {
         public event Action FindMatchPressed;
         public event Action DeckEditorPressed;
         public event Action UserProfilePressed;
         public event Action QuitPressed;
-        
-        public Node View { get; private set; } = new Node();
+
+        public MainMenuView View { get; }
+
+        public MainMenuScreen()
+        {
+            View = new MainMenuView {Visible = false};
+        }
         
         public void Display()
         {
-            throw new NotImplementedException();
+            View.Visible = true;
         }
 
         public void StopDisplaying()
         {
-            throw new NotImplementedException();
+            View.Visible = true;
         }
 
         private void OnFindMatchPressed()

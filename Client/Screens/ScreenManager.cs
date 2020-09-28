@@ -1,5 +1,4 @@
-﻿using System;
-using Godot;
+﻿using Godot;
 using JetBrains.Annotations;
 
 namespace CardGame.Client.Screens
@@ -7,18 +6,18 @@ namespace CardGame.Client.Screens
     [UsedImplicitly]
     public sealed class ScreenManager: Node
     {
-        private readonly Login Login;
-        private readonly MainMenu MainMenu;
+        private readonly LoginScreen Login;
+        private readonly MainMenuScreen MainMenu;
         private readonly DeckEditor DeckEditor;
         private readonly MatchFinder MatchFinder;
         private readonly UserProfile UserProfile;
-        private IScreen<Node> PreviousScreen;
-        private IScreen<Node> CurrentScreen;
+        private IScreen PreviousScreen;
+        private IScreen CurrentScreen;
 
         public ScreenManager()
         {
-            Login = new Login();
-            MainMenu = new MainMenu();
+            Login = new LoginScreen();
+            MainMenu = new MainMenuScreen();
             DeckEditor = new DeckEditor();
             MatchFinder = new MatchFinder();
             UserProfile = new UserProfile();
@@ -40,47 +39,23 @@ namespace CardGame.Client.Screens
             MainMenu.UserProfilePressed += OnUserProfilePressed;
             MainMenu.QuitPressed += OnQuitPressed;
             DeckEditor.BackPressed += OnBackPressed;
-             
         }
 
-        private void OnUserLoggedIn()
-        {
-            PreviousScreen = Login;
-            CurrentScreen = MainMenu;
-        }
+        private void OnUserLoggedIn() => ChangeScreen(Login, MainMenu);
+        private void OnFindMatchPressed() => ChangeScreen(MainMenu, MatchFinder);
+        private void OnDeckEditorPressed() => ChangeScreen(MainMenu, DeckEditor);
+        private void OnUserProfilePressed() => ChangeScreen(MainMenu, UserProfile);
+        private void OnBackPressed() => ChangeScreen(CurrentScreen, MainMenu);
+        private void OnQuitPressed() => GetTree().Quit();
+        private void AddScreen<T>(IScreen<T> screen) where T: Node => AddChild(screen.View);
 
-        private void OnFindMatchPressed()
+        private void ChangeScreen(IScreen previousScreen, IScreen nextScreen) //where T: Node
         {
-            PreviousScreen = MainMenu;
-            CurrentScreen = MatchFinder;
-        }
-
-        private void OnDeckEditorPressed()
-        {
-            PreviousScreen = MainMenu;
-            CurrentScreen = DeckEditor;
-        }
-
-        private void OnUserProfilePressed()
-        {
-            PreviousScreen = MainMenu;
-            CurrentScreen = UserProfile;
-        }
-
-        private void OnBackPressed()
-        {
-            PreviousScreen = CurrentScreen;
-            CurrentScreen = MainMenu;
-        }
-
-        private void OnQuitPressed()
-        {
-            GetTree().Quit();
-        }
-
-        private void AddScreen<T>(IScreen<T> screen) where T: Node
-        {
-           AddChild(screen.View);
+            GD.Print("change");
+            PreviousScreen = previousScreen;
+            CurrentScreen = nextScreen;
+            PreviousScreen.StopDisplaying();
+            CurrentScreen.Display();
         }
     }
     

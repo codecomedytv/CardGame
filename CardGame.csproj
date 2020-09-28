@@ -79,9 +79,8 @@
     <Compile Include="addons\WAT\core\assertions\CSharp\Utility.cs" />
     <Compile Include="addons\WAT\core\test\Recorder.cs" />
     <Compile Include="addons\WAT\core\test\Test.cs" />
+    <Compile Include="Client\App.cs" />
     <Compile Include="Client\Assets\Audio\Audio.cs" />
-    <Compile Include="Client\ClientConn.cs" />
-    <Compile Include="Client\DeckList.cs" />
     <Compile Include="Client\Game\Cards\Card.cs" />
     <Compile Include="Client\Game\Cards\CardFactory.cs" />
     <Compile Include="Client\Game\Cards\CardInfo.cs" />
@@ -89,6 +88,7 @@
     <Compile Include="Client\Game\Cards\Targets.cs" />
     <Compile Include="Client\Game\CardViewer.cs" />
     <Compile Include="Client\Game\Catalog.cs" />
+    <Compile Include="Client\Game\ClientConn.cs" />
     <Compile Include="Client\Game\Commands\Activate.cs" />
     <Compile Include="Client\Game\Commands\Battle.cs" />
     <Compile Include="Client\Game\Commands\Command.cs" />
@@ -119,11 +119,14 @@
     <Compile Include="Client\Library\CardLibrary.cs" />
     <Compile Include="Client\Screens\DeckEditor.cs" />
     <Compile Include="Client\Screens\IScreen.cs" />
-    <Compile Include="Client\Screens\Login.cs" />
-    <Compile Include="Client\Screens\MainMenu.cs" />
+    <Compile Include="Client\Screens\Login\LoginScreen.cs" />
+    <Compile Include="Client\Screens\Login\LoginView.cs" />
+    <Compile Include="Client\Screens\MainMenu\MainMenuScreen.cs" />
+    <Compile Include="Client\Screens\MainMenu\MainMenuView.cs" />
     <Compile Include="Client\Screens\MatchFinder.cs" />
     <Compile Include="Client\Screens\ScreenManager.cs" />
     <Compile Include="Client\Screens\UserProfile.cs" />
+    <Compile Include="Client\User\DeckList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\Game\CardCatalog.cs" />
     <Compile Include="Server\Game\Cards\NullCard.cs" />

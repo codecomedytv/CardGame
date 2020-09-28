@@ -1,0 +1,89 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Client/Assets/Font/Electrolize-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Client/Screens/Login/LoginView.cs" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 120
+use_mipmaps = true
+use_filter = true
+extra_spacing_char = 16
+extra_spacing_space = 4
+font_data = ExtResource( 1 )
+
+[node name="Login" type="Control"]
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+Username = NodePath("CenterContainer/UserLogin/User")
+Password = NodePath("CenterContainer/UserLogin/Pass")
+LoginButton = NodePath("CenterContainer/UserLogin/Buttons/Login")
+RegisterButton = NodePath("CenterContainer/UserLogin/Buttons/Register")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+margin_right = 1920.0
+margin_bottom = 1080.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UserLogin" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 860.0
+margin_top = 502.0
+margin_right = 1060.0
+margin_bottom = 578.0
+rect_min_size = Vector2( 200, 50 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="User" type="LineEdit" parent="CenterContainer/UserLogin"]
+margin_right = 200.0
+margin_bottom = 24.0
+align = 1
+placeholder_text = "Enter Username"
+
+[node name="Pass" type="LineEdit" parent="CenterContainer/UserLogin"]
+margin_top = 28.0
+margin_right = 200.0
+margin_bottom = 52.0
+align = 1
+placeholder_text = "Enter Password"
+
+[node name="Buttons" type="HBoxContainer" parent="CenterContainer/UserLogin"]
+margin_top = 56.0
+margin_right = 200.0
+margin_bottom = 76.0
+
+[node name="Login" type="Button" parent="CenterContainer/UserLogin/Buttons"]
+margin_right = 98.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Login"
+
+[node name="Register" type="Button" parent="CenterContainer/UserLogin/Buttons"]
+margin_left = 102.0
+margin_right = 200.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Register"
+
+[node name="Title" type="Label" parent="."]
+margin_right = 1920.0
+margin_bottom = 500.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.054902, 0.819608, 1, 1 )
+custom_colors/font_color_shadow = Color( 0.160784, 0.0823529, 0.596078, 1 )
+custom_constants/shadow_offset_x = 5
+custom_constants/shadow_offset_y = 5
+text = "Cyber Card Combat"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

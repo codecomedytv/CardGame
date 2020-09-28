@@ -1,13 +1,15 @@
-﻿using System;
-using Godot;
+﻿using Godot;
 
 namespace CardGame.Client.Screens
 {
-    public interface IScreen<out T> where T: Node
+    public interface IScreen
     {
-        T View { get; }
-
         void Display();
         void StopDisplaying();
+    }
+    
+    public interface IScreen<out T>: IScreen where T: Node
+    {
+        T View { get; }
     }
 }
