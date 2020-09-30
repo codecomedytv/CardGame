@@ -1,4 +1,5 @@
 ﻿using System;
+using Godot;
 
 namespace CardGame.Client.Screens
 {
@@ -9,7 +10,7 @@ namespace CardGame.Client.Screens
 
         public LoginScreen()
         {
-            View = new LoginView();
+            View = (LoginView) GD.Load<PackedScene>("res://Client/Screens/Login/Login.tscn").Instance();
             View.OnLogin += OnLoggedIn;
         }
         

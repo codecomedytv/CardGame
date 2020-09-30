@@ -27,7 +27,7 @@ namespace CardGame.Client.Screens
         {
             // We can likely afford to keep all screens in the tree at once..
             // ..we would just turn them off/on when necessary
-            AddScreen(Login);
+            AddScreen<LoginView>(Login);
             AddScreen(MainMenu);
             AddScreen(DeckEditor);
             AddScreen(MatchFinder);
