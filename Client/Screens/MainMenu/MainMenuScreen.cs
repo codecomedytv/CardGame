@@ -14,7 +14,8 @@ namespace CardGame.Client.Screens
 
         public MainMenuScreen()
         {
-            View = new MainMenuView {Visible = false};
+            View = (MainMenuView) GD.Load<PackedScene>("res://Client/Screens/MainMenu/MainMenu.tscn").Instance();
+            StopDisplaying();
         }
         
         public void Display()
